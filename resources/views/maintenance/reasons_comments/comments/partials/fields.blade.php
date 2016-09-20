@@ -1,0 +1,1 @@
+{!! Form::bsMemo('col-md-4', 'col-md-6', 'Description', 'name', null, 4, 'Enter some description for the comment') !!}

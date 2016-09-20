@@ -1,0 +1,2 @@
+{!! Form::bsText('col-md-4', 'col-md-6', 'Code', 'code', null, 'Enter the code for the scheduled D & K') !!}
+{!! Form::bsText('col-md-4', 'col-md-6', 'Name', 'name', null, 'Enter the name for the scheduled D & K') !!}

@@ -1,0 +1,2 @@
+{!! Form::bsText('col-md-4', 'col-md-6', 'Code', 'code', null, 'Enter the code for the vendor type') !!}
+{!! Form::bsText('col-md-4', 'col-md-6', 'Name', 'name', null, 'Enter the description for the vendor type') !!}

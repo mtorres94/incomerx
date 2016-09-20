@@ -1,0 +1,2 @@
+{!! Form::bsText('col-md-4', 'col-md-6', 'Description', 'name', null, 'Enter the description for the commodity') !!}
+{!! Form::bsMemo('col-md-4', 'col-md-6', 'Comments', 'comments', null, 4, 'Enter some comment for the commodity') !!}
