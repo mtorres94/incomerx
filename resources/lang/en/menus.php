@@ -31,5 +31,6 @@ return [
     ],
     'warehouse' => [
         'receipts'  => 'Receipts',
+        'pickup'    => 'Pick Up & Delivery'
     ],
 ];

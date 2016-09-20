@@ -83,5 +83,13 @@ Route::group(['middleware' => ['web']], function () {
         Route::group(['prefix' => 'receipts', 'namespace' => 'Receipts'], function () {
             Route::resource('receipts_entries', 'ReceiptEntryController');
         });
+        Route::group(['prefix' => 'pickup', 'namespace' => 'Pickup'], function () {
+            Route::resource('orders_entries', 'OrderEntryController');
+        });
+    });
+    Route::group(['prefix' => 'export', 'namespace' => 'Export'], function () {
+        Route::group(['prefix' => 'oceans', 'namespace' => 'OceanExport'], function () {
+            Route::resource('booking_entries', 'BookingEntryController');
+        });
     });
 });

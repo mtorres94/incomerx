@@ -97,4 +97,26 @@ class CommodityController extends Controller
         $commodity = Commodity::find($id);
         $commodity->delete();
     }
+
+    public function autocomplete(Request $request)
+    {
+        if ($request->ajax()) {
+            $commodities = Commodity::where(function ($query) use ($request) {
+                if ($term = $request->get('term')) {
+                    $query->orWhere('id', 'LIKE', $term . '%');
+                    $query->orWhere('name', 'LIKE', $term . '%');
+                }
+            })->take(10)->get();
+
+            $results = [];
+            foreach ($commodities as $commodity) {
+                $results[] = [
+                    'id'                => $commodity->id,
+                    'name'             => strtoupper($commodity->name),
+                ];
+            }
+
+            return response()->json($results);
+        }
+    }
 }

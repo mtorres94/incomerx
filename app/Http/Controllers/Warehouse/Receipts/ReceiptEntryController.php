@@ -187,4 +187,65 @@ class ReceiptEntryController extends Controller
         }
         return response()->json();
     }
+
+    public function autocomplete(Request $request)
+    {
+        if ($request->ajax()) {
+            $receipts_entries = ReceiptEntry::leftJoin('mst_divisions', 'whr_receipts_entries.division_id', '=', 'mst_divisions.id')
+                ->leftJoin('mst_customers AS c1', 'whr_receipts_entries.shipper_id', '=', 'c1.id')
+                ->leftJoin('mst_customers AS c2', 'whr_receipts_entries.consignee_id', '=', 'c2.id')
+                ->leftJoin('mst_customers AS c3', 'whr_receipts_entries.third_party_id', '=', 'c3.id')
+                ->leftJoin('mst_customers AS c4', 'whr_receipts_entries.agent_id', '=', 'c4.id')
+
+                ->select(['whr_receipts_entries.id', 'whr_receipts_entries.warehouse_code', 'whr_receipts_entries.date_in', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS third_party_name', 'c4.name AS agent_name', ])
+                ->where(function ($query) use ($request) {
+                    $type = $request->get('type_for');
+                    if ($term = $request->get('term')) {
+                        switch($type ){
+                            case 1: $query->orWhere('warehouse_code', 'LIKE', $term . '%');
+                                break;
+                            case 2: $query ->orWhere('mst_divisions.code', 'LIKE', $term . '%');
+                                $query ->orWhere('mst_divisions.name', 'LIKE', $term . '%');
+                                break;
+                            case 3: $query ->orWhere('c1.code', 'LIKE', $term . '%');
+                                $query ->orWhere('c1.name', 'LIKE', $term . '%');
+                                break;
+                            case 4: $query ->orWhere('c2.code', 'LIKE', $term . '%');
+                                $query ->orWhere('c2.name', 'LIKE', $term . '%');
+                                break;
+                            case 5: $query ->orWhere('c4.code', 'LIKE', $term . '%');
+                                $query ->orWhere('c4.name', 'LIKE', $term . '%');
+                                break;
+                            case 6: $query ->orWhere('c3.code', 'LIKE', $term . '%');
+                                $query ->orWhere('c3.name', 'LIKE', $term . '%');
+                                break;
+                            case 7: $query ->orWhere('date_in', 'LIKE', $term . '%');
+                                break;
+                        }
+                    }
+                })->take(10)->get();
+
+            $results = [];
+            foreach ($receipts_entries as $receipt_entry) {
+                $results[] = [
+                    'id'                => $receipt_entry->id,
+                    'value'             => strtoupper($receipt_entry->warehouse_code),
+                    'date_in'           => strtoupper($receipt_entry->date_in),
+                    'division_name'     => strtoupper($receipt_entry->division_name),
+                    'shipper_name'      => strtoupper($receipt_entry->shipper_name),
+                    'consignee_name'    => strtoupper($receipt_entry->consignee_name),
+                    'third_party_name'  => strtoupper($receipt_entry->third_party_name),
+                    'agent_name'        => strtoupper($receipt_entry->agent_name),
+                    'quantity'        => strtoupper($receipt_entry->agent_name),
+                    'weight'        => strtoupper($receipt_entry->agent_name),
+                    'cubic'        => strtoupper($receipt_entry->agent_name),
+
+
+                ];
+            }
+
+            return response()->json($results);
+        }
+    }
+
 }

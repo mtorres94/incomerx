@@ -111,5 +111,8 @@ return [
         'receipts' => [
             'entries' => 'Registro de entradas',
         ],
+        'pickup'  => [
+            'orders_entries' => 'Ordenes de entrada',
+        ]
     ],
 ];

@@ -110,6 +110,9 @@ return [
     'warehouse' => [
         'receipts'  => [
             'entries'      => 'Receipts Entry'
+        ],
+        'pickup'  => [
+            'orders_entries'   => 'Orders Entry'
         ]
     ]
 ];
