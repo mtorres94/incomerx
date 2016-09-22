@@ -59,9 +59,6 @@ return [
             'reasons'       => 'Reasons',
             'comments'      => 'Comments',
         ],
-        'users'      => [
-
-        ],
         'accounting' => [
             'billing'       => 'Billing codes',
             'banks'         => 'Banks',

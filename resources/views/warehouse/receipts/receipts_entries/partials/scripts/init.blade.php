@@ -191,7 +191,7 @@
     $("#cargo_tare_weight").number(true, 3);
     $("#cargo_net_weight").number(true, 3);
     $("#cargo_sq_foot").number(true, 3);
-
+    
     $("#ippc_number").attr("disabled", !0), $("#ippc").change(function() {
         $("#ippc_number").attr("disabled", !this.checked), $("#ippc_number").val("")
     });

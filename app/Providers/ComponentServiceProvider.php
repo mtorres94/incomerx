@@ -21,6 +21,7 @@ class ComponentServiceProvider extends ServiceProvider
         Form::component('bsMemo', 'components.form.memo', ['lbl','col','label','name','value','rows','placeholder']);
         Form::component('bsSelect', 'components.form.select', ['lbl','col','label','name','array','placeholder','flag']);
         Form::component('bsCheck', 'components.form.check', ['label','name']);
+        Form::component('bsLabel', 'components.form.chk', ['value', 'label']);
         Form::component('bsDate', 'components.form.date', ['lbl', 'col', 'label','name','value','placeholder']);
         Form::component('bsSubmit', 'components.form.submit', []);
         Form::component('bsIndex', 'components.form.index', ['route','index']);

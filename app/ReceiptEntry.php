@@ -22,6 +22,16 @@ class ReceiptEntry extends Model
         return $this->belongsTo('Sass\Customer', 'shipper_id');
     }
 
+    public function consignee()
+    {
+        return $this->belongsTo('Sass\Customer', 'consignee_id');
+    }
+
+    public function third_party()
+    {
+        return $this->belongsTo('Sass\Customer', 'third_party_id');
+    }
+
     public function shipper_state()
     {
         return $this->belongsTo('Sass\State', 'shipper_state_id');
@@ -30,6 +40,66 @@ class ReceiptEntry extends Model
     public function shipper_zip_code()
     {
         return $this->belongsTo('Sass\ZipCode', 'shipper_zip_code_id');
+    }
+
+    public function warehouse()
+    {
+        return $this->belongsTo('Sass\WarehouseFacility', 'warehouse_id');
+    }
+
+    public function origin()
+    {
+        $mode = $this->attributes['mode'];
+        switch ($mode) {
+            case "A":
+                return $this->belongsTo('Sass\Airport', 'location_origin_id');
+            case "O":
+                return $this->belongsTo('Sass\OceanPort', 'location_origin_id');
+            case "W":
+                return $this->belongsTo('Sass\Airport', 'location_origin_id');
+            case "R":
+                return $this->belongsTo('Sass\ZipCode', 'location_origin_id');
+            case "T":
+                return $this->belongsTo('Sass\ZipCode', 'location_origin_id');
+        }
+    }
+
+    public function destination()
+    {
+        $mode = $this->attributes['mode'];
+        switch ($mode) {
+            case "A":
+                return $this->belongsTo('Sass\Airport', 'location_destination_id');
+            case "O":
+                return $this->belongsTo('Sass\OceanPort', 'location_destination_id');
+            case "W":
+                return $this->belongsTo('Sass\Airport', 'location_destination_id');
+            case "R":
+                return $this->belongsTo('Sass\ZipCode', 'location_destination_id');
+            case "T":
+                return $this->belongsTo('Sass\ZipCode', 'location_destination_id');
+        }
+    }
+
+    public function carrier()
+    {
+        return $this->belongsTo('Sass\Carrier', 'receiving_carrier_id');
+    }
+
+    public function reference_details()
+    {
+        return $this->hasMany('Sass\ReceiptEntryReferenceDetail', 'receipt_entry_id');
+    }
+
+
+    public function receiving_details()
+    {
+        return $this->hasMany('Sass\ReceiptEntryReceivingDetail', 'receipt_entry_id');
+    }
+
+    public function cargo_details()
+    {
+        return $this->hasMany('Sass\ReceiptEntryCargoDetail', 'receipt_entry_id');
     }
 
     public function user_create()

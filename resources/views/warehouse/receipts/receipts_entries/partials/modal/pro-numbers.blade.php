@@ -8,10 +8,10 @@
             </div>
             <div class="modal-body">
                 <div class="form-horizontal">
-                    {!! Form::hidden('receiving_line', null, ['id' => 'receiving_line', 'class' => 'form-control input-sm']) !!}
-                    {!! Form::bsText('col-md-3', 'col-md-8', 'PRO Number', 'receiving_pro_number', null, 'PRO Number') !!}
-                    {!! Form::bsText('col-md-3', 'col-md-8', 'Details', 'receiving_details', null, 'Details') !!}
-                    {!! Form::bsMemo('col-md-3', 'col-md-8', 'Remarks/Notes', 'receiving_remarks', null, 2, 'Remarks/Notes...') !!}
+                    {!! Form::hidden('tmp_receiving_line', null, ['id' => 'tmp_receiving_line', 'class' => 'form-control input-sm']) !!}
+                    {!! Form::bsText('col-md-3', 'col-md-8', 'PRO Number', 'tmp_receiving_pro_number', null, 'PRO Number') !!}
+                    {!! Form::bsText('col-md-3', 'col-md-8', 'Details', 'tmp_receiving_details', null, 'Details') !!}
+                    {!! Form::bsMemo('col-md-3', 'col-md-8', 'Remarks/Notes', 'tmp_receiving_remarks', null, 2, 'Remarks/Notes...') !!}
                 </div>
             </div>
             <div class="modal-footer">

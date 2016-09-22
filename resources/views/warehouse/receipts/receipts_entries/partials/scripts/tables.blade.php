@@ -2,7 +2,10 @@
 <!-- Tables scripts -->
 <script type="text/javascript">
     $("#btn-cargo").click(function() {
-        $("#cargo_quantity").val(1);
+        $("#tmp_cargo_quantity").val(1);
+        $("#tmp_cargo_metric_unit_measurement_id").val("I").change();
+        $("#tmp_cargo_weight_unit_measurement_id").val("L").change();
+        $("#tmp_cargo_dim_fact").val("I").change();
 
         for (var t = $("#cargo-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
@@ -13,6 +16,9 @@
         }
     }), $("#btn-cargo-multiline").click(function() {
         $("#multiline_cargo_quantity").val(1);
+        $("#multiline_cargo_metric_unit_measurement_id").val("I").change();
+        $("#multiline_cargo_weight_unit_measurement_id").val("L").change();
+        $("#multiline_cargo_dim_fact").val("I").change();
 
         for (var t = $("#cargo-multiline-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
@@ -65,10 +71,10 @@
     }), $("#receiving-save").click(function() {
         var r = ($('#receiving-details tbody tr').length + 1),
                 c = r - 1,
-                l = $("#receiving_line").val(),
-                a = $("#receiving_pro_number").val().toUpperCase(),
-                d = $("#receiving_details").val().toUpperCase(),
-                s = $("#receiving_remarks").val().toUpperCase(),
+                l = $("#tmp_receiving_line").val(),
+                a = $("#tmp_receiving_pro_number").val().toUpperCase(),
+                d = $("#tmp_receiving_details").val().toUpperCase(),
+                s = $("#tmp_receiving_remarks").val().toUpperCase(),
                 n = $("#receiving-details"),
                 t = n.find("tbody"),
                 p = $("<tr id=" + r + ">");
@@ -76,7 +82,7 @@
                 .append(createTableContent('receiving_pro_number', a, false, c))
                 .append(createTableContent('receiving_details', d, false, c))
                 .append(createTableContent('receiving_remarks', s, true, c))
-                .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p), cleanModalFields('PRO-Numbers'), $("#receiving_pro_number").focus()
+                .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p), cleanModalFields('PRO-Numbers'), $("#tmp_receiving_pro_number").focus()
     }), $('#receiving-details').on('click', 'a.btn-danger', function() {
         $(this).closest('tr').remove()
     }), $("#receiving-details").on("click", "a.btn-default", function() {
@@ -85,27 +91,28 @@
                 r = t[0].childNodes[1].textContent,
                 s = t[0].childNodes[2].textContent,
                 a = t[0].childNodes[3].textContent;
-        $('#receiving_line').val(o), $("#receiving_pro_number").val(r), $("#receiving_details").val(s), $("#receiving_remarks").val(a), $("#PRO-Numbers").modal("show")
+        $('#tmp_receiving_line').val(o), $("#tmp_receiving_pro_number").val(r), $("#tmp_receiving_details").val(s), $("#tmp_receiving_remarks").val(a), $("#PRO-Numbers").modal("show")
     }), $("#references-save").click(function() {
         var r = ($('#references-details tbody tr').length + 1),
-                l = $("#references_line").val(),
-                a = $("#references_po_number").val().toUpperCase(),
-                d = $("#references_ref_number").val().toUpperCase(),
-                s = $("#references_booking_number").val().toUpperCase(),
-                e = $("#references_inv_number").val().toUpperCase(),
-                i = $("#references_invoice_amount").val(),
-                m = $("#references_note").val().toUpperCase(),
+                c = r - 1,
+                l = $("#tmp_references_line").val(),
+                a = $("#tmp_references_po_number").val().toUpperCase(),
+                d = $("#tmp_references_ref_number").val().toUpperCase(),
+                s = $("#tmp_references_booking_number").val().toUpperCase(),
+                e = $("#tmp_references_inv_number").val().toUpperCase(),
+                i = $("#tmp_references_invoice_amount").val(),
+                m = $("#tmp_references_note").val().toUpperCase(),
                 n = $("#references-details"),
                 t = n.find("tbody"),
                 p = $("<tr id=" + r + ">");
-        p.append(createTableContent('references_line', (0 == l ? r : l), true))
-                .append(createTableContent('references_po_number', a, false))
-                .append(createTableContent('references_ref_number', d, false))
-                .append(createTableContent('references_inv_number', e, true))
-                .append(createTableContent('references_booking_number', s, false))
-                .append(createTableContent('references_invoice_amount', i, true))
-                .append(createTableContent('references_note', m, true))
-                .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p), cleanModalFields('References'), $("#references_po_number").focus()
+        p.append(createTableContent('references_line', (0 == l ? r : l), true, c))
+                .append(createTableContent('references_po_number', a, false, c))
+                .append(createTableContent('references_ref_number', d, false, c))
+                .append(createTableContent('references_inv_number', e, true, c))
+                .append(createTableContent('references_booking_number', s, false, c))
+                .append(createTableContent('references_invoice_amount', i, true, c))
+                .append(createTableContent('references_note', m, true, c))
+                .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p), cleanModalFields('References'), $("#tmp_references_po_number").focus()
     }), $('#references-details').on('click', 'a.btn-danger', function() {
         $(this).closest('tr').remove()
     }), $("#references-details").on("click", "a.btn-default", function() {
@@ -117,31 +124,33 @@
                 d = t[0].childNodes[4].textContent,
                 i = t[0].childNodes[5].textContent,
                 m = t[0].childNodes[6].textContent;
-        $('#references_line').val(r), $("#references_po_number").val(o), $("#references_ref_number").val(s), $("#references_inv_number").val(a), $("#references_booking_number").val(d), $("#references_invoice_amount").val(i), $("#references_note").val(m), $("#References").modal("show")
+        $('#tmp_references_line').val(r), $("#tmp_references_po_number").val(o), $("#tmp_references_ref_number").val(s), $("#tmp_references_inv_number").val(a), $("#tmp_references_booking_number").val(d), $("#tmp_references_invoice_amount").val(i), $("#tmp_references_note").val(m), $("#References").modal("show")
     }), $("#cargo-warehouse-save").click(function() {
         var t = $("#warehouse-details tbody tr").length + 1,
                 z = t - 1,
-                a = $("#cargo_id").val(),
-                e = $("#cargo_quantity").val(),
-                d = $("#cargo_type_id").val(),
-                o = $("#cargo_type_code").val(),
-                n = $("#cargo_pieces").val(),
-                i = $("#cargo_weight_unit_measurement_code").val(),
-                c = $("#cargo_metric_unit_measurement_code").val(),
-                l = $("#cargo_length").val(),
-                r = $("#cargo_width").val(),
-                _ = $("#cargo_height").val(),
-                p = $("#cargo_total_weight").val(),
-                s = $("#cargo_cubic").val(),
-                g = $("#cargo_volume_weight").val(),
-                h = $("#cargo_location_id").val(),
-                v = $("#cargo_location_name").val(),
-                u = $("#cargo_location_bin_id").val(),
-                m = $("#cargo_location_bin_name").val(),
-                k = $("#cargo_material_description").val(),
+                a = $("#tmp_cargo_line").val(),
+                e = $("#tmp_cargo_quantity").val(),
+                d = $("#tmp_cargo_type_id").val(),
+                o = $("#tmp_cargo_type_code").val(),
+                n = $("#tmp_cargo_pieces").val(),
+                i = $("#tmp_cargo_weight_unit_measurement_code").val(),
+                c = $("#tmp_cargo_metric_unit_measurement_code").val(),
+                l = $("#tmp_cargo_length").val(),
+                r = $("#tmp_cargo_width").val(),
+                _ = $("#tmp_cargo_height").val(),
+                p = $("#tmp_cargo_total_weight").val(),
+                s = $("#tmp_cargo_cubic").val(),
+                g = $("#tmp_cargo_volume_weight").val(),
+                h = $("#tmp_cargo_location_id").val(),
+                v = $("#tmp_cargo_location_name").val(),
+                u = $("#tmp_cargo_location_bin_id").val(),
+                m = $("#tmp_cargo_location_bin_name").val(),
+                k = $("#tmp_cargo_material_description").val(),
                 b = $("#warehouse-details"),
                 x = b.find("tbody"),
                 C = $("<tr id=" + t + ">");
+    }), $("#warehouse-details").on("click", "a.btn-danger", function() {
+        $(this).closest("tr").remove()
         C.append(createTableContent('cargo_line', t, true, z))
                 .append($("<td><i class='fa fa-cube' aria-hidden='true'></td>"))
                 .append(createTableContent('cargo_quantity', e, false, z))
@@ -156,16 +165,14 @@
                 .append(createTableContent('cargo_total_weight', p, false, z))
                 .append(createTableContent('cargo_cubic', s, false, z))
                 .append(createTableContent('cargo_volume_weight', g, false, z))
-                .append($("<td></td>"))
                 .append(createTableContent('cargo_location_id', h, true, z))
                 .append(createTableContent('cargo_location_name', v, false, z))
                 .append(createTableContent('cargo_location_bin_id', u, true, z))
                 .append(createTableContent('cargo_location_bin_name', m, false, z))
+                .append($("<td></td>"))
                 .append(createTableContent('cargo_material_description', k, true, z))
                 .append($("<td></td>"))
-                .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), cleanModalFields('cargo-warehouse'), $("#cargo_quantity").val(1), $("#cargo_quantity").focus()
-    }), $("#warehouse-details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove()
+                .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), cleanModalFields('cargo-warehouse'), $("#tmp_cargo_quantity").val(1), $("#tmp_cargo_quantity").focus()
     }), $("#warehouse-details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
                 a = t[0].childNodes[0].textContent,
@@ -186,11 +193,11 @@
                 u = t[0].childNodes[17].textContent,
                 m = t[0].childNodes[18].textContent,
                 k = t[0].childNodes[19].textContent;
-        $("#cargo_id").val(a), $("#cargo_quantity").val(e), $("#cargo_type_id").val(d).change(), $("#cargo_type_code").val(o), $("#cargo_pieces").val(n), $("#cargo_weight_unit_measurement_id").val(i).change(), $("#cargo_metric_unit_measurement_id").val(c).change(), $("#cargo_length").val(l), $("#cargo_width").val(r), $("#cargo_height").val(_), $("#cargo_total_weight").val(p), $("#cargo_cubic").val(s), $("#cargo_volume_weight").val(g), $("#cargo_location_id").val(h), $("#cargo_location_name").val(v), $("#cargo_location_bin_id").val(u), $("#cargo_location_bin_name").val(m), $("#cargo_material_description").val(k), calculate(), $("#cargo-warehouse").modal("show")
+        $("#tmp_cargo_line").val(a), $("#tmp_cargo_quantity").val(e), $("#tmp_cargo_type_id").val(d).change(), $("#tmp_cargo_type_code").val(o), $("#tmp_cargo_pieces").val(n), $("#tmp_cargo_weight_unit_measurement_id").val(i).change(), $("#tmp_cargo_metric_unit_measurement_id").val(c).change(), $("#tmp_cargo_length").val(l), $("#tmp_cargo_width").val(r), $("#tmp_cargo_height").val(_), $("#tmp_cargo_total_weight").val(p), $("#tmp_cargo_cubic").val(s), $("#tmp_cargo_volume_weight").val(g), $("#tmp_cargo_location_id").val(h), $("#tmp_cargo_location_name").val(v), $("#tmp_cargo_location_bin_id").val(u), $("#tmp_cargo_location_bin_name").val(m), $("#tmp_cargo_material_description").val(k), calculate(), $("#cargo-warehouse").modal("show")
     }), $("#cargo-multiline-warehouse-save").click(function() {
         var t = $("#warehouse-details tbody tr").length + 1,
-                z = t,
-                j = parseInt($("#multiline_records").val()) + 1,
+                z = parseInt(t) - 1,
+                j = parseInt($("#multiline_records").val()),
                 a = $("#multiline_cargo_id").val(),
                 e = $("#multiline_cargo_quantity").val(),
                 d = $("#multiline_cargo_type_id").val(),

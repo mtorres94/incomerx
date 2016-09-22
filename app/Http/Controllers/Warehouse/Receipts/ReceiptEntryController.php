@@ -19,6 +19,7 @@ use Sass\Http\Requests\Warehouse\Receipts\Create\CreateReceiptEntryRequest;
 use Sass\Logic\File\FileRepository;
 use Sass\ReceiptEntry;
 use Sass\ReceiptEntryAttachment;
+use Sass\ReceiptEntryCargoDetail;
 use Sass\ReceiptEntryHazardousDetail;
 use Sass\ReceiptEntryReceivingDetail;
 use Sass\ReceiptEntryReferenceDetail;
@@ -44,8 +45,8 @@ class ReceiptEntryController extends Controller
      */
     public function create()
     {
-        $unique_str = str_random(25);
-        return view('warehouse.receipts.receipts_entries.create', compact('unique_str'));
+        #$unique_str = str_random(25);
+        return view('warehouse.receipts.receipts_entries.create');
     }
 
     /**
@@ -68,15 +69,18 @@ class ReceiptEntryController extends Controller
 
             $whr = ReceiptEntry::create($receipt_entry);
 
-            ReceiptEntryReceivingDetail::saveDetail($whr->id, $receipt_entry);
-            ReceiptEntryReferenceDetail::saveDetail($whr->id, $receipt_entry);
-            ReceiptEntryHazardousDetail::saveDetail($whr->id, $receipt_entry);
+            ReceiptEntryReceivingDetail::createDetail($whr->id, $receipt_entry);
+            ReceiptEntryReferenceDetail::createDetail($whr->id, $receipt_entry);
+            ReceiptEntryHazardousDetail::createDetail($whr->id, $receipt_entry);
+            ReceiptEntryCargoDetail::createDetail($whr->id, $receipt_entry);
 
         } catch (ValidationException $e) {
             DB::rollback();
         }
         DB::commit();
-        return view('warehouse.receipts.receipts_entries.create');
+
+        $unique_str = str_random(25);
+        return view('warehouse.receipts.receipts_entries.create', compact('unique_str'));
     }
 
     /**
@@ -127,7 +131,7 @@ class ReceiptEntryController extends Controller
         //
     }
 
-    public function get ($id)
+    public function get($id)
     {
         $files = ReceiptEntryAttachment::where('unique_str', $id)->get();
         $path = public_path()."/storage/";
@@ -149,7 +153,7 @@ class ReceiptEntryController extends Controller
         return response()->json(['files' => $rtn]);
     }
 
-    public function upload (Request $request)
+    public function upload(Request $request)
     {
         $upload = $request->all();
         $unique_str = $upload['unique_str'];
@@ -171,7 +175,7 @@ class ReceiptEntryController extends Controller
         //
     }
 
-    public function delete ()
+    public function delete()
     {
         $key = Input::get('key');
         if (!$key) return response()->json(['error' => 'The file could not be deleted']);
@@ -236,11 +240,9 @@ class ReceiptEntryController extends Controller
                     'consignee_name'    => strtoupper($receipt_entry->consignee_name),
                     'third_party_name'  => strtoupper($receipt_entry->third_party_name),
                     'agent_name'        => strtoupper($receipt_entry->agent_name),
-                    'quantity'        => strtoupper($receipt_entry->agent_name),
-                    'weight'        => strtoupper($receipt_entry->agent_name),
-                    'cubic'        => strtoupper($receipt_entry->agent_name),
-
-
+                    'quantity'          => strtoupper($receipt_entry->agent_name),
+                    'weight'            => strtoupper($receipt_entry->agent_name),
+                    'cubic'             => strtoupper($receipt_entry->agent_name),
                 ];
             }
 
@@ -248,4 +250,12 @@ class ReceiptEntryController extends Controller
         }
     }
 
+    public function pdf($id)
+    {
+        $receipt_entry = ReceiptEntry::find($id);
+
+        # return view('warehouse.receipts.receipts_entries.pdf', compact('receipt_entry'));
+
+        return \PDF::loadView('warehouse.receipts.receipts_entries.pdf', compact('receipt_entry'))->stream('example.pdf');
+    }
 }

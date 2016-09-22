@@ -3,6 +3,7 @@
 namespace Sass;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class ReceiptEntryReceivingDetail extends Model
 {
@@ -12,18 +13,26 @@ class ReceiptEntryReceivingDetail extends Model
         'receipt_entry_id', 'line', 'pro_number', 'details', 'notes',
     ];
 
-    public static function saveDetail($id, $data)
+    /**
+     * @param $id   int
+     * @param $data array
+     */
+    public static function createDetail($id, $data)
     {
-        for ($i = 0; $i < count($data['receiving_line']); $i++) {
-            $obj = new ReceiptEntryReceivingDetail();
+        DB::table('whr_receipts_entries_receiving_details')->where('receipt_entry_id', '=', $id)->delete();
 
-            $obj->receipt_entry_id = $id;
-            $obj->line             = $data['receiving_line'][$i];
-            $obj->pro_number       = $data['receiving_pro_number'][$i];
-            $obj->details          = $data['receiving_details'][$i];
-            $obj->notes            = $data['receiving_remarks'][$i];
+        if (array_key_exists('receiving_line', $data)) {
+            for ($i = 0; $i < count($data['receiving_line']); $i++) {
+                $obj = new ReceiptEntryReceivingDetail();
 
-            $obj->save();
+                $obj->receipt_entry_id = $id;
+                $obj->line             = $data['receiving_line'][$i];
+                $obj->pro_number       = $data['receiving_pro_number'][$i];
+                $obj->details          = $data['receiving_details'][$i];
+                $obj->notes            = $data['receiving_remarks'][$i];
+
+                $obj->save();
+            }
         }
     }
 }
