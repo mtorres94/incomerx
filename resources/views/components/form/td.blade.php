@@ -1,0 +1,1 @@
+<td {{ (($hidden) ? "hidden" : "") }}>{{ $content }}<input hidden type='text' name="{{ $name }}[{{ $line - 1 }}]" value='{{ $content }}'></td>

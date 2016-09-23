@@ -129,7 +129,7 @@
                         </tr>
                         <tr>
                             <td><strong>CARRIER:</strong></td>
-                            <td>{{ strtoupper($receipt_entry->carrier->name) }}</td>
+                            <td>{{ ($receipt_entry->receiving_carrier_id > 0) ? strtoupper($receipt_entry->carrier->name) : "" }}</td>
                         </tr>
                         <tr>
                             <td><strong>FREIGHT:</strong></td>
@@ -214,7 +214,37 @@
                         </tr>
                     @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"><strong>TOTAL PIECES:</strong> {{ $receipt_entry->sum_pieces }}</td>
+                            <td colspan="2" style="text-align: right"><strong>WEIGHT:</strong></td>
+                            <td>{{ $receipt_entry->sum_weight }} Lbs</td>
+                            <td colspan="2" style="text-align: right;"><strong>VOL. WT:</strong></td>
+                            <td>{{ $receipt_entry->sum_volume_weight }} Lbs</td>
+                            <td style="text-align: right;"><strong>CUBIC:</strong></td>
+                            <td>{{ $receipt_entry->sum_cubic }} Cft</td>
+                        </tr>
+                        <tr>
+                            <td/>
+                            <td/>
+                            <td/>
+                            <td/>
+                            <td/>
+                            <td>{{ round($receipt_entry->sum_weight * 0.453592, 3) }} Kgs</td>
+                            <td/>
+                            <td/>
+                            <td>{{ round($receipt_entry->sum_volume_weight * 0.453592, 3) }} Kgs</td>
+                            <td/>
+                            <td>{{ round($receipt_entry->sum_cubic * 0.02831685, 3) }} Cbm</td>
+                        </tr>
+                    </tfoot>
                 </table>
+            </div>
+        </div>
+        <div class="row row-padding">
+            <div class="col-xs-12 footer">
+                <p><strong>MARKS:</strong> {{ $receipt_entry->marks }}</p>
+                <p><strong>COMMENTS:</strong> {{ $receipt_entry->comments }}</p>
             </div>
         </div>
     </div>

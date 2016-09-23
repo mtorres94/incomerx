@@ -134,18 +134,8 @@
         $("#transportation_plans_amount").val(s_amount);
     }
 
-function show_alert(){
-    swal({   title: "Error!",   text: "A required file is empty. Please complete it and try again.",   type: "warning",   confirmButtonText: "Ok" });
-}
-
-    function removeEmptyNodes(tableHTML){
-        for (var row=0;row<$("#"+ tableHTML +" tbody tr").length;row++) {
-            for (var i = 0; i < $("#"+ tableHTML +" tbody tr")[row].childNodes.length; i++) {
-                var node = $("#"+ tableHTML +" tbody tr")[row].childNodes[i];
-                if (node.nodeType == 3 && !/\S/.test(node.nodeValue))
-                    node.parentNode.removeChild(node);
-            }
-        }
+    function show_alert(){
+        swal({   title: "Error!",   text: "A required file is empty. Please complete it and try again.",   type: "warning",   confirmButtonText: "Ok" });
     }
 
     function values_pick_cargo()

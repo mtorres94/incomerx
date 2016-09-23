@@ -3,7 +3,7 @@
         <div class="form-horizontal">
             <div class="row">
                 <div class="col-md-7 form-tab">
-                    {!! Form::bsComplete('col-md-5', 'col-md-7', 'Inland Carrier', 'receiving_carrier_id', 'receiving_carrier_name', Request::get('term'), null, 'Carriers...') !!}
+                    {!! Form::bsComplete('col-md-5', 'col-md-7', 'Inland Carrier', 'receiving_carrier_id', 'receiving_carrier_name', Request::get('term'), ((isset($receipt_entry) and $receipt_entry->receiving_carrier_id > 0) ? $receipt_entry->carrier->name : null), 'Carriers...') !!}
                     {!! Form::bsText('col-md-5', 'col-md-7', 'Freight Amt. $', 'receiving_freight_amt', null, '0.00') !!}
                     {!! Form::bsText('col-md-5', 'col-md-7', 'COD Amount', 'receiving_cod_amount', null, '0.00') !!}
                     {!! Form::bsSelect('col-md-5', 'col-md-7', 'Carrier Terms', 'receiving_carrier_terms', array(
@@ -36,7 +36,19 @@
                     <th width="15%"/>
                 </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    @if(isset($receipt_entry))
+                        @foreach($receipt_entry->receiving_details as $detail)
+                            <tr id="{{ $detail->line }}">
+                                {!! Form::bsRowTd($detail->line, 'receiving_line', $detail->line, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'receiving_pro_number', $detail->pro_number, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'receiving_details', $detail->details, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'receiving_remarks', $detail->remarks, true) !!}
+                                {!! Form::bsRowBtns() !!}
+                            </tr>
+                        @endforeach
+                    @endif
+                </tbody>
             </table>
             <div class="row">
                 <div class="col-md-7 form-tab">
@@ -74,7 +86,22 @@
                 <th width="15%"></th>
             </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                @if(isset($receipt_entry))
+                    @foreach($receipt_entry->reference_details as $detail)
+                        <tr id="{{ $detail->line }}">
+                            {!! Form::bsRowTd($detail->line, 'references_line', $detail->line, true) !!}
+                            {!! Form::bsRowTd($detail->line, 'references_po_number', $detail->po_number, false) !!}
+                            {!! Form::bsRowTd($detail->line, 'references_ref_number', $detail->ref_number, false) !!}
+                            {!! Form::bsRowTd($detail->line, 'references_inv_number', $detail->inv_number, true) !!}
+                            {!! Form::bsRowTd($detail->line, 'references_booking_number', $detail->booking_number, false) !!}
+                            {!! Form::bsRowTd($detail->line, 'references_invoice_amount', $detail->invoice_amount, true) !!}
+                            {!! Form::bsRowTd($detail->line, 'references_note', $detail->note, true) !!}
+                            {!! Form::bsRowBtns() !!}
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
         </table>
     </div>
     <div title="Hazardous">
@@ -104,7 +131,20 @@
                     <th width="15%"></th>
                 </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    @if(isset($receipt_entry))
+                        @foreach($receipt_entry->hazardous_details as $detail)
+                            <tr id="{{ $detail->line }}">
+                                {!! Form::bsRowTd($detail->line, 'hazardous_uns_id', $detail->uns_id, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'hazardous_uns_line', $detail->line, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'hazardous_uns_code', $detail->uns_code->code, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'hazardous_uns_desc', $detail->uns_description, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'hazardous_uns_note', $detail->notes, true) !!}
+                                {!! Form::bsRowBtns() !!}
+                            </tr>
+                        @endforeach
+                    @endif
+                </tbody>
             </table>
         </div>
     </div>

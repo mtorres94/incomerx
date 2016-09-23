@@ -19,10 +19,10 @@ class ReceiptEntryDataTable extends CustomDataTable
             ->addColumn('action', function ($receipt_entry) {
                 return $this->groupButton(
                     $receipt_entry,
-                    'warehouse.receipts.receipts_entries.show',
+                    null,
                     'warehouse.receipts.receipts_entries.edit',
                     'warehouse.receipts.receipts_entries.destroy',
-                    'receipts_entries.attach');
+                    'receipts_entries.pdf');
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

@@ -40,6 +40,41 @@
             <th width="12%"/>
         </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+            @if(isset($receipt_entry))
+                @foreach($receipt_entry->cargo_details as $detail)
+                    <tr id="{{ $detail->line }}">
+                        {!! Form::bsRowTd($detail->line, 'cargo_line', $detail->line, true) !!}
+                        <td><i class='fa fa-cube' aria-hidden='true'/></td>
+                        {!! Form::bsRowTd($detail->line, 'cargo_quantity', $detail->quantity, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_type_id', $detail->cargo_type_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_type_code', $detail->cargo_type->code, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_pieces', $detail->pieces, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_weight_unit_measurement_id', $detail->weight_unit_measurement_id, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_metric_unit_measurement_id', $detail->metric_unit_measurement_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_length', $detail->length, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_width', $detail->width, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_height', $detail->height, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_total_weight', $detail->total_weight, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_cubic', $detail->cubic, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_volume_weight', $detail->volume_weight, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_location_id', $detail->location_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_location_name', ($detail->location_id > 0) ? $detail->location->code : "", false) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_location_bin_id', $detail->location_bin_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_location_bin_name', ($detail->location_bin_id > 0) ? $detail->bin->code : "", false) !!}
+                        <td></td>
+                        {!! Form::bsRowTd($detail->line, 'cargo_material_description', $detail->material_description, true) !!}
+                        <td></td>
+                        {!! Form::bsRowBtns() !!}
+                    </tr>
+                @endforeach
+            @endif
+        </tbody>
+        <tfoot>
+            {!! Form::hidden('sum_pieces', null, ['id' => 'sum_pieces', 'class' => 'form-control input-sm']) !!}
+            {!! Form::hidden('sum_weight', null, ['id' => 'sum_weight', 'class' => 'form-control input-sm']) !!}
+            {!! Form::hidden('sum_volume_weight', null, ['id' => 'sum_volume_weight', 'class' => 'form-control input-sm']) !!}
+            {!! Form::hidden('sum_cubic', null, ['id' => 'sum_cubic', 'class' => 'form-control input-sm']) !!}
+        </tfoot>
     </table>
 </fieldset>

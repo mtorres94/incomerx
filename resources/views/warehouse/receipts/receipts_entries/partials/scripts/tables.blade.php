@@ -3,6 +3,7 @@
 <script type="text/javascript">
     $("#btn-cargo").click(function() {
         $("#tmp_cargo_quantity").val(1);
+        $("#tmp_cargo_pieces").val(1);
         $("#tmp_cargo_metric_unit_measurement_id").val("I").change();
         $("#tmp_cargo_weight_unit_measurement_id").val("L").change();
         $("#tmp_cargo_dim_fact").val("I").change();
@@ -16,6 +17,7 @@
         }
     }), $("#btn-cargo-multiline").click(function() {
         $("#multiline_cargo_quantity").val(1);
+        $("#multiline_cargo_pieces").val(1);
         $("#multiline_cargo_metric_unit_measurement_id").val("I").change();
         $("#multiline_cargo_weight_unit_measurement_id").val("L").change();
         $("#multiline_cargo_dim_fact").val("I").change();
@@ -149,30 +151,30 @@
                 b = $("#warehouse-details"),
                 x = b.find("tbody"),
                 C = $("<tr id=" + t + ">");
+            C.append(createTableContent('cargo_line', t, true, z))
+                    .append($("<td><i class='fa fa-cube' aria-hidden='true'></td>"))
+                    .append(createTableContent('cargo_quantity', e, false, z))
+                    .append(createTableContent('cargo_type_id', d, true, z))
+                    .append(createTableContent('cargo_type_code', o, false, z))
+                    .append(createTableContent('cargo_pieces', n, false, z))
+                    .append(createTableContent('cargo_weight_unit_measurement_id', i, false, z))
+                    .append(createTableContent('cargo_metric_unit_measurement_id', c, true, z))
+                    .append(createTableContent('cargo_length', l, false, z))
+                    .append(createTableContent('cargo_width', r, false, z))
+                    .append(createTableContent('cargo_height', _, false, z))
+                    .append(createTableContent('cargo_total_weight', p, false, z))
+                    .append(createTableContent('cargo_cubic', s, false, z))
+                    .append(createTableContent('cargo_volume_weight', g, false, z))
+                    .append(createTableContent('cargo_location_id', h, true, z))
+                    .append(createTableContent('cargo_location_name', v, false, z))
+                    .append(createTableContent('cargo_location_bin_id', u, true, z))
+                    .append(createTableContent('cargo_location_bin_name', m, false, z))
+                    .append($("<td></td>"))
+                    .append(createTableContent('cargo_material_description', k, true, z))
+                    .append($("<td></td>"))
+                    .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), calculate_warehouse_details(), cleanModalFields('cargo-warehouse'), $("#tmp_cargo_quantity").val(1), $("#tmp_cargo_quantity").focus()
     }), $("#warehouse-details").on("click", "a.btn-danger", function() {
         $(this).closest("tr").remove()
-        C.append(createTableContent('cargo_line', t, true, z))
-                .append($("<td><i class='fa fa-cube' aria-hidden='true'></td>"))
-                .append(createTableContent('cargo_quantity', e, false, z))
-                .append(createTableContent('cargo_type_id', d, true, z))
-                .append(createTableContent('cargo_type_code', o, false, z))
-                .append(createTableContent('cargo_pieces', n, false, z))
-                .append(createTableContent('cargo_weight_unit_measurement_id', i, false, z))
-                .append(createTableContent('cargo_metric_unit_measurement_id', c, true, z))
-                .append(createTableContent('cargo_length', l, false, z))
-                .append(createTableContent('cargo_width', r, false, z))
-                .append(createTableContent('cargo_height', _, false, z))
-                .append(createTableContent('cargo_total_weight', p, false, z))
-                .append(createTableContent('cargo_cubic', s, false, z))
-                .append(createTableContent('cargo_volume_weight', g, false, z))
-                .append(createTableContent('cargo_location_id', h, true, z))
-                .append(createTableContent('cargo_location_name', v, false, z))
-                .append(createTableContent('cargo_location_bin_id', u, true, z))
-                .append(createTableContent('cargo_location_bin_name', m, false, z))
-                .append($("<td></td>"))
-                .append(createTableContent('cargo_material_description', k, true, z))
-                .append($("<td></td>"))
-                .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), cleanModalFields('cargo-warehouse'), $("#tmp_cargo_quantity").val(1), $("#tmp_cargo_quantity").focus()
     }), $("#warehouse-details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
                 a = t[0].childNodes[0].textContent,
@@ -197,8 +199,8 @@
     }), $("#cargo-multiline-warehouse-save").click(function() {
         var t = $("#warehouse-details tbody tr").length + 1,
                 z = parseInt(t) - 1,
-                j = parseInt($("#multiline_records").val()),
-                a = $("#multiline_cargo_id").val(),
+                j = parseInt($("#multiline_records").val()) + t,
+                a = $("#multiline_cargo_line").val(),
                 e = $("#multiline_cargo_quantity").val(),
                 d = $("#multiline_cargo_type_id").val(),
                 o = $("#multiline_cargo_type_code").val(),
@@ -218,32 +220,33 @@
                 k = $("#multiline_cargo_material_description").val(),
                 b = $("#warehouse-details"),
                 x = b.find("tbody");
-            for (var q = z; q < j; q++) {
-                var C = $("<tr id=" + q + ">");
-                C.append(createTableContent('cargo_line', t, true, q))
+            for (var q = t; q < j; q++) {
+                var w = parseInt(q) - 1,
+                        C = $("<tr id=" + (parseInt(q)) + ">");
+                C.append(createTableContent('cargo_line', q, true, w))
                     .append($("<td><i class='fa fa-cube' aria-hidden='true'></td>"))
-                    .append(createTableContent('cargo_quantity', e, false, q))
-                    .append(createTableContent('cargo_type_id', d, true, q))
-                    .append(createTableContent('cargo_type_code', o, false, q))
-                    .append(createTableContent('cargo_pieces', n, false, q))
-                    .append(createTableContent('cargo_weight_unit_measurement_id', i, false, q))
-                    .append(createTableContent('cargo_metric_unit_measurement_id', c, true, q))
-                    .append(createTableContent('cargo_length', l, false, q))
-                    .append(createTableContent('cargo_width', r, false, q))
-                    .append(createTableContent('cargo_height', _, false, q))
-                    .append(createTableContent('cargo_total_weight', p, false, q))
-                    .append(createTableContent('cargo_cubic', s, false, q))
-                    .append(createTableContent('cargo_volume_weight', g, false, q))
+                    .append(createTableContent('cargo_quantity', e, false, w))
+                    .append(createTableContent('cargo_type_id', d, true, w))
+                    .append(createTableContent('cargo_type_code', o, false, w))
+                    .append(createTableContent('cargo_pieces', n, false, w))
+                    .append(createTableContent('cargo_weight_unit_measurement_id', i, false, w))
+                    .append(createTableContent('cargo_metric_unit_measurement_id', c, true, w))
+                    .append(createTableContent('cargo_length', l, false, w))
+                    .append(createTableContent('cargo_width', r, false, w))
+                    .append(createTableContent('cargo_height', _, false, w))
+                    .append(createTableContent('cargo_total_weight', p, false, w))
+                    .append(createTableContent('cargo_cubic', s, false, w))
+                    .append(createTableContent('cargo_volume_weight', g, false, w))
                     .append($("<td></td>"))
-                    .append(createTableContent('cargo_location_id', h, true, q))
-                    .append(createTableContent('cargo_location_name', v, false, q))
-                    .append(createTableContent('cargo_location_bin_id', u, true, q))
-                    .append(createTableContent('cargo_location_bin_name', m, false, q))
-                    .append(createTableContent('cargo_material_description', k, true, q))
+                    .append(createTableContent('cargo_location_id', h, true, w))
+                    .append(createTableContent('cargo_location_name', v, false, w))
+                    .append(createTableContent('cargo_location_bin_id', u, true, w))
+                    .append(createTableContent('cargo_location_bin_name', m, false, w))
+                    .append(createTableContent('cargo_material_description', k, true, w))
                     .append($("<td></td>"))
                     .append(createTableBtns()), x.append(C)
             }
-        cleanModalFields('cargo-multiline-warehouse'), $("#multiline_cargo_quantity").val(1), $("#multiline_cargo_quantity").focus()
+        calculate_warehouse_details(), cleanModalFields('cargo-multiline-warehouse'), $("#multiline_cargo_quantity").val(1), $("#multiline_cargo_quantity").focus()
     }), $("#charges-save").click(function() {
         var t = $("#charge-details tbody tr").length + 1,
                 d= t - 1,

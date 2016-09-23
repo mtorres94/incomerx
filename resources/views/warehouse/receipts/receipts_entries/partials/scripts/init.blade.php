@@ -17,14 +17,14 @@
             }
         }
 
-        $("#cargo_quantity").change(function () { calculate() });
-        $("#cargo_length").change(function () { calculate() });
-        $("#cargo_width").change(function () { calculate() });
-        $("#cargo_height").change(function () { calculate() });
-        $("#cargo_metric_unit_measurement_id").change(function () { calculate() });
-        $("#cargo_weight_unit_measurement_id").change(function () { calculate() });
-        $("#cargo_dim_fact").change(function () { calculate() });
-        $("#cargo_unit_weight").change(function () { calculate() });
+        $("#tmp_cargo_quantity").change(function () { calculate() });
+        $("#tmp_cargo_length").change(function () { calculate() });
+        $("#tmp_cargo_width").change(function () { calculate() });
+        $("#tmp_cargo_height").change(function () { calculate() });
+        $("#tmp_cargo_metric_unit_measurement_id").change(function () { calculate() });
+        $("#tmp_cargo_weight_unit_measurement_id").change(function () { calculate() });
+        $("#tmp_cargo_dim_fact").change(function () { calculate() });
+        $("#tmp_cargo_unit_weight").change(function () { calculate() });
 
         $("#multiline_cargo_quantity").change(function () { multiline_calculate() });
         $("#multiline_cargo_length").change(function () { multiline_calculate() });
@@ -101,15 +101,15 @@
             }
         });
 
-        $("#cargo_type_id").change(function () {
+        $("#tmp_cargo_type_id").change(function () {
             var id = $(this).val();
             $.ajax({
                 url: "{{ route('cargo_types.get') }}",
                 data: { id: id },
                 type: 'GET',
                 success: function (e) {
-                    var act = $("#cargo_type_code").val()
-                    $("#cargo_type_code").val(e[0].code);
+                    var act = $("#tmp_cargo_type_code").val()
+                    $("#tmp_cargo_type_code").val(e[0].code);
                     var flag = (act === e[0].code);
                     if (e[0].length > 0 || e[0].width > 0 || e[0].height > 0) {
                         if (!flag) {
@@ -124,7 +124,7 @@
                                 closeOnConfirm: false
                             }).then(function (isConfirm) {
                                 if (isConfirm) {
-                                    $("#cargo_length").val(e[0].length), $("#cargo_width").val(e[0].width), $("#cargo_height").val(e[0].height);
+                                    $("#tmp_cargo_length").val(e[0].length), $("#tmp_cargo_width").val(e[0].width), $("#tmp_cargo_height").val(e[0].height);
                                     calculate();
                                 }
                             });
@@ -175,7 +175,8 @@
     $("#pd_order").attr("disabled", true);
     $("#po_number").attr("disabled", true);
     $("#user_id").attr("disabled", true);
-    $("#cargo_total_weight").attr("disabled", true);
+    $("#tmp_cargo_total_weight").attr("disabled", true);
+    $("#multiline_cargo_total_weight").attr("disabled", true);
 
     $("#references_invoice_amount").number(true, 2);
 
@@ -195,4 +196,12 @@
     $("#ippc_number").attr("disabled", !0), $("#ippc").change(function() {
         $("#ippc_number").attr("disabled", !this.checked), $("#ippc_number").val("")
     });
+
+    removeEmptyNodes('receiving-details');
+    removeEmptyNodes('references-details');
+    removeEmptyNodes('hazardous-details');
+    removeEmptyNodes('warehouse-details');
+    removeEmptyNodes('charges-details');
+
+    calculate_warehouse_details();
 </script>

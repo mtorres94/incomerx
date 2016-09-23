@@ -1,0 +1,79 @@
+@font-face { font-family: Code39; src: url('../fonts/Code39.ttf'); }
+.company-info {
+    text-align: center;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #000;
+}
+.company-info h4 {
+    margin: 0 0 3px;
+}
+.company-info p {
+    font-size: 12px;
+    margin: 0;
+}
+.info {
+    padding: 4px 5px 3px;
+    border-bottom: 2px solid #000;
+}
+.date {
+    border-left: 2px solid #000;
+    border-bottom: 2px solid #000;
+}
+.warehouse {
+    font-weight: bold;
+    text-align: center;
+    font-size: 38px;
+    padding: 15px 5px;
+    border-bottom: 2px solid #000;
+}
+.label-wh {
+    padding: 4px 5px 3px;
+}
+.label-date {
+    padding: 4px 5px 3px;
+    text-align: right;
+}
+.center-unit {
+    border-left: 2px solid #000;
+    border-right: 2px solid #000;
+}
+.unit-metrics {
+    border-bottom: 2px solid #000;
+    padding-bottom: 5px;
+}
+.country-label {
+    border-right: 2px solid #000;
+}
+.code-bar {
+    font-family: Code39;
+    font-size: 28px;
+    margin: 0;
+    text-align: center;
+}
+.barcode-label {
+    border-top: 2px solid #000;
+}
+.legend-barcode {
+    text-align: center;
+    font-size: 18px;
+}
+p.label-content {
+    font-size: 11px;
+    margin: 0 0 1px;
+}
+p.p-content {
+    font-size: 18px;
+    margin: 0 0 1px;
+}
+p.label-units {
+    padding-top: 5px;
+    font-size: 9px;
+    margin: 0 0 1px;
+}
+p.p-units {
+    font-size: 12px;
+    margin: 0 0 1px;
+}
+p.country {
+    font-size: 48px;
+}

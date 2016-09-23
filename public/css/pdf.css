@@ -20,6 +20,9 @@ h5 {
     font-size: 25px;
     margin: 0;
 }
+.footer {
+    font-size: 9px;
+}
 .panel {
     box-shadow: none;
 }
@@ -46,10 +49,15 @@ h5 {
 }
 .table {
     margin-bottom: 5px;
+    padding-bottom: 10px;
 }
-.table thead {
+.table thead, .table tfoot {
     background-color: #f5f5f5;
     font-size: 8px;
+}
+.table tfoot tr td {
+    padding: 2px 8px;
+    border-top: 0;
 }
 .table thead tr th {
     border-bottom: 0px;

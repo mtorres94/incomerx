@@ -21,12 +21,14 @@ class ComponentServiceProvider extends ServiceProvider
         Form::component('bsMemo', 'components.form.memo', ['lbl','col','label','name','value','rows','placeholder']);
         Form::component('bsSelect', 'components.form.select', ['lbl','col','label','name','array','placeholder','flag']);
         Form::component('bsCheck', 'components.form.check', ['label','name']);
-        Form::component('bsLabel', 'components.form.chk', ['value', 'label']);
+        Form::component('bsLabel', 'components.form.chk', ['value', 'label']); // Only for PDF generation
         Form::component('bsDate', 'components.form.date', ['lbl', 'col', 'label','name','value','placeholder']);
         Form::component('bsSubmit', 'components.form.submit', []);
         Form::component('bsIndex', 'components.form.index', ['route','index']);
         Form::component('bsBack', 'components.form.back', ['route']);
         Form::component('bsBtnG', 'components.form.btngroup', ['show','edit','delete','obj']);
+        Form::component('bsRowTd', 'components.form.td', ['line', 'name', 'content', 'hidden']);
+        Form::component('bsRowBtns', 'components.form.btns', []);
     }
 
     /**

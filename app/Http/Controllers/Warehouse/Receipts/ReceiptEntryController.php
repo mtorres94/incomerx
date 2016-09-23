@@ -117,7 +117,27 @@ class ReceiptEntryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $details = $request->all();
+
+            $receipt_entry = ReceiptEntry::findOrFail($id);
+            $receipt_entry['user_update_id'] = Auth::user()->id;
+            $receipt_entry->fill($request->all());
+            $receipt_entry->save();
+
+            ReceiptEntryReceivingDetail::createDetail($id, $details);
+            ReceiptEntryReferenceDetail::createDetail($id, $details);
+            ReceiptEntryHazardousDetail::createDetail($id, $details);
+            ReceiptEntryCargoDetail::createDetail($id, $details);
+
+        } catch (ValidationException $e) {
+            DB::rollback();
+        }
+        DB::commit();
+
+        $unique_str = str_random(25);
+        return view('warehouse.receipts.receipts_entries.create', compact('unique_str'));
     }
 
     /**
@@ -253,9 +273,17 @@ class ReceiptEntryController extends Controller
     public function pdf($id)
     {
         $receipt_entry = ReceiptEntry::find($id);
-
-        # return view('warehouse.receipts.receipts_entries.pdf', compact('receipt_entry'));
-
         return \PDF::loadView('warehouse.receipts.receipts_entries.pdf', compact('receipt_entry'))->stream('example.pdf');
+    }
+
+    public function label($id)
+    {
+        $receipt_entry = ReceiptEntry::find($id);
+        # return view('warehouse.receipts.receipts_entries.label', compact('receipt_entry'));
+        return \PDF::loadView('warehouse.receipts.receipts_entries.label', compact('receipt_entry'))
+            ->setOrientation('landscape')
+            ->setOption('margin-top', 3)
+            ->setOption('margin-left', 2)
+            ->stream('labels.pdf');
     }
 }

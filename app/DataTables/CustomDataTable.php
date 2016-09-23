@@ -13,7 +13,7 @@ use Yajra\Datatables\Services\DataTable;
 
 abstract class CustomDataTable extends DataTable
 {
-    public function groupButton($obj, $show, $edit, $destroy, $attach)
+    public function groupButton($obj, $show = null, $edit, $destroy, $pdf = null)
     {
         $btn_options =
             '<div class="btn-options">'.
@@ -23,13 +23,13 @@ abstract class CustomDataTable extends DataTable
                     '</button>'.
                     '<ul class="dropdown-menu">'.
                         '<li>'.
-                            '<a href="javascript:void(0)" onclick="addSubtab(\''.trans('panel.show').' '.strtoupper($obj->code).'\', \''.route($show, $obj).'\')"><i class="icon ion-more"></i><span>Show</span></a>'.
-                        '</li>'.
-                        '<li>'.
                             '<a href="javascript:void(0)" onclick="addSubtab(\''.trans('panel.edit').' '.strtoupper($obj->code).'\', \''.route($edit, $obj).'\')"><i class="icon ion-paintbrush"></i><span>Edit</span></a>'.
                         '</li>'.
                         '<li>'.
                             '<a href="javascript:void(0)" data-remote="'.route($destroy, $obj).'" class="btn-delete"><i class="icon ion-trash-b"></i><span>Delete</span></a>'.
+                        '</li>'.
+                        '<li>'.
+                            '<a href="'.route($pdf, $obj).'" target="_blank"><i class="fa fa-file-pdf-o"></i><span>Print</span></a>'.
                         '</li>'.
                     '</ul>'.
                 '</div>'.

@@ -1,3 +1,3 @@
 <label class="checkbok">
-    {!! Form::checkbox($name, null, false, ['id' => $name]) !!} <span>{{ $label }}</span>
+    {!! Form::checkbox($name, 0, null, ['id' => $name]) !!} <span>{{ $label }}</span>
 </label>

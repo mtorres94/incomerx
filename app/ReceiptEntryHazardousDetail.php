@@ -13,6 +13,11 @@ class ReceiptEntryHazardousDetail extends Model
         'receipt_entry_id', 'line', 'uns_id', 'uns_description', 'notes',
     ];
 
+   public function uns_code()
+   {
+       return $this->belongsTo('Sass\UnsCode', 'uns_id');
+   }
+
     /**
      * @param $id   int
      * @param $data array

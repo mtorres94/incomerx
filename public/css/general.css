@@ -292,6 +292,13 @@ tr.shown td.details-control {
 .dataTable tr td .btn-group span {
     text-transform: capitalize;
 }
+.dataTable .btn-options .btn-pdf {
+    margin-left: 5px;
+    border: 1px solid #ddd;
+}
+.dataTable .btn-options .btn-pdf .fa {
+    padding-bottom: 3px !important; 
+}
 
 /** Bootstrap Select */
 .bootstrap-select .btn {
