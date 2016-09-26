@@ -383,6 +383,10 @@ tr.shown td.details-control {
 .dropdown-menu li a i {
     padding-right: 10px;
 }
+.dropdown-menu li a i.fa {
+    padding-right: 8px;
+    margin-right: 0;
+}
 label.checkbok span {
     margin-top: -2px;
     margin-left: 2px;
