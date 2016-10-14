@@ -14,14 +14,15 @@ class OrderEntryHazardous extends Model
     ];
 
     public static function saveDetail($id, $data) {
-        $i=0; $a=0;
+        $i=-1; $a=0;
        if (isset($data['hazardous_uns_line'])){
+           $details= DB::table('whr_orders_entries_hazardous')->where('order_entry_id', '=', $id)->delete();
            while($a < count($data['hazardous_uns_line'])){
                $i++;
                if(isset( $data['hazardous_uns_line'][$i])){
                    $obj = new OrderEntryHazardous();
                    $obj->order_entry_id = $id;
-                   $obj->line=  $data['hazardous_uns_line'][$i];
+                   $obj->line=  $a + 1;
                    $obj-> uns_id = $data['hazardous_uns_id'][$i];
                    $obj->description = $data['hazardous_uns_desc'][$i];
                    $obj->notes = $data['hazardous_uns_note'][$i];
@@ -35,12 +36,6 @@ class OrderEntryHazardous extends Model
         return self::where('order_entry_id', $id)->get();
     }
 
-    public static function updateDetail($id, $data) {
-        if (isset($data['hazardous_uns_line'])){
-            $details= DB::table('whr_orders_entries_hazardous')->where('order_entry_id', '=', $id)->delete();
-            self::saveDetail($id, $data);
-        }
-    }
 
     public function hazardous_uns()
     {

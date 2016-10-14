@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-horizontal">
-                    {!! Form::hidden('po_line', null, ['id' => 'PO_line', 'class' => 'form-control input-sm']) !!}
+                    {!! Form::hidden('PO_line', null, ['id' => 'PO_line', 'class' => 'form-control input-sm']) !!}
                     {!! Form::bsText('col-md-3', 'col-md-8', 'PO Number', 'PO_number', null, 'PO Number') !!}
                     {!! Form::bsText('col-md-3', 'col-md-8', 'Project/Ref #', 'PO_project_reference', null, 'Project reference') !!}
                     {!! Form::bsMemo('col-md-3', 'col-md-8', 'Remarks/Comments', 'PO_remarks', null, 2, 'Remarks/Comments...') !!}

@@ -31,54 +31,52 @@
                     </thead>
                     <tbody>
                     @if(isset($charge_details))
-        @foreach($charge_details as $charge_detail)
-            <tr id="{{ $charge_detail -> line }} ">
-                <td hidden>{{$charge_detail -> line}}<input  hidden type='text' name='charge_id[{{ $charge_detail->line }}]' value='{{ $charge_detail->line }}' /></td>
-                <td hidden>{{$charge_detail -> billing_id}}<input hidden type='text' name='billing_billing_id[{{ $charge_detail->line }}]' value='{{ $charge_detail->billing_id }}' /></td>
-                <td >{{ ((isset($charge_detail) and $charge_detail->billing_id> 0) ? $charge_detail->billing_billing->code : null) }}<input hidden type='text' name='billing_billing_code[{{ $charge_detail->line  }}]' value='{{  ((isset($charge_detail) and $charge_detail->billing_id> 0) ? $charge_detail->billing_billing->code : null)  }}' /></td>
-                <td >{{$charge_detail -> billing_description}}<input hidden type='text' name='billing_billing_description[{{ $charge_detail->line  }}]' value='{{ $charge_detail -> billing_description }}' /></td>
-                <td >{{$charge_detail -> bill_type}}<input hidden type='text' name='billing_bill_type[{{ $charge_detail->line }}]' value='{{ $charge_detail->bill_type }}' /></td>
-                <td >{{$charge_detail -> bill_party}}<input hidden type='text' name='billing_bill_party[{{ $charge_detail->line  }}]' value='{{ $charge_detail->bill_party }}' /></td>
-                <td >{{$charge_detail -> billing_quantity}}<input hidden type='text' name='billing_quantity[{{ $charge_detail->line  }}]' value='{{ $charge_detail->billing_quantity }}' /></td>
-                <td >{{$charge_detail -> billing_rate}}<input hidden type='text' name='billing_rate[{{ $charge_detail->line  }}]' value='{{ $charge_detail->billing_rate }}' /></td>
-                <td >{{$charge_detail -> billing_amount}}<input hidden type='text' name='billing_amount[{{ $charge_detail->line  }}]' value='{{ $charge_detail->billing_quantity }}' /></td>
-                <td >{{$charge_detail -> billing_currency_type}}<input hidden type='text' name='billing_currency_type[{{ $charge_detail->line }}]' value='{{ $charge_detail->billing_currency_type }}' /></td>
-                <td>{{ ((isset($charge_detail)and $charge_detail->billing_customer_id >0) ? $charge_detail->billing_customer->name: null)  }}<input hidden type='text' name='billing_customer_name[{{ $charge_detail->line  }}]' value='{{  ((isset($charge_detail)and $charge_detail->billing_customer_id >0) ? $charge_detail->billing_customer->name: null)  }}' /></td>
-                <td >{{$charge_detail -> cost_amount}}<input hidden type='text' name='cost_amount[{{ $charge_detail->line  }}]' value='{{ $charge_detail->cost_amount }}' /></td>
-                <td >{{$charge_detail -> cost_currency_type}}<input hidden type='text' name='cost_currency_type[{{ $charge_detail->line  }}]' value='{{ $charge_detail->cost_currency_type }}' /></td>
-                <td >{{$charge_detail -> cost_invoice}}<input hidden type='text' name='cost_invoice[{{ $charge_detail->line  }}]' value='{{ $charge_detail->cost_invoice }}' /></td>
-                <td >{{$charge_detail -> cost_reference}}<input hidden type='text' name='cost_reference[{{ $charge_detail->line  }}]' value='{{ $charge_detail->cost_reference }}' /></td>
-                <td hidden>{{$charge_detail -> billing_notes}}<input hidden type='text' name='billing_notes[{{ $charge_detail->line  }}]' value='{{ $charge_detail->billing_notes }}' /></td>
-                <td hidden>{{$charge_detail -> billing_unit_id}}<input hidden type='text' name='billing_unit_id[{{ $charge_detail->line  }}]' value='{{ $charge_detail->billing_unit_id }}' /></td>
-                <td hidden>{{  ((isset($charge_detail)and $charge_detail->billing_unit_id >0) ? $charge_detail->billing_unit->code: null)   }}<input hidden type='text' name='billing_unit_name[{{ $charge_detail->line}}]' value='{{ ((isset($charge_detail)and $charge_detail->billing_unit_id >0) ? $charge_detail->billing_unit->code: null) }}' /></td>
-                <td hidden>{{$charge_detail -> billing_exchange_rate}}<input hidden type='text' name='billing_exchange_rate[{{ $charge_detail->line }}]' value='{{ $charge_detail->billing_exchange_rate }}' /></td>
-                <td hidden>{{$charge_detail -> billing_customer_id}}<input hidden type='text' name='billing_customer_id[{{ $charge_detail->line  }}]' value='{{ $charge_detail->billing_customer_id }}' /></td>
-                <td hidden>{{$charge_detail -> cost_quantity}}<input hidden type='text' name='cost_quantity[{{ $charge_detail->line  }}]' value='{{ $charge_detail->cost_quantity }}' /></td>
-                <td hidden>{{$charge_detail -> cost_unit_id}}<input hidden type='text' name='cost_unit_id[{{ $charge_detail->line  }}]' value='{{ $charge_detail->cost_unit_id }}' /></td>
-                <td hidden>{{ ((isset($charge_detail)and $charge_detail->cost_unit_id >0) ? $charge_detail->cost_unit->code: null)  }}<input hidden type='text' name='cost_unit_name[{{ $charge_detail->line  }}]' value='{{  ((isset($charge_detail)and $charge_detail->cost_unit_id >0) ? $charge_detail->cost_unit->code: null)   }}' /></td>
-                <td hidden>{{$charge_detail -> cost_rate}}<input hidden type='text' name='cost_rate[{{ $charge_detail->line  }}]' value='{{ $charge_detail->cost_rate }}' /></td>
-                <td >{{$charge_detail -> cost_center}} <input hidden type='text' name='cost_cost_center[{{ $charge_detail->line  }}]' value='{{ $charge_detail->cost_center }}' /></td>
-                <td hidden>{{$charge_detail -> cost_exchange_rate}}<input hidden type='text' name='cost_exchange_rate[{{ $charge_detail->line  }}]' value='{{ $charge_detail->cost_exchange_rate }}' /></td>
-                <td hidden>{{$charge_detail -> vendor_id}}<input hidden type='text' name='billing_vendor_code[{{ $charge_detail->line  }}]' value='{{ $charge_detail->vendor_id }}' /></td>
-                <td hidden>{{  ((isset($charge_detail)and $charge_detail->vendor_id >0) ? $charge_detail->billing_vendor->name: null)   }}<input hidden type='text' name='billing_vendor_name[{{ $charge_detail->line  }}]' value='{{ ((isset($charge_detail)and $charge_detail->vendor_id >0) ? $charge_detail->billing_vendor->name: null) }}' /></td>
-                <td hidden>{{$charge_detail -> cost_date}}<input hidden type='text' name='cost_date[{{ $charge_detail->line  }}]' value='{{ $charge_detail->cost_date }}' /></td>
-                <td hidden>{{$charge_detail -> billing_increase}}<input hidden type='text' name='billing_increase[{{ $charge_detail->line }}]' value='{{ $charge_detail->billing_increase }}' /></td>
-                <td><div class='btn-group btn-group-sm pull-right' role='group'><a class='btn btn-default' id="btn_edit_charge"><span class='icon ion-edit' aria-hidden='true'></span></a><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></div>
+        @foreach($charge_details as $detail)
+            <tr id="{{ $detail -> line }} ">
+                {!! Form::bsRowTd($detail->line, 'charge_id', $detail->line, true) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_billing_id', $detail->billing_id, true) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_billing_code', $detail->billing_id, false) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_billing_description', $detail->billing_description, false) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_bill_type', $detail->bill_type, false) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_bill_party', $detail->bill_party, false) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_quantity', $detail->billing_quantity, false) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_rate', $detail->billing_rate, false) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_amount', $detail->billing_amount, false) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_currency_type', $detail->billing_currency_type, false) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_customer_name',  ((isset($detail)and $detail->billing_customer_id >0) ? $detail->billing_customer->name: null), false) !!}
+                {!! Form::bsRowTd($detail->line, 'cost_amount', $detail->cost_amount, false) !!}
+                {!! Form::bsRowTd($detail->line, 'cost_currency_type', $detail->cost_currency_type, false) !!}
+                {!! Form::bsRowTd($detail->line, 'cost_invoice', $detail->cost_invoice, false) !!}
+                {!! Form::bsRowTd($detail->line, 'cost_reference', $detail->cost_reference, false) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_notes', $detail->billing_notes, true) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_unit_id', $detail->billing_unit_id, true) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_unit_name', ((isset($detail)and $detail->billing_unit_id >0) ? $detail->billing_unit->code: null), true) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_exchange_rate', $detail->billing_exchange_rate, true) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_customer_id', $detail->billing_customer_id, true) !!}
+                {!! Form::bsRowTd($detail->line, 'cost_quantity', $detail->cost_quantity, true) !!}
+                {!! Form::bsRowTd($detail->line, 'cost_unit_id', $detail->cost_unit_id, true) !!}
 
+                {!! Form::bsRowTd($detail->line, 'cost_unit_name', ((isset($detail)and $detail->cost_unit_id >0) ? $detail->cost_unit->code: null), true) !!}
+                {!! Form::bsRowTd($detail->line, 'cost_rate', $detail->cost_rate, true) !!}
+                {!! Form::bsRowTd($detail->line, 'cost_cost_center', $detail->cost_center, true) !!}
+                {!! Form::bsRowTd($detail->line, 'cost_exchange_rate', $detail->cost_exchange_rate, true) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_vendor_code', $detail->vendor_id, true) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_vendor_name', ((isset($detail)and $detail->vendor_id >0) ? $detail->billing_vendor->name: null) , true) !!}
+                {!! Form::bsRowTd($detail->line, 'cost_date', $detail->cost_date, true) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_increase', $detail->billing_increase, true) !!}
+                {!! Form::bsRowBtns() !!}
             </tr>
         @endforeach
         @endif
                     </tbody>
                 </table>
-        <div class="row row-panel">
-            <div class="pull-left">
-                <button type="button" id="btn-calculate_rate"class="btn btn-default" >Calculate Rate</button>
-            </div>
-            <div class="col-md-3">{!! Form::bsCheck('Do not bill from this transactions', 'charges_check') !!}</div>
-            <div class="col-md-1">{!! Form::bsText(null,null, 'Bill', 'charges_bill', null, '0.00') !!}</div>
-            <div class="col-md-1">{!! Form::bsText(null,null, 'Cost', 'charges_cost', null, '0.00') !!}</div>
-            <div class="col-md-1">{!! Form::bsText(null,null, 'Profit', 'charges_profit', null, '0.00') !!}</div>
-            <div class="col-md-1">{!! Form::bsText(null,null, 'Profit %', 'charges_profit_p', null, '0.00') !!}</div>
+        <div class="pull-right">
+
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Bill', 'charges_bill', null, '0.00') !!}</div>
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Cost', 'charges_cost', null, '0.00') !!}</div>
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Profit', 'charges_profit', null, '0.00') !!}</div>
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Profit %', 'charges_profit_p', null, '0.00') !!}</div>
+
         </div>
     </div>
     <div title="Transportation Plans">
@@ -111,71 +109,61 @@
             </thead>
             <tbody>
             @if(isset($trans_details))
-                @foreach($trans_details as $trans_detail)
-                    <tr id="{{ $trans_detail->line }}">
-                        <td hidden>{{ $trans_detail-> line }}<input hidden type='text' name='transportation_id[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> line }}' /></td>
-                        <td >{{ $trans_detail-> leg }}<input hidden type='text' name='transportation_leg[{{ $trans_detail-> line }}]' value='{{ $trans_detail->leg }}' /></td>
-                        <td >{{ $trans_detail-> mode }}<input hidden type='text' name='transportation_mode[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> mode }}' /></td>
-                        <td hidden>{{ $trans_detail-> carrier_id }}<input hidden type='text' name='transportation_carrier_id[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> carrier_id }}' /></td>
-                        <td >{{ ((isset($trans_detail)and $trans_detail->carrier_id >0) ? $trans_detail->transportation_carrier->code : null) }}<input hidden type='text' name='transportation_carrier_name[{{ $trans_detail-> line }}]' value='{{ ((isset($trans_detail)and $trans_detail->carrier_id >0) ? $trans_detail->transportation_carrier->code : null) }}' /></td>
-                        <td hidden>{{ $trans_detail->loading_location_id }}<input hidden type='text' name='transportation_loading_location_id[{{ $trans_detail-> line }}]' value='{{ $trans_detail->loading_location_id }}' /></td>
+                @foreach($trans_details as $detail)
+                    <tr id="{{ $detail->line }}">
+                        {!! Form::bsRowTd($detail->line, 'transportation_id', $detail->line, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_leg', $detail->leg, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_mode', $detail->mode, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_carrier_id', $detail->carrier_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_carrier_name', ((isset($detail)and $detail->carrier_id >0) ? $detail->transportation_carrier->code : null) , false) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_loading_location_id', $detail->loading_location_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_loading_location_name', ((isset($detail)and $detail->loading_location_id >0) ? $detail->transportation_loading_location->name: null), false) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_unloading_location_id', $detail->unloading_location_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_unloading_location_name', ((isset($detail)and $detail->unloading_location_id >0) ? $detail->transportation_unloading_location->name: null), false) !!}
 
-                        <td >{{ ((isset($trans_detail)and $trans_detail->loading_location_id >0) ? $trans_detail->transportation_loading_location->name: null) }}<input hidden type='text' name='transportation_loading_location_name[{{ $trans_detail-> line }}]' value='{{ ((isset($trans_detail)and $trans_detail->loading_location_id >0) ? $trans_detail->transportation_loading_location->name: null) }}' /></td>
-
-                        <td hidden>{{ $trans_detail->unloading_location_id }}<input hidden type='text' name='transportation_unloading_location_id[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> unloading_location_id }}' /></td>
-
-                        <td >{{ ((isset($trans_detail)and $trans_detail->unloading_location_id >0) ? $trans_detail->transportation_unloading_location->name: null) }}<input hidden type='text' name='transportation_unloading_location_name[{{ $trans_detail-> line }}]' value='{{ ((isset($trans_detail)and $trans_detail->unloading_location_id >0) ? $trans_detail->transportation_unloading_location->name: null) }}' /></td>
-
-                        <td >{{ $trans_detail-> ETD_date }}<input hidden type='text' name='transportation_ETD_date[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> ETD_date }}' /></td>
-                        <td >{{ $trans_detail-> ETA_date }}<input hidden type='text' name='transportation_ETA_date[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> ETA_date }}' /></td>
-                        <td >{{ $trans_detail-> leg_satus }}<input hidden type='text' name='transportation_leg_status[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> leg_status }}' /></td>
-                        <td >{{ $trans_detail->amount }}<input hidden type='text' name='transportation_amount[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> amount }}' /></td>
-
-                        <td hidden>{{ $trans_detail->billing_id }}<input hidden type='text' name='transportation_billing_id[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> billing_id }}' /></td>
-
-                        <td hidden>{{ ((isset($trans_detail)and $trans_detail->billing_id >0) ? $trans_detail->transportation_billing->code: null) }}<input hidden type='text' name='transportation_billing_code[{{ $trans_detail-> line }}]' value='{{ ((isset($trans_detail)and $trans_detail->billing_id >0) ? $trans_detail->transportation_billing->code: null) }}' /></td>
-                        <td hidden>{{ $trans_detail-> description }}<input hidden type='text' name='transportation_description[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> description }}' /></td>
-
-                        <td hidden>{{ $trans_detail-> service_id }}<input hidden type='text' name='transportation_service_id[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> service_id }}' /></td>
-
-                        <td hidden>{{ ((isset($trans_detail)and $trans_detail->service_id >0) ? $trans_detail->transportation_service->name: null) }}<input hidden type='text' name='transportation_service_id[{{ $trans_detail-> line }}]' value='{{ ((isset($trans_detail)and $trans_detail->service_id >0) ? $trans_detail->transportation_service->name: null) }}' /></td>
-                        <td hidden>{{ $trans_detail->notify }}<input hidden type='text' name='transportation_notify[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> notify }}' /></td>
-                        <td hidden>{{ $trans_detail->loading_reference }}<input hidden type='text' name='transportation_loading_reference[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> loading_reference }}' /></td>
-                        <td hidden>{{ $trans_detail->unloading_reference }}<input hidden type='text' name='transportation_unloading_reference[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> unloading_reference }}' /></td>
-                        <td hidden>{{ $trans_detail->origin_from_type }}<input hidden type='text' name='origin_from_type[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> origin_from_type }}' /></td>
-                        <td hidden>{{ $trans_detail->origin_from_shipper_id }}<input hidden type='text' name='origin_from_shipper_id[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> origin_from_shipper_id }}' /></td>
-                        <td hidden>{{ ((isset($trans_detail)and $trans_detail-> origin_from_shipper_id >0) ? $trans_detail-> origin_from_shipper->name: null) }}<input hidden type='text' name='origin_from_shipper_name[{{ $trans_detail-> line }}]' value='{{ ((isset($trans_detail)and $trans_detail-> origin_from_shipper_id >0) ? $trans_detail-> origin_from_shipper->name: null) }}' /></td>
-                        <td hidden>{{ $trans_detail->origin_from_address }}<input hidden type='text' name='origin_from_address[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> origin_from_address }}' /></td>
-                        <td hidden>{{ $trans_detail->origin_from_city }}<input hidden type='text' name='origin_from_city[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> origin_from_city }}' /></td>
-
-                        <td hidden>{{ $trans_detail->origin_from_state_id }}<input hidden type='text' name='origin_from_state_id[{{ $trans_detail-> line }}]' value='{{ $trans_detail-> origin_from_state_id }}' /></td>
-                        <td hidden>{{ ((isset($trans_detail)and $trans_detail-> origin_from_state_id >0) ? $trans_detail-> origin_from_state->name: null) }}<input hidden type='text' name='origin_from_state_name[{{ $trans_detail-> line }}]' value='{{ ((isset($trans_detail)and $trans_detail-> origin_from_state_id >0) ? $trans_detail-> origin_from_state->name: null) }}' /></td>
-                        <td hidden>{{ $trans_detail->origin_from_country_id }}<input hidden type='text' name='origin_from_country_id[{{ $trans_detail-> line }}]' value='{{$trans_detail->origin_from_country_id}}' /></td>
-                        <td hidden>{{ ((isset($trans_detail)and $trans_detail->origin_from_country_id >0) ? $trans_detail->origin_from_country->name: null) }}<input hidden type='text' name='origin_from_country_name[{{ $trans_detail-> line }}]' value='{{ ((isset($trans_detail)and $trans_detail->origin_from_country_id >0) ? $trans_detail->origin_from_country->name: null) }}' /></td>
-                        <td hidden>{{$trans_detail->origin_from_zip_code_id}}<input hidden type='text' name='origin_from_zip_code_id[{{ $trans_detail-> line }}]' value='{{$trans_detail->origin_from_zip_code_id}}' /></td>
-                        <td hidden>{{ ((isset($trans_detail)and $trans_detail-> origin_from_zip_code_id >0) ? $trans_detail-> origin_from_zip_code->code: null) }}<input hidden type='text' name='origin_from_zip_code_code[{{ $trans_detail-> line }}]' value='{{((isset($trans_detail)and $trans_detail-> origin_from_zip_code_id >0) ? $trans_detail-> origin_from_zip_code->code: null)}}'/></td>
-                        <td hidden>{{ $trans_detail->origin_from_contact }} <input hidden type='text' name='origin_from_contact[{{ $trans_detail-> line }}]' value='{{$trans_detail->origin_from_contact}}' /></td>
-                        <td hidden>{{ $trans_detail->origin_from_phone}} <input hidden type='text' name='origin_from_phone[{{ $trans_detail-> line }}]' value='{{$trans_detail->origin_from_phone}}' /></td>
-                        <td hidden>{{ $trans_detail->origin_from_fax}} <input hidden type='text' name='origin_from_fax[{{ $trans_detail-> line }}]' value='{{$trans_detail->origin_from_fax}}' /></td>
-                        <td hidden>{{ $trans_detail->origin_to_type }} <input hidden type='text' name='origin_to_type[{{ $trans_detail-> line }}]' value='{{$trans_detail->origin_to_type}}' /></td>
-                        <td hidden>{{ $trans_detail->origin_to_consignee_id }} <input hidden type='text' name='origin_to_consignee_id[{{ $trans_detail-> line }}]' value='{{$trans_detail->origin_to_consignee_id}}' /></td>
-                        <td hidden>{{ ((isset($trans_detail)and $trans_detail->origin_to_consignee_id >0) ? $trans_detail->origin_to_consignee->name: null) }}<input hidden type='text' name='origin_to_consignee_name[{{ $trans_detail-> line }}]' value='{{ ((isset($trans_detail)and $trans_detail->origin_to_consignee_id >0) ? $trans_detail->origin_to_consignee->name: null) }}' /></td>
-                        <td hidden>{{ $trans_detail->origin_to_address }} <input hidden type='text' name='origin_to_address[{{ $trans_detail-> line }}]' value='{{$trans_detail->origin_to_address}}' /></td>
-                        <td hidden>{{ $trans_detail->origin_to_city }} <input hidden type='text' name='origin_to_city[{{ $trans_detail-> line }}]' value='{{$trans_detail->origin_to_city}}' /></td>
-
-                        <td hidden>{{ $trans_detail->origin_to_state_id }} <input hidden type='text' name='origin_to_state_id[{{ $trans_detail-> line }}]' value='{{$trans_detail->origin_to_state_id}}' /></td>
-                        <td hidden>{{ ((isset($trans_detail)and $trans_detail->origin_to_state_id >0) ? $trans_detail->origin_to_state->name: null) }}<input hidden type='text' name='origin_to_state_name[{{ $trans_detail-> line }}]' value='{{ ((isset($trans_detail)and $trans_detail->origin_to_state_id >0) ? $trans_detail->origin_to_state->name: null) }}' /></td>
-                        <td hidden>{{ $trans_detail->origin_to_country_id }} <input hidden type='text' name='origin_to_country_id[{{ $trans_detail-> line }}]' value='{{$trans_detail->origin_to_country_id}}' /></td>
-                        <td hidden>{{ ((isset($trans_detail)and $trans_detail->origin_to_country_id >0) ? $trans_detail->origin_to_country->name: null) }} <input hidden type='text' name='origin_to_country_name[{{ $trans_detail-> line }}]' value='{{((isset($trans_detail)and $trans_detail->origin_to_country_id >0) ? $trans_detail->origin_to_country->name: null)}}' /></td>
-                        <td hidden>{{ $trans_detail->origin_to_zip_code_id }} <input hidden type='text' name='origin_to_zip_code_id[{{ $trans_detail-> line }}]' value='{{$trans_detail->origin_to_zip_code_id}}' /></td>
-                        <td hidden>{{ ((isset($trans_detail)and $trans_detail->origin_to_zip_code_id >0) ? $trans_detail->origin_to_zip_code->code : null)}}<input hidden type='text' name='origin_to_zip_code_code[{{ $trans_detail-> line }}]' value='{{ ((isset($trans_detail)and $trans_detail->origin_to_zip_code_id >0) ? $trans_detail->origin_to_zip_code->code : null) }}' /></td>
-                        <td hidden>{{ $trans_detail->origin_to_contact }} <input hidden type='text' name='origin_to_contact[{{ $trans_detail-> line }}]' value='{{$trans_detail->origin_to_contact}}' /></td>
-                        <td hidden>{{ $trans_detail->origin_to_phone}} <input hidden type='text' name='origin_to_phone[{{ $trans_detail-> line }}]' value='{{$trans_detail->origin_to_phone}}' /></td>
-                        <td hidden>{{ $trans_detail->origin_to_fax}} <input hidden type='text' name='origin_to_fax[{{ $trans_detail-> line }}]' value='{{$trans_detail->origin_to_fax}}' /></td>
-
-                        <td><div class='btn-group btn-group-sm pull-right' role='group'><a class='btn btn-default' id=" btn_edit_transportation"><span class='icon ion-edit' aria-hidden='true'></span></a><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></div>
-
-
+                        {!! Form::bsRowTd($detail->line, 'transportation_ETD_date', $detail->ETD_date, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_ETA_date', $detail->ETA_date, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_leg_status', $detail->leg_status, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_amount', $detail->amount, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_billing_id', $detail->billing_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_billing_code', $detail->billing_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_description', $detail->description, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_service_id', $detail->service_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_service_name', ((isset($detail)and $detail->service_id >0) ? $detail->transportation_service->name: null), true) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_notify', $detail->notify, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_loading_reference', $detail->loading_reference, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_unloading_reference', $detail->unloading_reference, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_from_type', $detail->origin_from_type, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_from_shipper_id', $detail->origin_from_shipper_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_from_shipper_name', ((isset($detail)and $detail-> origin_from_shipper_id >0) ? $detail-> origin_from_shipper->name: null), true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_from_address', $detail->origin_from_address, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_from_city', $detail->origin_from_city, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_from_state_id', $detail->origin_from_state_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_from_state_name',((isset($detail)and $detail-> origin_from_state_id >0) ? $detail-> origin_from_state->name: null), true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_from_country_id', $detail->origin_from_country_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_from_country_name', ((isset($detail)and $detail->origin_from_country_id >0) ? $detail->origin_from_country->name: null), true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_from_zip_code_id', $detail->origin_from_zip_code_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_from_zip_code_code', ((isset($detail)and $detail-> origin_from_zip_code_id >0) ? $detail-> origin_from_zip_code->code: null), true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_from_contact', $detail->origin_from_contact, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_from_phone', $detail->origin_from_phone, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_from_fax', $detail->origin_from_fax, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_to_type', $detail->origin_to_type, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_to_consignee_id', $detail->origin_to_consignee_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_to_consignee_name', ((isset($detail)and $detail->origin_to_consignee_id >0) ? $detail->origin_to_consignee->name: null) , true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_to_address', $detail->origin_to_address, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_to_city', $detail->origin_to_city, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_to_state_id', $detail->origin_to_state_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_to_state_name',((isset($detail)and $detail->origin_to_state_id >0) ? $detail->origin_to_state->name: null), true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_to_country_id', $detail->origin_to_country_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_to_country_name', ((isset($detail)and $detail->origin_to_country_id >0) ? $detail->origin_to_country->name: null), true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_to_zip_code_id', $detail->origin_to_zip_code_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_to_zip_code_code', ((isset($detail)and $detail->origin_to_zip_code_id >0) ? $detail->origin_to_zip_code->code : null), true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_to_contact', $detail->origin_to_contact, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_to_phone', $detail->origin_to_phone, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'origin_to_fax', $detail->origin_to_fax, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_id', $detail->line, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'transportation_id', $detail->line, true) !!}
+                        {!! Form::bsRowBtns() !!}
                     </tr>
                 @endforeach
             @endif

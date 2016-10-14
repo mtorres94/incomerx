@@ -14,14 +14,16 @@ class OrderEntrySO extends Model
     ];
 
     public static function saveDetail($id, $data) {
-        $i=0; $a=0;
+        $i=-1; $a=0;
         if (isset($data['SO_line'])){
-            $i++;
+            $details= DB::table('whr_orders_entries_SOs')->where('order_entry_id', '=', $id)->delete();
+
             while($a < count($data['SO_line'])){
+                $i++;
                 if (isset($data['SO_line'][$i])){
                     $obj = new OrderEntrySO();
                     $obj->order_entry_id = $id;
-                    $obj->line=  $data['SO_line'][$i];
+                    $obj->line=  $a + 1;
                     $obj-> so_number = $data['SO_number'][$i];
                     $obj->so_detail = $data['SO_reference'][$i];
                     $obj->so_comment = $data['SO_remarks'][$i];
@@ -32,12 +34,6 @@ class OrderEntrySO extends Model
         }
     }
 
-    public static function updateDetail($id, $data) {
-        if (isset($data['SO_line'])){
-            $details= DB::table('whr_orders_entries_SOs')->where('order_entry_id', '=', $id)->delete();
-            self::saveDetail($id, $data);
-        }
-    }
 
     public static function Search($id){
         return self::where('order_entry_id', $id)->get();

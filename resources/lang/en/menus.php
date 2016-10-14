@@ -33,4 +33,7 @@ return [
         'receipts'  => 'Receipts',
         'pickup'    => 'Pick Up & Delivery'
     ],
+    'export' => [
+        'oceans'  => 'Oceans Export',
+    ],
 ];

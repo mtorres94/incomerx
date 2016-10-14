@@ -49,35 +49,35 @@
                 </thead>
                 <tbody>
                 @if (isset($stop_numbers))
-                @foreach ($stop_numbers as $stop_number)
-                    <tr id="{{ $stop_number->line }}">
-                        <td>{{ $stop_number->line }}<input hidden type='text' name='stop_id[{{ $stop_number->line }}]' value='{{ $stop_number->line }} ' /></td>
-                        <td>{{ ((isset($stop_number)and $stop_number->stop_customer_id >0) ? $stop_number->stop_customer->name: null) }}<input hidden type='text' name='stop_customer_name[{{ $stop_number->line }}]' value='{{ ((isset($stop_number)and $stop_number->stop_customer_id >0) ? $stop_number->stop_customer->name: null) }}' /></td>
-                        <td>{{ $stop_number->stop_city }}<input hidden type='text' name='stop_city[{{ $stop_number->line }}]' value='{{ $stop_number->stop_city }} ' /></td>
-                        <td>{{ $stop_number->stop_phone }}<input hidden type='text' name='stop_phone[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_phone }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_quantity }}<input hidden type='text' name='stop_quantity[{{ $stop_number->line }}]' value='{{ $stop_number->stop_quantity }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_cargo_type_id }}<input hidden type='text' name='stop_cargo_type_id[{{ $stop_number->line }}]' value='{{ $stop_number->stop_cargo_type_id }} ' /></td>
-                        <td hidden >{{ ((isset($stop_number)and $stop_number->stop_cargo_type_id >0) ? $stop_number->stop_cargo_type->code: null) }}<input hidden type='text' name='stop_cargo_type_code[{{ $stop_number->line  }}]' value='{{((isset($stop_number)and $stop_number->stop_cargo_type_id >0) ? $stop_number->stop_cargo_type->code: null)}} ' /></td>
-                        <td hidden >{{ $stop_number->stop_unit }}<input hidden type='text' name='stop_unit[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_unit }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_length }}<input hidden type='text' name='stop_length[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_length }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_width }}<input hidden type='text' name='stop_width[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_width }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_height }}<input hidden type='text' name='stop_height[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_height }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_weight }}<input hidden type='text' name='stop_weight[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_weight }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_appt }}<input hidden type='text' name='stop_appt[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_appt }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_date }}<input hidden type='text' name='stop_date[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_date }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_customer_id }}<input hidden type='text' name='stop_customer_id[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_customer_id }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_address }}<input hidden type='text' name='stop_address[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_address }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_state_id }}<input hidden type='text' name='stop_state_id[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_state_id }} ' /></td>
-                        <td hidden >{{ ((isset($stop_number)and $stop_number->stop_state_id >0) ? $stop_number->stop_state->name: null) }}<input hidden type='text' name='stop_state_name[{{ $stop_number->line  }}]' value='{{ ((isset($stop_number)and $stop_number->stop_state_id >0) ? $stop_number->stop_state->name: null) }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_zip_code_id }}<input hidden type='text' name='stop_zip_code_id[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_zip_code_id }} ' /></td>
-                        <td hidden >{{ ((isset($stop_number)and $stop_number->stop_zip_code_id >0) ? $stop_number->stop_zip_code->code: null)  }} <input hidden type='text' name='stop_zip_code_code[{{ $stop_number->line  }}]' value='{{ ((isset($stop_number)and $stop_number->stop_zip_code_id >0) ? $stop_number->stop_zip_code->code: null) }}' /></td>
-                        <td hidden >{{ $stop_number->stop_contact }}<input hidden type='text' name='stop_contact[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_contact }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_ref }}<input hidden type='text' name='stop_ref[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_ref }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_reference }}<input hidden type='text' name='stop_reference[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_reference }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_direction }}<input hidden type='text' name='stop_direction[{{ $stop_number->line }}]' value='{{ $stop_number->stop_direction }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_instruction }}<input hidden type='text' name='stop_instruction[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_instruction }} ' /></td>
-                        <td hidden >{{ $stop_number->stop_type }}<input hidden type='text' name='stop_type[{{ $stop_number->line  }}]' value='{{ $stop_number->stop_type }} ' /></td>
-                        <td><div class='btn-group btn-group-sm pull-right' role='group'><a class='btn btn-default'><span class='icon ion-edit' aria-hidden='true'></span></a><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></div>
+                @foreach ($stop_numbers as $detail)
+                    <tr id="{{ $detail->line }}">
+                        {!! Form::bsRowTd($detail->line, 'stop_id', $detail->line, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_customer_name', ((isset($detail)and $detail->stop_customer_id >0) ? $detail->stop_customer->name: null), false) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_city', $detail->stop_city, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_phone', $detail->stop_phone, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_quantity', $detail->stop_quantity, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_cargo_type_id', $detail->stop_cargo_type_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_cargo_type_code', ((isset($detail)and $detail->stop_cargo_type_id >0) ? $detail->stop_cargo_type->code: null), true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_unit', $detail->stop_unit, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_length', $detail->stop_length, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_width', $detail->stop_width, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_height', $detail->stop_height, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_weight', $detail->stop_weight, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_appt', $detail->stop_appt, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_date', $detail->stop_date, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_customer_id', $detail->stop_customer_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_address', $detail->stop_address, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_state_id', $detail->stop_state_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_state_name', ((isset($detail)and $detail->stop_state_id >0) ? $detail->stop_state->name: null), true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_zip_code_id', $detail->stop_zip_code_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_zip_code_code', ((isset($detail)and $detail->stop_zip_code_id >0) ? $detail->stop_zip_code->code: null), true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_contact', $detail->stop_contact, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_ref', $detail->stop_ref, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_reference', $detail->stop_reference, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_direction', $detail->stop_direction, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_instruction', $detail->stop_instruction, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'stop_type', $detail->stop_type, true) !!}
+                        {!! Form::bsRowBtns() !!}
                     </tr>
                 @endforeach
                 @endif
@@ -160,13 +160,13 @@
                 </thead>
                 <tbody>
                 @if(isset($pro_numbers))
-                @foreach ($pro_numbers as $pro_number)
-                    <tr id="{{ $pro_number->line }}">
-                        <td hidden >{{ $pro_number->line }}<input hidden type='text' name='SO_line[{{ $pro_number->line }}]' value='{{ $pro_number->line }} ' /></td>
-                        <td >{{ $pro_number->pro_number }}<input hidden type='text' name='PRO_number[{{ $pro_number->line  }}]' value='{{ $pro_number->pro_number }}' /></td>
-                        <td >{{ $pro_number->pro_detail }}<input hidden type='text' name='PRO_reference[{{ $pro_number->line }}]' value='{{ $pro_number->pro_detail }}' /></td>
-                        <td hidden>{{ $pro_number->pro_comment }}<input hidden type='text' name='PRO_remarks[{{ $pro_number->line  }}]' value='{{ $pro_number->pro_comment }}'/></td>
-                        <td><div class='btn-group btn-group-sm pull-right' role='group'><a class='btn btn-default'><span class='icon ion-edit' aria-hidden='true'></span></a><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></div>
+                @foreach ($pro_numbers as $detail)
+                    <tr id="{{ $detail->line }}">
+                        {!! Form::bsRowTd($detail->line, 'PRO_line', $detail->line, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'PRO_number', $detail->pro_number, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'PRO_reference', $detail->pro_detail, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'PRO_remarks', $detail->pro_comment, true) !!}
+                        {!! Form::bsRowBtns() !!}
                     </tr>
                 @endforeach
                 @endif
@@ -206,18 +206,17 @@
                 </thead>
                 <tbody>
                 @if(isset($uns_numbers))
-                @foreach($uns_numbers as $un_number)
-                <tr id="{{ $un_number->line }}">
-                    <td  >{{ $un_number->uns_id }}<input hidden type='text' name='hazardous_uns_id[{{ $un_number->line  }}]' value='{{ $un_number->uns_id }} ' /></td>
-                    <td hidden >{{ $un_number->line }}<input hidden type='text' name='hazardous_uns_line[{{ $un_number->line  }}]' value='{{ $un_number->line }}' /></td>
-                    <td hidden><input hidden type='text' name='hazardous_uns_code[{{ $un_number->line  }}]' value='' /></td>
-                    <td >{{ $un_number->description }}<input hidden type='text' name='hazardous_uns_desc[{{ $un_number->line  }}]' value='{{ $un_number->description }}'/></td>
-                    <td hidden>{{ $un_number->notes }}<input hidden type='text' name='hazardous_uns_note[{{ $un_number->line  }}]' value='{{ $un_number->notes }}'/></td>
-                    <td><div class='btn-group btn-group-sm pull-right' role='group'><a class='btn btn-default'><span class='icon ion-edit' aria-hidden='true'></span></a><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></div>
+                @foreach($uns_numbers as $detail)
+                <tr id="{{ $detail->line }}">
+                    {!! Form::bsRowTd($detail->line, 'hazardous_uns_id', $detail->uns_id, false) !!}
+                    {!! Form::bsRowTd($detail->line, 'hazardous_uns_line', $detail->line, true) !!}
+                    {!! Form::bsRowTd($detail->line, 'hazardous_uns_code', ((isset($detail)and $detail->uns_id >0) ? $detail->hazardous_uns->code: null), true) !!}
+                    {!! Form::bsRowTd($detail->line, 'hazardous_uns_desc', $detail->description, false) !!}
+                    {!! Form::bsRowTd($detail->line, 'hazardous_uns_note', $detail->notes, true) !!}
+                    {!! Form::bsRowBtns() !!}
                 </tr>
                 @endforeach
                 @endif
-
                 </tbody>
             </table>
         </div>

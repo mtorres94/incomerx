@@ -1,8 +1,10 @@
 <div class="row">
     <div class="col-md-6">
         {!! Form::hidden('vehicle_id', null, ['id' => 'vehicle_id', 'class' => 'form-control input-sm']) !!}
+        {!! Form::hidden('vehicle_cargo_type_code', null, ['id' => 'tmp_cargo_type_code', 'class' => 'form-control input-sm']) !!}
+
         <div class="col-md-3">{!! Form::bsText(null, null, 'Qty.', 'vehicle_quantity', null, '0') !!}</div>
-        <div class="col-md-5">{!! Form::bsComplete(null, null, 'Cargo Type', 'vehicle_cargo_type_id', 'vehicle_cargo_type_code', Request::get('term'), null, 'Cargo types...') !!}</div>
+        <div class="col-md-5">{!! Form::bsSelect(null, null, 'Cargo Type', 'vehicle_cargo_type_id',Sass\CargoType::all()->lists('code', 'id') ,'Cargo types', true) !!}</div>
         <div class="col-md-4">{!! Form::bsSelect(null, null, 'Inches/Cms', 'vehicle_metric_unit_measurement_id', array('C' => 'CMS', 'I' => 'INCHES'), ' ') !!}</div>
         <div class="col-md-4">{!! Form::bsText(null, null, 'Length', 'vehicle_length', null, '0.000') !!}</div>
         <div class="col-md-4">{!! Form::bsText(null, null, 'Width', 'vehicle_width', null, '0.000') !!}</div>

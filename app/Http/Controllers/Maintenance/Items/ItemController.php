@@ -2,9 +2,11 @@
 
 namespace Sass\Http\Controllers\Maintenance\Items;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Sass\DataTables\Maintenance\Items\ItemDataTable;
 use Sass\Http\Controllers\Controller;
+
 use Sass\Http\Requests\Maintenance\Items\ItemRequest;
 use Sass\Item;
 

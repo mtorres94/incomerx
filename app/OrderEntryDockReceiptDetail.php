@@ -14,15 +14,16 @@ class OrderEntryDockReceiptDetail extends Model
     ];
 
     public static function saveDetail($id, $data) {
-        $i=0; $a=0;
+        $i=-1; $a=0;
         if (isset($data['dr_line'])){
+            $details= DB::table('whr_orders_entries_dock_receipts_details')->where('order_entry_id', '=', $id)->delete();
             while( $a < count($data['dr_line'])){
                 $i++;
                 if(isset($data['dr_line'][$i])){
                     $obj = new OrderEntryDockReceiptDetail();
 
                     $obj->order_entry_id = $id;
-                    $obj->line=  $data['dr_line'][$i];
+                    $obj->line=  $a + 1;
                     $obj-> dr_marks = $data['dr_cargo_marks'][$i];
                     $obj->dr_pieces = $data['dr_cargo_pieces'][$i];
                     $obj->dr_description = $data['dr_cargo_description'][$i];
@@ -42,12 +43,6 @@ class OrderEntryDockReceiptDetail extends Model
         }
     }
 
-    public static function updateDetail($id, $data) {
-        if (isset($data['dr_line'])){
-            $details= DB::table('whr_orders_entries_dock_receipts_details')->where('order_entry_id', '=', $id)->delete();
-            self::saveDetail($id, $data);
-        }
-    }
     public static function Search($id)
     {
         return self::where('order_entry_id', $id)->get();

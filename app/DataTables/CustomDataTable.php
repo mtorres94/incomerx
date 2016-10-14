@@ -28,9 +28,6 @@ abstract class CustomDataTable extends DataTable
                         '<li>'.
                             '<a href="javascript:void(0)" data-remote="'.route($destroy, $obj).'" class="btn-delete"><i class="icon ion-trash-b"></i><span>Delete</span></a>'.
                         '</li>'.
-                        '<li>'.
-                            '<a href="'.route($pdf, $obj).'" target="_blank"><i class="fa fa-file-pdf-o"></i><span>Print</span></a>'.
-                        '</li>'.
                     '</ul>'.
                 '</div>'.
             '</div>';

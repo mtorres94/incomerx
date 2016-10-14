@@ -1,5 +1,12 @@
 <script type="text/javascript">
+
     $("#btn-cargo").click(function() {
+        $("#cargo_quantity").val(1);
+        $("#cargo_pieces").val(1);
+        $("#cargo_metric_unit_measurement_id").val("I").change();
+        $("#cargo_weight_unit_measurement_id").val("L").change();
+        $("#cargo_dim_fact").val("I").change();
+
           for (var t = $("#cargo-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -12,6 +19,12 @@
 
 
     $("#btn-vehicle").click(function() {
+        $("#vehicle_quantity").val(1);
+        $("#vehicle_pieces").val(1);
+        $("#vehicle_metric_unit_measurement_id").val("I").change();
+        $("#vehicle_weight_unit_measurement_id").val("L").change();
+        $("#vehicle_dim_fact").val("I").change();
+
         for (var t = $("#vehicles-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -97,22 +110,23 @@
             show_alert();
             $("#PO_number").focus()
         }else{
-            //
             var r = ($('#PO_details tbody tr').length + 1),
-
+                   _ =  ($("#PO_details tbody tr").length == 0 ? 1 : parseInt($("#PO_details tbody tr")[$("#PO_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                     l = $("#PO_line").val(),
-                    _ = (0 == l ? r : l),
+                    c= (0 == l ? _ : l),
                     a = $("#PO_number").val().toUpperCase(),
                     d = $("#PO_project_reference").val().toUpperCase(),
                     s = $("#PO_remarks").val().toUpperCase(),
                     n = $("#PO_details"),
                     t = n.find("tbody"),
-                    p = $("<tr id=" + (0==l ? r: l) + ">");
-                    p.append(createTableContent('PO_line', _, true, _))
-                    .append(createTableContent('PO_number', a, false, _))
-                    .append(createTableContent('PO_project_reference', d, false, _))
-                    .append(createTableContent('PO_remarks', s, true, _))
-                    .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p), cleanModalFields('PO-Numbers'), $("#PO_number").focus()
+                    p = $("<tr id=" + (0 == l ? _ : l) + ">");
+                    p.append(createTableContent('PO_line', (0 == l ? _ : l) , true, c))
+                    .append(createTableContent('PO_number', a, false, c))
+                    .append(createTableContent('PO_project_reference', d, false, c))
+                    .append(createTableContent('PO_remarks', s, true, c))
+                    .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l  ).replaceWith(p), cleanModalFields('PO-Numbers'), $("#PO_number").focus();
+console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
+
         }
     }),
         $('#PO_details').on('click', 'a.btn-danger', function() {
@@ -126,10 +140,8 @@
                         r = t[0].childNodes[1].textContent,
                         s = t[0].childNodes[2].textContent,
                         a = t[0].childNodes[3].textContent;
+            $('#PO_line').val(o), $("#PO_number").val(r), $("#PO_project_reference").val(s), $("#PO_remarks").val(a), $("#PO-Numbers").modal("show"), $("#PO_number").focus()
 
-            console.log(t[0].childNodes[1].textContent);
-
-                $('#PO_line').val(o), $("#PO_number").val(r), $("#PO_project_reference").val(s), $("#PO_remarks").val(a), $("#PO-Numbers").modal("show"), $("#PO_number").focus()
             }),
 
     $("#so-save").click(function() {
@@ -138,15 +150,16 @@
             $("#SO_number").focus()
         }else {
             var r = ($('#SO_details tbody tr').length + 1),
+                    _ =  ($("#SO_details tbody tr").length == 0 ? 1 : parseInt($("#SO_details tbody tr")[$("#SO_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                     l = $("#SO_line").val(),
-                    c = (0 == l ? r : l),
+                    c = (0 == l ? _ : l),
                     a = $("#SO_number").val().toUpperCase(),
                     d = $("#SO_reference").val().toUpperCase(),
                     s = $("#SO_remarks").val().toUpperCase(),
                     n = $("#SO_details"),
                     t = n.find("tbody"),
-                    p = $("<tr id=" + (0 == l ? r : l) + ">");
-            p.append(createTableContent('SO_line', c, true, c))
+                    p = $("<tr id=" + (0 == l ? _ : l) + ">");
+            p.append(createTableContent('SO_line', _ , true, c))
                     .append(createTableContent('SO_number', a, false, c))
                     .append(createTableContent('SO_reference', d, false, c))
                     .append(createTableContent('SO_remarks', s, true, c))
@@ -170,9 +183,9 @@
 
     $("#stops-save").click(function() {
         var r = ($('#stop-details tbody tr').length + 1),
-
+                _ =  ($("#stop-details tbody tr").length == 0 ? 1 : parseInt($("#stop-details tbody tr")[$("#stop-details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                 l = $("#stop_id").val(),
-                c = (0 == l ? r : l),
+                c = (0 == l ? _ : l),
                 g1 = $("#stop_customer_name").val().toUpperCase(),
                 g2 = $("#stop_city").val().toUpperCase(),
                 g3 = $("#stop_phone").val(),
@@ -201,8 +214,8 @@
 
                 n = $("#stop-details"),
                 t = n.find("tbody"),
-                p = $("<tr id=" + (0==l? r: l) + ">");
-        p.append(createTableContent('stop_id', (0 == l ? r : l), false, c))
+                p = $("<tr id=" + (0==l? _ : l) + ">");
+        p.append(createTableContent('stop_id', _ , false, c))
                 .append(createTableContent('stop_customer_name', g1, false, c))
                 .append(createTableContent('stop_city', g2, false, c))
                 .append(createTableContent('stop_phone', g3, false, c))
@@ -301,16 +314,16 @@
                    $("#PRO_number").focus()
                }else{
                    var r = ($('#PRO_details tbody tr').length + 1),
-
+                           _ =  ($("#PRO_details tbody tr").length == 0 ? 1 : parseInt($("#PRO_details tbody tr")[$("#PRO_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                            l = $("#PRO_line").val(),
-                           c = (0 == l ? r : l),
+                           c = (0 == l ? _  : l),
                            a = $("#PRO_number").val().toUpperCase(),
                            d = $("#PRO_reference").val().toUpperCase(),
                            s = $("#PRO_remarks").val().toUpperCase(),
                            n = $("#PRO_details"),
                            t = n.find("tbody"),
-                           p = $("<tr id=" + (0==l? r: l) + ">");
-                   p.append(createTableContent('PRO_line', (0 == l ? r : l), true, c))
+                           p = $("<tr id=" + (0==l? _ : l) + ">");
+                   p.append(createTableContent('PRO_line', c , true, c))
                            .append(createTableContent('PRO_number', a, false, c))
                            .append(createTableContent('PRO_reference', d, false, c))
                            .append(createTableContent('PRO_remarks', s, true, c))
@@ -339,16 +352,17 @@
                 }else{
                     var r = ($('#hazardous-details tbody tr').length + 1),
                             l = $("#tmp_hazardous_uns_line").val(),
-                            c = (0 == l ? r : l),
+                            _ =  ($("#hazardus-details tbody tr").length == 0 ? 1 : parseInt($("#hazardous-details tbody tr")[$("#hazardous-details tbody tr").length - 1].childNodes[1].textContent) + 1 ),
+                            c = (0 == l ? _ : l),
                             a = $("#tmp_hazardous_uns_id").val(),
                             d = $("#tmp_hazardous_uns_code").val().toUpperCase(),
                             s = $("#tmp_hazardous_uns_desc").val().toUpperCase(),
                             e = $("#tmp_hazardous_uns_note").val().toUpperCase(),
                             n = $("#hazardous-details"),
                             t = n.find("tbody"),
-                            p = $("<tr id=" + (0==l? r: l) + ">");
-                    p.append(createTableContent('hazardous_uns_id', a, true, c))
-                            .append(createTableContent('hazardous_uns_line', (0 == l ? r : l), true, c))
+                            p = $("<tr id=" + (0==l? _ : l) + ">");
+                    p.append(createTableContent('hazardous_uns_id', c, true, c))
+                            .append(createTableContent('hazardous_uns_line', _ , true, c))
                             .append(createTableContent('hazardous_uns_code', d, false, c))
                             .append(createTableContent('hazardous_uns_desc', s, false, c))
                             .append(createTableContent('hazardous_uns_note', e, true, c))
@@ -375,9 +389,9 @@
                     $("#container_equipment_type_code").focus()
                 }else{
                     var r = ($('#container_details tbody tr').length + 1),
-
+                            _ =  ($("#container_details tbody tr").length == 0 ? 1 : parseInt($("#container_details tbody tr")[$("#container_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                             l = $("#container_line").val(),
-                            c = (0 == l ? r : l),
+                            c = (0 == l ? _ : l),
                             a = $("#container_equipment_type_code").val().toUpperCase(),
                             b = $("#container_equipment_type_id").val(),
                             d = $("#container_container").val().toUpperCase(),
@@ -385,8 +399,8 @@
                             f = $("#container_comments").val().toUpperCase(),
                             n = $("#container_details"),
                             t = n.find("tbody"),
-                            p = $("<tr id=" + (0==l? r: l) + ">");
-                    p.append(createTableContent('container_line', (0 == l ? r : l), true, c))
+                            p = $("<tr id=" + (0==l? _: l) + ">");
+                    p.append(createTableContent('container_line', c , true, c))
                             .append(createTableContent('container_equipment_type_code', a, false, c))
                             .append(createTableContent('container_equipment_type_id', b, true, c))
                             .append(createTableContent('container_container', d, false, c))
@@ -418,9 +432,9 @@
                   $("#dr_pieces").focus()
               }else{
                   var r = ($('#dr_details tbody tr').length + 1),
-
+                          _ =  ($("#dr_details tbody tr").length == 0 ? 1 : parseInt($("#dr_details tbody tr")[$("#dr_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                           l = $("#dr_line").val(),
-                          c = (0 == l ? r : l),
+                          c = (0 == l ? _ : l),
                           d1 = $("#dr_cargo_marks").val().toUpperCase(),
                           d2 = $("#dr_cargo_pieces").val(),
                           d3 = $("#dr_cargo_description").val().toUpperCase(),
@@ -436,8 +450,8 @@
                           d13 = $("#dr_cargo_comments").val().toUpperCase(),
                           n = $("#dr_details"),
                           t = n.find("tbody"),
-                          p = $("<tr id=" + (0==l? r: l) + ">");
-                  p.append(createTableContent('dr_line', (0 == l ? r : l), true, c))
+                          p = $("<tr id=" + (0==l? _ : l) + ">");
+                  p.append(createTableContent('dr_line', c , true, c))
                           .append(createTableContent('dr_cargo_marks', d1, false, c))
                           .append(createTableContent('dr_cargo_pieces', d2, false, c))
                           .append(createTableContent('dr_cargo_description', d3, false, c))
@@ -495,9 +509,9 @@
 
     $("#item-save").click(function() {
         var r = ($('#items_details tbody tr').length + 1),
-
+                _ =  ($("#items_details tbody tr").length == 0 ? 1 : parseInt($("#items_details tbody tr")[$("#items_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                 l = $("#item_line").val(),
-                c = (0 == l ? r : l),
+                c = (0 == l ? _ : l),
                 i1 = $("#item_pieces").val().toUpperCase(),
                 i2 = $("#item_item_name").val().toUpperCase(),
                 i3 = $("#item_unit_weight").val().toUpperCase(),
@@ -510,8 +524,8 @@
 
                 n = $("#items_details"),
                 t = n.find("tbody"),
-                p = $("<tr id=" + (0==l? r: l) + ">");
-        p.append(createTableContent('item_line', (0==l? r: l), true, c))
+                p = $("<tr id=" + (0==l? _ : l) + ">");
+        p.append(createTableContent('item_line', c , true, c))
 
                 .append(createTableContent('item_pieces', i1, true, c))
                 .append(createTableContent('item_item_name', i2, false, c))
@@ -561,9 +575,9 @@
             $("#billing_billing_code").focus();
         }else{
             var t = $("#charge_details tbody tr").length + 1,
-
+                    _ =  ($("#charge_details tbody tr").length == 0 ? 1 : parseInt($("#charge_details tbody tr")[$("#charge_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                     charge_id = $("#charge_id").val(),
-                    d= (0== charge_id? t: charge_id),
+                    d= (0== charge_id? _ : charge_id),
                     g_1 = $("#billing_billing_id").val(),
                     g_2 = $("#billing_billing_code").val(),
                     g_3 = $("#billing_billing_description").val(),
@@ -596,10 +610,10 @@
 
                     b = $("#charge_details"),
                     x = b.find("tbody"),
-                    C = $("<tr id=" + (0== charge_id? t: charge_id) + ">");
+                    C = $("<tr id=" + (0== charge_id? _ : charge_id) + ">");
 
 
-            C.append(createTableContent('charge_id', (0 == charge_id ? t : charge_id), true,d))
+            C.append(createTableContent('charge_id', d , true,d))
                     .append(createTableContent('billing_billing_id', g_1, true, d))
                     .append(createTableContent('billing_billing_code', g_2, false, d))
                     .append(createTableContent('billing_billing_description', g_3, false, d))
@@ -715,9 +729,9 @@
                     $("#transportation_billing_code").focus();
                 }else{
                     var t = $("#transportation_details tbody tr").length + 1,
-
+                            _ =  ($("#transportation_details tbody tr").length == 0 ? 1 : parseInt($("#transportation_details tbody tr")[$("#transportation_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                             transportation_id = $("#transportation_id").val(),
-                            d= (0==transportation_id? t: transportation_id),
+                            d= (0==transportation_id? _ : transportation_id),
                             g_1 = $("#transportation_leg").val(),
                             g_2 = $("#transportation_mode").val(),
                             g_3 = $("#transportation_billing_id").val(),
@@ -769,9 +783,9 @@
 
                             b = $("#transportation_details"),
                             x = b.find("tbody"),
-                            C = $("<tr id=" + (0==transportation_id? t: transportation_id)+ ">");
+                            C = $("<tr id=" + (0==transportation_id? _ : transportation_id)+ ">");
 
-                    C.append(createTableContent('transportation_id', (0 == transportation_id ? t : transportation_id), true,d))
+                    C.append(createTableContent('transportation_id', d , true,d))
                             .append(createTableContent('transportation_leg', g_1, false, d))
                             .append(createTableContent('transportation_mode', g_2, false, d))
                             .append(createTableContent('transportation_carrier_id', g_10, true, d))
@@ -937,12 +951,12 @@
 
             $("#cargo-warehouse-save").click(function() {
                 var r = ($('#warehouse_details tbody tr').length + 1),
-
+                        _ =  ($("#warehouse_details tbody tr").length == 0 ? 1 : parseInt($("#warehouse_details tbody tr")[$("#warehouse_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                         l = $("#cargo_id").val(),
-                        c = (0==l? r: l),
+                        c = (0==l? _ : l),
                         g1 = $("#cargo_quantity").val().toUpperCase(),
                         g2 = $("#cargo_cargo_type_id").val().toUpperCase(),
-                        g3 = $("#cargo_cargo_type_code").val().toUpperCase(),
+                        g3 = $("#cargo_cargo_type_code").val(),
                         g4 = $("#cargo_length").val(),
                         g5 = $("#cargo_width").val(),
                         g6 = $("#cargo_height").val(),
@@ -1034,10 +1048,10 @@
 
                         n = $("#warehouse_details"),
                         t = n.find("tbody"),
-                        p = $("<tr id=" + (0==l? r: l) + ">");
+                        p = $("<tr id=" + (0==l? _ : l) + ">");
                 /* Items details*/
 
-                p.append(createTableContent('cargo_id', (0 == l ? r : l), true, c))
+                p.append(createTableContent('cargo_id', (0== l? _ : l) , true, c))
                         .append($("<td><i class='fa fa-cube' aria-hidden='true'></td>"))
                         .append(createTableContent('cargo_quantity', g1, false, c))
                         .append(createTableContent('cargo_cargo_type_id', g2, true, c))
@@ -1159,10 +1173,10 @@
                         .append(createTableContent('vehicle_buyer_number', '', true, c))
                         .append(createTableContent('type_package', '0' , true, c))
 
-                        .append(createTableBtnsCargo()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),values_warehouse(),cleanModalFields('cargo-warehouse'), $("#cargo_quantity").focus();
+                        .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),values_warehouse(),cleanModalFields('cargo-warehouse'), $("#cargo_quantity").focus();
 
 
-             var id_row = (0 == l ? r : l);
+             var id_row =  (0== l? _ : l);
               $("#items_warehouse_details tbody [data-id='" + id_row + "']").remove();
 
                 //===================
@@ -1174,8 +1188,8 @@
                 var  r_1= tr.length;
                 var count =tr_1.length + 1;
                 for(var a =0; a< r_1 ; a++){
-                    var  p_1=  $("<tr data-id=" + (0 == l ? r : l) + ">");
-                        p_1.append(createTableContent('cargo_whr_id', (0 == l ? r : l), true, count))
+                    var  p_1=  $("<tr data-id=" + id_row + ">");
+                        p_1.append(createTableContent('cargo_whr_id', id_row , true, count))
                                 .append(createTableContent('item_whr_line',tr[a].childNodes[0].textContent, true, count))
                                 .append(createTableContent('item_whr_pieces', tr[a].childNodes[1].textContent, true, count))
                                 .append(createTableContent('item_whr_item_name', tr[a].childNodes[2].textContent, true, count))
@@ -1194,7 +1208,7 @@
 
                 //===================
             }),
-            $('#warehouse_details').on('click', 'b.btn-danger', function() {
+            $('#warehouse_details').on('click', 'a.btn-danger', function() {
                 //==========================
                 var id_row = $(this).closest('tr').attr('id');
                 $("#items_warehouse_details tbody [data-id='" + id_row + "']").remove();
@@ -1203,7 +1217,7 @@
 
             }),
 
-            $("#warehouse_details").on("click", "b.btn-default", function() {
+            $("#warehouse_details").on("click", "a.btn-default", function() {
                 cleanModalFields('cargo-warehouse');
                 removeEmptyNodes('warehouse_details');
                 removeEmptyNodes('items_warehouse_details');
@@ -1300,7 +1314,8 @@
                         oth7 = t[0].childNodes[82].textContent,
                         oth8 = t[0].childNodes[83].textContent,
 
-                        comm = t[0].childNodes[84].textContent;
+                        comm = t[0].childNodes[84].textContent,
+                        type= t[0].childNodes[109].textContent;
 
 
                 //Items
@@ -1424,10 +1439,9 @@
                         $("#other_ultimate_consignee_id").val(oth7),
                         $("#other_ultimate_consignee_name").val(oth8),
                         $("#comments_comment").val(comm)
-
-
                         calculate_cargo(),
-                        $("#cargo-warehouse").modal("show"), $("#cargo_quantity").focus()
+                        (type== '0' ? $("#cargo-warehouse").modal("show") : $("#vehicle-warehouse").modal("show")),
+                        $("#cargo_quantity").focus()
             }),
 
 
@@ -1437,9 +1451,9 @@
                    $("#vehicle_vin").focus()
                }else{
                    var r = ($('#warehouse_details tbody tr').length + 1),
-
+                           _ =  ($("#warehouse_details tbody tr").length == 0 ? 1 : parseInt($("#warehouse_details tbody tr")[$("#warehouse_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                            l = $("#vehicle_id").val(),
-                           c = (0==l? r: l),
+                           c = (0==l? _ : l),
                            g1 = $("#vehicle_quantity").val().toUpperCase(),
                            g2 = $("#vehicle_cargo_type_id").val().toUpperCase(),
                            g3 = $("#vehicle_cargo_type_code").val().toUpperCase(),
@@ -1507,8 +1521,8 @@
 
                            n = $("#warehouse_details"),
                            t = n.find("tbody"),
-                           p = $("<tr id=" + (0==l? r: l) + ">");
-                   p.append(createTableContent('cargo_id', (0 == l ? r : l), true, c))
+                           p = $("<tr id=" + (0==l? _ : l) + ">");
+                   p.append(createTableContent('cargo_id', c , true, c))
                            .append($("<td><i class='fa fa-car' aria-hidden='true'></td>"))
                            .append(createTableContent('cargo_quantity', g1, false, c))
                            .append(createTableContent('cargo_cargo_type_id', g2, true, c))
@@ -1535,31 +1549,20 @@
                            .append(createTableContent('cargo_tare_weight', g19, true, c))
                            .append(createTableContent('cargo_square_foot', g22, true, c))
 
-                           /* VEHICLE DETAILS */
-                           .append(createTableContent('vehicle_vin', ve1, true, c))
-                           .append(createTableContent('vehicle_type', ve2, true, c))
-                           .append(createTableContent('vehicle_color', ve3, true, c))
-                           .append(createTableContent('vehicle_year', ve4, true, c))
-                           .append(createTableContent('vehicle_condition', ve5, true, c))
-                           .append(createTableContent('vehicle_make', ve6, true, c))
-                           .append(createTableContent('vehicle_keys', ve7, true, c))
-                           .append(createTableContent('vehicle_model', ve8, true, c))
-                           .append(createTableContent('vehicle_running', ve9, true, c))
-                           .append(createTableContent('vehicle_trim', ve10, true, c))
-                           .append(createTableContent('vehicle_mileage', ve11, true, c))
-                           .append(createTableContent('vehicle_engine', ve12, true, c))
-                           .append(createTableContent('vehicle_tag', ve13, true, c))
-                           .append(createTableContent('vehicle_body', ve14, true, c))
-                           .append(createTableContent('vehicle_other', ve15, true, c))
-                           .append(createTableContent('vehicle_number', ve16, true, c))
-                           .append(createTableContent('vehicle_state_province_id', ve17, true, c))
-                           .append(createTableContent('vehicle_state_province_name', ve18, true, c))
-                           .append(createTableContent('vehicle_received', ve19, true, c))
-                           .append(createTableContent('vehicle_inspection_number', ve20, true, c))
-                           .append(createTableContent('vehicle_inspection_date', ve21, true, c))
-                           .append(createTableContent('vehicle_inspection_by', ve22, true, c))
-                           .append(createTableContent('vehicle_lot_number', ve23, true, c))
-                           .append(createTableContent('vehicle_buyer_number', ve24, true, c))
+                           //
+                           /*PART INFO */
+                           .append(createTableContent('part_info_serial_number','', true, c))
+                           .append(createTableContent('part_info_barcode', '', true, c))
+                           .append(createTableContent('part_info_Model', '', true, c))
+                           .append(createTableContent('part_info_commodity_id', '', true, c))
+                           .append(createTableContent('part_info_commodity_name', '', true, c))
+                           .append(createTableContent('part_info_pro_number', '', true, c))
+                           .append(createTableContent('part_info_project', '', true, c))
+                           .append(createTableContent('part_info_inv_number', '', true, c))
+                           .append(createTableContent('part_info_lot_number', '', true, c))
+                           .append(createTableContent('part_info_sku_number', '', true, c))
+                           .append(createTableContent('part_info_destination_point', '', true, c))
+                           .append(createTableContent('part_info_attention', '', true, c))
 
                            /*EEI INFO*/
                            .append(createTableContent('eei_info_scheduleb_id', eei1, true, c))
@@ -1575,23 +1578,7 @@
                            .append(createTableContent('eei_info_license_type_id', eei11, true, c))
                            .append(createTableContent('eei_info_license_type_code', eei12, true, c))
                            .append(createTableContent('eei_info_origin', eei13, true, c))
-                           .append(createTableContent('comments_comment', comm, true, c))
 
-
-                           //
-                                           /*PART INFO */
-                           .append(createTableContent('part_info_serial_number','', true, c))
-                           .append(createTableContent('part_info_barcode', '', true, c))
-                           .append(createTableContent('part_info_Model', '', true, c))
-                           .append(createTableContent('part_info_commodity_id', '', true, c))
-                           .append(createTableContent('part_info_commodity_name', '', true, c))
-                           .append(createTableContent('part_info_pro_number', '', true, c))
-                           .append(createTableContent('part_info_project', '', true, c))
-                           .append(createTableContent('part_info_inv_number', '', true, c))
-                           .append(createTableContent('part_info_lot_number', '', true, c))
-                           .append(createTableContent('part_info_sku_number', '', true, c))
-                           .append(createTableContent('part_info_destination_point', '', true, c))
-                           .append(createTableContent('part_info_attention', '', true, c))
                                 /* HAZARDOUS */
                            .append(createTableContent('hazardous_proper_shipping_name', '', true, c))
                            .append(createTableContent('hazardous_un_id', '', true, c))
@@ -1630,20 +1617,47 @@
                            .append(createTableContent('other_concession', '', true, c))
                            .append(createTableContent('other_ultimate_consignee_id', '', true, c))
                            .append(createTableContent('other_ultimate_consignee_name', '', true, c))
+                           .append(createTableContent('comments_comment', comm, true, c))
+
+
+                           /* VEHICLE DETAILS */
+                           .append(createTableContent('vehicle_vin', ve1, true, c))
+                           .append(createTableContent('vehicle_type', ve2, true, c))
+                           .append(createTableContent('vehicle_color', ve3, true, c))
+                           .append(createTableContent('vehicle_year', ve4, true, c))
+                           .append(createTableContent('vehicle_condition', ve5, true, c))
+                           .append(createTableContent('vehicle_make', ve6, true, c))
+                           .append(createTableContent('vehicle_keys', ve7, true, c))
+                           .append(createTableContent('vehicle_model', ve8, true, c))
+                           .append(createTableContent('vehicle_running', ve9, true, c))
+                           .append(createTableContent('vehicle_trim', ve10, true, c))
+                           .append(createTableContent('vehicle_mileage', ve11, true, c))
+                           .append(createTableContent('vehicle_engine', ve12, true, c))
+                           .append(createTableContent('vehicle_tag', ve13, true, c))
+                           .append(createTableContent('vehicle_body', ve14, true, c))
+                           .append(createTableContent('vehicle_other', ve15, true, c))
+                           .append(createTableContent('vehicle_number', ve16, true, c))
+                           .append(createTableContent('vehicle_state_province_id', ve17, true, c))
+                           .append(createTableContent('vehicle_state_province_name', ve18, true, c))
+                           .append(createTableContent('vehicle_received', ve19, true, c))
+                           .append(createTableContent('vehicle_inspection_number', ve20, true, c))
+                           .append(createTableContent('vehicle_inspection_date', ve21, true, c))
+                           .append(createTableContent('vehicle_inspection_by', ve22, true, c))
+                           .append(createTableContent('vehicle_lot_number', ve23, true, c))
+                           .append(createTableContent('vehicle_buyer_number', ve24, true, c))
+
                            .append(createTableContent('type_package', '1' , true, c))
-
-
-                                           .append(createTableBtnsVehicle()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),values_warehouse(),
+                                           .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),values_warehouse(),
                            cleanModalFields('vehicle-warehouse'),$("#vehicle_quantity").focus()
                }
 
             }),
-            $('#warehouse_details').on('click', 'c.btn-danger', function() {
+            $('#warehouse_details').on('click', 'a.btn-danger', function() {
                 $(this).closest('tr').remove(),
                         values_warehouse()
             }),
 
-            $("#warehouse_details").on("click", "c.btn-default", function() {
+            $("#warehouse_details").on("click", "a.btn-default", function() {
                 cleanModalFields('vehicle-warehouse');
 
                 var t = $(this).closest("tr"),
@@ -1673,45 +1687,46 @@
                         g23 = t[0].childNodes[24].textContent,
 
 
-                        ve1 = t[0].childNodes[25].textContent,
-                        ve2 = t[0].childNodes[26].textContent,
-                        ve3 = t[0].childNodes[27].textContent,
-                        ve4 = t[0].childNodes[28].textContent,
-                        ve5 = t[0].childNodes[29].textContent,
-                        ve6 = t[0].childNodes[30].textContent,
-                        ve7 = t[0].childNodes[31].textContent,
-                        ve8 = t[0].childNodes[32].textContent,
-                        ve9 = t[0].childNodes[33].textContent,
-                        ve10 = t[0].childNodes[34].textContent,
-                        ve11 = t[0].childNodes[35].textContent,
-                        ve12 = t[0].childNodes[36].textContent,
-                        ve13 = t[0].childNodes[37].textContent,
-                        ve14 = t[0].childNodes[38].textContent,
-                        ve15 = t[0].childNodes[39].textContent,
-                        ve16= t[0].childNodes[40].textContent,
-                        ve17 = t[0].childNodes[41].textContent,
-                        ve18 = t[0].childNodes[42].textContent,
-                        ve19 = t[0].childNodes[43].textContent,
-                        ve20 = t[0].childNodes[44].textContent,
-                        ve21= t[0].childNodes[45].textContent,
-                        ve22 = t[0].childNodes[46].textContent,
-                        ve23 = t[0].childNodes[47].textContent,
-                        ve24 = t[0].childNodes[48].textContent,
+                        ve1 = t[0].childNodes[85].textContent,
+                        ve2 = t[0].childNodes[86].textContent,
+                        ve3 = t[0].childNodes[87].textContent,
+                        ve4 = t[0].childNodes[88].textContent,
+                        ve5 = t[0].childNodes[89].textContent,
+                        ve6 = t[0].childNodes[90].textContent,
+                        ve7 = t[0].childNodes[91].textContent,
+                        ve8 = t[0].childNodes[92].textContent,
+                        ve9 = t[0].childNodes[93].textContent,
+                        ve10 = t[0].childNodes[94].textContent,
+                        ve11 = t[0].childNodes[95].textContent,
+                        ve12 = t[0].childNodes[96].textContent,
+                        ve13 = t[0].childNodes[97].textContent,
+                        ve14 = t[0].childNodes[98].textContent,
+                        ve15 = t[0].childNodes[99].textContent,
+                        ve16= t[0].childNodes[100].textContent,
+                        ve17 = t[0].childNodes[101].textContent,
+                        ve18 = t[0].childNodes[102].textContent,
+                        ve19 = t[0].childNodes[103].textContent,
+                        ve20 = t[0].childNodes[104].textContent,
+                        ve21= t[0].childNodes[105].textContent,
+                        ve22 = t[0].childNodes[106].textContent,
+                        ve23 = t[0].childNodes[107].textContent,
+                        ve24 = t[0].childNodes[108].textContent,
 
-                        eei1 = t[0].childNodes[49].textContent,
-                        eei2 = t[0].childNodes[50].textContent,
-                        eei3 = t[0].childNodes[51].textContent,
-                        eei4 = t[0].childNodes[52].textContent,
-                        eei5 = t[0].childNodes[53].textContent,
-                        eei6 = t[0].childNodes[54].textContent,
-                        eei7 = t[0].childNodes[55].textContent,
-                        eei8 = t[0].childNodes[56].textContent,
-                        eei9 = t[0].childNodes[57].textContent,
-                        eei10 = t[0].childNodes[58].textContent,
-                        eei11 = t[0].childNodes[59].textContent,
-                        eei12 = t[0].childNodes[60].textContent,
-                        eei13 = t[0].childNodes[61].textContent,
-                        comm = t[0].childNodes[62].textContent;
+                        eei1 = t[0].childNodes[37].textContent,
+                        eei2 = t[0].childNodes[38].textContent,
+                        eei3 = t[0].childNodes[39].textContent,
+                        eei4 = t[0].childNodes[40].textContent,
+                        eei5 = t[0].childNodes[41].textContent,
+                        eei6 = t[0].childNodes[42].textContent,
+                        eei7 = t[0].childNodes[43].textContent,
+                        eei8 = t[0].childNodes[44].textContent,
+                        eei9 = t[0].childNodes[45].textContent,
+                        eei10 = t[0].childNodes[46].textContent,
+                        eei11 = t[0].childNodes[47].textContent,
+                        eei12 = t[0].childNodes[48].textContent,
+                        eei13 = t[0].childNodes[49].textContent,
+                        comm = t[0].childNodes[84].textContent,
+                        type = t[0].childNodes[109].textContent;
 
                 $('#vehicle_id').val(g1),
                         $("#vehicle_quantity").val(g2),
@@ -1781,7 +1796,8 @@
                         $("#vehicle_eei_info_origin").val(eei13),
                         $("#vehicle_comments").val(comm),
                         calculate_vehicle(),
-                        $("#vehicle-warehouse").modal("show"), $("#vehicle_quantity").focus()
+                        (type== '0' ? $("#cargo-warehouse").modal("show") : $("#vehicle-warehouse").modal("show"))
+                        , $("#vehicle_quantity").focus()
             });
 
 

@@ -15,15 +15,17 @@ class OrderEntryContainerDetail extends Model
 
     public static function saveDetail($id, $data)
     {
-        $i=0; $a=0;
+        $i=-1; $a=0;
         if (isset($data['container_line'])) {
+            $details= DB::table('whr_orders_entries_container_details')->where('order_entry_id', '=', $id)->delete();
+
             while($a < count($data['container_line'])){
                 $i++;
                 if(isset($data['container_line'][$i])){
                     $obj = new OrderEntryContainerDetail();
 
                     $obj->order_entry_id = $id;
-                    $obj->line = $data['container_line'][$i];
+                    $obj->line = $a + 1;
                     $obj->container_equipment_type_id = $data['container_equipment_type_id'][$i];
                     $obj->container_container = $data['container_container'][$i];
                     $obj->container_seal_number = $data['container_seal_number'][$i];
@@ -35,15 +37,7 @@ class OrderEntryContainerDetail extends Model
         }
     }
 
-    public static function updateDetail($id, $data)
-    {
-        if (isset($data['container_line'])) {
-            $details= DB::table('whr_orders_entries_container_details')->where('order_entry_id', '=', $id)->delete();
-            self::saveDetail($id, $data);
-        }
-    }
-
-        public static function Search($id)
+          public static function Search($id)
         {
             return self::where('order_entry_id', $id)->get();
         }

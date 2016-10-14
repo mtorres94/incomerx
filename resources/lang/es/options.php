@@ -115,4 +115,11 @@ return [
             'orders_entries' => 'Ordenes de entrada',
         ]
     ],
+    'export' => [
+        'oceans' => [
+            'booking_entries' => 'Entradas ',
+            'bill_of_lading' => 'Registro de entradas',
+            'shipment_entries' => 'Registro de entradas',
+        ],
+    ],
 ];

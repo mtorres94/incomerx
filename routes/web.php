@@ -90,6 +90,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'export', 'namespace' => 'Export'], function () {
         Route::group(['prefix' => 'oceans', 'namespace' => 'OceanExport'], function () {
             Route::resource('booking_entries', 'BookingEntryController');
+            Route::resource('bill_of_lading', 'BillOfLadingController');
+            Route::resource('shipment_entries', 'ShipmentEntryController');
+            Route::resource('cargo_loader', 'CargoLoaderController');
+            Route::resource('step_by_step', 'StepByStepController');
         });
     });
 });

@@ -3,13 +3,15 @@
 namespace Sass;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Sass\ReceiptEntryCargoDetail;
 
 class ReceiptEntry extends Model
 {
     protected $table = "whr_receipts_entries";
 
     protected $fillable = [
-        'warehouse_code', 'date_in', 'division_id', 'status', 'shipping_id', 'expire_date', 'currency_id', 'pd_order_id', 'po_number_id',
+        'code', 'date_in', 'division_id', 'status', 'shipping_id', 'expire_date', 'currency_id', 'pd_order_id', 'po_number_id',
         'shipper_id', 'shipper_address', 'shipper_city', 'shipper_state_id', 'shipper_zip_code_id', 'shipper_phone', 'shipper_fax', 'consignee_id',
         'consignee_address', 'consignee_city', 'consignee_state_id', 'consignee_zip_code_id', 'consignee_phone', 'consignee_fax', 'third_party_id',
         'third_party_phone', 'third_party_fax', 'agent_id', 'coloader_id', 'mode', 'warehouse_id', 'location_origin_id', 'location_destination_id',
@@ -21,6 +23,40 @@ class ReceiptEntry extends Model
         'hazardous_labels', 'fragile', 'weight_discrepancy', 'cargo_screened', 'ippc', 'ippc_number', 'marks', 'comments', 'unique_str',
         'sum_pieces', 'sum_weight', 'sum_volume_weight', 'sum_cubic', 'user_create_id', 'user_update_id',
     ];
+
+    //=========================================================
+    public static function saveDetail( $data) {
+        $i=-1; $a=0;
+        if (isset($data['hidden_warehouse_line']) ){
+            while($a < count($data['hidden_warehouse_line'])){
+                $i++;
+                if (isset($data['hidden_warehouse_line'][$i])){
+                    $details= DB::table('whr_receipts_entries')->where('code', '=', $data['hidden_warehouse_number'][$i])->delete();
+                    $obj = new ReceiptEntry();
+                    $obj->code=  $data['hidden_warehouse_number'][$i];
+                    $obj->date_in=  $data['hidden_date_in'][$i];
+                    $obj->shipper_id=  $data['hidden_shipper_id'][$i];
+                    $obj->shipper_city=  $data['hidden_shipper_city'][$i];
+                    $obj->shipper_state_id=  $data['hidden_shipper_state_id'][$i];
+                    $obj->shipper_zip_code_id=  $data['hidden_shipper_zip_code_id'][$i];
+                    $obj->shipper_phone=  $data['hidden_shipper_phone'][$i];
+                    $obj->shipper_fax =  $data['hidden_shipper_fax'][$i];
+                    $obj->consignee_id =  $data['hidden_consignee_id'][$i];
+                    $obj->consignee_city =  $data['hidden_consignee_city'][$i];
+                    $obj->consignee_state_id=  $data['hidden_consignee_state_id'][$i];
+                    $obj->consignee_zip_code_id=  $data['hidden_consignee_zip_code_id'][$i];
+                    $obj->consignee_phone=  $data['hidden_consignee_phone'][$i];
+                    $obj->consignee_fax=  $data['hidden_consignee_fax'][$i];
+                    $obj->status=  $data['hidden_status'][$i];
+                    $obj->shipping_id=  $data['hidden_ship_inst_number'][$i];
+                    $obj->save();
+                    $a++;
+                }
+            }
+        }
+    }
+    //=========================================================
+
 
     public function division()
     {

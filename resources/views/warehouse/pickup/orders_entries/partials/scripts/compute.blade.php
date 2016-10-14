@@ -68,7 +68,7 @@
         $("#dr_packages").val(r);
         if ($("#dr_freight_charges").val()== 'L')
         {
-            var w= parseFloat(c/2.2), x= d/2.2, y= e/2.2, z= f/2.2;
+            var w= parseFloat(c*2.2), x= d*2.2, y= e*2.2, z= f*2.2;
             $("#dr_act_weight").val(w);
             $("#dr_volume_weight").val(x);
             $("#dr_net_weight").val(z);

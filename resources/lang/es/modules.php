@@ -13,4 +13,5 @@ return [
     'maintenance' => 'Mantenimiento',
     'rates'       => 'Tarifas',
     'warehouse'   => 'Bodegas',
+    'export'   => 'Exportación',
 ];

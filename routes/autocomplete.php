@@ -66,6 +66,13 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['namespace' => 'Warehouse'], function () {
         Route::group(['namespace' => 'Receipts'], function () {
             Route::get('receipts_entries/autocomplete', ['as' => 'receipts_entries.autocomplete', 'uses' => 'ReceiptEntryController@autocomplete']);
+            Route::get('receipts_entries/get_details', ['as' => 'receipts_entries.get_details', 'uses' => 'ReceiptEntryController@get_details']);
+
+        });
+    });
+    Route::group(['namespace' => 'Export'], function () {
+        Route::group(['namespace' => 'OceanExport'], function () {
+            Route::get('shipment_entries/autocomplete', ['as' => 'shipment_entries.autocomplete', 'uses' => 'ShipmentEntryController@autocomplete']);
         });
     });
 });

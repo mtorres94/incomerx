@@ -10,18 +10,20 @@ class OrderEntryStop extends Model
     protected $table = 'whr_orders_entries_stops';
 
     protected $fillable = [
-        'order_entry_id', 'line', 'stop_type', 'stop_quantity', 'stop_cargo_type_id', 'stop_length', 'stop_width', 'stop_height', 'stop_weight', 'stop_appt', 'stop_date','stop_city', 'stop_state_id','stop_zip_code_id', 'stop_contact','stop_phone', 'stop_ref', 'stop_reference', 'stop_direction', 'stop_instruction','created_at', 'updated_at'
+        'order_entry_id', 'line', 'stop_type', 'stop_quantity', 'stop_cargo_type_id', 'stop_length', 'stop_width', 'stop_height', 'stop_weight', 'stop_appt', 'stop_date','stop_city', 'stop_state_id','stop_zip_code_id', 'stop_contact','stop_phone', 'stop_ref', 'stop_reference', 'stop_direction', 'stop_instruction','created_at', 'updated_at', 'stop_customer_id'
     ];
 
     public static function saveDetail($id, $data) {
-        $i=0; $a =0;
+        $i=-1; $a =0;
         if (isset($data['stop_id'])){
-            $i++;
+            $details = DB::table('whr_orders_entries_stops')->where('order_entry_id', '=', $id)->delete();
+
             while ($a < count($data['stop_id'])){
+                $i++;
                 if (isset($data['stop_id'][$i] )){
                     $obj = new OrderEntryStop();
                     $obj->order_entry_id = $id;
-                    $obj->line=  $data['stop_id'][$i];
+                    $obj->line=  $a + 1;
                     $obj-> stop_type = $data['stop_type'][$i];
                     $obj->stop_quantity = $data['stop_quantity'][$i];
                     $obj->stop_cargo_type_id = $data['stop_cargo_type_id'][$i];
@@ -48,12 +50,7 @@ class OrderEntryStop extends Model
 
     }
 
-    public static function updateDetail($id, $data) {
-        if (isset($data['stop_id'])) {
-            $details = DB::table('whr_orders_entries_Stops')->where('order_entry_id', '=', $id)->delete();
-            self::saveDetail($id, $data);
-        }
-    }
+
 
     public static function Search($id){
         return self::where('order_entry_id', $id)->get();

@@ -69,17 +69,16 @@
                     </thead>
                     <tbody>
                     @if (isset($po_numbers))
-                        @for ($a=0 ; $a < count($po_numbers); $a++)
-                            <tr id="{{ $a + 1 }}">
-                                <td hidden="hidden" >{{ $po_numbers[$a]['line'] }}<input hidden type='text' name='PO_line[{{ $po_numbers[$a]['line'] }}]' value='{{ $po_numbers[$a]['line'] }} ' /></td>
-                                <td >{{ $po_numbers[$a]['po_number'] }}<input hidden type='text' name='PO_number[{{ $po_numbers[$a]['line']  }}]' value='{{ $po_numbers[$a]['po_number'] }}' /></td>
-                                <td >{{ $po_numbers[$a]['project_number'] }}<input hidden type='text' name='PO_project_reference[{{ $po_numbers[$a]['line']  }}]' value='{{ $po_numbers[$a]['project_number'] }}' /></td>
-                                <td hidden>{{ $po_numbers[$a]['po_comment'] }}<input hidden type='text' name='PO_remarks[{{$po_numbers[$a]['line'] }}]' value='{{ $po_numbers[$a]['po_comment']}}'/></td>
-                                <td><div class='btn-group btn-group-sm pull-right' role='group'><a class='btn btn-default'><span class='icon ion-edit' aria-hidden='true'></span></a><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></div>
+                        @foreach ($po_numbers as $detail)
+                            <tr id="{{ $detail->line }}">
+                                {!! Form::bsRowTd($detail->line, 'PO_line', $detail->line, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'PO_number', $detail->po_number, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'PO_project_reference', $detail->project_number, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'PO_remarks', $detail->po_comment, true) !!}
+                                {!! Form::bsRowBtns() !!}
                             </tr>
-                        @endfor
+                        @endforeach
                     @endif
-
                     </tbody>
                 </table>
 
@@ -151,13 +150,13 @@
                 </thead>
                 <tbody>
                 @if(isset($so_numbers))
-                    @foreach ($so_numbers as $so_number)
-                        <tr id="{{ $so_number->line }}">
-                            <td hidden="hidden">{{ $so_number->line }}<input hidden type='text' name='SO_line[{{ $so_number->line}}]' value='{{ $so_number->line }} ' /></td>
-                            <td >{{ $so_number->so_number }}<input hidden type='text' name='SO_number[{{ $so_number->line }}]' value='{{ $so_number->so_number }}' /></td>
-                            <td >{{ $so_number->so_detail }}<input hidden type='text' name='SO_reference[{{ $so_number->line }}]' value='{{ $so_number->so_detail }}' /></td>
-                            <td hidden>{{ $so_number->so_comment }}<input hidden type='text' name='SO_remarks[{{ $so_number->line  }}]' value='{{ $so_number->so_comment }}'/></td>
-                            <td><div class='btn-group btn-group-sm pull-right' role='group'><a class='btn btn-default'><span class='icon ion-edit' aria-hidden='true'></span></a><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></div>
+                    @foreach ($so_numbers as $detail)
+                        <tr id="{{ $detail->line }}">
+                            {!! Form::bsRowTd($detail->line, 'SO_line', $detail->line, true) !!}
+                            {!! Form::bsRowTd($detail->line, 'SO_number', $detail->so_number, false) !!}
+                            {!! Form::bsRowTd($detail->line, 'SO_reference', $detail->so_detail, false) !!}
+                            {!! Form::bsRowTd($detail->line, 'SO_remarks', $detail->so_comment, true) !!}
+                            {!! Form::bsRowBtns() !!}
                         </tr>
                     @endforeach
                 @endif

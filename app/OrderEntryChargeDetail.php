@@ -14,15 +14,16 @@ class OrderEntryChargeDetail extends Model
     ];
 
     public static function saveDetail($id, $data) {
-        $i=0; $a=0;
+        $i=-1; $a=0;
        if (isset($data['charge_id'])){
-             while($a < count($data['charge_id'])){
+           $details= DB::table('whr_orders_entries_charge_details')->where('order_entry_id', '=', $id)->delete();
+           while($a < count($data['charge_id'])){
                  $i++;
                if(isset($data['charge_id'][$i])){
                    $obj = new OrderEntryChargeDetail();
 
                    $obj->order_entry_id = $id;
-                   $obj->line =  $data['charge_id'][$i];
+                   $obj->line =  $a + 1;
                    $obj-> billing_id = $data['billing_billing_id'][$i];
                    $obj-> billing_description = $data['billing_billing_description'][$i];
                    $obj->bill_type = $data['billing_bill_type'][$i];
@@ -57,13 +58,7 @@ class OrderEntryChargeDetail extends Model
         return self::where('order_entry_id', $id)->get();
     }
 
-    public static function updateDetail($id, $data) {
-        if (isset($data['charge_id'])){
-            $details= DB::table('whr_orders_entries_charge_details')->where('order_entry_id', '=', $id)->delete();
-            self::saveDetail($id, $data);
-        }
-    }
-    public function billing_billing()
+       public function billing_billing()
     {
         return $this->belongsTo('Sass\BillingCode', 'billing_id');
     }

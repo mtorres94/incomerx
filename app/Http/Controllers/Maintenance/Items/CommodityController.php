@@ -2,6 +2,7 @@
 
 namespace Sass\Http\Controllers\Maintenance\Items;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Sass\Commodity;
 use Sass\DataTables\Maintenance\Items\CommodityDataTable;

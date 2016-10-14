@@ -20,7 +20,6 @@ use Sass\OrderEntryPRO;
 use Sass\OrderEntrySO;
 use Sass\OrderEntryStop;
 use Sass\OrderEntryTransportationDetail;
-use Sass\OrderEntryVehicleDetail;
 
 class OrderEntryController extends Controller
 {
@@ -139,17 +138,17 @@ class OrderEntryController extends Controller
             $sent = OrderEntry::findorfail($id);
             $whr = $sent->update($order_entry);
             $order_entry['user_update_id'] = Auth::user()->id;
-            OrderEntryPO::updateDetail($id, $order_entry);
-            OrderEntrySO::updateDetail($id, $order_entry);
-            OrderEntryPRO::updateDetail($id, $order_entry);
-            OrderEntryHazardous::updateDetail($id, $order_entry);
-            OrderEntryStop::updateDetail($id, $order_entry);
-            OrderEntryContainerDetail::updateDetail($id, $order_entry);
-            OrderEntryDockReceiptDetail::updateDetail($id, $order_entry);
-            OrderEntryChargeDetail::updateDetail($id, $order_entry);
-            OrderEntryTransportationDetail::updateDetail($id, $order_entry);
-            OrderEntryCargoDetail::updateDetail($id, $order_entry);
-            OrderEntryCargoItemDetail::updateDetail($id,  $order_entry);
+            OrderEntryPO::saveDetail($id, $order_entry);
+            OrderEntrySO::saveDetail($id, $order_entry);
+            OrderEntryPRO::saveDetail($id, $order_entry);
+            OrderEntryHazardous::saveDetail($id, $order_entry);
+            OrderEntryStop::saveDetail($id, $order_entry);
+            OrderEntryContainerDetail::saveDetail($id, $order_entry);
+            OrderEntryDockReceiptDetail::saveDetail($id, $order_entry);
+            OrderEntryChargeDetail::saveDetail($id, $order_entry);
+            OrderEntryTransportationDetail::saveDetail($id, $order_entry);
+            OrderEntryCargoDetail::saveDetail($id, $order_entry);
+            OrderEntryCargoItemDetail::saveDetail($id,  $order_entry);
 
         } catch (ValidationException $e) {
             DB::rollback();

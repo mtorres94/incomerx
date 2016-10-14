@@ -30,6 +30,10 @@ return [
         'contract'  => 'Tarifas de contratos',
     ],
     'warehouse' => [
+        'pickup' => '',
         'receipts'  => 'Registros',
+    ],
+    'export' => [
+        'oceans'  => 'Exportación marítima',
     ],
 ];

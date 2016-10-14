@@ -14,15 +14,16 @@ class OrderEntryPRO extends Model
     ];
 
     public static function saveDetail($id, $data) {
-        $i=0; $a=0;
+        $i=-1; $a=0;
         if (isset($data['PRO_line'])){
+            $details= DB::table('whr_orders_entries_PROs')->where('order_entry_id', '=', $id)->delete();
             while($a < count($data['PRO_line'])){
                 $i++;
                 if (isset($data['PRO_line'][$i])){
                     $obj = new OrderEntryPRO();
 
                     $obj->order_entry_id = $id;
-                    $obj->line=  $data['PRO_line'][$i];
+                    $obj->line=  $a + 1;
                     $obj-> pro_number = $data['PRO_number'][$i];
                     $obj->pro_detail = $data['PRO_reference'][$i];
                     $obj->pro_comment = $data['PRO_remarks'][$i];
@@ -35,13 +36,6 @@ class OrderEntryPRO extends Model
 
     }
 
-    public static function updateDetail($id, $data) {
-        if (isset($data['PRO_line'])){
-            $details= DB::table('whr_orders_entries_PROs')->where('order_entry_id', '=', $id)->delete();
-            self::saveDetail($id, $data);
-        }
-
-    }
 
     public static function Search($id){
         return self::where('order_entry_id', $id)->get();

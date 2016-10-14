@@ -111,5 +111,13 @@ return [
         'pickup'  => [
             'orders_entries'   => 'Orders Entry'
         ]
+    ],
+    'export' => [
+        'oceans'  => [
+            'booking_entries'      => 'Booking Entry',
+            'bill_of_lading'      => 'Bill of Lading',
+            'shipment_entries'      => 'Shipment Entry',
+            'step_by_step'      => 'Step by Step'
+        ],
     ]
 ];

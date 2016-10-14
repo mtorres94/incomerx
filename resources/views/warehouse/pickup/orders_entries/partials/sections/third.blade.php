@@ -13,10 +13,7 @@
 
         <div class="row">
             <div class="col-md-6">
-               {!! Form::bsSelect('col-md-6', 'col-md-6', 'Currency', 'third_party_currency_type', array(
-                   'U' => 'USD',
-                   'E' => 'EUR',
-               ), 'Currency...') !!}
+               {!! Form::bsSelect('col-md-6', 'col-md-6', 'Currency', 'third_party_currency_type',Sass\Currency::all()->lists('code', 'id'), 'Currency') !!}
 
                 {!! Form::bsText('col-md-6', 'col-md-6', 'Value $', 'third_value', null, '0.00') !!}
             </div>

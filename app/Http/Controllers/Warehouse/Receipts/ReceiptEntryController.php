@@ -86,7 +86,7 @@ class ReceiptEntryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -98,7 +98,7 @@ class ReceiptEntryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -111,8 +111,8 @@ class ReceiptEntryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -143,7 +143,7 @@ class ReceiptEntryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -154,19 +154,18 @@ class ReceiptEntryController extends Controller
     public function get($id)
     {
         $files = ReceiptEntryAttachment::where('unique_str', $id)->get();
-        $path = public_path()."/storage/";
+        $path = public_path() . "/storage/";
 
         $rtn = [];
         foreach ($files as $file) {
-            if (File::exists($path.$file->temp_name))
-            {
+            if (File::exists($path . $file->temp_name)) {
                 $rtn[] = [
                     'original_name' => $file->original_name,
                     'temp_name' => $file->temp_name,
                     'type' => strtolower(File::extension($file->original_name)),
                     'route' => asset(Storage::disk('storage')->url($file->temp_name)),
                     'key' => $file->id,
-                    'size' => File::size($path.$file->temp_name),
+                    'size' => File::size($path . $file->temp_name),
                 ];
             }
         }
@@ -178,7 +177,7 @@ class ReceiptEntryController extends Controller
         $upload = $request->all();
         $unique_str = $upload['unique_str'];
         try {
-            $path = public_path().'/storage/';
+            $path = public_path() . '/storage/';
             $file = $request->file('file')[0];
 
             $tmp = FileRepository::generate($file);
@@ -190,7 +189,7 @@ class ReceiptEntryController extends Controller
         return response()->json();
     }
 
-    public function download ()
+    public function download()
     {
         //
     }
@@ -201,11 +200,15 @@ class ReceiptEntryController extends Controller
         if (!$key) return response()->json(['error' => 'The file could not be deleted']);
 
         $sessionFile = ReceiptEntryAttachment::findOrFail($key);
-        $path_file = public_path().'/storage/'.$sessionFile->temp_name;
+        $path_file = public_path() . '/storage/' . $sessionFile->temp_name;
 
         try {
-            if (!empty($sessionFile)) { $sessionFile->delete(); }
-            if (File::exists($path_file)) { File::delete($path_file); }
+            if (!empty($sessionFile)) {
+                $sessionFile->delete();
+            }
+            if (File::exists($path_file)) {
+                File::delete($path_file);
+            }
         } catch (FileException $e) {
             return response()->json(['error' => 'The file could not be deleted']);
         }
@@ -220,49 +223,83 @@ class ReceiptEntryController extends Controller
                 ->leftJoin('mst_customers AS c2', 'whr_receipts_entries.consignee_id', '=', 'c2.id')
                 ->leftJoin('mst_customers AS c3', 'whr_receipts_entries.third_party_id', '=', 'c3.id')
                 ->leftJoin('mst_customers AS c4', 'whr_receipts_entries.agent_id', '=', 'c4.id')
-
-                ->select(['whr_receipts_entries.id', 'whr_receipts_entries.warehouse_code', 'whr_receipts_entries.date_in', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS third_party_name', 'c4.name AS agent_name', ])
+                ->select(['whr_receipts_entries.*', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS third_party_name', 'c4.name AS agent_name',])
                 ->where(function ($query) use ($request) {
                     $type = $request->get('type_for');
+
                     if ($term = $request->get('term')) {
-                        switch($type ){
-                            case 1: $query->orWhere('warehouse_code', 'LIKE', $term . '%');
+                        switch ($type) {
+                            case 1:
+                                $query->orWhere('whr_receipts_entries.code', 'LIKE', $term . '%');
                                 break;
-                            case 2: $query ->orWhere('mst_divisions.code', 'LIKE', $term . '%');
-                                $query ->orWhere('mst_divisions.name', 'LIKE', $term . '%');
+                            case 2:
+                                $query->orWhere('mst_divisions.code', 'LIKE', $term . '%');
+                                $query->orWhere('mst_divisions.name', 'LIKE', $term . '%');
                                 break;
-                            case 3: $query ->orWhere('c1.code', 'LIKE', $term . '%');
-                                $query ->orWhere('c1.name', 'LIKE', $term . '%');
+                            case 3:
+                                $query->orWhere('c1.code', 'LIKE', $term . '%');
+                                $query->orWhere('c1.name', 'LIKE', $term . '%');
                                 break;
-                            case 4: $query ->orWhere('c2.code', 'LIKE', $term . '%');
-                                $query ->orWhere('c2.name', 'LIKE', $term . '%');
+                            case 4:
+                                $query->orWhere('c2.code', 'LIKE', $term . '%');
+                                $query->orWhere('c2.name', 'LIKE', $term . '%');
                                 break;
-                            case 5: $query ->orWhere('c4.code', 'LIKE', $term . '%');
-                                $query ->orWhere('c4.name', 'LIKE', $term . '%');
+                            case 5:
+                                $query->orWhere('c4.code', 'LIKE', $term . '%');
+                                $query->orWhere('c4.name', 'LIKE', $term . '%');
                                 break;
-                            case 6: $query ->orWhere('c3.code', 'LIKE', $term . '%');
-                                $query ->orWhere('c3.name', 'LIKE', $term . '%');
+                            case 6:
+                                $query->orWhere('c3.code', 'LIKE', $term . '%');
+                                $query->orWhere('c3.name', 'LIKE', $term . '%');
                                 break;
-                            case 7: $query ->orWhere('date_in', 'LIKE', $term . '%');
+                            case 7:
+                                $query->orWhere('date_in', 'LIKE', $term . '%');
                                 break;
                         }
                     }
+
                 })->take(10)->get();
 
             $results = [];
             foreach ($receipts_entries as $receipt_entry) {
                 $results[] = [
-                    'id'                => $receipt_entry->id,
-                    'value'             => strtoupper($receipt_entry->warehouse_code),
-                    'date_in'           => strtoupper($receipt_entry->date_in),
-                    'division_name'     => strtoupper($receipt_entry->division_name),
-                    'shipper_name'      => strtoupper($receipt_entry->shipper_name),
-                    'consignee_name'    => strtoupper($receipt_entry->consignee_name),
-                    'third_party_name'  => strtoupper($receipt_entry->third_party_name),
-                    'agent_name'        => strtoupper($receipt_entry->agent_name),
-                    'quantity'          => strtoupper($receipt_entry->agent_name),
-                    'weight'            => strtoupper($receipt_entry->agent_name),
-                    'cubic'             => strtoupper($receipt_entry->agent_name),
+                    'id' => $receipt_entry->id,
+                    'value' => strtoupper($receipt_entry->code),
+                    'date_in' => strtoupper($receipt_entry->date_in),
+                    'status' => strtoupper($receipt_entry->status),
+                    'division_name' => strtoupper($receipt_entry->division_name),
+                    'shipper_name' => strtoupper($receipt_entry->shipper_name),
+                    'shipper_id' => strtoupper($receipt_entry->shipper_id),
+                    'shipper_address' => strtoupper($receipt_entry->shipper_address),
+                    'shipper_city' => strtoupper($receipt_entry->shipper_city),
+                    'shipper_state_id' => strtoupper($receipt_entry->shipper_state_id),
+                    'shipper_state_name' => strtoupper(($receipt_entry->shipper_state_id > 0 ? $receipt_entry->shipper_state->name : "")),
+                    'shipper_zip_code_id' => strtoupper($receipt_entry->shipper_zip_code_id),
+                    'shipper_zip_code_code' => strtoupper(($receipt_entry->shipper_zip_code_id> 0 ? $receipt_entry->shipper_zip_code->code : "")),
+                    'shipper_phone' => strtoupper($receipt_entry->shipper_phone),
+                    'shipper_fax' => strtoupper($receipt_entry->shipper_fax),
+
+                    'consignee_name' => strtoupper($receipt_entry->consignee_name),
+                    'consignee_id' => strtoupper($receipt_entry->consignee_id),
+                    'consignee_address' => strtoupper($receipt_entry->consignee_address),
+                    'consignee_city' => strtoupper($receipt_entry->consignee_city),
+                    'consignee_state_id' => strtoupper($receipt_entry->consignee_state_id),
+                    'consignee_state_name' => strtoupper(($receipt_entry->consigne_state_id > 0 ? $receipt_entry->consignee_state->name : "")),
+                    'consignee_zip_code_id' => strtoupper($receipt_entry->consignee_zip_code_id),
+                    'consignee_zip_code_code' => strtoupper(($receipt_entry->consignee_zip_code_id> 0 ? $receipt_entry->consignee_zip_code->code : "")),
+                    'consignee_phone' => strtoupper($receipt_entry->consignee_phone),
+                    'consignee_fax' => strtoupper($receipt_entry->consignee_fax),
+
+                    'third_party_name' => strtoupper($receipt_entry->third_party_name),
+                    'third_party_id' => strtoupper($receipt_entry->third_party_id),
+                    'agent_name' => strtoupper($receipt_entry->agent_name),
+                    'quantity' => strtoupper($receipt_entry->sum_pieces),
+                    'sum_weight' => strtoupper($receipt_entry->sum_weight),
+                    'sum_cubic' => strtoupper($receipt_entry->sum_cubic),
+                    'service_name' => ($receipt_entry->location_service_id > 0 ? $receipt_entry->service->name : ""),
+                    'service_id' => $receipt_entry->location_service_id,
+                    'destination_id' => $receipt_entry->location_destination_id,
+                    'destination_name' => ($receipt_entry->location_destination_id > 0 ? $receipt_entry->destination->name : ""),
                 ];
             }
 
@@ -286,4 +323,48 @@ class ReceiptEntryController extends Controller
             ->setOption('margin-left', 2)
             ->stream('labels.pdf');
     }
+
+
+    public function get_details(Request $request)
+    {
+        if ($request->ajax()) {
+            $receipts_entries = ReceiptEntryCargoDetail::select(['whr_receipts_entries_cargo_details.*'])
+                ->where(function ($query) use ($request) {
+                    $whr_select = $request->get('id_select');
+                                $query->orWhere('whr_receipts_entries_cargo_details.receipt_entry_id', '=', $whr_select );
+                })->get();
+
+            $results = [];
+            foreach ($receipts_entries as $receipt_entry) {
+                $results[] = [
+                    'id' => $receipt_entry->id,
+                    'receipt_entry_id' => $receipt_entry->receipt_entry_id,
+                    'warehouse_code'=>strtoupper(($receipt_entry->receipt_entry_id> 0 ? $receipt_entry->receipt_entry->code: "")),
+                    'quantity' => strtoupper($receipt_entry->code),
+                    'cargo_type_id' => $receipt_entry->cargo_type_id,
+                    'cargo_type_code' => strtoupper(($receipt_entry->cargo_type_id> 0 ? $receipt_entry->cargo_type->code: "")),
+                    'pieces' => $receipt_entry->pieces,
+                    'weight_unit' => strtoupper($receipt_entry->weight_unit_measurement_id),
+                    'metric_unit' => strtoupper($receipt_entry->metric_unit_measurement_id),
+                    'length' => $receipt_entry->length,
+                    'width' => $receipt_entry->width,
+                    'height' => $receipt_entry->height,
+                    'total_weight' => $receipt_entry->total_weight,
+                    'cubic' => $receipt_entry->cubic,
+                    'volume_weight' => $receipt_entry->volume_weight,
+                    'location_id' => $receipt_entry->location_id,
+                    'location_name' => strtoupper(($receipt_entry->location_id> 0 ? $receipt_entry->location->name : "")),
+                    'location_bin_id' => strtoupper($receipt_entry->location_bin_id),
+                    'location_bin_name' => strtoupper(($receipt_entry->location_bin_id> 0 ? $receipt_entry->bin->name : "")),
+                    'material_description' => strtoupper($receipt_entry->sum_cubic),
+                ];
+            }
+
+            return response()->json($results);
+        }
+    }
+
+
+
+
 }

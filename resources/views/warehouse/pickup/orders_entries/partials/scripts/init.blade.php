@@ -7,15 +7,7 @@
             $("#billing_bill_party").val() == 'O' ?  $("#billing_customer_name").attr("disabled", false): $("#billing_customer_name").attr("disabled", true) ;
         });
 
-        $("#billing_currency_type").change(function () {
-            $("#billing_currency_type").val() == 'E' ?  $("#billing_exchange_rate").val(1.15): $("#billing_exchange_rate").val(1.00) ;
-        });
-        $("#cost_currency_type").change(function () {
-            $("#cost_currency_type").val() == 'E' ?  $("#cost_exchange_rate").val(1.15): $("#cost_exchange_rate").val(1.00) ;
-        });
-        $("#currency_type").change(function () {
-            $("#currency_type").val() == 'E' ?  $("#third_exchange_currency").val(1.15): $("#third_exchange_currency").val(1.00) ;
-        });
+
         $("#pick_search_for_name").change(function(){
             values_pick_cargo();
         });
@@ -33,6 +25,74 @@
         $('.collapse').on('show.bs.collapse', function () {
             $('.collapse.in').collapse('hide');
         });
+
+        $("#cargo_cargo_type_id").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ route('cargo_types.get') }}",
+                data: {id: id},
+                type: 'GET',
+                success: function (e) {
+                    var act = $("#cargo_cargo_type_code").val()
+                    $("#cargo_cargo_type_code").val(e[0].code);
+                    var flag = (act === e[0].code);
+                    if (e[0].length > 0 || e[0].width > 0 || e[0].height > 0) {
+                        if (!flag) {
+                            swal({
+                                title: "",
+                                text: "Do you want to update the screen with the cargo type details?",
+                                type: "question",
+                                showCancelButton: true,
+                                confirmButtonColor: "#3c8dbc",
+                                confirmButtonText: "¡Yes, I want to update!",
+                                cancelButtonText: "No...",
+                                closeOnConfirm: false
+                            }).then(function (isConfirm) {
+                                if (isConfirm) {
+                                    $("#cargo_length").val(e[0].length), $("#cargo_width").val(e[0].width), $("#cargo_height").val(e[0].height);
+                                    calculate_cargo();
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        });
+
+
+        $("#vehicle_cargo_type_id").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ route('cargo_types.get') }}",
+                data: {id: id},
+                type: 'GET',
+                success: function (e) {
+                    var act = $("#vehicle_cargo_type_code").val()
+                    $("#vehicle_cargo_type_code").val(e[0].code);
+                    var flag = (act === e[0].code);
+                    if (e[0].length > 0 || e[0].width > 0 || e[0].height > 0) {
+                        if (!flag) {
+                            swal({
+                                title: "",
+                                text: "Do you want to update the screen with the cargo type details?",
+                                type: "question",
+                                showCancelButton: true,
+                                confirmButtonColor: "#3c8dbc",
+                                confirmButtonText: "¡Yes, I want to update!",
+                                cancelButtonText: "No...",
+                                closeOnConfirm: false
+                            }).then(function (isConfirm) {
+                                if (isConfirm) {
+                                    $("#vehicle_length").val(e[0].length), $("#vehicle_width").val(e[0].width), $("#vehicle_height").val(e[0].height);
+                                    calculate_vehicle();
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        });
+
 
         $("#dr_freight_charges").change(function (){ values_warehouse()  });
         $("#billing_increase").change(function (){ charges_details()});
@@ -67,6 +127,7 @@
         $("#billing_rate").change(function() { charges_details() });
         $("#cost_quantity").change(function() { charges_details() });
         $("#cost_rate").change(function() { charges_details() });
+
 
     });
 
@@ -147,11 +208,11 @@
     $("#charges_profit").number(true,2).attr("disabled", true);
     $("#charges_profit_p").number(true,2).attr("disabled", true);
     $("#billing_customer_name").attr("disabled", true);
-    $("#billing_exchange_rate").attr("disabled", true,2);
-    $("#cost_exchange_rate").attr("disabled", true,2);
+    $("#billing_exchange_rate").number(true,2);
+    $("#cost_exchange_rate").number(true,2);
     $("#charges_amount").number(true, 3).attr("disabled", true);
 
-    $("#third_exchange_currency").number(true, 2).attr("disabled", true);
+    $("#third_exchange_currency").number(true, 2);
     $("#history_invoice").attr("disabled", true);
     $("#history_invoice_date").attr("disabled", true);
     $("#history_user_id").attr("disabled", true);

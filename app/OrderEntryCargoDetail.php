@@ -22,14 +22,15 @@ class OrderEntryCargoDetail extends Model
     ];
 
     public static function saveDetail($id, $data) {
-        $i=0; $a=0;
+        $i=-1; $a=0;
         if (isset($data['cargo_id'])){
+            $details= DB::table('whr_orders_entries_cargo_details')->where('order_entry_id', '=', $id)->delete();
             while($a < count($data['cargo_id'])){
                 $i++;
                 if(isset($data['cargo_id'][$i])){
                     $obj = new OrderEntryCargoDetail();
                     $obj->order_entry_id = $id;
-                    $obj->line =  $data['cargo_id'][$i];
+                    $obj->line =  $a + 1;
                     $obj-> cargo_quantity = $data['cargo_quantity'][$i];
                     $obj-> cargo_type_id = $data['cargo_cargo_type_id'][$i];
                     $obj->cargo_length = $data['cargo_length'][$i];
@@ -138,14 +139,7 @@ class OrderEntryCargoDetail extends Model
         }
     }
 
-    public static function updateDetail($id, $data) {
-        if (isset($data['cargo_id'])) {
-            $details= DB::table('whr_orders_entries_cargo_details')->where('order_entry_id', '=', $id)->delete();
-            self::saveDetail($id, $data);
-        }
-    }
-
-    public static function Search($id){
+      public static function Search($id){
         return self::where('order_entry_id', $id)->get();
     }
     public function users()
