@@ -20,7 +20,7 @@ class BookingEntryCargoDetail extends Model
 
 
     public static function saveDetail($id, $data) {
-        $i=0; $a=0;
+        $i=-1; $a=0;
         if (isset($data['cargo_id']) ){
             $details= DB::table('exp_booking_entries_cargo_details')->where('booking_entry_id', '=', $id)->delete();
             while($a < count($data['details_id'])){
@@ -39,7 +39,7 @@ class BookingEntryCargoDetail extends Model
                     $obj->details_total_cubic=  $data['details_total_cubic'][$i];
                     $obj->details_cargo_type_id=  $data['details_cargo_type_id'][$i];
                     $obj->details_metric_unit=  $data['details_metric_unit'][$i];
-                    $obj->details_materials=  $data['details_materials'][$i];
+                    $obj->details_materials=  $data['details_material'][$i];
                     $obj->details_pieces=  $data['details_pieces'][$i];
                     $obj->details_unit_weight=  $data['details_unit_weight'][$i];
                     $obj->details_dim_fact=  $data['details_dim_fact'][$i];

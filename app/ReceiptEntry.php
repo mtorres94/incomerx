@@ -31,29 +31,30 @@ class ReceiptEntry extends Model
             while($a < count($data['hidden_warehouse_line'])){
                 $i++;
                 if (isset($data['hidden_warehouse_line'][$i])){
-                    $details= DB::table('whr_receipts_entries')->where('code', '=', $data['hidden_warehouse_number'][$i])->delete();
+                  //  $details= DB::table('whr_receipts_entries')->where('code', '=', $data['hidden_warehouse_number'][$i])->delete();
                     $obj = new ReceiptEntry();
-                    $obj->code=  $data['hidden_warehouse_number'][$i];
-                    $obj->date_in=  $data['hidden_date_in'][$i];
-                    $obj->shipper_id=  $data['hidden_shipper_id'][$i];
-                    $obj->shipper_city=  $data['hidden_shipper_city'][$i];
-                    $obj->shipper_state_id=  $data['hidden_shipper_state_id'][$i];
-                    $obj->shipper_zip_code_id=  $data['hidden_shipper_zip_code_id'][$i];
-                    $obj->shipper_phone=  $data['hidden_shipper_phone'][$i];
-                    $obj->shipper_fax =  $data['hidden_shipper_fax'][$i];
-                    $obj->consignee_id =  $data['hidden_consignee_id'][$i];
-                    $obj->consignee_city =  $data['hidden_consignee_city'][$i];
-                    $obj->consignee_state_id=  $data['hidden_consignee_state_id'][$i];
-                    $obj->consignee_zip_code_id=  $data['hidden_consignee_zip_code_id'][$i];
-                    $obj->consignee_phone=  $data['hidden_consignee_phone'][$i];
-                    $obj->consignee_fax=  $data['hidden_consignee_fax'][$i];
-                    $obj->status=  $data['hidden_status'][$i];
-                    $obj->shipping_id=  $data['hidden_ship_inst_number'][$i];
+                    $obj->code=  $data['warehouse_number'][$i];
+                    $obj->date_in=  $data['warehouse_date_in'][$i];
+                    $obj->shipper_id=  $data['warehouse_shipper_id'][$i];
+                    $obj->shipper_city=  $data['warehouse_shipper_city'][$i];
+                    $obj->shipper_state_id=  $data['warehouse_shipper_state_id'][$i];
+                    $obj->shipper_zip_code_id=  $data['warehouse_shipper_zip_code_id'][$i];
+                    $obj->shipper_phone=  $data['warehouse_shipper_phone'][$i];
+                    $obj->shipper_fax =  $data['warehouse_shipper_fax'][$i];
+                    $obj->consignee_id =  $data['warehouse_consignee_id'][$i];
+                    $obj->consignee_city =  $data['warehouse_consignee_city'][$i];
+                    $obj->consignee_state_id=  $data['warehouse_consignee_state_id'][$i];
+                    $obj->consignee_zip_code_id=  $data['warehouse_consignee_zip_code_id'][$i];
+                    $obj->consignee_phone=  $data['warehouse_consignee_phone'][$i];
+                    $obj->consignee_fax=  $data['warehouse_consignee_fax'][$i];
+                    $obj->status=  $data['warehouse_status'][$i];
+                    //$obj->shipping_id=  $data['warehouse_ship_inst_number'][$i];
                     $obj->save();
                     $a++;
                 }
             }
         }
+        return $obj->id;
     }
     //=========================================================
 

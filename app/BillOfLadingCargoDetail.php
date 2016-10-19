@@ -33,7 +33,7 @@ class BillOfLadingCargoDetail extends Model
                     $obj-> total_cubic= $data['details_total_cubic'][$i];
                     $obj-> cargo_type_id= $data['details_cargo_type_id'][$i];
                     $obj-> metric_unit= $data['details_metric_unit'][$i];
-                    $obj-> materials= $data['details_materials'][$i];
+                    $obj-> materials= $data['details_material'][$i];
                     $obj-> pieces= $data['details_pieces'][$i];
                     $obj-> unit_weight= $data['details_unit_weight'][$i];
                     $obj-> dim_fact= $data['details_dim_fact'][$i];
