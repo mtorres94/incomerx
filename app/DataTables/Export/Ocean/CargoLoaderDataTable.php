@@ -17,7 +17,15 @@ class CargoLoaderDataTable extends CustomDataTable
     {
         return $this->datatables
             ->eloquent($this->query())
-            ->addColumn('action', 'path.to.action.view')
+            ->addColumn('action', function ($booking_entry) {
+                return $this->groupButton(
+                    $booking_entry,
+                    'export.oceans.cargo_loader.show',
+                    'export.oceans.cargo_loader.edit',
+                    'export.oceans.cargo_loader.destroy',
+                    null);
+            })
+            ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);
     }
 
@@ -69,6 +77,6 @@ class CargoLoaderDataTable extends CustomDataTable
      */
     protected function filename()
     {
-        return 'cargoloaderdatatables_' . time();
+        return null;
     }
 }

@@ -111,8 +111,8 @@ class WorldLocationController extends Controller
         if ($request->ajax()) {
             $world_locations = WorldLocation::where(function ($query) use ($request) {
                 if ($_22 = $request->get('term')) {
-                    $query->orWhere('code', 'LIKE', '%' . $_22 . '%');
-                    $query->orWhere('name', 'LIKE', '%' . $_22 . '%');
+                    $query->orWhere('code', 'LIKE',  $_22 . '%');
+                    $query->orWhere('name', 'LIKE',  $_22 . '%');
                 }
             })->take(10)->get();
 

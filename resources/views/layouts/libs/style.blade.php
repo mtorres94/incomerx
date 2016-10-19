@@ -46,3 +46,6 @@
 <!-- jQuery UI -->
 {!! Html::style('css/jquery-ui.min.css') !!}
 {!! Html::style('css/jquery-ui.theme.min.css') !!}
+
+<!-- Bootstrap Step by Step -->
+{!! Html::style('css/step_by_step.css') !!}

@@ -5,6 +5,7 @@ namespace Sass\Http\Controllers\Export\OceanExport;
 use Illuminate\Http\Request;
 
 use Sass\CargoLoader;
+use Sass\CargoLoaderCargoDetail;
 use Sass\CargoLoaderContainer;
 use Sass\CargoLoaderHazardous;
 use Sass\DataTables\Export\Ocean\CargoLoaderDataTable;
@@ -56,12 +57,10 @@ class CargoLoaderController extends Controller
             $cl=CargoLoader::create($cargo_loader);
             CargoLoaderContainer::saveDetail($cl->id, $cargo_loader);
             CargoLoaderHazardous::saveDetail($cl->id, $cargo_loader);
-            CargoLoaderCargoDetails::saveDetail($cl->id, $cargo_loader);
+            CargoLoaderCargoDetail::saveDetail($cl->id, $cargo_loader);
             ReceiptEntry::saveDetail($cargo_loader);
-            $containers=CargoLoaderContainer::Search($cl->id);
-            $hazardous_details=CargoLoaderHazardous::Search($cl->id);
 
-           return view('export.oceans.booking_entries.create', compact( 'containers', 'hazardous_details'));
+
 
             } catch (ValidationException $e) {
             DB::rollback();

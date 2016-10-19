@@ -296,10 +296,10 @@ class ReceiptEntryController extends Controller
                     'quantity' => strtoupper($receipt_entry->sum_pieces),
                     'sum_weight' => strtoupper($receipt_entry->sum_weight),
                     'sum_cubic' => strtoupper($receipt_entry->sum_cubic),
-                    'service_name' => ($receipt_entry->location_service_id > 0 ? $receipt_entry->service->name : ""),
+                    'service_name' => strtoupper(($receipt_entry->location_service_id > 0 ? $receipt_entry->service->name : "")),
                     'service_id' => $receipt_entry->location_service_id,
                     'destination_id' => $receipt_entry->location_destination_id,
-                    'destination_name' => ($receipt_entry->location_destination_id > 0 ? $receipt_entry->destination->name : ""),
+                    'destination_name' => strtoupper(($receipt_entry->location_destination_id > 0 ? $receipt_entry->destination->name : "")),
                 ];
             }
 
@@ -340,7 +340,7 @@ class ReceiptEntryController extends Controller
                     'id' => $receipt_entry->id,
                     'receipt_entry_id' => $receipt_entry->receipt_entry_id,
                     'warehouse_code'=>strtoupper(($receipt_entry->receipt_entry_id> 0 ? $receipt_entry->receipt_entry->code: "")),
-                    'quantity' => strtoupper($receipt_entry->code),
+                    'quantity' => $receipt_entry->quantity,
                     'cargo_type_id' => $receipt_entry->cargo_type_id,
                     'cargo_type_code' => strtoupper(($receipt_entry->cargo_type_id> 0 ? $receipt_entry->cargo_type->code: "")),
                     'pieces' => $receipt_entry->pieces,
@@ -354,9 +354,12 @@ class ReceiptEntryController extends Controller
                     'volume_weight' => $receipt_entry->volume_weight,
                     'location_id' => $receipt_entry->location_id,
                     'location_name' => strtoupper(($receipt_entry->location_id> 0 ? $receipt_entry->location->name : "")),
-                    'location_bin_id' => strtoupper($receipt_entry->location_bin_id),
+                    'location_bin_id' => $receipt_entry->location_bin_id,
                     'location_bin_name' => strtoupper(($receipt_entry->location_bin_id> 0 ? $receipt_entry->bin->name : "")),
-                    'material_description' => strtoupper($receipt_entry->sum_cubic),
+                    'material_description' => $receipt_entry->material_description,
+                    'tare_weight' => $receipt_entry->tare_weight,
+                    'net_weight' => $receipt_entry->net_weight,
+                    'dim_fact' => $receipt_entry->dim_fact,
                 ];
             }
 

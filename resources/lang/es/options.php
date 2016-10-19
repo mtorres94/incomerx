@@ -120,6 +120,8 @@ return [
             'booking_entries' => 'Entradas ',
             'bill_of_lading' => 'Registro de entradas',
             'shipment_entries' => 'Registro de entradas',
+            'step_by_step' => 'Paso a Paso',
+            'cargo_loader' => 'Carga',
         ],
     ],
 ];
