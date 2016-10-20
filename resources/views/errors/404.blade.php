@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Access Denied.</title>
+        <title>Page not found.</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
@@ -40,8 +40,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <h2>403</h2>
-                <div class="title">Access Denied.</div>
+                <h2>404</h2>
+                <div class="title">Page not found.</div>
             </div>
         </div>
     </body>
