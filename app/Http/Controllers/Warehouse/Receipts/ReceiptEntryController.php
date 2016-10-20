@@ -297,7 +297,10 @@ class ReceiptEntryController extends Controller
                     'service_name' => ($receipt_entry->location_service_id > 0 ? $receipt_entry->service->name : ""),
                     'service_id' => $receipt_entry->location_service_id,
                     'destination_id' => $receipt_entry->location_destination_id,
+                    'volume_weight' => $receipt_entry->sum_volume_weight,
                     'destination_name' => ($receipt_entry->location_destination_id > 0 ? $receipt_entry->destination->name : ""),
+                    'warehouse_code' => ($receipt_entry->warehouse_id> 0 ? $receipt_entry->warehouse->code: ""),
+                    'warehouse_id' => $receipt_entry->warehouse_id,
                 ];
             }
 
@@ -352,7 +355,7 @@ class ReceiptEntryController extends Controller
                     'id' => $receipt_entry->id,
                     'receipt_entry_id' => $receipt_entry->receipt_entry_id,
                     'warehouse_code' => strtoupper(($receipt_entry->receipt_entry_id > 0 ? $receipt_entry->receipt_entry->code : "")),
-                    'quantity' => strtoupper($receipt_entry->code),
+                    'quantity' => $receipt_entry->quantity,
                     'cargo_type_id' => $receipt_entry->cargo_type_id,
                     'cargo_type_code' => strtoupper(($receipt_entry->cargo_type_id > 0 ? $receipt_entry->cargo_type->code : "")),
                     'pieces' => $receipt_entry->pieces,

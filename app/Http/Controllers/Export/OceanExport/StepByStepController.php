@@ -21,6 +21,7 @@ use Sass\BookingEntryCharge;
 use Sass\BookingEntryContainer;
 use Sass\BookingEntryHazardous;
 use Sass\CargoLoader;
+use Sass\CargoLoaderCargo;
 use Sass\CargoLoaderCargoDetail;
 use Sass\CargoLoaderContainer;
 use Sass\CargoLoaderHazardous;
@@ -72,25 +73,26 @@ class StepByStepController extends Controller
             $data['user_create_id'] = Auth::user()->id;
             $data['user_update_id'] = Auth::user()->id;
             //SAVE Shipment Entry
-            ShipmentEntry::create($data);
+            $shipment_id= ShipmentEntry::create($data);
 
             //SAVE Cargo loader
             $cl= CargoLoader::create($data);
-            StepByStepCargoLoaderContainer::saveDetail($cl->id, $data);
+            CargoLoaderCargo::saveDetail($cl->id, $data);
+            CargoLoaderContainer::saveDetailStepByStep($cl->id, $data);
             CargoLoaderCargoDetail::saveDetail($cl->id, $data);
             CargoLoaderHazardous::saveDetail($cl->id, $data);
 
              //SAVE Booking Entry
              $booking_entry= BookingEntry::create($data);
              BookingEntryHazardous::saveDetail($booking_entry->id, $data);
-            // BookingEntryCargo::saveDetail($booking_entry->id,$data);
-             StepByStepBookingEntryCargoDetail::saveDetail($booking_entry->id,$data);
+             BookingEntryCargo::saveDetailStepByStep($booking_entry->id,$data);
+             BookingEntryCargoDetail::saveDetailStepByStep($booking_entry->id,$data);
              BookingEntryCharge::saveDetail($booking_entry->id,$data);
              BookingEntryContainer::saveDetail($booking_entry->id,$data);
 
              //SAVE Bill of Lading
              $bill_of_lading= BillOfLading::create($data);
-             //BillOfLadingCargo::saveDetail($bill_of_lading->id, $data);
+             BillOfLadingCargo::saveDetailStepByStep($bill_of_lading->id, $data);
              BillOfLadingCharge::saveDetail($bill_of_lading->id, $data);
              BillOfLadingContainer::saveDetail($bill_of_lading->id, $data);
              BillOfLadingCustomerReference::saveDetail($bill_of_lading->id, $data);
@@ -98,10 +100,13 @@ class StepByStepController extends Controller
              BillOfLadingItem::saveDetail($bill_of_lading->id, $data);
              BillOfLadingProTracking::saveDetail($bill_of_lading->id, $data);
              BillOfLadingTransportation::saveDetail($bill_of_lading->id, $data);
-             StepByStepBillOfLadingCargoDetail::saveDetail($bill_of_lading->id, $data);
+             BillOfLadingCargoDetail::saveDetailStepByStep($bill_of_lading->id, $data);
 
-            /*$receipt_entry= ReceiptEntry::saveDetail($data);
-            ReceiptEntryCargoDetail::saveDetail($receipt_entry->id, $data);*/
+            //Receipt Entry
+            ReceiptEntry::saveDetail($data);
+            $re= ReceiptEntry::all();
+            $receipt_entry= $re->last();
+            ReceiptEntryCargoDetail::saveDetail($receipt_entry->id, $data);
 
 
         } catch (ValidationException $e) {

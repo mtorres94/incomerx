@@ -47,6 +47,26 @@ class BillOfLadingCargo extends Model
 
     }
 
+    public static function saveDetailStepByStep($id, $data) {
+        $i=-1; $a=0;
+        if (isset($data['hidden_warehouse_line']) ){
+            $details= DB::table('exp_bill_of_lading_cargo')->where('bill_of_lading_id', '=', $id)->delete();
+            while($a < count($data['hidden_warehouse_line'])){
+                $i++;
+                if (isset($data['hidden_warehouse_line'][$i])){
+                    $obj = new BillOfLadingCargo();
+                    $obj->bill_of_lading_id = $id;
+                    $obj->line=  $data['hidden_warehouse_line'][$i];
+                    $obj->cargo_description=  $data['hidden_ship_inst_number'][$i];
+                    $obj->cargo_marks=  $data['hidden_warehouse_number'][$i];
+                    $obj->save();
+                    $a++;
+                }
+            }
+        }
+
+    }
+
 
     public static function Search($id){
         return self::where('bill_of_lading_id', $id)->get();

@@ -18,7 +18,7 @@
             if (e === undefined) {
             } else {var n1 = e.indexOf("display: block;"),
                     o1 = e.indexOf("display: none;");
-            $(a1).removeAttr("style"), n1 >= 0 && $(a1).attr("style", "display: block;"), o1 >= 0 && $(a1).attr("style", "display: none;")}
+                $(a1).removeAttr("style"), n1 >= 0 && $(a1).attr("style", "display: block;"), o1 >= 0 && $(a1).attr("style", "display: none;")}
         }
 
 

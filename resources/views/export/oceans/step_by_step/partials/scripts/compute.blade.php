@@ -82,4 +82,21 @@
         $("#pick_cubic").val(cubic);
         $("#pick_link_qty").val(quantity);
     }
+
+    function total_warehouse_cargo()
+    {
+        var tr = $('#warehouse_cargo_details tbody tr');
+        var r = tr.length,  weight_k=0, cubic_k=0, volume_weight_k=0, pieces=0;
+        for (var a=0; a< r ; a++){
+
+            pieces = parseInt(tr[a].childNodes[1].textContent) + pieces;
+            weight_k = parseFloat(tr[a].childNodes[10].textContent) + weight_k;
+            cubic_k= parseFloat(tr[a].childNodes[11].textContent) + cubic_k;
+            volume_weight_k= parseFloat(tr[a].childNodes[12].textContent) + volume_weight_k;
+        }
+        $("#sum_quantity").val(pieces),
+                $("#sum_weight").val(weight_k),
+                $("#sum_cubic").val(cubic_k),
+                $("#sum_volume_weight").val(volume_weight_k)
+    }
 </script>

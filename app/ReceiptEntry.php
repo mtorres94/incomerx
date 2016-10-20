@@ -25,36 +25,52 @@ class ReceiptEntry extends Model
     ];
 
     //=========================================================
-    public static function saveDetail( $data) {
+    public static function saveDetail($data) {
         $i=-1; $a=0;
         if (isset($data['hidden_warehouse_line']) ){
             while($a < count($data['hidden_warehouse_line'])){
                 $i++;
                 if (isset($data['hidden_warehouse_line'][$i])){
-                  //  $details= DB::table('whr_receipts_entries')->where('code', '=', $data['hidden_warehouse_number'][$i])->delete();
+                    $count = ReceiptEntry::count() + 1;
+                    $receipt_code= str_pad($count, 10, '0', STR_PAD_LEFT);
+                    $booking_entry['code'] = $receipt_code;
                     $obj = new ReceiptEntry();
-                    $obj->code=  $data['warehouse_number'][$i];
-                    $obj->date_in=  $data['warehouse_date_in'][$i];
-                    $obj->shipper_id=  $data['warehouse_shipper_id'][$i];
-                    $obj->shipper_city=  $data['warehouse_shipper_city'][$i];
-                    $obj->shipper_state_id=  $data['warehouse_shipper_state_id'][$i];
-                    $obj->shipper_zip_code_id=  $data['warehouse_shipper_zip_code_id'][$i];
-                    $obj->shipper_phone=  $data['warehouse_shipper_phone'][$i];
-                    $obj->shipper_fax =  $data['warehouse_shipper_fax'][$i];
-                    $obj->consignee_id =  $data['warehouse_consignee_id'][$i];
-                    $obj->consignee_city =  $data['warehouse_consignee_city'][$i];
-                    $obj->consignee_state_id=  $data['warehouse_consignee_state_id'][$i];
-                    $obj->consignee_zip_code_id=  $data['warehouse_consignee_zip_code_id'][$i];
-                    $obj->consignee_phone=  $data['warehouse_consignee_phone'][$i];
-                    $obj->consignee_fax=  $data['warehouse_consignee_fax'][$i];
-                    $obj->status=  $data['warehouse_status'][$i];
-                    //$obj->shipping_id=  $data['warehouse_ship_inst_number'][$i];
+
+                    $obj->code=  $data['hidden_warehouse_number'][$i];
+                    $obj->date_in=  $data['hidden_date_in'][$i];
+                    $obj->shipper_id=  $data['hidden_shipper_id'][$i];
+                    $obj->shipper_city=  $data['hidden_shipper_city'][$i];
+                    $obj->shipper_state_id=  $data['hidden_shipper_state_id'][$i];
+                    $obj->shipper_zip_code_id=  $data['hidden_shipper_zip_code_id'][$i];
+                    $obj->shipper_phone=  $data['hidden_shipper_phone'][$i];
+                    $obj->shipper_fax =  $data['hidden_shipper_fax'][$i];
+                    $obj->consignee_id =  $data['hidden_consignee_id'][$i];
+                    $obj->consignee_city =  $data['hidden_consignee_city'][$i];
+                    $obj->consignee_state_id=  $data['hidden_consignee_state_id'][$i];
+                    $obj->consignee_zip_code_id=  $data['hidden_consignee_zip_code_id'][$i];
+                    $obj->consignee_phone=  $data['hidden_consignee_phone'][$i];
+                    $obj->consignee_fax=  $data['hidden_consignee_fax'][$i];
+                    $obj->status=  $data['hidden_status'][$i];
+                    $obj->sum_pieces=  $data['hidden_sum_pieces'][$i];
+                    $obj->sum_weight=  $data['hidden_sum_weight'][$i];
+                    $obj->sum_cubic=  $data['hidden_sum_cubic'][$i];
+                    $obj->sum_volume_weight=  $data['hidden_sum_volume_weight'][$i];
+                    $obj->user_create_id=   $data['user_create_id'];
+                    $obj->user_update_id=  $data['user_update_id'] ;
+
+                    $obj->third_party_id=  $data['third_id'] ;
+                    $obj->third_party_phone=  $data['third_contact_phone'] ;
+                    $obj->receiving_carrier_id=  $data['carrier_id'] ;
+
+                    $obj->location_origin_id = $data['place_receipt_id'];
+                    $obj->location_destination_id = $data['place_delivery_id'];
+                    $obj->warehouse_id=  $data['hidden_warehouse_id'][$i];
+
                     $obj->save();
                     $a++;
                 }
             }
         }
-        return $obj->id;
     }
     //=========================================================
 

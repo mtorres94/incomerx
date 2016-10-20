@@ -43,6 +43,9 @@
                                 .append(createTableContent('pick_status', e.status, true, r))
                                 .append(createTableContent('pick_service_name', e.service_name , false, r))
                                 .append(createTableContent('pick_service_id', e.service_id , true, r))
+                                .append(createTableContent('pick_volume_weight', e.volume_weight, true, r))
+                                .append(createTableContent('pick_warehouse_id', e.warehouse_id, true, r))
+                                .append(createTableContent('pick_warehouse_name', e.warehouse_name, true, r))
                 t.append(p);
 
                 p = $("<tr >");
@@ -539,5 +542,9 @@
 
     $("#origin_country_name").focus(function () {
         $("#origin_country_name").marcoPolo({url:"{{ route('countries.autocomplete') }}",formatItem:function(e,o){return e.value},onSelect:function(e,o){$("#origin_country_id").val(e.id),$(this).val(e.value)},minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#origin_country_name_img").removeClass("img-none").addClass("img-display"),$("#origin_country_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#origin_country_name_img").removeClass("img-display").addClass("img-none"),$("#origin_country_name_spn").removeClass("img-none").addClass("img-display")}).on("marcopoloblur",function(){""==$(this).val().trim()&&$("#origin_country_id").val(0)})
+    });
+
+    $("#warehouse_code").focus(function () {
+        $("#warehouse_code").marcoPolo({url:"{{ route('warehouses.autocomplete') }}",formatItem:function(e,o){return e.name},onSelect:function(e,o){$("#warehouse_id").val(e.id),$(this).val(e.name)},minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#warehouse_code_img").removeClass("img-none").addClass("img-display"),$("#warehouse_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#warehouse_code_img").removeClass("img-display").addClass("img-none"),$("#warehouse_code_spn").removeClass("img-none").addClass("img-display")}).on("marcopoloblur",function(){""==$(this).val().trim()&&$("#warehouse_id").val(0)})
     });
 </script>

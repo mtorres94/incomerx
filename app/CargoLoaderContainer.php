@@ -52,6 +52,38 @@ class CargoLoaderContainer extends Model
 
     }
 
+    public static function saveDetailStepByStep($id, $data) {
+        $i=-1; $a=0;
+        if (isset($data['container_line'])){
+            $details= DB::table('exp_cargo_loader_container')->where('cargo_loader_id', '=', $id)->delete();
+            while($a < count($data['container_line'])){
+                $i++;
+                if (isset($data['container_line'][$i])){
+                    $obj = new CargoLoaderContainer();
+                    $obj->cargo_loader_id = $id;
+                    $obj->line=  $a + 1;
+                    $obj-> equipment_type_id = $data['equipment_type_id'][$i];
+                    $obj-> container_number = $data['container_number'][$i];
+                    $obj-> container_seal_number = $data['container_seal_number'][$i];
+                    $obj-> container_hazardous_contact = $data['container_hazardous_contact'][$i];
+                    $obj-> container_hazardous_phone = $data['container_hazardous_phone'][$i];
+                    $obj-> container_comments = $data['container_comments'][$i];
+                    $obj-> container_degrees = $data['container_degrees'][$i];
+                    $obj-> container_temperature= $data['container_temperature'][$i];
+                    $obj-> container_max= $data['container_max'][$i];
+                    $obj-> container_min = $data['container_min'][$i];
+                    $obj-> total_weight_unit = $data['total_weight_unit'][$i];
+                    $obj-> container_net_weight = $data['container_net_weight'][$i];
+                    $obj->save();
+                    $a++;
+                }
+
+            }
+        }
+
+
+    }
+
     public function equipment_type()
     {
         return $this->belongsTo('Sass\CargoType', 'equipment_type_id');

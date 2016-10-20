@@ -104,9 +104,10 @@
                 .append(createTableContent('cargo_unit_weight', c21, true, z))
                 .append(createTableContent('cargo_tare_weight', c22, true, z))
                 .append(createTableContent('cargo_net_weight', c23, true, z))
-                .append(createTableBtns()), 0 == c1 ? x.append(C) : x.find("tr#" + c1).replaceWith(C), calculate_cargo(),cleanModalFields('Warehouse_Cargo_Details'), $("#cargo_quantity").val(1), $("#cargo_quantity").focus()
+                .append(createTableBtns()), 0 == c1 ? x.append(C) : x.find("tr#" + c1).replaceWith(C), calculate_cargo(),total_warehouse_cargo(),cleanModalFields('Warehouse_Cargo_Details'), $("#cargo_quantity").val(1), $("#cargo_quantity").focus()
     }), $("#warehouse_cargo_details").on("click", "a.btn-danger", function() {
         $(this).closest("tr").remove();
+        total_warehouse_cargo();
     }), $("#warehouse_cargo_details").on("click", "a.btn-default", function() {
         removeEmptyNodes("warehouse_cargo_details");
         var t = $(this).closest("tr"),
@@ -200,44 +201,60 @@
                 c31 = $("#warehouse_consignee_phone").val(),
                 c32 = $("#warehouse_consignee_fax").val(),
 
+                c33 = $("#sum_quantity").val(),
+                c34 = $("#sum_weight").val(),
+                c35 = $("#sum_cubic").val(),
+                c36 = $("#sum_volume_weight").val(),
+
+                c37 = $("#warehouse_id").val(),
+                c38 = $("#warehouse_code").val(),
+
                 b= $("#cargo_details"),
                 x = b.find("tbody"),
                 C = $("<tr id=" + (0== c1? _ : c1) + ">");
         console.log("c1= "+c1 + "_= "+_ +"z= "+z);
-        C.append(createTableContent('cargo_line', (0== c1? _ : c1), true, z))
-                .append(createTableContent('warehouse_number', c2, false, z))
-                .append(createTableContent('warehouse_date_in', c3, false, z))
-                .append(createTableContent('warehouse_shipper_name', c10, false, z))
-                .append(createTableContent('warehouse_consignee_name', c22, false, z))
-                .append(createTableContent('box_number', c7, false, z))
-                .append(createTableContent('loaded_position', c5, false, z))
-                .append(createTableContent('ship_inst_number', c6, false, z))
-                .append(createTableContent('warehouse_status', c8, false, z))
+        C.append(createTableContent('hidden_warehouse_line', (0== c1? _ : c1), true, z))
+                .append(createTableContent('hidden_warehouse_number', c2, false, z))
+                .append(createTableContent('hidden_date_in', c3, false, z))
+                .append(createTableContent('hidden_shipper_name', c10, false, z))
+                .append(createTableContent('hidden_consignee_name', c22, false, z))
+                .append(createTableContent('hidden_box_number', c7, false, z))
+                .append(createTableContent('hidden_loaded_position', c5, false, z))
+                .append(createTableContent('hidden_ship_inst_number', c6, false, z))
+                .append(createTableContent('hidden_status', c8, false, z))
 
-                .append(createTableContent('bldg_number', c4, true, z))
-                .append(createTableContent('warehouse_shipper_id', c9, true, z))
-                .append(createTableContent('warehouse_shipper_address', c11, true, z))
-                .append(createTableContent('warehouse_shipper_city', c12, true, z))
-                .append(createTableContent('warehouse_shipper_state_id', c13, true, z))
-                .append(createTableContent('warehouse_shipper_state_name', c14, true, z))
-                .append(createTableContent('warehouse_shipper_country_id', c15, true, z))
-                .append(createTableContent('warehouse_shipper_country_name', c16, true, z))
-                .append(createTableContent('warehouse_shipper_zip_code_id', c17, true, z))
-                .append(createTableContent('warehouse_shipper_zip_code_code', c18, true, z))
-                .append(createTableContent('warehouse_shipper_phone', c19, true, z))
-                .append(createTableContent('warehouse_shipper_fax', c20, true, z))
+                .append(createTableContent('hidden_bldg_number', c4, true, z))
+                .append(createTableContent('hidden_shipper_id', c9, true, z))
+                .append(createTableContent('hidden_shipper_address', c11, true, z))
+                .append(createTableContent('hidden_shipper_city', c12, true, z))
+                .append(createTableContent('hidden_shipper_state_id', c13, true, z))
+                .append(createTableContent('hidden_shipper_state_name', c14, true, z))
+                .append(createTableContent('hidden_shipper_country_id', c15, true, z))
+                .append(createTableContent('hidden_shipper_country_name', c16, true, z))
+                .append(createTableContent('hidden_shipper_zip_code_id', c17, true, z))
+                .append(createTableContent('hidden_shipper_zip_code_code', c18, true, z))
+                .append(createTableContent('hidden_shipper_phone', c19, true, z))
+                .append(createTableContent('hidden_shipper_fax', c20, true, z))
 
-                .append(createTableContent('warehouse_consignee_id', c21, true, z))
-                .append(createTableContent('warehouse_consignee_address', c23, true, z))
-                .append(createTableContent('warehouse_consignee_city', c24, true, z))
-                .append(createTableContent('warehouse_consignee_state_id', c25, true, z))
-                .append(createTableContent('warehouse_consignee_state_name', c26, true, z))
-                .append(createTableContent('warehouse_consignee_country_id', c27, true, z))
-                .append(createTableContent('warehouse_consignee_country_name', c28, true, z))
-                .append(createTableContent('warehouse_consignee_zip_code_id', c29, true, z))
-                .append(createTableContent('warehouse_consignee_zip_code_code', c30, true, z))
-                .append(createTableContent('warehouse_consignee_phone', c31, true, z))
-                .append(createTableContent('warehouse_consignee_fax', c32, true, z))
+                .append(createTableContent('hidden_consignee_id', c21, true, z))
+                .append(createTableContent('hidden_consignee_address', c23, true, z))
+                .append(createTableContent('hidden_consignee_city', c24, true, z))
+                .append(createTableContent('hidden_consignee_state_id', c25, true, z))
+                .append(createTableContent('hidden_consignee_state_name', c26, true, z))
+                .append(createTableContent('hidden_consignee_country_id', c27, true, z))
+                .append(createTableContent('hidden_consignee_country_name', c28, true, z))
+                .append(createTableContent('hidden_consignee_zip_code_id', c29, true, z))
+                .append(createTableContent('hidden_consignee_zip_code_code', c30, true, z))
+                .append(createTableContent('hidden_consignee_phone', c31, true, z))
+                .append(createTableContent('hidden_consignee_fax', c32, true, z))
+
+                .append(createTableContent('hidden_sum_pieces', c33, true, z))
+                .append(createTableContent('hidden_sum_weight', c34, true, z))
+                .append(createTableContent('hidden_sum_cubic', c35, true, z))
+                .append(createTableContent('hidden_sum_volume_weight', c36, true, z))
+
+                .append(createTableContent('hidden_warehouse_id', c37, true, z))
+                .append(createTableContent('hidden_warehouse_code', c38, true, z))
                 .append(createTableBtns()), 0 == c1 ? x.append(C) : x.find("tr#" + c1).replaceWith(C), cleanModalFields('Warehouse_Details') , $("#warehouse_number").focus()
 
 
@@ -321,7 +338,15 @@
                 c29 = t[0].childNodes[28].textContent,
                 c30 = t[0].childNodes[29].textContent,
                 c31 = t[0].childNodes[30].textContent,
-                c32 = t[0].childNodes[31].textContent;
+                c32 = t[0].childNodes[31].textContent,
+
+                c33 = t[0].childNodes[32].textContent,
+                c34 = t[0].childNodes[33].textContent,
+                c35 = t[0].childNodes[34].textContent,
+                c36 = t[0].childNodes[35].textContent,
+
+                c37 = t[0].childNodes[36].textContent,
+                c38 = t[0].childNodes[37].textContent;
 
                 $("#cargo_line").val(c1),
                 $("#warehouse_number").val(c2),
@@ -357,6 +382,14 @@
                 $("#warehouse_consignee_zip_code_code").val(c30),
                 $("#warehouse_consignee_phone").val(c31),
                 $("#warehouse_consignee_fax").val(c32),
+
+                $("#sum_quantity").val(c33),
+                $("#sum_weight").val(c34),
+                $("#sum_cubic").val(c35),
+                $("#sum_volume_weight").val(c36),
+
+                $("#warehouse_id").val(c37),
+                $("#warehouse_code").val(c38),
                 calculate_cargo(), $("#Warehouse_Details").modal("show"),  clearTable("warehouse_cargo_details")
 
 

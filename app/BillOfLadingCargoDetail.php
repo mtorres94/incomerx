@@ -106,6 +106,39 @@ class BillOfLadingCargoDetail extends Model
 
     }
 
+    public static function saveDetailStepByStep($id, $data) {
+        $i=-1; $a=0;
+        if (isset($data['details_line'])){
+            $details= DB::table('exp_bill_of_lading_cargo_details')->where('bill_of_lading_id', '=', $id)->delete();
+            while($a < count($data['details_line'])){
+                $i++;
+                if (isset($data['details_line'][$i])){
+                    $obj = new BillOfLadingCargoDetail();
+                    $obj->bill_of_lading_id = $id;
+                    $obj->line=  $a + 1;
+                    $obj-> cargo_id = $data['details_id'][$i];
+                    $obj-> quantity = $data['details_quantity'][$i];
+                    $obj-> unit= $data['details_unit'][$i];
+                    $obj-> length= $data['details_length'][$i];
+                    $obj-> width= $data['details_width'][$i];
+                    $obj-> height= $data['details_height'][$i];
+                    $obj-> total_weight= $data['details_total_weight'][$i];
+                    $obj-> total_cubic= $data['details_total_cubic'][$i];
+                    $obj-> cargo_type_id= $data['details_cargo_type_id'][$i];
+                    $obj-> metric_unit= $data['details_metric_unit'][$i];
+                    $obj-> materials= $data['details_material'][$i];
+                    $obj-> pieces= $data['details_pieces'][$i];
+                    $obj-> unit_weight= $data['details_unit_weight'][$i];
+                    $obj-> dim_fact= $data['details_dim_fact'][$i];
+                    $obj-> vol_weight= $data['details_vol_weight'][$i];
+                    $obj->save();
+                    $a++;
+                }
+
+            }
+        }
+
+    }
 
     public static function Search($id){
         return self::where('bill_of_lading_id', $id)->get();

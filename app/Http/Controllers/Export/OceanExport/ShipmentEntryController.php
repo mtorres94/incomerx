@@ -105,11 +105,11 @@ class ShipmentEntryController extends Controller
     public function autocomplete(Request $request)
     {
         if ($request->ajax()) {
-            $shipmentEntries = ShipmentEntry::leftJoin('mst_carriers', 'exp_shipment_entries.booking_carrier_id', '=', 'mst_carriers.id')
-                ->leftJoin('mst_ocean_ports AS op2', 'exp_shipment_entries.unloading_port_id', '=', 'op2.id')
-                ->leftJoin('mst_ocean_ports AS op1', 'exp_shipment_entries.loading_port_id', '=', 'op1.id')
-                ->leftJoin('mst_world_locations AS wl1', 'exp_shipment_entries.location_origin_id', '=', 'wl1.id')
-                ->leftJoin('mst_world_locations AS wl2', 'exp_shipment_entries.location_destination_id', '=', 'wl2.id')
+            $shipmentEntries = ShipmentEntry::leftJoin('mst_carriers', 'exp_shipment_entries.carrier_id', '=', 'mst_carriers.id')
+                ->leftJoin('mst_ocean_ports AS op2', 'exp_shipment_entries.port_unloading_id', '=', 'op2.id')
+                ->leftJoin('mst_ocean_ports AS op1', 'exp_shipment_entries.port_loading_id', '=', 'op1.id')
+                ->leftJoin('mst_world_locations AS wl1', 'exp_shipment_entries.place_receipt_id', '=', 'wl1.id')
+                ->leftJoin('mst_world_locations AS wl2', 'exp_shipment_entries.place_delivery_id', '=', 'wl2.id')
                 ->leftJoin('mst_customers AS C1', 'exp_shipment_entries.shipper_id', '=', 'C1.id')
                 ->leftJoin('mst_customers AS C2', 'exp_shipment_entries.consignee_id', '=', 'C2.id')
                 ->leftJoin('mst_customers AS C3', 'exp_shipment_entries.agent_id', '=', 'C3.id')
@@ -133,8 +133,8 @@ class ShipmentEntryController extends Controller
                     'code'              => strtoupper($shipmentEntry->shipment_code),
                     'type'               => $shipmentEntry->shipment_type,
                     'bl_status'         => $shipmentEntry->bl_status,
-                    'vessel'               => $shipmentEntry->booking_vessel,
-                    'voyage'         => $shipmentEntry->booking_voyage,
+                    'vessel'               => $shipmentEntry->vessel_name,
+                    'voyage'         => $shipmentEntry->voyage_name,
                     'carrier_id'         => $shipmentEntry->carrier_id,
                     'carrier_name'         => $shipmentEntry->carrier_name,
                     'departure'    => $shipmentEntry->departure_date,

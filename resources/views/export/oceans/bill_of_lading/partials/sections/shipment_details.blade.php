@@ -1,7 +1,5 @@
 <fieldset id="Shipment_details">
-    <div class="row">
-        {!! Form::bsComplete('col-md-3', 'col-md-9','Quote Number ', 'quote_number_id', 'quote_number_code', Request::get('term'),((isset($bill_lading) and $bill_lading->quote_number_id > 0) ? $bill_lading->quote_number->code : null), 'Quote') !!}
-    </div>
+
     <div class="row">
         <div class="col-md-6">{!! Form::bsText("col-md-6", "col-md-6",'Ship Inst #', 'ship_inst', null, '') !!}</div>
         <div class="col-md-6">{!! Form::bsText("col-md-6", "col-md-6",'Project Number', 'project_number', null, '') !!}</div>

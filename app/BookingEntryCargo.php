@@ -44,6 +44,26 @@ class BookingEntryCargo extends Model
 
     }
 
+    public static function saveDetailStepByStep($id, $data) {
+        $i=-1; $a=0;
+        if (isset($data['hidden_warehouse_line']) ){
+            $details= DB::table('exp_booking_entries_cargo')->where('booking_entry_id', '=', $id)->delete();
+            while($a < count($data['hidden_warehouse_line'])){
+                $i++;
+                if (isset($data['hidden_warehouse_line'][$i])){
+                    $obj = new BookingEntryCargo();
+                    $obj->booking_entry_id = $id;
+                    $obj->line=  $data['hidden_warehouse_line'][$i];
+                    $obj->cargo_description=  $data['hidden_ship_inst_number'][$i];
+                    $obj->cargo_marks=  $data['hidden_warehouse_number'][$i];
+                    $obj->save();
+                    $a++;
+                }
+            }
+        }
+
+    }
+
     public static function search($id){
         return self::where('booking_entry_id', $id)->get();
     }

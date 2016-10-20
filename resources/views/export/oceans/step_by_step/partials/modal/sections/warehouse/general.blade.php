@@ -8,7 +8,7 @@
     </div>
     <div class="row">
         <div class="col-md-3">{!! Form::bsText(null, null, 'Ship Inst. #', 'ship_inst_number', '') !!}</div>
-        <div class="col-md-3"></div>
+        <div class="col-md-3"> {!! Form::bsComplete(null, null, 'Warehouse', 'warehouse_id', 'warehouse_code', Request::get('term'),null , null) !!}</div>
         <div class="col-md-3">{!! Form::bsText(null, null, 'Box/Plt #', 'box_number', '') !!}</div>
         <div class="col-md-3">{!! Form::bsSelect(null, null, ' Status', 'warehouse_status', array(
             'O' => 'OPEN',

@@ -21,9 +21,7 @@ class ShipmentEntryDataTable extends CustomDataTable
             ->addColumn('action', function ($shipment_entries) {
                 return $this->groupButton(
                     $shipment_entries,
-                    'export.oceans.shipment_entries.show',
-                    'export.oceans.shipment_entries.edit',
-                    'export.oceans.shipment_entries.destroy',
+                    'export.oceans.shipment_entries',
                     null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
@@ -37,7 +35,13 @@ class ShipmentEntryDataTable extends CustomDataTable
      */
     public function query()
     {
-        $query = ShipmentEntry::select(['id']);
+        $query = ShipmentEntry::leftJoin('mst_divisions', 'exp_shipment_entries.division_id', '=', 'mst_divisions.id')
+            ->leftJoin('mst_customers AS c1', 'exp_shipment_entries.shipper_id', '=', 'c1.id')
+            ->leftJoin('mst_customers AS c2', 'exp_shipment_entries.consignee_id', '=', 'c2.id')
+            ->leftJoin('mst_customers AS c3', 'exp_shipment_entries.agent_id', '=', 'c3.id')
+            ->leftJoin('mst_ocean_ports AS c4', 'exp_shipment_entries.port_loading_id', '=', 'c4.id')
+            ->leftJoin('mst_ocean_ports AS c5', 'exp_shipment_entries.port_unloading_id', '=', 'c5.id')
+            ->select(['exp_shipment_entries.id','exp_shipment_entries.shipment_code','mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS port_loading_name', 'c5.name AS port_unloading_name']);
         return $this->applyScopes($query);
     }
 
@@ -63,7 +67,13 @@ class ShipmentEntryDataTable extends CustomDataTable
     protected function getColumns()
     {
         return [
-            'id',
+            ['data' => 'shipment_code',   'name' => 'exp_shipment_entries.shipment_code', 'title' => 'Code'],
+            ['data' => 'division_name',    'name' => 'mst_divisions.name', 'title' => 'Division'],
+            ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
+            ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
+
+            ['data' => 'port_loading_name',   'name' => 'c4.name', 'title' => 'Port Loading'],
+            ['data' => 'port_unloading_name',   'name' => 'c5.name', 'title' => 'Port Unloading'],
 
         ];
     }
