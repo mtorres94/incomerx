@@ -26,7 +26,7 @@ class ComponentServiceProvider extends ServiceProvider
         Form::component('bsSubmit', 'components.form.submit', []);
         Form::component('bsIndex', 'components.form.index', ['route','index']);
         Form::component('bsBack', 'components.form.back', ['route']);
-        Form::component('bsBtnG', 'components.form.btngroup', ['show','edit','delete','obj']);
+        Form::component('bsGroup', 'components.form.btn-group', ['array', 'obj']);
         Form::component('bsRowTd', 'components.form.td', ['line', 'name', 'content', 'hidden']);
         Form::component('bsRowBtns', 'components.form.btns', []);
     }

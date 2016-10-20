@@ -17,12 +17,7 @@ class BusinessTypeDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($business_types) {
-                return $this->groupButton(
-                    $business_types,
-                    'maintenance.customers.business_types.show',
-                    'maintenance.customers.business_types.edit',
-                    'maintenance.customers.business_types.destroy',
-                    null);
+                return $this->groupButton($business_types, 'maintenance.customers.business_types', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

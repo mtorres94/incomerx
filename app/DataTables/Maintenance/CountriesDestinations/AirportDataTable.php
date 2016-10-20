@@ -17,12 +17,7 @@ class AirportDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($airports) {
-                return $this->groupButton(
-                    $airports,
-                    'maintenance.countries_destinations.airports.show',
-                    'maintenance.countries_destinations.airports.edit',
-                    'maintenance.countries_destinations.airports.destroy',
-                    null);
+                return $this->groupButton($airports, 'maintenance.countries_destinations.airports', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

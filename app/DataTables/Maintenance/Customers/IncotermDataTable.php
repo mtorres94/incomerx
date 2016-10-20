@@ -17,12 +17,7 @@ class IncotermDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($incoterms) {
-                return $this->groupButton(
-                    $incoterms,
-                    'maintenance.customers.incoterms.show',
-                    'maintenance.customers.incoterms.edit',
-                    'maintenance.customers.incoterms.destroy',
-                    null);
+                return $this->groupButton($incoterms, 'maintenance.customers.incoterms', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

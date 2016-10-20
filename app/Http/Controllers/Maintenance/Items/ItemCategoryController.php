@@ -3,6 +3,7 @@
 namespace Sass\Http\Controllers\Maintenance\Items;
 
 use Illuminate\Support\Facades\Auth;
+use Sass\DataTables\Maintenance\Items\ItemCategoryDataTable;
 use Sass\Http\Controllers\Controller;
 use Sass\Http\Requests\Maintenance\Items\ItemCategoryRequest;
 use Sass\ItemCategory;
@@ -12,12 +13,12 @@ class ItemCategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param ItemCategoryDataTable $dataTable
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ItemCategoryDataTable $dataTable)
     {
-        $item_categories = ItemCategory::paginate(env('APP_PAGINATE'));
-        return view('maintenance.items.item_categories.index', compact('item_categories'));
+        return $dataTable->render('maintenance.items.item_categories.index');
     }
 
     /**

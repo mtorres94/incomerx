@@ -17,11 +17,7 @@ class ContactTypeDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($contact_types) {
-                return $this->groupButton(
-                    $contact_types,
-                    'maintenance.customers.contact_types.show',
-                    'maintenance.customers.contact_types.edit',
-                    'maintenance.customers.contact_types.destroy');
+                return $this->groupButton($contact_types, 'maintenance.customers.contact_types', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

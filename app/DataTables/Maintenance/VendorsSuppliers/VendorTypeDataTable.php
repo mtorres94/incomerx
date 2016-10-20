@@ -17,12 +17,7 @@ class VendorTypeDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($vendor_types) {
-                return $this->groupButton(
-                    $vendor_types,
-                    'maintenance.vendors_suppliers.vendor_types.show',
-                    'maintenance.vendors_suppliers.vendor_types.edit',
-                    'maintenance.vendors_suppliers.vendor_types.destroy',
-                    null);
+                return $this->groupButton($vendor_types, 'maintenance.vendors_suppliers.vendor_types', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

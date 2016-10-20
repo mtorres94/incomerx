@@ -46,7 +46,7 @@
                     <p class="label-content label-date"><strong>DATE IN: {{ $receipt_entry->date_in }}</strong></p>
                 </div>
                 <div class="warehouse">
-                    {{ $receipt_entry->warehouse_code }}
+                    {{ $receipt_entry->code }}
                 </div>
                 <div class="col-xs-4 unit-metrics">
                     <p class="label-units"><strong>UNIT WEIGHT</strong></p>
@@ -69,8 +69,8 @@
                 </div>
                 <div class="col-xs-12 barcode-label">
                     <p class="label-units"><strong>BARCODE:</strong></p>
-                    <p class="code-bar">{{ $receipt_entry->warehouse_code }}-{{ str_pad($detail->line, 2, '0', 0) }}-{{ str_pad($receipt_entry->cargo_details->count(), 3, '0', 0) }}</p>
-                    <p class="legend-barcode">{{ $receipt_entry->warehouse_code }}-{{ str_pad($detail->line, 2, '0', 0) }}-{{ str_pad($receipt_entry->cargo_details->count(), 3, '0', 0) }}</p>
+                    <p class="code-bar">{{ $receipt_entry->code }}-{{ str_pad($detail->line, 2, '0', 0) }}-{{ str_pad($receipt_entry->cargo_details->count(), 3, '0', 0) }}</p>
+                    <p class="legend-barcode">{{ $receipt_entry->code }}-{{ str_pad($detail->line, 2, '0', 0) }}-{{ str_pad($receipt_entry->cargo_details->count(), 3, '0', 0) }}</p>
                 </div>
             </div>
         </div>

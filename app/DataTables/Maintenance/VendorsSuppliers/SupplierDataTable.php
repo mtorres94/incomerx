@@ -17,12 +17,7 @@ class SupplierDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($suppliers) {
-                return $this->groupButton(
-                    $suppliers,
-                    'maintenance.vendors_suppliers.suppliers.show',
-                    'maintenance.vendors_suppliers.suppliers.edit',
-                    'maintenance.vendors_suppliers.suppliers.destroy',
-                    null);
+                return $this->groupButton($suppliers, 'maintenance.vendors_suppliers.suppliers', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

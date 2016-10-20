@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Receipt Entry {{ $receipt_entry->code }}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,8 +41,8 @@
                 <div class="row">
                     <div class="document-info pull-right">
                         <h5><strong>WAREHOUSE RECEIPT</strong></h5>
-                        <p class="code-bar">{{ $receipt_entry->warehouse_code }}</p>
-                        <p class="document_number">{{ $receipt_entry->warehouse_code }}</p>
+                        <p class="code-bar">{{ $receipt_entry->code }}</p>
+                        <p class="document_number">{{ $receipt_entry->code }}</p>
                     </div>
                 </div>
             </div>

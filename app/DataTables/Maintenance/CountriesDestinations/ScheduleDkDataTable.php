@@ -17,12 +17,7 @@ class ScheduleDkDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($schedule_dks) {
-                return $this->groupButton(
-                    $schedule_dks,
-                    'maintenance.countries_destinations.schedule_dks.show',
-                    'maintenance.countries_destinations.schedule_dks.edit',
-                    'maintenance.countries_destinations.schedule_dks.destroy',
-                    null);
+                return $this->groupButton($schedule_dks, 'maintenance.countries_destinations.schedule_dks', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

@@ -7,6 +7,9 @@
 <!-- Font Awesome -->
 {!! Html::style('css/font-awesome.min.css') !!}
 
+<!-- IcoMoon -->
+{!! Html::style('css/icomoon.css') !!}
+
 <!-- Ionicons -->
 {!! Html::style('css/ionicons.min.css') !!}
 

@@ -1,7 +1,7 @@
 <fieldset>
     <legend>General info</legend>
     <div class="row">
-        <div class="col-md-3">{!! Form::bsText(null, null, 'Whse #', 'warehouse_code', null, '') !!}</div>
+        <div class="col-md-3">{!! Form::bsText(null, null, 'Whse #', 'code', null, '') !!}</div>
         <div class="col-md-3">{!! Form::bsDate(null, null, 'Date In', 'date_in', null, null) !!}</div>
         <div class="col-md-3">{!! Form::bsComplete(null, null, 'Division', 'division_id', 'division_name', Request::get('term'),
     ((isset($receipt_entry) and $receipt_entry->division_id > 0) ? $receipt_entry->division->name : null), 'Divisions...', 'options.maintenance.divisions.divisions', 'options.maintenance.divisions.divisions', 'maintenance.divisions_departments.divisions.index') !!}</div>

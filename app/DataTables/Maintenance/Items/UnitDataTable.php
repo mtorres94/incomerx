@@ -17,12 +17,7 @@ class UnitDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($units) {
-                return $this->groupButton(
-                    $units,
-                    'maintenance.items.units.show',
-                    'maintenance.items.units.edit',
-                    'maintenance.items.units.destroy',
-                    null);
+                return $this->groupButton($units, 'maintenance.items.units', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

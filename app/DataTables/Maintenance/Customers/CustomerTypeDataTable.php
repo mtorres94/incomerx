@@ -17,12 +17,7 @@ class CustomerTypeDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($customer_types) {
-                return $this->groupButton(
-                    $customer_types,
-                    'maintenance.items.customer_types.show',
-                    'maintenance.items.customer_types.edit',
-                    'maintenance.items.customer_types.destroy',
-                    null);
+                return $this->groupButton($customer_types, 'maintenance.items.customer_types', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);
