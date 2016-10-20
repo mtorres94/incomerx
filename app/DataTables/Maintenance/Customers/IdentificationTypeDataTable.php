@@ -17,12 +17,7 @@ class IdentificationTypeDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($identification_types) {
-                return $this->groupButton(
-                    $identification_types,
-                    'maintenance.customers.identification_types.show',
-                    'maintenance.customers.identification_types.edit',
-                    'maintenance.customers.identification_types.destroy',
-                    null);
+                return $this->groupButton($identification_types, 'maintenance.customers.identification_types', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

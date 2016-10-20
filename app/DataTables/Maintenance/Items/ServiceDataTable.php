@@ -17,12 +17,7 @@ class ServiceDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($services) {
-                return $this->groupButton(
-                    $services,
-                    'maintenance.items.services.show',
-                    'maintenance.items.services.edit',
-                    'maintenance.items.services.destroy',
-                    null);
+                return $this->groupButton($services, 'maintenance.items.services', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

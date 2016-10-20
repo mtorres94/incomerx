@@ -17,12 +17,7 @@ class CityDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($cities) {
-                return $this->groupButton(
-                    $cities,
-                    'maintenance.countries_destinations.cities.show',
-                    'maintenance.countries_destinations.cities.edit',
-                    'maintenance.countries_destinations.cities.destroy',
-                    null);
+                return $this->groupButton($cities, 'maintenance.countries_destinations.cities', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

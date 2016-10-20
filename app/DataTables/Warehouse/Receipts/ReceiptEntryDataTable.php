@@ -17,12 +17,11 @@ class ReceiptEntryDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($receipt_entry) {
-                return $this->groupButton(
-                    $receipt_entry,
-                    null,
-                    'warehouse.receipts.receipts_entries.edit',
-                    'warehouse.receipts.receipts_entries.destroy',
-                    'receipts_entries.pdf');
+                return $this->groupButton($receipt_entry, 'warehouse.receipts.receipts_entries',
+                    [
+                        ['route' => 'receipts_entries.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF'],
+                        ['route' => 'receipts_entries.label', 'icon' => 'fa fa-barcode', 'name' => 'Label']
+                    ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);
@@ -41,7 +40,7 @@ class ReceiptEntryDataTable extends CustomDataTable
             ->leftJoin('mst_customers AS c3', 'whr_receipts_entries.third_party_id', '=', 'c3.id')
             ->leftJoin('mst_customers AS c4', 'whr_receipts_entries.agent_id', '=', 'c4.id')
             ->leftJoin('mst_customers AS c5', 'whr_receipts_entries.coloader_id', '=', 'c5.id')
-            ->select(['whr_receipts_entries.id', 'whr_receipts_entries.warehouse_code', 'whr_receipts_entries.date_in', 'whr_receipts_entries.mode', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS third_party_name', 'c4.name AS agent_name', 'c5.name AS coloader_name']);
+            ->select(['whr_receipts_entries.id', 'whr_receipts_entries.code', 'whr_receipts_entries.date_in', 'whr_receipts_entries.mode', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS third_party_name', 'c4.name AS agent_name', 'c5.name AS coloader_name']);
 
         return $this->applyScopes($query);
     }
@@ -76,7 +75,7 @@ class ReceiptEntryDataTable extends CustomDataTable
                 "title" => '',
                 "width" => '40px'
             ],
-            ['data' => 'warehouse_code',   'name' => 'whr_receipts_entries.warehouse_code', 'title' => 'Code'],
+            ['data' => 'code',   'name' => 'whr_receipts_entries.code', 'title' => 'Code'],
             ['data' => 'date_in',          'name' => 'whr_receipts_entries.date_in', 'title' => 'Date in'],
             ['data' => 'mode',             'name' => 'whr_receipts_entries.mode', 'title' => 'Mode'],
             ['data' => 'division_name',    'name' => 'mst_divisions.name', 'title' => 'Division'],

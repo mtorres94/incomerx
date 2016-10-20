@@ -17,12 +17,7 @@ class WarehouseFacilityDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($warehouse_facilities) {
-                return $this->groupButton(
-                    $warehouse_facilities,
-                    'maintenance.warehouse.warehouse_facilities.show',
-                    'maintenance.warehouse.warehouse_facilities.edit',
-                    'maintenance.warehouse.warehouse_facilities.destroy',
-                    null);
+                return $this->groupButton($warehouse_facilities, 'maintenance.warehouse.warehouse_facilities', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

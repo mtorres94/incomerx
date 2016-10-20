@@ -296,6 +296,9 @@ tr.shown td.details-control {
     margin-left: 5px;
     border: 1px solid #ddd;
 }
+.dataTable tbody {
+    font-size: 11px;
+}
 .dataTable .btn-options .btn-pdf .fa {
     padding-bottom: 3px !important; 
 }
@@ -387,6 +390,10 @@ tr.shown td.details-control {
     padding-right: 8px;
     margin-right: 0;
 }
+.btn-group .dropdown-menu {
+    left: auto;
+    right: 0 !important;
+}
 label.checkbok span {
     margin-top: -2px;
     margin-left: 2px;
@@ -436,7 +443,7 @@ table tbody td {
 }
 .panel-body ul.dropdown-menu li a {
     font-size: 12px;
-    padding-left: 12px;
+    padding: 3px 12px;
 }
 .bs-searchbox .form-control {
     height: 25px;

@@ -17,12 +17,7 @@ class CountryDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($countries) {
-                return $this->groupButton(
-                    $countries,
-                    'maintenance.countries_destinations.countries.show',
-                    'maintenance.countries_destinations.countries.edit',
-                    'maintenance.countries_destinations.countries.destroy',
-                    null);
+                return $this->groupButton($countries, 'maintenance.countries_destinations.countries', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

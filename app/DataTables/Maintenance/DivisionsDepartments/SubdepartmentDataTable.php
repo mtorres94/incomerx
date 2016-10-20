@@ -17,12 +17,7 @@ class SubdepartmentDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($subdepartments) {
-                return $this->groupButton(
-                    $subdepartments,
-                    'maintenance.items.subdepartments.show',
-                    'maintenance.items.subdepartments.edit',
-                    'maintenance.items.subdepartments.destroy',
-                    null);
+                return $this->groupButton($subdepartments, 'maintenance.items.subdepartments', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

@@ -17,12 +17,7 @@ class CurrencyDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($currencies) {
-                return $this->groupButton(
-                    $currencies,
-                    'maintenance.countries_destinations.currencies.show',
-                    'maintenance.countries_destinations.currencies.edit',
-                    'maintenance.countries_destinations.currencies.destroy',
-                    null);
+                return $this->groupButton($currencies, 'maintenance.countries_destinations.currencies', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

@@ -17,12 +17,7 @@ class CommodityDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($commodities) {
-                return $this->groupButton(
-                    $commodities,
-                    'maintenance.items.commodities.show',
-                    'maintenance.items.commodities.edit',
-                    'maintenance.items.commodities.destroy',
-                    null);
+                return $this->groupButton($commodities, 'maintenance.items.commodities', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

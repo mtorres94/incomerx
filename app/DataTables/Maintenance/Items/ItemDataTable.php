@@ -17,12 +17,7 @@ class ItemDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($items) {
-                return $this->groupButton(
-                    $items,
-                    'maintenance.items.items.show',
-                    'maintenance.items.items.edit',
-                    'maintenance.items.items.destroy',
-                    null);
+                return $this->groupButton($items, 'maintenance.items.items', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

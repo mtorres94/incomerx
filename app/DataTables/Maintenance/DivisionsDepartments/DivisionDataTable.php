@@ -17,12 +17,7 @@ class DivisionDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($divisions) {
-                return $this->groupButton(
-                    $divisions,
-                    'maintenance.divisions_departments.divisions.show',
-                    'maintenance.divisions_departments.divisions.edit',
-                    'maintenance.divisions_departments.divisions.destroy',
-                    null);
+                return $this->groupButton($divisions, 'maintenance.divisions_departments.divisions', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

@@ -3,6 +3,7 @@
 namespace Sass\Http\Controllers\Warehouse\Receipts;
 
 use Illuminate\Contracts\Validation\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 use Illuminate\Http\Response;
@@ -45,8 +46,8 @@ class ReceiptEntryController extends Controller
      */
     public function create()
     {
-        #$unique_str = str_random(25);
-        return view('warehouse.receipts.receipts_entries.create');
+        $unique_str = str_random(25);
+        return view('warehouse.receipts.receipts_entries.create', compact('unique_str'));
     }
 
     /**
@@ -60,10 +61,10 @@ class ReceiptEntryController extends Controller
         DB::beginTransaction();
         try {
             $count = ReceiptEntry::count() + 1;
-            $warehouse_code = str_pad($count, 10, '0', STR_PAD_LEFT);
+            $code = str_pad($count, 10, '0', STR_PAD_LEFT);
 
             $receipt_entry = $request->all();
-            $receipt_entry['warehouse_code'] = $warehouse_code;
+            $receipt_entry['code'] = $code;
             $receipt_entry['user_create_id'] = Auth::user()->id;
             $receipt_entry['user_update_id'] = Auth::user()->id;
 
@@ -86,7 +87,7 @@ class ReceiptEntryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -98,7 +99,7 @@ class ReceiptEntryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -111,8 +112,8 @@ class ReceiptEntryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -143,7 +144,7 @@ class ReceiptEntryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -154,18 +155,19 @@ class ReceiptEntryController extends Controller
     public function get($id)
     {
         $files = ReceiptEntryAttachment::where('unique_str', $id)->get();
-        $path = public_path() . "/storage/";
+        $path = public_path()."/storage/";
 
         $rtn = [];
         foreach ($files as $file) {
-            if (File::exists($path . $file->temp_name)) {
+            if (File::exists($path.$file->temp_name))
+            {
                 $rtn[] = [
                     'original_name' => $file->original_name,
                     'temp_name' => $file->temp_name,
                     'type' => strtolower(File::extension($file->original_name)),
                     'route' => asset(Storage::disk('storage')->url($file->temp_name)),
                     'key' => $file->id,
-                    'size' => File::size($path . $file->temp_name),
+                    'size' => File::size($path.$file->temp_name),
                 ];
             }
         }
@@ -177,7 +179,7 @@ class ReceiptEntryController extends Controller
         $upload = $request->all();
         $unique_str = $upload['unique_str'];
         try {
-            $path = public_path() . '/storage/';
+            $path = public_path().'/storage/';
             $file = $request->file('file')[0];
 
             $tmp = FileRepository::generate($file);
@@ -189,7 +191,7 @@ class ReceiptEntryController extends Controller
         return response()->json();
     }
 
-    public function download()
+    public function download ()
     {
         //
     }
@@ -200,15 +202,11 @@ class ReceiptEntryController extends Controller
         if (!$key) return response()->json(['error' => 'The file could not be deleted']);
 
         $sessionFile = ReceiptEntryAttachment::findOrFail($key);
-        $path_file = public_path() . '/storage/' . $sessionFile->temp_name;
+        $path_file = public_path().'/storage/'.$sessionFile->temp_name;
 
         try {
-            if (!empty($sessionFile)) {
-                $sessionFile->delete();
-            }
-            if (File::exists($path_file)) {
-                File::delete($path_file);
-            }
+            if (!empty($sessionFile)) { $sessionFile->delete(); }
+            if (File::exists($path_file)) { File::delete($path_file); }
         } catch (FileException $e) {
             return response()->json(['error' => 'The file could not be deleted']);
         }
@@ -307,23 +305,37 @@ class ReceiptEntryController extends Controller
         }
     }
 
-    public function pdf($id)
+    public function pdf($token, $id)
     {
-        $receipt_entry = ReceiptEntry::find($id);
-        return \PDF::loadView('warehouse.receipts.receipts_entries.pdf', compact('receipt_entry'))->stream('example.pdf');
+        if (strlen($token) == 60) {
+            try {
+                $receipt_entry = ReceiptEntry::findOrFail($id);
+                return \PDF::loadView('warehouse.receipts.receipts_entries.pdf', compact('receipt_entry'))->stream('WH '.$receipt_entry->code.'.pdf');
+            } catch (ModelNotFoundException $e) {
+                abort(404);
+            }
+        } else {
+            abort(403);
+        }
     }
 
-    public function label($id)
+    public function label($token, $id)
     {
-        $receipt_entry = ReceiptEntry::find($id);
-        # return view('warehouse.receipts.receipts_entries.label', compact('receipt_entry'));
-        return \PDF::loadView('warehouse.receipts.receipts_entries.label', compact('receipt_entry'))
-            ->setOrientation('landscape')
-            ->setOption('margin-top', 3)
-            ->setOption('margin-left', 2)
-            ->stream('labels.pdf');
+        if (strlen($token) == 60) {
+            try {
+                $receipt_entry = ReceiptEntry::findOrFail($id);
+                return \PDF::loadView('warehouse.receipts.receipts_entries.label', compact('receipt_entry'))
+                    ->setOrientation('landscape')
+                    ->setOption('margin-top', 3)
+                    ->setOption('margin-left', 2)
+                    ->stream('WH '.$receipt_entry->code.'.pdf');
+            } catch (ModelNotFoundException $e) {
+                abort(404);
+            }
+        } else {
+            abort(403);
+        }
     }
-
 
     public function get_details(Request $request)
     {
@@ -331,7 +343,7 @@ class ReceiptEntryController extends Controller
             $receipts_entries = ReceiptEntryCargoDetail::select(['whr_receipts_entries_cargo_details.*'])
                 ->where(function ($query) use ($request) {
                     $whr_select = $request->get('id_select');
-                                $query->orWhere('whr_receipts_entries_cargo_details.receipt_entry_id', '=', $whr_select );
+                    $query->orWhere('whr_receipts_entries_cargo_details.receipt_entry_id', '=', $whr_select);
                 })->get();
 
             $results = [];
@@ -339,10 +351,10 @@ class ReceiptEntryController extends Controller
                 $results[] = [
                     'id' => $receipt_entry->id,
                     'receipt_entry_id' => $receipt_entry->receipt_entry_id,
-                    'warehouse_code'=>strtoupper(($receipt_entry->receipt_entry_id> 0 ? $receipt_entry->receipt_entry->code: "")),
+                    'warehouse_code' => strtoupper(($receipt_entry->receipt_entry_id > 0 ? $receipt_entry->receipt_entry->code : "")),
                     'quantity' => strtoupper($receipt_entry->code),
                     'cargo_type_id' => $receipt_entry->cargo_type_id,
-                    'cargo_type_code' => strtoupper(($receipt_entry->cargo_type_id> 0 ? $receipt_entry->cargo_type->code: "")),
+                    'cargo_type_code' => strtoupper(($receipt_entry->cargo_type_id > 0 ? $receipt_entry->cargo_type->code : "")),
                     'pieces' => $receipt_entry->pieces,
                     'weight_unit' => strtoupper($receipt_entry->weight_unit_measurement_id),
                     'metric_unit' => strtoupper($receipt_entry->metric_unit_measurement_id),
@@ -353,9 +365,9 @@ class ReceiptEntryController extends Controller
                     'cubic' => $receipt_entry->cubic,
                     'volume_weight' => $receipt_entry->volume_weight,
                     'location_id' => $receipt_entry->location_id,
-                    'location_name' => strtoupper(($receipt_entry->location_id> 0 ? $receipt_entry->location->name : "")),
+                    'location_name' => strtoupper(($receipt_entry->location_id > 0 ? $receipt_entry->location->name : "")),
                     'location_bin_id' => strtoupper($receipt_entry->location_bin_id),
-                    'location_bin_name' => strtoupper(($receipt_entry->location_bin_id> 0 ? $receipt_entry->bin->name : "")),
+                    'location_bin_name' => strtoupper(($receipt_entry->location_bin_id > 0 ? $receipt_entry->bin->name : "")),
                     'material_description' => strtoupper($receipt_entry->sum_cubic),
                 ];
             }
@@ -363,8 +375,4 @@ class ReceiptEntryController extends Controller
             return response()->json($results);
         }
     }
-
-
-
-
 }

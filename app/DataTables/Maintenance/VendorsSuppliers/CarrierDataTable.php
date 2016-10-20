@@ -1,11 +1,11 @@
 <?php
 
-namespace Sass\DataTables\Maintenance\Customers;
+namespace Sass\DataTables\Maintenance\VendorsSuppliers;
 
-use Sass\DataTables\CustomDataTable;
-use Sass\PaymentTerm;
+use Sass\User;
+use Yajra\Datatables\Services\DataTable;
 
-class PaymentTermDataTable extends CustomDataTable
+class CarrierDataTable extends DataTable
 {
     /**
      * Display ajax response.
@@ -16,10 +16,7 @@ class PaymentTermDataTable extends CustomDataTable
     {
         return $this->datatables
             ->eloquent($this->query())
-            ->addColumn('action', function ($payment_terms) {
-                return $this->groupButton($payment_terms, 'maintenance.customers.payment_terms', null);
-            })
-            ->setRowAttr(['data-id' => '{{ $id }}'])
+            ->addColumn('action', 'path.to.action.view')
             ->make(true);
     }
 
@@ -30,7 +27,7 @@ class PaymentTermDataTable extends CustomDataTable
      */
     public function query()
     {
-        $query = PaymentTerm::select(['id', 'abbreviation as code', 'name', 'net_days', 'discount']);
+        $query = User::query();
 
         return $this->applyScopes($query);
     }
@@ -56,10 +53,10 @@ class PaymentTermDataTable extends CustomDataTable
     protected function getColumns()
     {
         return [
-            'code',
-            'name',
-            'net_days',
-            'discount',
+            'id',
+            // add your columns
+            'created_at',
+            'updated_at',
         ];
     }
 

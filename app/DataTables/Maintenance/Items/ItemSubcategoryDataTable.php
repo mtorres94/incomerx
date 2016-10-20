@@ -1,11 +1,11 @@
 <?php
 
-namespace Sass\DataTables\Maintenance\Customers;
+namespace Sass\DataTables\Maintenance\Items;
 
 use Sass\DataTables\CustomDataTable;
-use Sass\PaymentTerm;
+use Sass\ItemSubcategory;
 
-class PaymentTermDataTable extends CustomDataTable
+class ItemSubcategoryDataTable extends CustomDataTable
 {
     /**
      * Display ajax response.
@@ -16,8 +16,8 @@ class PaymentTermDataTable extends CustomDataTable
     {
         return $this->datatables
             ->eloquent($this->query())
-            ->addColumn('action', function ($payment_terms) {
-                return $this->groupButton($payment_terms, 'maintenance.customers.payment_terms', null);
+            ->addColumn('action', function ($item_subcategories) {
+                return $this->groupButton($item_subcategories, 'maintenance.items.item_subcategories', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);
@@ -30,7 +30,7 @@ class PaymentTermDataTable extends CustomDataTable
      */
     public function query()
     {
-        $query = PaymentTerm::select(['id', 'abbreviation as code', 'name', 'net_days', 'discount']);
+        $query = ItemSubcategory::query(['id', 'name']);
 
         return $this->applyScopes($query);
     }
@@ -56,10 +56,7 @@ class PaymentTermDataTable extends CustomDataTable
     protected function getColumns()
     {
         return [
-            'code',
             'name',
-            'net_days',
-            'discount',
         ];
     }
 

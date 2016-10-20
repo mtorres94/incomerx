@@ -19,12 +19,7 @@ class OrderEntryDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($order_entry) {
-                return $this->groupButton(
-                    $order_entry,
-                    'warehouse.pickup.orders_entries.show',
-                    'warehouse.pickup.orders_entries.edit',
-                    'warehouse.pickup.orders_entries.destroy',
-                    null);
+                return $this->groupButton($order_entry, 'warehouse.pickup.orders_entries', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

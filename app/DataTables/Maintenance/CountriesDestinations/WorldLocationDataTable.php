@@ -17,12 +17,7 @@ class WorldLocationDataTable extends CustomDataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($world_locations) {
-                return $this->groupButton(
-                    $world_locations,
-                    'maintenance.countries_destinations.world_locations.show',
-                    'maintenance.countries_destinations.world_locations.edit',
-                    'maintenance.countries_destinations.world_locations.destroy',
-                    null);
+                return $this->groupButton($world_locations, 'maintenance.countries_destinations.world_locations', null);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

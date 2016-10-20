@@ -42,14 +42,6 @@ function createTableBtns() {
     return $("<td><div class='btn-group btn-group-sm pull-right' role='group'><a class='btn btn-default'><span class='icon ion-edit' aria-hidden='true'></span></a><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></div>");
 }
 
-function createTableBtnsCargo() {
-    return $("<td><div class='btn-group btn-group-sm pull-right' role='group'><b class='btn btn-default'><span class='icon ion-edit' aria-hidden='true'></span></b><b class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></b></div>");
-}
-
-function createTableBtnsVehicle() {
-    return $("<td><div class='btn-group btn-group-sm pull-right' role='group'><c class='btn btn-default'><span class='icon ion-edit' aria-hidden='true'></span></c><c class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></c></div>");
-}
-
 function removeEmptyNodes(tableHTML){
     for (var row=0;row<$("#"+ tableHTML +" tbody tr").length;row++) {
         for (var i = 0; i < $("#"+ tableHTML +" tbody tr")[row].childNodes.length; i++) {
