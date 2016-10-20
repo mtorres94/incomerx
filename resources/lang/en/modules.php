@@ -13,6 +13,6 @@ return [
     'maintenance' => 'Maintenance',
     'rates' => 'Rates',
     'warehouse'=> 'Warehouse',
-    'pickup'=> 'Pick up',
+    'pickup' => 'Pickup and Delivery',
     'export'=> 'Export',
 ];

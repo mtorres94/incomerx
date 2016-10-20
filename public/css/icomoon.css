@@ -1,0 +1,129 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?c3hatz');
+  src:  url('../fonts/icomoon.eot?c3hatz#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?c3hatz') format('truetype'),
+    url('../fonts/icomoon.woff?c3hatz') format('woff'),
+    url('../fonts/icomoon.svg?c3hatz#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-print:before {
+  content: "\e90f";
+}
+.icon-aircraft-landing:before {
+  content: "\e900";
+}
+.icon-aircraft-take-off:before {
+  content: "\e901";
+}
+.icon-aircraft:before {
+  content: "\e902";
+}
+.icon-check:before {
+  content: "\e903";
+}
+.icon-cog2:before {
+  content: "\e904";
+}
+.icon-cross:before {
+  content: "\e905";
+}
+.icon-cup:before {
+  content: "\e906";
+}
+.icon-cw:before {
+  content: "\e907";
+}
+.icon-funnel:before {
+  content: "\e908";
+}
+.icon-globe:before {
+  content: "\e909";
+}
+.icon-line-graph:before {
+  content: "\e90a";
+}
+.icon-location-pin:before {
+  content: "\e90b";
+}
+.icon-pencil3:before {
+  content: "\e90c";
+}
+.icon-pencil:before {
+  content: "\e90d";
+}
+.icon-pencil2:before {
+  content: "\e90e";
+}
+.icon-books:before {
+  content: "\e920";
+}
+.icon-cart:before {
+  content: "\e93a";
+}
+.icon-coin-dollar:before {
+  content: "\e93b";
+}
+.icon-download:before {
+  content: "\e960";
+}
+.icon-upload:before {
+  content: "\e961";
+}
+.icon-cog:before {
+  content: "\e994";
+}
+.icon-cogs:before {
+  content: "\e995";
+}
+.icon-fire:before {
+  content: "\e9a9";
+}
+.icon-bin:before {
+  content: "\e9ac";
+}
+.icon-bin2:before {
+  content: "\e9ad";
+}
+.icon-airplane:before {
+  content: "\e9af";
+}
+.icon-truck:before {
+  content: "\e9b0";
+}
+.icon-switch:before {
+  content: "\e9b6";
+}
+.icon-earth:before {
+  content: "\e9ca";
+}
+.icon-link:before {
+  content: "\e9cb";
+}
+.icon-eye:before {
+  content: "\e9ce";
+}
+.icon-file-pdf:before {
+  content: "\eadf";
+}
+.icon-file-excel:before {
+  content: "\eae2";
+}
+
