@@ -35,6 +35,7 @@ return [
     ],
 
     'export' => [
-        'oceans'  => 'Oceans Export',
+        'oceans'    => 'Ocean Export',
+        'air'       => 'Air Export',
     ],
 ];

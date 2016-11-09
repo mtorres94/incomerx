@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('../fonts/icomoon.eot?c3hatz');
-  src:  url('../fonts/icomoon.eot?c3hatz#iefix') format('embedded-opentype'),
-    url('../fonts/icomoon.ttf?c3hatz') format('truetype'),
-    url('../fonts/icomoon.woff?c3hatz') format('woff'),
-    url('../fonts/icomoon.svg?c3hatz#icomoon') format('svg');
+  src:  url('../fonts/icomoon.eot?dvtqmf');
+  src:  url('../fonts/icomoon.eot?dvtqmf#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?dvtqmf') format('truetype'),
+    url('../fonts/icomoon.woff?dvtqmf') format('woff'),
+    url('../fonts/icomoon.svg?dvtqmf#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,62 +24,110 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-print:before {
-  content: "\e90f";
-}
-.icon-aircraft-landing:before {
+.icon-search2:before {
   content: "\e900";
 }
-.icon-aircraft-take-off:before {
+.icon-warning:before {
   content: "\e901";
 }
-.icon-aircraft:before {
+.icon-chevron-thin-down:before {
   content: "\e902";
 }
-.icon-check:before {
+.icon-chevron-thin-left:before {
   content: "\e903";
 }
-.icon-cog2:before {
+.icon-chevron-thin-right:before {
   content: "\e904";
 }
-.icon-cross:before {
+.icon-chevron-thin-up:before {
   content: "\e905";
 }
-.icon-cup:before {
+.icon-download2:before {
   content: "\e906";
 }
-.icon-cw:before {
+.icon-trash:before {
   content: "\e907";
 }
-.icon-funnel:before {
+.icon-aircraft-landing:before {
   content: "\e908";
 }
-.icon-globe:before {
+.icon-aircraft-take-off:before {
   content: "\e909";
 }
-.icon-line-graph:before {
+.icon-aircraft:before {
   content: "\e90a";
 }
-.icon-location-pin:before {
+.icon-attachment:before {
   content: "\e90b";
 }
-.icon-pencil3:before {
+.icon-chat:before {
   content: "\e90c";
 }
-.icon-pencil:before {
+.icon-check:before {
   content: "\e90d";
 }
-.icon-pencil2:before {
+.icon-code:before {
   content: "\e90e";
 }
-.icon-books:before {
-  content: "\e920";
+.icon-cup:before {
+  content: "\e90f";
+}
+.icon-funnel:before {
+  content: "\e910";
+}
+.icon-globe:before {
+  content: "\e911";
+}
+.icon-inbox:before {
+  content: "\e912";
+}
+.icon-megaphone:before {
+  content: "\e913";
+}
+.icon-network:before {
+  content: "\e914";
+}
+.icon-pencil:before {
+  content: "\e915";
+}
+.icon-print:before {
+  content: "\e916";
+}
+.icon-shield:before {
+  content: "\e917";
+}
+.icon-shopping-bag:before {
+  content: "\e918";
+}
+.icon-sports-club:before {
+  content: "\e919";
+}
+.icon-traffic-cone:before {
+  content: "\e91a";
+}
+.icon-tree:before {
+  content: "\e91b";
+}
+.icon-profile:before {
+  content: "\e923";
+}
+.icon-paste:before {
+  content: "\e92d";
 }
 .icon-cart:before {
   content: "\e93a";
 }
-.icon-coin-dollar:before {
-  content: "\e93b";
+.icon-location:before {
+  content: "\e947";
+}
+.icon-compass:before {
+  content: "\e949";
+}
+.icon-map2:before {
+  content: "\e94c";
+}
+.icon-tv:before {
+  content: "\e95b";
 }
 .icon-download:before {
   content: "\e960";
@@ -87,26 +135,32 @@
 .icon-upload:before {
   content: "\e961";
 }
+.icon-database:before {
+  content: "\e964";
+}
+.icon-user:before {
+  content: "\e971";
+}
+.icon-users:before {
+  content: "\e972";
+}
+.icon-search:before {
+  content: "\e986";
+}
 .icon-cog:before {
   content: "\e994";
 }
 .icon-cogs:before {
   content: "\e995";
 }
-.icon-fire:before {
-  content: "\e9a9";
+.icon-stats-dots:before {
+  content: "\e99b";
 }
-.icon-bin:before {
-  content: "\e9ac";
+.icon-leaf:before {
+  content: "\e9a4";
 }
-.icon-bin2:before {
-  content: "\e9ad";
-}
-.icon-airplane:before {
-  content: "\e9af";
-}
-.icon-truck:before {
-  content: "\e9b0";
+.icon-rocket:before {
+  content: "\e9a5";
 }
 .icon-switch:before {
   content: "\e9b6";
@@ -114,14 +168,11 @@
 .icon-earth:before {
   content: "\e9ca";
 }
-.icon-link:before {
-  content: "\e9cb";
-}
-.icon-eye:before {
-  content: "\e9ce";
-}
 .icon-file-pdf:before {
   content: "\eadf";
+}
+.icon-file-word:before {
+  content: "\eae1";
 }
 .icon-file-excel:before {
   content: "\eae2";

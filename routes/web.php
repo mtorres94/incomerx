@@ -17,7 +17,7 @@ Route::auth();
 Route::group(['middleware' => ['web']], function () {
     Route::get('lang/{lang}', ['as'=> 'lang.switch', 'uses'=> 'LanguageController@switchLang']);
 
-    Route::get('/panel', function () { $modules = Sass\Module::all(); return view('layouts.partials.panel', compact('modules')); });
+    Route::get('/panel', function () { $modules = Sass\Module::active(); return view('layouts.partials.panel', compact('modules')); });
     Route::get('/home', 'HomeController@index');
 
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
@@ -87,7 +87,11 @@ Route::group(['middleware' => ['web']], function () {
             Route::resource('orders_entries', 'OrderEntryController');
         });
     });
+
     Route::group(['prefix' => 'export', 'namespace' => 'Export'], function () {
+        Route::group(['prefix' => 'air', 'namespace' => 'AirExport'], function () {
+            Route::resource('step_by_step', 'StepByStepController');
+        });
         Route::group(['prefix' => 'oceans', 'namespace' => 'OceanExport'], function () {
             Route::resource('booking_entries', 'BookingEntryController');
             Route::resource('bill_of_lading', 'BillOfLadingController');

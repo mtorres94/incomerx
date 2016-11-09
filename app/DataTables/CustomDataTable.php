@@ -9,7 +9,7 @@ abstract class CustomDataTable extends DataTable
     public function groupButton ($obj, $route, $prints)
     {
         $btn_options =  '<div class="btn-group" role="group">';
-        $btn_options .= '<a href="javascript:void(0)" type="button" class="btn btn-default btn-xs" onclick="addSubtab(\''.trans('panel.edit').' '.strtoupper($obj->code).'\', \''.route($route.'.edit', $obj).'\')"><i class="icon-pencil3"></i></a>';
+        $btn_options .= '<a href="javascript:void(0)" type="button" class="btn btn-default btn-xs" onclick="addSubtab(\''.trans('panel.edit').' '.strtoupper($obj->code).'\', \''.route($route.'.edit', $obj).'\')"><i class="icon-pencil"></i></a>';
         $btn_options .= '<a href="javascript:void(0)" type="button" class="btn btn-default btn-xs btn-delete" data-remote="'.route($route.'.destroy', $obj).'"><i class="icon-cup"></i></a>';
 
         if (is_array($prints) && !is_null($prints))

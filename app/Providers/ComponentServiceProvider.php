@@ -29,6 +29,7 @@ class ComponentServiceProvider extends ServiceProvider
         Form::component('bsGroup', 'components.form.btn-group', ['array', 'obj']);
         Form::component('bsRowTd', 'components.form.td', ['line', 'name', 'content', 'hidden']);
         Form::component('bsRowBtns', 'components.form.btns', []);
+        Form::component('bsStep', 'components.form.step', ['tabs']);
     }
 
     /**
