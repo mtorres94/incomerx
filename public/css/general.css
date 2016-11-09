@@ -108,6 +108,96 @@ form .tabs-panels {
     border-color: #235f83;
 }
 
+/** Vertical Panel v2.0 */
+div.tab-container {
+    border: 1px solid #ddd;s
+    z-index: 10;
+    background-color: #ffffff;
+    padding: 0 !important;
+    background-clip: padding-box;
+    opacity: 0.97;
+    filter: alpha(opacity=97);
+}
+div.tab-menu {
+    padding-left: 0;
+    padding-right: 0;
+    border-right: 1px solid #ddd;
+}
+div.tab-menu div.list-group {
+    margin-bottom: 0;
+}
+div.tab-menu div.list-group>a {
+    margin-bottom: 0;
+}
+div.tab-menu div.list-group>a .glyphicon,
+div.tab-menu div.list-group>a .fa {
+    color: #1e5475;
+}
+div.tab-menu div.list-group>a:first-child{
+    border-top-right-radius: 0;
+    -moz-border-top-right-radius: 0;
+}
+div.tab-menu div.list-group>a:last-child{
+    border-bottom-right-radius: 0;
+    -moz-border-bottom-right-radius: 0;
+}
+div.tab-menu div.list-group>a.active,
+div.tab-menu div.list-group>a.active .glyphicon,
+div.tab-menu div.list-group>a.active .fa{
+    background-color: #1e5475;
+    color: #ffffff;
+}
+div.tab-menu div.list-group>a.active:after{
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    margin-top: -13px;
+    border-left: 0;
+    border-bottom: 13px solid transparent;
+    border-top: 13px solid transparent;
+    border-left: 10px solid #1e5475;
+}
+div.tab-menu .list-group-item {
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+}
+div.tab-content{
+    background-color: #ffffff;
+    padding-left: 5px;
+}
+div.tab-content .row {
+    padding-top: 0;
+}
+div.tab-content .panel-default {
+    padding-bottom: 5px;
+}
+div.tab-content .panel-heading {
+    background-color: #1e5475;
+    color: #fff;
+    padding: 1px 15px;
+}
+div.tab-content .panel-heading h5 i {
+    padding-right: 10px;
+}
+div.tab-content .panel-heading h5 {
+    margin: 7px 0;
+}
+div.tab-content .panel-body ul {
+    list-style-type: none;
+    padding: 0 10px;
+    margin-bottom: 0;
+}
+div.tab {
+    background-color: #fff;
+    padding-bottom: 10px;
+    padding-top: 15px;
+}
+div.tab div.tab-content:not(.active){
+    display: none;
+}
+
 /** Login navbar */
 #app-layout .navbar-default {
     background-color: #235f83;

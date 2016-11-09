@@ -34,6 +34,7 @@ return [
         'pickup'    => 'Pick Up & Delivery'
     ],
     'export' => [
-        'oceans'  => 'Oceans Export',
+        'oceans'    => 'Ocean Export',
+        'air'       => 'Air Export',
     ],
 ];

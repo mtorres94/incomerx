@@ -22,4 +22,9 @@ class Module extends Model
     {
         return $this->hasMany('Sass\Menu');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
 }
