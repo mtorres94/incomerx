@@ -113,7 +113,7 @@
             var r = ($('#PO_details tbody tr').length + 1),
                    _ =  ($("#PO_details tbody tr").length == 0 ? 1 : parseInt($("#PO_details tbody tr")[$("#PO_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                     l = $("#PO_line").val(),
-                    c= (0 == l ? _ : l),
+                    c= (0 == l ? _ : l)-1,
                     a = $("#PO_number").val().toUpperCase(),
                     d = $("#PO_project_reference").val().toUpperCase(),
                     s = $("#PO_remarks").val().toUpperCase(),
@@ -152,14 +152,14 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
             var r = ($('#SO_details tbody tr').length + 1),
                     _ =  ($("#SO_details tbody tr").length == 0 ? 1 : parseInt($("#SO_details tbody tr")[$("#SO_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                     l = $("#SO_line").val(),
-                    c = (0 == l ? _ : l),
+                    c = (0 == l ? _ : l)-1,
                     a = $("#SO_number").val().toUpperCase(),
                     d = $("#SO_reference").val().toUpperCase(),
                     s = $("#SO_remarks").val().toUpperCase(),
                     n = $("#SO_details"),
                     t = n.find("tbody"),
                     p = $("<tr id=" + (0 == l ? _ : l) + ">");
-            p.append(createTableContent('SO_line', _ , true, c))
+            p.append(createTableContent('SO_line', (0 == l ? _ : l), true, c))
                     .append(createTableContent('SO_number', a, false, c))
                     .append(createTableContent('SO_reference', d, false, c))
                     .append(createTableContent('SO_remarks', s, true, c))
@@ -185,7 +185,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
         var r = ($('#stop-details tbody tr').length + 1),
                 _ =  ($("#stop-details tbody tr").length == 0 ? 1 : parseInt($("#stop-details tbody tr")[$("#stop-details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                 l = $("#stop_id").val(),
-                c = (0 == l ? _ : l),
+                c = (0 == l ? _ : l)-1,
                 g1 = $("#stop_customer_name").val().toUpperCase(),
                 g2 = $("#stop_city").val().toUpperCase(),
                 g3 = $("#stop_phone").val(),
@@ -215,7 +215,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                 n = $("#stop-details"),
                 t = n.find("tbody"),
                 p = $("<tr id=" + (0==l? _ : l) + ">");
-        p.append(createTableContent('stop_id', _ , false, c))
+        p.append(createTableContent('stop_id', (0 == l ? _ : l) , false, c))
                 .append(createTableContent('stop_customer_name', g1, false, c))
                 .append(createTableContent('stop_city', g2, false, c))
                 .append(createTableContent('stop_phone', g3, false, c))
@@ -316,14 +316,14 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                    var r = ($('#PRO_details tbody tr').length + 1),
                            _ =  ($("#PRO_details tbody tr").length == 0 ? 1 : parseInt($("#PRO_details tbody tr")[$("#PRO_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                            l = $("#PRO_line").val(),
-                           c = (0 == l ? _  : l),
+                           c = (0 == l ? _  : l)-1,
                            a = $("#PRO_number").val().toUpperCase(),
                            d = $("#PRO_reference").val().toUpperCase(),
                            s = $("#PRO_remarks").val().toUpperCase(),
                            n = $("#PRO_details"),
                            t = n.find("tbody"),
                            p = $("<tr id=" + (0==l? _ : l) + ">");
-                   p.append(createTableContent('PRO_line', c , true, c))
+                   p.append(createTableContent('PRO_line', (0 == l ? _  : l) , true, c))
                            .append(createTableContent('PRO_number', a, false, c))
                            .append(createTableContent('PRO_reference', d, false, c))
                            .append(createTableContent('PRO_remarks', s, true, c))
@@ -353,7 +353,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                     var r = ($('#hazardous-details tbody tr').length + 1),
                             l = $("#tmp_hazardous_uns_line").val(),
                             _ =  ($("#hazardus-details tbody tr").length == 0 ? 1 : parseInt($("#hazardous-details tbody tr")[$("#hazardous-details tbody tr").length - 1].childNodes[1].textContent) + 1 ),
-                            c = (0 == l ? _ : l),
+                            c = (0 == l ? _ : l)-1,
                             a = $("#tmp_hazardous_uns_id").val(),
                             d = $("#tmp_hazardous_uns_code").val().toUpperCase(),
                             s = $("#tmp_hazardous_uns_desc").val().toUpperCase(),
@@ -361,8 +361,8 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                             n = $("#hazardous-details"),
                             t = n.find("tbody"),
                             p = $("<tr id=" + (0==l? _ : l) + ">");
-                    p.append(createTableContent('hazardous_uns_id', c, true, c))
-                            .append(createTableContent('hazardous_uns_line', _ , true, c))
+                    p.append(createTableContent('hazardous_uns_id', (0==l? _ : l), true, c))
+                            .append(createTableContent('hazardous_uns_line', c , true, c))
                             .append(createTableContent('hazardous_uns_code', d, false, c))
                             .append(createTableContent('hazardous_uns_desc', s, false, c))
                             .append(createTableContent('hazardous_uns_note', e, true, c))
@@ -391,7 +391,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                     var r = ($('#container_details tbody tr').length + 1),
                             _ =  ($("#container_details tbody tr").length == 0 ? 1 : parseInt($("#container_details tbody tr")[$("#container_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                             l = $("#container_line").val(),
-                            c = (0 == l ? _ : l),
+                            c = (0 == l ? _ : l)-1,
                             a = $("#container_equipment_type_code").val().toUpperCase(),
                             b = $("#container_equipment_type_id").val(),
                             d = $("#container_container").val().toUpperCase(),
@@ -400,7 +400,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                             n = $("#container_details"),
                             t = n.find("tbody"),
                             p = $("<tr id=" + (0==l? _: l) + ">");
-                    p.append(createTableContent('container_line', c , true, c))
+                    p.append(createTableContent('container_line', (0==l? _: l) , true, c))
                             .append(createTableContent('container_equipment_type_code', a, false, c))
                             .append(createTableContent('container_equipment_type_id', b, true, c))
                             .append(createTableContent('container_container', d, false, c))
@@ -434,7 +434,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                   var r = ($('#dr_details tbody tr').length + 1),
                           _ =  ($("#dr_details tbody tr").length == 0 ? 1 : parseInt($("#dr_details tbody tr")[$("#dr_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                           l = $("#dr_line").val(),
-                          c = (0 == l ? _ : l),
+                          c = (0 == l ? _ : l)-1,
                           d1 = $("#dr_cargo_marks").val().toUpperCase(),
                           d2 = $("#dr_cargo_pieces").val(),
                           d3 = $("#dr_cargo_description").val().toUpperCase(),
@@ -451,7 +451,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                           n = $("#dr_details"),
                           t = n.find("tbody"),
                           p = $("<tr id=" + (0==l? _ : l) + ">");
-                  p.append(createTableContent('dr_line', c , true, c))
+                  p.append(createTableContent('dr_line', (0==l? _ : l) , true, c))
                           .append(createTableContent('dr_cargo_marks', d1, false, c))
                           .append(createTableContent('dr_cargo_pieces', d2, false, c))
                           .append(createTableContent('dr_cargo_description', d3, false, c))
@@ -511,7 +511,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
         var r = ($('#items_details tbody tr').length + 1),
                 _ =  ($("#items_details tbody tr").length == 0 ? 1 : parseInt($("#items_details tbody tr")[$("#items_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                 l = $("#item_line").val(),
-                c = (0 == l ? _ : l),
+                c = (0 == l ? _ : l)-1,
                 i1 = $("#item_pieces").val().toUpperCase(),
                 i2 = $("#item_item_name").val().toUpperCase(),
                 i3 = $("#item_unit_weight").val().toUpperCase(),
@@ -525,7 +525,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                 n = $("#items_details"),
                 t = n.find("tbody"),
                 p = $("<tr id=" + (0==l? _ : l) + ">");
-        p.append(createTableContent('item_line', c , true, c))
+        p.append(createTableContent('item_line', (0==l? _ : l) , true, c))
 
                 .append(createTableContent('item_pieces', i1, true, c))
                 .append(createTableContent('item_item_name', i2, false, c))
@@ -577,7 +577,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
             var t = $("#charge_details tbody tr").length + 1,
                     _ =  ($("#charge_details tbody tr").length == 0 ? 1 : parseInt($("#charge_details tbody tr")[$("#charge_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                     charge_id = $("#charge_id").val(),
-                    d= (0== charge_id? _ : charge_id),
+                    d= (0== charge_id? _ : charge_id)-1,
                     g_1 = $("#billing_billing_id").val(),
                     g_2 = $("#billing_billing_code").val(),
                     g_3 = $("#billing_billing_description").val(),
@@ -613,7 +613,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                     C = $("<tr id=" + (0== charge_id? _ : charge_id) + ">");
 
 
-            C.append(createTableContent('charge_id', d , true,d))
+            C.append(createTableContent('charge_id', (0== charge_id? _ : charge_id) , true,d))
                     .append(createTableContent('billing_billing_id', g_1, true, d))
                     .append(createTableContent('billing_billing_code', g_2, false, d))
                     .append(createTableContent('billing_billing_description', g_3, false, d))
@@ -731,7 +731,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                     var t = $("#transportation_details tbody tr").length + 1,
                             _ =  ($("#transportation_details tbody tr").length == 0 ? 1 : parseInt($("#transportation_details tbody tr")[$("#transportation_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                             transportation_id = $("#transportation_id").val(),
-                            d= (0==transportation_id? _ : transportation_id),
+                            d= (0==transportation_id? _ : transportation_id)-1,
                             g_1 = $("#transportation_leg").val(),
                             g_2 = $("#transportation_mode").val(),
                             g_3 = $("#transportation_billing_id").val(),
@@ -785,7 +785,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                             x = b.find("tbody"),
                             C = $("<tr id=" + (0==transportation_id? _ : transportation_id)+ ">");
 
-                    C.append(createTableContent('transportation_id', d , true,d))
+                    C.append(createTableContent('transportation_id', (0==transportation_id? _ : transportation_id), true,d))
                             .append(createTableContent('transportation_leg', g_1, false, d))
                             .append(createTableContent('transportation_mode', g_2, false, d))
                             .append(createTableContent('transportation_carrier_id', g_10, true, d))
@@ -953,7 +953,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                 var r = ($('#warehouse_details tbody tr').length + 1),
                         _ =  ($("#warehouse_details tbody tr").length == 0 ? 1 : parseInt($("#warehouse_details tbody tr")[$("#warehouse_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                         l = $("#cargo_id").val(),
-                        c = (0==l? _ : l),
+                        c = (0==l? _ : l)-1,
                         g1 = $("#cargo_quantity").val().toUpperCase(),
                         g2 = $("#cargo_cargo_type_id").val().toUpperCase(),
                         g3 = $("#cargo_cargo_type_code").val(),
@@ -1051,7 +1051,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                         p = $("<tr id=" + (0==l? _ : l) + ">");
                 /* Items details*/
 
-                p.append(createTableContent('cargo_id', (0== l? _ : l) , true, c))
+                p.append(createTableContent('cargo_id', (0==l? _ : l) , true, c))
                         .append($("<td><i class='fa fa-cube' aria-hidden='true'></td>"))
                         .append(createTableContent('cargo_quantity', g1, false, c))
                         .append(createTableContent('cargo_cargo_type_id', g2, true, c))
@@ -1453,7 +1453,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                    var r = ($('#warehouse_details tbody tr').length + 1),
                            _ =  ($("#warehouse_details tbody tr").length == 0 ? 1 : parseInt($("#warehouse_details tbody tr")[$("#warehouse_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                            l = $("#vehicle_id").val(),
-                           c = (0==l? _ : l),
+                           c = (0==l? _ : l)-1,
                            g1 = $("#vehicle_quantity").val().toUpperCase(),
                            g2 = $("#vehicle_cargo_type_id").val().toUpperCase(),
                            g3 = $("#vehicle_cargo_type_code").val().toUpperCase(),
@@ -1522,7 +1522,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                            n = $("#warehouse_details"),
                            t = n.find("tbody"),
                            p = $("<tr id=" + (0==l? _ : l) + ">");
-                   p.append(createTableContent('cargo_id', c , true, c))
+                   p.append(createTableContent('cargo_id', (0==l? _ : l), true, c))
                            .append($("<td><i class='fa fa-car' aria-hidden='true'></td>"))
                            .append(createTableContent('cargo_quantity', g1, false, c))
                            .append(createTableContent('cargo_cargo_type_id', g2, true, c))

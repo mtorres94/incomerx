@@ -25,7 +25,7 @@
 </div>
 
 <!-- Modal forms section -->
-@section('modals')
+@section('modal')
     <!-- UNs form -->
     @include('warehouse.receipts.receipts_entries.partials.modal.uns')
     @include('warehouse.receipts.receipts_entries.partials.modal.references')

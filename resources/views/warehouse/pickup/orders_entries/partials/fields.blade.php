@@ -25,7 +25,7 @@
 </div>
 
 <!-- Modal forms section -->
-@section('modals')
+@section('modal')
     @include('warehouse.pickup.orders_entries.partials.modal.po-number')
     @include('warehouse.pickup.orders_entries.partials.modal.pro-number')
     @include('warehouse.pickup.orders_entries.partials.modal.so-number')
