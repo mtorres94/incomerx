@@ -21,8 +21,9 @@ class BookingEntryDataTable extends CustomDataTable
             ->addColumn('action', function ($booking_entry) {
                 return $this->groupButton(
                     $booking_entry,
-                    'export.oceans.booking_entries',
-                    null);
+                    'export.oceans.booking_entries',[
+                    ['route' => 'booking_entries.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF'],
+                ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

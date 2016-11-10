@@ -9,7 +9,7 @@ class ShipmentEntry extends Model
     protected $table = "exp_shipment_entries";
 
     protected $fillable = [
-        'id', 'user_create_id', 'user_update_id', 'created_at', 'updated_at', 'shipment_code', 'shipment_type', 'date_today', 'division_id', 'user_id', 'rate_class', 'bl_status', 'booking_id', 'bl_type', 'bl_number', 'place_receipt_id' ,'port_loading_id', 'place_delivery_id', 'port_unloading_id', 'shipper_id', 'shipper_address', 'shipper_city', 'shipper_state_id', 'shipper_zip_code_id', 'shipper_phone',  'consignee_id', 'consignee_address', 'consignee_city', 'consignee_state_id', 'consignee_zip_code_id', 'consignee_phone',  'broker_id', 'broker_phone', 'broker_contact', 'broker_fax', 'booking_agent', 'booking_carrier_id', 'booking_vessel', 'booking_voyage', 'departure_date', 'arrival_date', 'agent_id', 'agent_contact', 'agent_phone', 'agent_fax', 'agent_commission', 'confirmed', 'spot_rate', 'agent_amount', 'service_id', 'total_quantity', 'total_weight_unit_measurement', 'total_weight', 'total_cubic', 'total_dim_fact', 'total_volume_weight', 'total_cargo_type_id', 'total_commodity_id', 'total_freight_charge', 'total_other_charge' ];
+        'id', 'user_create_id', 'user_update_id', 'created_at', 'updated_at', 'shipment_code', 'shipment_type', 'date_today', 'division_id', 'user_id', 'rate_class', 'bl_status', 'booking_id', 'bl_type', 'bl_number', 'place_receipt_id' ,'port_loading_id', 'place_delivery_id', 'port_unloading_id', 'shipper_id', 'shipper_address', 'shipper_city', 'shipper_state_id', 'shipper_zip_code_id', 'shipper_phone',  'consignee_id', 'consignee_address', 'consignee_city', 'consignee_state_id', 'consignee_zip_code_id', 'consignee_phone',  'broker_id', 'broker_phone', 'broker_contact', 'broker_fax', 'booking_agent', 'carrier_id', 'vessel_name', 'voyage_name', 'departure_date', 'arrival_date', 'agent_id', 'agent_contact', 'agent_phone', 'agent_fax', 'agent_commission_p', 'agent_commission_amount', 'confirmed', 'spot_rate', 'agent_amount', 'service_id', 'total_quantity', 'total_weight_unit_measurement', 'total_weight', 'total_cubic', 'total_dim_fact', 'total_volume_weight', 'total_cargo_type_id', 'total_commodity_id', 'total_freight_charge', 'total_other_charge' ];
 
 
     public function total_commodity()
@@ -72,9 +72,9 @@ class ShipmentEntry extends Model
     {
         return $this->belongsTo('Sass\State', 'consignee_state_id');
     }
-    public function booking_carrier()
+    public function carrier()
     {
-        return $this->belongsTo('Sass\Carrier', 'booking_carrier_id');
+        return $this->belongsTo('Sass\Carrier', 'carrier_id');
     }
     public function shipper_zip_code()
     {

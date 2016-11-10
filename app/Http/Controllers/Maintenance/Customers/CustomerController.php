@@ -136,6 +136,8 @@ class CustomerController extends Controller
                     'agent_name'        => $customer->agent_id > 0 ? $customer->agent()->first()->name : "",
                     'coloader_id'       => $customer->coloader_id,
                     'coloader_name'     => $customer->coloader_id > 0 ? $customer->coloader()->first()->name : "",
+                    'country_id'     => $customer->country_id,
+                    'country_name'     => strtoupper($customer->country_id > 0 ? $customer->country->name : ""),
                 ];
             }
 

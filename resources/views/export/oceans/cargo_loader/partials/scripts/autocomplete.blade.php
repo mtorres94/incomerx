@@ -15,6 +15,7 @@ onSelect:function(e,o)
         .append(createTableContent('pick_date_in', e.date_in , false, r))
         .append(createTableContent('pick_shipper_id', e.shipper_id, true, r))
         .append(createTableContent('pick_shipper_name', e.shipper_name , false, r))
+        .append(createTableContent('pick_shipper_address', e.shipper_address , true, r))
         .append(createTableContent('pick_shipper_city', e.shipper_city, true, r))
         .append(createTableContent('pick_shipper_state_id', e.shipper_state_id, true, r))
         .append(createTableContent('pick_shipper_state_name', e.shipper_state_name , true, r))
@@ -25,6 +26,7 @@ onSelect:function(e,o)
 
         .append(createTableContent('pick_consignee_id', e.consignee_id, true, r))
         .append(createTableContent('pick_consignee_name', e.consignee_name , false, r))
+        .append(createTableContent('pick_consignee_address', e.consignee_address, true, r))
         .append(createTableContent('pick_consignee_city', e.consignee_city, true, r))
         .append(createTableContent('pick_consignee_state_id', e.consignee_state_id, true, r))
         .append(createTableContent('pick_consignee_state_name', e.consignee_state_name , true, r))
@@ -41,14 +43,19 @@ onSelect:function(e,o)
         .append(createTableContent('pick_status', e.status, true, r))
         .append(createTableContent('pick_service_name', e.service_name , false, r))
         .append(createTableContent('pick_service_id', e.service_id , true, r))
+        .append(createTableContent('pick_volume_weight', e.volume_weight, true, r))
+        .append(createTableContent('pick_warehouse_id', e.warehouse_id, true, r))
+        .append(createTableContent('pick_warehouse_name', e.warehouse_name, true, r))
         t.append(p);
 
-        p = $("<tr >");
-            p.append('<td> </td>')
-            p.append('<td class="hiddenRow"><div class="collapse '+ r +'" >'+ r +'</div></td>')
-            p.append('<td class="hiddenRow"><div class="collapse '+ r +'" >'+ r + '</div></td>')
-            p.append('<td class="hiddenRow"><div class="collapse '+ r +'" >'+ r +'</div></td>')
-            t.append(p);
+    p = $("<tr >");
+    p.append('<td></td>')
+    p.append('<td></td>')
+    p.append('<td class="hiddenRow"><div class="collapse '+ r +'" ><b> Status: </b>'+ e.status +'</div></td>')
+    p.append('<td class="hiddenRow"><div class="collapse '+ r +'" ><b> State: </b>'+ e.shipper_state_name +'</div></td>')
+    p.append('<td class="hiddenRow"><div class="collapse '+ r +'" ><b> State: </b>'+ e.consignee_state_name +'</div></td>')
+    p.append('<td class="hiddenRow"><div class="collapse '+ r +'" ><b> WH name: </b>'+ e.warehouse_name +'</div></td>')
+    t.append(p);
     warehouse_details();
 
     },minChars:3, data: {
@@ -58,6 +65,10 @@ onSelect:function(e,o)
 
 $("#hazardous_uns_code").focus(function () {
     $("#hazardous_uns_code").marcoPolo({url:"{{ route('uns_codes.autocomplete') }}",formatItem:function(e,o){return e.code+' | '+e.name},onSelect:function(e,o){$("#hazardous_uns_id").val(e.id),$(this).val(e.code),$('#hazardous_uns_desc').val(e.name)},minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#hazardous_uns_code_img").removeClass("img-none").addClass("img-display"),$("#hazardous_uns_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#hazardous_uns_code_img").removeClass("img-display").addClass("img-none"),$("#hazardous_uns_code_spn").removeClass("img-none").addClass("img-display")}).on("marcopoloblur",function(){""==$(this).val().trim()&&($("#hazardous_uns_id").val(0),$("#hazardous_uns_desc").val(""))})
+});
+
+$("#warehouse_code").focus(function () {
+    $("#warehouse_code").marcoPolo({url:"{{ route('warehouses.autocomplete') }}",formatItem:function(e,o){return e.name},onSelect:function(e,o){$("#warehouse_id").val(e.id),$(this).val(e.name)},minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#warehouse_code_img").removeClass("img-none").addClass("img-display"),$("#warehouse_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#warehouse_code_img").removeClass("img-display").addClass("img-none"),$("#warehouse_code_spn").removeClass("img-none").addClass("img-display")}).on("marcopoloblur",function(){""==$(this).val().trim()&&$("#warehouse_id").val(0)})
 });
 
 $("#equipment_type_code").focus(function () {
@@ -98,7 +109,7 @@ $("#shipment_code").focus(function () {
                 $("#shipper_state_id").val(e.shipper_state_id),
                 $("#shipper_state_name").val(e.shipper_state_name),
                 $("#shipper_zip_code_id").val(e.shipper_zip_code_id),
-                $("#shipper_zip_code_code").val(e.shipper_zip_code_code),
+                $("#shipper_zip_code_code").val(e.shipper_zip_code),
 
                 $("#consignee_id").val(e.consignee_id),
                 $("#consignee_name").val(e.consignee_name),
@@ -108,7 +119,7 @@ $("#shipment_code").focus(function () {
                 $("#consignee_state_id").val(e.consignee_state_id),
                 $("#consignee_state_name").val(e.consignee_state_name),
                 $("#consignee_zip_code_id").val(e.consignee_zip_code_id),
-                $("#consignee_zip_code_code").val(e.consignee_zip_code_code),
+                $("#consignee_zip_code_code").val(e.consignee_zip_code),
 
                 $("#agent_name").val(e.agent_name),
                 $("#agent_id").val(e.agent_id),

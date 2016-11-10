@@ -9,7 +9,7 @@ class CargoLoaderCargo extends Model
     protected $table = 'exp_cargo_loader_cargo';
 
     protected $fillable = [
-        'cargo_loader_id', 'line','created_at', 'updated_at', 'container_id', 'warehouse_line', 'warehouse_number', 'date_in', 'shipper_id', 'shipper_city', 'shipper_state_id', 'shipper_zip_code_id', 'shipper_phone', 'shipper_fax', 'consignee_id', 'consignee_city', 'consignee_state', 'consignee_zip_code_id','consignee_phone', 'consignee_fax', 'box_number', 'destination_name', 'ship_inst_number', 'status'];
+        'cargo_loader_id', 'line','created_at', 'updated_at', 'container_id', 'warehouse_line', 'warehouse_number', 'date_in', 'shipper_id', 'shipper_city', 'shipper_state_id', 'shipper_zip_code_id', 'shipper_phone', 'shipper_fax', 'consignee_id', 'consignee_city', 'consignee_state', 'consignee_zip_code_id','consignee_phone', 'consignee_fax', 'box_number', 'destination_name', 'ship_inst_number', 'status', 'sum_weight', 'sum_cubic', 'sum_volume_weight', 'sum_pieces'];
 
     public function shipper_zip_code()
     {
@@ -73,6 +73,10 @@ class CargoLoaderCargo extends Model
                     $obj->destination_name                      = (isset($data['hidden_destination_name'][$i])?$data['hidden_destination_name'][$i] : '1');
                     $obj->ship_inst_number                      = $data['hidden_ship_inst_number'][$i];
                     $obj->status                      = $data['hidden_status'][$i];
+                    $obj->sum_pieces                      = $data['hidden_sum_pieces'][$i];
+                    $obj->sum_weight                      = $data['hidden_sum_weight'][$i];
+                    $obj->sum_cubic                      = $data['hidden_sum_cubic'][$i];
+                    $obj->sum_volume_weight                      = $data['hidden_sum_volume_weight'][$i];
                     $obj->save();
                     $a++;
 

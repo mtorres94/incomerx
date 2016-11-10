@@ -13,23 +13,35 @@
         }
 
         for (var t1 = $("#charges-tabs").find("div"), l1 = 0; l1 < t1.length  ; l1++) {
-            var a1 = t[l1];
+            var a1 = t1[l1];
             var e1 = $(a1).attr("style");
-            if (e === undefined) {
-            } else {var n1 = e.indexOf("display: block;"),
-                    o1 = e.indexOf("display: none;");
+            if (e1 === undefined) {
+            } else {var  n1 = e1.indexOf("display: block;"),
+                    o1 = e1.indexOf("display: none;");
                 $(a1).removeAttr("style"), n1 >= 0 && $(a1).attr("style", "display: block;"), o1 >= 0 && $(a1).attr("style", "display: none;")}
         }
 
-
         for (var t2 = $("#cargo-tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
-            var a2 = t[l2];
+            var a2 = t2[l2];
             var e2 = $(a2).attr("style");
-            if (e === undefined) {
-            } else {var n2 = e.indexOf("display: block;"),
-                    o2 = e.indexOf("display: none;");
-            $(a2).removeAttr("style"), n2 >= 0 && $(a2).attr("style", "display: block;"), o2 >= 0 && $(a2).attr("style", "display: none;")}
+            if (e2 === undefined) {
+            } else {var  n2 = e2.indexOf("display: block;"),
+                    o2 = e2.indexOf("display: none;");
+                $(a2).removeAttr("style"), n2 >= 0 && $(a2).attr("style", "display: block;"), o2 >= 0 && $(a2).attr("style", "display: none;")}
         }
+
+        //=========================
+        weight_totals();
+        removeEmptyNodes('container_details');
+        removeEmptyNodes('charge_details');
+        removeEmptyNodes('hazardous-details');
+        removeEmptyNodes('hzd_details');
+        removeEmptyNodes('cargo_vehicle_details');
+        removeEmptyNodes('cargo_details');
+        removeEmptyNodes('details_hidden');
+        removeEmptyNodes('hazardous-details');
+        removeEmptyNodes('transportation_details');
+
         //=========================
 
         $("#billing_bill_party").change(function () {

@@ -21,7 +21,7 @@ class BillOfLadingCargo extends Model
                     $obj = new BillOfLadingCargo();
 
                     $obj->bill_of_lading_id = $id;
-                    $obj->line=  $a + 1;
+                    $obj->line= $data['cargo_line'];
                     $obj-> cargo_marks = $data['cargo_marks'][$i];
                     $obj->cargo_pieces = $data['cargo_pieces'][$i];
                     $obj->cargo_description = $data['cargo_description'][$i];
@@ -59,6 +59,11 @@ class BillOfLadingCargo extends Model
                     $obj->line=  $data['hidden_warehouse_line'][$i];
                     $obj->cargo_description=  $data['hidden_ship_inst_number'][$i];
                     $obj->cargo_marks=  $data['hidden_warehouse_number'][$i];
+                    $obj->cargo_type_id=  $data['total_cargo_type_id'];
+                    $obj->cargo_commodity_id=  $data['total_commodity_id'];
+                    $obj->cargo_pieces=  $data['hidden_sum_pieces'][$i];
+                    $obj->cargo_weight_k=  $data['hidden_sum_weight'][$i];
+                    $obj->cargo_cubic_k=  $data['hidden_sum_cubic'][$i];
                     $obj->save();
                     $a++;
                 }

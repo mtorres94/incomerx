@@ -4,6 +4,7 @@ namespace Sass;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Sass\Logic\Common\CommonFunctions as Common;
 use Sass\ReceiptEntryCargoDetail;
 
 class ReceiptEntry extends Model
@@ -21,56 +22,119 @@ class ReceiptEntry extends Model
         'hazardous_contact', 'hazardous_phone', 'commercial_inv', 'extra_length', 'pallets', 'packing_list', 'extra_width', 'improper_document',
         'heat_treated', 'extra_height', 'inbond', 'hazardous', 'extra_heavy', 'glass', 'haz_documents', 'driver_licenses', 'pieces_discrepancy',
         'hazardous_labels', 'fragile', 'weight_discrepancy', 'cargo_screened', 'ippc', 'ippc_number', 'marks', 'comments', 'unique_str',
-        'sum_pieces', 'sum_weight', 'sum_volume_weight', 'sum_cubic', 'user_create_id', 'user_update_id',
+        'sum_pieces', 'sum_weight', 'sum_volume_weight', 'sum_cubic', 'user_create_id', 'user_update_id','cargo_loader_id'
     ];
 
     //=========================================================
-    public static function saveDetail($data) {
-        $i=-1; $a=0;
+    public static function saveDetail($id, $data) {
+        $i=-1;
+        $a=0;
+
+        while($a < count($data['hidden_receipt_entry'])){
+            $i++;
+            if(isset($data['hidden_receipt_entry'][$i])){
+                if($data['hidden_receipt_entry'][$i]>0){
+                    $affectedRows = ReceiptEntry::where('id', '=', $data['hidden_receipt_entry'][$i])->update(['cargo_loader_id' => $id]);
+                    $a++;
+                }else{
+
+                    $count = ReceiptEntry::count() + 1;
+                    $receipt_entry_code= str_pad($count, 10, '0', STR_PAD_LEFT);
+                        if (isset($data['hidden_warehouse_line'][$i])){
+                            $obj = [
+
+                                'code'=>   $receipt_entry_code,
+                                'date_in'=>  $data['hidden_date_in'][$i],
+                                'shipper_id'=>  $data['hidden_shipper_id'][$i],
+                                'shipper_city'=>  $data['hidden_shipper_city'][$i],
+                                'shipper_state_id'=>  $data['hidden_shipper_state_id'][$i],
+                                'shipper_zip_code_id'=>  $data['hidden_shipper_zip_code_id'][$i],
+                                'shipper_phone'=>  $data['hidden_shipper_phone'][$i],
+                                'shipper_fax '=>  $data['hidden_shipper_fax'][$i],
+                                'consignee_id '=>  $data['hidden_consignee_id'][$i],
+                                'consignee_city '=>  $data['hidden_consignee_city'][$i],
+                                'consignee_state_id'=>  $data['hidden_consignee_state_id'][$i],
+                                'consignee_zip_code_id'=>  $data['hidden_consignee_zip_code_id'][$i],
+                                'consignee_phone'=>  $data['hidden_consignee_phone'][$i],
+                                'consignee_fax'=>  $data['hidden_consignee_fax'][$i],
+                                'status'=>  $data['hidden_status'][$i],
+                                'sum_pieces'=>  $data['hidden_sum_pieces'][$i],
+                                'sum_weight'=>  $data['hidden_sum_weight'][$i],
+                                'sum_cubic'=>  $data['hidden_sum_cubic'][$i],
+                                'sum_volume_weight'=>  $data['hidden_sum_volume_weight'][$i],
+                                'user_create_id'=>   $data['user_create_id'],
+                                'user_update_id'=>  $data['user_update_id'] ,
+
+                                'third_party_id'=> (isset( $data['third_id'])?  $data['third_id']: 0) ,
+                                'third_party_phone'=> (isset( $data['third_contact_phone'] )?  $data['third_contact_phone'] : 0) ,
+                                'receiving_carrier_id'=>  $data['carrier_id'] ,
+
+                                'division_id '=> $data['division_id'],
+                                'mode'=> 'O',
+                                'location_origin_id '=> $data['place_receipt_id'],
+                                'location_destination_id '=> $data['place_delivery_id'],
+                                'warehouse_id'=>  $data['hidden_warehouse_id'][$i],
+                                'cargo_loader_id'=>  $id,
+                            ];
+
+                            $id = ReceiptEntry::create($obj)->id;
+                            $data['inserted_id'] = Common::replaceId($id, $data['hidden_warehouse_line'][$i], $data['details_id'], $data['inserted_id']);
+                            $a++;
+                        }
+                    }
+
+
+            }
+        }
+        ReceiptEntryCargoDetail::createDetail('',$data);
+    /*    $i= -1;
+        $a=0;
         if (isset($data['hidden_warehouse_line']) ){
             while($a < count($data['hidden_warehouse_line'])){
                 $i++;
                 if (isset($data['hidden_warehouse_line'][$i])){
-                    $count = ReceiptEntry::count() + 1;
-                    $receipt_code= str_pad($count, 10, '0', STR_PAD_LEFT);
-                    $booking_entry['code'] = $receipt_code;
-                    $obj = new ReceiptEntry();
+                    $obj = [
+                        'code'=>   $data['hidden_warehouse_number'][$i],
+                        'date_in'=>  $data['hidden_date_in'][$i],
+                        'shipper_id'=>  $data['hidden_shipper_id'][$i],
+                        'shipper_city'=>  $data['hidden_shipper_city'][$i],
+                        'shipper_state_id'=>  $data['hidden_shipper_state_id'][$i],
+                        'shipper_zip_code_id'=>  $data['hidden_shipper_zip_code_id'][$i],
+                        'shipper_phone'=>  $data['hidden_shipper_phone'][$i],
+                        'shipper_fax '=>  $data['hidden_shipper_fax'][$i],
+                        'consignee_id '=>  $data['hidden_consignee_id'][$i],
+                        'consignee_city '=>  $data['hidden_consignee_city'][$i],
+                        'consignee_state_id'=>  $data['hidden_consignee_state_id'][$i],
+                        'consignee_zip_code_id'=>  $data['hidden_consignee_zip_code_id'][$i],
+                        'consignee_phone'=>  $data['hidden_consignee_phone'][$i],
+                        'consignee_fax'=>  $data['hidden_consignee_fax'][$i],
+                        'status'=>  $data['hidden_status'][$i],
+                        'sum_pieces'=>  $data['hidden_sum_pieces'][$i],
+                        'sum_weight'=>  $data['hidden_sum_weight'][$i],
+                        'sum_cubic'=>  $data['hidden_sum_cubic'][$i],
+                        'sum_volume_weight'=>  $data['hidden_sum_volume_weight'][$i],
+                        'user_create_id'=>   $data['user_create_id'],
+                        'user_update_id'=>  $data['user_update_id'] ,
 
-                    $obj->code=  $data['hidden_warehouse_number'][$i];
-                    $obj->date_in=  $data['hidden_date_in'][$i];
-                    $obj->shipper_id=  $data['hidden_shipper_id'][$i];
-                    $obj->shipper_city=  $data['hidden_shipper_city'][$i];
-                    $obj->shipper_state_id=  $data['hidden_shipper_state_id'][$i];
-                    $obj->shipper_zip_code_id=  $data['hidden_shipper_zip_code_id'][$i];
-                    $obj->shipper_phone=  $data['hidden_shipper_phone'][$i];
-                    $obj->shipper_fax =  $data['hidden_shipper_fax'][$i];
-                    $obj->consignee_id =  $data['hidden_consignee_id'][$i];
-                    $obj->consignee_city =  $data['hidden_consignee_city'][$i];
-                    $obj->consignee_state_id=  $data['hidden_consignee_state_id'][$i];
-                    $obj->consignee_zip_code_id=  $data['hidden_consignee_zip_code_id'][$i];
-                    $obj->consignee_phone=  $data['hidden_consignee_phone'][$i];
-                    $obj->consignee_fax=  $data['hidden_consignee_fax'][$i];
-                    $obj->status=  $data['hidden_status'][$i];
-                    $obj->sum_pieces=  $data['hidden_sum_pieces'][$i];
-                    $obj->sum_weight=  $data['hidden_sum_weight'][$i];
-                    $obj->sum_cubic=  $data['hidden_sum_cubic'][$i];
-                    $obj->sum_volume_weight=  $data['hidden_sum_volume_weight'][$i];
-                    $obj->user_create_id=   $data['user_create_id'];
-                    $obj->user_update_id=  $data['user_update_id'] ;
+                        'third_party_id'=> (isset( $data['third_id'])?  $data['third_id']: 0) ,
+                        'third_party_phone'=> (isset( $data['third_contact_phone'] )?  $data['third_contact_phone'] : 0) ,
+                        'receiving_carrier_id'=>  $data['carrier_id'] ,
 
-                    $obj->third_party_id=  $data['third_id'] ;
-                    $obj->third_party_phone=  $data['third_contact_phone'] ;
-                    $obj->receiving_carrier_id=  $data['carrier_id'] ;
+                        'division_id '=> $data['division_id'],
+                        'mode'=> 'O',
+                        'location_origin_id '=> $data['place_receipt_id'],
+                        'location_destination_id '=> $data['place_delivery_id'],
+                        'warehouse_id'=>  $data['hidden_warehouse_id'][$i],
+                        'cargo_loader_id'=>  $id,
+                    ];
 
-                    $obj->location_origin_id = $data['place_receipt_id'];
-                    $obj->location_destination_id = $data['place_delivery_id'];
-                    $obj->warehouse_id=  $data['hidden_warehouse_id'][$i];
-
-                    $obj->save();
+                    $id = ReceiptEntry::create($obj)->id;
+                    $data['inserted_id'] = Common::replaceId($id, $data['hidden_warehouse_line'][$i], $data['details_id'], $data['inserted_id']);
                     $a++;
                 }
             }
         }
+        ReceiptEntryCargoDetail::createDetail('',$data);*/
     }
     //=========================================================
 

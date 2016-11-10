@@ -18,5 +18,5 @@
 <div class="row">
     <div class="col-md-3">{!! Form::bsText(null, null, 'Foreign Port of Unloading', 'foreign_port', null, ' ') !!}</div>
     <div class="col-md-3">{!! Form::bsText(null, null, 'Place of Delivery', 'place_delivery', null, ' ') !!}</div>
-    <div class="col-md-3"> {!! Form::bsComplete(null, null, 'Transhipment Port', 'transhipment_port_id', 'transhipment_port_name', Request::get('term'), ((isset($booking_entry) and $booking_entry->transhipment_port_id > 0) ? $booking_entry->transhipment_port->code : null), 'Port') !!}</div>
+    <div class="col-md-3"> {!! Form::bsComplete(null, null, 'Transhipment Port', 'transhipment_port_id', 'transhipment_port_name', Request::get('term'), ((isset($bill_of_lading) and $bill_of_lading->transhipment_port_id > 0) ? $bill_of_lading->transhipment_port->code : null), 'Port') !!}</div>
 </div>

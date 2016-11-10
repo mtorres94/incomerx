@@ -27,7 +27,7 @@
         $("#place_delivery_name").marcoPolo({url:"{{ route('world_locations.autocomplete') }}",formatItem:function(e,o){return e.value},onSelect:function(e,o){$("#place_delivery_id").val(e.id),$(this).val(e.value)},minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#place_delivery_name_img").removeClass("img-none").addClass("img-display"),$("#place_delivery_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#place_delivery_name_img").removeClass("img-display").addClass("img-none"),$("#place_delivery_name_spn").removeClass("img-none").addClass("img-display")}).on("marcopoloblur",function(){""==$(this).val().trim()&&$("#place_delivery_id").val(0)})
     });
 
-    $("#carrier_name").focus(function() {$("#carrier_name").marcoPolo({url: "{{ route('carriers.autocomplete') }}",formatItem: function(e, o) {return e.id +' - '+ e.name},onSelect: function(e, o) {$("#carrier_id").val(e.id), $(this).val(e.name)},
+    $("#carrier_name").focus(function() {$("#carrier_name").marcoPolo({url: "{{ route('carriers.autocomplete') }}",formatItem: function(e, o) {return  e.name},onSelect: function(e, o) {$("#carrier_id").val(e.id), $(this).val(e.name)},
         minChars: 3,
         param: "term",
         required: !0
@@ -412,7 +412,7 @@
                     $("#shipper_state_id").val(e.shipper_state_id),
                     $("#shipper_state_name").val(e.shipper_state_name),
                     $("#shipper_zip_code_id").val(e.shipper_zip_code_id),
-                    $("#shipper_zip_code_code").val(e.shipper_zip_code_code),
+                    $("#shipper_zip_code_code").val(e.shipper_zip_code),
 
                     $("#consignee_id").val(e.consignee_id),
                     $("#consignee_name").val(e.consignee_name),
@@ -422,14 +422,14 @@
                     $("#consignee_state_id").val(e.consignee_state_id),
                     $("#consignee_state_name").val(e.consignee_state_name),
                     $("#consignee_zip_code_id").val(e.consignee_zip_code_id),
-                    $("#consignee_zip_code_code").val(e.consignee_zip_code_code),
+                    $("#consignee_zip_code_code").val(e.consignee_zip_code),
 
                     $("#agent_name").val(e.agent_name),
                     $("#agent_id").val(e.agent_id),
                     $("#agent_phone").val(e.agent_phone),
                     $("#agent_fax").val(e.agent_fax),
                     $("#agent_contact").val(e.agent_contact),
-                    $("#agent_commission").val(e.agent_commission),
+                    $("#agent_commission_p").val(e.agent_commission_p),
                     $("#spotting_amount").val(e.agent_amount)
         },
             minChars:2,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#shipment_code_img").removeClass("img-none").addClass("img-display"),$("#shipment_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#shipment_code_img").removeClass("img-display").addClass("img-none"),$("#shipment_code_spn").removeClass("img-none").addClass("img-display")}).on("marcopoloblur",function(){""==$(this).val().trim()&&($("#shipment_id").val(0),$("#shipment_code").val(""))})

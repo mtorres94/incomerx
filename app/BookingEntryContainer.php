@@ -19,6 +19,60 @@ class BookingEntryContainer extends Model
         'container_inner_code', 'container_inner_quantity', 'container_net_weight', 'container_number_equipment', 'container_outer_code', 'container_outer_quantity', 'container_release_number', 'container_requested_equipment', 'container_tare_weight', 'dock_receipt', 'shipper_export', 'attachments', 'release', 'bill_of_lading', 'container_other', 'container_comments', 'booking_entry_id', 'line'
     ];
 
+    public function equipment_type()
+    {
+        return $this->belongsTo('Sass\CargoType', 'equipment_type_id');
+    }
+    public function container_commodity()
+    {
+        return $this->belongsTo('Sass\Commodity', 'container_commodity_id');
+    }
+    public function container_carrier()
+    {
+        return $this->belongsTo('Sass\Carrier', 'container_carrier_id');
+    }
+    public function container_pickup()
+    {
+        $mode = $this->attributes['container_pickup_type'];
+        switch ($mode) {
+            case "01":
+                return $this->belongsTo('Sass\Carrier', 'container_pickup_id');
+            case "02":
+                return $this->belongsTo('Sass\Customer', 'container_pickup_id');
+        }
+    }
+    public function container_delivery()
+    {
+        $mode = $this->attributes['container_delivery_type'];
+        switch ($mode) {
+            case "01":
+                return $this->belongsTo('Sass\Carrier', 'container_delivery_id');
+            case "02":
+                return $this->belongsTo('Sass\Customer', 'container_delivery_id');
+        }
+    }
+    public function container_drop()
+    {
+        $mode = $this->attributes['container_drop_type'];
+        switch ($mode) {
+            case "01":
+                return $this->belongsTo('Sass\Carrier', 'container_drop_id');
+            case "02":
+                return $this->belongsTo('Sass\Customer', 'container_drop_id');
+        }
+    }
+    public function container_pickup_state()
+    {
+        return $this->belongsTo('Sass\State', 'container_pickup_state_id');
+    }
+    public function container_delivery_state()
+    {
+        return $this->belongsTo('Sass\State', 'container_delivery_state_id');
+    }
+    public function container_drop_state()
+    {
+        return $this->belongsTo('Sass\State', 'container_drop_state_id');
+    }
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
         if (isset($data['container_line']) ){
@@ -103,7 +157,6 @@ class BookingEntryContainer extends Model
         }
 
     }
-
     public static function search($id){
         return self::where('booking_entry_id', $id)->get();
     }
@@ -111,15 +164,18 @@ class BookingEntryContainer extends Model
     {
         return $this->belongsTo('Sass\BookingEntry', 'booking_entry_id');
     }
-
-    public function equipment_type()
+    public function container_pickup_zip_code()
     {
-        return $this->belongsTo('Sass\CargoType', 'equipment_type_id');
+        return $this->belongsTo('Sass\ZipCode', 'container_pickup_zip_code_id');
+    }
+    public function container_delivery_zip_code()
+    {
+        return $this->belongsTo('Sass\ZipCode', 'container_delivery_zip_code_id');
+    }
+    public function container_drop_zip_code()
+    {
+        return $this->belongsTo('Sass\ZipCode', 'container_drop_state_id');
     }
 
-    public function container_carrier()
-    {
-        return $this->belongsTo('Sass\Carrier', 'container_carrier_id');
-    }
 
 }

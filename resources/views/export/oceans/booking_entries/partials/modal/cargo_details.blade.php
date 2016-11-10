@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">New Cargo & Vehicle Details</h4>
+                <h4 class="modal-title">New Cargo  Details</h4>
             </div>
             <div class="modal-body" >
                 {!! Form::hidden('cargo_line', null, ['id' => 'cargo_line', 'class' => 'form-control input-sm']) !!}

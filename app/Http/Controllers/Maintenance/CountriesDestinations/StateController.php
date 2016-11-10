@@ -118,7 +118,12 @@ class StateController extends Controller
 
             $results = [];
             foreach ($states as $state) {
-                $results[] = ['id' => $state->id, 'value' => strtoupper($state->name)];
+                $results[] = [
+                    'id' => $state->id,
+                    'value' => strtoupper($state->name),
+                    'country_name' => ($state->country_id >0 ? $state->country->name : ""),
+                    'country_id' => $state->country_id
+                ];
             }
 
             return response()->json($results);

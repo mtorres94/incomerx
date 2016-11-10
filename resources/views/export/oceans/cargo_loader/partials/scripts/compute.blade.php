@@ -8,9 +8,9 @@
             whr_select.push($(this).val());
         });
         for (var a=0; a< r ; a+=2) {
-            quantity = parseFloat(tr[a].childNodes[24].textContent) + quantity;
-            weight = parseFloat(tr[a].childNodes[25].textContent) + weight;
-            cubic = parseFloat(tr[a].childNodes[26].textContent) + cubic;
+            quantity = parseFloat(tr[a].childNodes[26].textContent) + quantity;
+            weight = parseFloat(tr[a].childNodes[27].textContent) + weight;
+            cubic = parseFloat(tr[a].childNodes[28].textContent) + cubic;
         }
         var unlinked= (r/2)- whr_select.length;
         $("#pick_linked").val(whr_select.length);
@@ -46,5 +46,20 @@
                 f = (_ * c * 0.00694444);
         "I" === i && "L" === g ?(a = _ * c * t / 1728, e = _ * c * t /("I" === l ? 166 : 194)) : "C" === i && "L" === g ? (a = _ * c * t / 28316.846592, e = _ * c * t / ("I" === l ? 2720.252408 : 3179.089028)) : "I" === i && "K" === g ? (a = _ * c * t / 61023, e = _ * c * t / ("I" === l ? 366 : 427.895923)) : "C" === i && "K" === g && (a = _ * c * t / 1e6, e = _ * c * t / ("I" === l ? 6e3 : 7012)), $("#cargo_cubic").val(a.toFixed(3)), $("#cargo_volume_weight").val(e.toFixed(3), $("#cargo_square_foot").val(f.toFixed(2)));$("#cargo_total_weight").val(q*u );
     }
+    function total_warehouse_cargo()
+    {
+        var tr = $('#warehouse_cargo_details tbody tr');
+        var r = tr.length,  weight_k=0, cubic_k=0, volume_weight_k=0, pieces=0;
+        for (var a=0; a< r ; a++){
 
+            pieces = parseInt(tr[a].childNodes[1].textContent) + pieces;
+            weight_k = parseFloat(tr[a].childNodes[10].textContent) + weight_k;
+            cubic_k= parseFloat(tr[a].childNodes[11].textContent) + cubic_k;
+            volume_weight_k= parseFloat(tr[a].childNodes[12].textContent) + volume_weight_k;
+        }
+        $("#sum_quantity").val(pieces),
+                $("#sum_weight").val(weight_k),
+                $("#sum_cubic").val(cubic_k),
+                $("#sum_volume_weight").val(volume_weight_k)
+    }
 </script>

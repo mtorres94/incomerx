@@ -1,9 +1,17 @@
 <script type="text/javascript">
     window.onload = (function () {
         openTab($("#data"));
+        $('.collapse').on('show.bs.collapse', function () {
+            $('.collapse.in').collapse('hide');
 
+        });
+        calculate_cargo();
+        charges_details();
+        transportation_plan();
+        total_warehouse_cargo();
+        warehouse_details();
         weight_totals();
-
+removeEmptyNodes('load-warehouse-details');
         $("#cargo_length").change(function () { calculate_cargo() });
         $("#cargo_quantity").change(function () { calculate_cargo() });
         $("#cargo_unit_weight").change(function () { calculate_cargo() });
@@ -96,30 +104,32 @@
                                 t = n.find("tbody"),
                                 p = $("<tr data-id=" + e[x].warehouse_code + ">"),
                                 u_weight= parseFloat(e.total_weight/ e.quantity);
-                        p.append(createTableContent('hidden_whr_id', r, true, x))
-                                .append(createTableContent('hidden_cargo_line', x, true, x))
-                                .append(createTableContent('hidden_cargo_quantity', e[x].quantity, true, x))
-                                .append(createTableContent('hidden_cargo_type_id', e[x].cargo_type_id, false, x))
-                                .append(createTableContent('hidden_cargo_type_code', e[x].cargo_type_code, true, x))
-                                .append(createTableContent('hidden_pieces', e[x].pieces, false, x))
-                                .append(createTableContent('hidden_weight_unit', e[x].weight_unit, true, x))
-                                .append(createTableContent('hidden_metric_unit', e[x].metric_unit, false, x))
-                                .append(createTableContent('hidden_length', e[x].length, false, x))
-                                .append(createTableContent('hidden_width', e[x].width, false, x))
-                                .append(createTableContent('hidden_height', e[x].height, false, x))
-                                .append(createTableContent('hidden_total_weight', e[x].total_weight, true, x))
-                                .append(createTableContent('hidden_cargo_cubic', e[x].cubic, false, x))
-                                .append(createTableContent('hidden_cargo_volume_weight', e[x].volume_weight, false, x))
-                                .append(createTableContent('hidden_location_id', e[x].location_id, false, x))
-                                .append(createTableContent('hidden_location_name', e[x].location_name, false, x))
-                                .append(createTableContent('hidden_location_bin_id', e[x].location_bin_id, false, x))
-                                .append(createTableContent('hidden_location_bin_name', e[x].location_bin_name, false, x))
-                                .append(createTableContent('hidden_material', e[x].material_description, false, x))
-                                .append(createTableContent('hidden_cargo_dim_fact', e.dim_fact, true, x))
-                                .append(createTableContent('hidden_cargo_square_foot', "", true, x))
-                                .append(createTableContent('hidden_cargo_unit_weight',u_weight , true, x))
-                                .append(createTableContent('hidden_cargo_tare_weight', e.tare_weight, true, x))
-                                .append(createTableContent('hidden_cargo_net_weight', e.net_weight, true, x))
+                        p.append(createTableContent('details_id', r, true, x))
+                                .append(createTableContent('cargo_line', x, true, x))
+                                .append(createTableContent('cargo_quantity', e[x].quantity, true, x))
+                                .append(createTableContent('cargo_type_id', e[x].cargo_type_id, false, x))
+                                .append(createTableContent('cargo_type_code', e[x].cargo_type_code, true, x))
+                                .append(createTableContent('cargo_pieces', e[x].pieces, false, x))
+                                .append(createTableContent('cargo_weight_unit_measurement_id', e[x].weight_unit, true, x))
+                                .append(createTableContent('cargo_metric_unit_measurement_id', e[x].metric_unit, false, x))
+                                .append(createTableContent('cargo_length', e[x].length, false, x))
+                                .append(createTableContent('cargo_width', e[x].width, false, x))
+                                .append(createTableContent('cargo_height', e[x].height, false, x))
+                                .append(createTableContent('cargo_total_weight', e[x].total_weight, true, x))
+                                .append(createTableContent('cargo_cubic', e[x].cubic, false, x))
+                                .append(createTableContent('cargo_volume_weight', e[x].volume_weight, false, x))
+                                .append(createTableContent('cargo_location_id', e[x].location_id, false, x))
+                                .append(createTableContent('cargo_location_name', e[x].location_name, false, x))
+                                .append(createTableContent('cargo_location_bin_id', e[x].location_bin_id, false, x))
+                                .append(createTableContent('cargo_location_bin_name', e[x].location_bin_name, false, x))
+                                .append(createTableContent('cargo_material_description', e[x].material_description, false, x))
+                                .append(createTableContent('cargo_dim_fact', e[x].dim_fact, true, x))
+                                .append(createTableContent('cargo_square_foot', "", true, x))
+                                .append(createTableContent('cargo_unit_weight',u_weight , true, x))
+                                .append(createTableContent('cargo_tare_weight', e[x].tare_weight, true, x))
+                                .append(createTableContent('cargo_net_weight', e[x].net_weight, true, x))
+                                .append(createTableContent('cargo_warehouse_number', e[x].warehouse_code, true, x))
+                                .append(createTableContent('inserted_id', e[x].receipt_entry_id, true, x))
                         t.append(p);
                         x = x + 1;
                         weight_totals();
@@ -180,6 +190,9 @@
 
                             .append(createTableContent('hidden_warehouse_id', tr[a].childNodes[34].textContent, true, z))
                             .append(createTableContent('hidden_warehouse_code', tr[a].childNodes[35].textContent, true, z))
+                            .append(createTableContent('hidden_flag','0', true, z))
+                            .append(createTableContent('hidden_receipt_entry',tr[a].childNodes[1].textContent, true, z))
+
                             .append(createTableBtns())
                     t.append(p_1);
                     _ +=1;
@@ -189,12 +202,11 @@
 
         }
         warehouse_details();
-
         clearTable("load_warehouse_details ");
 
     });
 
-
+    $("#warehouse_number").attr("disabled", true);
     $("#billing_customer_name").attr("disabled", true);
     $("#bl_status").val('O').change();
     $("#bl_type").val('P').change();
@@ -261,6 +273,13 @@
     $("#billing_rate").number(true,3);
     $("#cost_rate").number(true,3);
     $("#cost_exchange_rate").number(true,3);
+
+    $("#insured_value").number(true,3);
+    $("#declared_value").number(true,3);
+    $("#exchange_rate").number(true,2);
+    $("#amount").number(true,2);
+    $("#agent_commission_amount").number(true,3);
+    $("#transportation_amount").number(true,3);
 
     initDate($("#date_today"), 0);
 

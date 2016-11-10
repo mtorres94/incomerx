@@ -35,7 +35,7 @@
                     <tr id="{{ $detail->line }}">
                         {!! Form::bsRowTd($detail->line, 'charge_id', $detail->line, true) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_billing_id', $detail->billing_id, false) !!}
-                        {!! Form::bsRowTd($detail->line, 'billing_billing_code', $detail->billing_code, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'billing_billing_code', $detail->billing_id, true) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_billing_description', $detail->billing_description, false) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_bill_type', $detail->bill_type, false) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_bill_party', $detail->bill_party, false) !!}
@@ -48,21 +48,21 @@
                         {!! Form::bsRowTd($detail->line, 'cost_currency_type', $detail->cost_currency_type, false) !!}
                         {!! Form::bsRowTd($detail->line, 'cost_invoice', $detail->cost_invoice, false) !!}
                         {!! Form::bsRowTd($detail->line, 'cost_reference', $detail->cost_reference, false) !!}
-                        {!! Form::bsRowTd($detail->line, 'billing_notes', $detail->billing_notes, false) !!}
-                        {!! Form::bsRowTd($detail->line, 'billing_unit_id', $detail->billing_unit_id, false) !!}
-                        {!! Form::bsRowTd($detail->line, 'billing_unit_name', $detail->billing_unit_name, false) !!}
-                        {!! Form::bsRowTd($detail->line, 'billing_exchange_rate', $detail->billing_exchange_rate, false) !!}
-                        {!! Form::bsRowTd($detail->line, 'billing_customer_id', $detail->billing_customer_id, false) !!}
-                        {!! Form::bsRowTd($detail->line, 'cost_quantity', $detail->cost_quantity, false) !!}
-                        {!! Form::bsRowTd($detail->line, 'cost_unit_id', $detail->cost_unit_id, false) !!}
-                        {!! Form::bsRowTd($detail->line, 'cost_unit_name', $detail->cost_unit_name, false) !!}
-                        {!! Form::bsRowTd($detail->line, 'cost_rate', $detail->cost_rate, false) !!}
-                        {!! Form::bsRowTd($detail->line, 'cost_cost_center', $detail->cost_center, false) !!}
-                        {!! Form::bsRowTd($detail->line, 'cost_exchange_rate', $detail->cost_exchange_rate, false) !!}
-                        {!! Form::bsRowTd($detail->line, 'billing_vendor_code', $detail->billing_vendor_code, false) !!}
-                        {!! Form::bsRowTd($detail->line, 'billing_vendor_name', (($detail->billing_vendor_code >0) ? $detail->billing_vendor->name: null), false) !!}
-                        {!! Form::bsRowTd($detail->line, 'cost_date', $detail->cost_date, false) !!}
-                        {!! Form::bsRowTd($detail->line, 'billing_increase', $detail->billing_increase, false) !!}
+                        {!! Form::bsRowTd($detail->line, 'billing_notes', $detail->billing_notes,true) !!}
+                        {!! Form::bsRowTd($detail->line, 'billing_unit_id', $detail->billing_unit_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'billing_unit_name', $detail->billing_unit_name, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'billing_exchange_rate', $detail->billing_exchange_rate, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'billing_customer_id', $detail->billing_customer_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'cost_quantity', $detail->cost_quantity, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'cost_unit_id', $detail->cost_unit_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'cost_unit_name', $detail->cost_unit_name, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'cost_rate', $detail->cost_rate, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'cost_cost_center', $detail->cost_center, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'cost_exchange_rate', $detail->cost_exchange_rate, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'billing_vendor_code', $detail->billing_vendor_code, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'billing_vendor_name', (($detail->billing_vendor_code >0) ? $detail->billing_vendor->name: null), true) !!}
+                        {!! Form::bsRowTd($detail->line, 'cost_date', $detail->cost_date, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'billing_increase', $detail->billing_increase, true) !!}
                         {!! Form::bsRowBtns()!!}
                     </tr>
                     @endforeach

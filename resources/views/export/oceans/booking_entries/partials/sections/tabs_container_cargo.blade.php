@@ -58,7 +58,6 @@
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_state_id', $detail->container_pickup_state_id, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_state_name', (($detail->container_pickup_state_id >0) ? $detail->container_pickup_state->name: null), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_zip_code_id', $detail->container_pickup_zip_code_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_temperature', $detail->container_temperature, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_zip_code_code', (( $detail->container_pickup_zip_code_id >0) ? $detail->container_pickup_zip_code->code: null), true) !!}
 
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_phone', $detail->container_pickup_phone, true) !!}
@@ -124,7 +123,7 @@
                     @if(isset($hazardous_details))
                         @foreach ($hazardous_details as $detail)
 
-                            <tr id="{{ $detail->line }}">
+                            <tr data-id="{{ $detail->container_id }}">
                                 {!! Form::bsRowTd($detail->line, 'hzd_container_id', $detail->container_id, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'hzd_line', $detail->line, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'hzd_uns_id', $detail->hzd_uns_id, true) !!}
@@ -192,6 +191,31 @@
                             @endforeach
                         @endif
 
+
+                        @if(isset($cargo_loader))
+                            @foreach ($cargo_loader as $detail)
+
+                                <tr id="{{ $detail->line }}">
+                                    {!! Form::bsRowTd($detail->line, 'cargo_line', $detail->warehouse_line, true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'cargo_marks', $detail->warehouse_number, false) !!}
+                                    {!! Form::bsRowTd($detail->line, 'cargo_pieces', $detail->cargo_pieces, false) !!}
+                                    {!! Form::bsRowTd($detail->line, 'cargo_description', $detail->cargo_description, false) !!}
+                                    {!! Form::bsRowTd($detail->line, 'cargo_weight_unit', $detail->cargo_weight_unit, false) !!}
+                                    {!! Form::bsRowTd($detail->line, 'cargo_grossw', $detail->sum_volume_weight, false) !!}
+                                    {!! Form::bsRowTd($detail->line, 'cargo_cubic', $detail->sum_cubic, false) !!}
+                                    {!! Form::bsRowTd($detail->line, 'cargo_container', $detail->cargo_container, true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'cargo_type_id', $detail->cargo_type_id, true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'cargo_type_code', (($detail->cargo_type_id >0) ? $detail->cargo_type->code: null), true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'cargo_commodity_id', $detail->cargo_commodity_id, true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'cargo_commodity_name', (( $detail->cargo_commodity_id >0) ? $detail->cargo_commodity->code: null), true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'cargo_comments', $detail->cargo_comments, true) !!}
+                                    {!! Form::bsRowBtns() !!}
+
+
+                                </tr>
+                            @endforeach
+                        @endif
+
                         </tbody>
                     </table>
                     <table class="table hidden" id="details_hidden">
@@ -202,22 +226,21 @@
                                 <tr data-id="{{$detail->cargo_id }}">
                                     {!! Form::bsRowTd($detail->line, 'cargo_id', $detail->cargo_id, true) !!}
                                     {!! Form::bsRowTd($detail->line, 'details_line', $detail->line, true) !!}
-                                    {!! Form::bsRowTd($detail->line, 'details_quantity', $detail->details_quantity, true) !!}
-                                    {!! Form::bsRowTd($detail->line, 'details_unit', $detail->details_unit, true) !!}
-                                    {!! Form::bsRowTd($detail->line, 'details_length', $detail->details_length, true) !!}
-                                    {!! Form::bsRowTd($detail->line, 'details_width', $detail->details_width, true) !!}
-                                    {!! Form::bsRowTd($detail->line, 'details_height', $detail->details_height, true) !!}
-                                    {!! Form::bsRowTd($detail->line, 'details_total_weight', $detail->details_total_weight, true) !!}
-                                    {!! Form::bsRowTd($detail->line, 'details_total_cubic', $detail->details_total_cubic, true) !!}
-                                    {!! Form::bsRowTd($detail->line, 'details_total_cubic', $detail->details_total_cubic, true) !!}
-                                    {!! Form::bsRowTd($detail->line, 'details_cargo_type_id', $detail->details_cargo_type_id, true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'details_quantity', ($detail->details_quantity == ''? $detail->quantity: $detail->details_quantity), true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'details_unit', ($detail->details_unit== ''? $detail->weight_unit : $detail->details_unit), true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'details_length', ($detail->details_length ==''? $detail->length : $detail->details_length), true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'details_width', ($detail->details_width==''? $detail->width : $detail->details_width), true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'details_height', ($detail->details_height==''? $detail->height : $detail->details_height), true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'details_total_weight', ($detail->details_total_weight==''? $detail->total_weight : $detail->details_total_weight), true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'details_total_cubic', ($detail->details_total_cubic ==''? $detail->cubic : $detail->details_total_cubic), true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'details_cargo_type_id', ($detail->details_cargo_type_id==''?$detail->cargo_type_id : $detail->details_cargo_type_id), true) !!}
                                     {!! Form::bsRowTd($detail->line, 'details_cargo_type_code', (( $detail->details_cargo_type_id >0) ? $detail->details_cargo_type->code: null), true) !!}
-                                    {!! Form::bsRowTd($detail->line, 'details_metric_unit', $detail->details_metric_unit, true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'details_metric_unit', ($detail->details_metric_unit== ''?$detail->metric_unit : $detail->details_metric_unit), true) !!}
                                     {!! Form::bsRowTd($detail->line, 'details_materials', $detail->details_materials, true) !!}
-                                    {!! Form::bsRowTd($detail->line, 'details_pieces', $detail->details_pieces, true) !!}
-                                    {!! Form::bsRowTd($detail->line, 'details_unit_weight', $detail->details_unit_weight, true) !!}
-                                    {!! Form::bsRowTd($detail->line, 'details_dim_fact', $detail->details_dim_fact, true) !!}
-                                    {!! Form::bsRowTd($detail->line, 'details_vol_weight', $detail->details_vol_weight, true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'details_pieces', ($detail->details_pieces ==''? $detail->pieces : $detail->details_pieces), true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'details_unit_weight', ($detail->details_unit_weight==''? $detail->unit_weight : $detail->details_unit_weight), true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'details_dim_fact', ($detail->details_dim_fact==''? $detail->dim_fact : $detail->details_dim_fact), true) !!}
+                                    {!! Form::bsRowTd($detail->line, 'details_vol_weight', ($detail->details_vol_weight =='' ? $detail->volume_weight : $detail->details_vol_weight), true) !!}
                                     {!! Form::bsRowTd($detail->line, 'details_serial_number', $detail->details_serial_number, true) !!}
                                     {!! Form::bsRowTd($detail->line, 'details_barcode', $detail->details_barcode, true) !!}
                                     {!! Form::bsRowTd($detail->line, 'details_model', $detail->details_model, true) !!}
@@ -302,7 +325,7 @@
     <div class="col-md-1">{!! Form::bsText(null,null, 'Total Wght', 'total_weight', null, '0.000') !!}</div>
     <div class="col-md-1">{!! Form::bsText(null,null, 'Cubic', 'total_cubic', null, '0.000') !!}</div>
     <div class="col-md-1">{!! Form::bsSelect(null, null, 'Dim fact', 'total_dim_fact', array('I' => 'INT','D' => 'DOM' ), null) !!}</div>
-    <div class="col-md-2">{!! Form::bsComplete(null, null,'Cargo Type', 'total_cargo_type_id', 'total_cargo_type_code', Request::get('term'), ((isset($booking_entry) and $booking_entry->total_cargo_type > 0) ? $booking_entry->total_cargo_type->code : null), 'Type') !!}</div>
+    <div class="col-md-2">{!! Form::bsComplete(null, null,'Cargo Type', 'total_cargo_type_id', 'total_cargo_type_code', Request::get('term'), ((isset($booking_entry) and $booking_entry->total_cargo_type_id > 0) ? $booking_entry->total_cargo_type->code : null), 'Type') !!}</div>
 
     <div class="col-md-2">{!! Form::bsComplete(null, null,'Commodity', 'total_commodity_id', 'total_commodity_name', Request::get('term'), ((isset($booking_entry) and $booking_entry->total_commodity_id > 0) ? $booking_entry->total_commodity->code : null), 'Commodity') !!}</div>
 

@@ -1,10 +1,17 @@
 <fieldset>
     <legend>Booking Entry</legend>
-    <!--<div class="row">
+    <div class="row">
         <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
-            <a class="btn btn-default" href='#' target="_blank" role="button" onclick="addSubtab('Cargo Loader', 'http://incomerx.app/export/oceans/cargo_loader/create')"><i class="fa fa-cubes"></i> Cargo Loader</a>
+            @if(isset($booking_entry) and $booking_entry->cargo_loader_id >0)
+                <a class="btn btn-default" href='#' target="_blank" role="button" onclick="addSubtab('Cargo Loader', 'http://incomerx.app/export/oceans/cargo_loader/{{ $booking_entry->cargo_loader_id }}/edit')"><i class="fa fa-cubes"></i> Cargo Loader</a>
+            @else
+                <a class="btn btn-default" href='#' target="_blank" role="button" onclick="addSubtab('Cargo Loader', 'http://incomerx.app/export/oceans/cargo_loader/create')"><i class="fa fa-cubes"></i> Cargo Loader</a>
+
+            @endif
+
+
         </div>
-</div>-->
+</div>
     <div class="row">
         <div class="col-md-2">{!! Form::bsText(null, null,'Booking #', 'booking_code', null, '') !!}</div>
         <div class="col-md-3">{!! Form::bsComplete(null, null,'Division ', 'division_id', 'division_name', Request::get('term'),((isset($booking_entry) and $booking_entry->division_id > 0) ? $booking_entry->division->name : null), 'Divisions...', 'options.maintenance.divisions.divisions', 'options.maintenance.divisions.divisions', 'maintenance.divisions_departments.divisions.index') !!}</div>
@@ -41,4 +48,6 @@
         ), ' ') !!}</div>
 
     </div>
+
+
 </fieldset>

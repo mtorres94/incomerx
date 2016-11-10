@@ -65,6 +65,9 @@ h5 {
 .table tbody {
     font-size: 8px;
 }
+.resume-table {
+    font-size: 9px;
+}
 .resume-table tbody tr td {
     border-top: 0;
     padding: 1px 8px;

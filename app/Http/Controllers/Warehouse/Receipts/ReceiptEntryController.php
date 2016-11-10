@@ -221,7 +221,7 @@ class ReceiptEntryController extends Controller
                 ->leftJoin('mst_customers AS c2', 'whr_receipts_entries.consignee_id', '=', 'c2.id')
                 ->leftJoin('mst_customers AS c3', 'whr_receipts_entries.third_party_id', '=', 'c3.id')
                 ->leftJoin('mst_customers AS c4', 'whr_receipts_entries.agent_id', '=', 'c4.id')
-                ->select(['whr_receipts_entries.*', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS third_party_name', 'c4.name AS agent_name',])
+                ->select(['whr_receipts_entries.*', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS third_party_name', 'c4.name AS agent_name'])
                 ->where(function ($query) use ($request) {
                     $type = $request->get('type_for');
 
@@ -298,13 +298,14 @@ class ReceiptEntryController extends Controller
                     'service_id' => $receipt_entry->location_service_id,
                     'destination_id' => $receipt_entry->location_destination_id,
                     'volume_weight' => $receipt_entry->sum_volume_weight,
-                    'destination_name' => ($receipt_entry->location_destination_id > 0 ? $receipt_entry->destination->name : ""),
-                    'warehouse_code' => ($receipt_entry->warehouse_id> 0 ? $receipt_entry->warehouse->code: ""),
+                    'destination_name' => ($receipt_entry->destination_id > 0 ? $receipt_entry->destination->name : ""),
                     'warehouse_id' => $receipt_entry->warehouse_id,
+                    'warehouse_name' => ($receipt_entry->warehouse_id > 0 ? $receipt_entry->warehouse->code : ""),
+
                 ];
             }
 
-            return response()->json($results);
+            return response($results);
         }
     }
 

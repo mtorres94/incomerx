@@ -3,12 +3,10 @@
     window.onload = (function () {
         openTab($("#data"));
 
-
-
-
     });
     initDate($("#date_today"), 0);
     $("#user_id").attr("disabled", true);
+    $("#shipment_code").attr("disabled", true);
     $("#total_weight").number(true, 3);
     $("#total_cubic").number(true, 3);
     $("#total_volume_weight").number(true, 3);

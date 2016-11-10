@@ -50,24 +50,24 @@ class BillOfLadingController extends Controller
     public function store(Request $request)
     {
         DB::beginTransaction();
-        try {
-            $count = BillOfLading::count() + 1;
-            $code = str_pad($count, 10, '0', STR_PAD_LEFT);
-            $bl = $request->all();
-            $bl['bl_code'] = $code;
-            $bl['user_create_id'] = Auth::user()->id;
-            $bl['user_update_id'] = Auth::user()->id;
+            try {
+                $count = BillOfLading::count() + 1;
+                $code = str_pad($count, 10, '0', STR_PAD_LEFT);
+                $bl = $request->all();
+                $bl['bl_code'] = $code;
+                $bl['user_create_id'] = Auth::user()->id;
+                $bl['user_update_id'] = Auth::user()->id;
 
-            $whr=BillOfLading::create($bl);
-           BillOfLadingCargo::saveDetail($whr->id, $bl);
-           BillOfLadingCargoDetail::saveDetail($whr->id, $bl);
-            BillOfLadingContainer::saveDetail($whr->id, $bl);
-            BillOfLadingCharge::saveDetail($whr->id, $bl);
-            BillOfLadingTransportation::saveDetail($whr->id, $bl);
-            BillOfLadingProTracking::saveDetail($whr->id, $bl);
-            BillOfLadingItem::saveDetail($whr->id, $bl);
-            BillOfLadingCustomerReference::saveDetail($whr->id, $bl);
-            BillOfLadingHazardous::saveDetail($whr->id, $bl);
+                $whr=BillOfLading::create($bl);
+                BillOfLadingCargo::saveDetail($whr->id, $bl);
+                BillOfLadingCargoDetail::saveDetail($whr->id, $bl);
+                BillOfLadingContainer::saveDetail($whr->id, $bl);
+                BillOfLadingCharge::saveDetail($whr->id, $bl);
+                BillOfLadingTransportation::saveDetail($whr->id, $bl);
+                BillOfLadingProTracking::saveDetail($whr->id, $bl);
+                BillOfLadingItem::saveDetail($whr->id, $bl);
+                BillOfLadingCustomerReference::saveDetail($whr->id, $bl);
+                BillOfLadingHazardous::saveDetail($whr->id, $bl);
 
 
         } catch (ValidationException $e) {
@@ -155,5 +155,19 @@ class BillOfLadingController extends Controller
         $bill_lading_customer_reference= DB::table('exp_bill_of_lading_customer_references')->where('bill_of_lading_id', '=', $id)->delete();
 
 
+    }
+    public function pdf($token, $id)
+    {
+        if (strlen($token) == 60) {
+            try {
+                $bill_of_lading= BillOfLading::findOrFail($id);
+                return \PDF::loadView('export.oceans.bill_of_lading.pdf', compact('bill_of_lading'))->stream('DO '.$bill_of_lading->code.'.pdf');
+                return view('export.oceans.bill_of_lading.pdf', compact('bill_of_lading'));
+            } catch (ModelNotFoundException $e) {
+                abort(404);
+            }
+        } else {
+            abort(403);
+        }
     }
 }

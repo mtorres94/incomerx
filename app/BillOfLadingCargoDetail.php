@@ -95,7 +95,7 @@ class BillOfLadingCargoDetail extends Model
                     $obj-> vehicle_inspection_by= $data['vehicle_inspection_by'][$i];
                     $obj-> vehicle_lot_number= $data['vehicle_lot_number'][$i];
                     $obj-> vehicle_buyer_number= $data['vehicle_buyer_number'][$i];
-                    $obj-> detail_type= $data['detail_type'][$i];
+                    $obj-> detail_type= (isset($data['detail_type'][$i])? $data['detail_type'][$i] : 0);
                     $obj-> vehicle_condition= $data['vehicle_condition'][$i];
                     $obj->save();
                     $a++;

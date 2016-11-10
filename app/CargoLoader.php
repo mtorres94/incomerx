@@ -13,7 +13,7 @@ class CargoLoader extends Model
         'consignee_id', 'consignee_address', 'consignee_city', 'consignee_state_id', 'consignee_country_id', 'consignee_zip_code_id', 'consignee_phone', 'consignee_fax',
         'booking_id', 'date_today', 'user_id', 'shipment_type', 'shipment_id', 'division_id','cargo_loader_status', 'inland_carrier_id', 'inland_driver_id', 'inland_lic_number', 'inland_mark', 'inland_comments', 'agent_id','forwarding_agent_id', 'notify_id', 'notify_address', 'notify_city', 'notify_state_id', 'notify_country_id', 'notify_zip_code_id', 'notify_contact', 'notify_contact_phone', 'notify_email', 'domestic_instruction',
         'pre_carriage_by', 'place_receipt', 'loading_terminal', 'exporting_carrier', 'port_loading', 'type_of_move', 'foreign_port', 'place_delivery', 'vessel_yes', 'vessel_no',
-        'shipper_id', 'shipper_address', 'shipper_city', 'shipper_state_id', 'shipper_country_id', 'shipper_zip_code_id', 'shipper_phone', 'shipper_fax', 'vessel_name', 'voyage_name', 'release_date', 'loading_date', 'departure_date','arrival_date', 'cut_off_date'];
+        'shipper_id', 'shipper_address', 'shipper_city', 'shipper_state_id', 'shipper_country_id', 'shipper_zip_code_id', 'shipper_phone', 'shipper_fax', 'vessel_name', 'voyage_name', 'release_date', 'loading_date', 'departure_date','arrival_date', 'cut_off_date', 'receipt_entries_id'];
 
 
     public function user_create()
@@ -104,20 +104,44 @@ class CargoLoader extends Model
     {
         return $this->belongsTo('Sass\Carrier', 'carrier_id');
     }
-    public function place_receipt()
+    public function receipt()
     {
         return $this->belongsTo('Sass\WorldLocation', 'place_receipt_id');
     }
-    public function place_delivery()
+    public function delivery()
     {
         return $this->belongsTo('Sass\WorldLocation', 'place_delivery_id');
     }
-    public function port_loading()
+    public function loading()
     {
         return $this->belongsTo('Sass\OceanPort', 'port_loading_id');
     }
-    public function port_unloading()
+    public function unloading()
     {
         return $this->belongsTo('Sass\OceanPort', 'port_unloading_id');
+    }
+
+    public function warehouse_details()
+    {
+        return $this->hasMany('Sass\CargoLoaderCargo', 'cargo_loader_id');
+    }
+    public function cargo_details()
+    {
+        return $this->hasMany('Sass\CargoLoaderCargoDetail', 'cargo_loader_id');
+    }
+
+    public function hazardous_details()
+    {
+        return $this->hasMany('Sass\CargoLoaderHazardous', 'cargo_loader_id');
+    }
+
+    public function container_details()
+    {
+        return $this->hasMany('Sass\CargoLoaderContainer', 'cargo_loader_id');
+    }
+
+    public function receipt_entries()
+    {
+        return $this->hasMany('Sass\ReceiptEntry', 'cargo_loader_id');
     }
 }

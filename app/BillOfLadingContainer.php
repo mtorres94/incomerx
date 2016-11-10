@@ -122,15 +122,15 @@ class BillOfLadingContainer extends Model
     }
     public function container_pickup_state()
     {
-        return $this->belongsTo('Sass\State', 'container_pickup_id');
+        return $this->belongsTo('Sass\State', 'container_pickup_state_id');
     }
     public function container_delivery_state()
     {
-        return $this->belongsTo('Sass\State', 'container_delivery_id');
+        return $this->belongsTo('Sass\State', 'container_delivery_state_id');
     }
     public function container_drop_state()
     {
-        return $this->belongsTo('Sass\State', 'container_drop_id');
+        return $this->belongsTo('Sass\State', 'container_drop_state_id');
     }
     public function container_carrier()
     {

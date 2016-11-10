@@ -100,4 +100,11 @@ Route::group(['middleware' => ['web']], function () {
             Route::resource('step_by_step', 'StepByStepController');
         });
     });
+
+    Route::group(['prefix' => 'import', 'namespace' => 'Import'], function () {
+        Route::group(['prefix' => 'oceans', 'namespace' => 'OceanImport'], function () {
+            Route::resource('shipment_entries', 'ShipmentEntryController');
+            Route::resource('bill_of_lading', 'BillOfLadingController');
+        });
+    });
 });

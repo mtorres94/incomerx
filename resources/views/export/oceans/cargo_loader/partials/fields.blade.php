@@ -25,7 +25,7 @@
 
 
 <!-- Modal forms section -->
-@section('modals')
+@section('modal')
     @include('export.oceans.cargo_loader.partials.modal.container_details')
     @include('export.oceans.cargo_loader.partials.modal.sections.container.warehouse_receipts')
     @include('export.oceans.cargo_loader.partials.modal.sections.container.details_uns')

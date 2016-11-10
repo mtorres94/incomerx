@@ -52,7 +52,7 @@
 
             pieces = parseInt(tr[a].childNodes[2].textContent) + pieces;
             weight_k = parseFloat(tr[a].childNodes[11].textContent) + weight_k;
-            cubic_k= parseFloat(tr[a].childNodes[12].textContent); + cubic_k
+            cubic_k= parseFloat(tr[a].childNodes[12].textContent) + cubic_k;
             charge_weight_k= parseFloat(tr[a].childNodes[13].textContent) + charge_weight_k;
         }
                 $("#total_quantity").val(pieces),
@@ -60,6 +60,20 @@
                 $("#total_cubic").val(cubic_k),
                 $("#total_volume_weight").val(charge_weight_k)
     }
+
+    function domestic_routing(){
+        var tr = $('#cargo_details tbody tr');
+        var r = tr.length, wr_number= "";
+        for (var a=0; a< r ; a++){
+            wr_number= wr_number + "WR#: " + tr[a].childNodes[1].textContent +"\n";
+            wr_number= wr_number + "Date in: " + tr[a].childNodes[2].textContent +"\n";
+            wr_number= wr_number + "Shipper: " + tr[a].childNodes[3].textContent +"\n";
+            wr_number= wr_number + "Consignee: " + tr[a].childNodes[4].textContent +"\n\n";
+        }
+        $("#domestic_instruction").val(wr_number);
+    }
+
+
 
     function warehouse_details()
     {
@@ -81,6 +95,7 @@
         $("#pick_weight").val(weight);
         $("#pick_cubic").val(cubic);
         $("#pick_link_qty").val(quantity);
+        domestic_routing();
     }
 
     function total_warehouse_cargo()
@@ -98,5 +113,8 @@
                 $("#sum_weight").val(weight_k),
                 $("#sum_cubic").val(cubic_k),
                 $("#sum_volume_weight").val(volume_weight_k)
+        domestic_routing();
     }
+
+
 </script>

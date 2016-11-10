@@ -44,7 +44,9 @@ class ShipmentEntryController extends Controller
         DB::beginTransaction();
         try {
             $count = ShipmentEntry::count() + 1;
+            $shipment_code= str_pad($count, 10, '0', STR_PAD_LEFT);
             $shipment_entry = $request->all();
+            $shipment_entry['shipment_code']=$shipment_code;
             $shipment_entry['user_create_id'] = Auth::user()->id;
             $shipment_entry['user_update_id'] = Auth::user()->id;
 
@@ -180,7 +182,8 @@ class ShipmentEntryController extends Controller
                     'agent_country_id'   => $shipmentEntry->agent_country_id,
                     'agent_phone'   => $shipmentEntry->agent_phone,
                     'agent_fax'   => $shipmentEntry->agent_fax,
-                    'agent_commission'   => $shipmentEntry->agent_commission,
+                    'agent_commission_p'   => $shipmentEntry->agent_commission_p,
+                    'agent_commission_amount'   => $shipmentEntry->agent_commission_amount,
                     'agent_contact'   => $shipmentEntry->agent_contact,
                     'agent_amount'   => $shipmentEntry->agent_amount,
 
@@ -188,6 +191,20 @@ class ShipmentEntryController extends Controller
             }
 
             return response()->json($results);
+        }
+    }
+
+    public function pdf($token, $id)
+    {
+        if (strlen($token) == 60) {
+            try {
+                $shipment_entry = ShipmentEntry::findOrFail($id);
+                return \PDF::loadView('export.oceans.shipment_entries.pdf', compact('shipment_entry'))->stream('SE '.$shipment_entry->shipment_code.'.pdf');
+            } catch (ModelNotFoundException $e) {
+                abort(404);
+            }
+        } else {
+            abort(403);
         }
     }
 }

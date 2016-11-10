@@ -21,7 +21,7 @@ class BookingEntryCargoDetail extends Model
 
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
-        if (isset($data['cargo_id']) ){
+        if (isset($data['details_id']) ){
             $details= DB::table('exp_booking_entries_cargo_details')->where('booking_entry_id', '=', $id)->delete();
             while($a < count($data['details_id'])){
                 $i++;

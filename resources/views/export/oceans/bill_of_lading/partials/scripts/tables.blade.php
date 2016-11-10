@@ -363,7 +363,7 @@
                         .append(createTableContent('details_cargo_type_id', tr[a].childNodes[9].textContent, true, d))
                         .append(createTableContent('details_cargo_type_code', tr[a].childNodes[10].textContent, true, d))
                         .append(createTableContent('details_metric_unit', tr[a].childNodes[11].textContent, true, d))
-                        .append(createTableContent('details_materials', tr[a].childNodes[12].textContent, true, d))
+                        .append(createTableContent('details_material', tr[a].childNodes[12].textContent, true, d))
                         .append(createTableContent('details_pieces', tr[a].childNodes[13].textContent, true, d))
                         .append(createTableContent('details_unit_weight', tr[a].childNodes[14].textContent, true, d))
                         .append(createTableContent('details_dim_fact', tr[a].childNodes[15].textContent, true, d))
@@ -457,8 +457,7 @@
                 weight_totals()
 
     }), $("#cargo_details").on("click", "a.btn-default", function() {
-        removeEmptyNodes('cargo_details');
-        removeEmptyNodes('details_hidden');
+
         var t = $(this).closest("tr"),
                 g1 = t[0].childNodes[0].textContent,
                 g2 = t[0].childNodes[1].textContent,
@@ -507,7 +506,7 @@
                         .append(createTableContent('details_cargo_type_id', tr[a].childNodes[9].textContent, true, d))
                         .append(createTableContent('details_cargo_type_code', tr[a].childNodes[10].textContent, true, d))
                         .append(createTableContent('details_metric_unit', tr[a].childNodes[11].textContent, true, d))
-                        .append(createTableContent('details_materials', tr[a].childNodes[12].textContent, true, d))
+                        .append(createTableContent('details_material', tr[a].childNodes[12].textContent, true, d))
                         .append(createTableContent('details_pieces', tr[a].childNodes[13].textContent, true, d))
                         .append(createTableContent('details_unit_weight', tr[a].childNodes[14].textContent, true, d))
                         .append(createTableContent('details_dim_fact', tr[a].childNodes[15].textContent, true, d))
@@ -704,7 +703,7 @@
                     .append(createTableContent('details_cargo_type_id', g_2, true, d))
                     .append(createTableContent('details_cargo_type_code', g_3, true, d))
                     .append(createTableContent('details_metric_unit', g_4, true, d))
-                    .append(createTableContent('details_materials', g_8, true, d))
+                    .append(createTableContent('details_material', g_8, true, d))
                     .append(createTableContent('details_pieces', g_9, true, d))
                     .append(createTableContent('details_unit_weight', g_11, true, d))
                     .append(createTableContent('details_dim_fact', g_14, true, d))
@@ -1008,7 +1007,7 @@
                     .append(createTableContent('details_cargo_type_id', g_2, true, d))
                     .append(createTableContent('details_cargo_type_code', g_3, true, d))
                     .append(createTableContent('details_metric_unit', g_4, true, d))
-                    .append(createTableContent('details_materials', g_8, true, d))
+                    .append(createTableContent('details_material', g_8, true, d))
                     .append(createTableContent('details_pieces', g_9, true, d))
                     .append(createTableContent('details_unit_weight', g_11, true, d))
                     .append(createTableContent('details_dim_fact', g_14, true, d))

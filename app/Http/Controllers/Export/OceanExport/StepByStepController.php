@@ -45,6 +45,7 @@ class StepByStepController extends Controller
      */
     public function index()
     {
+        //return view('export.oceans.step_by_step.create');
         return view('export.oceans.step_by_step.index');
     }
 
@@ -72,47 +73,66 @@ class StepByStepController extends Controller
             $data = $request->all();
             $data['user_create_id'] = Auth::user()->id;
             $data['user_update_id'] = Auth::user()->id;
-            //SAVE Shipment Entry
-            $shipment_id= ShipmentEntry::create($data);
+            //=========================================================
+            //SHIPMENT ENTRY CODE
+            $count = ShipmentEntry::count() + 1;
+            $shipment_code= str_pad($count, 10, '0', STR_PAD_LEFT);
+            $data['shipment_code'] = $shipment_code;
 
-            //SAVE Cargo loader
+            //BOOKING ENTRY CODE
+            $count = BookingEntry::count() + 1;
+            $booking_code= str_pad($count, 10, '0', STR_PAD_LEFT);
+            $data['booking_code'] = $booking_code;
+
+            //BILL OF LADING ENTRY CODE
+            $count = BillOfLading::count() + 1;
+            $bill_of_lading_code= str_pad($count, 10, '0', STR_PAD_LEFT);
+            $data['bl_code'] = $bill_of_lading_code;
+            //=========================================================
+
+            $shipment_id= ShipmentEntry::create($data);
+            $data['shipment_id']= $shipment_id->id;
+
+            $count = CargoLoader::count() + 1;
+            $cargo_load_code= str_pad($count, 10, '0', STR_PAD_LEFT);
+            $data['cargo_load_code'] = $cargo_load_code;
             $cl= CargoLoader::create($data);
+            $data['cargo_loader_id']= $cl->id;
+            ReceiptEntry::saveDetail($cl->id , $data);
+            //ReceiptEntryCargoDetail::saveDetail($cl->id , $data);
+
             CargoLoaderCargo::saveDetail($cl->id, $data);
             CargoLoaderContainer::saveDetailStepByStep($cl->id, $data);
-            CargoLoaderCargoDetail::saveDetail($cl->id, $data);
+            CargoLoaderCargoDetail::saveDetail($cl->id,$data);
             CargoLoaderHazardous::saveDetail($cl->id, $data);
 
-             //SAVE Booking Entry
-             $booking_entry= BookingEntry::create($data);
-             BookingEntryHazardous::saveDetail($booking_entry->id, $data);
-             BookingEntryCargo::saveDetailStepByStep($booking_entry->id,$data);
-             BookingEntryCargoDetail::saveDetailStepByStep($booking_entry->id,$data);
-             BookingEntryCharge::saveDetail($booking_entry->id,$data);
-             BookingEntryContainer::saveDetail($booking_entry->id,$data);
+            $booking_entry= BookingEntry::create($data);
+            $data['booking_id']= $booking_entry->id;
+            $data['booking_entry_id']= $booking_entry->id;
+            BookingEntryHazardous::saveDetail($booking_entry->id, $data);
+            BookingEntryCargo::saveDetailStepByStep($booking_entry->id,$data);
+            BookingEntryCargoDetail::saveDetailStepByStep($booking_entry->id,$data);
+            BookingEntryCharge::saveDetail($booking_entry->id,$data);
+            BookingEntryContainer::saveDetail($booking_entry->id,$data);
 
-             //SAVE Bill of Lading
-             $bill_of_lading= BillOfLading::create($data);
-             BillOfLadingCargo::saveDetailStepByStep($bill_of_lading->id, $data);
-             BillOfLadingCharge::saveDetail($bill_of_lading->id, $data);
-             BillOfLadingContainer::saveDetail($bill_of_lading->id, $data);
-             BillOfLadingCustomerReference::saveDetail($bill_of_lading->id, $data);
-             BillOfLadingHazardous::saveDetail($bill_of_lading->id, $data);
-             BillOfLadingItem::saveDetail($bill_of_lading->id, $data);
-             BillOfLadingProTracking::saveDetail($bill_of_lading->id, $data);
-             BillOfLadingTransportation::saveDetail($bill_of_lading->id, $data);
-             BillOfLadingCargoDetail::saveDetailStepByStep($bill_of_lading->id, $data);
+            $bill_of_lading= BillOfLading::create($data);
+            BillOfLadingCargo::saveDetailStepByStep($bill_of_lading->id, $data);
+            BillOfLadingCharge::saveDetail($bill_of_lading->id, $data);
+            BillOfLadingContainer::saveDetail($bill_of_lading->id, $data);
+            BillOfLadingCustomerReference::saveDetail($bill_of_lading->id, $data);
+            BillOfLadingHazardous::saveDetail($bill_of_lading->id, $data);
+            BillOfLadingItem::saveDetail($bill_of_lading->id, $data);
+            BillOfLadingProTracking::saveDetail($bill_of_lading->id, $data);
+            BillOfLadingTransportation::saveDetail($bill_of_lading->id, $data);
+            BillOfLadingCargoDetail::saveDetailStepByStep($bill_of_lading->id, $data);
 
-            //Receipt Entry
-            ReceiptEntry::saveDetail($data);
-            $re= ReceiptEntry::all();
-            $receipt_entry= $re->last();
-            ReceiptEntryCargoDetail::saveDetail($receipt_entry->id, $data);
-
-
+           return view('export.oceans.step_by_step.create');
         } catch (ValidationException $e) {
             DB::rollback();
         }
         DB::commit();
+       // return redirect()->route('export.oceans.step_by_step.create');
+
     }
 
     /**

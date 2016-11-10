@@ -24,3 +24,11 @@
     </thead>
     <tbody></tbody>
 </table>
+
+<div class="row ">
+
+    <div class="col-md-2">{!! Form::bsText(null,null, 'Qty', 'sum_quantity', null, '0.000') !!}</div>
+    <div class="col-md-2">{!! Form::bsText(null,null, 'Weight', 'sum_weight', null, '0.000') !!}</div>
+    <div class="col-md-2">{!! Form::bsText(null,null, 'Cubic', 'sum_cubic', null, '0.000') !!}</div>
+    <div class="col-md-2">{!! Form::bsText(null,null, 'Vol. Weight', 'sum_volume_weight', null, '0.000') !!}</div>
+</div>

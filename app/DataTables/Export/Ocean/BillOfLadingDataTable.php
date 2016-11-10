@@ -22,7 +22,9 @@ class BillOfLadingDataTable extends CustomDataTable
                 return $this->groupButton(
                     $bill_lading,
                     'export.oceans.bill_of_lading',
-                    null);
+                    [ ['route' => 'bill_of_lading.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF']]
+
+                );
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

@@ -13,7 +13,7 @@
 
 
 <!-- Modal forms section -->
-@section('modals')
+@section('modal')
     @include('export.oceans.step_by_step.partials.modal.load_warehouse')
     @include('export.oceans.step_by_step.partials.modal.warehouse_details')
     @include('export.oceans.step_by_step.partials.modal.sections.warehouse.warehouse_cargo_details')

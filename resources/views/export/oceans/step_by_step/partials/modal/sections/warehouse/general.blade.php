@@ -1,7 +1,7 @@
 <fieldset>
-    {!! Form::hidden('cargo_line', null, ['id' => 'cargo_line', 'class' => 'form-control input-sm']) !!}
+    {!! Form::hidden('warehouse_line', null, ['id' => 'warehouse_line', 'class' => 'form-control input-sm']) !!}
     <div class="row">
-        <div class="col-md-3">{!! Form::bsText(null, null, 'WR Number', 'warehouse_number', '') !!}</div>
+<div class="col-md-3">{!! Form::bsText(null, null, 'WR Number', 'warehouse_number', '') !!}</div>
         <div class="col-md-3">{!! Form::bsDate(null, null, 'Date in', 'warehouse_date_in', '') !!}</div>
         <div class="col-md-3">{!! Form::bsText(null, null, 'Bldg/Whse', 'bldg_number', '') !!}</div>
         <div class="col-md-3">{!! Form::bsText(null, null, 'Loaded Position', 'loaded_position', '') !!}</div>

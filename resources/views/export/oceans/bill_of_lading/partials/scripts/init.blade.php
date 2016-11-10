@@ -5,6 +5,57 @@
         var unique_str = $("#unique_str").val();
         openTab($("#data"));
 
+        for (var t2 = $("#transportation-tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
+            var a2 = t2[l2];
+            var e2 = $(a2).attr("style");
+            if (e2 === undefined) {
+            } else {var n2 = e2.indexOf("display: block;"),
+                    o2 = e2.indexOf("display: none;");
+                $(a2).removeAttr("style"), n2 >= 0 && $(a2).attr("style", "display: block;"), o2 >= 0 && $(a2).attr("style", "display: none;")}
+        }
+
+        for (var t2 = $("#container-tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
+            var a2 = t2[l2];
+            var e2 = $(a2).attr("style");
+            if (e2 === undefined) {
+            } else {var n2 = e2.indexOf("display: block;"),
+                    o2 = e2.indexOf("display: none;");
+                $(a2).removeAttr("style"), n2 >= 0 && $(a2).attr("style", "display: block;"), o2 >= 0 && $(a2).attr("style", "display: none;")}
+        }
+
+        for (var t2 = $("#charges-tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
+            var a2 = t2[l2];
+            var e2 = $(a2).attr("style");
+            if (e2 === undefined) {
+            } else {var n2 = e2.indexOf("display: block;"),
+                    o2 = e2.indexOf("display: none;");
+                $(a2).removeAttr("style"), n2 >= 0 && $(a2).attr("style", "display: block;"), o2 >= 0 && $(a2).attr("style", "display: none;")}
+        }
+
+        for (var t2 = $("#cargo-tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
+            var a2 = t2[l2];
+            var e2 = $(a2).attr("style");
+            if (e2 === undefined) {
+            } else {var n2 = e2.indexOf("display: block;"),
+                    o2 = e2.indexOf("display: none;");
+                $(a2).removeAttr("style"), n2 >= 0 && $(a2).attr("style", "display: block;"), o2 >= 0 && $(a2).attr("style", "display: none;")}
+        }
+
+        //===================================================================
+        removeEmptyNodes('PRO_details');
+        removeEmptyNodes('customer_details');
+        removeEmptyNodes('items_details');
+        removeEmptyNodes('cargo_details');
+        removeEmptyNodes('details_hidden');
+        removeEmptyNodes('cargo_vehicle_details');
+        removeEmptyNodes('container_details');
+        removeEmptyNodes('hzd_details');
+        removeEmptyNodes('hazardous-details');
+        removeEmptyNodes('chargeDetails');
+        removeEmptyNodes('transportation_details');
+        //===================================================================
+
+
         initDate($("#bl_date"), 0);
 
         $("#billing_bill_party").change(function () {

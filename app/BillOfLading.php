@@ -14,8 +14,12 @@ class BillOfLading extends Model
         'consignee_id', 'consignee_address', 'consignee_city', 'consignee_state_id', 'consignee_country_id', 'consignee_zip_code_code', 'consignee_phone',
         'notify_id', 'notify_address', 'notify_city', 'notify_state_id', 'notify_country_id', 'notify_zip_code_id', 'notify_phone', 'notify_contact', 'notify_contact_phone', 'notify_email',
         'third_id', 'third_address', 'third_city', 'third_state_id', 'third_zip_code_id', 'third_contact', 'third_contact_phone', 'third_email',
-       'pod_date', 'pod_expected_date', 'pod_received_by', 'pod_incident','pod_note', 'add_info_comments', 'SDK_name', 'SDK_address', 'SDK_attn', 'SDK_reff', 'SDK_notes', 'inland_carrier_id', 'inland_date','inland_dbl_mbl_code', 'import_date', 'import_master_number', 'import_house_number', 'import_shipment_number', 'confirm_status', 'uplift', 'confirm_master_number', 'confirm_house_number', 'confirm_shipment_number', 'broker_code', 'broker_phone', 'broker_reference', 'destination_broker_code', 'destination_broker_phone', 'destination_broker_reference', 'loading_port_id', 'unloading_port_id', 'carrier_id', 'vessel_name', 'voyage_name', 'departure', 'arrival', 'origin_country_id', 'customs_code', 'it_number', 'incoterm_type', 'forwarding_agent_id', 'commission_p', 'coloader_id', 'document_number', 'bl_number', 'export_reference', 'point_of_origin', 'fmc_number', 'agent_id', 'agent_address', 'agent_city', 'agent_state_id', 'agent_country_id', 'agent_zip_code_id', 'agent_phone', 'agent_commission_amount', 'agent_commission_p', 'domestic_instruction', 'pre_carriage_by', 'place_receipt', 'loading_terminal', 'vessel_yes', 'vessel_no', 'exporting_carrier', 'port_loading', 'type_of_move', 'foreign_port', 'place_delivery', 'transhipment_port_id', 'letter_comments', 'comments_comment', 'total_pieces', 'total_commodity_id', 'total_weight_unit_measurement', 'total_weight_kgs','total_cubic_cbm', 'total_charge_weight_kgs', 'total_weight_lbs', 'total_cubic_cft', 'total_charge_weight_lbs'];
+       'pod_date', 'pod_expected_date', 'pod_received_by', 'pod_incident','pod_note', 'add_info_comments', 'SDK_name', 'SDK_address', 'SDK_attn', 'SDK_reff', 'SDK_notes', 'inland_carrier_id', 'inland_date','inland_dbl_mbl_code', 'import_date', 'import_master_number', 'import_house_number', 'import_shipment_number', 'confirm_status', 'uplift', 'confirm_master_number', 'confirm_house_number', 'confirm_shipment_number', 'broker_code', 'broker_phone', 'broker_reference', 'destination_broker_code', 'destination_broker_phone', 'destination_broker_reference', 'loading_port_id', 'port_unloading_id', 'carrier_id', 'vessel_name', 'voyage_name', 'departure', 'arrival', 'origin_country_id', 'customs_code', 'it_number', 'incoterm_type', 'forwarding_agent_id', 'commission_p', 'coloader_id', 'document_number', 'bl_number', 'export_reference', 'point_of_origin', 'fmc_number', 'agent_id', 'agent_address', 'agent_city', 'agent_state_id', 'agent_country_id', 'agent_zip_code_id', 'agent_phone', 'agent_commission_amount', 'agent_commission_p', 'domestic_instruction', 'pre_carriage_by', 'place_receipt', 'loading_terminal', 'vessel_yes', 'vessel_no', 'exporting_carrier', 'port_loading', 'type_of_move', 'foreign_port', 'place_delivery', 'transhipment_port_id', 'letter_comments', 'comments_comment', 'total_pieces', 'total_commodity_id', 'total_weight_unit_measurement', 'total_weight_kgs','total_cubic_cbm', 'total_charge_weight_kgs', 'total_weight_lbs', 'total_cubic_cft', 'total_charge_weight_lbs'];
 
+    public function division()
+    {
+        return $this->belongsTo('Sass\Division', 'division_id');
+    }
     public function total_commodity()
     {
         return $this->belongsTo('Sass\Commodity', 'total_commodity_id');
@@ -28,13 +32,13 @@ class BillOfLading extends Model
     {
         return $this->belongsTo('Sass\User', 'user_create_id');
     }
-    public function loading_port()
+    public function port_loading()
     {
-        return $this->belongsTo('Sass\OceanPort', 'loading_port_id');
+        return $this->belongsTo('Sass\OceanPort', 'port_loading_id');
     }
-    public function unloading_port()
+    public function port_unloading()
     {
-        return $this->belongsTo('Sass\OceanPort', 'unloading_port_id');
+        return $this->belongsTo('Sass\OceanPort', 'port_unloading_id');
     }
     public function transhipment_port()
     {

@@ -5,10 +5,10 @@
         <div class="col-md-6">{!! Form::bsText("col-md-6", "col-md-6",'Project Number', 'project_number', null, '') !!}</div>
     </div>
     <div class="row">
-        {!! Form::bsComplete('col-md-3', 'col-md-9','Shipment # ', 'shipment_id', 'shipment_code', Request::get('term'),((isset($bill_lading) and $bill_lading->shipment_id> 0) ? $bill_lading->shipment->shipment_code : null), 'Shipment #') !!}
+        {!! Form::bsComplete('col-md-3', 'col-md-9','Shipment # ', 'shipment_id', 'shipment_code', Request::get('term'),((isset($bill_of_lading) and $bill_of_lading->shipment_id> 0) ? $bill_of_lading->shipment->shipment_code : null), 'Shipment #') !!}
     </div>
     <div class="row">
-        {!! Form::bsComplete('col-md-3', 'col-md-9','Booking Number ', 'booking_entry_id', 'booking_entry_code', Request::get('term'),((isset($bill_lading) and $bill_lading->booking_entry_id > 0) ? $bill_lading->booking_entry->name : null), 'Booking') !!}
+        {!! Form::bsComplete('col-md-3', 'col-md-9','Booking Number ', 'booking_entry_id', 'booking_entry_code', Request::get('term'),((isset($bill_of_lading) and $bill_of_lading->booking_entry_id > 0) ? $bill_of_lading->booking_entry->name : null), 'Booking') !!}
     </div>
     <div class="row">
         {!! Form::bsText('col-md-3', 'col-md-9', 'Manifest Type', 'manifest_type', null, ' ') !!}

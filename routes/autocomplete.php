@@ -73,6 +73,15 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['namespace' => 'Export'], function () {
         Route::group(['namespace' => 'OceanExport'], function () {
             Route::get('shipment_entries/autocomplete', ['as' => 'shipment_entries.autocomplete', 'uses' => 'ShipmentEntryController@autocomplete']);
+            Route::get('booking_entries/autocomplete', ['as' => 'booking_entries.autocomplete', 'uses' => 'BookingEntryController@autocomplete']);
+
+        });
+    });
+
+    Route::group(['namespace' => 'Import'], function () {
+        Route::group(['namespace' => 'OceanImport'], function () {
+            Route::get('shipment_entries/autocomplete_import', ['as' => 'shipment_entries.autocomplete_import', 'uses' => 'ShipmentEntryController@autocomplete_import']);
+
         });
     });
 });
