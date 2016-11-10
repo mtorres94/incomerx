@@ -64,6 +64,12 @@ class BookingEntry extends Model
         return $this->belongsTo('Sass\State', 'supplier_state_id');
     }
 
+    public function supplier_country()
+    {
+        return $this->belongsTo('Sass\Country', 'supplier_country_id');
+    }
+
+
     public function shipper_state()
     {
         return $this->belongsTo('Sass\State', 'shipper_state_id');
