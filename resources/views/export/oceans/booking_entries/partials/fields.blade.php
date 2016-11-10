@@ -25,7 +25,7 @@
 </div>
 
 <!-- Modal forms section -->
-@section('modal')
+@section('modals')
     @include('export.oceans.booking_entries.partials.modal.charge_details')
     @include('export.oceans.booking_entries.partials.modal.container_details')
     @include('export.oceans.booking_entries.partials.modal.sections.container.details_uns')

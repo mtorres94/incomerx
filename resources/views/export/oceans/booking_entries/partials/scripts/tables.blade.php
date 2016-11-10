@@ -985,7 +985,7 @@
                 $("#box_emergency_contact").val(g57),
                 $("#box_emergency_contact_phone").val(g58),
                 $("#box_comments").val(g59),
-                (type== '0' || type ==''  ? $("#Box_Details").modal("show") : $("#Vehicle_Details").modal("show")), $("#box_quantity").focus()
+                $("#Box_Details").modal("show"), $("#box_quantity").focus()
     });
 
     $("#vehicle-save").click(function() {
@@ -1060,7 +1060,7 @@
 
 
             C.append(createTableContent('details_id', (0 == vehicle_id ? _ : vehicle_id), true,d))
-                    .append($("<td><i class='fa fa-car' aria-hidden='true'></td>"))
+                    .append($("<td><i class='fa fa-cube' aria-hidden='true'></td>"))
                     .append(createTableContent('details_quantity', g_1, false, d))
                     .append(createTableContent('details_unit', g_10, false, d))
                     .append(createTableContent('details_length', g_5, false, d))
@@ -1156,7 +1156,7 @@
 
                     .append(createTableBtns()),
 
-                    0 == vehicle_id ? x.append(C) : x.find("tr#" + vehicle_id).replaceWith(C), values_box_vehicle(),cleanModalFields("Vehicle_Details"), $("#Vehicle_Details").modal("show"), $("#vehicle_quantity").focus()
+                    0 == vehicle_id ? x.append(C) : x.find("tr#" + vehicle_id).replaceWith(C), values_box_vehicle(),cleanModalFields("Box_Details"), $("#Box_Details").modal("show"), $("#vehicle_quantity").focus()
         }
 
     }), $("#cargo_vehicle_details").on("click", "a.btn-danger", function() {
@@ -1283,7 +1283,7 @@
                 $("#vehicle_inspection_by").val(g53),
                 $("#vehicle_lot_number").val(g54),
                 $("#vehicle_buyer_number").val(g55),
-                 (type== '0' || type=='' ? $("#Box_Details").modal("show") : $("#Vehicle_Details").modal("show")), $("#vehicle_quantity").focus()
+                  $("#Box_Details").modal("show") , $("#vehicle_quantity").focus()
     });
 
     $("#cargo-save").click(function() {
@@ -1480,7 +1480,7 @@
             if( tr[a].childNodes[0].textContent == g1){
                 var  p_1=  $("<tr id=" + d + ">");
                 p_1.append(createTableContent('detail_line',tr[a].childNodes[1].textContent, true, d))
-                        .append((tr[a].childNodes[83].textContent== '1'? "<td><i class='fa fa-car' aria-hidden='true'></td>" : "<td><i class='fa fa-cube' aria-hidden='true'></td>"))
+                        .append("<td><i class='fa fa-cube' aria-hidden='true'></td>")
                         .append(createTableContent('details_quantity',tr[a].childNodes[2].textContent, false, d))
                         .append(createTableContent('details_unit',tr[a].childNodes[3].textContent, false, d))
                         .append(createTableContent('details_length',tr[a].childNodes[4].textContent, false, d))

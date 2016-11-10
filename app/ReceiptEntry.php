@@ -86,7 +86,7 @@ class ReceiptEntry extends Model
 
             }
         }
-        ReceiptEntryCargoDetail::createDetail('',$data);
+        ReceiptEntryCargoDetail::saveDetail($data);
     /*    $i= -1;
         $a=0;
         if (isset($data['hidden_warehouse_line']) ){

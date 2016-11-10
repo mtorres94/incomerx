@@ -74,6 +74,7 @@ class StepByStepController extends Controller
             $data['user_create_id'] = Auth::user()->id;
             $data['user_update_id'] = Auth::user()->id;
             //=========================================================
+
             //SHIPMENT ENTRY CODE
             $count = ShipmentEntry::count() + 1;
             $shipment_code= str_pad($count, 10, '0', STR_PAD_LEFT);
@@ -98,8 +99,8 @@ class StepByStepController extends Controller
             $data['cargo_load_code'] = $cargo_load_code;
             $cl= CargoLoader::create($data);
             $data['cargo_loader_id']= $cl->id;
+
             ReceiptEntry::saveDetail($cl->id , $data);
-            //ReceiptEntryCargoDetail::saveDetail($cl->id , $data);
 
             CargoLoaderCargo::saveDetail($cl->id, $data);
             CargoLoaderContainer::saveDetailStepByStep($cl->id, $data);
@@ -125,13 +126,15 @@ class StepByStepController extends Controller
             BillOfLadingProTracking::saveDetail($bill_of_lading->id, $data);
             BillOfLadingTransportation::saveDetail($bill_of_lading->id, $data);
             BillOfLadingCargoDetail::saveDetailStepByStep($bill_of_lading->id, $data);
-
-           return view('export.oceans.step_by_step.create');
-        } catch (ValidationException $e) {
+            DB::commit();
+        } catch (\Exception $e) {
+            dd($e->getMessage());
             DB::rollback();
         }
-        DB::commit();
-       // return redirect()->route('export.oceans.step_by_step.create');
+        return view('export.oceans.step_by_step.create');
+
+        // return redirect()->route('export.oceans.step_by_step.create');
+
 
     }
 

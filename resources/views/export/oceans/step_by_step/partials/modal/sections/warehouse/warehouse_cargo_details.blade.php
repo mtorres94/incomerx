@@ -1,5 +1,5 @@
 <!--- <div id="UNsModal" class="modal fade" tabindex="-1" data-backdrop-limit="1"> -->
-<div id="Warehouse_Cargo_Details" class="modal fade" role="dialog" data-backdrop-limit="1" class="modal modal-child" data-keyboard="false">
+<div id="WarehouseCargoDetails" class="modal fade" role="dialog" data-backdrop-limit="1" class="modal modal-child" data-keyboard="false">
 
     <div class="modal-dialog modal-lg">
         <!-- Modal content-->

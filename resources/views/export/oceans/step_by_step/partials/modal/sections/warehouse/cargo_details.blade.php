@@ -1,5 +1,5 @@
 <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
-    <button type="button"  id="btn_warehouse" class="btn btn-default" data-toggle="modal" data-target="#Warehouse_Cargo_Details" onclick="cleanModalFields('Warehouse_Cargo_Details')">
+    <button type="button"  id="btn_warehouse" class="btn btn-default" data-toggle="modal" data-target="#WarehouseCargoDetails" onclick="cleanModalFields('WarehouseCargoDetails')">
         <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
     </button>
     <button type="button"  class="btn btn-danger" onclick="clearTable('warehouse_cargo_details')">

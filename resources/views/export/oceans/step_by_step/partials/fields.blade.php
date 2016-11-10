@@ -13,7 +13,7 @@
 
 
 <!-- Modal forms section -->
-@section('modal')
+@section('modals')
     @include('export.oceans.step_by_step.partials.modal.load_warehouse')
     @include('export.oceans.step_by_step.partials.modal.warehouse_details')
     @include('export.oceans.step_by_step.partials.modal.sections.warehouse.warehouse_cargo_details')
@@ -24,7 +24,6 @@
     @include('export.oceans.step_by_step.partials.modal.customer_reference')
     @include('export.oceans.step_by_step.partials.modal.items_details')
     @include('export.oceans.step_by_step.partials.modal.details_UNs')
-
 @stop
 
 <!-- Scripts sections -->

@@ -22,9 +22,8 @@
 
 
 <!-- Modal forms section -->
-@section('modal')
+@section('modals')
     @include('export.oceans.shipment_entries.partials.modals.hbl_details')
-
 @stop
 
 <!-- Scripts sections -->

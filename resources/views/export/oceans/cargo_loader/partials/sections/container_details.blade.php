@@ -4,7 +4,7 @@
     <button type="button" id="btn_container_details" class="btn btn-default" data-toggle="modal" data-target="#Container_Details" onclick="cleanModalFields('Container_Details'), clearTable('cargo_details')">
         <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
     </button>
-    <button type="button"  class="btn btn-danger" onclick="clearTable('container_details')">
+    <button type="button"  class="btn btn-danger" onclick="clearTable('container_details'), clearTable('hidden_warehouse'), clearTable('hidden_cargo_details'), clearTable('hidden_hazardous')">
         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
     </button>
 </div>

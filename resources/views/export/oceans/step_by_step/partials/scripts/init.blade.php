@@ -47,6 +47,15 @@ removeEmptyNodes('load-warehouse-details');
         $("#shipment_status").val('O').change();
 
 
+        for (var t2 = $("#warehouse-tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
+            var a2 = t2[l2];
+            var e2 = $(a2).attr("style");
+            if (e2 === undefined) {
+            } else {var  n2 = e2.indexOf("display: block;"),
+                    o2 = e2.indexOf("display: none;");
+                $(a2).removeAttr("style"); n2 >= 0 && $(a2).attr("style", "display: block;"); o2 >= 0 && $(a2).attr("style", "display: none;")}
+        }
+
 
     });
 

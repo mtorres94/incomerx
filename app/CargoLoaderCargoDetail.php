@@ -35,34 +35,34 @@ class CargoLoaderCargoDetail extends Model
     {
         $i = -1;
         $a = 0;
-        if (isset($data['cargo_line'])) {
+        if (isset($data['details_line'])) {
             $details = DB::table('exp_cargo_loader_cargo_details')->where('cargo_loader_id', '=', $id)->delete();
-            while ($a < count($data['cargo_line'])) {
+            while ($a < count($data['details_line'])) {
                 $i++;
-                if (isset($data['cargo_line'][$i])) {
+                if (isset($data['details_line'][$i])) {
                     $obj = new CargoLoaderCargoDetail();
                     $obj->cargo_loader_id = $id;
                     $obj->line = $a + 1;
                     $obj->cargo_id                      = $data['details_id'][$i];
-                    $obj->quantity                      = $data['cargo_quantity'][$i];
-                    $obj->cargo_type_id                 = $data['cargo_type_id'][$i];
-                    $obj->pieces                        = $data['cargo_pieces'][$i];
-                    $obj->weight_unit                   = $data['cargo_weight_unit_measurement_id'][$i];
-                    $obj->metric_unit                   = $data['cargo_metric_unit_measurement_id'][$i];
-                    $obj->length                        = $data['cargo_length'][$i];
-                    $obj->width                         = $data['cargo_width'][$i];
-                    $obj->height                        = $data['cargo_height'][$i];
-                    $obj->total_weight                  = $data['cargo_total_weight'][$i];
-                    $obj->cubic                         = $data['cargo_cubic'][$i];
-                    $obj->volume_weight                 = $data['cargo_volume_weight'][$i];
-                    $obj->location_id                   = $data['cargo_location_id'][$i];
-                    $obj->location_bin_id               = $data['cargo_location_bin_id'][$i];
-                    $obj->material_description          = (isset($data['cargo_material_description'][$i])? $data['cargo_material_description'][$i] : $data['cargo_material'][$i]);
-                    $obj->tare_weight                   = $data['cargo_tare_weight'][$i];
-                    $obj->net_weight                    = $data['cargo_net_weight'][$i];
-                    $obj->unit_weight                   = $data['cargo_unit_weight'][$i];
-                    $obj->dim_fact                      = $data['cargo_dim_fact'][$i];
-                    $obj->square_foot                   = $data['cargo_square_foot'][$i];
+                    $obj->quantity                      = $data['details_quantity'][$i];
+                    $obj->cargo_type_id                 = $data['details_cargo_type_id'][$i];
+                    $obj->pieces                        = $data['details_pieces'][$i];
+                    $obj->weight_unit                   = $data['details_weight_unit_measurement_id'][$i];
+                    $obj->metric_unit                   = $data['details_metric_unit_measurement_id'][$i];
+                    $obj->length                        = $data['details_length'][$i];
+                    $obj->width                         = $data['details_width'][$i];
+                    $obj->height                        = $data['details_height'][$i];
+                    $obj->total_weight                  = $data['details_total_weight'][$i];
+                    $obj->cubic                         = $data['details_cubic'][$i];
+                    $obj->volume_weight                 = $data['details_volume_weight'][$i];
+                    $obj->location_id                   = $data['details_location_id'][$i];
+                    $obj->location_bin_id               = $data['details_location_bin_id'][$i];
+                    $obj->material_description          = (isset($data['details_material_description'][$i])? $data['details_material_description'][$i] : $data['details_material'][$i]);
+                    $obj->tare_weight                   = $data['details_tare_weight'][$i];
+                    $obj->net_weight                    = $data['details_net_weight'][$i];
+                    $obj->unit_weight                   = $data['details_unit_weight'][$i];
+                    $obj->dim_fact                      = $data['details_dim_fact'][$i];
+                    $obj->square_foot                   = $data['details_square_foot'][$i];
 
                     $obj->save();
                     $a++;

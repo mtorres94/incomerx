@@ -75,12 +75,12 @@ class CargoLoaderController extends Controller
             $cargo_details= CargoLoaderCargoDetail::search($cl->id);
             $hazardous_details= CargoLoaderHazardous::search($cl->id);
             $cargo_loader= CargoLoaderCargo::search($cl->id);
-
+            $cargo_loader_id= $cl->id;
             } catch (ValidationException $e) {
             DB::rollback();
         }
         DB::commit();
-        return view('export.oceans.booking_entries.create', compact('containers','hazardous_details', 'cargo_details', 'cargo_loader'));
+        return view('export.oceans.booking_entries.create', compact('containers','hazardous_details', 'cargo_details', 'cargo_loader', 'cargo_loader_id'));
 
 
     }
