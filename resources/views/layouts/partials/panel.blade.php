@@ -6,7 +6,7 @@
             <div class="list-group">
                 @foreach(Sass\Module::active()->get() as $module)
                     <a href="javascript:void(0)" class="list-group-item {{ ((Auth::user()->module_id) == $module->id ? 'active': '') }} text-center">
-                        <h4 class="{{ $module->icon }}"></h4><br/> {{ trans($module->name) }}
+                        <h4 class="{{ $module->icon }} fa-2x"></h4><br/> {{ trans($module->name) }}
                     </a>
                 @endforeach
             </div>
