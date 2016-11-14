@@ -67,8 +67,8 @@ class ReceiptEntryCargoDetail extends Model
                 $obj->location_bin_id               = $data['cargo_location_bin_id'][$i];
                 # $obj->serial_number                 = $data['cargo_serial_number'][$i];
                 $obj->material_description          = $data['cargo_material_description'][$i];
-                $obj->tare_weight                   = $data['cargo_tare_weight'][$i];
-                $obj->net_weight                    = $data['cargo_net_weight'][$i];
+                $obj->tare_weight                   = 0; # $data['cargo_tare_weight'][$i];
+                $obj->net_weight                    = 0; # $data['cargo_net_weight'][$i];
                 $obj->dim_fact                      = $data['cargo_dim_fact'][$i];
 
                 $obj->save();

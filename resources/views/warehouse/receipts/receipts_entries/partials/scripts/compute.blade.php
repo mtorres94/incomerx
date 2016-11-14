@@ -43,9 +43,9 @@
         for (var a=0; a < tr.length; a++) {
             var unit = tr[a].childNodes[6].textContent,
                 pieces = parseInt(tr[a].childNodes[5].textContent),
-                weight = parseFloat(tr[a].childNodes[11].textContent),
-                volume_weight = parseFloat(tr[a].childNodes[13].textContent),
-                cubic = parseFloat(tr[a].childNodes[12].textContent);
+                weight = parseFloat(tr[a].childNodes[12].textContent),
+                volume_weight = parseFloat(tr[a].childNodes[14].textContent),
+                cubic = parseFloat(tr[a].childNodes[13].textContent);
 
             total_pieces = total_pieces + pieces;
             total_weight = total_weight + ((unit == "L") ? weight : (weight * 2.2));

@@ -23,6 +23,7 @@
             <th data-override="warehouse_details_pieces">Pieces</th>
             <th data-override="warehouse_details_unit">Unit</th>
             <th data-override="warehouse_details_metric" hidden>Metric</th>
+            <th data-override="warehouse_details_dim_fact" hidden>DIM</th>
             <th data-override="warehouse_details_length">Length</th>
             <th data-override="warehouse_details_width">Width</th>
             <th data-override="warehouse_details_height">Height</th>
@@ -52,6 +53,7 @@
                         {!! Form::bsRowTd($detail->line, 'cargo_pieces', $detail->pieces, false) !!}
                         {!! Form::bsRowTd($detail->line, 'cargo_weight_unit_measurement_id', $detail->weight_unit_measurement_id, false) !!}
                         {!! Form::bsRowTd($detail->line, 'cargo_metric_unit_measurement_id', $detail->metric_unit_measurement_id, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_dim_fact', $detail->dim_fact, true) !!}
                         {!! Form::bsRowTd($detail->line, 'cargo_length', $detail->length, false) !!}
                         {!! Form::bsRowTd($detail->line, 'cargo_width', $detail->width, false) !!}
                         {!! Form::bsRowTd($detail->line, 'cargo_height', $detail->height, false) !!}
