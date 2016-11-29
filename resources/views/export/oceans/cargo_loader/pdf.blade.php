@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Cargo Loader {{ $cargo_loader->bl_code }}</title>
+    <title>Cargo Loader {{ $cargo_loader->code }}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,8 +41,8 @@
             <div class="row">
                 <div class="document-info pull-right">
                     <h5><strong>LOAD PLAN</strong></h5>
-                    <p class="code-bar">{{ $cargo_loader->cargo_load_code }}</p>
-                    <p class="document_number"><strong>CARGO LOADER # {{ $cargo_loader->cargo_load_code }}</strong></p>
+                    <p class="code-bar">{{ $cargo_loader->code }}</p>
+                    <p class="document_number"><strong>CARGO LOADER # {{ $cargo_loader->code }}</strong></p>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
             <table class="table resume-table">
                 <tr>
                     <td><p><strong>FILE #: </strong></p></td>
-                    <td><p>{{ strtoupper($cargo_loader->shipment_id >0 ? $cargo_loader->shipment->shipment_code: "") }} </p></td>
+                    <td><p>{{ strtoupper($cargo_loader->shipment_id >0 ? $cargo_loader->shipment->code: "") }} </p></td>
                     <td><p><strong>ORIGIN: </strong></p></td>
                     <td><p> {{ strtoupper($cargo_loader->port_loading_id >0 ? $cargo_loader->loading->name : "") }}</p></td>
                     <td><p><strong>DATE: </strong></p></td>
@@ -62,7 +62,7 @@
                 </tr>
                 <tr>
                     <td><p><strong>BOOKING #: </strong></p></td>
-                    <td><p> </p></td>
+                    <td><p> {{ strtoupper($cargo_loader->booking_code)}}</p></td>
                     <td><p><strong>DEST: </strong></p></td>
                     <td><p> {{ strtoupper($cargo_loader->port_unloading_id >0 ? $cargo_loader->unloading->name : "") }}</p></td>
                     <td><p><strong>ETD: </strong></p></td>
@@ -87,17 +87,17 @@
             </table>
 
 
-               @foreach($cargo_loader->receipt_entries as $receipt)
+               @foreach($cargo_loader->pivote as $pivot)
                 <table class="table table-condensed">
                     <thead>
                         <th width="5%"><p><strong>WR#</strong></p></th>
-                        <td width="10%"><p>{{ $receipt->code }}</p></td>
+                        <td width="10%"><p>{{ $pivot->receipt_entry->code }}</p></td>
                         <th width="10%"><p><strong> WR LOC</strong></p></th>
-                        <td width="10%"><p>{{ strtoupper($receipt->warehouse_id > 0? $receipt->warehouse->name : "") }}</p></td>
+                        <td width="10%"><p>{{ strtoupper($pivot->receipt_entry->location_origin_id > 0? $pivot->receipt_entry->origin->name : "") }}</p></td>
                         <th width="10%"><p><strong>SHIPPER: </strong></p></th>
-                        <td width="20%"><p> {{ strtoupper($receipt->shipper_id >0 ? $receipt->shipper->name : "")}}</p></td>
+                        <td width="20%"><p> {{ strtoupper($pivot->receipt_entry->shipper_id >0 ? $pivot->receipt_entry->shipper->name : "")}}</p></td>
                         <th width="10%"><p><strong>CONSIGNEE: </strong></p></th>
-                        <td width="20%"><p> {{ strtoupper($receipt->consignee_id >0 ? $receipt->consignee->name : "")}}</p></td>
+                        <td width="20%"><p> {{ strtoupper($pivot->receipt_entry->consignee_id >0 ? $pivot->receipt_entry->consignee->name : "")}}</p></td>
                     </thead>
                    <tbody>
                    <table class="table table-condensed">
@@ -114,7 +114,7 @@
                        <th width="5%">HZ</th>
                        </thead>
                        <tbody>
-                       @foreach( $receipt->cargo_details as $cargo_detail)
+                       @foreach( $pivot->receipt_entry->cargo_details as $cargo_detail)
 
                            <tr>
                                <td width="10%">{{ $cargo_detail->pieces  }}/ {{ strtoupper($cargo_detail->cargo_type_id >0 ? $cargo_detail->cargo_type->code : "") }}</td>
@@ -122,7 +122,7 @@
                                <td width="10%">{{ $cargo_detail->total_weight  }}</td>
                                <td width="10%">{{ $cargo_detail->cubic  }}</td>
                                <td width="15%">{{ strtoupper($cargo_detail->location_id >0 ? $cargo_detail->location->name : "") }}</td>
-                               <td width="15%">{{ strtoupper($cargo_detail->location_bin_id >0 ? $cargo_detail->location_bin->name : "") }}</td>
+                               <td width="15%">{{ strtoupper($cargo_detail->location_bin_id >0 ? $cargo_detail->bin->name : "") }}</td>
                                <td width="10%"></td>
                                <td width="10%"></td>
                                <td width="10%"></td>
@@ -138,10 +138,10 @@
                 </table>
                    <table class="table table-condensed">
                        <thead>
-                           <th width="10%">{{ $receipt->sum_pieces }}</th>
+                           <th width="10%">{{ $pivot->receipt_entry->sum_pieces }}</th>
                            <th width="10%"></th>
-                           <th width="10%">{{ $receipt->sum_weight}}</th>
-                           <th width="10%">{{ $receipt->sum_cubic}}</th>
+                           <th width="10%">{{ $pivot->receipt_entry->sum_weight}}</th>
+                           <th width="10%">{{ $pivot->receipt_entry->sum_cubic}}</th>
                            <td width="15%"></td>
                            <td width="15%"></td>
                            <td width="10%"></td>

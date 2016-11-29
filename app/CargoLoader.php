@@ -9,9 +9,9 @@ class CargoLoader extends Model
     protected $table = "exp_cargo_loader";
 
     protected $fillable = [
-        'id', 'user_create_id', 'user_update_id', 'created_at', 'updated_at','cargo_load_code', 'carrier_id', 'place_receipt_id', 'port_loading_id', 'port_unloading_id', 'place_delivery_id',
+        'id', 'user_create_id', 'user_update_id', 'created_at', 'updated_at','code', 'carrier_id', 'place_receipt_id', 'port_loading_id', 'port_unloading_id', 'place_delivery_id',
         'consignee_id', 'consignee_address', 'consignee_city', 'consignee_state_id', 'consignee_country_id', 'consignee_zip_code_id', 'consignee_phone', 'consignee_fax',
-        'booking_id', 'date_today', 'user_id', 'shipment_type', 'shipment_id', 'division_id','cargo_loader_status', 'inland_carrier_id', 'inland_driver_id', 'inland_lic_number', 'inland_mark', 'inland_comments', 'agent_id','forwarding_agent_id', 'notify_id', 'notify_address', 'notify_city', 'notify_state_id', 'notify_country_id', 'notify_zip_code_id', 'notify_contact', 'notify_contact_phone', 'notify_email', 'domestic_instruction',
+        'booking_code', 'date_today', 'user_id', 'shipment_type', 'shipment_id', 'division_id','cargo_loader_status', 'inland_carrier_id', 'inland_driver_id', 'inland_lic_number', 'inland_mark', 'inland_comments', 'agent_id','forwarding_agent_id', 'notify_id', 'notify_address', 'notify_city', 'notify_state_id', 'notify_country_id', 'notify_zip_code_id', 'notify_contact', 'notify_contact_phone', 'notify_email', 'domestic_instruction',
         'pre_carriage_by', 'place_receipt', 'loading_terminal', 'exporting_carrier', 'port_loading', 'type_of_move', 'foreign_port', 'place_delivery', 'vessel_yes', 'vessel_no',
         'shipper_id', 'shipper_address', 'shipper_city', 'shipper_state_id', 'shipper_country_id', 'shipper_zip_code_id', 'shipper_phone', 'shipper_fax', 'vessel_name', 'voyage_name', 'release_date', 'loading_date', 'departure_date','arrival_date', 'cut_off_date', 'receipt_entries_id'];
 
@@ -72,10 +72,7 @@ class CargoLoader extends Model
         return $this->belongsTo('Sass\ZipCode', 'shipper_zip_code_id');
     }
 
-    public function booking()
-    {
-        return $this->belongsTo('Sass\BookingEntry', 'booking_id');
-    }
+
     public function forwarding_agent()
     {
         return $this->belongsTo('Sass\Customer', 'forwarding_agent_id');
@@ -144,4 +141,15 @@ class CargoLoader extends Model
     {
         return $this->hasMany('Sass\ReceiptEntry', 'cargo_loader_id');
     }
+    public function hbl_details()
+    {
+        return $this->hasMany('Sass\BillOfLading', 'cargo_loader_id');
+    }
+
+    public function pivote()
+    {
+        return $this->hasMany('Sass\EoCargoLoaderReceiptEntry', 'cargo_loader_id');
+    }
+
+
 }

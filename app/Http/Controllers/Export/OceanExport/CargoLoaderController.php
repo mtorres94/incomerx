@@ -4,12 +4,14 @@ namespace Sass\Http\Controllers\Export\OceanExport;
 
 use Illuminate\Http\Request;
 
+use Sass\BillOfLading;
 use Sass\CargoLoader;
 use Sass\CargoLoaderCargo;
 use Sass\CargoLoaderCargoDetail;
 use Sass\CargoLoaderContainer;
 use Sass\CargoLoaderHazardous;
 use Sass\DataTables\Export\Ocean\CargoLoaderDataTable;
+use Sass\EoCargoLoaderReceiptEntry;
 use Sass\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -55,32 +57,32 @@ class CargoLoaderController extends Controller
         DB::beginTransaction();
         try {
             $count = CargoLoader::count() + 1;
-            $code = str_pad($count, 10, '0', STR_PAD_LEFT);
+            $code = str_pad($count, 6, '0', STR_PAD_LEFT);
             $cargo_loader = $request->all();
-            $cargo_loader['cargo_load_code'] = $code;
+            $cargo_loader['code'] = "EOG-".$code;
             $cargo_loader['user_create_id'] = Auth::user()->id;
             $cargo_loader['user_update_id'] = Auth::user()->id;
             $cl=CargoLoader::create($cargo_loader);
             $cargo_loader['cargo_loader_id']= $cl->id;
-            $cargo_loader['shipping_id']= $cl->shipment_id;
+            $cargo_loader['shipment_id']= $cl->shipment_id;
+            $cargo_loader['bl_date']= $cl->date_today;
 
             ReceiptEntry::saveDetail($cl->id,$cargo_loader);
-
+            $cargo_loader['bill_of_lading_id']=0;
             CargoLoaderContainer::saveDetail($cl->id, $cargo_loader);
-            CargoLoaderHazardous::saveDetail($cl->id, $cargo_loader);
-            CargoLoaderCargo::saveDetail($cl->id, $cargo_loader);
-            CargoLoaderCargoDetail::saveDetail($cl->id, $cargo_loader);
+            EoCargoLoaderReceiptEntry::saveDetail($cl->id, $cargo_loader);
+            //CargoLoaderHazardous::saveDetail($cl->id, $cargo_loader);
+            BillOfLading::saveDetail($cl->id, $cargo_loader);
 
-            $containers= CargoLoaderContainer::search($cl->id);
-            $cargo_details= CargoLoaderCargoDetail::search($cl->id);
-            $hazardous_details= CargoLoaderHazardous::search($cl->id);
-            $cargo_loader= CargoLoaderCargo::search($cl->id);
-            $cargo_loader_id= $cl->id;
+            DB::commit();
+            /*CargoLoaderCargo::saveDetail($cl->id, $cargo_loader);
+            CargoLoaderCargoDetail::saveDetail($cl->id, $cargo_loader);*/
+
             } catch (ValidationException $e) {
             DB::rollback();
         }
-        DB::commit();
-        return view('export.oceans.booking_entries.create', compact('containers','hazardous_details', 'cargo_details', 'cargo_loader', 'cargo_loader_id'));
+
+        return view('export.oceans.cargo_loader.create');
 
 
     }
@@ -148,6 +150,20 @@ class CargoLoaderController extends Controller
             try {
                 $cargo_loader= CargoLoader::findOrFail($id);
                 return \PDF::loadView('export.oceans.cargo_loader.pdf', compact('cargo_loader'))->stream('DO '.$cargo_loader->code.'.pdf');
+            } catch (ModelNotFoundException $e) {
+                abort(404);
+            }
+        } else {
+            abort(403);
+        }
+    }
+
+    public function booking_confirmation($token, $id)
+    {
+        if (strlen($token) == 60) {
+            try {
+                $cargo_loader= CargoLoader::findOrFail($id);
+                return \PDF::loadView('export.oceans.cargo_loader.booking_confirmation', compact('cargo_loader'))->stream('BC '.$cargo_loader->booking_code.'.pdf');
             } catch (ModelNotFoundException $e) {
                 abort(404);
             }

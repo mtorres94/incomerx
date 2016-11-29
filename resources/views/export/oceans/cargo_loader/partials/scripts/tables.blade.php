@@ -29,6 +29,100 @@
         }
     });
 
+    $("#btn_create_hbl").click(function() {
+        clearTable('load_warehouses');
+
+        var t = $("#hidden_warehouse tbody tr"),
+                _ =  ($("#load_warehouses tbody tr").length == 0 ? 1 : parseInt($("#load_warehouses tbody tr")[$("#load_warehouses tbody tr").length - 1].childNodes[0].textContent) + 1 ),
+                b= $("#load_warehouses"),
+                x = b.find("tbody");
+        for (var a =0; a < t.length; a++){
+            if( $("#hidden_warehouse tbody tr td").find("input[id='hidden_flag["+ (a + 1) +"]']").val() ==0){
+
+                var C = $("<tr id=" + _ + ">");
+                C.append(createTableContent('cargo_line', _, true, _))
+                        .append("<td><input type='checkbox' name='warehouse_select[]' id='warehouse_select' value='" + t[a].childNodes[35].textContent+ "'></td>")
+                        .append(createTableContent('hbl_warehouse_number', t[a].childNodes[2].textContent, false, _))
+                        .append(createTableContent('hbl_date_in', t[a].childNodes[3].textContent, false, _))
+                        .append(createTableContent('hbl_shipper', t[a].childNodes[5].textContent, false, _))
+                        .append(createTableContent('hbl_consignee', t[a].childNodes[15].textContent, false, _))
+                        .append(createTableContent('hbl_container_number', t[a].childNodes[38].textContent, false, _))
+                x.append(C)
+            }
+        }
+    });
+
+    $("#createHouse_save").click(function() {
+        var t = $("#hidden_warehouse tbody tr"),
+                container= $("#container_details tbody tr"),description="",warehouses="",
+                _ = ($("#hbl_details tbody tr").length == 0 ? 1 : parseInt($("#hbl_details tbody tr")[$("#hbl_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
+                whr_select = new Array(), c=0, n= $("#hbl_details"), x= n.find("tbody"), wr_number="",
+                marks= "", pieces=0, g_weight=0, cubic=0, container_id=0, equipment_type_code, container_number, container_seal_number;
+        $("input[name='warehouse_select[]']:checked").each(function () {
+            whr_select.push($(this).val());
+        });
+
+
+        for(var a =0; a < t.length ; a++){
+            c=0;
+
+            while(c < whr_select.length){
+                if(t[a].childNodes[35].textContent == whr_select[c] ){
+                    description= t[a].childNodes[37].textContent + "\n";
+                    warehouses= warehouses + " - WH#: "+t[a].childNodes[2].textContent ;
+                    pieces= parseInt( t[a].childNodes[28].textContent) + pieces;
+                    g_weight= parseFloat(t[a].childNodes[29].textContent) + g_weight;
+                    cubic= parseFloat(t[a].childNodes[30].textContent) + cubic;
+                    marks= "Container #: " + t[a].childNodes[38].textContent + " - " + t[a].childNodes[39].textContent;
+                  //  marks= marks + "Seal #: " + t[a].childNodes[39].textContent + "\n";
+                    container_id= t[a].childNodes[0].textContent;
+                    $("#hidden_warehouse tbody tr td").find("input[id='hidden_flag["+ (a + 1) +"]']").val(_);
+
+                }
+                c++;
+            }
+        }
+        var C = $("<tr id=" + _ + ">");
+        C.append(createTableContent('resume_line', _ , true, _))
+                .append(createTableContent('resume_marks',  marks ,  false, _))
+                .append(createTableContent('resume_pieces',pieces , false, _ ))
+                .append(createTableContent('resume_description', description + warehouses , false, _ ))
+                .append(createTableContent('resume_weight_unit', "K", false, _ ))
+                .append(createTableContent('resume_gross_weight', g_weight , false, _ ))
+                .append(createTableContent('resume_cubic', cubic , false, _ ))
+                .append(createTableContent('resume_charge_weight', g_weight, false, _ ))
+                .append(createTableContent('inserted_id', 0, true, _ ))
+
+                .append(createTableBtns())
+        x.append(C)
+$("#CreateHouse").modal("hide");
+    });
+    $("#hbl_details").on("click", "a.btn-danger", function() {
+        $(this).closest("tr").remove()
+
+    }), $("#hbl_details").on("click", "a.btn-default", function() {
+        removeEmptyNodes("hbl_details");
+        var t = $(this).closest("tr"),
+                c1 = t[0].childNodes[0].textContent,
+                c2 = t[0].childNodes[1].textContent,
+                c3 = t[0].childNodes[2].textContent,
+                c4 = t[0].childNodes[3].textContent,
+                c5 = t[0].childNodes[4].textContent,
+                c6 = t[0].childNodes[5].textContent,
+                c7 = t[0].childNodes[6].textContent,
+                c8 = t[0].childNodes[7].textContent;
+
+        $("#cargo_id").val(c1);
+        $("#cargo_marks").val(c2);
+        $("#cargo_pcs").val(c3);
+        $("#cargo_description").val(c4);
+        $("#cargo_weight_unit").val(c5);
+        $("#cargo_weight_k").val(c6);
+        $("#cargo_cubic_k").val(c7);
+        $("#cargo_charge_weight_k").val(c8);
+        $("#HBL_Cargo").modal("show")
+    });
+
 
 
     $("#uns-save").click(function() {
@@ -139,11 +233,11 @@
                 .append(createTableContent('consignee_zip_code_code', c21, true, d))
                 .append(createTableContent('consignee_phone', c22, true, d))
                 .append(createTableContent('consignee_fax', c23, true, d))
-                .append(createTableContent('box_number', c24, false, d))
-                .append(createTableContent('destination_name', c25, false, d))
+                .append(createTableContent('box_number', c24, true, d))
+                .append(createTableContent('destination_name', c25, true, d))
                 .append(createTableContent('status', c26, false, d))
-                .append(createTableContent('ship_inst_number', c27, false, d))
-                .append(createTableContent('bldg_number', c28, false, d))
+                .append(createTableContent('ship_inst_number', c27, true, d))
+                .append(createTableContent('bldg_number', c28, true, d))
                 .append(createTableContent('sum_pieces', c29, true, d))
                 .append(createTableContent('sum_weight', c30, true, d))
                 .append(createTableContent('sum_cubic', c31, true, d))
@@ -238,41 +332,41 @@
                 c33 = t[0].childNodes[32].textContent,
                 c34 = t[0].childNodes[33].textContent;
 
-        $("#cargo_line").val(c1),
-        $("#warehouse_number").val(c2),
-        $("#warehouse_date_in").val(c3),
-        $("#warehouse_shipper_id").val(c4),
-        $("#warehouse_shipper_name").val(c5),
-        $("#warehouse_shipper_address").val(c6),
-        $("#warehouse_shipper_city").val(c7),
-        $("#warehouse_shipper_state_id").val(c8),
-        $("#warehouse_shipper_state_name").val(c9),
-        $("#warehouse_shipper_zip_code_id").val(c10),
-        $("#warehouse_shipper_zip_code_code").val(c11),
-        $("#warehouse_shipper_phone").val(c12),
-        $("#warehouse_shipper_fax").val(c13),
-        $("#warehouse_consignee_id").val(c14),
-        $("#warehouse_consignee_name").val(c15),
-        $("#warehouse_consignee_address").val(c16),
-        $("#warehouse_consignee_city").val(c17),
-        $("#warehouse_consignee_state_id").val(c18),
-        $("#warehouse_consignee_state_name").val(c19),
-        $("#warehouse_consignee_zip_code_id").val(c20),
-        $("#warehouse_consignee_zip_code_code").val(c21),
-        $("#warehouse_consignee_phone").val(c22),
-        $("#warehouse_consignee_fax").val(c23),
-        $("#box_number").val(c24),
-        $("#loaded_position").val(c25),
-                $("#warehouse_status").val(c26),
-                $("#ship_inst_number").val(c27),
-                $("#bldg_number").val(c28),
+        $("#cargo_line").val(c1).attr("disabled", true),
+        $("#warehouse_number").val(c2).attr("disabled", true),
+        $("#warehouse_date_in").val(c3).attr("disabled", true),
+        $("#warehouse_shipper_id").val(c4).attr("disabled", true),
+        $("#warehouse_shipper_name").val(c5).attr("disabled", true),
+        $("#warehouse_shipper_address").val(c6).attr("disabled", true),
+        $("#warehouse_shipper_city").val(c7).attr("disabled", true),
+        $("#warehouse_shipper_state_id").val(c8).attr("disabled", true),
+        $("#warehouse_shipper_state_name").val(c9).attr("disabled", true),
+        $("#warehouse_shipper_zip_code_id").val(c10).attr("disabled", true),
+        $("#warehouse_shipper_zip_code_code").val(c11).attr("disabled", true),
+        $("#warehouse_shipper_phone").val(c12).attr("disabled", true),
+        $("#warehouse_shipper_fax").val(c13).attr("disabled", true),
+        $("#warehouse_consignee_id").val(c14).attr("disabled", true),
+        $("#warehouse_consignee_name").val(c15).attr("disabled", true),
+        $("#warehouse_consignee_address").val(c16).attr("disabled", true),
+        $("#warehouse_consignee_city").val(c17).attr("disabled", true),
+        $("#warehouse_consignee_state_id").val(c18).attr("disabled", true),
+        $("#warehouse_consignee_state_name").val(c19).attr("disabled", true),
+        $("#warehouse_consignee_zip_code_id").val(c20).attr("disabled", true),
+        $("#warehouse_consignee_zip_code_code").val(c21).attr("disabled", true),
+        $("#warehouse_consignee_phone").val(c22).attr("disabled", true),
+        $("#warehouse_consignee_fax").val(c23).attr("disabled", true),
+        $("#box_number").val(c24).attr("disabled", true),
+        $("#loaded_position").val(c25).attr("disabled", true),
+                $("#warehouse_status").val(c26).attr("disabled", true),
+                $("#ship_inst_number").val(c27).attr("disabled", true),
+                $("#bldg_number").val(c28).attr("disabled", true),
 
-                $("#sum_quantity").val(c29),
-                $("#sum_weight").val(c30),
-                $("#sum_cubic").val(c31),
-                $("#sum_volume_weight").val(c32),
-                $("#warehouse_id").val(c33),
-                $("#warehouse_code").val(c34),
+                $("#sum_quantity").val(c29).attr("disabled", true),
+                $("#sum_weight").val(c30).attr("disabled", true),
+                $("#sum_cubic").val(c31).attr("disabled", true),
+                $("#sum_volume_weight").val(c32).attr("disabled", true),
+                $("#warehouse_id").val(c33).attr("disabled", true),
+                $("#warehouse_code").val(c34).attr("disabled", true),cubic_weight_loaded(),
         $("#Cargo_Details").modal("show")
 
         //WAREHOUSE CARGO DETAILS
@@ -309,7 +403,7 @@
                     .append(createTableContent('cargo_unit_weight', t_hidden[a].childNodes[21].textContent, true, d))
                     .append(createTableContent('cargo_tare_weight', t_hidden[a].childNodes[22].textContent, true, d))
                     .append(createTableContent('cargo_net_weight', t_hidden[a].childNodes[23].textContent, true, d))
-                    .append(createTableBtns())
+
             t.append(p1);
         }
         //======================================================
@@ -436,24 +530,86 @@
                 c5= $("#container_seal_number1").val(),
                 c6= $("#container_seal_number2").val(),
                 c7= $("#container_order_number").val(),
-                c8= $("#hazardous_contact").val(),
-                c9= $("#hazardous_phone").val(),
-                c10= $("#hazardous_degrees").val(),
-                c11= $("#hazardous_max").val(),
-                c12= $("#hazardous_min").val(),
-                c13= $("#hazardous_temperature").val(),
-                c14= $("#comments_instructions").val(),
-                c15= $("#cubic_max").val(),
-                c16= $("#cubic_load").val(),
-                c17= $("#cubic_load_p").val(),
-                c18= $("#cubic_excess").val(),
-                c19= $("#pieces_loaded").val(),
-                c20= $("#container_weight_unit").val(),
-                c21= $("#max_weight").val(),
-                c22= $("#weight_load").val(),
-                c23= $("#weight_load_p").val(),
-                c24= $("#weight_excess").val(),
 
+                c8= $("#comments_instructions").val(),
+                c9= $("#cubic_max").val(),
+                c10= $("#cubic_load").val(),
+                c11= $("#cubic_load_p").val(),
+                c12= $("#cubic_excess").val(),
+                c13= $("#pieces_loaded").val(),
+                c14= $("#max_weight").val(),
+                c15= $("#weight_load").val(),
+                c16= $("#weight_load_p").val(),
+                c17= $("#weight_excess").val(),
+
+                c18 = $("#container_commodity_id").val(),
+                c19 = $("#container_commodity_name").val().toUpperCase(),
+                c20 = $("#pd_status").val(),
+                c21= $("#container_spotting_date").val(),
+                c22= $("#container_pull_date").val(),
+
+                c23 = $("#container_pickup_id").val(),
+                c24 = $("#container_pickup_name").val().toUpperCase(),
+                c25 = $("#container_pickup_type").val(),
+                c26 = $("#container_pickup_address").val(),
+                c27= $("#container_pickup_city").val(),
+                c28 = $("#container_pickup_state_id").val(),
+                c29 = $("#container_pickup_state_name").val().toUpperCase(),
+                c30 = $("#container_pickup_zip_code_id").val(),
+                c31 = $("#container_pickup_zip_code_code").val().toUpperCase(),
+                c32 = $("#container_pickup_phone").val(),
+                c33 = $("#container_pickup_contact").val(),
+                c34 = $("#container_pickup_date").val(),
+                c35 = $("#container_pickup_number").val(),
+
+                c36 = $("#container_delivery_id").val(),
+                c37 = $("#container_delivery_name").val(),
+                c38 = $("#container_delivery_type").val(),
+                c39 = $("#container_delivery_address").val(),
+                c40 = $("#container_delivery_city").val(),
+                c41 = $("#container_delivery_state_id").val(),
+                c42 = $("#container_delivery_state_name").val().toUpperCase(),
+                c43 = $("#container_delivery_zip_code_id").val(),
+                c44 = $("#container_delivery_zip_code_code").val().toUpperCase(),
+                c45 = $("#container_delivery_phone").val(),
+                c46 = $("#container_delivery_contact").val(),
+                c47 = $("#container_delivery_date").val(),
+                c48 = $("#container_delivery_number").val(),
+
+                c49 = $("#container_drop_id").val(),
+                c50 = $("#container_drop_name").val(),
+                c51 = $("#container_drop_type").val(),
+                c52 = $("#container_drop_address").val(),
+                c53 = $("#container_drop_city").val(),
+                c54 = $("#container_drop_state_id").val(),
+                c55 = $("#container_drop_state_name").val().toUpperCase(),
+                c56 = $("#container_drop_zip_code_id").val(),
+                c57 = $("#container_drop_zip_code_code").val().toUpperCase(),
+                c58 = $("#container_drop_phone").val(),
+                c59 = $("#container_drop_contact").val(),
+                c60 = $("#container_drop_date").val(),
+                c61 = $("#container_drop_number").val(),
+
+                c62 = $("#container_hazardous_contact").val(),
+                c63 = $("#container_hazardous_phone").val(),
+                c64= $("#container_degrees").val(),
+                c65= $("#container_max").val(),
+                c66= $("#container_min").val(),
+                c67= $("#container_ventilation").val(),
+                c68= $("#container_temperature").val(),
+
+                c69 = $("#container_inner_code").val().toUpperCase(),
+                c70 = $("#container_inner_quantity").val(),
+                c71 = $("#container_net_weight").val(),
+                c72 = $("#container_number_equipment").val(),
+                c73 = $("#container_outer_code").val().toUpperCase(),
+                c74 = $("#container_outer_quantity").val(),
+                c75 = $("#container_release_number").val(),
+                c76 = $("#container_requested_equipment").val(),
+                c77 = $("#container_tare_weight").val(),
+                c78 = $("#total_weight_unit").val(),
+                c79= $("#container_carrier_id").val(),
+                c80= $("#container_carrier_name").val(),
                 n = $("#container_details"),
                 t= n.find("tbody"),
                 p = $("<tr id="+ (c1 == 0? _ : c1) +" >");
@@ -464,23 +620,87 @@
                 .append(createTableContent('container_seal_number', c5, false, d))
                 .append(createTableContent('container_seal_number2', c6, true, d))
                 .append(createTableContent('container_order_number',c7, false, d))
-                .append(createTableContent('container_hazardous_contact', c8, true, d))
-                .append(createTableContent('container_hazardous_phone',c9, true, d))
-                .append(createTableContent('hazardous_degrees', c10, true, d))
-                .append(createTableContent('hazardous_max',c11, true, d))
-                .append(createTableContent('hazardous_min',c12, true, d))
-                .append(createTableContent('hazardous_temperature',c13, true, d))
-                .append(createTableContent('comments_instructions', c14, true, d))
-                .append(createTableContent('cubic_max', c15, false, d))
-                .append(createTableContent('cubic_load', c16, false, d))
-                .append(createTableContent('cubic_load_p', c17, true, d))
-                .append(createTableContent('cubic_excess', c18, true, d))
-                .append(createTableContent('pieces_loaded', c19, true, d))
-                .append(createTableContent('total_weight_unit',c20, true, d))
-                .append(createTableContent('max_weight', c21, false, d))
-                .append(createTableContent('weight_load', c22, false, d))
-                .append(createTableContent('weight_load_p', c23, true, d))
-                .append(createTableContent('weight_excess', c24, true, d))
+
+                .append(createTableContent('container_comments', c8, true, d))
+                .append(createTableContent('cubic_max', c9, false, d))
+                .append(createTableContent('cubic_load', c10, false, d))
+                .append(createTableContent('cubic_load_p', c11, true, d))
+                .append(createTableContent('cubic_excess', c12, true, d))
+                .append(createTableContent('pieces_loaded', c13, true, d))
+
+                .append(createTableContent('max_weight', c14, false, d))
+                .append(createTableContent('weight_load', c15, false, d))
+                .append(createTableContent('weight_load_p', c16, true, d))
+                .append(createTableContent('weight_excess', c17, true, d))
+
+                .append(createTableContent('container_commodity_id', c18, true, d))
+                .append(createTableContent('container_commodity_name', c19, true, d))
+                .append(createTableContent('pd_status', c20, true, d))
+                .append(createTableContent('container_spotting_date', c21, true, d))
+                .append(createTableContent('container_pull_date', c22, true, d))
+
+                .append(createTableContent('container_pickup_id', c23, true, d))
+                .append(createTableContent('container_pickup_name', c24, true, d))
+                .append(createTableContent('container_pickup_type', c25, true, d))
+                .append(createTableContent('container_pickup_address', c26, true, d))
+                .append(createTableContent('container_pickup_city', c27, true, d))
+                .append(createTableContent('container_pickup_state_id', c28, true, d))
+                .append(createTableContent('container_pickup_state_name', c29, true, d))
+                .append(createTableContent('container_pickup_zip_code_id', c30, true, d))
+                .append(createTableContent('container_pickup_zip_code_code', c31, true, d))
+                .append(createTableContent('container_pickup_phone', c32, true, d))
+                .append(createTableContent('container_pickup_contact', c33, true, d))
+                .append(createTableContent('container_pickup_date', c34, true, d))
+                .append(createTableContent('container_pickup_number', c35, true, d))
+
+                .append(createTableContent('container_delivery_id', c36, true, d))
+                .append(createTableContent('container_delivery_name', c37, true, d))
+                .append(createTableContent('container_delivery_type', c38, true, d))
+                .append(createTableContent('container_delivery_address', c39, true, d))
+                .append(createTableContent('container_delivery_city', c40, true, d))
+                .append(createTableContent('container_delivery_state_id', c41, true, d))
+                .append(createTableContent('container_delivery_state_name', c42, true, d))
+                .append(createTableContent('container_delivery_zip_code_id', c43, true, d))
+                .append(createTableContent('container_delivery_zip_code_code', c44, true, d))
+                .append(createTableContent('container_delivery_phone', c45, true, d))
+                .append(createTableContent('container_delivery_contact', c46, true, d))
+                .append(createTableContent('container_delivery_date', c47, true, d))
+                .append(createTableContent('container_delivery_number', c48, true, d))
+
+                .append(createTableContent('container_drop_id', c49, true, d))
+                .append(createTableContent('container_drop_name', c50, true, d))
+                .append(createTableContent('container_drop_type', c51, true, d))
+                .append(createTableContent('container_drop_address', c52, true, d))
+                .append(createTableContent('container_drop_city', c53, true, d))
+                .append(createTableContent('container_drop_state_id', c54, true, d))
+                .append(createTableContent('container_drop_state_name', c55, true, d))
+                .append(createTableContent('container_drop_zip_code_id', c56, true, d))
+                .append(createTableContent('container_drop_zip_code_code', c57, true, d))
+                .append(createTableContent('container_drop_phone', c58, true, d))
+                .append(createTableContent('container_drop_contact', c59, true, d))
+                .append(createTableContent('container_drop_date', c60, true, d))
+                .append(createTableContent('container_drop_number', c61, true, d))
+
+                .append(createTableContent('container_hazardous_contact', c62, true, d))
+                .append(createTableContent('container_hazardous_phone',c63, true, d))
+                .append(createTableContent('container_degrees', c64, true, d))
+                .append(createTableContent('container_max',c65, true, d))
+                .append(createTableContent('container_min',c66, true, d))
+                .append(createTableContent('container_ventilation',c67, true, d))
+                .append(createTableContent('container_temperature',c68, true, d))
+
+                .append(createTableContent('container_inner_code', c69, true, d))
+                .append(createTableContent('container_inner_quantity', c70, true, d))
+                .append(createTableContent('container_net_weight', c71, true, d))
+                .append(createTableContent('container_number_equipment', c72, true, d))
+                .append(createTableContent('container_outer_code', c73, true, d))
+                .append(createTableContent('container_outer_quantity', c74, true, d))
+                .append(createTableContent('container_release_number', c75, true, d))
+                .append(createTableContent('container_requested_equipment', c76, true, d))
+                .append(createTableContent('container_tare_weight', c77, true, d))
+                .append(createTableContent('total_weight_unit',c78, true, d))
+                .append(createTableContent('container_carrier_id', c79, true, d))
+                .append(createTableContent('container_carrier_name', c80, true, d))
                 .append(createTableBtns()),0 == c1 ? t.append(p) : t.find("tr#" + c1).replaceWith(p);
 
         //=========== DETALLES warehouse
@@ -531,8 +751,12 @@
 
                     .append(createTableContent('hidden_warehouse_id', tr[a].childNodes[31].textContent, true, d))
                     .append(createTableContent('hidden_warehouse_code', tr[a].childNodes[32].textContent, true, d))
-                    .append(createTableContent('hidden_flag', '1', true, d))
+                    .append(createTableContent('hidden_flag', '0', true, d))
                     .append(createTableContent('hidden_receipt_entry', tr[a].childNodes[34].textContent, true, d))
+                    .append(createTableContent('hbl_line_id', 0 , true, d))
+                    .append(createTableContent('equipment_type_code', c3 , true, d))
+                    .append(createTableContent('container_number', c4 , true, d))
+                    .append(createTableContent('container_seal_number', c5 , true, d))
 
             t.append(p_1);
             d+=1;
@@ -568,6 +792,7 @@
                $(this).closest("tr").remove()
             }), $("#container_details").on("click", "a.btn-default", function() {
         clearTable("cargo_details");
+        cubic_weight_loaded();
         var t = $(this).closest("tr"),
                 c1 = t[0].childNodes[0].textContent,
                 c2 = t[0].childNodes[1].textContent,
@@ -592,32 +817,151 @@
                 c21 = t[0].childNodes[20].textContent,
                 c22 = t[0].childNodes[21].textContent,
                 c23 = t[0].childNodes[22].textContent,
-                c24 = t[0].childNodes[23].textContent;
+                c24 = t[0].childNodes[23].textContent,
+                c25 = t[0].childNodes[24].textContent,
+                c26 = t[0].childNodes[25].textContent,
+                c27 = t[0].childNodes[26].textContent,
+                c28 = t[0].childNodes[27].textContent,
+                c29 = t[0].childNodes[28].textContent,
+                c30 = t[0].childNodes[29].textContent,
+                c31 = t[0].childNodes[30].textContent,
+                c32 = t[0].childNodes[31].textContent,
+                c33 = t[0].childNodes[32].textContent,
+                c34 = t[0].childNodes[33].textContent,
+                c35 = t[0].childNodes[34].textContent,
+                c36 = t[0].childNodes[35].textContent,
+                c37 = t[0].childNodes[36].textContent,
+                c38 = t[0].childNodes[37].textContent,
+                c39 = t[0].childNodes[38].textContent,
+                c40 = t[0].childNodes[39].textContent,
+                c41 = t[0].childNodes[40].textContent,
+                c42 = t[0].childNodes[41].textContent,
+                c43 = t[0].childNodes[42].textContent,
+                c44 = t[0].childNodes[43].textContent,
+                c45 = t[0].childNodes[44].textContent,
+                c46 = t[0].childNodes[45].textContent,
+                c47 = t[0].childNodes[46].textContent,
+                c48 = t[0].childNodes[47].textContent,
+                c49 = t[0].childNodes[48].textContent,
+                c50 = t[0].childNodes[49].textContent,
+                c51 = t[0].childNodes[50].textContent,
+                c52 = t[0].childNodes[51].textContent,
+                c53 = t[0].childNodes[52].textContent,
+                c54 = t[0].childNodes[53].textContent,
+                c55 = t[0].childNodes[54].textContent,
+                c56 = t[0].childNodes[55].textContent,
+                c57 = t[0].childNodes[56].textContent,
+                c58 = t[0].childNodes[57].textContent,
+                c59 = t[0].childNodes[58].textContent,
+                c60 = t[0].childNodes[59].textContent,
+                c61 = t[0].childNodes[60].textContent,
+                c62 = t[0].childNodes[61].textContent,
+                c63 = t[0].childNodes[62].textContent,
+                c64 = t[0].childNodes[63].textContent,
+                c65 = t[0].childNodes[64].textContent,
+                c66 = t[0].childNodes[65].textContent,
+                c67 = t[0].childNodes[66].textContent,
+                c68 = t[0].childNodes[67].textContent,
+                c69 = t[0].childNodes[68].textContent,
+                c70 = t[0].childNodes[69].textContent,
+                c71 = t[0].childNodes[70].textContent,
+                c72 = t[0].childNodes[71].textContent,
+                c73 = t[0].childNodes[72].textContent,
+                c74 = t[0].childNodes[73].textContent,
+                c75 = t[0].childNodes[74].textContent,
+                c76 = t[0].childNodes[75].textContent,
+                c77 = t[0].childNodes[76].textContent,
+                c78 = t[0].childNodes[77].textContent,
+                c79 = t[0].childNodes[78].textContent,
+                c80 = t[0].childNodes[79].textContent;
 
                 $("#container_id").val(c1),
-                        $("#equipment_type_id").val(c2),
-                        $("#equipment_type_code").val(c3),
-                        $("#container_number").val(c4),
-                        $("#container_seal_number1").val(c5),
-                        $("#container_seal_number2").val(c6),
-                        $("#container_order_number").val(c7),
-                        $("#hazardous_contact").val(c8),
-                        $("#hazardous_phone").val(c9),
-                        $("#hazardous_degrees").val(c10),
-                        $("#hazardous_max").val(c11),
-                        $("#hazardous_min").val(c12),
-                        $("#hazardous_temperature").val(c13),
-                        $("#comments_instructions").val(c14),
-                        $("#cubic_max").val(c15),
-                        $("#cubic_load").val(c16),
-                        $("#cubic_load_p").val(c17),
-                        $("#cubic_excess").val(c18),
-                        $("#pieces_loaded").val(c19),
-                        $("#container_weight_unit").val(c20),
-                        $("#max_weight").val(c21),
-                        $("#weight_load").val(c22),
-                        $("#weight_load_p").val(c23),
-                        $("#weight_excess").val(c24), calculate_warehouse(), $("#Container_Details").modal("show")
+                $("#equipment_type_id").val(c2),
+                $("#equipment_type_code").val(c3),
+                $("#container_number").val(c4),
+                $("#container_seal_number1").val(c5),
+                $("#container_seal_number2").val(c6),
+                $("#container_order_number").val(c7),
+
+                $("#comments_instructions").val(c8),
+                $("#cubic_max").val(c9),
+                $("#cubic_load").val(c10),
+                $("#cubic_load_p").val(c11),
+                $("#cubic_excess").val(c12),
+                $("#pieces_loaded").val(c13),
+                $("#max_weight").val(c14),
+                $("#weight_load").val(c15),
+                $("#weight_load_p").val(c16),
+                $("#weight_excess").val(c17),
+
+                $("#container_commodity_id").val(c18),
+                $("#container_commodity_name").val(c19),
+                $("#pd_status").val(c20),
+                $("#container_spotting_date").val(c21),
+                $("#container_pull_date").val(c22),
+
+                $("#container_pickup_id").val(c23),
+                $("#container_pickup_name").val(c24),
+                $("#container_pickup_type").val(c25),
+                $("#container_pickup_address").val(c26),
+                $("#container_pickup_city").val(c27),
+                $("#container_pickup_state_id").val(c28),
+                $("#container_pickup_state_name").val(c29),
+                $("#container_pickup_zip_code_id").val(c30),
+                $("#container_pickup_zip_code_code").val(c31),
+                $("#container_pickup_phone").val(c32),
+                $("#container_pickup_contact").val(c33),
+                $("#container_pickup_date").val(c34),
+                $("#container_pickup_number").val(c35),
+
+                $("#container_delivery_id").val(c36),
+                $("#container_delivery_name").val(c37),
+                $("#container_delivery_type").val(c38),
+                $("#container_delivery_address").val(c39),
+                $("#container_delivery_city").val(c40),
+                $("#container_delivery_state_id").val(c41),
+                $("#container_delivery_state_name").val(c42),
+                $("#container_delivery_zip_code_id").val(c43),
+                $("#container_delivery_zip_code_code").val(c44),
+                $("#container_delivery_phone").val(c45),
+                $("#container_delivery_contact").val(c46),
+                $("#container_delivery_date").val(c47),
+                $("#container_delivery_number").val(c48),
+
+                $("#container_drop_id").val(c49),
+                $("#container_drop_name").val(c50),
+                $("#container_drop_type").val(c51),
+                $("#container_drop_address").val(c52),
+                $("#container_drop_city").val(c53),
+                $("#container_drop_state_id").val(c54),
+                $("#container_drop_state_name").val(c55),
+                $("#container_drop_zip_code_id").val(c56),
+                $("#container_drop_zip_code_code").val(c57),
+                $("#container_drop_phone").val(c58),
+                $("#container_drop_contact").val(c59),
+                $("#container_drop_date").val(c60),
+                $("#container_drop_number").val(c61),
+
+                $("#container_hazardous_contact").val(c62),
+                $("#container_hazardous_phone").val(c63),
+                $("#container_degrees").val(c64),
+                $("#container_max").val(c65),
+                $("#container_min").val(c66),
+                $("#container_ventilation").val(c67),
+                $("#container_temperature").val(c68),
+
+                $("#container_inner_code").val(c69),
+                $("#container_inner_quantity").val(c70),
+                $("#container_net_weight").val(c71),
+                $("#container_number_equipment").val(c72),
+                $("#container_outer_code").val(c73),
+                $("#container_outer_quantity").val(c74),
+                $("#container_release_number").val(c75),
+                $("#container_requested_equipment").val(c76),
+                $("#container_tare_weight").val(c77),
+                $("#total_weight_unit").val(c78),
+                $("#container_carrier_id").val(c79),
+                $("#container_carrier_name").val(c80), calculate_warehouse(), $("#Container_Details").modal("show")
 
         //WAREHOUSE CARGO DETAILS
         //======================================================
@@ -653,10 +997,10 @@
                     .append(createTableContent('consignee_zip_code_code', t_hidden[a].childNodes[21].textContent, true, d))
                     .append(createTableContent('consignee_phone', t_hidden[a].childNodes[22].textContent, true, d))
                     .append(createTableContent('consignee_fax', t_hidden[a].childNodes[23].textContent, true, d))
-                    .append(createTableContent('box_number', t_hidden[a].childNodes[24].textContent, false, d))
-                    .append(createTableContent('destination_name', t_hidden[a].childNodes[25].textContent, false, d))
+                    .append(createTableContent('box_number', t_hidden[a].childNodes[24].textContent, true, d))
+                    .append(createTableContent('destination_name', t_hidden[a].childNodes[25].textContent, true, d))
                     .append(createTableContent('status', t_hidden[a].childNodes[26].textContent, false, d))
-                    .append(createTableContent('ship_inst_number', t_hidden[a].childNodes[27].textContent, false, d))
+                    .append(createTableContent('ship_inst_number', t_hidden[a].childNodes[27].textContent, true, d))
 
                             .append(createTableContent('sum_pieces', t_hidden[a].childNodes[28].textContent, true, d))
                             .append(createTableContent('sum_weight', t_hidden[a].childNodes[29].textContent, true, d))
@@ -665,6 +1009,8 @@
 
                             .append(createTableContent('warehouse_id', t_hidden[a].childNodes[32].textContent, true, d))
                             .append(createTableContent('warehouse_code', t_hidden[a].childNodes[33].textContent, true, d))
+                            .append(createTableContent('flag', t_hidden[a].childNodes[34].textContent, true, d))
+                            .append(createTableContent('receipt_entry_id', t_hidden[a].childNodes[35].textContent, true, d))
 
                     .append(createTableBtns())
             t.append(p);

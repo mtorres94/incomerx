@@ -18,13 +18,7 @@
                             </span>
                             </a>
                         </li>
-                        <li role="presentation" class="disabled">
-                            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
-                            <span class="round-tab">
-                                <i class="glyphicon glyphicon-picture"></i>
-                            </span>
-                            </a>
-                        </li>
+
 
                         <li role="presentation" class="disabled">
                             <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
@@ -46,32 +40,25 @@
                             </ul>
                         </div>
                         <div class="tab-pane" role="tabpanel" id="step2">
-                            <h3>Cargo Loader</h3>
+                            <h3>Loading Guide</h3>
                             @include("export.oceans.step_by_step.partials.sections.cargo_loader.fields")
                             <ul class="list-inline pull-right">
                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
                                 <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
                             </ul>
                         </div>
-                        <div class="tab-pane" role="tabpanel" id="step3">
-                            <h3>Booking Entry</h3>
-                            @include("export.oceans.step_by_step.partials.sections.booking_entries.fields")
+                      <div class="tab-pane" role="tabpanel" id="complete">
+                            <h3>Bill of Lading </h3>
+                            @include("export.oceans.step_by_step.partials.sections.HBL_details.fields")
 
                             <ul class="list-inline pull-right">
                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
                                 <li><button type="button" class="btn btn-default next-step">Skip</button></li>
-                                <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
+                                <li><button type="button" id="btn_create_hbl"  data-toggle="modal"  data-target="#CreateHouse" class="btn btn-primary">Create HBL</button></li>
+                                <li><button type="submit" class="btn btn-primary" id="btn-save"><i class="icon ion-android-done-all"></i> Save data</button></li>
+
+
                             </ul>
                         </div>
-                        <div class="tab-pane" role="tabpanel" id="complete">
-                            <h3>Bill of Lading</h3>
-                            @include("export.oceans.step_by_step.partials.sections.bill_of_lading.fields")
-                            <div class="row">
-                                <button type="submit" class="btn btn-primary" id="btn-save">
-                                    <i class="icon ion-android-done-all"></i> Save data
-                                </button>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
                     </div>
                 </form>

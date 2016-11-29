@@ -1,4 +1,4 @@
-<div id="LoadWarehouse" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+<div id="LoadWarehouse" class="modal fade" role="dialog" data-backdrop="static" class="modal modal-child" data-keyboard="false">
     <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <div class="modal-content">
@@ -8,7 +8,11 @@
                 <h5 class="modal-title">Select warehouse or vehicle to link</h5>
             </div>
             <div class="modal-body">
-                           <div class="row">
+                <div class="row">
+                    <div class="col-md-6"><h4>Search Options</h4></div>
+                </div>
+
+                <div class="row">
                     {!! Form::hidden('pick_cargo_id', null, ['id' => 'pick_cargo_id', 'class' => 'form-control input-sm']) !!}
 
                     <div class="col-md-4">{!! Form::bsSelect(null, null, 'Search by', 'pick_search_type', array(
@@ -34,14 +38,9 @@
                                 <th width="15%" data-override="pick_date_in">Date in</th>
                                 <th width="15%" data-override="pick_shipper_name" >Shipper</th>
                                 <th width="15%" data-override="pick_consignee_name">Consignee</th>
-                                <th width="15%" data-override="pick_destination_name">Destination</th>
                                 <th width="10%" data-override="pick_qty">Qty.</th>
                                 <th width="10%" data-override="pick_weight">Weight</th>
                                 <th width="10%" data-override="pick_cubic">Cubic</th>
-                                <th width="5%" data-override="pick_unit">Unit</th>
-                                <th width="15%" data-override="pick_service">Service</th>
-                                <th width="15%"></th>
-
                             </tr>
                             </thead>
                             <tbody>

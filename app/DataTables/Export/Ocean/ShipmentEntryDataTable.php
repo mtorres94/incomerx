@@ -21,8 +21,9 @@ class ShipmentEntryDataTable extends CustomDataTable
             ->addColumn('action', function ($shipment_entries) {
                 return $this->groupButton(
                     $shipment_entries,
-                    'export.oceans.shipment_entries',
-                    null);
+                    'export.oceans.shipment_entries',[
+                    ['route' => 'shipment_entries.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF'],
+                ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);
@@ -41,7 +42,7 @@ class ShipmentEntryDataTable extends CustomDataTable
             ->leftJoin('mst_customers AS c3', 'exp_shipment_entries.agent_id', '=', 'c3.id')
             ->leftJoin('mst_ocean_ports AS c4', 'exp_shipment_entries.port_loading_id', '=', 'c4.id')
             ->leftJoin('mst_ocean_ports AS c5', 'exp_shipment_entries.port_unloading_id', '=', 'c5.id')
-            ->select(['exp_shipment_entries.id','exp_shipment_entries.shipment_code','mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS port_loading_name', 'c5.name AS port_unloading_name']);
+            ->select(['exp_shipment_entries.id','exp_shipment_entries.code','exp_shipment_entries.date_today', 'exp_shipment_entries.booking_code','mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS port_loading_name', 'c5.name AS port_unloading_name']);
         return $this->applyScopes($query);
     }
 
@@ -67,13 +68,14 @@ class ShipmentEntryDataTable extends CustomDataTable
     protected function getColumns()
     {
         return [
-            ['data' => 'shipment_code',   'name' => 'exp_shipment_entries.shipment_code', 'title' => 'Code'],
-            ['data' => 'division_name',    'name' => 'mst_divisions.name', 'title' => 'Division'],
+            ['data' => 'code',   'name' => 'exp_shipment_entries.code', 'title' => 'Code'],
+            ['data' => 'date_today',   'name' => 'exp_shipment_entries.date_today', 'title' => 'Date'],
+            ['data' => 'booking_code',   'name' => 'exp_shipment_entries.booking_code', 'title' => 'Booking'],
             ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
             ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
 
-            ['data' => 'port_loading_name',   'name' => 'c4.name', 'title' => 'Port Loading'],
-            ['data' => 'port_unloading_name',   'name' => 'c5.name', 'title' => 'Port Unloading'],
+            ['data' => 'port_loading_name',   'name' => 'c4.name', 'title' => 'Loading Port'],
+            ['data' => 'port_unloading_name',   'name' => 'c5.name', 'title' => 'Unloading Port'],
 
         ];
     }

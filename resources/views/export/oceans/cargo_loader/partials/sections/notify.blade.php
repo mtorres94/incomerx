@@ -1,12 +1,5 @@
 <fieldset id="state_of_origin">
-    <div class="row">
-        <div class="col-md-6">
-            {!! Form::bsComplete('col-md-3', 'col-md-9', 'Agent', 'agent_id', 'agent_name', Request::get('term'), ((isset($cargo_loader) and $cargo_loader->notify_id > 0) ? $cargo_loader->notify->name : null), 'Customers...') !!}
-        </div>
-        <div class="col-md-6">
-            {!! Form::bsComplete('col-md-3', 'col-md-9', 'Forwarding agent', 'forwarding_agent_id', 'forwarding_agent_name', Request::get('term'), ((isset($cargo_loader) and $cargo_loader->notify_id > 0) ? $cargo_loader->notify->name : null), 'Customers...') !!}
-        </div>
-    </div>
+
     <div class="row">
         <div class="col-md-6">
 
@@ -41,31 +34,24 @@
             </div>
         </div>
         <div class="col-md-6">
-            <legend>Domestic Routing/ Export Instructions</legend>
             <div class="row">
-                {!! Form::bsMemo(null, null, '', 'domestic_instruction', null, 18, ' ') !!}
+                <div class="col-md-6">
+                    {!! Form::bsComplete(null, null, 'Agent', 'agent_id', 'agent_name', Request::get('term'), ((isset($cargo_loader) and $cargo_loader->notify_id > 0) ? $cargo_loader->notify->name : null), 'Customers...') !!}
+                </div>
+                <div class="col-md-6">
+                    {!! Form::bsComplete(null, null, 'Forwarding agent', 'forwarding_agent_id', 'forwarding_agent_name', Request::get('term'), ((isset($cargo_loader) and $cargo_loader->notify_id > 0) ? $cargo_loader->notify->name : null), 'Customers...') !!}
+                </div>
             </div>
+            <div class="row">
+            <legend>Domestic Routing/ Export Instructions</legend>
+                {!! Form::bsMemo(null, null, '', 'domestic_instruction', null, 5, ' ') !!}
+            </div>
+
         </div>
 
     </div>
 
-    <div class="row">
-        <div class="col-md-4">{!! Form::bsText(null, null, 'Pre-carriage by', 'pre_carriage_by', null, ' ') !!}</div>
-        <div class="col-md-4">{!! Form::bsText(null, null, 'Place of Receipt', 'place_receipt', null, ' ') !!}</div>
-        <div class="col-md-4">{!! Form::bsText(null, null, 'Loading Pier/Terminal', 'loading_terminal', null, ' ') !!}</div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-4">{!! Form::bsText(null, null, 'Exporting Carrier', 'exporting_carrier', null, ' ') !!}</div>
-        <div class="col-md-4">{!! Form::bsText(null,  null, 'Port of loading', 'port_loading', null, ' ') !!}</div>
-        <div class="col-md-4">{!! Form::bsSelect(null, null, 'Type of Move', 'type_of_move', array('1' => 'DOOR TO DOOR', '2' => 'DOOR TO PIER', '3' => 'PIER TO DOOR', '4' => 'PIER TO PIER' ), null) !!}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">{!! Form::bsText(null, null, 'Foreign Port of Unloading', 'foreign_port', null, ' ') !!}</div>
-        <div class="col-md-4">{!! Form::bsText(null, null, 'Place of Delivery', 'place_delivery', null, ' ') !!}</div>
-        <div class="col-md-4"><p><b> Containerized (Vessel Only)</b></p>
-            <div class="col-md-4">{!! Form::bsCheck('Yes', 'vessel_yes') !!}</div>
-            <div class="col-md-4">{!! Form::bsCheck('No', 'vessel_no') !!}</div>
-        </div>
-    </div>
+
+
    </fieldset>

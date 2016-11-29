@@ -1,13 +1,13 @@
 <fieldset id="Agent">
     <legend>Agent's Name and City</legend>
     <div class="row">
-        {!! Form::bsComplete('col-md-3', 'col-md-9', 'Name', 'agent_id', 'agent_name', Request::get('term'), ((isset($bill_of_lading) and $bill_of_lading->consignee_id > 0) ? $bill_of_lading->consignee->name : null), 'Customers...') !!}
+        {!! Form::bsComplete('col-md-3', 'col-md-9', 'Name', 'agent_id', 'agent_name', Request::get('term'), ((isset($bill_of_lading) and $bill_of_lading->agent_id > 0) ? $bill_of_lading->agent->name : null), 'Customers...') !!}
     </div>
     <div class="row">
-        {!! Form::bsMemo('col-md-3', 'col-md-9', 'Address', 'agent_address', null, 1, ' ') !!}
+        {!! Form::bsMemo('col-md-3', 'col-md-9', 'Address', 'agent_address', ((isset($bill_of_lading) and $bill_of_lading->agent_id > 0) ? $bill_of_lading->agent->address : null), 1, ' ') !!}
     </div>
     <div class="row">
-        {!! Form::bsText('col-md-3', 'col-md-9', 'City', 'agent_city', null, ' ') !!}
+        {!! Form::bsText('col-md-3', 'col-md-9', 'City', 'agent_city', ((isset($bill_of_lading) and $bill_of_lading->agent_id > 0) ? $bill_of_lading->agent->city : null), ' ') !!}
     </div>
     <div class="row">
         {!! Form::bsComplete('col-md-3', 'col-md-9', 'State/ Province', 'agent_state_id', 'agent_state_name', Request::get('term'), ((isset($bill_of_lading) and $bill_of_lading->agent_state_id > 0) ? $bill_of_lading->agent_state->name : null), 'State') !!}

@@ -134,4 +134,13 @@
                 $("#total_charge_weight_lbs").val(charge_weight_l)
     }
 
+    function validateShipmentId(){
+        if($("#shipment_id").val() > 0){
+            $("#CreateHouse").modal("show");
+        } else {
+            show_alert();
+            $("#shipment_code").focus();
+        }
+    }
+
 </script>

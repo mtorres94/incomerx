@@ -73,6 +73,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['namespace' => 'Export'], function () {
         Route::group(['namespace' => 'OceanExport'], function () {
             Route::get('shipment_entries/autocomplete', ['as' => 'shipment_entries.autocomplete', 'uses' => 'ShipmentEntryController@autocomplete']);
+            Route::get('shipment_entries/get', ['as' => 'shipment_entries.get', 'uses' => 'ShipmentEntryController@get']);
+            Route::get('quotes/autocomplete', ['as' => 'quotes.autocomplete', 'uses' => 'ExportOceanQuotesController@autocomplete']);
+            Route::get('bill_of_lading/get_details', ['as' => 'bill_of_lading.get_details', 'uses' => 'BillOfLadingController@get_details']);
             Route::get('booking_entries/autocomplete', ['as' => 'booking_entries.autocomplete', 'uses' => 'BookingEntryController@autocomplete']);
 
         });

@@ -35,27 +35,18 @@ onSelect:function(e,o)
         .append(createTableContent('pick_consignee_phone', e.consignee_phone, true, r))
         .append(createTableContent('pick_consignee_fax', e.consignee_fax, true, r))
 
-        .append(createTableContent('pick_destination_name', e.destination_name , false, r))
+        .append(createTableContent('pick_destination_name', e.destination_name , true, r))
         .append(createTableContent('pick_quantity',e.quantity , false, r))
         .append(createTableContent('pick_weight', e.sum_weight , false, r))
         .append(createTableContent('pick_cubic', e.sum_cubic, false, r))
-        .append(createTableContent('pick_unit', '' , false, r))
+        .append(createTableContent('pick_unit', '' , true, r))
         .append(createTableContent('pick_status', e.status, true, r))
-        .append(createTableContent('pick_service_name', e.service_name , false, r))
+        .append(createTableContent('pick_service_name', e.service_name , true, r))
         .append(createTableContent('pick_service_id', e.service_id , true, r))
         .append(createTableContent('pick_volume_weight', e.volume_weight, true, r))
         .append(createTableContent('pick_warehouse_id', e.warehouse_id, true, r))
         .append(createTableContent('pick_warehouse_name', e.warehouse_name, true, r))
         t.append(p);
-
-    p = $("<tr >");
-    p.append('<td></td>')
-    p.append('<td></td>')
-    p.append('<td class="hiddenRow"><div class="collapse '+ r +'" ><b> Status: </b>'+ e.status +'</div></td>')
-    p.append('<td class="hiddenRow"><div class="collapse '+ r +'" ><b> State: </b>'+ e.shipper_state_name +'</div></td>')
-    p.append('<td class="hiddenRow"><div class="collapse '+ r +'" ><b> State: </b>'+ e.consignee_state_name +'</div></td>')
-    p.append('<td class="hiddenRow"><div class="collapse '+ r +'" ><b> WH name: </b>'+ e.warehouse_name +'</div></td>')
-    t.append(p);
     warehouse_details();
 
     },minChars:3, data: {
@@ -87,6 +78,7 @@ $("#shipment_code").focus(function () {
                 $("#carrier_name").val(e.carrier_name),
                 $("#departure_date").val(e.departure),
                 $("#arrival_date").val(e.arrival),
+                $("#booking_code").val(e.booking_code),
 
                 $("#port_loading_id").val(e.loading_port_id),
                 $("#port_loading_name").val(e.loading_port_name),
@@ -99,7 +91,7 @@ $("#shipment_code").focus(function () {
                 $("#place_receipt").val(e.location_origin_name),
                 $("#place_delivery").val(e.location_destination_name),
                 $("#port_loading").val(e.loading_port_name),
-                $("#foreign_port").val(e.unloading_port_name),
+                $("#port_unloading").val(e.unloading_port_name),
 
                 $("#shipper_id").val(e.shipper_id),
                 $("#shipper_name").val(e.shipper_name),
@@ -121,13 +113,29 @@ $("#shipment_code").focus(function () {
                 $("#consignee_zip_code_id").val(e.consignee_zip_code_id),
                 $("#consignee_zip_code_code").val(e.consignee_zip_code),
 
+                $("#notify_id").val(e.notify_id),
+                $("#notify_name").val(e.notify_name),
+                $("#notify_address").val(e.notify_address),
+                $("#notify_city").val(e.notify_city),
+                $("#notify_phone").val(e.notify_phone),
+                $("#notify_state_id").val(e.notify_state_id),
+                $("#notify_state_name").val(e.notify_state_name),
+                $("#notify_zip_code_id").val(e.notify_zip_code_id),
+                $("#notify_zip_code_code").val(e.notify_zip_code),
+                $("#forwarding_agent_name").val(e.forwarding_agent_name),
+                $("#forwarding_agent_id").val(e.forwarding_agent_id),
+                $("#domestic_routing").val(e.domestic_routing),
+                $("#booking_code").val(e.booking_code),
+
                 $("#agent_name").val(e.agent_name),
                 $("#agent_id").val(e.agent_id),
                 $("#agent_phone").val(e.agent_phone),
                 $("#agent_fax").val(e.agent_fax),
                 $("#agent_contact").val(e.agent_contact),
                 $("#agent_commission").val(e.agent_commission),
-                $("#spotting_amount").val(e.agent_amount)
+                $("#spotting_amount").val(e.agent_amount),
+                $("#state_of_origin_id").val(e.state_of_origin_id),
+                $("#state_of_origin_name").val(e.state_of_origin_name)
     },
         minChars:2,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#shipment_code_img").removeClass("img-none").addClass("img-display"),$("#shipment_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#shipment_code_img").removeClass("img-display").addClass("img-none"),$("#shipment_code_spn").removeClass("img-none").addClass("img-display")}).on("marcopoloblur",function(){""==$(this).val().trim()&&($("#shipment_id").val(0),$("#shipment_code").val(""))})
 });
@@ -274,4 +282,130 @@ $("#warehouse_notify_zip_code_code").focus(function () {
     $("#warehouse_notify_zip_code_code").marcoPolo({url:"{{ route('zip_codes.autocomplete') }}",formatItem:function(e,o){return e.code+" | "+e.name},onSelect:function(e,o){$("#warehouse_notify_zip_code_id").val(e.id),$(this).val(e.code),$("#warehouse_notify_city").val(e.name),$("#warehouse_notify_state_id").val(e.state_id),$("#warehouse_notify_state_name").val(e.state_name)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#warehouse_notify_zip_code_code_img").removeClass("img-none").addClass("img-display"),$("#warehouse_notify_zip_code_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#warehouse_notify_zip_code_code_img").removeClass("img-display").addClass("img-none"),$("#warehouse_notify_zip_code_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#warehouse_notify_zip_code_id").val(0)}).blur(function(){var e=$("#warehouse_notify_zip_code_id").val();0==e&&($(this).val(""),$("#warehouse_notify_city").val(""),$("#warehouse_notify_state_id").val(0),$("#warehouse_notify_state_name").val(""))})
 });
 
+
+$("#container_carrier_name").focus(function() {$("#container_carrier_name").marcoPolo({url: "{{ route('carriers.autocomplete') }}",formatItem: function(e, o) {return e.name},onSelect: function(e, o) {$("#container_carrier_id").val(e.id), $(this).val(e.name)},minChars: 3,param: "term",required: !0}).on("marcopolorequestbefore", function() {$("#container_carrier_name_img").removeClass("img-none").addClass("img-display"), $("#container_carrier_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter", function() {$("#container_carrier_name_img").removeClass("img-display").addClass("img-none"), $("#container_carrier_name_spn").removeClass("img-none").addClass("img-display")}).on("marcopoloblur", function() {"" == $(this).val().trim() && $("#container_carrier_id").val(0)})
+});
+
+
+$("#equipment_type_code").focus(function () {
+    $("#equipment_type_code").marcoPolo({url:"{{ route('cargo_types.autocomplete') }}",formatItem:function(e,o){return e.code},onSelect:function(e,o){$("#equipment_type_id").val(e.id),$(this).val(e.code)},minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#equipment_type_code_img").removeClass("img-none").addClass("img-display"),$("#equipment_type_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#equipment_type_code_img").removeClass("img-display").addClass("img-none"),$("#equipment_type_code_spn").removeClass("img-none").addClass("img-display")}).on("marcopoloblur",function(){""==$(this).val().trim()&&($("#equipment_type_id").val(0))})
+});
+
+$("#container_commodity_name").focus(function () {
+    $("#container_commodity_name").marcoPolo({url:"{{ route('commodities.autocomplete') }}",formatItem:function(e,o){return e.value},onSelect:function(e,o){$("#container_commodity_id").val(e.id),$(this).val(e.value)},minChars:2,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#container_commodity_name_img").removeClass("img-none").addClass("img-display"),$("#container_commodity_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#container_commodity_name_img").removeClass("img-display").addClass("img-none"),$("#container_commodity_name_spn").removeClass("img-none").addClass("img-display")}).on("marcopoloblur",function(){""==$(this).val().trim()&&($("#container_commodity_id").val(0),$("#container_commodity_id").val(0),$("#container_commodity_name").val(""))})
+});
+
+$("#container_pickup_state_name").focus(function () {
+    $("#container_pickup_state_name").marcoPolo({url:"{{ route('states.autocomplete') }}",formatItem:function(e,o){return e.value},onSelect:function(e,o){$("#container_pickup_state_id").val(e.id),$(this).val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#container_pickup_state_name_img").removeClass("img-none").addClass("img-display"),$("#container_pickup_state_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#container_pickup_state_name_img").removeClass("img-display").addClass("img-none"),$("#container_pickup_state_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#container_pickup_state_id").val(0)}).blur(function(){var e=$("#container_pickup_state_id").val();0==e&&$(this).val("")})
+});
+
+$("#container_delivery_state_name").focus(function () {
+    $("#container_delivery_state_name").marcoPolo({url:"{{ route('states.autocomplete') }}",formatItem:function(e,o){return e.value},onSelect:function(e,o){$("#container_delivery_state_id").val(e.id),$(this).val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#container_delivery_state_name_img").removeClass("img-none").addClass("img-display"),$("#container_delivery_state_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#container_delivery_state_name_img").removeClass("img-display").addClass("img-none"),$("#container_delivery_state_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#container_delivery_state_id").val(0)}).blur(function(){var e=$("#container_delivery_state_id").val();0==e&&$(this).val("")})
+});
+
+$("#container_drop_state_name").focus(function () {
+    $("#container_drop_state_name").marcoPolo({url:"{{ route('states.autocomplete') }}",formatItem:function(e,o){return e.value},onSelect:function(e,o){$("#container_drop_state_id").val(e.id),$(this).val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#container_drop_state_name_img").removeClass("img-none").addClass("img-display"),$("#container_drop_state_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#container_drop_state_name_img").removeClass("img-display").addClass("img-none"),$("#container_drop_state_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#container_drop_state_id").val(0)}).blur(function(){var e=$("#container_drop_state_id").val();0==e&&$(this).val("")})
+});
+
+$("#container_pickup_zip_code_code").focus(function () {
+    $("#container_pickup_zip_code_code").marcoPolo({url:"{{ route('zip_codes.autocomplete') }}",formatItem:function(e,o){return e.code+" | "+e.name},onSelect:function(e,o){$("#container_pickup_zip_code_id").val(e.id),$(this).val(e.code),$("#container_pickup_city").val(e.name),$("#container_pickup_state_id").val(e.state_id),$("#container_pickup_state_name").val(e.state_name)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#container_pickup_zip_code_code_img").removeClass("img-none").addClass("img-display"),$("#container_pickup_zip_code_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#container_pickup_zip_code_code_img").removeClass("img-display").addClass("img-none"),$("#container_pickup_zip_code_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#container_pickup_zip_code_id").val(0)}).blur(function(){var e=$("#container_pickup_zip_code_id").val();0==e&&($(this).val(""),$("#container_pickup_city").val(""),$("#container_pickup_state_id").val(0),$("#container_pickup_state_name").val(""))})
+});
+
+$("#container_delivery_zip_code_code").focus(function () {
+    $("#container_delivery_zip_code_code").marcoPolo({url:"{{ route('zip_codes.autocomplete') }}",formatItem:function(e,o){return e.code+" | "+e.name},onSelect:function(e,o){$("#container_delivery_zip_code_id").val(e.id),$(this).val(e.code),$("#container_delivery_city").val(e.name),$("#container_delivery_state_id").val(e.state_id),$("#container_delivery_state_name").val(e.state_name)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#container_delivery_zip_code_code_img").removeClass("img-none").addClass("img-display"),$("#container_delivery_zip_code_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#container_delivery_zip_code_code_img").removeClass("img-display").addClass("img-none"),$("#container_delivery_zip_code_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#container_delivery_zip_code_id").val(0)}).blur(function(){var e=$("#container_delivery_zip_code_id").val();0==e&&($(this).val(""),$("#container_delivery_city").val(""),$("#container_delivery_state_id").val(0),$("#container_delivery_state_name").val(""))})
+});
+
+$("#container_drop_zip_code_code").focus(function () {
+    $("#container_drop_zip_code_code").marcoPolo({url:"{{ route('zip_codes.autocomplete') }}",formatItem:function(e,o){return e.code+" | "+e.name},onSelect:function(e,o){$("#container_drop_zip_code_id").val(e.id),$(this).val(e.code),$("#container_drop_city").val(e.name),$("#container_drop_state_id").val(e.state_id),$("#container_drop_state_name").val(e.state_name)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#container_drop_zip_code_code_img").removeClass("img-none").addClass("img-display"),$("#container_drop_zip_code_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#container_drop_zip_code_code_img").removeClass("img-display").addClass("img-none"),$("#container_drop_zip_code_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#container_drop_zip_code_id").val(0)}).blur(function(){var e=$("#container_drop_zip_code_id").val();0==e&&($(this).val(""),$("#container_drop_city").val(""),$("#container_drop_state_id").val(0),$("#container_drop_state_name").val(""))})
+});
+
+$("#container_pickup_name").focus(function () {
+    var url = $("#container_pickup_type").val() === '01' ? "{{ route('carriers.autocomplete') }}" : "{{ route('customers.autocomplete') }}" ;
+
+    $("#container_pickup_name").marcoPolo({
+        url:url,
+        formatItem:function(e,o){
+            return $("#container_pickup_type").val() === '01' ?  e.name : e.value ;
+        },
+        onSelect:function(e,o){
+            var name = $("#container_pickup_type").val() === '01' ?  e.name :  e.value;
+            $("#container_pickup_id").val(e.id),
+                    $(this).val(name),
+                    $("#container_pickup_address").val(e.address),
+                    $("#container_pickup_city").val(e.city),
+                    $("#container_pickup_state_id").val(e.state_id),
+                    $("#container_pickup_state_name").val(e.state_name),
+                    $("#container_pickup_zip_code_id").val(e.zip_code_id),
+                    $("#container_pickup_zip_code_code").val(e.zip_code_code)
+        },
+        minChars:3,
+        param:"term",
+        required:!0
+    }).on("marcopolorequestbefore",function(){
+        $("#container_pickup_name_img").removeClass("img-none").addClass("img-display"),$("#container_pickup_name_spn").removeClass("img-display").addClass("img-none")
+    }).on("marcopolorequestafter",function(){
+        $("#container_pickup_name_img").removeClass("img-display").addClass("img-none"),$("#container_pickup_name_spn").removeClass("img-none").addClass("img-display")
+    }).on("marcopoloblur",function(){
+        ""==$(this).val().trim()&&$("#container_pickup_id").val(0)})
+});
+
+$("#container_delivery_name").focus(function () {
+    var url = $("#container_delivery_type").val() === '01' ? "{{ route('carriers.autocomplete') }}" : "{{ route('customers.autocomplete') }}" ;
+
+    $("#container_delivery_name").marcoPolo({
+        url:url,
+        formatItem:function(e,o){
+            return $("#container_delivery_type").val() === '01' ?  e.name : e.value ;
+        },
+        onSelect:function(e,o){
+            var name = $("#container_delivery_type").val() === '01' ?  e.name :  e.value;
+            $("#container_delivery_id").val(e.id),
+                    $(this).val(name),
+                    $("#container_delivery_address").val(e.address),
+                    $("#container_delivery_city").val(e.city),
+                    $("#container_delivery_state_id").val(e.state_id),
+                    $("#container_delivery_state_name").val(e.state_name),
+                    $("#container_delivery_zip_code_id").val(e.zip_code_id),
+                    $("#container_delivery_zip_code_code").val(e.zip_code_code)
+        },
+        minChars:3,
+        param:"term",
+        required:!0
+    }).on("marcopolorequestbefore",function(){
+        $("#container_delivery_name_img").removeClass("img-none").addClass("img-display"),$("#container_delivery_name_spn").removeClass("img-display").addClass("img-none")
+    }).on("marcopolorequestafter",function(){
+        $("#container_delivery_name_img").removeClass("img-display").addClass("img-none"),$("#container_delivery_name_spn").removeClass("img-none").addClass("img-display")
+    }).on("marcopoloblur",function(){
+        ""==$(this).val().trim()&&$("#container_delivery_id").val(0)})
+});
+
+$("#container_drop_name").focus(function () {
+    var url = $("#container_drop_type").val() === '01' ? "{{ route('carriers.autocomplete') }}" : "{{ route('customers.autocomplete') }}" ;
+
+    $("#container_drop_name").marcoPolo({
+        url:url,
+        formatItem:function(e,o){
+            return $("#container_drop_type").val() === '01' ?  e.name : e.value ;
+        },
+        onSelect:function(e,o){
+            var name = $("#container_drop_type").val() === '01' ?  e.name :  e.value;
+            $("#container_drop_id").val(e.id),
+                    $(this).val(name),
+                    $("#container_drop_address").val(e.address),
+                    $("#container_drop_city").val(e.city),
+                    $("#container_drop_state_id").val(e.state_id),
+                    $("#container_drop_state_name").val(e.state_name),
+                    $("#container_drop_zip_code_id").val(e.zip_code_id),
+                    $("#container_drop_zip_code_code").val(e.zip_code_code)
+        },
+        minChars:3,
+        param:"term",
+        required:!0
+    }).on("marcopolorequestbefore",function(){
+        $("#container_drop_name_img").removeClass("img-none").addClass("img-display"),$("#container_drop_name_spn").removeClass("img-display").addClass("img-none")
+    }).on("marcopolorequestafter",function(){
+        $("#container_drop_name_img").removeClass("img-display").addClass("img-none"),$("#container_drop_name_spn").removeClass("img-none").addClass("img-display")
+    }).on("marcopoloblur",function(){
+        ""==$(this).val().trim()&&$("#container_drop_id").val(0)})
+});
 </script>

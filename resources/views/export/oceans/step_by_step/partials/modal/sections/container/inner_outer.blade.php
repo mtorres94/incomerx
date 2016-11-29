@@ -13,7 +13,7 @@
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-3"></div>
-    <div class="col-md-3">    {!! Form::bsSelect(null, null, 'Kgs/Lbs', 'total_weight_unit', array('K' => 'KGS', 'L' => 'LBS'), null) !!}</div>
+
 
     <div class="col-md-3">{!! Form::bsText(null, null, 'Tare weight', 'container_tare_weight', null, '0.000') !!}</div>
 </div>

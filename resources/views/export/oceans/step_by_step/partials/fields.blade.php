@@ -14,16 +14,19 @@
 
 <!-- Modal forms section -->
 @section('modals')
-    @include('export.oceans.step_by_step.partials.modal.load_warehouse')
-    @include('export.oceans.step_by_step.partials.modal.warehouse_details')
-    @include('export.oceans.step_by_step.partials.modal.sections.warehouse.warehouse_cargo_details')
     @include('export.oceans.step_by_step.partials.modal.container_details')
     @include('export.oceans.step_by_step.partials.modal.charge_details')
     @include('export.oceans.step_by_step.partials.modal.transportation_details')
+    @include('export.oceans.step_by_step.partials.modal.warehouse_details')
+    @include('export.oceans.step_by_step.partials.modal.load_warehouse')
+    @include('export.oceans.step_by_step.partials.modal.sections.warehouse.warehouse_cargo_details')
     @include('export.oceans.step_by_step.partials.modal.PRO_Numbers')
     @include('export.oceans.step_by_step.partials.modal.customer_reference')
     @include('export.oceans.step_by_step.partials.modal.items_details')
+    @include('export.oceans.step_by_step.partials.modal.createHouse')
     @include('export.oceans.step_by_step.partials.modal.details_UNs')
+
+    @include('export.oceans.step_by_step.partials.modal.HBL_cargo')
 @stop
 
 <!-- Scripts sections -->

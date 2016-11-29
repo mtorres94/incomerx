@@ -7,12 +7,12 @@
         $("input[name='pick_select[]']:checked").each(function() {
             whr_select.push($(this).val());
         });
-        for (var a=0; a< r ; a+=2) {
+        for (var a=0; a< r ; a++) {
             quantity = parseFloat(tr[a].childNodes[26].textContent) + quantity;
             weight = parseFloat(tr[a].childNodes[27].textContent) + weight;
             cubic = parseFloat(tr[a].childNodes[28].textContent) + cubic;
         }
-        var unlinked= (r/2)- whr_select.length;
+        var unlinked= r- whr_select.length;
         $("#pick_linked").val(whr_select.length);
         $("#pick_unlinked").val(unlinked);
         $("#pick_weight").val(weight);
@@ -21,13 +21,15 @@
     }
     function cubic_weight_loaded()
     {
-        var tr = $('#hidden_cargo_details tbody tr');
+        var tr = $('#cargo_details tbody tr');
         var r = tr.length,  quantity=0, weight=0,  cubic=0;
-        for (var a=0; a< r ; a+=2) {
-            quantity = parseFloat(tr[a].childNodes[2].textContent) + quantity;
-            cubic = parseFloat(tr[a].childNodes[12].textContent) + cubic;
-            weight = parseFloat(tr[a].childNodes[13].textContent) + weight;
+        for (var a=0; a< r ; a++) {
+            quantity = parseFloat(tr[a].childNodes[27].textContent) + quantity;
+            cubic = parseFloat(tr[a].childNodes[29].textContent) + cubic;
+            weight = parseFloat(tr[a].childNodes[28].textContent) + weight;
+
         }
+        $("#pieces_loaded").val(quantity);
         $("#weight_load").val(weight);
         $("#cubic_load").val(cubic);
     }

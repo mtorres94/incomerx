@@ -1,6 +1,14 @@
 <fieldset>
-    <legend>General info</legend>
+    <div class="row">
+        <div class="col-md-6"><legend>General info</legend></div>
+        <div class="col-md-6">
+            <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
+                <a type="button" class="btn btn-default btn-sm" id="btn-load-houses" onclick="validateShipmentId(), clearTable('load_warehouses')"><span>Link Houses</span></a>
+            </div>
+        </div>
+    </div>
 
+    {!! Form::hidden('cargo_loader_id', null, ['id' => 'cargo_loader_id', 'class' => 'form-control input-sm']) !!}
     <div class="row">
         <div class="col-md-1">{!! Form::bsSelect(null, null, ' BL Class', 'bl_class', array(
             '1' => 'DBL',
@@ -11,8 +19,7 @@
             'C' => 'COLLECT',
             'P' => 'PREPAID',
         ), 'Type') !!}</div>
-        <div class="col-md-2">{!! Form::bsComplete(null, null,'Division ', 'division_id', 'division_name', Request::get('term'),
-    ((isset($bill_of_lading) and $bill_of_lading->division_id > 0) ? $bill_of_lading->division->name : null), 'Divisions...', 'options.maintenance.divisions.divisions', 'options.maintenance.divisions.divisions', 'maintenance.divisions_departments.divisions.index') !!}</div>
+
         <div class="col-md-2">{!! Form::bsText(null, null, 'User', 'user_id', ((isset($bill_of_lading) and $bill_of_lading->user_create_id > 0) ? $bill_of_lading->user_create->username :  Auth::user()->username), '') !!}</div>
         <div class="col-md-2">{!! Form::bsDate(null, null,'Date', 'bl_date', null, '') !!}</div>
         <div class="col-md-2">{!! Form::bsSelect(null, null, 'Rate Class', 'rate_class', array(

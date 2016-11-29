@@ -11,11 +11,11 @@
 
                 <div id="cargo-tabs" class="easyui-tabs">
                     <div title="Mark & Descriptions">
-                        @include('export.oceans.booking_entries.partials.modal.sections.cargo_details.mark_description')
+                        @include('export.oceans.bill_of_lading.partials.modal.sections.cargo_details.mark_description')
                     </div>
 
                     <div title="Cargo Details">
-                        @include('export.oceans.booking_entries.partials.modal.sections.cargo_details.warehouse')
+                        @include('export.oceans.bill_of_lading.partials.modal.sections.cargo_details.warehouse')
                     </div>
                 </div>
                 <div class="row row-panel">

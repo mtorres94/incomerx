@@ -1,5 +1,4 @@
 <fieldset id="Consignee">
-    <legend>Consigned to</legend>
     <div class="row">
         {!! Form::bsComplete('col-md-3', 'col-md-9', 'Name', 'consignee_id', 'consignee_name', Request::get('term'), ((isset($shipment_entry) and $shipment_entry->consignee_id > 0) ? $shipment_entry->consignee->name : null), 'Customers...') !!}
     </div>

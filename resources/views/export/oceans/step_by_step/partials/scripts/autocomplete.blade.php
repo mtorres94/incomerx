@@ -35,26 +35,17 @@
                                 .append(createTableContent('pick_consignee_phone', e.consignee_phone, true, r))
                                 .append(createTableContent('pick_consignee_fax', e.consignee_fax, true, r))
 
-                                .append(createTableContent('pick_destination_name', e.destination_name , false, r))
+                                .append(createTableContent('pick_destination_name', e.destination_name , true, r))
                                 .append(createTableContent('pick_quantity',e.quantity , false, r))
                                 .append(createTableContent('pick_weight', e.sum_weight , false, r))
                                 .append(createTableContent('pick_cubic', e.sum_cubic, false, r))
                                 .append(createTableContent('pick_unit', '' , false, r))
                                 .append(createTableContent('pick_status', e.status, true, r))
-                                .append(createTableContent('pick_service_name', e.service_name , false, r))
+                                .append(createTableContent('pick_service_name', e.service_name , true, r))
                                 .append(createTableContent('pick_service_id', e.service_id , true, r))
                                 .append(createTableContent('pick_volume_weight', e.volume_weight, true, r))
                                 .append(createTableContent('pick_warehouse_id', e.warehouse_id, true, r))
                                 .append(createTableContent('pick_warehouse_name', e.warehouse_name, true, r))
-                t.append(p);
-
-                p = $("<tr >");
-                p.append('<td></td>')
-                p.append('<td></td>')
-                p.append('<td class="hiddenRow"><div class="collapse '+ r +'" ><b> Status: </b>'+ e.status +'</div></td>')
-                p.append('<td class="hiddenRow"><div class="collapse '+ r +'" ><b> State: </b>'+ e.shipper_state_name +'</div></td>')
-                p.append('<td class="hiddenRow"><div class="collapse '+ r +'" ><b> State: </b>'+ e.consignee_state_name +'</div></td>')
-                p.append('<td class="hiddenRow"><div class="collapse '+ r +'" ><b> WH name: </b>'+ e.warehouse_name +'</div></td>')
                 t.append(p);
             },minChars:3, data: {
                 "type_for": type,
@@ -547,5 +538,48 @@
 
     $("#warehouse_code").focus(function () {
         $("#warehouse_code").marcoPolo({url:"{{ route('warehouses.autocomplete') }}",formatItem:function(e,o){return e.name},onSelect:function(e,o){$("#warehouse_id").val(e.id),$(this).val(e.name)},minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#warehouse_code_img").removeClass("img-none").addClass("img-display"),$("#warehouse_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#warehouse_code_img").removeClass("img-display").addClass("img-none"),$("#warehouse_code_spn").removeClass("img-none").addClass("img-display")}).on("marcopoloblur",function(){""==$(this).val().trim()&&$("#warehouse_id").val(0)})
+    });
+
+    $("#quote_code").focus(function () {
+        $("#quote_code").marcoPolo({url:"{{ route('quotes.autocomplete') }}",formatItem:function(e,o){return e.code},onSelect:function(e,o){
+            $("#quote_id").val(e.id),
+                    $(this).val(e.code),
+                    $("#shipper_id").val(e.shipper_id),
+                    $("#shipper_name").val(e.shipper_name),
+                    $("#shipper_address").val(e.shipper_address),
+                    $("#shipper_phone").val(e.shipper_phone),
+                    $("#shipper_city").val(e.shipper_city),
+                    $("#shipper_state_id").val(e.shipper_state_id),
+                    $("#shipper_state_name").val(e.shipper_state_name),
+                    $("#shipper_zip_code_id").val(e.shipper_zip_code_id),
+                    $("#shipper_zip_code_code").val(e.shipper_zip_code),
+
+                    $("#consignee_id").val(e.consignee_id),
+                    $("#consignee_name").val(e.consignee_name),
+                    $("#consignee_address").val(e.consignee_address),
+                    $("#consignee_phone").val(e.consignee_phone),
+                    $("#consignee_city").val(e.consignee_city),
+                    $("#consignee_state_id").val(e.consignee_state_id),
+                    $("#consignee_state_name").val(e.consignee_state_name),
+                    $("#consignee_zip_code_id").val(e.consignee_zip_code_id),
+                    $("#consignee_zip_code_code").val(e.consignee_zip_code),
+
+                    $("#agent_id").val(e.agent_id),
+                    $("#agent_name").val(e.agent_name),
+                    $("#agent_phone").val(e.agent_phone),
+
+                    $("#carrier_id").val(e.carrier_id),
+                    $("#carrier_name").val(e.carrier_name),
+
+                    $("#port_loading_id").val(e.port_loading_id),
+                    $("#port_loading_name").val(e.port_loading_name),
+                    $("#port_unloading_name").val(e.port_unloading_name),
+                    $("#port_unloading_id").val(e.port_unloading_id),
+
+                    $("#place_receipt_id").val(e.place_receipt_id),
+                    $("#place_delivery_id").val(e.place_delivery_id),
+                    $("#place_receipt_name").val(e.place_receipt_name),
+                    $("#place_delivery_name").val(e.place_delivery_name)
+        },minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#quote_code_img").removeClass("img-none").addClass("img-display"),$("#quote_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#quote_code_img").removeClass("img-display").addClass("img-none"),$("#quote_code_spn").removeClass("img-none").addClass("img-display")}).on("marcopoloblur",function(){""==$(this).val().trim()&&($("#quote_id").val(0))})
     });
 </script>

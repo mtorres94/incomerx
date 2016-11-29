@@ -44,7 +44,7 @@ function initDate(id, days) {
 }
 
 function createTableContent(name, content, hidden, line) {
-    return $("<td " + ((hidden) ? "hidden" : "") + ">" + content + "<input hidden type='text' name='" + name + "[" + line + "]' value='" + content + "'></td>");
+    return $("<td " + ((hidden) ? "hidden" : "") + ">" + content + "<input hidden type='text' id='" + name + "[" + line + "]' name='" + name + "[" + line + "]' value='" + content + "'></td>");
 }
 
 function createTableBtns() {

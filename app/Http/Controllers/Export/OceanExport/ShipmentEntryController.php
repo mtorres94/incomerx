@@ -5,7 +5,11 @@ namespace Sass\Http\Controllers\Export\OceanExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Sass\BillOfLading;
+use Sass\BillOfLadingCargo;
 use Sass\DataTables\Export\Ocean\ShipmentEntryDataTable;
+use Sass\EOShipmentEntryContainer;
+use Sass\EoShipmentEntryHazardous;
 use Sass\Http\Controllers\Controller;
 use Sass\Http\Requests;
 use Sass\ShipmentEntry;
@@ -43,14 +47,25 @@ class ShipmentEntryController extends Controller
     {
         DB::beginTransaction();
         try {
+            // ---- SHIPMENT ENTRY ----
             $count = ShipmentEntry::count() + 1;
-            $shipment_code= str_pad($count, 10, '0', STR_PAD_LEFT);
+            $code= str_pad($count, 6, '0', STR_PAD_LEFT);
             $shipment_entry = $request->all();
-            $shipment_entry['shipment_code']=$shipment_code;
+
+            $shipment_entry['code']="EOF-".$code;
             $shipment_entry['user_create_id'] = Auth::user()->id;
             $shipment_entry['user_update_id'] = Auth::user()->id;
+            $exp=ShipmentEntry::create($shipment_entry);
+            EOShipmentEntryContainer::saveDetail($exp->id, $shipment_entry);
 
-            $whr=ShipmentEntry::create($shipment_entry);
+            /*// ----- BILL OF LADING -----
+            $count = BillOfLading::count() + 1;
+            $bill_of_lading_code= str_pad($count, 6, '0', STR_PAD_LEFT);
+            $data['bl_code']="HBL-".$bill_of_lading_code;
+            $exp=BillOfLading::create($shipment_entry);
+
+            BillOfLadingCargo::saveDetail($exp->id, $shipment_entry);*/
+
         } catch (ValidationException $e) {
             DB::rollback();
         }
@@ -78,6 +93,8 @@ class ShipmentEntryController extends Controller
     public function edit($id)
     {
         $shipment_entry = ShipmentEntry::findOrFail($id);
+
+
         return view('export.oceans.shipment_entries.edit', compact('shipment_entry'));
     }
 
@@ -86,9 +103,11 @@ class ShipmentEntryController extends Controller
     {
         DB::beginTransaction();
         try {
-            $shipment = $request->all();
+            $shipment_entry = $request->all();
             $sent = ShipmentEntry::findorfail($id);
-            $exp = $sent->update($shipment);
+            $exp = $sent->update($shipment_entry);
+            EOShipmentEntryContainer::saveDetail($id, $shipment_entry);
+            EoShipmentEntryHazardous::saveDetail($id, $shipment_entry);
             $shipment['user_update_id'] = Auth::user()->id;
         } catch (ValidationException $e) {
             DB::rollback();
@@ -115,15 +134,20 @@ class ShipmentEntryController extends Controller
                 ->leftJoin('mst_customers AS C1', 'exp_shipment_entries.shipper_id', '=', 'C1.id')
                 ->leftJoin('mst_customers AS C2', 'exp_shipment_entries.consignee_id', '=', 'C2.id')
                 ->leftJoin('mst_customers AS C3', 'exp_shipment_entries.agent_id', '=', 'C3.id')
+                ->leftJoin('mst_customers AS C4', 'exp_shipment_entries.forwarding_agent_id', '=', 'C4.id')
+                ->leftJoin('mst_customers AS C5', 'exp_shipment_entries.notify_id', '=', 'C5.id')
                 ->leftJoin('mst_states AS S1', 'exp_shipment_entries.shipper_state_id', '=', 'S1.id')
                 ->leftJoin('mst_states AS S2', 'exp_shipment_entries.consignee_state_id', '=', 'S2.id')
+                ->leftJoin('mst_states AS S3', 'exp_shipment_entries.notify_state_id', '=', 'S3.id')
+                ->leftJoin('mst_states AS S4', 'exp_shipment_entries.state_of_origin_id', '=', 'S4.id')
                 ->leftJoin('mst_zip_codes AS Z1', 'exp_shipment_entries.shipper_zip_code_id', '=', 'Z1.id')
                 ->leftJoin('mst_zip_codes AS Z2', 'exp_shipment_entries.consignee_zip_code_id', '=', 'Z2.id')
+                ->leftJoin('mst_zip_codes AS Z3', 'exp_shipment_entries.notify_zip_code_id', '=', 'Z3.id')
 
-                ->select(['exp_shipment_entries.*','op1.id AS loading_port_id','op2.id AS unloading_port_id','op1.name AS loading_port_name','op2.name AS unloading_port_name','wl1.id AS location_origin_id','wl2.id AS location_destination_id','wl1.name AS location_origin_name','wl2.name AS location_destination_name', 'mst_carriers.id as carrier_id', 'mst_carriers.name as carrier_name','C1.id as shipper_id','C1.name as shipper_name','C2.id as consignee_id','C2.name as consignee_name', 'C3.id as agent_id','C3.name as agent_name', 'S1.id as shipper_state_id', 'S2.id as consignee_state_id', 'S1.name as shipper_state_name', 'S2.name as consignee_state_name', 'Z1.id as shipper_zip_code_id', 'Z2.id as consignee_zip_code_id', 'Z1.code as shipper_zip_code', 'Z2.code as consignee_zip_code', 'C3.address as agent_address', 'C3.city as agent_city', 'C3.state_id as agent_state_id', 'C3.zip_code_id as agent_zip_code_id', 'C3.country_id as agent_country_id'])
+                ->select(['exp_shipment_entries.*', 'op1.id AS loading_port_id','op2.id AS unloading_port_id','op1.name AS loading_port_name','op2.name AS unloading_port_name','wl1.id AS location_origin_id','wl2.id AS location_destination_id','wl1.name AS location_origin_name','wl2.name AS location_destination_name', 'mst_carriers.id as carrier_id', 'mst_carriers.name as carrier_name','C1.id as shipper_id','C1.name as shipper_name','C2.id as consignee_id','C2.name as consignee_name', 'C3.id as agent_id','C3.name as agent_name', 'C4.id as forwarding_agent_id','C4.name as forwarding_agent_name', 'S1.id as shipper_state_id', 'S2.id as consignee_state_id', 'S1.name as shipper_state_name', 'S2.name as consignee_state_name', 'S3.name as notify_state_name', 'S4.id as state_of_origin_id', 'S4.name as state_of_origin_name', 'Z1.id as shipper_zip_code_id', 'Z2.id as consignee_zip_code_id','Z3.id as notify_zip_code_id', 'Z1.code as shipper_zip_code', 'Z2.code as consignee_zip_code', 'Z3.code as notify_zip_code', 'C3.address as agent_address', 'C3.city as agent_city','C5.city as notify_agent_city', 'C3.state_id as agent_state_id', 'C5.state_id as notify_state_id', 'C5.name as notify_name',  'C3.zip_code_id as agent_zip_code_id', 'C3.country_id as agent_country_id'])
                 ->where(function ($query) use ($request) {
                     if ($term = $request->get('term')) {
-                        $query->orWhere('shipment_code', 'LIKE', $term . '%');
+                        $query->orWhere('exp_shipment_entries.code', 'LIKE', $term . '%');
                     }
 
                 })->take(10)->get();
@@ -132,7 +156,7 @@ class ShipmentEntryController extends Controller
             foreach ($shipmentEntries as $shipmentEntry) {
                 $results[] = [
                     'id'                => $shipmentEntry->id,
-                    'code'              => strtoupper($shipmentEntry->shipment_code),
+                    'code'              => strtoupper($shipmentEntry->code),
                     'type'               => $shipmentEntry->shipment_type,
                     'bl_status'         => $shipmentEntry->bl_status,
                     'vessel'               => $shipmentEntry->vessel_name,
@@ -171,15 +195,29 @@ class ShipmentEntryController extends Controller
                     'consignee_zip_code_id'   => $shipmentEntry->consignee_zip_code_id,
                     'consignee_zip_code'   => $shipmentEntry->consignee_zip_code,
 
+                    'notify_id'                => $shipmentEntry->notify_id,
+                    'notify_name'   => strtoupper($shipmentEntry->notify_name),
+                    'notify_address'   => strtoupper($shipmentEntry->notify_address),
+                    'notify_city'   => strtoupper($shipmentEntry->notify_city),
+                    'notify_phone'   => $shipmentEntry->notify_phone,
+                    'notify_state_id'   => $shipmentEntry->notify_state_id,
+                    'notify_state_name'   => $shipmentEntry->notify_state_name,
+                    'notify_zip_code_id'   => $shipmentEntry->notify_zip_code_id,
+                    'notify_zip_code'   => $shipmentEntry->notify_zip_code,
+
+                    'notify_contact'   => $shipmentEntry->notify_contact,
+                    'notify_contact_phone'   => $shipmentEntry->notify_contact_phone,
+                    'forwarding_agent_id'   => $shipmentEntry->forwarding_agent_id,
+                    'forwarding_agent_name'   => $shipmentEntry->forwarding_agent_name,
+                    'domestic_routing'   => $shipmentEntry->domestic_routing,
+                    'booking_code'   => $shipmentEntry->booking_code,
+                    'state_of_origin_id'   => $shipmentEntry->state_of_origin_id,
+                    'state_of_origin_name'   => $shipmentEntry->state_of_origin_name,
+
                     'agent_id'   => $shipmentEntry->agent_id,
                     'agent_name'   => $shipmentEntry->agent_name,
                     'agent_address'   => $shipmentEntry->agent_address,
-                    'agent_city'   => $shipmentEntry->agent_city,
-                    'agent_state_id'   => $shipmentEntry->agent_state_id,
-                    'agent_zip_code_id'   => $shipmentEntry->agent_zip_code_id,
-                    'agent_state_name'   => $shipmentEntry->agent_state_id > 0 ? $shipmentEntry->state->name : "",
-                    'agent_zip_code'   => $shipmentEntry->agent_zip_code_id > 0 ? $shipmentEntry->zip_code->code : "",
-                    'agent_country_id'   => $shipmentEntry->agent_country_id,
+
                     'agent_phone'   => $shipmentEntry->agent_phone,
                     'agent_fax'   => $shipmentEntry->agent_fax,
                     'agent_commission_p'   => $shipmentEntry->agent_commission_p,
@@ -187,9 +225,103 @@ class ShipmentEntryController extends Controller
                     'agent_contact'   => $shipmentEntry->agent_contact,
                     'agent_amount'   => $shipmentEntry->agent_amount,
 
+
+
                 ];
             }
 
+            return response()->json($results);
+        }
+    }
+    public function get(Request $request)
+    {
+        if ($request->ajax()) {
+            $containers = EOShipmentEntryContainer::select(['exp_oceans_shipment_entries_container.*'])
+                ->where(function ($query) use ($request) {
+                    $shipment_id = $request->get('id');
+                    $query->orWhere('exp_oceans_shipment_entries_container.shipment_id', '=', $shipment_id );
+                })->get();
+
+            $results = [];
+            foreach ($containers as $container) {
+                $results[] = [
+                    'id' => $container->id,
+                    'code' => $container->shipment->code,
+                    'equipment_type_id'                 => $container->equipment_type_id,
+                    'equipment_type_code'               => ($container->equipment_type_id>0 ? $container->equipment_type->code :""),
+                    'container_number'                  => $container->container_number,
+                    'container_seal_number'             => $container->container_seal_number,
+                    'container_seal_number2'            => $container->container_seal_number2,
+
+                     'total_weight_unit'=> $container->total_weight_unit,
+                 'container_commodity_id'=> $container->container_commodity_id,
+                 'container_commodity_name'=> ($container->container_commodity_id >0 ? $container->container_commodity->name : ""),
+                 'pd_status'=> $container->pd_status,
+                 'pull_date'=> $container->pull_date,
+                 'spotting_date'=> $container->spotting_date,
+                 'carrier_id'=> $container->carrier_id,
+                 'carrier_name'=> strtoupper($container->carrier_id >0 ? $container->carrier->name : ""),
+                 'ventilation'=> $container->ventilation,
+                 'temperature'=> $container->temperature,
+                 'degrees'=> $container->degrees,
+                 'temperature_max'=> $container->temperature_max,
+                 'temperature_min'=> $container->temperature_min,
+
+                 'pickup_id'=> $container->pickup_id,
+                 'pickup_name'=> strtoupper($container->pickup_id >0 ? $container->pickup->name : ""),
+                 'pickup_type'=> $container->pickup_type,
+                 'pickup_address'=> $container->pickup_address,
+                 'pickup_city'=> $container->pickup_city,
+                 'pickup_state_id'=> $container->pickup_state_id,
+                 'pickup_state_name'=> strtoupper($container->pickup_state_id >0 ? $container->pickup_state->name : ""),
+                 'pickup_zip_code_id'=> $container->pickup_zip_code_id,
+                 'pickup_zip_code'=> ($container->pickup_zip_code_id > 0 ? $container->pickup_zip_code->code : ""),
+                 'pickup_phone'=> $container->pickup_phone,
+                 'pickup_contact'=> $container->pickup_contact,
+                 'pickup_number'=> $container->pickup_number,
+
+                 'delivery_id'=> $container->delivery_id,
+                 'delivery_name'=> ($container->delivery_id >0 ? $container->delivery->name :""),
+                 'delivery_type'=> $container->delivery_type,
+                 'delivery_address'=> $container->delivery_address,
+                 'delivery_city'=> $container->delivery_city,
+                 'delivery_state_id'=> $container->delivery_state_id,
+                 'delivery_state_name'=> ($container->delivery_state_id > 0 ? $container->delivery_state->name : ""),
+                 'delivery_zip_code_id'=> $container->delivery_zip_code_id,
+                 'delivery_zip_code'=> ($container->delivery_zip_code_id >0 ? $container->delivery_zip_code->code : ""),
+                 'delivery_phone'=> $container->delivery_phone,
+                 'delivery_contact'=> $container->delivery_contact,
+                 'delivery_date'=> $container->delivery_date,
+                 'delivery_number'=> $container->delivery_number,
+
+                 'drop_id'=> $container->drop_id,
+                 'drop_name'=> strtoupper($container->drop_id > 0? $container->drop->name: ""),
+                 'drop_type'=> $container->drop_type,
+                 'drop_address'=> $container->drop_address,
+                 'drop_city'=> $container->drop_city,
+                 'drop_state_id'=> $container->drop_state_id,
+                 'drop_state_name'=> strtoupper($container->drop_state_id >0 ? $container->drop_state->name : ""),
+                 'drop_zip_code_id'=> $container->drop_zip_code_id,
+                 'drop_zip_code'=> ($container->drop_zip_code_id >0 ? $container->drop_zip_code->code : ""),
+                 'drop_phone'=> $container->drop_phone,
+                 'drop_contact'=> $container->drop_contact,
+                 'drop_date'=> $container->drop_date,
+                 'drop_number'=> $container->drop_number,
+
+                 'hazardous_contact'=> $container->hazardous_contact,
+                 'hazardous_phone'=> $container->hazardous_phone,
+                 'inner_code'=> $container->inner_code,
+                 'inner_quantity'=> $container->inner_quantity,
+                 'net_weight'=> $container->net_weight,
+                 'number_equipment'=> $container->number_equipment,
+                 'outer_code'=> $container->outer_code,
+                 'outer_quantity'=> $container->outer_quantity,
+                 'release_number'=> $container->release_number,
+                 'requested_equipment'=> $container->requested_equipment,
+                 'tare_weight'=> $container->tare_weight,
+                 'container_comments'=> $container->container_comments,
+                ];
+            }
             return response()->json($results);
         }
     }
@@ -198,8 +330,8 @@ class ShipmentEntryController extends Controller
     {
         if (strlen($token) == 60) {
             try {
-                $shipment_entry = ShipmentEntry::findOrFail($id);
-                return \PDF::loadView('export.oceans.shipment_entries.pdf', compact('shipment_entry'))->stream('SE '.$shipment_entry->shipment_code.'.pdf');
+                $shipment_entry= ShipmentEntry::findOrFail($id);
+                return \PDF::loadView('export.oceans.shipment_entries.pdf', compact('shipment_entry'))->stream('BC '.$shipment_entry->booking_code.'.pdf');
             } catch (ModelNotFoundException $e) {
                 abort(404);
             }

@@ -30,6 +30,7 @@
 <!-- Modal forms section -->
 @section('modals')
     @include('export.oceans.bill_of_lading.partials.modal.PRO-Numbers')
+    @include('export.oceans.bill_of_lading.partials.modal.createHouse')
     @include('export.oceans.bill_of_lading.partials.modal.charge_details')
     @include('export.oceans.bill_of_lading.partials.modal.transportation_details')
     @include('export.oceans.bill_of_lading.partials.modal.container_details')

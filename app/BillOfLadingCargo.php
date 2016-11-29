@@ -13,7 +13,7 @@ class BillOfLadingCargo extends Model
 
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
-        if (isset($data['cargo_line'])){
+        if (isset($data['cargo_marks'])){
             $details= DB::table('exp_bill_of_lading_cargo')->where('bill_of_lading_id', '=', $id)->delete();
             while($a < count($data['cargo_line'])){
                 $i++;
@@ -21,7 +21,7 @@ class BillOfLadingCargo extends Model
                     $obj = new BillOfLadingCargo();
 
                     $obj->bill_of_lading_id = $id;
-                    $obj->line= $data['cargo_line'];
+                    $obj->line= $a+1;
                     $obj-> cargo_marks = $data['cargo_marks'][$i];
                     $obj->cargo_pieces = $data['cargo_pieces'][$i];
                     $obj->cargo_description = $data['cargo_description'][$i];
@@ -43,10 +43,70 @@ class BillOfLadingCargo extends Model
                 }
 
             }
+        }elseif(isset($data['container_line'])){
+
+            //Step by Step - MBL Cargo
+            //============================================
+            $details= DB::table('exp_bill_of_lading_cargo')->where('bill_of_lading_id', '=', $id)->delete();
+            while($a < count($data['container_line'])) {
+                $i++;
+                if (isset($data['container_line'][$i])) {
+                    $weight_l= ($data['total_weight'])* 2.2;
+                    $cubic_l= ($data['total_cubic']) * 2.2;
+                    $obj = new BillOfLadingCargo();
+                    $obj->line= $i;
+                    $obj-> cargo_marks = $data['container_number'];
+                    $obj->cargo_pieces = $data['total_quantity'];
+                    $obj->cargo_description = $data['cargo_description'];
+                    $obj->cargo_weight_unit = $data['total_weight_unit_measurement'];
+                    $obj->cargo_weight_k = $data['total_weight'];
+                    $obj->cargo_cubic_k = $data['total_cubic'];
+                    $obj->cargo_charge_weight_k = $data['total_weight'];
+                    $obj->cargo_weight_l = $weight_l;
+                    $obj->cargo_cubic_l = $cubic_l;
+                    $obj->cargo_charge_weight_l =$weight_l;
+                    $obj->cargo_type_id = $data['total_cargo_type_id'];
+                    $obj->cargo_commodity_id = $data['total_commodity_id'];
+                    $obj->save();
+                    $a++;
+                }
+            }
+
+            //============================================
         }
 
     }
 
+    public static function saveDetailHBL($data) {
+        $i=-1; $a=0;
+        if (isset($data['resume_line'])){
+           // $details= DB::table('exp_bill_of_lading_cargo')->where('bill_of_lading_id', '=', $id)->delete();
+            while($a < count($data['resume_line'])){
+                $i++;
+                if (isset($data['resume_line'][$i])){
+                    $weight_l = ($data['resume_gross_weight'][$i]) * 2.2;
+                    $cubic_l = ($data['resume_cubic'][$i]) * 2.2;
+                    $obj = new BillOfLadingCargo();
+
+                    $obj->bill_of_lading_id = $data['inserted_id'][$i];
+                    $obj->line= $data['resume_line'][$i];
+                    $obj-> cargo_marks = $data['resume_marks'][$i];
+                    $obj->cargo_pieces = $data['resume_pieces'][$i];
+                    $obj->cargo_description = $data['resume_description'][$i];
+                    $obj->cargo_weight_unit = $data['resume_weight_unit'][$i];
+                    $obj->cargo_weight_k = $data['resume_gross_weight'][$i];
+                    $obj->cargo_cubic_k = $data['resume_cubic'][$i];
+                    $obj->cargo_weight_l = $weight_l;
+                    $obj->cargo_cubic_l =$cubic_l;
+                    $obj->cargo_charge_weight_k = $data['resume_charge_weight'][$i];
+                    $obj->cargo_charge_weight_l = $weight_l;
+                    $obj->save();
+                    $a++;
+                }
+            }
+        }
+    }
+/*
     public static function saveDetailStepByStep($id, $data) {
         $i=-1; $a=0;
         if (isset($data['hidden_warehouse_line']) ){
@@ -70,7 +130,7 @@ class BillOfLadingCargo extends Model
             }
         }
 
-    }
+    }*/
 
 
     public static function Search($id){

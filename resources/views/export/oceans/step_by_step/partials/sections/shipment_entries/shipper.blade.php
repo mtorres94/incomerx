@@ -1,5 +1,4 @@
 <fieldset id="Shipper">
-    <legend>Exporter/ Shipper</legend>
     <div class="row">
         {!! Form::bsComplete('col-md-3', 'col-md-9', 'Name', 'shipper_id', 'shipper_name', Request::get('term'), ((isset($shipment_entry) and $shipment_entry->shipper_id > 0) ? $shipment_entry->shipper->name : null), 'Customers...') !!}
     </div>

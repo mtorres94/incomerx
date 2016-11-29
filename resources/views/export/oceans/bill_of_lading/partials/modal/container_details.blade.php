@@ -16,7 +16,7 @@
                     <div class="col-md-3">{!! Form::bsComplete(null, null, 'Equip. Type', 'equipment_type_id', 'equipment_type_code', Request::get('term'), null, 'Type') !!}</div>
                     <div class="col-md-3">{!! Form::bsText(null, null, 'Equip./Container #', 'container_number', null, '') !!}</div>
                     <div class="col-md-3">{!! Form::bsText(null, null, 'Seal #1', 'container_seal_number', null, '') !!}</div>
-                    <div class="col-md-3 no-padding-top">{!! Form::bsCheck('Shpr. Owned', 'shipper_owned') !!}</div>
+                    <div class="col-md-3">{!! Form::bsText(null, null, 'Seal #2', 'container_seal_number2', null, '') !!}</div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">{!! Form::bsComplete(null, null, 'Commodity', 'container_commodity_id', 'container_commodity_name', Request::get('term'), null, 'Commodity') !!}</div>

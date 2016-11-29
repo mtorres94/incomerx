@@ -23,17 +23,6 @@
         </div>
     </div>
 
-    <!-- Tab POD -->
-    <div title="POD">
-        <div class="form-horizontal">
-            <div class="col-md-12">
-                <div style="padding-top: 10px;padding-bottom: 15px;">
-                    @include('export.oceans.bill_of_lading.partials.sections.additional_information.POD')
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Tab Caller -->
     <div title="ITN">
         <div class="form-horizontal">
@@ -44,73 +33,5 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Tab Trailer -->
-    <div title="SD Bank">
-        <div class="form-horizontal">
-            <div class="col-md-12">
-                <div style="padding-top: 10px;padding-bottom: 15px;">
-                    @include('export.oceans.bill_of_lading.partials.sections.additional_information.SD_bank')
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tab SO Details-->
-    <div title="Inland Carrier">
-        <div class="form-horizontal">
-            <div class="col-md-12">
-                <div style="padding-top: 10px;padding-bottom: 15px;">
-                    @include('export.oceans.bill_of_lading.partials.sections.additional_information.inland_carrier')
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tab SO Details-->
-    <div title="Cust Ref">
-        <div class="form-horizontal">
-            <div class="col-md-12">
-                <div style="padding-top: 10px;padding-bottom: 15px;">
-                    @include('export.oceans.bill_of_lading.partials.sections.additional_information.cust_ref')
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tab SO Details-->
-    <div title="Item Details">
-        <div class="form-horizontal">
-            <div class="col-md-12">
-                <div style="padding-top: 10px;padding-bottom: 15px;">
-                    @include('export.oceans.bill_of_lading.partials.sections.additional_information.item_details')
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tab SO Details-->
-    <div title="Import/Confirm">
-        <div class="form-horizontal">
-            <div class="col-md-12">
-                <div style="padding-top: 10px;padding-bottom: 15px;">
-                    @include('export.oceans.bill_of_lading.partials.sections.additional_information.import')
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tab SO Details-->
-    <div title="Custom Broker">
-        <div class="form-horizontal">
-            <div class="col-md-12">
-                <div style="padding-top: 10px;padding-bottom: 15px;">
-                    @include('export.oceans.bill_of_lading.partials.sections.additional_information.custom_broker')
-                </div>
-            </div>
-        </div>
-    </div>
-
 
 </div>

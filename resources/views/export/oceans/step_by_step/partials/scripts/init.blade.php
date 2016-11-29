@@ -31,7 +31,7 @@ removeEmptyNodes('load-warehouse-details');
         $("#billing_bill_party").change(function () {
             $("#billing_bill_party").val() == 'O' ?  $("#billing_customer_name").attr("disabled", false): $("#billing_customer_name").attr("disabled", true) ;
         });
-        for (var t = $("#tabs_add_info").find("div"), l = 0; l < t.length  ; l++) {
+        for (var t = $("#tabs_HBL").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style");
             if (e === undefined) {
@@ -39,7 +39,43 @@ removeEmptyNodes('load-warehouse-details');
             } else {
                 var n = e.indexOf("display: block;"),
                         o = e.indexOf("display: none;");
-                $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
+                $(a).removeAttr("style"); n >= 0 && $(a).attr("style", "display: block;"); o >= 0 && $(a).attr("style", "display: none;")
+            }
+        }
+
+        for ( t = $("#resume_tabs").find("div"), l = 0; l < t.length  ; l++) {
+            a = t[l];
+            e = $(a).attr("style");
+            if (e === undefined) {
+
+            } else {
+                n = e.indexOf("display: block;");
+                o = e.indexOf("display: none;");
+                $(a).removeAttr("style"); n >= 0 && $(a).attr("style", "display: block;"); o >= 0 && $(a).attr("style", "display: none;")
+            }
+        }
+
+        for ( t = $("#tabs_MBL").find("div"), l = 0; l < t.length  ; l++) {
+             a = t[l];
+             e = $(a).attr("style");
+            if (e === undefined) {
+
+            } else {
+                 n = e.indexOf("display: block;");
+                        o = e.indexOf("display: none;");
+                $(a).removeAttr("style"); n >= 0 && $(a).attr("style", "display: block;"); o >= 0 && $(a).attr("style", "display: none;")
+            }
+        }
+
+        for ( t = $("#resume_tabs").find("div"), l = 0; l < t.length  ; l++) {
+            a = t[l];
+            e = $(a).attr("style");
+            if (e === undefined) {
+
+            } else {
+                n = e.indexOf("display: block;");
+                o = e.indexOf("display: none;");
+                $(a).removeAttr("style"); n >= 0 && $(a).attr("style", "display: block;"); o >= 0 && $(a).attr("style", "display: none;")
             }
         }
 
@@ -96,123 +132,112 @@ removeEmptyNodes('load-warehouse-details');
 
 
     $("#pick_cargo_save").click(function () {
-        var whr_select = new Array(), c = 0, d = 0, x = 0;
-        $("input[name='pick_select[]']:checked").each(function () {
+        var whr_select = new Array(), c=0, d=0, x=0;
+        $("input[name='pick_select[]']:checked").each(function() {
             whr_select.push($(this).val());
         });
-        for (c = 0; c < whr_select.length; c++) {
+        for (c=0; c< whr_select.length ; c ++){
             $.ajax({
                 url: "{{ route('receipts_entries.get_details') }}",
                 data: {id_select: whr_select[c]},
                 type: 'GET',
                 success: function (e) {
                     //=============================================
-                    while (e[x].id != "") {
-                        var r = $("#cargo_details tbody tr").length + 1,
+                    x=0;
+                    while(e[x].id != ""){
+                        var r= $("#cargo_details tbody tr").length + 1,
                                 n = $("#hidden_cargo_details"),
                                 t = n.find("tbody"),
                                 p = $("<tr data-id=" + e[x].warehouse_code + ">"),
                                 u_weight= parseFloat(e.total_weight/ e.quantity);
-                        p.append(createTableContent('details_id', r, true, x))
-                                .append(createTableContent('cargo_line', x, true, x))
-                                .append(createTableContent('cargo_quantity', e[x].quantity, true, x))
-                                .append(createTableContent('cargo_type_id', e[x].cargo_type_id, false, x))
-                                .append(createTableContent('cargo_type_code', e[x].cargo_type_code, true, x))
-                                .append(createTableContent('cargo_pieces', e[x].pieces, false, x))
-                                .append(createTableContent('cargo_weight_unit_measurement_id', e[x].weight_unit, true, x))
-                                .append(createTableContent('cargo_metric_unit_measurement_id', e[x].metric_unit, false, x))
-                                .append(createTableContent('cargo_length', e[x].length, false, x))
-                                .append(createTableContent('cargo_width', e[x].width, false, x))
-                                .append(createTableContent('cargo_height', e[x].height, false, x))
-                                .append(createTableContent('cargo_total_weight', e[x].total_weight, true, x))
-                                .append(createTableContent('cargo_cubic', e[x].cubic, false, x))
-                                .append(createTableContent('cargo_volume_weight', e[x].volume_weight, false, x))
-                                .append(createTableContent('cargo_location_id', e[x].location_id, false, x))
-                                .append(createTableContent('cargo_location_name', e[x].location_name, false, x))
-                                .append(createTableContent('cargo_location_bin_id', e[x].location_bin_id, false, x))
-                                .append(createTableContent('cargo_location_bin_name', e[x].location_bin_name, false, x))
-                                .append(createTableContent('cargo_material_description', e[x].material_description, false, x))
-                                .append(createTableContent('cargo_dim_fact', e[x].dim_fact, true, x))
-                                .append(createTableContent('cargo_square_foot', "", true, x))
-                                .append(createTableContent('cargo_unit_weight',u_weight , true, x))
-                                .append(createTableContent('cargo_tare_weight', e[x].tare_weight, true, x))
-                                .append(createTableContent('cargo_net_weight', e[x].net_weight, true, x))
-                                .append(createTableContent('cargo_warehouse_number', e[x].warehouse_code, true, x))
-                                .append(createTableContent('inserted_id', e[x].receipt_entry_id, true, x))
+                        p.append(createTableContent('cargo_id',r, true, x))
+                                .append(createTableContent('details_line', x, true, x))
+                                .append(createTableContent('details_quantity',e[x].quantity, true, x))
+                                .append(createTableContent('details_cargo_type_id', e[x].cargo_type_id, false, x))
+                                .append(createTableContent('details_cargo_type_code',e[x].cargo_type_code, true, x))
+                                .append(createTableContent('details_pieces', e[x].pieces, false, x))
+                                .append(createTableContent('details_weight_unit', e[x].weight_unit, true, x))
+                                .append(createTableContent('details_metric_unit', e[x].metric_unit, false, x))
+                                .append(createTableContent('details_length', e[x].length, false, x))
+                                .append(createTableContent('details_width', e[x].width, false, x))
+                                .append(createTableContent('details_height', e[x].height, false, x))
+                                .append(createTableContent('details_total_weight', e[x].total_weight, true, x))
+                                .append(createTableContent('details_total_cubic', e[x].cubic, false, x))
+                                .append(createTableContent('details_vol_weight', e[x].volume_weight, false, x))
+                                .append(createTableContent('details_location_id', e[x].location_id, false, x))
+                                .append(createTableContent('details_location_name', e[x].location_name, false, x))
+                                .append(createTableContent('details_location_bin_id', e[x].location_bin_id, false, x))
+                                .append(createTableContent('details_location_bin_name', e[x].location_bin_name, false, x))
+                                .append(createTableContent('details_material',e[x].material_description, false, x))
+                                .append(createTableContent('details_dim_fact', e[x].dim_fact, true, x))
+                                .append(createTableContent('details_square_foot', "", true, x))
+                                .append(createTableContent('details_unit_weight',u_weight , true, x))
+                                .append(createTableContent('details_tare_weight', e.tare_weight, true, x))
+                                .append(createTableContent('details_net_weight', e.net_weight, true, x))
                         t.append(p);
-                        x = x + 1;
-                        weight_totals();
+                        x= x+1;
+
                     }
+
                 }
             });
         }
-        total_warehouse_cargo();
         //=============================================
         var n = $("#cargo_details"),
                 t = n.find("tbody");
-        var tr = $("#load_warehouse_details tbody tr"),
-        _ =  ($("#cargo_details tbody tr").length == 0 ? 1 : parseInt($("#cargo_details tbody tr")[$("#cargo_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
-             r_1 = tr.length, z = _ -1;
-        for (var a = 0; a < r_1; a += 2) {
-            for (c = 0; c < whr_select.length; c++) {
-                if (whr_select[c] == tr[a].childNodes[1].textContent) {
-                    var p_1 = $("<tr id=" + _ + " >");
-                    p_1.append(createTableContent('hidden_warehouse_line',_ , true, z))
-                            .append(createTableContent('hidden_warehouse_number', tr[a].childNodes[3].textContent, false, z))
-                            .append(createTableContent('hidden_date_in', tr[a].childNodes[4].textContent, false, z))
-                            .append(createTableContent('hidden_shipper_name', tr[a].childNodes[6].textContent, false, z))
-                            .append(createTableContent('hidden_consignee_name', tr[a].childNodes[16].textContent, false, z))
-                            .append(createTableContent('hidden_box_number', "", false, z))
-                            .append(createTableContent('hidden_loaded_position', "", false, z))
-                            .append(createTableContent('hidden_ship_inst_number', "", false, z))
-                            .append(createTableContent('hidden_status', tr[a].childNodes[30].textContent, false, z))
+        var tr=  $("#load_warehouse_details tbody tr"),
+                _ =  ($("#cargo_details tbody tr").length == 0 ? 1 : parseInt($("#cargo_details tbody tr")[$("#cargo_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
+                r_1 = tr.length; d = _ -1;
 
-                            .append(createTableContent('hidden_bldg_number', "", true, z))
-                            .append(createTableContent('hidden_shipper_id', tr[a].childNodes[5].textContent, true, z))
-                            .append(createTableContent('hidden_shipper_address', tr[a].childNodes[7].textContent, true, z))
-                            .append(createTableContent('hidden_shipper_city', tr[a].childNodes[8].textContent, true, z))
-                            .append(createTableContent('hidden_shipper_state_id', tr[a].childNodes[9].textContent, true, z))
-                            .append(createTableContent('hidden_shipper_state_name', tr[a].childNodes[10].textContent, true, z))
-                            .append(createTableContent('hidden_shipper_country_id',"", true, z))
-                            .append(createTableContent('hidden_shipper_country_name', "", true, z))
-                            .append(createTableContent('hidden_shipper_zip_code_id', tr[a].childNodes[11].textContent, true, z))
-                            .append(createTableContent('hidden_shipper_zip_code_code', tr[a].childNodes[12].textContent, true, z))
-                            .append(createTableContent('hidden_shipper_phone', tr[a].childNodes[13].textContent, true, z))
-                            .append(createTableContent('hidden_shipper_fax', tr[a].childNodes[14].textContent, true, z))
+        for(var a =0; a< r_1 ; a++) {
+            for (c=0; c< whr_select.length ; c ++){
+                if(whr_select[c] == tr[a].childNodes[1].textContent){
+                    var p_1 = $("<tr id="+ tr[a].childNodes[1].textContent +" >");
+                    p_1.append(createTableContent('warehouse_id', whr_select[c], true, d))
+                            .append(createTableContent('warehouse_number', tr[a].childNodes[3].textContent, false, d))
+                            .append(createTableContent('date_in', tr[a].childNodes[4].textContent, false, d))
+                            .append(createTableContent('shipper_id', tr[a].childNodes[5].textContent, true, d))
+                            .append(createTableContent('shipper_name', tr[a].childNodes[6].textContent, false, d))
+                            .append(createTableContent('shipper_address', tr[a].childNodes[7].textContent, true, d))
+                            .append(createTableContent('shipper_city', tr[a].childNodes[8].textContent, true, d))
+                            .append(createTableContent('shipper_state_id', tr[a].childNodes[9].textContent, true, d))
+                            .append(createTableContent('shipper_state_name', tr[a].childNodes[10].textContent, true, d))
+                            .append(createTableContent('shipper_zip_code_id', tr[a].childNodes[11].textContent, true, d))
+                            .append(createTableContent('shipper_zip_code_code', tr[a].childNodes[12].textContent, true, d))
+                            .append(createTableContent('shipper_phone', tr[a].childNodes[13].textContent, true, d))
+                            .append(createTableContent('shipper_fax', tr[a].childNodes[14].textContent, true, d))
+                            .append(createTableContent('consignee_id', tr[a].childNodes[15].textContent, true, d))
+                            .append(createTableContent('consignee_name', tr[a].childNodes[16].textContent, false, d))
+                            .append(createTableContent('consignee_address', tr[a].childNodes[17].textContent, true, d))
+                            .append(createTableContent('consignee_city', tr[a].childNodes[18].textContent, true, d))
+                            .append(createTableContent('consignee_state_id', tr[a].childNodes[19].textContent, true, d))
+                            .append(createTableContent('consignee_state_name', tr[a].childNodes[20].textContent, true, d))
+                            .append(createTableContent('consignee_zip_code_id', tr[a].childNodes[21].textContent, true, d))
+                            .append(createTableContent('consignee_zip_code_code', tr[a].childNodes[22].textContent, true, d))
+                            .append(createTableContent('consignee_phone', tr[a].childNodes[23].textContent, true, d))
+                            .append(createTableContent('consignee_fax', tr[a].childNodes[24].textContent, true, d))
+                            .append(createTableContent('box_number', " ", true, d))
+                            .append(createTableContent('destination_name', tr[a].childNodes[25].textContent, true, d))
+                            .append(createTableContent('status', tr[a].childNodes[30].textContent, false, d))
+                            .append(createTableContent('ship_inst_number', "", true, d))
+                            .append(createTableContent('sum_pieces', tr[a].childNodes[26].textContent, true, d))
+                            .append(createTableContent('sum_weight', tr[a].childNodes[27].textContent, true, d))
+                            .append(createTableContent('sum_cubic', tr[a].childNodes[28].textContent, true, d))
+                            .append(createTableContent('sum_volume_weight', tr[a].childNodes[33].textContent, true, d))
 
-                            .append(createTableContent('hidden_consignee_id', tr[a].childNodes[15].textContent, true, z))
-                            .append(createTableContent('hidden_consignee_address',tr[a].childNodes[17].textContent, true, z))
-                            .append(createTableContent('hidden_consignee_city', tr[a].childNodes[18].textContent, true, z))
-                            .append(createTableContent('hidden_consignee_state_id',tr[a].childNodes[19].textContent, true, z))
-                            .append(createTableContent('hidden_consignee_state_name', tr[a].childNodes[20].textContent, true, z))
-                            .append(createTableContent('hidden_consignee_country_id', "", true, z))
-                            .append(createTableContent('hidden_consignee_country_name', "", true, z))
-                            .append(createTableContent('hidden_consignee_zip_code_id', tr[a].childNodes[21].textContent, true, z))
-                            .append(createTableContent('hidden_consignee_zip_code_code', tr[a].childNodes[22].textContent, true, z))
-                            .append(createTableContent('hidden_consignee_phone', tr[a].childNodes[23].textContent, true, z))
-                            .append(createTableContent('hidden_consignee_fax', tr[a].childNodes[24].textContent, true, z))
-
-                            .append(createTableContent('hidden_sum_pieces', tr[a].childNodes[26].textContent, true, z))
-                            .append(createTableContent('hidden_sum_weight', tr[a].childNodes[27].textContent, true, z))
-                            .append(createTableContent('hidden_sum_cubic', tr[a].childNodes[28].textContent, true, z))
-                            .append(createTableContent('hidden_sum_volume_weight', tr[a].childNodes[33].textContent, true, z))
-
-                            .append(createTableContent('hidden_warehouse_id', tr[a].childNodes[34].textContent, true, z))
-                            .append(createTableContent('hidden_warehouse_code', tr[a].childNodes[35].textContent, true, z))
-                            .append(createTableContent('hidden_flag','0', true, z))
-                            .append(createTableContent('hidden_receipt_entry',tr[a].childNodes[1].textContent, true, z))
+                            .append(createTableContent('warehouse_id', tr[a].childNodes[34].textContent, true, d))
+                            .append(createTableContent('warehouse_code', tr[a].childNodes[35].textContent, true, d))
+                            .append(createTableContent('hidden_flag','0', true, d))
+                            .append(createTableContent('hidden_receipt_entry', whr_select[c], true, d))
 
                             .append(createTableBtns())
                     t.append(p_1);
-                    _ +=1;
-                    z+=1;
                 }
             }
-
-        }
-        warehouse_details();
+        }warehouse_details(); domestic_routing();cubic_weight_loaded();
         clearTable("load_warehouse_details ");
-
+        //=============================================
+        $("#LoadWarehouse").modal("hide");
     });
 
     $("#warehouse_number").attr("disabled", true);

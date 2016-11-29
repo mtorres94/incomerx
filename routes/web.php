@@ -98,6 +98,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::resource('shipment_entries', 'ShipmentEntryController');
             Route::resource('cargo_loader', 'CargoLoaderController');
             Route::resource('step_by_step', 'StepByStepController');
+            Route::resource('quotes', 'ExportOceanQuotesController');
         });
     });
 

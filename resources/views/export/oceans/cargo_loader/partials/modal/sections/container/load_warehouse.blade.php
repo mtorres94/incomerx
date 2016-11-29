@@ -38,14 +38,9 @@
                                 <th width="15%" data-override="pick_date_in">Date in</th>
                                 <th width="15%" data-override="pick_shipper_name" >Shipper</th>
                                 <th width="15%" data-override="pick_consignee_name">Consignee</th>
-                                <th width="15%" data-override="pick_destination_name">Destination</th>
                                 <th width="10%" data-override="pick_qty">Qty.</th>
                                 <th width="10%" data-override="pick_weight">Weight</th>
                                 <th width="10%" data-override="pick_cubic">Cubic</th>
-                                <th width="5%" data-override="pick_unit">Unit</th>
-                                <th width="15%" data-override="pick_service">Service</th>
-                                <th width="15%"></th>
-
                             </tr>
                             </thead>
                             <tbody>

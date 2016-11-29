@@ -12,7 +12,7 @@
     <div class="col-md-12">
         @include("export.oceans.step_by_step.partials.sections.booking_entries.container_details")
         @include("export.oceans.step_by_step.partials.sections.booking_entries.point_of_state")
-        @include("export.oceans.step_by_step.partials.sections.booking_entries.charge_details")
+        @include("export.oceans.step_by_step.partials.sections.HBL_details.charge_details")
     </div>
 
 </div>
