@@ -43,6 +43,9 @@
 {!! Html::style('css/datatables.min.css') !!}
 {!! Html::style('css/dataTables.bootstrap.min.css') !!}
 
+<!-- Ladda Theme -->
+{!! Html::style('css/ladda.min.css') !!}
+
 <!-- General Files -->
 {!! Html::style('css/general.css') !!}
 

@@ -48,7 +48,7 @@ class ReceiptEntry extends Model
                     $obj->consignee_phone=  $data['hidden_consignee_phone'][$i];
                     $obj->consignee_fax=  $data['hidden_consignee_fax'][$i];
                     $obj->status=  $data['hidden_status'][$i];
-                    $obj->shipping_id=  $data['hidden_ship_inst_number'][$i];
+                    $obj->shipping_id= $data['hidden_ship_inst_number'][$i];
                     $obj->save();
                     $a++;
                 }

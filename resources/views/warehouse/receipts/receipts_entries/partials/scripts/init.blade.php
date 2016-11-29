@@ -2,6 +2,8 @@
 <!--suppress ALL -->
 <script type="text/javascript">
     window.onload = (function () {
+        renameTab();
+
         var unique_str = $("#unique_str").val();
         openTab($("#data"));
 
@@ -14,6 +16,21 @@
                 var n = e.indexOf("display: block;"),
                         o = e.indexOf("display: none;");
                 $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
+            }
+        }
+
+        function renameTab() {
+            if ('edit' == '{{ \Request::segment(5) }}') {
+                var gtab = window.parent.$('#tt');
+                var htab = gtab.find('.tabs-header');
+                var wtab = htab.find('.tabs-wrap');
+                var ttab = wtab.find('.tabs');
+                var stab = ttab.find('.tabs-selected');
+                var itab = stab.find('.tabs-inner');
+                var etab = itab.find('.tabs-title');
+                var span = '{{ isset($receipt_entry) ? "Edit ".$receipt_entry->code : "New" }}';
+
+                etab[1] = span
             }
         }
 
