@@ -80,8 +80,9 @@ class ReceiptEntryController extends Controller
         }
         DB::commit();
 
-        $unique_str = str_random(25);
-        return view('warehouse.receipts.receipts_entries.create', compact('unique_str'));
+        # $unique_str = str_random(25);
+        return redirect()->route('warehouse.receipts.receipts_entries.edit', [$whr->id]);
+        # return view('warehouse.receipts.receipts_entries.update', compact('unique_str'));
     }
 
     /**

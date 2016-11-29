@@ -47,6 +47,10 @@
 <!-- TableToJson Files -->
 {!! Html::script('js/jquery.tabletojson.min.js') !!}
 
+<!-- Ladda Spinner  -->
+{!! Html::script('js/spin.min.js') !!}
+{!! Html::script('js/ladda.min.js') !!}
+
 <!-- General Files -->
 {!! Html::script('js/general.js') !!}
 

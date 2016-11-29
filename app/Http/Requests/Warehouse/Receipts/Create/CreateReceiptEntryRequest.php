@@ -36,12 +36,9 @@ class CreateReceiptEntryRequest extends Request
             'consignee_address'         => 'required',
             'consignee_city'            => 'required',
             'third_party_id'            => 'required|exists:mst_customers,id',
-            'agent_id'                  => 'required|exists:mst_customers,id',
-            'coloader_id'               => 'required|exists:mst_customers,id',
             'mode'                      => 'required|in:A,O,W,R,T',
             'warehouse_id'              => 'required|exists:mst_warehouse_facilities,id',
             'location_service_id'       => 'required|exists:mst_services,id',
-            'receiving_carrier_id'      => 'required|exists:mst_carriers,id',
         ];
     }
 }

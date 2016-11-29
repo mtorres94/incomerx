@@ -137,6 +137,7 @@
                 n = $("#tmp_cargo_pieces").val(),
                 i = $("#tmp_cargo_weight_unit_measurement_code").val(),
                 c = $("#tmp_cargo_metric_unit_measurement_code").val(),
+                f = $("#tmp_cargo_dim_fact").val(),
                 l = $("#tmp_cargo_length").val(),
                 r = $("#tmp_cargo_width").val(),
                 _ = $("#tmp_cargo_height").val(),
@@ -150,27 +151,29 @@
                 k = $("#tmp_cargo_material_description").val(),
                 b = $("#warehouse-details"),
                 x = b.find("tbody"),
-                C = $("<tr id=" + t + ">");
-            C.append(createTableContent('cargo_line', t, true, z))
+                C = $("<tr id=" + (0 == a ? t : a) + ">");
+                w = (0 == a ? z : a - 1);
+            C.append(createTableContent('cargo_line', (0 == a ? t : a), true, w))
                     .append($("<td><i class='fa fa-cube' aria-hidden='true'></td>"))
-                    .append(createTableContent('cargo_quantity', e, false, z))
-                    .append(createTableContent('cargo_type_id', d, true, z))
-                    .append(createTableContent('cargo_type_code', o, false, z))
-                    .append(createTableContent('cargo_pieces', n, false, z))
-                    .append(createTableContent('cargo_weight_unit_measurement_id', i, false, z))
-                    .append(createTableContent('cargo_metric_unit_measurement_id', c, true, z))
-                    .append(createTableContent('cargo_length', l, false, z))
-                    .append(createTableContent('cargo_width', r, false, z))
-                    .append(createTableContent('cargo_height', _, false, z))
-                    .append(createTableContent('cargo_total_weight', p, false, z))
-                    .append(createTableContent('cargo_cubic', s, false, z))
-                    .append(createTableContent('cargo_volume_weight', g, false, z))
-                    .append(createTableContent('cargo_location_id', h, true, z))
-                    .append(createTableContent('cargo_location_name', v, false, z))
-                    .append(createTableContent('cargo_location_bin_id', u, true, z))
-                    .append(createTableContent('cargo_location_bin_name', m, false, z))
+                    .append(createTableContent('cargo_quantity', e, false, w))
+                    .append(createTableContent('cargo_type_id', d, true, w))
+                    .append(createTableContent('cargo_type_code', o, false, w))
+                    .append(createTableContent('cargo_pieces', n, false, w))
+                    .append(createTableContent('cargo_weight_unit_measurement_id', i, false, w))
+                    .append(createTableContent('cargo_metric_unit_measurement_id', c, true, w))
+                    .append(createTableContent('cargo_dim_fact', f, true, w))
+                    .append(createTableContent('cargo_length', l, false, w))
+                    .append(createTableContent('cargo_width', r, false, w))
+                    .append(createTableContent('cargo_height', _, false, w))
+                    .append(createTableContent('cargo_total_weight', p, false, w))
+                    .append(createTableContent('cargo_cubic', s, false, w))
+                    .append(createTableContent('cargo_volume_weight', g, false, w))
+                    .append(createTableContent('cargo_location_id', h, true, w))
+                    .append(createTableContent('cargo_location_name', v, false, w))
+                    .append(createTableContent('cargo_location_bin_id', u, true, w))
+                    .append(createTableContent('cargo_location_bin_name', m, false, w))
                     .append($("<td></td>"))
-                    .append(createTableContent('cargo_material_description', k, true, z))
+                    .append(createTableContent('cargo_material_description', k, true, w))
                     .append($("<td></td>"))
                     .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), calculate_warehouse_details(), cleanModalFields('cargo-warehouse'), $("#tmp_cargo_quantity").val(1), $("#tmp_cargo_quantity").focus()
     }), $("#warehouse-details").on("click", "a.btn-danger", function() {
@@ -184,18 +187,19 @@
                 n = t[0].childNodes[5].textContent,
                 i = t[0].childNodes[6].textContent,
                 c = t[0].childNodes[7].textContent,
-                l = t[0].childNodes[8].textContent,
-                r = t[0].childNodes[9].textContent,
-                _ = t[0].childNodes[10].textContent,
-                p = t[0].childNodes[11].textContent,
-                s = t[0].childNodes[12].textContent,
-                g = t[0].childNodes[13].textContent,
-                h = t[0].childNodes[15].textContent,
-                v = t[0].childNodes[16].textContent,
-                u = t[0].childNodes[17].textContent,
-                m = t[0].childNodes[18].textContent,
-                k = t[0].childNodes[19].textContent;
-        $("#tmp_cargo_line").val(a), $("#tmp_cargo_quantity").val(e), $("#tmp_cargo_type_id").val(d).change(), $("#tmp_cargo_type_code").val(o), $("#tmp_cargo_pieces").val(n), $("#tmp_cargo_weight_unit_measurement_id").val(i).change(), $("#tmp_cargo_metric_unit_measurement_id").val(c).change(), $("#tmp_cargo_length").val(l), $("#tmp_cargo_width").val(r), $("#tmp_cargo_height").val(_), $("#tmp_cargo_total_weight").val(p), $("#tmp_cargo_cubic").val(s), $("#tmp_cargo_volume_weight").val(g), $("#tmp_cargo_location_id").val(h), $("#tmp_cargo_location_name").val(v), $("#tmp_cargo_location_bin_id").val(u), $("#tmp_cargo_location_bin_name").val(m), $("#tmp_cargo_material_description").val(k), calculate(), $("#cargo-warehouse").modal("show")
+                f = t[0].childNodes[8].textContent,
+                l = t[0].childNodes[9].textContent,
+                r = t[0].childNodes[10].textContent,
+                _ = t[0].childNodes[11].textContent,
+                p = t[0].childNodes[12].textContent,
+                s = t[0].childNodes[13].textContent,
+                g = t[0].childNodes[15].textContent,
+                h = t[0].childNodes[16].textContent,
+                v = t[0].childNodes[17].textContent,
+                u = t[0].childNodes[18].textContent,
+                m = t[0].childNodes[19].textContent,
+                k = t[0].childNodes[20].textContent;
+        $("#tmp_cargo_line").val(a), $("#tmp_cargo_quantity").val(e), $("#tmp_cargo_type_id").val(d).change(), $("#tmp_cargo_type_code").val(o), $("#tmp_cargo_pieces").val(n), $("#tmp_cargo_weight_unit_measurement_id").val(i).change(), $("#tmp_cargo_metric_unit_measurement_id").val(c).change(), $("#tmp_cargo_dim_fact").val(f).change(), $("#tmp_cargo_length").val(l), $("#tmp_cargo_width").val(r), $("#tmp_cargo_height").val(_), $("#tmp_cargo_total_weight").val(p), $("#tmp_cargo_cubic").val(s), $("#tmp_cargo_volume_weight").val(g), $("#tmp_cargo_location_id").val(h), $("#tmp_cargo_location_name").val(v), $("#tmp_cargo_location_bin_id").val(u), $("#tmp_cargo_location_bin_name").val(m), $("#tmp_cargo_material_description").val(k), calculate(), $("#cargo-warehouse").modal("show")
     }), $("#cargo-multiline-warehouse-save").click(function() {
         var t = $("#warehouse-details tbody tr").length + 1,
                 z = parseInt(t) - 1,
@@ -207,6 +211,7 @@
                 n = $("#multiline_cargo_pieces").val(),
                 i = $("#multiline_cargo_weight_unit_measurement_code").val(),
                 c = $("#multiline_cargo_metric_unit_measurement_code").val(),
+                f = $("#multiline_cargo_dim_fact").val(),
                 l = $("#multiline_cargo_length").val(),
                 r = $("#multiline_cargo_width").val(),
                 _ = $("#multiline_cargo_height").val(),
@@ -222,7 +227,7 @@
                 x = b.find("tbody");
             for (var q = t; q < j; q++) {
                 var w = parseInt(q) - 1,
-                        C = $("<tr id=" + (parseInt(q)) + ">");
+                    C = $("<tr id=" + (parseInt(q)) + ">");
                 C.append(createTableContent('cargo_line', q, true, w))
                     .append($("<td><i class='fa fa-cube' aria-hidden='true'></td>"))
                     .append(createTableContent('cargo_quantity', e, false, w))
@@ -231,17 +236,18 @@
                     .append(createTableContent('cargo_pieces', n, false, w))
                     .append(createTableContent('cargo_weight_unit_measurement_id', i, false, w))
                     .append(createTableContent('cargo_metric_unit_measurement_id', c, true, w))
+                    .append(createTableContent('cargo_dim_fact', f, false, w))
                     .append(createTableContent('cargo_length', l, false, w))
                     .append(createTableContent('cargo_width', r, false, w))
                     .append(createTableContent('cargo_height', _, false, w))
                     .append(createTableContent('cargo_total_weight', p, false, w))
                     .append(createTableContent('cargo_cubic', s, false, w))
                     .append(createTableContent('cargo_volume_weight', g, false, w))
-                    .append($("<td></td>"))
                     .append(createTableContent('cargo_location_id', h, true, w))
                     .append(createTableContent('cargo_location_name', v, false, w))
                     .append(createTableContent('cargo_location_bin_id', u, true, w))
                     .append(createTableContent('cargo_location_bin_name', m, false, w))
+                    .append($("<td></td>"))
                     .append(createTableContent('cargo_material_description', k, true, w))
                     .append($("<td></td>"))
                     .append(createTableBtns()), x.append(C)

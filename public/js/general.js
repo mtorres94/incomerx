@@ -19,6 +19,17 @@ $('.selectpicker').selectpicker();
 
 $('.collapse').collapse();
 
+// Automatically trigger the loading animation on click
+Ladda.bind('button[type=submit]');
+
+
+function closeTab(_main, _tab) {
+    console.log(_main, _tab);
+    var stab  = window.parent.$('#tt').find(_main);
+    console.log(stab)
+    stab.tabs('close', _tab)
+}
+
 $("div.tab-menu>div.list-group>a").click(function(e) {
     e.preventDefault();
     $(this).siblings('a.active').removeClass("active");

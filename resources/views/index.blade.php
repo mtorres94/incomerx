@@ -42,7 +42,7 @@
         <div class="login">
             <div class="img col-md-12">
                 <div class="col-md-8">
-                    <img src="images/incomerx-logo.png" width="190px">
+                    <img src="images/incomerx-logo.png" width="335px">
                 </div>
             </div>
             <span class="span-home">Please, enter your credentials to logging on</span>

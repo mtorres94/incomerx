@@ -14,5 +14,6 @@ return [
     'rates'       => 'Tarifas',
     'warehouse'   => 'Bodegas',
     'pickup'      => 'Recogida y entrega',
-    'export'      => 'Exportación',
+    'export'      => 'Exportaciones',
+    'import'      => 'Importaciones',
 ];

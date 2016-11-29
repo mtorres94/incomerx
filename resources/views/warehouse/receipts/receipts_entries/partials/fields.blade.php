@@ -1,4 +1,5 @@
 {!! Form::bsFile('Select files', 'file') !!}
+{!! Form::hidden('unique_str', $unique_str, ['id' => 'unique_str', 'class' => 'form-control input-sm']) !!}
 @include('warehouse.receipts.receipts_entries.partials.sections.general_info')
 <div class="row">
     <div class="col-md-6">

@@ -7,7 +7,7 @@
     </span>
     <!-- logo for regular state and mobile devices -->
     <span class="logo-lg">
-        <img src="{{ asset('images/incomerx-logo-white.png') }}" alt="" width="125px"/>
+        <img src="{{ asset('images/incomerx-logo-white.png') }}" alt="" width="150px"/>
     </span>
 </a>
 
