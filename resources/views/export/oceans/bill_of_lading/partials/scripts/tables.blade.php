@@ -307,6 +307,7 @@
                     g_16 = $("#cargo_description").val(),
                     g_17 = $("#cargo_marks").val(),
                     g_18 = $("#cargo_pieces").val(),
+                    g_19 = $("#cargo_hbl_id").val(),
 
                     b = $("#cargo_details"),
                     x = b.find("tbody"),
@@ -330,6 +331,7 @@
                     .append(createTableContent('cargo_commodity_id', g_4, true, d))
                     .append(createTableContent('cargo_commodity_name', g_5, true, d))
                     .append(createTableContent('cargo_comments', g_15, true, d))
+                    .append(createTableContent('cargo_hbl_id', g_19, true, d))
                     .append(createTableBtns()),
                     0 == cargo_id ? x.append(C) : x.find("tr#" + cargo_id).replaceWith(C), cleanModalFields("Cargo_Details"), $("#Cargo_Details").modal("show"), $("#cargo_container").focus()
 
@@ -474,7 +476,8 @@
                 g16 = t[0].childNodes[15].textContent,
                 g17 = t[0].childNodes[16].textContent,
                 g18 = t[0].childNodes[17].textContent,
-                g19 = t[0].childNodes[18].textContent;
+                g19 = t[0].childNodes[18].textContent,
+                g20 = t[0].childNodes[19].textContent;
 
 
 
@@ -607,6 +610,7 @@
                 $("#cargo_commodity_id").val(g17),
                 $("#cargo_commodity_name").val(g18),
                 $("#cargo_comments").val(g19),
+                $("#cargo_hbl_id").val(g20),
                 $("#Cargo_Details").modal("show"), $("#cargo_container").focus()
     });
 
@@ -1989,7 +1993,7 @@
         for (x=0 ; x < hbl.length; x++){
                 if( hbl[x].childNodes[13].textContent == hbl_select[r]) {
                     //CARGO
-                    var p = $("<tr data-id=" + (d + 1) + ">");
+                    var p = $("<tr id=" + (d + 1) + ">");
                     p.append(createTableContent('cargo_line',(d+1), true, d))
                             .append(createTableContent('cargo_marks', hbl[x].childNodes[3].textContent + " - " + hbl[x].childNodes[6].textContent, false, d))
                             .append(createTableContent('cargo_pieces', hbl[x].childNodes[9].textContent, false, d))
@@ -2009,6 +2013,7 @@
                             .append(createTableContent('cargo_commodity_id', "", true, d))
                             .append(createTableContent('cargo_commodity_name', "", true, d))
                             .append(createTableContent('cargo_comments', "", true, d))
+                            .append(createTableContent('cargo_hbl_id', hbl_select[r], true, d))
                             .append(createTableBtns())
                     t.append(p);
 

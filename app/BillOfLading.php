@@ -26,8 +26,8 @@ class BillOfLading extends Model
         while ($a < count($data['cargo_line'])) {
             $i++;
             if (isset($data['cargo_line'][$i])) {
-                if ($data['cargo_line'][$i] > 0) {
-                    $affectedRows = BillOfLading::where('id', '=', $data['cargo_line'][$i])->update(['bill_of_lading_id' => $id]);
+                if ($data['cargo_hbl_id'][$i] > 0) {
+                    $affectedRows = BillOfLading::where('id', '=', $data['cargo_hbl_id'][$i])->update(['bill_of_lading_id' => $id]);
                     $a++;
                 }
             }

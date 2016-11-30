@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body" >
                 {!! Form::hidden('cargo_line', null, ['id' => 'cargo_line', 'class' => 'form-control input-sm']) !!}
-
+                {!! Form::hidden('cargo_hbl_id', null, ['id' => 'cargo_hbl_id', 'class' => 'form-control input-sm']) !!}
                 <div id="cargo-tabs" class="easyui-tabs">
                     <div title="Mark & Descriptions">
                         @include('export.oceans.bill_of_lading.partials.modal.sections.cargo_details.mark_description')
