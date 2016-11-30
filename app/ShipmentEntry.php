@@ -110,7 +110,7 @@ class ShipmentEntry extends Model
 
     public function container()
     {
-        return $this->hasMany('Sass\EOShipmentEntryContainer', 'shipment_id');
+        return $this->hasMany('Sass\EoShipmentEntryContainer', 'shipment_id');
     }
 
     public function hazardous()

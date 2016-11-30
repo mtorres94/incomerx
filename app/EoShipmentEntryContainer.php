@@ -5,7 +5,7 @@ namespace Sass;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class EOShipmentEntryContainer extends Model
+class EoShipmentEntryContainer extends Model
 {
     protected $table = "exp_oceans_shipment_entries_container";
 
@@ -26,7 +26,7 @@ class EOShipmentEntryContainer extends Model
             while ($a < count($data['container_line'])) {
                 $i++;
                 if (isset($data['container_line'][$i])) {
-                    $obj = new EOShipmentEntryContainer();
+                    $obj = new EoShipmentEntryContainer();
 
                     $obj->shipment_id = $id;
                     $obj->line = $data['container_line'][$i] ;

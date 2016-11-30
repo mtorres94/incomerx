@@ -5,7 +5,7 @@ namespace Sass;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class EOQuotesCharges extends Model
+class EoQuotesCharges extends Model
 {
     protected $table = "exp_oceans_quotes_charges";
 
@@ -41,7 +41,7 @@ class EOQuotesCharges extends Model
             while($a < count($data['charge_id'])){
                 $i++;
                 if(isset($data['charge_id'][$i])){
-                    $obj = new EOQuotesCharges();
+                    $obj = new EoQuotesCharges();
                     $obj->quotes_id = $id;
                     $obj->line =  $data['charge_id'][$i];
                     $obj-> billing_id = $data['billing_billing_id'][$i];

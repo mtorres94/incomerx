@@ -34,6 +34,7 @@ class ReceiptEntryReferenceDetail extends Model
                 $obj->invoice_number   = $data['references_inv_number'][$i];
                 $obj->invoice_amount   = $data['references_invoice_amount'][$i];
                 $obj->notes            = $data['references_note'][$i];
+                $obj->line            = $data['references_line'][$i];
 
                 $obj->save();
             }

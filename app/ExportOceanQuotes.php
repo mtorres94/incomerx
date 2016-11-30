@@ -112,14 +112,14 @@ class ExportOceanQuotes extends Model
 
     public function cargo()
     {
-        return $this->hasMany('Sass\EOQuotesCargo', 'quotes_id');
+        return $this->hasMany('Sass\EoQuotesCargo', 'quotes_id');
     }
     public function container()
     {
-        return $this->hasMany('Sass\EOQuotesContainer', 'quotes_id');
+        return $this->hasMany('Sass\EoQuotesContainer', 'quotes_id');
     }
     public function charge()
     {
-        return $this->hasMany('Sass\EOQuotesCharges', 'quotes_id');
+        return $this->hasMany('Sass\EoQuotesCharges', 'quotes_id');
     }
 }

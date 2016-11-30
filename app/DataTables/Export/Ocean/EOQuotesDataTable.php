@@ -7,7 +7,7 @@ use Sass\ExportOceanQuotes;
 use Sass\User;
 use Yajra\Datatables\Services\DataTable;
 
-class EOQuotesDataTable extends CustomDataTable
+class EoQuotesDataTable extends CustomDataTable
 {
     /**
      * Display ajax response.

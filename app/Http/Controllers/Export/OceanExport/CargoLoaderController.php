@@ -125,6 +125,17 @@ class CargoLoaderController extends Controller
             $cargo_loader['user_update_id'] = Auth::user()->id;
             $sent = CargoLoader::findorfail($id);
             $exp = $sent->update($cargo_loader);
+            $cargo_loader['place_receipt'] = $cargo_loader['place_receipt_name'];
+            $cargo_loader['place_delivery'] = $cargo_loader['place_delivery_name'];
+            $cargo_loader['port_unloading'] = $cargo_loader['foreign_port'];
+            $cargo_loader['foreign_port'] = $cargo_loader['port_unloading_name'];
+            $cargo_loader['port_loading'] = $cargo_loader['port_loading'];
+            ReceiptEntry::saveDetail($id,$cargo_loader);
+            $cargo_loader['bill_of_lading_id']=0;
+            CargoLoaderContainer::saveDetail($id, $cargo_loader);
+            EoCargoLoaderReceiptEntry::saveDetail($id, $cargo_loader);
+            //CargoLoaderHazardous::saveDetail($cl->id, $cargo_loader);
+            BillOfLading::saveDetail($id, $cargo_loader);
 
         } catch (ValidationException $e) {
             DB::rollback();

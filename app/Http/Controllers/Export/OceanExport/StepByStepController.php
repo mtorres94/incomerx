@@ -26,7 +26,7 @@ use Sass\CargoLoaderCargoDetail;
 use Sass\CargoLoaderContainer;
 use Sass\CargoLoaderHazardous;
 use Sass\EoCargoLoaderReceiptEntry;
-use Sass\EOShipmentEntryContainer;
+use Sass\EoShipmentEntryContainer;
 use Sass\EoShipmentEntryHazardous;
 use Sass\Http\Controllers\Controller;
 use Sass\Http\Requests;
@@ -89,7 +89,7 @@ class StepByStepController extends Controller
             $data['code'] = "EOF-".$code;
             $shipment_id= ShipmentEntry::create($data);
             $data['shipment_id']= $shipment_id->id;
-            EOShipmentEntryContainer::saveDetail($shipment_id->id, $data);
+            EoShipmentEntryContainer::saveDetail($shipment_id->id, $data);
             EoShipmentEntryHazardous::saveDetail($shipment_id->id, $data);
 
             //CARGO LOADER

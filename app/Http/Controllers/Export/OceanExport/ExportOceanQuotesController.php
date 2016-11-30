@@ -5,10 +5,10 @@ namespace Sass\Http\Controllers\Export\OceanExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Sass\DataTables\Export\Ocean\EOQuotesDataTable;
-use Sass\EOQuotesCargo;
-use Sass\EOQuotesCharges;
-use Sass\EOQuotesContainer;
+use Sass\DataTables\Export\Ocean\EoQuotesDataTable;
+use Sass\EoQuotesCargo;
+use Sass\EoQuotesCharges;
+use Sass\EoQuotesContainer;
 use Sass\ExportOceanQuotes;
 use Sass\Http\Controllers\Controller;
 use Sass\Http\Requests;
@@ -20,7 +20,7 @@ class ExportOceanQuotesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(EOQuotesDataTable $dataTable)
+    public function index(EoQuotesDataTable $dataTable)
     {
         return $dataTable->render('export.oceans.quotes.index');
     }
@@ -53,9 +53,9 @@ class ExportOceanQuotesController extends Controller
             $quotes['user_update_id'] = Auth::user()->id;
 
             $exp_quotes=ExportOceanQuotes::create($quotes);
-            EOQuotesContainer::saveDetail($exp_quotes->id, $quotes);
-            EOQuotesCharges::saveDetail($exp_quotes->id, $quotes);
-            EOQuotesCargo::saveDetail($exp_quotes->id, $quotes);
+            EoQuotesContainer::saveDetail($exp_quotes->id, $quotes);
+            EoQuotesCharges::saveDetail($exp_quotes->id, $quotes);
+            EoQuotesCargo::saveDetail($exp_quotes->id, $quotes);
 
         } catch (ValidationException $e) {
             DB::rollback();
@@ -103,9 +103,9 @@ class ExportOceanQuotesController extends Controller
             $sent = ExportOceanQuotes::findorfail($id);
             $exp_quotes = $sent->update($quotes);
 
-            EOQuotesContainer::saveDetail($id, $quotes);
-            EOQuotesCharges::saveDetail($id, $quotes);
-            EOQuotesCargo::saveDetail($id, $quotes);
+            EoQuotesContainer::saveDetail($id, $quotes);
+            EoQuotesCharges::saveDetail($id, $quotes);
+            EoQuotesCargo::saveDetail($id, $quotes);
         } catch (ValidationException $e) {
             DB::rollback();
         }

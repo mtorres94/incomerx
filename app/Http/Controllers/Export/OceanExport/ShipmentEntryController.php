@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Sass\BillOfLading;
 use Sass\BillOfLadingCargo;
 use Sass\DataTables\Export\Ocean\ShipmentEntryDataTable;
-use Sass\EOShipmentEntryContainer;
+use Sass\EoShipmentEntryContainer;
 use Sass\EoShipmentEntryHazardous;
 use Sass\Http\Controllers\Controller;
 use Sass\Http\Requests;
@@ -56,7 +56,7 @@ class ShipmentEntryController extends Controller
             $shipment_entry['user_create_id'] = Auth::user()->id;
             $shipment_entry['user_update_id'] = Auth::user()->id;
             $exp=ShipmentEntry::create($shipment_entry);
-            EOShipmentEntryContainer::saveDetail($exp->id, $shipment_entry);
+            EoShipmentEntryContainer::saveDetail($exp->id, $shipment_entry);
 
             /*// ----- BILL OF LADING -----
             $count = BillOfLading::count() + 1;
@@ -106,7 +106,7 @@ class ShipmentEntryController extends Controller
             $shipment_entry = $request->all();
             $sent = ShipmentEntry::findorfail($id);
             $exp = $sent->update($shipment_entry);
-            EOShipmentEntryContainer::saveDetail($id, $shipment_entry);
+            EoShipmentEntryContainer::saveDetail($id, $shipment_entry);
             EoShipmentEntryHazardous::saveDetail($id, $shipment_entry);
             $shipment['user_update_id'] = Auth::user()->id;
         } catch (ValidationException $e) {
@@ -236,7 +236,7 @@ class ShipmentEntryController extends Controller
     public function get(Request $request)
     {
         if ($request->ajax()) {
-            $containers = EOShipmentEntryContainer::select(['exp_oceans_shipment_entries_container.*'])
+            $containers = EoShipmentEntryContainer::select(['exp_oceans_shipment_entries_container.*'])
                 ->where(function ($query) use ($request) {
                     $shipment_id = $request->get('id');
                     $query->orWhere('exp_oceans_shipment_entries_container.shipment_id', '=', $shipment_id );

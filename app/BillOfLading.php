@@ -3,6 +3,7 @@
 namespace Sass;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Sass\Logic\Common\CommonFunctions as Common;
 use Illuminate\Support\Facades\DB;
 
@@ -49,7 +50,7 @@ class BillOfLading extends Model
                         $obj = [
                             'bill_of_lading_id' => $data['bill_of_lading_id'],
                             'cargo_loader_id' => $id,
-                            'user_create_id' => $data['user_create_id'],
+                            'user_create_id' => Auth::user()->id,
                             'user_update_id' => $data['user_update_id'],
                             'shipment_id' => $data['shipment_id'],
                             'code' => $data['code'],

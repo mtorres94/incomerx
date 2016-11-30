@@ -292,6 +292,7 @@ $("#CreateHouse").modal("hide");
         var whr_number = $(this).closest('tr');
         $("#hidden_cargo_details tbody [data-id='"+ whr_number[0].childNodes[1].textContent +"']").remove(),
         $(this).closest("tr").remove(),
+                $("#hidden_warehouse").closest("tr").remove(),
         cubic_weight_loaded();
 
     }), $("#cargo_details").on("click", "a.btn-default", function() {
