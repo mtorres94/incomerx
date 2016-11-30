@@ -1997,7 +1997,7 @@
                     p.append(createTableContent('cargo_line',(d+1), true, d))
                             .append(createTableContent('cargo_marks', hbl[x].childNodes[3].textContent + " - " + hbl[x].childNodes[6].textContent, false, d))
                             .append(createTableContent('cargo_pieces', hbl[x].childNodes[9].textContent, false, d))
-                            .append(createTableContent('cargo_description', "", false, d))
+                            .append(createTableContent('cargo_description', "WR: "+ hbl[x].childNodes[2].textContent , false, d))
                             .append(createTableContent('cargo_weight_unit', 'K', false, d))
                             .append(createTableContent('cargo_weight_k', hbl[x].childNodes[10].textContent, false, d))
                             .append(createTableContent('cargo_cubic_k', hbl[x].childNodes[11].textContent, false, d))
@@ -2018,8 +2018,8 @@
                     t.append(p);
 
                     //CONTAINER DETAILS
-                    p = $("<tr data-id=" + x + ">");
-                    p.append(createTableContent('container_line', f, true, f))
+                    p = $("<tr id=" + (f +1) + ">");
+                    p.append(createTableContent('container_line', (f + 1), true, f))
                             .append(createTableContent('equipment_type_id', hbl[x].childNodes[4].textContent, true, f))
                             .append(createTableContent('equipment_type_code', hbl[x].childNodes[5].textContent, false, f))
                             .append(createTableContent('container_number', hbl[x].childNodes[3].textContent, false, f))
@@ -2086,6 +2086,7 @@
                             .append(createTableContent('container_comments', '', true, f))
                             .append(createTableBtns()),
                             t1.append(p);
+                    d++;
                     r++;
                 }
 

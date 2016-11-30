@@ -3,10 +3,10 @@
         <div title="Cargo Details">
             <div class="form-horizontal">
                 <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
-                    <button type="button" id="btn_cargo_details" class="btn btn-default" data-toggle="modal" data-target="#Cargo_Details" onclick="cleanModalFields('Cargo_Details'),  clearTable('cargo_vehicle_details')">
+                    <button type="button" id="btn_cargo_details" class="btn btn-default" data-toggle="modal" data-target="#Cargo_Details" onclick="cleanModalFields('Cargo_Details'),  clearTable('cargo_vehicle_details'),  clearTable('container_details')">
                         <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-danger"  onclick="clearTable('cargo_details')">
+                    <button type="button" class="btn btn-danger"  onclick="clearTable('cargo_details'), clearTable('container_details')">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -48,6 +48,7 @@
                                 {!! Form::bsRowTd($detail->line, 'cargo_commodity_id', $detail->cargo_commodity_id, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_commodity_name', (($detail->cargo_commodity_id >0) ? $detail->cargo_commodity->code: null), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_comments', $detail->cargo_comments, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_hbl_id', "", true) !!}
                                 {!! Form::bsRowBtns() !!}
                         </tr>
                         @endforeach

@@ -138,8 +138,9 @@ class BillOfLadingController extends Controller
             $bill_of_lading['sum_prepaid']= $sum_prepaid;
             $bill_of_lading['sum_collected']= $sum_collect;
             $bill_of_lading['user_update_id'] = Auth::user()->id;
-            dd($bill_of_lading);
+
             $sent->fill($bill_of_lading);
+            dd($bill_of_lading);
             $whr = $sent->update($bill_of_lading);
 
 
