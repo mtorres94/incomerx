@@ -329,61 +329,62 @@
     $("#billing_quantity").number(true);
     $("#billing_increase").number(true, 3);
     $("#billing_rate").number(true, 3);
-    $("#billing_amount").number(true, 3).attr("disabled", true);
+    $("#billing_amount").number(true, 3).attr("readonly", true);
     $("#billing_exchange_rate").number(true, 3);
 
     $("#cost_quantity").number(true);
     $("#cost_rate").number(true, 3);
-    $("#cost_amount").number(true, 3).attr("disabled", true);
+    $("#cost_amount").number(true, 3).attr("readonly", true);
     $("#cost_exchange_rate").number(true, 3);
 
-    $("#cargo_grossw").number(true, 3).attr("disabled", true);
-    $("#cargo_cubic").number(true, 3).attr("disabled", true);
+    $("#cargo_grossw").number(true, 3).attr("readonly", true);
+    $("#cargo_cubic").number(true, 3).attr("readonly", true);
 
     $("#box_length").number(true, 3);
     $("#box_quantity").number(true);
     $("#box_unit_weight").number(true, 3);
-    $("#box_total_weight").number(true, 3).attr("disabled", true);
+    $("#box_total_weight").number(true, 3).attr("readonly", true);
     $("#box_width").number(true, 3);
     $("#box_height").number(true, 3);
-    $("#box_vol_weight").number(true, 3).attr("disabled", true);
-    $("#box_total_cubic").number(true, 3).attr("disabled", true);
+    $("#box_vol_weight").number(true, 3).attr("readonly", true);
+    $("#box_total_cubic").number(true, 3).attr("readonly", true);
 
     $("#box_flash_point").number(true, 2);
 
     $("#vehicle_length").number(true, 3);
     $("#vehicle_quantity").number(true);
     $("#vehicle_unit_weight").number(true, 3);
-    $("#vehicle_total_weight").number(true, 3).attr("disabled", true);
+    $("#vehicle_total_weight").number(true, 3).attr("readonly", true);
     $("#vehicle_width").number(true, 3);
     $("#vehicle_height").number(true, 3);
-    $("#vehicle_vol_weight").number(true, 3).attr("disabled", true);
-    $("#vehicle_total_cubic").number(true, 3).attr("disabled", true);
+    $("#vehicle_vol_weight").number(true, 3).attr("readonly", true);
+    $("#vehicle_total_cubic").number(true, 3).attr("readonly", true);
 
-    $("#total_quantity").number(true).attr("disabled", true);
-   // $("#booking_code").attr("disabled", true);
-    $("#total_weight_kgs").number(true, 3).attr("disabled", true);
-    $("#total_cubic_cbm").number(true, 3).attr("disabled", true);
-    $("#total_charge_weight_kgs").number(true, 3).attr("disabled", true);
-    $("#total_weight_lbs").number(true, 3).attr("disabled", true);
-    $("#total_cubic_cft").number(true, 3).attr("disabled", true);
-    $("#total_charge_weight_lbs").number(true, 3).attr("disabled", true);
-    $("#billing_customer_name").attr("disabled", true);
-    $("#cargo_weight_k").number(true, 3).attr("disabled", true);
-            $("#cargo_cubic_k").number(true, 3).attr("disabled", true);
-            $("#cargo_charge_weight_k").number(true, 3).attr("disabled", true);
-            $("#cargo_weight_l").number(true, 3).attr("disabled", true);
-            $("#cargo_cubic_l").number(true, 3).attr("disabled", true);
-            $("#cargo_charge_weight_l").number(true, 3).attr("disabled", true);
+    $("#total_quantity").number(true).attr("readonly", true);
+   // $("#booking_code").attr("readonly", true);
+    $("#total_weight_kgs").number(true, 3).attr("readonly", true);
+    $("#total_cubic_cbm").number(true, 3).attr("readonly", true);
+    $("#total_charge_weight_kgs").number(true, 3).attr("readonly", true);
+    $("#total_weight_lbs").number(true, 3).attr("readonly", true);
+    $("#total_cubic_cft").number(true, 3).attr("readonly", true);
+    $("#total_charge_weight_lbs").number(true, 3).attr("readonly", true);
+    $("#billing_customer_name").attr("readonly", true);
+    $("#cargo_weight_k").number(true, 3).attr("readonly", true);
+            $("#cargo_cubic_k").number(true, 3).attr("readonly", true);
+            $("#cargo_charge_weight_k").number(true, 3).attr("readonly", true);
+            $("#cargo_weight_l").number(true, 3).attr("readonly", true);
+            $("#cargo_cubic_l").number(true, 3).attr("readonly", true);
+            $("#cargo_charge_weight_l").number(true, 3).attr("readonly", true);
             $("#cargo_rate").number(true, 3);
-            $("#cargo_amount").number(true, 3).attr("disabled", true);
-    $("#user_id").attr("disabled", true);
+            $("#cargo_amount").number(true, 3).attr("readonly", true);
+    //$("#user_id").attr("readonly", true);
+    $("#user_id").attr("readonly", true);
 
-    $("#charges_bill").number(true, 3).attr("disabled", true);
-    $("#charges_cost").number(true, 3).attr("disabled", true);
-    $("#charges_profit").number(true, 3).attr("disabled", true);
-    $("#charges_profit_p").number(true, 3).attr("disabled", true);
-    $("#transportation_plans_amount").number(true, 3).attr("disabled", true);
+    $("#charges_bill").number(true, 3).attr("readonly", true);
+    $("#charges_cost").number(true, 3).attr("readonly", true);
+    $("#charges_profit").number(true, 3).attr("readonly", true);
+    $("#charges_profit_p").number(true, 3).attr("readonly", true);
+    $("#transportation_plans_amount").number(true, 3).attr("readonly", true);
     $("#transportation_amount").number(true, 3);
 
 

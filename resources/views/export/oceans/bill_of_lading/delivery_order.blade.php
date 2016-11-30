@@ -158,22 +158,22 @@
             <table class="table table-condensed">
 
                 <tbody>
-                @foreach($bill_of_lading->cargo as $detail)
+
                 <tr>
                     <td width="30%"><strong>TOTALS: </strong></td>
-                    <td width="10%">{{ $detail->cargo_pieces }}</td>
+                    <td width="10%">{{ $bill_of_lading->total_pieces }}</td>
                     <td width="30%"></td>
-                    <td width="15%">{{ $detail->cargo_weight_k}} Kgs</td>
-                    <td width="15%">{{ $detail->cargo_cubic_k}} Cbm</td>
+                    <td width="15%">{{ $bill_of_lading->total_weight_kgs}} Kgs</td>
+                    <td width="15%">{{ $bill_of_lading->total_cubic_cbm}} Cbm</td>
                 </tr>
                 <tr>
                     <td width="30%"></td>
                     <td width="10%"></td>
                     <td width="30%"></td>
-                    <td width="15%">{{ $detail->cargo_weight_l}} Lbs</td>
-                    <td width="15%">{{ $detail->cargo_cubic_l}} Cft</td>
+                    <td width="15%">{{ $bill_of_lading->total_weight_lbs}} Lbs</td>
+                    <td width="15%">{{ $bill_of_lading->total_cubic_cft}} Cft</td>
                 </tr>
-                @endforeach
+
                 </tbody>
             </table>
         </div>

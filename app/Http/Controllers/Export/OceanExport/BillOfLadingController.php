@@ -140,7 +140,7 @@ class BillOfLadingController extends Controller
             $bill_of_lading['user_update_id'] = Auth::user()->id;
 
             $sent->fill($bill_of_lading);
-            dd($bill_of_lading);
+
             $whr = $sent->update($bill_of_lading);
 
 

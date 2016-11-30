@@ -291,7 +291,7 @@
 
 <div class="row row-panel">
     <div class="col-md-1">{!! Form::bsText(null,null, 'Pieces', 'total_pieces', null, '0') !!}</div>
-    <div class="col-md-3">{!! Form::bsComplete(null, null,'Commodity', 'total_commodity_id', 'total_commodity_name', Request::get('term'), ((isset($booking_entry) and $booking_entry->total_commodity_id > 0) ? $booking_entry->total_commodity->code : null), 'Commodity') !!}</div>
+    <div class="col-md-3">{!! Form::bsComplete(null, null,'Commodity', 'total_commodity_id', 'total_commodity_name', Request::get('term'), ((isset($bill_of_lading) and $bill_of_lading->total_commodity_id > 0) ? $bill_of_lading->total_commodity->code : null), 'Commodity') !!}</div>
     <div class="col-md-1">{!! Form::bsSelect(null, null, 'Kgs/Lbs.', 'total_weight_unit_measurement',  array('K' => 'KGS','L' => 'LBS' ), null)!!}</div>
     <div class="col-md-1">{!! Form::bsText(null,null, 'Weight (Kgs)', 'total_weight_kgs', null, '0.000') !!}</div>
     <div class="col-md-1">{!! Form::bsText(null,null, 'Cubic (CBM)', 'total_cubic_cbm', null, '0.000') !!}</div>
