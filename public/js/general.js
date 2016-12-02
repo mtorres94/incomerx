@@ -302,6 +302,52 @@ function cleanModalFields(modal) {
     );
 }
 
+function disableFields(form) {
+    var _input  = '#' + form + ' input';
+    var _text   = '#' + form + ' textarea';
+    var _select = '#' + form + ' select';
+    var _button = '#' + form + ' button';
+
+    $(_input).each(
+        function(index){
+            var input = $(this);
+            var _type = input.attr('type');
+            switch (_type) {
+                case 'text':
+                    input.prop('disabled', true);
+                    break;
+                case 'number':
+                    input.prop('disabled', true);
+                    break;
+                case 'hidden':
+                    input.prop('disabled', true);
+                    break;
+                case 'checkbox':
+                    input.prop('disabled', true);
+                    break;
+            }
+        }
+    );
+    $(_text).each(
+        function(index){
+            var input = $(this);
+            input.prop('disabled', true);
+        }
+    );
+    $(_select).each(
+        function(index){
+            var input = $(this);
+            input.prop('disabled', true);
+        }
+    );
+    $(_button).each(
+        function(index){
+            var input = $(this);
+            input.prop('disabled', true);
+        }
+    );
+}Z
+
 function clearTable(table) {
     var _table = '#' + table + ' tbody';
     $(_table).html("");

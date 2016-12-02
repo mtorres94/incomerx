@@ -47,7 +47,8 @@ class ReceiptEntryController extends Controller
     public function create()
     {
         $unique_str = str_random(25);
-        return view('warehouse.receipts.receipts_entries.create', compact('unique_str'));
+        $open_user_id = Auth::user()->id;
+        return view('warehouse.receipts.receipts_entries.create', compact('unique_str', 'open_user_id'));
     }
 
     /**
@@ -107,11 +108,12 @@ class ReceiptEntryController extends Controller
     {
         $receipt_entry = ReceiptEntry::findOrFail($id);
         $unique_str = $receipt_entry->unique_str;
+        $open_user_id =  $receipt_entry->open_user_id;
         
         $receipt_entry = self::updateOpenStatus($receipt_entry);
         $receipt_entry->save();
 
-        return view('warehouse.receipts.receipts_entries.edit', compact('receipt_entry', 'unique_str'));
+        return view('warehouse.receipts.receipts_entries.edit', compact('receipt_entry', 'unique_str', 'open_user_id'));
     }
 
     /**
@@ -160,10 +162,14 @@ class ReceiptEntryController extends Controller
     public function updateClose(Request $request)
     {
         $data = $request->all();
+        $id   = $data['id'];
 
-        $receipt_entry = ReceiptEntry::findOrFail($data['id']);
-        $receipt_entry = self::updateCloseStatus($receipt_entry);
-        $receipt_entry->save();
+        if (Auth::user()->id == $id)
+        {
+            $receipt_entry = ReceiptEntry::findOrFail($id);
+            $receipt_entry = self::updateCloseStatus($receipt_entry);
+            $receipt_entry->save();
+        }
 
         return response()->json(['status' => 'close']);
     }

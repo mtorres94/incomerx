@@ -24,6 +24,7 @@ class ComponentServiceProvider extends ServiceProvider
         Form::component('bsLabel', 'components.form.chk', ['value', 'label']); // Only for PDF generation
         Form::component('bsDate', 'components.form.date', ['lbl', 'col', 'label','name','value','placeholder']);
         Form::component('bsSubmit', 'components.form.submit', []);
+        Form::component('bsSubmit', 'components.form.close', ['id']);
         Form::component('bsIndex', 'components.form.index', ['route','index']);
         Form::component('bsBack', 'components.form.back', ['route']);
         Form::component('bsGroup', 'components.form.btn-group', ['array', 'obj']);

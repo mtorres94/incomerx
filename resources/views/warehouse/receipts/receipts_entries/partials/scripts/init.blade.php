@@ -5,6 +5,10 @@
         renameTab();
         updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('receipts_entries.close') }}')
 
+        if ($("#open_status").val() == "1") {
+            disableFields('data');
+        }
+
         var unique_str = $("#unique_str").val();
         openTab($("#data"));
 

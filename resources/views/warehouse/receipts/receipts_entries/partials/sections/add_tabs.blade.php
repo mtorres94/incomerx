@@ -34,9 +34,6 @@
             <div class="col-md-4">{!! Form::bsCheck('Cargo Screened', 'cargo_screened') !!}</div>
             <div class="col-md-4">{!! Form::bsCheck('IPPC', 'ippc') !!}</div>
             {!! Form::bsText(null, 'col-md-4', null, 'ippc_number', null, 'IPPC Number...') !!}
-            <div class="checkbox">
-                <label><input name="dt" id="dt" type="checkbox" value="0">Option 1</label>
-            </div>
         </div>
     </div>
     <div title="Marks">

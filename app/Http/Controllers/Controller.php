@@ -15,7 +15,10 @@ class Controller extends BaseController
 
     public static function updateOpenStatus ($model)
     {
-        $model->user_open_id = Auth::user()->id;
+        if ($model->user_open_id == 0)
+        {
+            $model->user_open_id = Auth::user()->id;
+        }
         return $model;
     }
 
