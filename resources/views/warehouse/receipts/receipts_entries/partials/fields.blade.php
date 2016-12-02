@@ -1,5 +1,5 @@
 {!! Form::bsFile('Select files', 'file') !!}
-{!! Form::hidden('open_status', ($open_user_id == \Auth::user()->id ? false : true), ['id' => 'open_status', 'class' => 'form-control input-sm']) !!}
+{!! Form::hidden('open_status', ($user_open_id == Auth::user()->id ? "0" : "1"), ['id' => 'open_status', 'class' => 'form-control input-sm']) !!}
 {!! Form::hidden('unique_str', $unique_str, ['id' => 'unique_str', 'class' => 'form-control input-sm']) !!}
 @include('warehouse.receipts.receipts_entries.partials.sections.general_info')
 <div class="row">
