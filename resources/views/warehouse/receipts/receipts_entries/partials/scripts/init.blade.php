@@ -7,6 +7,7 @@
         var unique_str = $("#unique_str").val();
         openTab($("#data"));
 
+
         for (var t = $("#cargo-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style");
@@ -183,10 +184,81 @@
                 }
             });
         });
+        $("#warehouse_id").val("1");
+        $("#warehouse_name").val("VECO MIAMI");
+        $("#warehouse_name option[value="+ 1 +"]").attr("selected",true);
+
     });
 
     initDate($("#date_in"), 0);
     initDate($("#expire_date"), 30);
+
+    $("#warehouse_name").attr("disabled", true);
+
+    $('#commercial_inv').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#extra_length').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#pallets').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#packing_list').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#extra_width').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#improper_document').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#heat_treated').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#extra_height').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#inbond').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#hazardous').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#extra_heavy').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#glass').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#haz_documents').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#driver_licenses').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#pieces_discrepancy').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+
+    $('#hazardous_labels').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+
+    $('#fragile').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+
+    $('#weight_discrepancy').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#cargo_screened').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+
+    $('#ippc').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
 
     $("#shipping_number").attr("disabled", true);
     $("#pd_order").attr("disabled", true);

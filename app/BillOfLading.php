@@ -300,4 +300,9 @@ class BillOfLading extends Model
     {
         return $this->hasMany('Sass\EoHblReceiptEntry', 'bill_of_lading_id');
     }
+
+    public function hbl_node()
+    {
+        return $this->belongsTo('Sass\BillOfLading', 'bill_of_lading_id');
+    }
 }

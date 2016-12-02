@@ -66,7 +66,11 @@ class CargoLoaderController extends Controller
             $cargo_loader['cargo_loader_id']= $cl->id;
             $cargo_loader['shipment_id']= $cl->shipment_id;
             $cargo_loader['bl_date']= $cl->date_today;
-
+            $cargo_loader['place_receipt'] = $cargo_loader['place_receipt_name'];
+            $cargo_loader['place_delivery'] = $cargo_loader['place_delivery_name'];
+            $cargo_loader['port_unloading'] = $cargo_loader['foreign_port'];
+            $cargo_loader['foreign_port'] = $cargo_loader['port_unloading_name'];
+            $cargo_loader['port_loading'] = $cargo_loader['port_loading_name'];
             ReceiptEntry::saveDetail($cl->id,$cargo_loader);
             $cargo_loader['bill_of_lading_id']=0;
             CargoLoaderContainer::saveDetail($cl->id, $cargo_loader);
@@ -129,7 +133,7 @@ class CargoLoaderController extends Controller
             $cargo_loader['place_delivery'] = $cargo_loader['place_delivery_name'];
             $cargo_loader['port_unloading'] = $cargo_loader['foreign_port'];
             $cargo_loader['foreign_port'] = $cargo_loader['port_unloading_name'];
-            $cargo_loader['port_loading'] = $cargo_loader['port_loading'];
+            $cargo_loader['port_loading'] = $cargo_loader['port_loading_name'];
             ReceiptEntry::saveDetail($id,$cargo_loader);
             $cargo_loader['bill_of_lading_id']=0;
             CargoLoaderContainer::saveDetail($id, $cargo_loader);

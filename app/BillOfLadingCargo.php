@@ -100,6 +100,7 @@ class BillOfLadingCargo extends Model
                     $obj->cargo_cubic_l =$cubic_l;
                     $obj->cargo_charge_weight_k = $data['resume_charge_weight'][$i];
                     $obj->cargo_charge_weight_l = $weight_l;
+
                     $obj->save();
                     $a++;
                 }

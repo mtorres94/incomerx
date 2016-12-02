@@ -6,7 +6,7 @@ use Yajra\Datatables\Services\DataTable;
 
 abstract class CustomDataTable extends DataTable
 {
-    public function groupButton ($obj, $route, $prints)
+    public function groupButton ($obj, $route, $prints = null)
     {
         $btn_options =  '<div class="btn-group" role="group">';
         $btn_options .= '<a href="javascript:void(0)" type="button" class="btn btn-default btn-xs" onclick="addSubtab(\''.trans('panel.edit').' '.strtoupper($obj->code).'\', \''.route($route.'.edit', $obj).'\')"><i class="icon-pencil"></i></a>';

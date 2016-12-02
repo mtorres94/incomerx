@@ -118,7 +118,7 @@
 
             pieces = parseInt(tr[a].childNodes[2].textContent) + pieces;
             weight_k = parseFloat(tr[a].childNodes[5].textContent) + weight_k;
-            cubic_k= parseFloat(tr[a].childNodes[6].textContent); + cubic_k
+            cubic_k= parseFloat(tr[a].childNodes[6].textContent) + cubic_k;
             charge_weight_k= parseFloat(tr[a].childNodes[7].textContent) + charge_weight_k;
             weight_l = parseFloat(tr[a].childNodes[8].textContent) + weight_l;
             cubic_l= parseFloat(tr[a].childNodes[9].textContent) + cubic_l;

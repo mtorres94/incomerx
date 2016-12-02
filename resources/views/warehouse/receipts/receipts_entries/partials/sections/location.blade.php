@@ -11,11 +11,10 @@
         </div>
         <div class="row">
             {!! Form::bsComplete('col-md-3', 'col-md-6', 'Warehouse', 'warehouse_id', 'warehouse_name', Request::get('term'),
-((isset($receipt_entry) and $receipt_entry->warehouse_id > 0) ? $receipt_entry->warehouse->name : null), 'Warehouse...') !!}
+'VECO MIAMI', 'Warehouse...') !!}
         </div>
         <div class="row">
-            {!! Form::bsComplete('col-md-3', 'col-md-9', 'Origin', 'location_origin_id', 'location_origin_name', Request::get('term'),
-((isset($receipt_entry) and $receipt_entry->location_origin_id > 0) ? $receipt_entry->origin->name : null), 'Airports...') !!}
+            {!! Form::bsComplete('col-md-3', 'col-md-9', 'Origin', 'location_origin_id', 'location_origin_name', Request::get('term'), ((isset($receipt_entry) and $receipt_entry->location_origin_id > 0) ? $receipt_entry->origin->name : null) , 'Airports...') !!}
         </div>
         <div class="row">
             {!! Form::bsComplete('col-md-3', 'col-md-9', 'Destination', 'location_destination_id', 'location_destination_name', Request::get('term'),
