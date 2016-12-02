@@ -14,8 +14,8 @@
 Route::group(['middleware' => ['web']], function () {
     Route::group(['namespace' => 'Warehouse'], function () {
         Route::group(['namespace' => 'Receipts'], function () {
-            Route::get('receipts_entries/verify_open',  ['as' => 'receipts_entries.open',  'uses' => 'ReceiptEntryController@getOpenStatus']);
-            Route::get('receipts_entries/update_close', ['as' => 'receipts_entries.close', 'uses' => 'ReceiptEntryController@updateClose']);
+            Route::post('receipts_entries/verify_open',  ['as' => 'receipts_entries.open',  'uses' => 'ReceiptEntryController@getOpenStatus']);
+            Route::post('receipts_entries/update_close', ['as' => 'receipts_entries.close', 'uses' => 'ReceiptEntryController@updateClose']);
         });
     });
 });

@@ -48,6 +48,7 @@
                 tr.addClass('shown');
             }
         });
+        preventOpen($('#dataTableBuilder'), '{{ route('receipts_entries.open') }}', '{{ \Auth::user()->id }}');
         ajaxDelete($('#dataTableBuilder'));
     </script>
 @stop

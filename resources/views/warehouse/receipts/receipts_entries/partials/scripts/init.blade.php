@@ -3,6 +3,7 @@
 <script type="text/javascript">
     window.onload = (function () {
         renameTab();
+        updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('receipts_entries.close') }}')
 
         var unique_str = $("#unique_str").val();
         openTab($("#data"));

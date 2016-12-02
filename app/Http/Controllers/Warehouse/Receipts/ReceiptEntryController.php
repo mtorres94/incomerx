@@ -156,18 +156,26 @@ class ReceiptEntryController extends Controller
     {
         //
     }
-    
-   public function getOpenStatus($id)
-   {
-       $receipt_entry = ReceiptEntry::findOrFail($id);
-       return $receipt_entry->user_open_id != 0;
-   }
 
-    public function updateClose($id)
+    public function updateClose(Request $request)
     {
-        $receipt_entry = ReceiptEntry::findOrFail($id);
+        $data = $request->all();
+
+        $receipt_entry = ReceiptEntry::findOrFail($data['id']);
         $receipt_entry = self::updateCloseStatus($receipt_entry);
         $receipt_entry->save();
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $receipt_entry = ReceiptEntry::findOrFail($data['id']);
+        return [
+            'id'   => $receipt_entry->user_open_id,
+            'name' => $receipt_entry->user_open_id > 0 ? $receipt_entry->user_open->name : '',
+        ];
     }
 
     public function get($id)

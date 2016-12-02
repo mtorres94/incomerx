@@ -22,11 +22,34 @@ $('.collapse').collapse();
 // Automatically trigger the loading animation on click
 Ladda.bind('button[type=submit]');
 
+function getSelectedTab() {
+    var gtab = window.parent.$('#tt');
+    var htab = gtab.find('.tabs-header');
+    var wtab = htab.find('.tabs-wrap');
+    var ttab = wtab.find('.tabs');
+    var stab = ttab.find('.tabs-selected');
+
+    var id  = stab[0].textContent.replace(/ /g, "_");
+    var _id = '#st_' + id.toLocaleLowerCase();
+
+    return _id;
+}
+
+function getSelectedTabName(_id) {
+    var gtab = window.parent.$('#tt').find(_id);
+    var htab = gtab.find('.tabs-header');
+    var wtab = htab.find('.tabs-wrap');
+    var ttab = wtab.find('.tabs');
+    var stab = ttab.find('.tabs-selected');
+
+    var id  = stab[0].textContent;
+    return id;
+}
+
+
 
 function closeTab(_main, _tab) {
-    console.log(_main, _tab);
     var stab  = window.parent.$('#tt').find(_main);
-    console.log(stab)
     stab.tabs('close', _tab)
 }
 
@@ -148,37 +171,10 @@ function addSubtab(title, url) {
         stab.tabs('add', {
             title: title,
             content: content,
-            closable: true,
+            closable: false,
         });
     }
 }
-
-$('.deleteData').click(function (e) {
-    e.preventDefault;
-
-    var row = $(this).parents('tr');
-    var id  = row.data('id');
-    var frm = $('#form-delete');
-    var url = frm.attr('action').replace(':_ID', id);
-    var data = frm.serialize();
-
-    swal({
-        title: "Are you sure?",
-        text: "You'll permanently delete this information",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "¡Yes, I want to delete!",
-        cancelButtonText: "No!!!",
-        closeOnConfirm: false
-    }).then(function (isConfirm) {
-        if (isConfirm) {
-            $.post(url, data, function (rtn) {
-                location.reload();
-            });
-        }
-    });
-});
 
 function ajaxDelete(f) {
     f.on('click', '.btn-delete[data-remote]', function (e) {
@@ -208,26 +204,67 @@ function ajaxDelete(f) {
     })
 }
 
-function tableToJson(table) {
-    var _table = table.tableToJSON();
-    console.log(_table);
+function preventOpen(f, _url, actual_user) {
+    f.on('click', '.btn-edit[data-remote]', function (e) {
+        var _id = $(this).data('id');
+        var title = $(this).data('title');
+        var remote = $(this).data('remote');
+        $.ajax({
+            url: _url,
+            type: 'POST',
+            dataType: 'json',
+            data: {_method: 'POST', _token: $('meta[name="csrf-token"]').attr('content'), id: _id },
+            success: function (rtn) {
+                if (rtn.id > 0 && rtn.id != actual_user)
+                {
+                    swal({
+                        title: "Attention",
+                        text: "The user {{" + rtn.name + "}} is using this transaction, so it'll open in read-only mode!. Do you want to proceed?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes",
+                        cancelButtonText: "No",
+                        closeOnConfirm: false
+                    }).then(function (isConfirm) {
+                        if (isConfirm) {
+                            addSubtab(title, remote);
+                        }
+                    });
+                }
+                else
+                {
+                    if (rtn.id == 0 || rtn.id == actual_user)
+                    {
+                        addSubtab(title, remote);
+                    }
+                }
+            }
+        }).always(function (data) {
+            f.DataTable().draw(false);
+        });
+    })
 }
 
-$.fn.serializeObject = function() {
-    var o = {};
-    var a = this.serializeArray();
-    $.each(a, function() {
-        if (o[this.name] !== undefined) {
-            if (!o[this.name].push) {
-                o[this.name] = [o[this.name]];
+function updateAccess(m, f, _url) {
+    f.on('click', '.btn-close[data-size]', function (e) {
+        var _id = $(this).data('id');
+        $.ajax({
+            url: _url,
+            type: 'POST',
+            dataType: 'json',
+            data: {_method: 'POST', _token: $('meta[name="csrf-token"]').attr('content'), id: _id },
+            success: function (rtn) {
+                var main = getSelectedTab();
+                var name = getSelectedTabName(main);
+                console.log(main, name);
+                closeTab(main, name);
             }
-            o[this.name].push(this.value || '');
-        } else {
-            o[this.name] = this.value || '';
-        }
+        }).always(function (data) {
+            m.DataTable().draw(false);
+        });
     });
-    return o;
-};
+}
 
 function cleanModalFields(modal) {
     var _input  = '#' + modal + ' input';
