@@ -59,6 +59,7 @@ class RouteServiceProvider extends ServiceProvider
             require base_path('routes/autocomplete.php');
             require base_path('routes/files.php');
             require base_path('routes/print.php');
+            require base_path('routes/usage.php');
         });
     }
 }

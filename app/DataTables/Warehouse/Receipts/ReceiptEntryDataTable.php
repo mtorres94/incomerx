@@ -40,7 +40,8 @@ class ReceiptEntryDataTable extends CustomDataTable
             ->leftJoin('mst_customers AS c3', 'whr_receipts_entries.third_party_id', '=', 'c3.id')
             ->leftJoin('mst_customers AS c4', 'whr_receipts_entries.agent_id', '=', 'c4.id')
             ->leftJoin('mst_customers AS c5', 'whr_receipts_entries.coloader_id', '=', 'c5.id')
-            ->select(['whr_receipts_entries.id', 'whr_receipts_entries.code', 'whr_receipts_entries.date_in', 'whr_receipts_entries.mode', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS third_party_name', 'c4.name AS agent_name', 'c5.name AS coloader_name']);
+            ->select(['whr_receipts_entries.id', 'whr_receipts_entries.code', 'whr_receipts_entries.date_in', 'whr_receipts_entries.status', 'whr_receipts_entries.mode', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS third_party_name', 'c4.name AS agent_name', 'c5.name AS coloader_name'])
+            ->orderBy('whr_receipts_entries.code', 'desc');
 
         return $this->applyScopes($query);
     }
@@ -55,7 +56,7 @@ class ReceiptEntryDataTable extends CustomDataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->ajax('')
-                    ->addAction(['width' => 'auto']);
+                    ->addAction(['width' => '130px']);
     }
 
     /**
@@ -75,12 +76,13 @@ class ReceiptEntryDataTable extends CustomDataTable
                 "title" => '',
                 "width" => '40px'
             ],
-            ['data' => 'code',   'name' => 'whr_receipts_entries.code', 'title' => 'Code'],
-            ['data' => 'date_in',          'name' => 'whr_receipts_entries.date_in', 'title' => 'Date in'],
-            ['data' => 'mode',             'name' => 'whr_receipts_entries.mode', 'title' => 'Mode'],
-            ['data' => 'division_name',    'name' => 'mst_divisions.name', 'title' => 'Division'],
-            ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
-            ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
+            ['data' => 'status',         'name' => 'whr_receipts_entries.status', 'title' => 'Status'],
+            ['data' => 'code',           'name' => 'whr_receipts_entries.code', 'title' => 'Code'],
+            ['data' => 'date_in',        'name' => 'whr_receipts_entries.date_in', 'title' => 'Date in'],
+            ['data' => 'mode',           'name' => 'whr_receipts_entries.mode', 'title' => 'Mode'],
+            ['data' => 'division_name',  'name' => 'mst_divisions.name', 'title' => 'Division'],
+            ['data' => 'shipper_name',   'name' => 'c1.name', 'title' => 'Shipper'],
+            ['data' => 'consignee_name', 'name' => 'c2.name', 'title' => 'Consignee'],
         ];
     }
 

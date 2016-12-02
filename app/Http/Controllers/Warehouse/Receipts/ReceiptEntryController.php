@@ -107,6 +107,10 @@ class ReceiptEntryController extends Controller
     {
         $receipt_entry = ReceiptEntry::findOrFail($id);
         $unique_str = $receipt_entry->unique_str;
+        
+        $receipt_entry = self::updateOpenStatus($receipt_entry);
+        $receipt_entry->save();
+
         return view('warehouse.receipts.receipts_entries.edit', compact('receipt_entry', 'unique_str'));
     }
 
@@ -151,6 +155,19 @@ class ReceiptEntryController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+   public function getOpenStatus($id)
+   {
+       $receipt_entry = ReceiptEntry::findOrFail($id);
+       return $receipt_entry->user_open_id != 0;
+   }
+
+    public function updateClose($id)
+    {
+        $receipt_entry = ReceiptEntry::findOrFail($id);
+        $receipt_entry = self::updateCloseStatus($receipt_entry);
+        $receipt_entry->save();
     }
 
     public function get($id)
