@@ -272,4 +272,9 @@ class ReceiptEntry extends Model
     {
         return $this->belongsTo('Sass\User', 'user_create_id');
     }
+
+    public function user_open()
+    {
+        return $this->belongsTo('Sass\User', 'user_open_id');
+    }
 }
