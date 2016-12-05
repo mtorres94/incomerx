@@ -8,13 +8,13 @@
             </div>
             <div class="modal-body">
                    <div class="row">
-                       <div class="col-md-3"> {!! Form::bsComplete(null, null, 'Billing Code', 'billing_billing_id', 'billing_billing_code', Request::get('term'), null, '') !!}</div>
-                       <div class="col-md-3">{!! Form::bsText(null, null, 'Description', 'billing_billing_description', null, '') !!}</div>
-                       <div class="col-md-3">{!! Form::bsSelect(null, null, 'Bill type', 'billing_bill_type', array('P' => 'PREPAID','C' => 'COLLECT' ), null) !!}</div>
-                       <div class="col-md-3">{!! Form::bsSelect(null, null, 'Bill party', 'billing_bill_party', array('S' => 'SHIPPER','C' => 'CONSIGNEE', 'T' => 'THIRD PARTY', 'O' => 'OTHER'), null) !!}</div>
+                       <div class="col-md-3">{!! Form::bsComplete(null, null, 'Billing Code', 'tmp_billing_billing_id', 'tmp_billing_billing_code', Request::get('term'), null, '') !!}</div>
+                       <div class="col-md-3">{!! Form::bsText(null, null, 'Description', 'tmp_billing_billing_description', null, '') !!}</div>
+                       <div class="col-md-3">{!! Form::bsSelect(null, null, 'Bill type', 'tmp_billing_bill_type', array('P' => 'PREPAID','C' => 'COLLECT' ), null) !!}</div>
+                       <div class="col-md-3">{!! Form::bsSelect(null, null, 'Bill party', 'tmp_billing_bill_party', array('S' => 'SHIPPER','C' => 'CONSIGNEE', 'T' => 'THIRD PARTY', 'O' => 'OTHER'), null) !!}</div>
                    </div>
                 <div class="row">
-                    <div class="col-md-12">{!! Form::bsMemo(null, null, 'Comments', 'billing_notes', null, 1, '') !!}</div>
+                    <div class="col-md-12">{!! Form::bsMemo(null, null, 'Comments', 'tmp_billing_notes', null, 1, '') !!}</div>
                 </div>
                 <legend>Details</legend>
                 <div id="charges-tabs" class="easyui-tabs">

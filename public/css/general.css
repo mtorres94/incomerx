@@ -113,7 +113,7 @@ form .tabs-panels {
 
 /** Vertical Panel v2.0 */
 div.tab-container {
-    border: 1px solid #ddd;s
+    border: 1px solid #ddd;
     z-index: 10;
     background-color: #ffffff;
     padding: 0 !important;
@@ -472,6 +472,7 @@ tr.shown td.details-control {
     border-radius: 0;
     padding-bottom: 7px !important;
     margin-top: 10px;
+    position: initial;
 }
 .ladda-button[data-color="blue"] {
     background: #235f83;

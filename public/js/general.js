@@ -346,7 +346,7 @@ function disableFields(form) {
             input.prop('disabled', true);
         }
     );
-}Z
+}
 
 function clearTable(table) {
     var _table = '#' + table + ' tbody';

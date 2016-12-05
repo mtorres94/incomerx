@@ -191,7 +191,7 @@
         });
         $("#warehouse_id").val("1");
         $("#warehouse_name").val("VECO MIAMI");
-        $("#warehouse_name option[value="+ 1 +"]").attr("selected",true);
+        $("#warehouse_name option[value="+ 1 +"]").attr("selected", true);
 
     });
 
@@ -265,6 +265,7 @@
         ((this.checked)? $(this).val("1"): $(this).val("0"))
     });
 
+    $("#code").attr("disabled", true);
     $("#shipping_number").attr("disabled", true);
     $("#pd_order").attr("disabled", true);
     $("#po_number").attr("disabled", true);
