@@ -15,8 +15,9 @@ class OrderEntryDockReceiptDetail extends Model
 
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
+        $details= DB::table('whr_orders_entries_dock_receipts_details')->where('order_entry_id', '=', $id)->delete();
         if (isset($data['dr_line'])){
-            $details= DB::table('whr_orders_entries_dock_receipts_details')->where('order_entry_id', '=', $id)->delete();
+
             while( $a < count($data['dr_line'])){
                 $i++;
                 if(isset($data['dr_line'][$i])){

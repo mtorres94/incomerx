@@ -48,8 +48,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if (isset($stop_numbers))
-                @foreach ($stop_numbers as $detail)
+                @if (isset($order_entry))
+                @foreach ($order_entry->stop_numbers as $detail)
                     <tr id="{{ $detail->line }}">
                         {!! Form::bsRowTd($detail->line, 'stop_id', $detail->line, false) !!}
                         {!! Form::bsRowTd($detail->line, 'stop_customer_name', ((isset($detail)and $detail->stop_customer_id >0) ? $detail->stop_customer->name: null), false) !!}
@@ -159,8 +159,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if(isset($pro_numbers))
-                @foreach ($pro_numbers as $detail)
+                @if(isset($order_entry))
+                @foreach ($order_entry->pro_numbers as $detail)
                     <tr id="{{ $detail->line }}">
                         {!! Form::bsRowTd($detail->line, 'PRO_line', $detail->line, true) !!}
                         {!! Form::bsRowTd($detail->line, 'PRO_number', $detail->pro_number, false) !!}
@@ -205,8 +205,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if(isset($uns_numbers))
-                @foreach($uns_numbers as $detail)
+                @if(isset($order_entry))
+                @foreach($order_entry->hazardous as $detail)
                 <tr id="{{ $detail->line }}">
                     {!! Form::bsRowTd($detail->line, 'hazardous_uns_id', $detail->uns_id, false) !!}
                     {!! Form::bsRowTd($detail->line, 'hazardous_uns_line', $detail->line, true) !!}

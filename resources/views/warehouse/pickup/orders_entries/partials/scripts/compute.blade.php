@@ -140,19 +140,25 @@
 
     function values_pick_cargo()
     {
+        var pick_select = new Array();
+        $("input[name='pick_select[]']:checked").each(function() {
+            pick_select.push($(this).val());
+        });
         var tr = $('#pick_cargo_details tbody tr');
         var r = tr.length, qty=0, weight=0, cubic =0, s_qty=0, s_weight=0, s_cubic=0 ;
         for (var a = 0; a < r; a++) {
-            qty = parseFloat(tr[a].childNodes[8].textContent);
-            weight = parseFloat(tr[a].childNodes[11].textContent);
-            cubic = parseFloat(tr[a].childNodes[11].textContent);
+            qty = parseFloat(tr[a].childNodes[6].textContent);
+            weight = parseFloat(tr[a].childNodes[7].textContent);
+            cubic = parseFloat(tr[a].childNodes[8].textContent);
             s_qty= s_qty + qty;
             s_weight= s_weight + weight;
             s_cubic= s_cubic + cubic;
 
         }
 
-        $("#pick_linked").val(tr.length);
+
+        $("#pick_linked").val(pick_select.length);
+        $("#pick_unlinked").val(r - pick_select.length);
         $("#pick_link_qty").val(s_qty);
         $("#pick_weight").val(s_weight);
         $("#pick_cubic").val(s_cubic);

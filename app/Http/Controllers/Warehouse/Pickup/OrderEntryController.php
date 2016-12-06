@@ -20,6 +20,10 @@ use Sass\OrderEntryPRO;
 use Sass\OrderEntrySO;
 use Sass\OrderEntryStop;
 use Sass\OrderEntryTransportationDetail;
+use Sass\ReceiptEntry;
+use Sass\ReceiptEntryCargoDetail;
+use Sass\ReceiptEntryContainerDetail;
+use Sass\ReceiptEntryReferenceDetail;
 
 class OrderEntryController extends Controller
 {
@@ -41,7 +45,8 @@ class OrderEntryController extends Controller
      */
     public function create()
     {
-        return view('warehouse.pickup.orders_entries.create');
+        $user_open_id = Auth::user()->id;
+        return view('warehouse.pickup.orders_entries.create', compact('user_open_id'));
     }
 
     /**
@@ -55,9 +60,9 @@ class OrderEntryController extends Controller
         DB::beginTransaction();
         try {
             $count = OrderEntry::count() + 1;
-            $pd_number = str_pad($count, 10, '0', STR_PAD_LEFT);
+            $pd_number = str_pad($count, 7, '0', STR_PAD_LEFT);
             $order_entry = $request->all();
-            $order_entry['pd_number'] = $pd_number;
+            $order_entry['code'] = "PD-".$pd_number;
             $order_entry['user_create_id'] = Auth::user()->id;
             $order_entry['user_update_id'] = Auth::user()->id;
 
@@ -73,6 +78,26 @@ class OrderEntryController extends Controller
             OrderEntryTransportationDetail::saveDetail($whr->id, $order_entry);
             OrderEntryCargoDetail::saveDetail($whr->id, $order_entry);
             OrderEntryCargoItemDetail::saveDetail($whr->id,  $order_entry);
+
+            if(isset($order_entry['create_warehouse_receipt']) and ($order_entry['create_warehouse_receipt'] == 1)){
+                $count = ReceiptEntry::count() + 1;
+                $wh_number = str_pad($count, 7, '0', STR_PAD_LEFT);
+                $order_entry = $request->all();
+                $order_entry['code'] = "WH-".$wh_number;
+                $order_entry['sum_pieces'] = $order_entry['dr_total_pieces'];
+                $order_entry['date_in'] = $order_entry['date_order'];
+                $order_entry['sum_weight'] = $order_entry['dr_act_weight'];
+                $order_entry['sum_cubic'] = $order_entry['dr_cubic_weight'];
+                $order_entry['sum_volume_weight'] = $order_entry['dr_volume_weight'];
+                $order_entry['marks'] = "CREATED FROM PD ORDER # ". $whr->code;
+                $order_entry['location_origin_id']= $order_entry['location_world_location_id'];
+                $order_entry['location_destination_id']= $order_entry['destination_world_location_id'];
+                $whr= ReceiptEntry::create($order_entry);
+                ReceiptEntryCargoDetail::createDetail($whr->id, $order_entry);
+                ReceiptEntryReferenceDetail::createDetail($whr->id, $order_entry);
+                ReceiptEntryContainerDetail::createDetail($whr->id, $order_entry);
+
+            }
 
         } catch (ValidationException $e) {
             DB::rollback();
@@ -115,7 +140,11 @@ class OrderEntryController extends Controller
      */
     public function edit($id)
     {
+
         $order_entry = OrderEntry::findOrFail($id);
+        $user_open_id =  $order_entry->user_open_id;
+        $order_entry = self::updateOpenStatus($order_entry);
+        $order_entry->save();
         $po_numbers = OrderEntryPO::Search($id);
         $so_numbers = OrderEntrySO::Search($id);
         $pro_numbers = OrderEntryPRO::Search($id);
@@ -127,17 +156,21 @@ class OrderEntryController extends Controller
         $trans_details = OrderEntryTransportationDetail::Search($id);
         $cargo_details = OrderEntryCargoDetail::Search($id);
         $cargo_items_details = OrderEntryCargoItemDetail::Search($id);
-        return view('warehouse.pickup.orders_entries.edit', compact('order_entry', 'po_numbers', 'so_numbers', 'pro_numbers', 'stop_numbers', 'uns_numbers', 'container_details', 'dr_details','charge_details', 'trans_details', 'cargo_details', 'cargo_items_details'));
+        return view('warehouse.pickup.orders_entries.edit', compact('order_entry', 'po_numbers', 'so_numbers', 'pro_numbers', 'stop_numbers', 'uns_numbers', 'container_details', 'dr_details','charge_details', 'trans_details', 'cargo_details', 'cargo_items_details', 'user_open_id'));
     }
 
     public function update(Request $request, $id)
     {
         DB::beginTransaction();
         try {
+
             $order_entry = $request->all();
+
+
             $sent = OrderEntry::findorfail($id);
             $whr = $sent->update($order_entry);
             $order_entry['user_update_id'] = Auth::user()->id;
+
             OrderEntryPO::saveDetail($id, $order_entry);
             OrderEntrySO::saveDetail($id, $order_entry);
             OrderEntryPRO::saveDetail($id, $order_entry);
@@ -173,4 +206,29 @@ class OrderEntryController extends Controller
         $order_entry_dr= DB::table('whr_orders_entries_dock_receipts_details')->where('order_entry_id', '=', $id)->delete();
 
     }
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+
+        if (Auth::user()->id == $id)
+        {
+            $order_entry = OrderEntry::findOrFail($id);
+            $order_entry = self::updateCloseStatus($order_entry);
+            $order_entry->save();
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $order_entry = OrderEntry::findOrFail($data['id']);
+        return [
+            'id'   => $order_entry->user_open_id,
+            'name' => $order_entry->user_open_id > 0 ? $order_entry->user_open->name : '',
+        ];
+    }
+
 }

@@ -4,5 +4,6 @@
     {!! Form::model($order_entry, ['id' => 'data', 'route' => ['warehouse.pickup.orders_entries.update', $order_entry], 'method' => 'PUT']) !!}
     @include('warehouse.pickup.orders_entries.partials.fields')
     {!! Form::bsSubmit() !!}
+    {!! Form::bsClose(isset($order_entry) ? $order_entry->id : 0) !!}
     {!! Form::close() !!}
 @endsection

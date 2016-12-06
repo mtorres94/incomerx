@@ -45,6 +45,7 @@
     });
 
     $("#btn-pick-cargo").click(function() {
+        $("#load_cargo").val("1").change();
         for (var t = $("#pick-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -120,10 +121,10 @@
                     n = $("#PO_details"),
                     t = n.find("tbody"),
                     p = $("<tr id=" + (0 == l ? _ : l) + ">");
-                    p.append(createTableContent('PO_line', (0 == l ? _ : l) , true, c))
-                    .append(createTableContent('PO_number', a, false, c))
-                    .append(createTableContent('PO_project_reference', d, false, c))
-                    .append(createTableContent('PO_remarks', s, true, c))
+                    p.append(createTableContent('references_line', (0 == l ? _ : l) , true, c))
+                    .append(createTableContent('references_po_number', a, false, c))
+                    .append(createTableContent('references_ref_number', d, false, c))
+                    .append(createTableContent('references_note', s, true, c))
                     .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l  ).replaceWith(p), cleanModalFields('PO-Numbers'), $("#PO_number").focus();
 console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
 
@@ -403,9 +404,9 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                     p.append(createTableContent('container_line', (0==l? _: l) , true, c))
                             .append(createTableContent('container_equipment_type_code', a, false, c))
                             .append(createTableContent('container_equipment_type_id', b, true, c))
-                            .append(createTableContent('container_container', d, false, c))
+                            .append(createTableContent('container_number', d, false, c))
                             .append(createTableContent('container_seal_number', s, false, c))
-                            .append(createTableContent('container_comments', f, false, c))
+                            .append(createTableContent('container_remarks', f, false, c))
                             .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),
                             cleanModalFields('Container_Details'),$("#container_equipment_type").focus()
                 }
@@ -622,10 +623,10 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                     .append(createTableContent('billing_quantity', g_7, false, d))
                     .append(createTableContent('billing_rate', g_11, false, d))
                     .append(createTableContent('billing_amount', g_12, false, d))
-                    .append(createTableContent('billing_currency_type', g_13, false, d))
+                    .append(createTableContent('billing_currency_type', g_13, true, d))
                     .append(createTableContent('billing_customer_name', g_16, false, d))
                     .append(createTableContent('cost_amount', g_21, false, d))
-                    .append(createTableContent('cost_currency_type', g_22, false, d))
+                    .append(createTableContent('cost_currency_type', g_22, true, d))
                     .append(createTableContent('cost_invoice', g_27, false, d))
                     .append(createTableContent('cost_reference', g_29, false, d))
 
@@ -955,7 +956,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                         l = $("#cargo_id").val(),
                         c = (0==l? _ : l)-1,
                         g1 = $("#cargo_quantity").val().toUpperCase(),
-                        g2 = $("#cargo_cargo_type_id").val().toUpperCase(),
+                        g2 = $("#cargo_cargo_type_id").val(),
                         g3 = $("#cargo_cargo_type_code").val(),
                         g4 = $("#cargo_length").val(),
                         g5 = $("#cargo_width").val(),
@@ -1051,11 +1052,11 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                         p = $("<tr id=" + (0==l? _ : l) + ">");
                 /* Items details*/
 
-                p.append(createTableContent('cargo_id', (0==l? _ : l) , true, c))
+                p.append(createTableContent('cargo_line', (0==l? _ : l) , true, c))
                         .append($("<td><i class='fa fa-cube' aria-hidden='true'></td>"))
                         .append(createTableContent('cargo_quantity', g1, false, c))
-                        .append(createTableContent('cargo_cargo_type_id', g2, true, c))
-                        .append(createTableContent('cargo_cargo_type_code', g3, false, c))
+                        .append(createTableContent('cargo_type_id', g2, true, c))
+                        .append(createTableContent('cargo_type_code', g3, false, c))
                         .append(createTableContent('cargo_length', g4, false, c))
                         .append(createTableContent('cargo_width', g5, false, c))
                         .append(createTableContent('cargo_height', g6, false, c))
@@ -1068,7 +1069,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                         .append(createTableContent('part_info_po_number', g11, false, c))
                         .append(createTableContent('cargo_volume_weight', g12, true, c))
                         .append(createTableContent('cargo_metric_unit_measurement_id', g13, true, c))
-                        .append(createTableContent('cargo_material', g14, true, c))
+                        .append(createTableContent('cargo_material_description', g14, true, c))
                         .append(createTableContent('cargo_pieces', g15, true, c))
                         .append(createTableContent('cargo_unit_weight', g16, true, c))
                         .append(createTableContent('cargo_dim_fact', g17, true, c))
@@ -1438,8 +1439,8 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                         $("#other_concession").val(oth6),
                         $("#other_ultimate_consignee_id").val(oth7),
                         $("#other_ultimate_consignee_name").val(oth8),
-                        $("#comments_comment").val(comm)
-                        calculate_cargo(),
+                        $("#comments_comment").val(comm),
+
                         (type== '0' ? $("#cargo-warehouse").modal("show") : $("#vehicle-warehouse").modal("show")),
                         $("#cargo_quantity").focus()
             }),
@@ -1522,11 +1523,11 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                            n = $("#warehouse_details"),
                            t = n.find("tbody"),
                            p = $("<tr id=" + (0==l? _ : l) + ">");
-                   p.append(createTableContent('cargo_id', (0==l? _ : l), true, c))
+                   p.append(createTableContent('cargo_line', (0==l? _ : l), true, c))
                            .append($("<td><i class='fa fa-car' aria-hidden='true'></td>"))
                            .append(createTableContent('cargo_quantity', g1, false, c))
-                           .append(createTableContent('cargo_cargo_type_id', g2, true, c))
-                           .append(createTableContent('cargo_cargo_type_code', g3, false, c))
+                           .append(createTableContent('cargo_type_id', g2, true, c))
+                           .append(createTableContent('cargo_type_code', g3, false, c))
                            .append(createTableContent('cargo_length', g4, false, c))
                            .append(createTableContent('cargo_width', g5, false, c))
                            .append(createTableContent('cargo_height', g6, false, c))
@@ -1538,7 +1539,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                            /*GENERAL */
                            .append(createTableContent('cargo_volume_weight', g11, true, c))
                            .append(createTableContent('cargo_metric_unit_measurement_id', g12, true, c))
-                           .append(createTableContent('cargo_material', g13, true, c))
+                           .append(createTableContent('cargo_material_description', g13, true, c))
                            .append(createTableContent('cargo_pieces', g14, true, c))
                            .append(createTableContent('cargo_unit_weight', g15, true, c))
                            .append(createTableContent('cargo_dim_fact', g16, true, c))
@@ -1799,7 +1800,6 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                         (type== '0' ? $("#cargo-warehouse").modal("show") : $("#vehicle-warehouse").modal("show"))
                         , $("#vehicle_quantity").focus()
             });
-
 
 
 

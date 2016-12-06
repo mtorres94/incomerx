@@ -193,12 +193,22 @@
         $("#warehouse_name").val("VECO MIAMI");
         $("#warehouse_name option[value="+ 1 +"]").attr("selected",true);
 
+        if($("#status").val() == ''){
+            $("#status").val("O").change();
+        }
+
+        if($("#currency_id").val() == ''){
+            $("#currency_id").val("1").change();
+        }
     });
+
+
+
 
     initDate($("#date_in"), 0);
     initDate($("#expire_date"), 30);
 
-    $("#warehouse_name").attr("disabled", true);
+    $("#warehouse_name").attr("readonly", true);
 
     $('#commercial_inv').change(function() {
         ((this.checked)? $(this).val("1"): $(this).val("0"))
@@ -265,12 +275,12 @@
         ((this.checked)? $(this).val("1"): $(this).val("0"))
     });
 
-    $("#shipping_number").attr("disabled", true);
-    $("#pd_order").attr("disabled", true);
-    $("#po_number").attr("disabled", true);
-    $("#user_id").attr("disabled", true);
-    $("#tmp_cargo_total_weight").attr("disabled", true);
-    $("#multiline_cargo_total_weight").attr("disabled", true);
+    $("#shipping_number").attr("readonly", true);
+    $("#pd_order").attr("readonly", true);
+    $("#po_number").attr("readonly", true);
+    $("#user_id").attr("readonly", true);
+    $("#tmp_cargo_total_weight").attr("readonly", true);
+    $("#multiline_cargo_total_weight").attr("readonly", true);
 
     $("#references_invoice_amount").number(true, 2);
 
@@ -287,8 +297,8 @@
     $("#cargo_net_weight").number(true, 3);
     $("#cargo_sq_foot").number(true, 3);
     
-    $("#ippc_number").attr("disabled", !0), $("#ippc").change(function() {
-        $("#ippc_number").attr("disabled", !this.checked), $("#ippc_number").val("")
+    $("#ippc_number").attr("readonly", !0), $("#ippc").change(function() {
+        $("#ippc_number").attr("readonly", !this.checked), $("#ippc_number").val("")
     });
 
     removeEmptyNodes('receiving-details');

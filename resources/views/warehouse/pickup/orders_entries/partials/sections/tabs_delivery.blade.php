@@ -7,25 +7,25 @@
                 {!! Form::bsComplete('col-md-3', 'col-md-9', 'Consignee', 'consignee_id', 'consignee_name', Request::get('term'), ((isset($order_entry) and $order_entry->consignee_id > 0) ? $order_entry->consignee->name : null), 'Customers...') !!}
             </div>
             <div class="row">
-                {!! Form::bsMemo('col-md-3', 'col-md-9', 'Address', 'to_address', null, 1, '') !!}
+                {!! Form::bsMemo('col-md-3', 'col-md-9', 'Address', 'consignee_address', null, 1, '') !!}
             </div>
             <div class="row">
-                {!! Form::bsText('col-md-3', 'col-md-9', 'City', 'to_city', null, '') !!}
+                {!! Form::bsText('col-md-3', 'col-md-9', 'City', 'consignee_city', null, '') !!}
             </div>
             <div class="row">
-                {!! Form::bsComplete('col-md-3', 'col-md-9', 'State', 'to_state_id', 'to_state_name', Request::get('term'), ((isset($order_entry) and $order_entry->to_state_id > 0) ? $order_entry->to_state->name : null), 'States...') !!}
+                {!! Form::bsComplete('col-md-3', 'col-md-9', 'State', 'consignee_state_id', 'consignee_state_name', Request::get('term'), ((isset($order_entry) and $order_entry->consignee_state_id > 0) ? $order_entry->consignee_state->name : null), 'States...') !!}
             </div>
             <div class="row">
-                {!! Form::bsComplete('col-md-3', 'col-md-9', 'Postal Code', 'to_zip_code_id', 'to_zip_code_code', Request::get('term'), ((isset($order_entry) and $order_entry->to_zip_code_id > 0) ? $order_entry->to_zip_code->code : null), 'Zip Code...') !!}
+                {!! Form::bsComplete('col-md-3', 'col-md-9', 'Postal Code', 'consignee_zip_code_id', 'consignee_zip_code_code', Request::get('term'), ((isset($order_entry) and $order_entry->consignee_zip_code_id > 0) ? $order_entry->consignee_zip_code->code : null), 'Zip Code...') !!}
             </div>
             <div class="row">
-                {!! Form::bsText('col-md-3', 'col-md-4', 'Phone', 'to_phone', null, '') !!}
+                {!! Form::bsText('col-md-3', 'col-md-4', 'Phone', 'consignee_phone', null, '') !!}
             </div>
             <div class="row">
-                {!! Form::bsText('col-md-3', 'col-md-4', 'Fax', 'to_fax', null, '') !!}
+                {!! Form::bsText('col-md-3', 'col-md-4', 'Fax', 'consignee_fax', null, '') !!}
             </div>
             <div class="row">
-                {!! Form::bsText('col-md-3', 'col-md-4', 'Ref', 'to_reference', null, '') !!}
+                {!! Form::bsText('col-md-3', 'col-md-4', 'Ref', 'consignee_reference', null, '') !!}
             </div>
         </div>
     </div>

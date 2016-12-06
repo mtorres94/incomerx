@@ -15,7 +15,7 @@
                 <div class="row">
                     {!! Form::hidden('pick_cargo_id', null, ['id' => 'pick_cargo_id', 'class' => 'form-control input-sm']) !!}
 
-                    <div class="col-md-4">{!! Form::bsSelect(null, null, 'Search by', 'pick_search_type', array(
+                    <div class="col-md-3">{!! Form::bsSelect(null, null, 'Search by', 'pick_search_type', array(
                         '1' => 'Warehouse #',
                         '2' => 'Division',
                         '3' => 'Shipper',
@@ -24,7 +24,12 @@
                         '6' => 'Third Party',
                         '7' => 'Date in'
                     ), 'Search by') !!}</div>
-                    <div class="col-md-6">{!! Form::bsComplete(null, null, 'For: ', 'pick_search_for_id', 'pick_search_for_name', Request::get('term'), null,  ' ') !!}</div>
+                    <div class="col-md-5">{!! Form::bsComplete(null, null, 'For: ', 'pick_search_for_id', 'pick_search_for_name', Request::get('term'), null,  ' ') !!}</div>
+                    <div class="col-md-4">{!! Form::bsSelect(null, null, 'Load cargo as: ', 'load_cargo', array(
+                        '1' => 'Summary',
+                        '2' => 'One by one',
+                    ), "") !!}</div>
+
 
                 </div>
                 <div id="pick-tabs" class="easyui-tabs">
@@ -38,11 +43,9 @@
                                 <th width="15%" data-override="pick_date_in">Date in</th>
                                 <th width="15%" data-override="pick_shipper_name" >Shipper</th>
                                 <th width="15%" data-override="pick_consignee_name">Consignee</th>
-                                <th width="15%" data-override="pick_destination_name">Destination</th>
                                 <th width="10%" data-override="pick_qty">Qty.</th>
                                 <th width="10%" data-override="pick_weight">Weight</th>
                                 <th width="10%" data-override="pick_cubic">Cubic</th>
-                                <th width="5%" data-override="pick_unit">Unit</th>
                                 <th width="15%" data-override="pick_service">Service</th>
                                 <th width="15%"></th>
 

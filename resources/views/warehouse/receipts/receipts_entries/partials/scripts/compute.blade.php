@@ -58,4 +58,6 @@
         $("#sum_volume_weight").val(total_volume_weight);
         $("#sum_cubic").val(total_cubic);
     }
+
+
 </script>

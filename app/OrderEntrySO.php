@@ -15,8 +15,9 @@ class OrderEntrySO extends Model
 
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
+        $details= DB::table('whr_orders_entries_SOs')->where('order_entry_id', '=', $id)->delete();
         if (isset($data['SO_line'])){
-            $details= DB::table('whr_orders_entries_SOs')->where('order_entry_id', '=', $id)->delete();
+
 
             while($a < count($data['SO_line'])){
                 $i++;

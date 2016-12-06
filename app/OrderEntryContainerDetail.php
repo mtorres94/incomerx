@@ -16,8 +16,9 @@ class OrderEntryContainerDetail extends Model
     public static function saveDetail($id, $data)
     {
         $i=-1; $a=0;
+        $details= DB::table('whr_orders_entries_container_details')->where('order_entry_id', '=', $id)->delete();
         if (isset($data['container_line'])) {
-            $details= DB::table('whr_orders_entries_container_details')->where('order_entry_id', '=', $id)->delete();
+
 
             while($a < count($data['container_line'])){
                 $i++;
@@ -27,9 +28,9 @@ class OrderEntryContainerDetail extends Model
                     $obj->order_entry_id = $id;
                     $obj->line = $a + 1;
                     $obj->container_equipment_type_id = $data['container_equipment_type_id'][$i];
-                    $obj->container_container = $data['container_container'][$i];
+                    $obj->container_container = $data['container_number'][$i];
                     $obj->container_seal_number = $data['container_seal_number'][$i];
-                    $obj->container_comments = $data['container_comments'][$i];
+                    $obj->container_comments = $data['container_remarks'][$i];
                     $obj->save();
                     $a++;
                 }

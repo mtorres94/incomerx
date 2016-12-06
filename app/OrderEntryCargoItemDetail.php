@@ -15,8 +15,9 @@ class OrderEntryCargoItemDetail extends Model
 
     public static function saveDetail($id,  $data) {
         $i=-1; $a=0;
+        $details= DB::table('whr_orders_entries_cargo_items_details')->where('order_entry_id', '=', $id)->delete();
         if (isset($data['cargo_whr_id'])){
-            $details= DB::table('whr_orders_entries_cargo_items_details')->where('order_entry_id', '=', $id)->delete();
+
             while($a < count($data['cargo_whr_id'])){
                 $i++;
                 if (isset($data['item_whr_line'][$i])){

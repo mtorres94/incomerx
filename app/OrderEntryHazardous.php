@@ -15,8 +15,9 @@ class OrderEntryHazardous extends Model
 
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
+        $details= DB::table('whr_orders_entries_hazardous')->where('order_entry_id', '=', $id)->delete();
        if (isset($data['hazardous_uns_line'])){
-           $details= DB::table('whr_orders_entries_hazardous')->where('order_entry_id', '=', $id)->delete();
+
            while($a < count($data['hazardous_uns_line'])){
                $i++;
                if(isset( $data['hazardous_uns_line'][$i])){

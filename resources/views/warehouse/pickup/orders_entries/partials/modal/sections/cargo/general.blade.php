@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-6">
         {!! Form::hidden('cargo_id', null, ['id' => 'cargo_id', 'class' => 'form-control input-sm']) !!}
-        {!! Form::hidden('cargo_cargo_type_code', null, ['id' => 'tmp_cargo_type_code', 'class' => 'form-control input-sm']) !!}
+        {!! Form::hidden('cargo_cargo_type_code', null, ['id' => 'cargo_cargo_type_code', 'class' => 'form-control input-sm']) !!}
 
         <div class="col-md-3">{!! Form::bsText(null, null, 'Qty.', 'cargo_quantity', null, '0') !!}</div>
         <div class="col-md-5">{!! Form::bsSelect(null, null, 'Cargo Type', 'cargo_cargo_type_id',Sass\CargoType::all()->lists('code', 'id'), 'Cargo types', true) !!}</div>

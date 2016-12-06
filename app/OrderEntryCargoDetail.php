@@ -23,16 +23,17 @@ class OrderEntryCargoDetail extends Model
 
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
-        if (isset($data['cargo_id'])){
-            $details= DB::table('whr_orders_entries_cargo_details')->where('order_entry_id', '=', $id)->delete();
-            while($a < count($data['cargo_id'])){
+        $details= DB::table('whr_orders_entries_cargo_details')->where('order_entry_id', '=', $id)->delete();
+        if (isset($data['cargo_line'])){
+
+            while($a < count($data['cargo_line'])){
                 $i++;
-                if(isset($data['cargo_id'][$i])){
+                if(isset($data['cargo_line'][$i])){
                     $obj = new OrderEntryCargoDetail();
                     $obj->order_entry_id = $id;
                     $obj->line =  $a + 1;
                     $obj-> cargo_quantity = $data['cargo_quantity'][$i];
-                    $obj-> cargo_type_id = $data['cargo_cargo_type_id'][$i];
+                    $obj-> cargo_type_id = $data['cargo_type_id'][$i];
                     $obj->cargo_length = $data['cargo_length'][$i];
                     $obj->cargo_width = $data['cargo_width'][$i];
                     $obj->cargo_height = $data['cargo_height'][$i];
@@ -43,7 +44,7 @@ class OrderEntryCargoDetail extends Model
                     $obj->part_info_po_number = $data['part_info_po_number'][$i];
                     $obj->cargo_volume_weight = $data['cargo_volume_weight'][$i];
                     $obj->cargo_metric_unit_measurement_id = $data['cargo_metric_unit_measurement_id'][$i];
-                    $obj-> cargo_material = $data['cargo_material'][$i];
+                    $obj-> cargo_material = $data['cargo_material_description'][$i];
                     $obj->cargo_pieces = $data['cargo_pieces'][$i];
                     $obj->cargo_unit_weight = $data['cargo_unit_weight'][$i];
                     $obj->cargo_dim_fact = $data['cargo_dim_fact'][$i];

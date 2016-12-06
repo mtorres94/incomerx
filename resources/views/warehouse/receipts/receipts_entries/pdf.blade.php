@@ -248,6 +248,26 @@
                 <p><strong>COMMENTS:</strong> {{ $receipt_entry->comments }}</p>
             </div>
         </div>
+        <div class="row row-padding">
+            <div class="col-xs-12 ">
+              <table width="100%">
+                  <tr class="footer-sign">
+                      <td align="center" valign="center"><p>{{ strtoupper($receipt_entry->receiving_receiving_by )}}</p></td>
+                      <td></td>
+                      <td align="center" valign="center"><p>{{ strtoupper($receipt_entry->receiving_checked_by) }}</p></td>
+                      <td></td>
+                      <td align="center" valign="center"><p>{{ $receipt_entry->date_in  }}</p></td>
+                  </tr>
+                  <tr >
+                      <td width="30%" align="center" class="footer-sign-td"><p><strong>RECEIVED BY</strong></p></td>
+                      <td width="5%" ></td>
+                      <td width="30%" align="center"  class="footer-sign-td"><p><strong>CHECKED BY</strong></p></td>
+                      <td width="5%"  ></td>
+                      <td width="30%" align="center" class="footer-sign-td"><p><strong>DATE</strong></p></td>
+                  </tr>
+              </table>
+            </div>
+        </div>
     </div>
 </body>
 
