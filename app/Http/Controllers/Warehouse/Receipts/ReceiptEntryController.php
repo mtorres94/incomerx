@@ -21,6 +21,7 @@ use Sass\Logic\File\FileRepository;
 use Sass\ReceiptEntry;
 use Sass\ReceiptEntryAttachment;
 use Sass\ReceiptEntryCargoDetail;
+use Sass\ReceiptEntryChargeDetail;
 use Sass\ReceiptEntryHazardousDetail;
 use Sass\ReceiptEntryReceivingDetail;
 use Sass\ReceiptEntryReferenceDetail;
@@ -75,6 +76,7 @@ class ReceiptEntryController extends Controller
             ReceiptEntryReferenceDetail::createDetail($whr->id, $receipt_entry);
             ReceiptEntryHazardousDetail::createDetail($whr->id, $receipt_entry);
             ReceiptEntryCargoDetail::createDetail($whr->id, $receipt_entry);
+            ReceiptEntryChargeDetail::createDetail($whr->id, $receipt_entry);
 
         } catch (ValidationException $e) {
             DB::rollback();
@@ -138,6 +140,7 @@ class ReceiptEntryController extends Controller
             ReceiptEntryReferenceDetail::createDetail($id, $details);
             ReceiptEntryHazardousDetail::createDetail($id, $details);
             ReceiptEntryCargoDetail::createDetail($id, $details);
+            ReceiptEntryChargeDetail::createDetail($id, $details);
 
         } catch (ValidationException $e) {
             DB::rollback();

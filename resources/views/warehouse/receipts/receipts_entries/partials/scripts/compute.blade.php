@@ -58,4 +58,41 @@
         $("#sum_volume_weight").val(total_volume_weight);
         $("#sum_cubic").val(total_cubic);
     }
+
+    function calculate_individual_charges() {
+        var rb = $("#tmp_billing_rate").val(),
+            qb = $("#tmp_billing_quantity").val(),
+            rc = $("#tmp_cost_rate").val(),
+            qc = $("#tmp_cost_quantity").val();
+
+        var ab = rb * qb,
+            ac = rc * qc;
+
+        $("#tmp_billing_amount").val(ab), $("#tmp_cost_amount").val(ac);
+    }
+
+    function calculate_charges() {
+        var tr = $('#charge-details tbody tr'),
+                total_bill = 0,
+                total_cost = 0,
+                total_profit = 0,
+                total_profit_percent = 0;
+
+        for (var a=0; a < tr.length; a++) {
+            var bill = parseFloat(tr[a].childNodes[12].textContent),
+                cost = parseFloat(tr[a].childNodes[21].textContent),
+                profit = bill - cost,
+                profit_percent = parseFloat((profit/cost)*100).toFixed(3);
+
+            total_bill = total_bill + bill;
+            total_cost = total_cost + cost;
+            total_profit = total_profit + profit;
+            total_profit_percent = total_profit_percent + profit_percent;
+        }
+
+        $("#charges_bill").val(total_bill);
+        $("#charges_cost").val(total_cost);
+        $("#charges_profit").val(total_profit);
+        $("#charges_profit_percent").val(total_profit_percent);
+    }
 </script>

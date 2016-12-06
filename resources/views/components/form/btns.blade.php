@@ -1,1 +1,1 @@
-<td><div class='btn-group btn-group-sm pull-right' role='group'><button class='btn btn-default'><span class='icon ion-edit' aria-hidden='true'></span></button><button class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></button></div>
+<td><div class='btn-group btn-group-sm pull-right' role='group'><a class='btn btn-default'><span class='icon ion-edit' aria-hidden='true'></span></a><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></div>

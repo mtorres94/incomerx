@@ -112,8 +112,9 @@ class VendorController extends Controller
             $results = [];
             foreach ($vendors as $vendor) {
                 $results[] = [
-                    'id'=> $vendor->code,
-                    'name' => strtoupper($vendor->name),
+                    'id'    => $vendor->id,
+                    'code'  => strtoupper($vendor->code),
+                    'name'  => strtoupper($vendor->name),
                     'phone' => $vendor->phone,
                 ];
             }

@@ -43,7 +43,7 @@ class OrderEntryChargeDetail extends Model
                    $obj->cost_rate = $data['cost_rate'][$i];
 
                    $obj->cost_amount=  $data['cost_amount'][$i];
-                   $obj-> cost_currency_type = $data['cost_currency_type'][$i];
+                   $obj->cost_currency_type = $data['cost_currency_type'][$i];
                    $obj->vendor_id = $data['billing_vendor_code'][$i];
                    $obj->cost_invoice = $data['cost_invoice'][$i];
                    $obj->cost_center = $data['cost_cost_center'][$i];

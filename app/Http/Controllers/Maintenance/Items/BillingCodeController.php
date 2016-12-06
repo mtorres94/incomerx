@@ -98,8 +98,9 @@ class BillingCodeController extends Controller
             $results = [];
             foreach ($billing_codes as $billing_code) {
                 $results[] = [
-                    'id'                => strtoupper($billing_code->code),
-                    'value'             => strtoupper($billing_code->name),
+                    'id'    => $billing_code->id,
+                    'code'  => strtoupper($billing_code->code),
+                    'value' => strtoupper($billing_code->name),
 
                 ];
             }

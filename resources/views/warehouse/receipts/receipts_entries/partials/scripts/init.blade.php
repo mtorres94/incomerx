@@ -25,6 +25,18 @@
             }
         }
 
+        for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
+            var a = t[l];
+            var e = $(a).attr("style");
+            if (e === undefined) {
+
+            } else {
+                var n = e.indexOf("display: block;"),
+                        o = e.indexOf("display: none;");
+                $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
+            }
+        }
+
         function renameTab() {
             if ('edit' == '{{ \Request::segment(5) }}') {
                 var gtab = window.parent.$('#tt');
@@ -48,6 +60,11 @@
         $("#tmp_cargo_weight_unit_measurement_id").change(function () { calculate() });
         $("#tmp_cargo_dim_fact").change(function () { calculate() });
         $("#tmp_cargo_unit_weight").change(function () { calculate() });
+
+        $("#tmp_billing_quantity").change(function () { calculate_individual_charges() });
+        $("#tmp_billing_rate").change(function () { calculate_individual_charges() });
+        $("#tmp_cost_quantity").change(function () { calculate_individual_charges() });
+        $("#tmp_cost_rate").change(function () { calculate_individual_charges() });
 
         $("#multiline_cargo_quantity").change(function () { multiline_calculate() });
         $("#multiline_cargo_length").change(function () { multiline_calculate() });
@@ -273,6 +290,11 @@
     $("#tmp_cargo_total_weight").attr("disabled", true);
     $("#multiline_cargo_total_weight").attr("disabled", true);
 
+    $("#charges_bill").attr("disabled", true);
+    $("#charges_cost").attr("disabled", true);
+    $("#charges_profit").attr("disabled", true);
+    $("#charges_profit_percent").attr("disabled", true);
+
     $("#references_invoice_amount").number(true, 2);
 
     $("#cargo_quantity").number(true);
@@ -287,7 +309,23 @@
     $("#cargo_tare_weight").number(true, 3);
     $("#cargo_net_weight").number(true, 3);
     $("#cargo_sq_foot").number(true, 3);
-    
+
+    $("#tmp_billing_quantity").number(true, 0);
+    $("#tmp_billing_rate").number(true, 3);
+    $("#tmp_billing_increase").number(true, 3);
+    $("#tmp_billing_amount").number(true, 3);
+    $("#tmp_billing_exchange_rate").number(true, 3);
+
+    $("#tmp_cost_quantity").number(true, 0);
+    $("#tmp_cost_rate").number(true, 3);
+    $("#tmp_cost_amount").number(true, 3);
+    $("#tmp_cost_exchange_rate").number(true, 3);
+
+    $("#charges_bill").number(true, 2);
+    $("#charges_cost").number(true, 2);
+    $("#charges_profit").number(true, 2);
+    $("#charges_profit_percent").number(true, 3);
+
     $("#ippc_number").attr("disabled", !0), $("#ippc").change(function() {
         $("#ippc_number").attr("disabled", !this.checked), $("#ippc_number").val("")
     });
@@ -296,7 +334,7 @@
     removeEmptyNodes('references-details');
     removeEmptyNodes('hazardous-details');
     removeEmptyNodes('warehouse-details');
-    removeEmptyNodes('charges-details');
+    removeEmptyNodes('charge-details');
 
     calculate_warehouse_details();
 </script>

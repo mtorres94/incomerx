@@ -268,6 +268,11 @@ class ReceiptEntry extends Model
         return $this->hasMany('Sass\ReceiptEntryCargoDetail', 'receipt_entry_id');
     }
 
+    public function charge_details()
+    {
+        return $this->hasMany('Sass\ReceiptEntryChargeDetail', 'receipt_entry_id');
+    }
+
     public function user_create()
     {
         return $this->belongsTo('Sass\User', 'user_create_id');
