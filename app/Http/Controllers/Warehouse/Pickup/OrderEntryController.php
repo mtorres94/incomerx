@@ -142,21 +142,11 @@ class OrderEntryController extends Controller
     {
 
         $order_entry = OrderEntry::findOrFail($id);
-        $user_open_id =  $order_entry->user_open_id;
+        $user_open_id =  Auth::user()->id;
         $order_entry = self::updateOpenStatus($order_entry);
         $order_entry->save();
-        $po_numbers = OrderEntryPO::Search($id);
-        $so_numbers = OrderEntrySO::Search($id);
-        $pro_numbers = OrderEntryPRO::Search($id);
-        $stop_numbers = OrderEntryStop::Search($id);
-        $uns_numbers = OrderEntryHazardous::Search($id);
-        $container_details = OrderEntryContainerDetail::Search($id);
-        $dr_details = OrderEntryDockReceiptDetail::Search($id);
-        $charge_details = OrderEntryChargeDetail::Search($id);
-        $trans_details = OrderEntryTransportationDetail::Search($id);
-        $cargo_details = OrderEntryCargoDetail::Search($id);
-        $cargo_items_details = OrderEntryCargoItemDetail::Search($id);
-        return view('warehouse.pickup.orders_entries.edit', compact('order_entry', 'po_numbers', 'so_numbers', 'pro_numbers', 'stop_numbers', 'uns_numbers', 'container_details', 'dr_details','charge_details', 'trans_details', 'cargo_details', 'cargo_items_details', 'user_open_id'));
+
+        return view('warehouse.pickup.orders_entries.edit', compact('order_entry', 'user_open_id'));
     }
 
     public function update(Request $request, $id)
@@ -210,10 +200,10 @@ class OrderEntryController extends Controller
     {
         $data = $request->all();
         $id   = $data['id'];
-
-        if (Auth::user()->id == $id)
+        $order_entry = OrderEntry::findOrFail($id);
+        if (Auth::user()->id == $order_entry->user_open_id)
         {
-            $order_entry = OrderEntry::findOrFail($id);
+
             $order_entry = self::updateCloseStatus($order_entry);
             $order_entry->save();
         }
@@ -229,6 +219,20 @@ class OrderEntryController extends Controller
             'id'   => $order_entry->user_open_id,
             'name' => $order_entry->user_open_id > 0 ? $order_entry->user_open->name : '',
         ];
+    }
+
+    public function pdf($token, $id)
+    {
+        if (strlen($token) == 60) {
+            try {
+                $order_entry = OrderEntry::findOrFail($id);
+                return \PDF::loadView('warehouse.pickup.orders_entries.pdf', compact('order_entry'))->stream('WH '.$order_entry->code.'.pdf');
+            } catch (ModelNotFoundException $e) {
+                abort(404);
+            }
+        } else {
+            abort(403);
+        }
     }
 
 }

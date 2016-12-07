@@ -17,6 +17,10 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('receipts_entries/pdf/{token}/{id}', ['as' => 'receipts_entries.pdf', 'uses' => 'ReceiptEntryController@pdf']);
             Route::get('receipts_entries/label/{token}/{id}', ['as' => 'receipts_entries.label', 'uses' => 'ReceiptEntryController@label']);
         });
+        Route::group(['namespace' => 'Pickup'], function () {
+            Route::get('orders_entries/pdf/{token}/{id}', ['as' => 'orders_entries.pdf', 'uses' => 'OrderEntryController@pdf']);
+
+        });
     });
 
     Route::group(['namespace' => 'Export'], function () {

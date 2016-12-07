@@ -21,7 +21,9 @@ class OrderEntryDataTable extends CustomDataTable
             ->addColumn('action', function ($order_entry) {
                 return $this->groupButton(
                     $order_entry,
-                    'warehouse.pickup.orders_entries');
+                    'warehouse.pickup.orders_entries', [
+                    ['route' => 'orders_entries.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF']
+                ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);
