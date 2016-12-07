@@ -355,4 +355,5 @@
     removeEmptyNodes('charge-details');
 
     calculate_warehouse_details();
+    
 </script>

@@ -71,6 +71,7 @@
         $("#tmp_billing_amount").val(ab), $("#tmp_cost_amount").val(ac);
     }
 
+
     function calculate_charges() {
         var tr = $('#charge-details tbody tr'),
                 total_bill = 0,
