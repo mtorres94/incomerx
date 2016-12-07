@@ -61,12 +61,12 @@
 
     function calculate_individual_charges() {
         var rb = $("#tmp_billing_rate").val(),
-            qb = $("#tmp_billing_quantity").val(),
-            rc = $("#tmp_cost_rate").val(),
-            qc = $("#tmp_cost_quantity").val();
+                qb = $("#tmp_billing_quantity").val(),
+                rc = $("#tmp_cost_rate").val(),
+                qc = $("#tmp_cost_quantity").val();
 
         var ab = rb * qb,
-            ac = rc * qc;
+                ac = rc * qc;
 
         $("#tmp_billing_amount").val(ab), $("#tmp_cost_amount").val(ac);
     }
@@ -80,9 +80,9 @@
 
         for (var a=0; a < tr.length; a++) {
             var bill = parseFloat(tr[a].childNodes[12].textContent),
-                cost = parseFloat(tr[a].childNodes[21].textContent),
-                profit = bill - cost,
-                profit_percent = parseFloat((profit/cost)*100).toFixed(3);
+                    cost = parseFloat(tr[a].childNodes[21].textContent),
+                    profit = bill - cost,
+                    profit_percent = parseFloat((profit/cost)*100).toFixed(3);
 
             total_bill = total_bill + bill;
             total_cost = total_cost + cost;

@@ -1,5 +1,5 @@
 <!-- Tabs -->
-<div class="row">
+
     <div class="easyui-tabs">
         <div title="Dates of Ship / Deliv">
             <div class="form-horizontal">
@@ -50,4 +50,3 @@
             </div>
         </div>
     </div>
-</div>

@@ -68,8 +68,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if (isset($po_numbers))
-                        @foreach ($po_numbers as $detail)
+                    @if (isset($order_entry))
+                        @foreach ($order_entry->po_numbers as $detail)
                             <tr id="{{ $detail->line }}">
                                 {!! Form::bsRowTd($detail->line, 'PO_line', $detail->line, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'PO_number', $detail->po_number, false) !!}
@@ -149,8 +149,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if(isset($so_numbers))
-                    @foreach ($so_numbers as $detail)
+                @if(isset($order_entry))
+                    @foreach ($order_entry->so_numbers as $detail)
                         <tr id="{{ $detail->line }}">
                             {!! Form::bsRowTd($detail->line, 'SO_line', $detail->line, true) !!}
                             {!! Form::bsRowTd($detail->line, 'SO_number', $detail->so_number, false) !!}

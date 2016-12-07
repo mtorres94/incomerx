@@ -37,6 +37,18 @@
             }
         }
 
+        for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
+            var a = t[l];
+            var e = $(a).attr("style");
+            if (e === undefined) {
+
+            } else {
+                var n = e.indexOf("display: block;"),
+                        o = e.indexOf("display: none;");
+                $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
+            }
+        }
+
         function renameTab() {
             if ('edit' == '{{ \Request::segment(5) }}') {
                 var gtab = window.parent.$('#tt');
@@ -60,6 +72,11 @@
         $("#tmp_cargo_weight_unit_measurement_id").change(function () { calculate() });
         $("#tmp_cargo_dim_fact").change(function () { calculate() });
         $("#tmp_cargo_unit_weight").change(function () { calculate() });
+
+        $("#tmp_billing_quantity").change(function () { calculate_individual_charges() });
+        $("#tmp_billing_rate").change(function () { calculate_individual_charges() });
+        $("#tmp_cost_quantity").change(function () { calculate_individual_charges() });
+        $("#tmp_cost_rate").change(function () { calculate_individual_charges() });
 
         $("#tmp_billing_quantity").change(function () { calculate_individual_charges() });
         $("#tmp_billing_rate").change(function () { calculate_individual_charges() });
@@ -120,24 +137,6 @@
                     uploadExtraData: { _token: $('meta[name="csrf-token"]').attr('content'), unique_str: unique_str },
                     deleteExtraData: { _token: $('meta[name="csrf-token"]').attr('content') }
                 });
-
-                {{--$('.file-footer-buttons').on('click', '.kv-file-download', function (e) {
-                    e.preventDefault();
-                    var key = $(this).parent().find(".kv-file-remove").data("key");
-
-                    var url = "{{ route('receipts_entries.download') }}";
-                    $.ajax({
-                        url: url,
-                        data: { _token: $('meta[name="csrf-token"]').attr('content'), key: key },
-                        type: 'GET',
-                        success: function (response) {
-                            window.location = response;
-                        },
-                        error: function (errors) {
-                            console.log(errors);
-                        }
-                    });
-                });--}}
             }
         });
 
@@ -210,12 +209,26 @@
         $("#warehouse_name").val("VECO MIAMI");
         $("#warehouse_name option[value="+ 1 +"]").attr("selected", true);
 
+        if($("#status").val() == ''){
+            $("#status").val("O").change();
+        }
+
+        if($("#currency_id").val() == ''){
+            $("#currency_id").val("1").change();
+        }
+        if($("#status").val() == ''){
+            $("#status").val("O").change();
+        }
+
+        if($("#currency_id").val() == ''){
+            $("#currency_id").val("1").change();
+        }
     });
 
     initDate($("#date_in"), 0);
     initDate($("#expire_date"), 30);
 
-    $("#warehouse_name").attr("disabled", true);
+    $("#warehouse_name").attr("readonly", true);
 
     $('#commercial_inv').change(function() {
         ((this.checked)? $(this).val("1"): $(this).val("0"))
@@ -289,6 +302,11 @@
     $("#user_id").attr("disabled", true);
     $("#tmp_cargo_total_weight").attr("disabled", true);
     $("#multiline_cargo_total_weight").attr("disabled", true);
+
+    $("#charges_bill").attr("disabled", true);
+    $("#charges_cost").attr("disabled", true);
+    $("#charges_profit").attr("disabled", true);
+    $("#charges_profit_percent").attr("disabled", true);
 
     $("#charges_bill").attr("disabled", true);
     $("#charges_cost").attr("disabled", true);

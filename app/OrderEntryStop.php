@@ -15,8 +15,9 @@ class OrderEntryStop extends Model
 
     public static function saveDetail($id, $data) {
         $i=-1; $a =0;
+        $details = DB::table('whr_orders_entries_stops')->where('order_entry_id', '=', $id)->delete();
         if (isset($data['stop_id'])){
-            $details = DB::table('whr_orders_entries_stops')->where('order_entry_id', '=', $id)->delete();
+
 
             while ($a < count($data['stop_id'])){
                 $i++;

@@ -15,8 +15,9 @@ class OrderEntryPRO extends Model
 
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
+        $details= DB::table('whr_orders_entries_PROs')->where('order_entry_id', '=', $id)->delete();
         if (isset($data['PRO_line'])){
-            $details= DB::table('whr_orders_entries_PROs')->where('order_entry_id', '=', $id)->delete();
+
             while($a < count($data['PRO_line'])){
                 $i++;
                 if (isset($data['PRO_line'][$i])){

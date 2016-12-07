@@ -16,8 +16,9 @@ class OrderEntryTransportationDetail extends Model
 
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
+        $details= DB::table('whr_orders_entries_transportation_details')->where('order_entry_id', '=', $id)->delete();
         if (isset($data['transportation_id'])){
-            $details= DB::table('whr_orders_entries_transportation_details')->where('order_entry_id', '=', $id)->delete();
+
 
             while($a < count($data['transportation_id'])){
                 $i++;

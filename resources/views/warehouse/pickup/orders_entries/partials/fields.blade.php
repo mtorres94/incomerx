@@ -1,5 +1,5 @@
 <div id="errorBlock" class="help-block"></div>
-
+{!! Form::hidden('open_status', ($user_open_id == Auth::user()->id ? "0" : "1"), ['id' => 'open_status', 'class' => 'form-control input-sm']) !!}
 @include('warehouse.pickup.orders_entries.partials.sections.general_info')
 
 <div class="row">
@@ -13,15 +13,18 @@
         @include('warehouse.pickup.orders_entries.partials.sections.tabs_additional_info')
         @include('warehouse.pickup.orders_entries.partials.sections.tabs_carriers')
     </div>
+</div>
+<div class="row">
     <div class="col-md-12">
         @include('warehouse.pickup.orders_entries.partials.sections.references')
         @include('warehouse.pickup.orders_entries.partials.sections.tabs_more_details')
         @include('warehouse.pickup.orders_entries.partials.sections.tabs_charges')
     </div>
+</div>
+<div class="row">
     <div class="col-md-12">
         {!! Form::bsMemo(null, null, 'Comments', 'pickup_comment', null, 5) !!}
     </div>
-
 </div>
 
 <!-- Modal forms section -->
@@ -39,6 +42,7 @@
     @include('warehouse.pickup.orders_entries.partials.modal.transportation_details')
     @include('warehouse.pickup.orders_entries.partials.modal.vehicle')
     @include('warehouse.pickup.orders_entries.partials.modal.pick_cargo')
+
 
 @stop
 

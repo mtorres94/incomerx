@@ -21,7 +21,9 @@ class OrderEntryDataTable extends CustomDataTable
             ->addColumn('action', function ($order_entry) {
                 return $this->groupButton(
                     $order_entry,
-                    'warehouse.pickup.orders_entries');
+                    'warehouse.pickup.orders_entries', [
+                    ['route' => 'orders_entries.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF']
+                ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);
@@ -39,7 +41,7 @@ class OrderEntryDataTable extends CustomDataTable
         ->leftJoin('mst_customers AS c3', 'whr_orders_entries.agent_id', '=', 'c3.id')
         ->leftJoin('mst_customers AS c4', 'whr_orders_entries.third_party_id', '=', 'c4.id')
         ->leftJoin('mst_customers AS c5', 'whr_orders_entries.pickup_id', '=', 'c5.id')
-        ->select(['whr_orders_entries.id','whr_orders_entries.pd_number','whr_orders_entries.pd_status', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS third_party_name',  'c5.name AS pickup_name']);
+        ->select(['whr_orders_entries.id','whr_orders_entries.code','whr_orders_entries.pd_status', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS third_party_name',  'c5.name AS pickup_name']);
         return $this->applyScopes($query);
     }
 
@@ -65,7 +67,7 @@ class OrderEntryDataTable extends CustomDataTable
     protected function getColumns()
     {
         return [
-            ['data' => 'pd_number',   'name' => 'whr_orders_entries.pd_number', 'title' => 'Code'],
+            ['data' => 'code',   'name' => 'whr_orders_entries.code', 'title' => 'Code'],
             ['data' => 'pd_status',          'name' => 'whr_orders_entries.pd_status', 'title' => 'Status'],
             ['data' => 'division_name',    'name' => 'whr_orders_entries.name', 'title' => 'Division'],
             ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],

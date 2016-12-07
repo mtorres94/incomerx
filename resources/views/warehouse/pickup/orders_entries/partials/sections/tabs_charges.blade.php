@@ -13,25 +13,23 @@
                     <tr>
                         <th  data-override="charge_id" hidden></th>
                         <th data-override="billing_billing_id" hidden></th>
-                        <th width="15%" data-override="billing_billing_code">Billing Code</th>
-                        <th width="15%" data-override="billing_billing_description">Description</th>
+                        <th width="10%" data-override="billing_billing_code">Billing Code</th>
+                        <th width="10%" data-override="billing_billing_description">Description</th>
                         <th width="10%" data-override="billing_bill_type">Bill type</th>
                         <th width="10%" data-override="billing_bill_party">Bill Party</th>
                         <th width="10%" data-override="billing_quantity">Qty</th>
                         <th width="10%" data-override="billing_rate">Rate</th>
                         <th width="10%" data-override="billing_amount">Amount</th>
                         <th width="15%" data-override="billing_currency_type">Currency</th>
-                        <th width="20%" data-override="billing_customer_name">Bill to</th>
                         <th width="10%" data-override="cost_amount">Cost</th>
-                        <th width="10%" data-override="cost_currency_type">Currency</th>
                         <th width="15%" data-override="cost_invoice">Vendor Inv</th>
                         <th width="15%" data-override="cost_reference">Vendor Ref</th>
-                        <th width="0%"/>
+                        <th width="10%"/>
                     </tr>
                     </thead>
                     <tbody>
-                    @if(isset($charge_details))
-        @foreach($charge_details as $detail)
+                    @if(isset($order_entry))
+        @foreach($order_entry->charge as $detail)
             <tr id="{{ $detail -> line }} ">
                 {!! Form::bsRowTd($detail->line, 'charge_id', $detail->line, true) !!}
                 {!! Form::bsRowTd($detail->line, 'billing_billing_id', $detail->billing_id, true) !!}
@@ -42,10 +40,10 @@
                 {!! Form::bsRowTd($detail->line, 'billing_quantity', $detail->billing_quantity, false) !!}
                 {!! Form::bsRowTd($detail->line, 'billing_rate', $detail->billing_rate, false) !!}
                 {!! Form::bsRowTd($detail->line, 'billing_amount', $detail->billing_amount, false) !!}
-                {!! Form::bsRowTd($detail->line, 'billing_currency_type', $detail->billing_currency_type, false) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_currency_type', $detail->billing_currency_type, true) !!}
                 {!! Form::bsRowTd($detail->line, 'billing_customer_name',  ((isset($detail)and $detail->billing_customer_id >0) ? $detail->billing_customer->name: null), false) !!}
                 {!! Form::bsRowTd($detail->line, 'cost_amount', $detail->cost_amount, false) !!}
-                {!! Form::bsRowTd($detail->line, 'cost_currency_type', $detail->cost_currency_type, false) !!}
+                {!! Form::bsRowTd($detail->line, 'cost_currency_type', $detail->cost_currency_type, true) !!}
                 {!! Form::bsRowTd($detail->line, 'cost_invoice', $detail->cost_invoice, false) !!}
                 {!! Form::bsRowTd($detail->line, 'cost_reference', $detail->cost_reference, false) !!}
                 {!! Form::bsRowTd($detail->line, 'billing_notes', $detail->billing_notes, true) !!}
@@ -95,21 +93,21 @@
                 <th width="10%" data-override="transportation_leg">Leg</th>
                 <th width="10%" data-override="transportation_mode">Mode</th>
                 <th  data-override="transportation_carrier_id" hidden></th>
-                <th width="25%"data-override="transportation_carrier">Carrier</th>
+                <th width="20%"data-override="transportation_carrier">Carrier</th>
                 <th  data-override="transportation_loading_id" hidden></th>
                 <th width="10%"data-override="transportation_loading">Loading</th>
                 <th  data-override="transportation_unloading_id" hidden></th>
                 <th width="10%"data-override="transportation_unloading">Unloading</th>
                 <th width="10%"data-override="transportation_ETD">ETD</th>
-                <th width="15%"data-override="transportation_ETA">ETA</th>
-                <th width="15%"data-override="transportation_status">Status</th>
-                <th width="15%"data-override="transportation_amount">Amount</th>
-                <th width="0%"/>
+                <th width="10%"data-override="transportation_ETA">ETA</th>
+                <th width="10%"data-override="transportation_status">Status</th>
+                <th width="5%"data-override="transportation_amount">Amount</th>
+                <th width="10%"/>
             </tr>
             </thead>
             <tbody>
-            @if(isset($trans_details))
-                @foreach($trans_details as $detail)
+            @if(isset($order_entry))
+                @foreach($order_entry->transportation as $detail)
                     <tr id="{{ $detail->line }}">
                         {!! Form::bsRowTd($detail->line, 'transportation_id', $detail->line, true) !!}
                         {!! Form::bsRowTd($detail->line, 'transportation_leg', $detail->leg, false) !!}

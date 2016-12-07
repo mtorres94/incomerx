@@ -22,6 +22,17 @@ h5 {
 }
 .footer {
     font-size: 9px;
+
+}
+.footer-sign {
+    font-size: 9px;
+    line-height: 0px;
+}
+.footer-sign-td{
+    border-top: solid;
+    border-top-width: thin;
+    font-size: 10px;
+    line-height: 10px;
 }
 .panel {
     box-shadow: none;
@@ -57,7 +68,7 @@ h5 {
 }
 .table tfoot tr td {
     padding: 2px 8px;
-    border-top: 0;
+    border-top: 0px;
 }
 .table thead tr th {
     border-bottom: 0px;
@@ -79,3 +90,5 @@ h5 {
 .col-xs-6 span {
     font-size: 9px;
 }
+
+

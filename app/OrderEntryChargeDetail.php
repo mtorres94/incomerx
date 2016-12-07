@@ -15,8 +15,9 @@ class OrderEntryChargeDetail extends Model
 
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
+        $details= DB::table('whr_orders_entries_charge_details')->where('order_entry_id', '=', $id)->delete();
        if (isset($data['charge_id'])){
-           $details= DB::table('whr_orders_entries_charge_details')->where('order_entry_id', '=', $id)->delete();
+
            while($a < count($data['charge_id'])){
                  $i++;
                if(isset($data['charge_id'][$i])){

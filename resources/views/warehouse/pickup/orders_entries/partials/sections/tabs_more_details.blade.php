@@ -1,6 +1,6 @@
 
     <legend>More  Details</legend>
-    <div class="row">
+
         <div class="easyui-tabs">
             <div title="Cargo Details">
                 <div class="form-horizontal">
@@ -15,10 +15,10 @@
                         <thead>
                         <tr>
                             <th data-override="warehouse_details_line" hidden></th>
-                            <th width="10%" data-override="warehouse_details_type"></th>
+                            <th width="5%" data-override="warehouse_details_type"></th>
                             <th width="5%" data-override="warehouse_details_quantity">Qty.</th>
-                            <th width="5%" data-override="warehouse_details_cargo_type_id" hidden></th>
-                            <th width="20%" data-override="warehouse_details_cargo_type_name">Cargo Type</th>
+                            <th width="0%" data-override="warehouse_details_cargo_type_id" hidden></th>
+                            <th width="15%" data-override="warehouse_details_cargo_type_name">Cargo Type</th>
                             <th width="10%" data-override="warehouse_details_length">Length</th>
                             <th width="10%" data-override="warehouse_details_width">Width</th>
                             <th width="10%" data-override="warehouse_details_height">Height</th>
@@ -26,24 +26,19 @@
                             <th width="10%" data-override="warehouse_details_net_weight">Net Weight</th>
                             <th width="5%" data-override="warehouse_details_unit">Unit</th>
                             <th width="10%" data-override="warehouse_details_cubic">Cubic</th>
-                            <th width="5%" data-override="warehouse_details_PO Number">Po. Number</th>
+                            <th width="10%" data-override="warehouse_details_PO Number">Po. Number</th>
                             <th width="12%"/>
                         </tr>
                         </thead>
                         <tbody>
-                        @if (isset($cargo_details))
-                        @foreach($cargo_details as $cargo_detail)
+                        @if (isset($order_entry))
+                        @foreach($order_entry->cargo_details as $cargo_detail)
                             <tr id="{{ $cargo_detail->line }}">
-                                {!! Form::bsRowTd($cargo_detail->line, 'cargo_id', $cargo_detail->line, true) !!}
-                                @if ($cargo_detail->type_package == 0)
+                                {!! Form::bsRowTd($cargo_detail->line, 'cargo_line', $cargo_detail->line, true) !!}
                                     <td><i class="fa fa-cube" aria-hidden="true"/></td>
-                                @else
-                                    <td><i class="fa fa-car" aria-hidden="true"/></td>
-                                @endif
-                                {!! Form::bsRowTd($cargo_detail->line, 'cargo_id', $cargo_detail->line, true) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_quantity', $cargo_detail->cargo_quantity, false) !!}
-                                {!! Form::bsRowTd($cargo_detail->line, 'cargo_cargo_type_id', $cargo_detail->cargo_type_id, true) !!}
-                                {!! Form::bsRowTd($cargo_detail->line, 'cargo_cargo_type_name', ((isset($cargo_detail)and $cargo_detail->cargo_type_id >0) ? $cargo_detail->cargo_type->code: null), false) !!}
+                                {!! Form::bsRowTd($cargo_detail->line, 'cargo_type_id', $cargo_detail->cargo_type_id, true) !!}
+                                {!! Form::bsRowTd($cargo_detail->line, 'cargo_type_name', ((isset($cargo_detail)and $cargo_detail->cargo_type_id >0) ? $cargo_detail->cargo_type->code: null), false) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_length', $cargo_detail->cargo_length, false) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_width', $cargo_detail->cargo_width, false) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_height', $cargo_detail->cargo_height, false) !!}
@@ -159,8 +154,8 @@
                     </table>
                     <table class="table hidden" id="items_warehouse_details">
                          <tbody>
-                         @if (isset($cargo_items_details))
-                            @foreach($cargo_items_details as $detail)
+                         @if (isset($order_entry))
+                            @foreach($order_entry->cargo_items as $detail)
                                 <tr data-id="{{$detail->cargo_id }}">
                                     {!! Form::bsRowTd($detail->line, 'cargo_whr_id', $detail->cargo_id, true) !!}
                                     {!! Form::bsRowTd($detail->line, 'item_whr_line', $detail->line, true) !!}
@@ -201,24 +196,24 @@
                         <thead>
                         <tr>
                             <th  data-override="container_line" hidden></th>
-                            <th width="10%" data-override="container_equipment_type">Equipment Type</th>
-                            <th width="40%" data-override="container_container">Container</th>
-                            <th width="25%"data-override="container_seal_number">Seal Number</th>
-                            <th width="25%"data-override="container_comments">Comments</th>
-                            <th width="0%"/>
+                            <th width="20%" data-override="container_equipment_type">Equipment Type</th>
+                            <th width="20%" data-override="container_container">Container</th>
+                            <th width="15%"data-override="container_seal_number">Seal Number</th>
+                            <th width="20%"data-override="container_comments">Comments</th>
+                            <th width="10%"/>
                         </tr>
                         </thead>
                         <tbody>
-                        @if(isset($container_details))
-                        @foreach ($container_details as $detail)
+                        @if(isset($order_entry))
+                        @foreach ($order_entry->container as $detail)
 
                             <tr id="{{ $detail->line }}">
                                 {!! Form::bsRowTd($detail->line, 'container_line', $detail->line, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_equipment_type_code', ((isset($detail)and $detail->container_equipment_type_id >0) ? $detail->container_equipment_type->code: null), false) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_equipment_type_id', $detail->container_equipment_type_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_container', $detail->container_container, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_number', $detail->container_container, false) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_seal_number', $detail->container_seal_number, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_comments', $detail->container_comments, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_remarks', $detail->container_comments, false) !!}
                                 {!! Form::bsRowBtns() !!}
                             </tr>
                         @endforeach
@@ -274,17 +269,17 @@
                         <th  data-override="dr_line" hidden></th>
                         <th width="10%" data-override="dr_cargo_marks">Marks</th>
                         <th width="10%" data-override="dr_cargo_pieces">Pcs</th>
-                        <th width="25%"data-override="dr_cargo_description">Comm Description</th>
+                        <th width="20%"data-override="dr_cargo_description">Comm Description</th>
                         <th width="10%"data-override="dr_cargo_type">Unit</th>
                         <th width="10%"data-override="dr_cargo_grossw">Gross Weight</th>
                         <th width="10%"data-override="dr_cargo_cubic">Cubic</th>
-                        <th width="15%"data-override="dr_cargo_chgrw">Charge Weight</th>
-                        <th width="0%"/>
+                        <th width="10%"data-override="dr_cargo_chgrw">Charge Weight</th>
+                        <th width="10%"/>
                     </tr>
                     </thead>
                     <tbody>
-                    @if(isset($dr_details))
-                    @foreach ($dr_details as $detail)
+                    @if(isset($order_entry))
+                    @foreach ($order_entry->dock_receipt as $detail)
                         <tr id="{{ $detail->line }}">
                             {!! Form::bsRowTd($detail->line, 'dr_line', $detail->line, true) !!}
                             {!! Form::bsRowTd($detail->line, 'dr_cargo_marks', $detail->dr_marks, false) !!}
@@ -310,7 +305,7 @@
             </div>
 
         </div>
-    </div>
+
 <div class="row">
     <div class="pull-right">
     <div class="col-md-2">{!! Form::bsSelect(null, null, 'Freight Charges', 'charges_freight_charges', array('BR' => 'BR - BANK RELEASE','COD' => 'COD - COD','COL' => 'COL - COLLECT','PPD' => 'PPD - PREPAID',), '') !!}</div>
