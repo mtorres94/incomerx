@@ -110,7 +110,7 @@ class ReceiptEntryController extends Controller
     {
         $receipt_entry = ReceiptEntry::findOrFail($id);
         $unique_str = $receipt_entry->unique_str;
-        $user_open_id =  $receipt_entry->user_open_id;
+        $user_open_id =  Auth::user()->id;
         
         $receipt_entry = self::updateOpenStatus($receipt_entry);
         $receipt_entry->save();
@@ -166,10 +166,10 @@ class ReceiptEntryController extends Controller
     {
         $data = $request->all();
         $id   = $data['id'];
+        $receipt_entry = ReceiptEntry::findOrFail($id);
 
-        if (Auth::user()->id == $id)
+        if (Auth::user()->id == $receipt_entry->user_open_id)
         {
-            $receipt_entry = ReceiptEntry::findOrFail($id);
             $receipt_entry = self::updateCloseStatus($receipt_entry);
             $receipt_entry->save();
         }
