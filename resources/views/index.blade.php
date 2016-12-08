@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="assets/src/font-awesome.min.css" type="text/css">
 
     <!-- Custom CSS -->
-    {!! Html::style('css/general.css') !!}
+    {!! Html::style('css/style.css') !!}
 
     <!-- Font Awesome -->
     {!! Html::style('css/font-awesome.min.css') !!}

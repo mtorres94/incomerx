@@ -14,44 +14,44 @@
 {!! Html::style('css/ionicons.min.css') !!}
 
 <!-- Theme style -->
-{!! Html::style('css/AdminLTE/AdminLTE.min.css') !!}
+{!! Html::style('css/plugins/AdminLTE/AdminLTE.min.css') !!}
 
 <!-- AdminLTE Skins. Choose a skin from the css/skins
     folder instead of downloading all of them to reduce the load. -->
-{!! Html::style('css/AdminLTE/skins/_all-skins.min.css') !!}
+{!! Html::style('css/plugins/AdminLTE/skins/_all-skins.min.css') !!}
+
+<!-- Form Validation Files -->
+{!! Html::style('css/plugins/formvalidation/formvalidation.css') !!}
 
 <!-- Datepicker Files -->
-{!! Html::style('css/bootstrap-datepicker3.css') !!}
-{!! Html::style('css/bootstrap-datepicker3.standalone.css') !!}
+{!! Html::style('css/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css') !!}
+{!! Html::style('css/plugins/bootstrap-datepicker/bootstrap-datepicker3.standalone.min.css') !!}
 
 <!-- Bootstrap Select Files -->
-{!! Html::style('css/bootstrap-select.min.css') !!}
+{!! Html::style('css/plugins/bootstrap-select/bootstrap-select.min.css') !!}
 
 <!-- Bootstrap Input Files -->
-{!! Html::style('css/fileinput.min.css') !!}
+{!! Html::style('css/plugins/fileinput/fileinput.min.css') !!}
 
-<!-- Dropzone Files -->
-{!! Html::style('css/dropzone.css') !!}
+<!-- EasyUI Files -->
+{!! Html::style('css/plugins/easyui/easyui.css') !!}
 
-<!-- Sweetalert Files -->
-{!! Html::style('css/easyui.css') !!}
-
-<!-- Sweetalert Files -->
-{!! Html::style('css/sweetalert2.min.css') !!}
+<!-- Sweetalert2 Files -->
+{!! Html::style('css/plugins/sweetalert2/sweetalert2.min.css') !!}
 
 <!-- DataTables Files -->
-{!! Html::style('css/datatables.min.css') !!}
-{!! Html::style('css/dataTables.bootstrap.min.css') !!}
+{!! Html::style('css/plugins/dataTables/datatables.min.css') !!}
+{!! Html::style('css/plugins/dataTables/dataTables.bootstrap.min.css') !!}
 
 <!-- Ladda Theme -->
-{!! Html::style('css/ladda.min.css') !!}
+{!! Html::style('css/plugins/ladda/ladda.min.css') !!}
 
 <!-- General Files -->
-{!! Html::style('css/general.css') !!}
+{!! Html::style('css/style.css') !!}
 
 <!-- jQuery UI -->
-{!! Html::style('css/jquery-ui.min.css') !!}
-{!! Html::style('css/jquery-ui.theme.min.css') !!}
+{!! Html::style('css/plugins/jquery-ui/jquery-ui.min.css') !!}
+{!! Html::style('css/plugins/jquery-ui/jquery-ui.theme.min.css') !!}
 
 <!-- Bootstrap Step by Step -->
 {!! Html::style('css/step_by_step.css') !!}
