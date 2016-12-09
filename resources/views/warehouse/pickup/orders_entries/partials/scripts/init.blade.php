@@ -50,7 +50,7 @@
         removeEmptyNodes('dr_details');
         removeEmptyNodes('warehouse_details');
         values_warehouse();
-        values_charges();
+        calculate_charges();
         dock_receipts();
         transportation_plan();
 
@@ -67,6 +67,43 @@
                 $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
             }
         });
+
+        for (var t2 = $("#cargo-tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
+            var a2 = t2[l2];
+            var e2 = $(a2).attr("style");
+            if (e2 === undefined) {
+            } else {var n2 = e2.indexOf("display: block;"),
+                    o2 = e2.indexOf("display: none;");
+                $(a2).removeAttr("style"), n2 >= 0 && $(a2).attr("style", "display: block;"), o2 >= 0 && $(a2).attr("style", "display: none;")}
+        }
+
+        for (var t2 = $("#pick-tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
+            var a2 = t2[l2];
+            var e2 = $(a2).attr("style");
+            if (e2 === undefined) {
+            } else {var n2 = e2.indexOf("display: block;"),
+                    o2 = e2.indexOf("display: none;");
+                $(a2).removeAttr("style"), n2 >= 0 && $(a2).attr("style", "display: block;"), o2 >= 0 && $(a2).attr("style", "display: none;")}
+        }
+
+        for (var t2 = $("#transportation-tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
+            var a2 = t2[l2];
+            var e2 = $(a2).attr("style");
+            if (e2 === undefined) {
+            } else {var n2 = e2.indexOf("display: block;"),
+                    o2 = e2.indexOf("display: none;");
+                $(a2).removeAttr("style"), n2 >= 0 && $(a2).attr("style", "display: block;"), o2 >= 0 && $(a2).attr("style", "display: none;")}
+        }
+
+        for (var t2 = $("#charges-tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
+            var a2 = t2[l2];
+            var e2 = $(a2).attr("style");
+            if (e2 === undefined) {
+            } else {var n2 = e2.indexOf("display: block;"),
+                    o2 = e2.indexOf("display: none;");
+                $(a2).removeAttr("style"), n2 >= 0 && $(a2).attr("style", "display: block;"), o2 >= 0 && $(a2).attr("style", "display: none;")}
+        }
+
 
         $("#cargo_cargo_type_id").change(function () {
             var id = $(this).val();
@@ -137,7 +174,7 @@
 
 
         $("#dr_freight_charges").change(function (){ values_warehouse()  });
-        $("#billing_increase").change(function (){ charges_details()});
+
 
         $("#cargo_length").change(function () { calculate_cargo() });
         $("#cargo_quantity").change(function () { calculate_cargo() });
@@ -165,12 +202,14 @@
         $("#dr_cargo_rate").change(function() { dock_receipts() });
         $("#dr_cargo_chgrw").change(function() { dock_receipts() });
 
-        $("#billing_quantity").change(function() { charges_details() });
-        $("#billing_rate").change(function() { charges_details() });
-        $("#cost_quantity").change(function() { charges_details() });
-        $("#cost_rate").change(function() { charges_details() });
+        $("#billing_quantity").change(function() { calculate_individual_charges() });
+        $("#billing_rate").change(function() { calculate_individual_charges() });
+        $("#billing_increase").change(function() { calculate_individual_charges() });
+        $("#cost_quantity").change(function() { calculate_individual_charges() });
+        $("#cost_rate").change(function() { calculate_individual_charges() });
 
         $("#warehouse_id").val("1");
+        $("#warehouse_name").attr("readonly", true);
         $("#warehouse_name").val("VECO MIAMI");
         $("#warehouse_name option[value="+ 1 +"]").attr("selected",true);
 
@@ -185,6 +224,50 @@
         $("#pd_type").val("P").change();
         $("#pd_dispatch_status").val("O").change();
     });
+
+    //=================================================================
+    $("#billing_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#billing_unit_name").val(e[0].code);
+
+            }
+        });
+    });
+
+    $("#cost_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#cost_unit_name").val(e[0].code);
+
+            }
+        });
+    });
+
+    $("#cargo_location_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('locations.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#cargo_location_name").val(e[0].code);
+
+            }
+        });
+    });
+
+
+//========;===================================================
+
 
     $("#pick_cargo_save").click(function () {
         var pick_select = new Array(), c = 0, d = 0, x = 0;

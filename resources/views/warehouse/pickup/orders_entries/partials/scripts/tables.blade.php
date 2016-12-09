@@ -6,6 +6,7 @@
         $("#cargo_metric_unit_measurement_id").val("I").change();
         $("#cargo_weight_unit_measurement_id").val("L").change();
         $("#cargo_dim_fact").val("I").change();
+        $("#cargo_location_bin_id").val(0).change();
 
           for (var t = $("#cargo-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
@@ -35,6 +36,10 @@
     });
 
     $("#btn-charges").click(function() {
+        $("#billing_bill_party").val("C").change();
+        $("#billing_bill_type").val("C").change();
+        $("#bill_currency_type").val("C").change();
+        $("#cost_currency_type").val("C").change();
         for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -571,10 +576,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
             }),
 
     $("#charges-save").click(function() {
-        if($("#billing_billing_code").val()==''){
-            show_alert();
-            $("#billing_billing_code").focus();
-        }else{
+
             var t = $("#charge_details tbody tr").length + 1,
                     _ =  ($("#charge_details tbody tr").length == 0 ? 1 : parseInt($("#charge_details tbody tr")[$("#charge_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                     charge_id = $("#charge_id").val(),
@@ -621,14 +623,14 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                     .append(createTableContent('billing_bill_type', g_4, false, d))
                     .append(createTableContent('billing_bill_party', g_5, false, d))
                     .append(createTableContent('billing_quantity', g_7, false, d))
-                    .append(createTableContent('billing_rate', g_11, false, d))
+                    .append(createTableContent('billing_rate', g_11, true, d))
                     .append(createTableContent('billing_amount', g_12, false, d))
                     .append(createTableContent('billing_currency_type', g_13, true, d))
-                    .append(createTableContent('billing_customer_name', g_16, false, d))
+                    .append(createTableContent('billing_customer_name', g_16, true, d))
                     .append(createTableContent('cost_amount', g_21, false, d))
                     .append(createTableContent('cost_currency_type', g_22, true, d))
-                    .append(createTableContent('cost_invoice', g_27, false, d))
-                    .append(createTableContent('cost_reference', g_29, false, d))
+                    .append(createTableContent('cost_invoice', g_27, true, d))
+                    .append(createTableContent('cost_reference', g_29, true, d))
 
 
                     .append(createTableContent('billing_notes', g_6, true, d))
@@ -640,7 +642,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                     .append(createTableContent('cost_unit_id', g_18, true, d))
                     .append(createTableContent('cost_unit_name', g_19, true, d))
                     .append(createTableContent('cost_rate', g_20, true, d))
-                    .append(createTableContent('cost_cost_center', g_28, false, d))
+                    .append(createTableContent('cost_cost_center', g_28, true, d))
                     .append(createTableContent('cost_exchange_rate', g_23, true, d))
                     .append(createTableContent('billing_vendor_code', g_24, true, d))
                     .append(createTableContent('billing_vendor_name', g_25, true, d))
@@ -649,12 +651,12 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
 
                     .append(createTableBtns()),
 
-                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C),values_charges(), $("#Charge_Details").modal("hide"), $("#billing_billing_code").focus()
-        }
+                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C),  cleanModalFields('Charge_Details'),calculate_charges(),  $("#billing_unit_id").val(0).change(), $("#cost_unit_id").val(0).change(),$("#billing_bill_party").val("C").change(), $("#billing_bill_type").val("C").change(),$("#billing_billing_code").focus()
+
 
     }), $("#charge_details").on("click", "a.btn-danger", function() {
         $(this).closest("tr").remove(),
-                values_charges()
+                calculate_charges()
     }), $("#charge_details").on("click", "a.btn-default", function() {
         removeEmptyNodes('charge_details');
         var t = $(this).closest("tr"),
@@ -690,28 +692,28 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                 g30 = t[0].childNodes[29].textContent;
 
         $("#charge_id").val(g1),
-        $("#billing_billing_id").val(g2),
+        $("#billing_billing_id").val(g2).change(),
         $("#billing_billing_code").val(g3),
         $("#billing_billing_description").val(g4),
-        $("#billing_bill_type").val(g5),
-        $("#billing_bill_party").val(g6),
+        $("#billing_bill_type").val(g5).change(),
+        $("#billing_bill_party").val(g6).change(),
         $("#billing_quantity").val(g7),
         $("#billing_rate").val(g8),
         $("#billing_amount").val(g9),
-        $("#billing_currency_type").val(g10),
+        $("#billing_currency_type").val(g10).change(),
         $("#billing_customer_name").val(g11),
         $("#cost_amount").val(g12),
-        $("#cost_currency_type").val(g13),
+        $("#cost_currency_type").val(g13).change(),
         $("#cost_invoice").val(g14),
         $("#cost_reference").val(g15),
 
                 $("#billing_notes").val(g16),
-                $("#billing_unit_id").val(g17),
+                $("#billing_unit_id").val(g17).change(),
                 $("#billing_unit_name").val(g18),
                 $("#billing_exchange_rate").val(g19),
-                $("#billing_customer_id").val(g20),
+                $("#billing_customer_id").val(g20).change(),
                 $("#cost_quantity").val(g21),
-                $("#cost_unit_id").val(g22),
+                $("#cost_unit_id").val(g22).change(),
                 $("#cost_unit_name").val(g23),
                 $("#cost_rate").val(g24),
                 $("#cost_cost_center").val(g25),
@@ -721,7 +723,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                 $("#cost_date").val(g29),
                 $("#billing_increase").val(g30),
 
-                $("#Charge_Details").modal("show"), $("#billing_billing_code").focus()
+                $("#Charge_Details").modal("show"),   $("#billing_billing_code").focus()
     }),
 
             $("#transportation-save").click(function() {
@@ -974,9 +976,9 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                         g16 = $("#cargo_unit_weight").val(),
                         g17 = $("#cargo_dim_fact").val(),
                         g18 = $("#cargo_location_id").val(),
-                        g19 = $("#cargo_location_name").val().toUpperCase(),
+                        g19 = $("#cargo_location_name").val(),
                         g20 = $("#cargo_location_bin_id").val(),
-                        g21 = $("#cargo_location_bin_name").val().toUpperCase(),
+
                         g22 = $("#cargo_tare_weight").val(),
                         g23 = $("#cargo_square_foot").val(),
 
@@ -1076,7 +1078,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                         .append(createTableContent('cargo_location_id', g18, true, c))
                         .append(createTableContent('cargo_location_name', g19, true, c))
                         .append(createTableContent('cargo_location_bin_id', g20, true, c))
-                        .append(createTableContent('cargo_location_bin_name', g21, true, c))
+                        .append(createTableContent('cargo_location_bin_name', g20, true, c))
                         .append(createTableContent('cargo_tare_weight', g22, true, c))
                         .append(createTableContent('cargo_square_foot', g23, true, c))
                                 /*PART INFO */
@@ -1174,7 +1176,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                         .append(createTableContent('vehicle_buyer_number', '', true, c))
                         .append(createTableContent('type_package', '0' , true, c))
 
-                        .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),values_warehouse(),cleanModalFields('cargo-warehouse'), $("#cargo_quantity").focus();
+                        .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),values_warehouse(),cleanModalFields('cargo-warehouse'),$("#cargo_cargo_type_id").val(0).change(), $("#cargo_quantity").val(1), $("#cargo_pieces").val(1), $("#cargo_location_id").val(0).change(), $("#cargo_location_bin_id").val(0).change(), $("#cargo_dim_fact").val("I").change(), $("#cargo_weight_unit_measurement_id").val("L").change(), $("#cargo_metric_unit_measurement_id").val("I").change() ,$("#cargo_quantity").focus();
 
 
              var id_row =  (0== l? _ : l);
@@ -1351,27 +1353,27 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
 
                 $('#cargo_id').val(g1),
                         $("#cargo_quantity").val(g2),
-                        $("#cargo_cargo_type_id").val(g3),
+                        $("#cargo_cargo_type_id").val(g3).change(),
                         $("#cargo_cargo_type_code").val(g4),
                         $("#cargo_length").val(g5),
                         $("#cargo_width").val(g6),
                         $("#cargo_height").val(g7),
                         $("#cargo_total_weight").val(g8),
                         $("#cargo_net_weight").val(g9),
-                        $("#cargo_weight_unit_measurement_id").val(g10),
+                        $("#cargo_weight_unit_measurement_id").val(g10).change(),
                         $("#cargo_cubic").val(g11),
                         $("#part_info_po_number").val(g12),
                             /* GENERAL*/
                         $("#cargo_volume_weight").val(g13),
-                        $("#cargo_metric_unit_measurement_id").val(g14),
+                        $("#cargo_metric_unit_measurement_id").val(g14).change(),
                         $("#cargo_material").val(g15),
                         $("#cargo_pieces").val(g16),
                         $("#cargo_unit_weight").val(g17),
-                        $("#cargo_dim_fact").val(g18),
-                        $("#cargo_location_id").val(g19),
+                        $("#cargo_dim_fact").val(g18).change(),
+                        $("#cargo_location_id").val(g19).change(),
                         $("#cargo_location_name").val(g20),
-                        $("#cargo_location_bin_id").val(g21),
-                        $("#cargo_location_bin_name").val(g22),
+                        $("#cargo_location_bin_id").val(g21).change(),
+
                         $("#cargo_tare_weight").val(g23),
                         $("#cargo_square_foot").val(g24),
                             /*PART INFO*/
@@ -1441,7 +1443,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                         $("#other_ultimate_consignee_name").val(oth8),
                         $("#comments_comment").val(comm),
 
-                        (type== '0' ? $("#cargo-warehouse").modal("show") : $("#vehicle-warehouse").modal("show")),
+                         $("#cargo-warehouse").modal("show"),
                         $("#cargo_quantity").focus()
             }),
 
@@ -1797,7 +1799,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                         $("#vehicle_eei_info_origin").val(eei13),
                         $("#vehicle_comments").val(comm),
                         calculate_vehicle(),
-                        (type== '0' ? $("#cargo-warehouse").modal("show") : $("#vehicle-warehouse").modal("show"))
+                        $("#cargo-warehouse").modal("show")
                         , $("#vehicle_quantity").focus()
             });
 

@@ -113,4 +113,15 @@ class LocationController extends Controller
             return response()->json($results);
         }
     }
+    public function get(Request $request)
+    {
+        if ($request->ajax()) {
+            $id = $request->get('id');
+            $location= Location::find($id);
+            $results[] = [
+                'code'   => strtoupper($location->code),
+            ];
+            return response()->json($results);
+        }
+    }
 }

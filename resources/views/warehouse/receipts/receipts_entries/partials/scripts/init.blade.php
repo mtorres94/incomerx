@@ -75,6 +75,7 @@
 
         $("#tmp_billing_quantity").change(function () { calculate_individual_charges() });
         $("#tmp_billing_rate").change(function () { calculate_individual_charges() });
+        $("#tmp_billing_increase").change(function () { calculate_individual_charges() });
         $("#tmp_cost_quantity").change(function () { calculate_individual_charges() });
         $("#tmp_cost_rate").change(function () { calculate_individual_charges() });
 
@@ -205,6 +206,117 @@
                 }
             });
         });
+        //=================================================================
+        $("#tmp_billing_unit_id").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ route('units.get') }}",
+                data: { id: id },
+                type: 'GET',
+                success: function (e) {
+                    $("#tmp_billing_unit_name").val(e[0].code);
+
+                }
+            });
+        });
+
+        $("#tmp_cost_unit_id").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ route('units.get') }}",
+                data: { id: id },
+                type: 'GET',
+                success: function (e) {
+                    $("#tmp_cost_unit_name").val(e[0].code);
+
+                }
+            });
+        });
+
+        $("#tmp_cargo_location_id").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ route('locations.get') }}",
+                data: { id: id },
+                type: 'GET',
+                success: function (e) {
+                    $("#tmp_cargo_location_name").val(e[0].code);
+
+                }
+            });
+        });
+
+        $("#tmp_cargo_location_bin_id").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ route('locations_bins.get') }}",
+                data: { id: id },
+                type: 'GET',
+                success: function (e) {
+                    $("#tmp_cargo_location_bin_name").val(e[0].code);
+
+                }
+            });
+        });
+
+        $("#multiline_cargo_location_id").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ route('locations.get') }}",
+                data: { id: id },
+                type: 'GET',
+                success: function (e) {
+                    $("#multiline_cargo_location_name").val(e[0].code);
+
+                }
+            });
+        });
+
+        $("#multiline_cargo_location_bin_id").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ route('locations_bins.get') }}",
+                data: { id: id },
+                type: 'GET',
+                success: function (e) {
+                    $("#multiline_cargo_location_bin_name").val(e[0].code);
+
+                }
+            });
+        });
+
+        $("#tmp_billing_bill_party").change(function () {
+            var a= $("#tmp_billing_bill_party").val();
+            switch(a){
+                case "S":   $("#tmp_billing_customer_name").val( $("#shipper_name").val() );
+                    $("#tmp_billing_customer_id").val( $("#shipper_id").val() );
+                    $("#tmp_billing_customer_name").attr("readonly", true);
+                    break;
+
+                case "C":   $("#tmp_billing_customer_name").val( $("#consignee_name").val() );
+                    $("#tmp_billing_customer_id").val( $("#consignee_id").val() );
+                    $("#tmp_billing_customer_name").attr("readonly", true);
+                    break;
+
+                case "T":   $("#tmp_billing_customer_name").val( $("#third_party_name").val() );
+                    $("#tmp_billing_customer_id").val( $("#third_party_id").val() );
+                    $("#tmp_billing_customer_name").attr("readonly", true);
+                    break;
+
+                case "O":   $("#tmp_billing_customer_name").val("");
+                    $("#tmp_billing_customer_id").val(0);
+                    $("#tmp_billing_customer_name").attr("readonly", false);
+                    break;
+            }
+
+        });
+
+
+        //=================================================================
+
+
+
+
         $("#warehouse_id").val("1");
         $("#warehouse_name").val("VECO MIAMI");
         $("#warehouse_name option[value="+ 1 +"]").attr("selected", true);
@@ -275,43 +387,38 @@
     $('#pieces_discrepancy').change(function() {
         ((this.checked)? $(this).val("1"): $(this).val("0"))
     });
-
     $('#hazardous_labels').change(function() {
         ((this.checked)? $(this).val("1"): $(this).val("0"))
     });
-
     $('#fragile').change(function() {
         ((this.checked)? $(this).val("1"): $(this).val("0"))
     });
-
     $('#weight_discrepancy').change(function() {
         ((this.checked)? $(this).val("1"): $(this).val("0"))
     });
     $('#cargo_screened').change(function() {
         ((this.checked)? $(this).val("1"): $(this).val("0"))
     });
-
     $('#ippc').change(function() {
         ((this.checked)? $(this).val("1"): $(this).val("0"))
     });
 
-    $("#code").attr("disabled", true);
-    $("#shipping_number").attr("disabled", true);
-    $("#pd_order").attr("disabled", true);
-    $("#po_number").attr("disabled", true);
-    $("#user_id").attr("disabled", true);
-    $("#tmp_cargo_total_weight").attr("disabled", true);
-    $("#multiline_cargo_total_weight").attr("disabled", true);
+    $("#code").attr("readonly", true);
+    $("#tmp_billing_exchange_rate").attr("readonly", true);
+    $("#tmp_cost_exchange_rate").attr("readonly", true);
+    $("#shipping_number").attr("readonly", true);
+    $("#pd_order").attr("readonly", true);
+    $("#po_number").attr("readonly", true);
+    $("#user_id").attr("readonly", true);
+    $("#tmp_cargo_total_weight").attr("readonly", true);
+    $("#multiline_cargo_total_weight").attr("readonly", true);
 
-    $("#charges_bill").attr("disabled", true);
-    $("#charges_cost").attr("disabled", true);
-    $("#charges_profit").attr("disabled", true);
-    $("#charges_profit_percent").attr("disabled", true);
+    $("#sum_bill").attr("readonly", true);
+    $("#sum_cost").attr("readonly", true);
+    $("#sum_profit").attr("readonly", true);
+    $("#sum_profit_percent").attr("readonly", true);
 
-    $("#charges_bill").attr("disabled", true);
-    $("#charges_cost").attr("disabled", true);
-    $("#charges_profit").attr("disabled", true);
-    $("#charges_profit_percent").attr("disabled", true);
+
 
     $("#references_invoice_amount").number(true, 2);
 
@@ -344,8 +451,8 @@
     $("#charges_profit").number(true, 2);
     $("#charges_profit_percent").number(true, 3);
 
-    $("#ippc_number").attr("disabled", !0), $("#ippc").change(function() {
-        $("#ippc_number").attr("disabled", !this.checked), $("#ippc_number").val("")
+    $("#ippc_number").attr("readonly", !0), $("#ippc").change(function() {
+        $("#ippc_number").attr("readonly", !this.checked), $("#ippc_number").val("")
     });
 
     removeEmptyNodes('receiving-details');

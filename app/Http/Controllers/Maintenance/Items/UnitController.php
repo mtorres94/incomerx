@@ -120,4 +120,16 @@ class UnitController extends Controller
             return response()->json($results);
         }
     }
+
+    public function get(Request $request)
+    {
+        if ($request->ajax()) {
+            $id = $request->get('id');
+            $unit= Unit::find($id);
+            $results[] = [
+                'code'   => strtoupper($unit->code),
+            ];
+            return response()->json($results);
+        }
+    }
 }

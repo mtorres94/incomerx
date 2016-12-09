@@ -6,6 +6,7 @@
         <div class="row row-panel">
             {!! Form::hidden('multiline_cargo_id', null, ['id' => 'multiline_cargo_id', 'class' => 'form-control input-sm']) !!}
             {!! Form::hidden('multiline_cargo_type_code', null, ['id' => 'multiline_cargo_type_code', 'class' => 'form-control input-sm']) !!}
+            {!! Form::hidden('multiline_cargo_location_name', null, ['id' => 'multiline_cargo_location_name', 'class' => 'form-control input-sm']) !!}
 
             {!! Form::hidden('multiline_cargo_weight_unit_measurement_code', null, ['id' => 'multiline_cargo_weight_unit_measurement_code', 'class' => 'form-control input-sm']) !!}
             {!! Form::hidden('multiline_cargo_metric_unit_measurement_code', null, ['id' => 'multiline_cargo_metric_unit_measurement_code', 'class' => 'form-control input-sm']) !!}
@@ -32,8 +33,8 @@
     <div class="col-md-2">{!! Form::bsText(null, null, 'Cubic', 'multiline_cargo_cubic', null, '0.000') !!}</div>
     <div class="col-md-2">{!! Form::bsSelect(null, null, 'DIM Fact', 'multiline_cargo_dim_fact', array('D' => 'DOM', 'I' => 'INT'), null) !!}</div>
     <div class="col-md-2">{!! Form::bsText(null, null, 'Vol. Weight', 'multiline_cargo_volume_weight', null, '0.000') !!}</div>
-    <div class="col-md-3">{!! Form::bsComplete(null, null, 'Location', 'multiline_cargo_location_id', 'multiline_cargo_location_name', Request::get('term'), null, 'Location...') !!}</div>
-    <div class="col-md-3">{!! Form::bsComplete(null, null, 'Bin', 'multiline_cargo_location_bin_id', 'multiline_cargo_location_bin_name', Request::get('term'), null, 'Location bin...') !!}</div>
+    <div class="col-md-3">{!! Form::bsSelect(null, null, 'Location', 'multiline_cargo_location_id', Sass\Location::all()->lists('code', 'id'), 'Location', false) !!}</div>
+    <div class="col-md-3">{!! Form::bsSelect(null, null, 'Bin', 'multiline_cargo_location_bin_id',array('A' => 'A', 'B' => 'B', 'C' => 'C'), null) !!}</div>
     <div class="col-md-2">{!! Form::bsText(null, null, 'Tare Weight', 'multiline_cargo_tare_weight', null, '0.000') !!}</div>
     <div class="col-md-2">{!! Form::bsText(null, null, 'Net Weight', 'multiline_cargo_net_weight', null, '0.000') !!}</div>
     <div class="col-md-2">{!! Form::bsText(null, null, 'Sq. Foot', 'multiline_cargo_square_foot', null, '0.000') !!}</div>

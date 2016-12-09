@@ -25,6 +25,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('commodities/autocomplete', ['as'   => 'commodities.autocomplete', 'uses' => 'CommodityController@autocomplete']);
             Route::get('items/autocomplete', ['as'   => 'items.autocomplete', 'uses' => 'ItemController@autocomplete']);
             Route::get('units/autocomplete', ['as'   => 'units.autocomplete', 'uses' => 'UnitController@autocomplete']);
+            Route::get('units/get', ['as'   => 'units.get', 'uses' => 'UnitController@get']);
             Route::get('billing_codes/autocomplete', ['as'   => 'billing_codes.autocomplete', 'uses' => 'BillingCodeController@autocomplete']);
             Route::get('harmonized_codes/autocomplete', ['as'   => 'harmonized_codes.autocomplete', 'uses' => 'HarmonizedCodeController@autocomplete']);
         });
@@ -56,6 +57,8 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('cargo_types/autocomplete', ['as'   => 'cargo_types.autocomplete', 'uses' => 'CargoTypeController@autocomplete']);
             Route::get('locations/autocomplete', ['as'   => 'locations.autocomplete', 'uses' => 'LocationController@autocomplete']);
             Route::get('locations_bins/autocomplete', ['as'   => 'locations_bins.autocomplete', 'uses' => 'LocationBinController@autocomplete']);
+            Route::get('locations/get', ['as'   => 'locations.get', 'uses' => 'LocationController@get']);
+            Route::get('locations_bins/get', ['as'   => 'locations_bins.get', 'uses' => 'LocationBinController@get']);
             Route::get('export_codes/autocomplete', ['as'   => 'export_codes.autocomplete', 'uses' => 'ExportCodeController@autocomplete']);
             Route::get('license_types/autocomplete', ['as'   => 'license_types.autocomplete', 'uses' => 'LicenseTypeController@autocomplete']);
         });

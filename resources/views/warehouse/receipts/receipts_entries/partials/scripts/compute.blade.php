@@ -61,16 +61,16 @@
 
     function calculate_individual_charges() {
         var rb = $("#tmp_billing_rate").val(),
+                ib=$("#tmp_billing_increase").val(),
                 qb = $("#tmp_billing_quantity").val(),
                 rc = $("#tmp_cost_rate").val(),
                 qc = $("#tmp_cost_quantity").val();
 
-        var ab = rb * qb,
+        var ab = (rb * qb) + ((rb * qb) * (ib/100) ),
                 ac = rc * qc;
 
         $("#tmp_billing_amount").val(ab), $("#tmp_cost_amount").val(ac);
     }
-
 
     function calculate_charges() {
         var tr = $('#charge-details tbody tr'),
@@ -80,10 +80,10 @@
                 total_profit_percent = 0;
 
         for (var a=0; a < tr.length; a++) {
-            var bill = parseFloat(tr[a].childNodes[12].textContent),
-                    cost = parseFloat(tr[a].childNodes[21].textContent),
+            var bill = parseFloat(tr[a].childNodes[7].textContent),
+                    cost = parseFloat(tr[a].childNodes[25].textContent),
                     profit = bill - cost,
-                    profit_percent = parseFloat((profit/cost)*100).toFixed(3);
+                    profit_percent = parseFloat((profit/bill)*100).toFixed(3);
 
             total_bill = total_bill + bill;
             total_cost = total_cost + cost;
@@ -91,9 +91,9 @@
             total_profit_percent = total_profit_percent + profit_percent;
         }
 
-        $("#charges_bill").val(total_bill);
-        $("#charges_cost").val(total_cost);
-        $("#charges_profit").val(total_profit);
-        $("#charges_profit_percent").val(total_profit_percent);
+        $("#sum_bill").val(total_bill);
+        $("#sum_cost").val(total_cost);
+        $("#sum_profit").val(total_profit);
+        $("#sum_profit_percent").val(total_profit_percent);
     }
 </script>

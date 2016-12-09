@@ -74,7 +74,7 @@
             selected:{
                 id: '{{ (isset($order_entry)? $order_entry->shipper_id : "") }}',
                 value: '{{ ((isset($order_entry) and ($order_entry->shipper_id > 0 ))? $order_entry->shipper->name : "") }}',
-                address: '{{ (isset($order_entry)? $order_entry->shipper_address : "") }}',
+                address: '{{ trim(preg_replace('/\s\s+/', ' ',(isset($order_entry)? $order_entry->shipper_address : ""))) }}',
                 city: '{{ (isset($order_entry)? $order_entry->shipper_city: "") }}',
                 zip_code_id: '{{ (isset($order_entry)? $order_entry->shipper_zip_code_id : "") }}',
                 zip_code_code: '{{ ((isset($order_entry)and( $order_entry->shipper_zip_code_id > 0 ))? $order_entry->shipper_zip_code->code : "") }}',
@@ -116,22 +116,22 @@
 
             selected:{
 
-                id: '{{ (isset($receipt_entry )? $receipt_entry->consignee_id  : "")}}',
-                value: '{{ ((isset($receipt_entry) and $receipt_entry->consignee_id >0) ? $receipt_entry->consignee->name : "") }}',
-                address: "{{ trim(preg_replace('/\s\s+/', ' ', (isset($receipt_entry) ? $receipt_entry->consignee_address : null)) )}}",
-                city: '{{ (isset($receipt_entry )? $receipt_entry->consignee_city : "")}}',
-                state_id: '{{ (isset($receipt_entry )? $receipt_entry->consignee_state_id: "")}}',
-                state_name: '{{ ((isset($receipt_entry )and  $receipt_entry->consignee_state_id >0 )? $receipt_entry->consignee_state->name: "")}}',
-                zip_code_id: '{{ (isset($receipt_entry )? $receipt_entry->consignee_zip_code_id: "")}}',
-                zip_code_code: '{{ ((isset($receipt_entry )and  $receipt_entry->consignee_zip_code_id >0) ? $receipt_entry->consignee_zip_code->code: "")}}',
-                coloader_id: '{{ (isset($receipt_entry )? $receipt_entry->coloader_id: "")}}',
-                coloader_name: '{{ ((isset($receipt_entry ) and  $receipt_entry->coloader_id) ?  $receipt_entry->coloader->name: "")}}',
-                agent_id: '{{ (isset($receipt_entry )? $receipt_entry->agent_id: "")}}',
-                agent_name: '{{ ((isset($receipt_entry ) and  $receipt_entry->agent_id) ?  $receipt_entry->agent->name : "" )}}',
-                third_party_id: '{{ (isset($receipt_entry )? $receipt_entry->third_party_id : "")}}',
-                third_party_name: '{{ ((isset($receipt_entry ) and  $receipt_entry-> third_party_id) ?  $receipt_entry->third_party->name: "")}}',
-                third_party_phone: '{{ (isset($receipt_entry )? $receipt_entry->third_party_phone : "")}}',
-                third_party_fax: '{{ (isset($receipt_entry )? $receipt_entry->third_party_fax : "")}}'
+                id: '{{ (isset($order_entry )? $order_entry->consignee_id  : "")}}',
+                value: '{{ ((isset($order_entry) and $order_entry->consignee_id >0) ? $order_entry->consignee->name : "") }}',
+                address: "{{ trim(preg_replace('/\s\s+/', ' ', (isset($order_entry) ? $order_entry->consignee_address : null)) )}}",
+                city: '{{ (isset($order_entry )? $order_entry->consignee_city : "")}}',
+                state_id: '{{ (isset($order_entry )? $order_entry->consignee_state_id: "")}}',
+                state_name: '{{ ((isset($order_entry )and  $order_entry->consignee_state_id >0 )? $order_entry->consignee_state->name: "")}}',
+                zip_code_id: '{{ (isset($order_entry )? $order_entry->consignee_zip_code_id: "")}}',
+                zip_code_code: '{{ ((isset($order_entry )and  $order_entry->consignee_zip_code_id >0) ? $order_entry->consignee_zip_code->code: "")}}',
+                coloader_id: '{{ (isset($order_entry )? $order_entry->coloader_id: "")}}',
+                coloader_name: '{{ ((isset($order_entry ) and  $order_entry->coloader_id) ?  $order_entry->coloader->name: "")}}',
+                agent_id: '{{ (isset($order_entry )? $order_entry->agent_id: "")}}',
+                agent_name: '{{ ((isset($order_entry ) and  $order_entry->agent_id) ?  $order_entry->agent->name : "" )}}',
+                third_party_id: '{{ (isset($order_entry )? $order_entry->third_party_id : "")}}',
+                third_party_name: '{{ ((isset($order_entry ) and  $order_entry-> third_party_id) ?  $order_entry->third_party->name: "")}}',
+                third_party_phone: '{{ (isset($order_entry )? $order_entry->third_party_phone : "")}}',
+                third_party_fax: '{{ (isset($order_entry )? $order_entry->third_party_fax : "")}}'
             },
             onSelect: function(e, o) {
                 $("#consignee_id").val(e.id), $(this).val(e.value), $("#consignee_address").val(e.address), $("#consignee_city").val(e.city), $("#consignee_state_id").val(e.state_id), $("#consignee_state_name").val(e.state_name), $("#consignee_zip_code_id").val(e.zip_code_id), $("#consignee_zip_code_code").val(e.zip_code_code), $("#consignee_phone").val(e.phone), $("#consignee_fax").val(e.fax), $("#agent_id").val(e.agent_id), $('#agent_name').val(e.agent_name), $("#coloader_id").val(e.coloader_id), $('#coloader_name').val(e.coloader_name), $("#third_party_id").val(e.third_party_id), $("#third_party_name").val(e.third_party_name), $("#third_party_phone").val(e.third_party_phone), $("#third_party_fax").val(e.third_party_fax)
@@ -174,7 +174,7 @@
                     phone:'{{ (isset($order_entry)? $order_entry->third_party_phone : "") }}',
                     fax:'{{ (isset($order_entry)? $order_entry->third_party_fax : "") }}',
                 }
-                ,onSelect:function(e,o){$("#third_party_id").val(e.id),$(this).val(e.value),$("#third_party_phone").val(e.phone),$("#third_party_fax").val(e.fax)},minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#third_party_name_img").removeClass("img-none").addClass("img-display"),$("#third_party_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#third_party_name_img").removeClass("img-display").addClass("img-none"),$("#third_party_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#third_party_id").val(0)}).blur(function(){var e=$("#third_party_id").val();0==e&&$(this).val(""), $("#third_party_phone").val(""),$("#third_party_fax").val("")});
+                ,onSelect:function(e,o){$("#third_party_id").val(e.id),$(this).val(e.value),$("#third_party_phone").val(e.phone),$("#third_party_fax").val(e.fax)},minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#third_party_name_img").removeClass("img-none").addClass("img-display"),$("#third_party_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#third_party_name_img").removeClass("img-display").addClass("img-none"),$("#third_party_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#third_party_id").val(0)}).blur(function(){var e=$("#third_party_id").val();0==e&&($(this).val(""), $("#third_party_phone").val(""),$("#third_party_fax").val(""))});
 
         $("#agent_name").marcoPolo({url:"{{ route('customers.autocomplete') }}",formatItem:function(e,o){return e.value},
                 selected:{
@@ -267,7 +267,7 @@
                     id: '{{ (isset($order_entry)? $order_entry->pickup_id : "") }}',
                     value: '{{ ((isset($order_entry) and ($order_entry->pickup_id >0 ))? $order_entry->pickup_name->name : "") }}',
                     name: '{{ ((isset($order_entry) and ($order_entry->pickup_id >0 ))? $order_entry->pickup_name->name : "") }}',
-                    address: '{{ ((isset($order_entry) and ($order_entry->pickup_id > 0))? $order_entry->pickup_name->address : "") }}',
+                    address: '{{ trim(preg_replace('/\s\s+/', ' ',((isset($order_entry) and ($order_entry->pickup_id > 0))? $order_entry->pickup_name->address : ""))) }}',
                     city: '{{ ((isset($order_entry) and ($order_entry->pickup_id > 0))? $order_entry->pickup_name->city : "") }}',
                     state_id: '{{ (isset($order_entry) ? $order_entry->pickup_state_id: "") }}',
                     state_name: '{{ ((isset($order_entry) and ($order_entry->pickup_state_id >0 ))? $order_entry->pickup_state->name : "") }}',
@@ -307,12 +307,12 @@
                 id: '{{ (isset($order_entry)? $order_entry->delivery_id : "") }}',
                 value: '{{ ((isset($order_entry) and ($order_entry->delivery_id >0 ))? $order_entry->delivery->name : "") }}',
                 name: '{{ ((isset($order_entry) and ($order_entry->delivery_id >0 ))? $order_entry->delivery->name : "") }}',
-                address: '{{ (isset($order_entry)? $order_entry->delivery->address : "") }}',
+                address: '{{ trim(preg_replace('/\s\s+/', ' ',(isset($order_entry)? $order_entry->delivery->address : ""))) }}',
                 city: '{{ (isset($order_entry)? $order_entry->delivery->city : "") }}',
                 state_id: '{{ (isset($order_entry) ? $order_entry->delivery_state_id: "") }}',
                 state_name: '{{ ((isset($order_entry) and ($order_entry->delivery_state_id >0 ))? $order_entry->delivery_state->name : "") }}',
                 zip_code_id: '{{ (isset($order_entry) ? $order_entry->delivery_zip_code_id : "" ) }}',
-                zip_code_code: '{{ ((isset($order_entry) and ($order_entry->delivery_zip_code_id >0 ))? $order_entry->delivery_zip_code_id ->code : "") }}',
+                zip_code_code: '{{ ((isset($order_entry) and ($order_entry->delivery_zip_code_id >0 ))? $order_entry->delivery_zip_code->code : "") }}',
             },
             onSelect:function(e,o){
                 var name = $("#delivery_type").val() === '01' ? e.name : e.value;
@@ -544,7 +544,7 @@
         $("#vehicle_eei_info_scheduleb_code").marcoPolo({url:"{{ route('schedule_bs.autocomplete') }}",formatItem:function(e,o){return e.code +' '+ e.value},onSelect:function(e,o){$("#vehicle_eei_info_scheduleb_id").val(e.code),$(this).val(e.code), $("#vehicle_eei_info_scheduleb_description").val(e.value)},minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#vehicle_eei_info_scheduleb_code_img").removeClass("img-none").addClass("img-display"),$("#vehicle_eei_info_scheduleb_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#vehicle_eei_info_scheduleb_code_img").removeClass("img-display").addClass("img-none"),$("#vehicle_eei_info_scheduleb_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#vehicle_eei_info_scheduleb_id").val(0)}).blur(function(){var e=$("#vehicle_eei_info_scheduleb_id").val();0==e&&$(this).val("")})
 
 
-        $("#billing_billing_code").marcoPolo({url:"{{ route('billing_codes.autocomplete') }}",formatItem:function(e,o){return e.id + '|'+ e.value},onSelect:function(e,o){$("#billing_billing_id").val(e.id),$(this).val(e.id), $("#billing_billing_description").val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#billing_billing_code_img").removeClass("img-none").addClass("img-display"),$("#billing_billing_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#billing_billing_code_img").removeClass("img-display").addClass("img-none"),$("#billing_billing_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#billing_billing_id").val(0)}).blur(function(){var e=$("#billing_billing_id").val();0==e&&$(this).val("")})
+        $("#billing_billing_code").marcoPolo({url:"{{ route('billing_codes.autocomplete') }}",formatItem:function(e,o){return e.code + '|'+ e.value},onSelect:function(e,o){$("#billing_billing_id").val(e.id),$(this).val(e.code), $("#billing_billing_description").val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#billing_billing_code_img").removeClass("img-none").addClass("img-display"),$("#billing_billing_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#billing_billing_code_img").removeClass("img-display").addClass("img-none"),$("#billing_billing_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#billing_billing_id").val(0)}).blur(function(){var e=$("#billing_billing_id").val();0==e&&$(this).val("")})
 
 
 

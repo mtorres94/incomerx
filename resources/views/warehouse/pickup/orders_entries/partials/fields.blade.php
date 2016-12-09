@@ -4,19 +4,25 @@
 
 <div class="row">
     <div class="col-md-6">
-        @include('warehouse.pickup.orders_entries.partials.sections.tabs')
+        @include('warehouse.pickup.orders_entries.partials.sections.tabs_delivery')
         @include('warehouse.pickup.orders_entries.partials.sections.third')
         @include('warehouse.pickup.orders_entries.partials.sections.tabs_pickup')
     </div>
     <div class="col-md-6">
-        @include('warehouse.pickup.orders_entries.partials.sections.tabs_delivery')
+        @include('warehouse.pickup.orders_entries.partials.sections.tabs')
         @include('warehouse.pickup.orders_entries.partials.sections.tabs_additional_info')
         @include('warehouse.pickup.orders_entries.partials.sections.tabs_carriers')
+        @include('warehouse.pickup.orders_entries.partials.sections.references')
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 form-tab">
+        {!! Form::bsMemo(null, null, 'Instructions', 'reference_instruction', null, 3, '') !!}
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
-        @include('warehouse.pickup.orders_entries.partials.sections.references')
+
         @include('warehouse.pickup.orders_entries.partials.sections.tabs_more_details')
         @include('warehouse.pickup.orders_entries.partials.sections.tabs_charges')
     </div>

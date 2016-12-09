@@ -48,8 +48,9 @@ class ReceiptEntryController extends Controller
     public function create()
     {
         $unique_str = str_random(25);
-        $open_user_id = Auth::user()->id;
-        return view('warehouse.receipts.receipts_entries.create', compact('unique_str', 'open_user_id'));
+        $user_open_id = Auth::user()->id;
+
+        return view('warehouse.receipts.receipts_entries.create', compact('unique_str', 'user_open_id'));
     }
 
     /**
@@ -66,6 +67,7 @@ class ReceiptEntryController extends Controller
             $code = str_pad($count, 10, '0', STR_PAD_LEFT);
 
             $receipt_entry = $request->all();
+
             $receipt_entry['code'] = $code;
             $receipt_entry['user_create_id'] = Auth::user()->id;
             $receipt_entry['user_update_id'] = Auth::user()->id;
@@ -130,7 +132,6 @@ class ReceiptEntryController extends Controller
         DB::beginTransaction();
         try {
             $details = $request->all();
-
             $receipt_entry = ReceiptEntry::findOrFail($id);
             $receipt_entry['user_update_id'] = Auth::user()->id;
             $receipt_entry->fill($request->all());

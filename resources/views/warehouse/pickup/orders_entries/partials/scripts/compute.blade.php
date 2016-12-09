@@ -91,35 +91,42 @@
         $("#dr_cargo_amount").val($("#dr_cargo_chgrw").val()*b);
     }
 
-    function charges_details()
-    {
-        $("#billing_amount").val($("#billing_quantity").val()* $("#billing_rate").val());
-        $("#cost_amount").val($("#cost_quantity").val()* $("#cost_rate").val());
+    function calculate_individual_charges() {
+        var rb = $("#billing_rate").val(),
+                ib= $("#billing_increase").val(),
+                qb = $("#billing_quantity").val(),
+                rc = $("#cost_rate").val(),
+                qc = $("#cost_quantity").val();
 
-        var x= parseFloat($("#cost_amount").val()),
-        y= parseFloat($("#billing_increase").val()/100), z=0 ;
-        z= x* y + parseFloat($("#cost_amount").val());
-        $("#billing_amount").val(z);
-        var w= parseInt($("#billing_quantity").val());
-        w= z/ w;
-        $("#billing_rate").val(w);
+        var ab = (rb * qb) + ((rb * qb) * (ib/100) ),
+                ac = rc * qc;
+
+        $("#billing_amount").val(ab), $("#cost_amount").val(ac);
     }
 
-    function values_charges() {
-        var tr = $('#charge_details tbody tr');
-        var r = tr.length, s_bill=0, s_cost=0, profit=0, profit_p=0, bill=0, cost=0;
-        for (var a = 0; a < r; a++) {
-            bill = parseFloat(tr[a].childNodes[8].textContent);
-            cost = parseFloat(tr[a].childNodes[11].textContent);
-            s_bill = bill+ s_bill;
-            s_cost = cost + s_cost;
+    function calculate_charges() {
+        var tr = $('#charge_details tbody tr'),
+                total_bill = 0,
+                total_cost = 0,
+                total_profit = 0,
+                total_profit_percent = 0;
+
+        for (var a=0; a < tr.length; a++) {
+            var bill = parseFloat(tr[a].childNodes[8].textContent),
+                    cost = parseFloat(tr[a].childNodes[11].textContent),
+                    profit = bill - cost,
+                    profit_percent = parseFloat((profit/bill)*100).toFixed(3);
+
+            total_bill = total_bill + bill;
+            total_cost = total_cost + cost;
+            total_profit = total_profit + profit;
+            total_profit_percent = total_profit_percent + profit_percent;
         }
-        profit = s_bill - s_cost;
-        $("#charges_bill").val(s_bill);
-        $("#charges_cost").val(s_cost);
-        $("#charges_profit").val(profit);
-        profit_p = parseFloat((profit * 100 )/ s_bill);
-        $("#charges_profit_p").val(profit_p);
+
+        $("#charges_bill").val(total_bill);
+        $("#charges_cost").val(total_cost);
+        $("#charges_profit").val(total_profit);
+        $("#charges_profit_p").val(total_profit_percent);
     }
 
 

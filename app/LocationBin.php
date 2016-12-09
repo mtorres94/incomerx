@@ -11,4 +11,8 @@ class LocationBin extends Model
     protected $fillable = [
         'location_id', 'code', 'name', 'unit_id', 'measurement_unit', 'length', 'width', 'height', 'user_create_id', 'user_update_id',
     ];
+    public function getCodeAttribute() {
+        $code = $this->attributes['code'];
+        return strtoupper($code);
+    }
 }

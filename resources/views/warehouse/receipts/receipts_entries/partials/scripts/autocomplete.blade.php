@@ -55,10 +55,12 @@
             selected: {
                 id: '{{ (isset($receipt_entry) ? $receipt_entry->location_destination_id : "")}}',
                 name: '{{ ((isset($receipt_entry) and $receipt_entry->location_destination_id > 0) ? $receipt_entry->destination->name : null)}}',
-                code: '{{ ((isset($receipt_entry) and $receipt_entry->location_destination_id > 0) ? $receipt_entry->destination->code : null)}}'
+                code: '{{ ((isset($receipt_entry) and $receipt_entry->location_destination_id > 0) ? $receipt_entry->destination->code : null)}}',
+                country_id: '{{ ((isset($receipt_entry) and $receipt_entry->location_destination_id > 0) ? $receipt_entry->destination->country_id: null)}}',
+                country_name: '{{ ((isset($receipt_entry) and $receipt_entry->location_destination_id > 0) ? $receipt_entry->destination->country->name : null)}}'
             },
             onSelect: function(e, o) {
-                $("#location_destination_id").val(e.id), $(this).val(e.name)
+                $("#location_destination_id").val(e.id), $(this).val(e.name), $("#location_country_name").val(e.country_name), $("#location_country_id").val(e.country_id)
             },
             minChars: 3,
             param: "term",
@@ -72,7 +74,7 @@
             (8 == o || 46 == o) && $("#location_destination_id").val(0)
         }).blur(function() {
             var e = $("#location_destination_id").val();
-            0 == e && $(this).val("")
+            0 == e && ($(this).val(""), $("#location_country_id").val(0), $("#location_country_name").val(""))
         })
     });
     $("#mode").val('{{ (isset($receipt_entry) ? $receipt_entry->mode : "") }}').change();
@@ -158,7 +160,7 @@
             third_party_fax: '{{ (isset($receipt_entry )? $receipt_entry->third_party_fax : "")}}',
         },
         onSelect: function(e, o) {
-            $("#consignee_id").val(e.id), $(this).val(e.value), $("#consignee_address").val(e.address), $("#consignee_city").val(e.city), $("#consignee_state_id").val(e.state_id), $("#consignee_state_name").val(e.state_name), $("#consignee_zip_code_id").val(e.zip_code_id), $("#consignee_zip_code_code").val(e.zip_code_code), $("#consignee_phone").val(e.phone), $("#consignee_fax").val(e.fax), $("#agent_id").val(e.agent_id), $('#agent_name').val(e.agent_name), $("#coloader_id").val(e.coloader_id), $('#coloader_name').val(e.coloader_name), $("#third_party_id").val(e.third_party_id), $("#third_party_name").val(e.third_party_name), $("#third_party_phone").val(e.third_party_phone), $("#third_party_fax").val(e.third_party_fax)
+            $("#consignee_id").val(e.id), $(this).val(e.value), $("#consignee_address").val(e.address), $("#consignee_city").val(e.city), $("#consignee_state_id").val(e.state_id), $("#consignee_state_name").val(e.state_name), $("#consignee_zip_code_id").val(e.zip_code_id), $("#consignee_zip_code_code").val(e.zip_code_code), $("#consignee_phone").val(e.phone), $("#consignee_fax").val(e.fax), $("#agent_id").val(e.agent_id).change(), $('#agent_name').val(e.agent_name), $("#coloader_id").val(e.coloader_id), $('#coloader_name').val(e.coloader_name), $("#third_party_id").val(e.third_party_id).change(), $("#third_party_name").val(e.third_party_name), $("#third_party_phone").val(e.third_party_phone), $("#third_party_fax").val(e.third_party_fax)
         },
         minChars: 3,
         param: "term",
@@ -200,10 +202,17 @@
 
         $("#third_party_name").marcoPolo({url:"{{ route('customers.autocomplete') }}",formatItem:function(e,o){return e.value},
             selected: {
-                id: '{{ (isset($receipt_entry) ? $receipt_entry->third_party_id : "")}}',
-                value: '{{ ((isset($receipt_entry) and $receipt_entry->third_party_id> 0) ? $receipt_entry->third_party->name: null)}}',
+                id: '{{ (isset($receipt_entry )? $receipt_entry->third_party_id : "")}}',
+                value: '{{ ((isset($receipt_entry ) and  $receipt_entry-> third_party_id) ?  $receipt_entry->third_party->name: "")}}',
+                phone: '{{ (isset($receipt_entry )? $receipt_entry->third_party_phone : "")}}',
+                fax: '{{ (isset($receipt_entry )? $receipt_entry->third_party_fax : "")}}',
             },
-            onSelect:function(e,o){$("#third_party_id").val(e.id),$(this).val(e.value),$("#third_party_phone").val(e.phone),$("#third_party_fax").val(e.fax)},minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#third_party_name_img").removeClass("img-none").addClass("img-display"),$("#third_party_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#third_party_name_img").removeClass("img-display").addClass("img-none"),$("#third_party_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#third_party_id").val(0)}).blur(function(){var e=$("#third_party_id").val();0==e&&$(this).val("")});
+            onSelect:function(e,o){$("#third_party_id").val(e.id),$(this).val(e.value),$("#third_party_phone").val(e.phone),$("#third_party_fax").val(e.fax)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#third_party_name_img").removeClass("img-none").addClass("img-display"),$("#third_party_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#third_party_name_img").removeClass("img-display").addClass("img-none"),$("#third_party_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){
+            var o=e.keyCode?e.keyCode:e.which;
+            (8==o||46==o )&& $("#third_party_id").val(0)})
+                .blur(function(){
+                    var e=$("#third_party_id").val();
+                    0==e&& ($(this).val(""))});
 
 
 
@@ -212,7 +221,7 @@
                 id: '{{ (isset($receipt_entry) ? $receipt_entry->agent_id : "")}}',
                 value: '{{ ((isset($receipt_entry) and $receipt_entry->agent_id> 0) ? $receipt_entry->agent->name: null)}}',
             }
-            ,onSelect:function(e,o){$("#agent_id").val(e.id),$(this).val(e.value)},minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#agent_name_img").removeClass("img-none").addClass("img-display"),$("#agent_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#agent_name_img").removeClass("img-display").addClass("img-none"),$("#agent_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#agent_id").val(0)}).blur(function(){var e=$("#agent_id").val();0==e&&$(this).val("")});
+            ,onSelect:function(e,o){$("#agent_id").val(e.id),$(this).val(e.value)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#agent_name_img").removeClass("img-none").addClass("img-display"),$("#agent_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#agent_name_img").removeClass("img-display").addClass("img-none"),$("#agent_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#agent_id").val(0)}).blur(function(){var e=$("#agent_id").val();0==e&&$(this).val("")});
 
 
 
@@ -221,7 +230,7 @@
                 id: '{{ (isset($receipt_entry) ? $receipt_entry->coloader_id : "")}}',
                 value: '{{ ((isset($receipt_entry) and $receipt_entry->coloader_id> 0) ? $receipt_entry->coloader->name: null)}}',
             }
-            ,onSelect:function(e,o){$("#coloader_id").val(e.id),$(this).val(e.value)},minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#coloader_name_img").removeClass("img-none").addClass("img-display"),$("#coloader_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#coloader_name_img").removeClass("img-display").addClass("img-none"),$("#coloader_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#coloader_id").val(0)}).blur(function(){var e=$("#coloader_id").val();0==e&&$(this).val("")});
+            ,onSelect:function(e,o){$("#coloader_id").val(e.id),$(this).val(e.value)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#coloader_name_img").removeClass("img-none").addClass("img-display"),$("#coloader_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#coloader_name_img").removeClass("img-display").addClass("img-none"),$("#coloader_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#coloader_id").val(0)}).blur(function(){var e=$("#coloader_id").val();0==e&&$(this).val("")});
 
 
 
@@ -236,7 +245,7 @@
                 id: '{{ (isset($receipt_entry) ? $receipt_entry->location_country_id : "")}}',
                 value: '{{ ((isset($receipt_entry) and $receipt_entry->location_country_id > 0) ? $receipt_entry->country->name: null)}}',
             }
-                ,onSelect:function(e,o){$("#location_country_id").val(e.id),$(this).val(e.value)},minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#location_country_name_img").removeClass("img-none").addClass("img-display"),$("#location_country_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#location_country_name_img").removeClass("img-display").addClass("img-none"),$("#location_country_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#location_country_id").val(0)}).blur(function(){var e=$("#location_country_id").val();0==e&&$(this).val("")});
+                ,onSelect:function(e,o){$("#location_country_id").val(e.id),$(this).val(e.value)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#location_country_name_img").removeClass("img-none").addClass("img-display"),$("#location_country_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#location_country_name_img").removeClass("img-display").addClass("img-none"),$("#location_country_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#location_country_id").val(0)}).blur(function(){var e=$("#location_country_id").val();0==e&&$(this).val("")});
 
 
 
@@ -270,7 +279,7 @@
 
         $("#tmp_cargo_location_bin_name").marcoPolo({url:"{{ route('locations_bins.autocomplete') }}",formatItem:function(e,o){return e.value},onSelect:function(e,o){$("#tmp_cargo_location_bin_id").val(e.id),$(this).val(e.value)},minChars:2,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#tmp_cargo_location_bin_name_img").removeClass("img-none").addClass("img-display"),$("#tmp_cargo_location_bin_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#tmp_cargo_location_bin_name_img").removeClass("img-display").addClass("img-none"),$("#tmp_cargo_location_bin_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#tmp_cargo_location_bin_id").val(0)}).blur(function(){var e=$("#tmp_cargo_location_bin_id").val();0==e&&$(this).val("")});
 
-        $("#tmp_billing_billing_code").marcoPolo({url:"{{ route('billing_codes.autocomplete') }}",formatItem:function(e,o){return e.id + ' ' + e.value},onSelect:function(e,o){$("#tmp_billing_billing_id").val(e.id),$(this).val(e.code), $("#tmp_billing_billing_description").val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#tmp_billing_billing_code_img").removeClass("img-none").addClass("img-display"),$("#tmp_billing_billing_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#tmp_billing_billing_code_img").removeClass("img-display").addClass("img-none"),$("#tmp_billing_billing_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#tmp_billing_billing_id").val(0)}).blur(function(){var e=$("#tmp_billing_billing_id").val();0==e&&$(this).val("")});
+        $("#tmp_billing_billing_code").marcoPolo({url:"{{ route('billing_codes.autocomplete') }}",formatItem:function(e,o){return e.code + ' ' + e.value},onSelect:function(e,o){$("#tmp_billing_billing_id").val(e.id),$(this).val(e.code), $("#tmp_billing_billing_description").val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#tmp_billing_billing_code_img").removeClass("img-none").addClass("img-display"),$("#tmp_billing_billing_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#tmp_billing_billing_code_img").removeClass("img-display").addClass("img-none"),$("#tmp_billing_billing_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#tmp_billing_billing_id").val(0)}).blur(function(){var e=$("#tmp_billing_billing_id").val();0==e&&$(this).val("")});
 
         $("#tmp_billing_unit_name").marcoPolo({url:"{{ route('units.autocomplete') }}",formatItem:function(e,o){return e.value},onSelect:function(e,o){$("#tmp_billing_unit_id").val(e.id),$(this).val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#tmp_billing_unit_name_img").removeClass("img-none").addClass("img-display"),$("#tmp_billing_unit_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#tmp_billing_unit_name_img").removeClass("img-display").addClass("img-none"),$("#tmp_billing_unit_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#tmp_billing_unit_id").val(0)}).blur(function(){var e=$("#tmp_billing_unit_id").val();0==e&&$(this).val("")});
 

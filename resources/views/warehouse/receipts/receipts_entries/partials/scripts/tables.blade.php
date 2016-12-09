@@ -7,6 +7,8 @@
         $("#tmp_cargo_metric_unit_measurement_id").val("I").change();
         $("#tmp_cargo_weight_unit_measurement_id").val("L").change();
         $("#tmp_cargo_dim_fact").val("I").change();
+        $("#tmp_cargo_location_bin_id").val(0).change();
+        $("#tmp_location_id").val(0).change();
 
         for (var t = $("#cargo-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
@@ -21,6 +23,7 @@
         $("#multiline_cargo_metric_unit_measurement_id").val("I").change();
         $("#multiline_cargo_weight_unit_measurement_id").val("L").change();
         $("#multiline_cargo_dim_fact").val("I").change();
+        $("#multiline_cargo_location_bin_id").val(0).change();
 
         for (var t = $("#cargo-multiline-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
@@ -30,6 +33,7 @@
             $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
         }
     }), $("#btn-charges").click(function() {
+        $("#tmp_billing_bill_party").val("C").change();
         for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style");
@@ -42,7 +46,7 @@
             }
         }
 
-        $("#tmp_billing_bill_type").val("C").change(), $("#tmp_billing_bill_party").val("C").change();
+        $("#billing_bill_type").val("C").change(), $("#billing_bill_party").val("C").change();
     }), $("#hazardous-save").click(function() {
         var r = ($('#hazardous-details tbody tr').length + 1),
                 c = r - 1,
@@ -149,9 +153,10 @@
                 u = $("#tmp_cargo_location_bin_id").val(),
                 m = $("#tmp_cargo_location_bin_name").val(),
                 k = $("#tmp_cargo_material_description").val(),
+                j= $("#tmp_cargo_unit_weight").val(),
                 b = $("#warehouse-details"),
                 x = b.find("tbody"),
-                C = $("<tr id=" + (0 == a ? t : a) + ">");
+                C = $("<tr id=" + (0 == a ? t : a) + ">"),
                 w = (0 == a ? z : a - 1);
             C.append(createTableContent('cargo_line', (0 == a ? t : a), true, w))
                     .append($("<td><i class='fa fa-cube' aria-hidden='true'></td>"))
@@ -171,11 +176,13 @@
                     .append(createTableContent('cargo_location_id', h, true, w))
                     .append(createTableContent('cargo_location_name', v, false, w))
                     .append(createTableContent('cargo_location_bin_id', u, true, w))
-                    .append(createTableContent('cargo_location_bin_name', m, false, w))
+                    .append(createTableContent('cargo_location_bin_name', u, false, w))
                     .append($("<td></td>"))
                     .append(createTableContent('cargo_material_description', k, true, w))
+                    .append(createTableContent('cargo_unit_weight', j, true, w))
                     .append($("<td></td>"))
-                    .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), calculate_warehouse_details(), cleanModalFields('cargo-warehouse'), $("#tmp_cargo_quantity").val(1), $("#tmp_cargo_quantity").focus()
+
+                    .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), calculate_warehouse_details(), cleanModalFields('cargo-warehouse'),$("#tmp_cargo_type_id").val(0).change(), $("#tmp_cargo_quantity").val(1), $("#tmp_cargo_pieces").val(1), $("#tmp_cargo_location_id").val(0).change(), $("#tmp_cargo_location_bin_id").val(0).change(), $("#tmp_cargo_quantity").focus()
     }), $("#warehouse-details").on("click", "a.btn-danger", function() {
         $(this).closest("tr").remove()
     }), $("#warehouse-details").on("click", "a.btn-default", function() {
@@ -193,13 +200,15 @@
                 _ = t[0].childNodes[11].textContent,
                 p = t[0].childNodes[12].textContent,
                 s = t[0].childNodes[13].textContent,
-                g = t[0].childNodes[15].textContent,
+                g = t[0].childNodes[14].textContent,
+                b = t[0].childNodes[15].textContent,
                 h = t[0].childNodes[16].textContent,
                 v = t[0].childNodes[17].textContent,
                 u = t[0].childNodes[18].textContent,
                 m = t[0].childNodes[19].textContent,
-                k = t[0].childNodes[20].textContent;
-        $("#tmp_cargo_line").val(a), $("#tmp_cargo_quantity").val(e), $("#tmp_cargo_type_id").val(d).change(), $("#tmp_cargo_type_code").val(o), $("#tmp_cargo_pieces").val(n), $("#tmp_cargo_weight_unit_measurement_id").val(i).change(), $("#tmp_cargo_metric_unit_measurement_id").val(c).change(), $("#tmp_cargo_dim_fact").val(f).change(), $("#tmp_cargo_length").val(l), $("#tmp_cargo_width").val(r), $("#tmp_cargo_height").val(_), $("#tmp_cargo_total_weight").val(p), $("#tmp_cargo_cubic").val(s), $("#tmp_cargo_volume_weight").val(g), $("#tmp_cargo_location_id").val(h), $("#tmp_cargo_location_name").val(v), $("#tmp_cargo_location_bin_id").val(u), $("#tmp_cargo_location_bin_name").val(m), $("#tmp_cargo_material_description").val(k), calculate(), $("#cargo-warehouse").modal("show")
+                k = t[0].childNodes[20].textContent,
+                j = t[0].childNodes[21].textContent;
+        $("#tmp_cargo_line").val(a), $("#tmp_cargo_quantity").val(e), $("#tmp_cargo_type_id").val(d).change(), $("#tmp_cargo_type_code").val(o), $("#tmp_cargo_pieces").val(n), $("#tmp_cargo_weight_unit_measurement_id").val(i).change(), $("#tmp_cargo_metric_unit_measurement_id").val(c).change(), $("#tmp_cargo_dim_fact").val(f).change(), $("#tmp_cargo_length").val(l), $("#tmp_cargo_width").val(r), $("#tmp_cargo_height").val(_), $("#tmp_cargo_total_weight").val(p), $("#tmp_cargo_cubic").val(s), $("#tmp_cargo_volume_weight").val(g), $("#tmp_cargo_location_id").val(b).change(), $("#tmp_cargo_location_name").val(h), $("#tmp_cargo_location_bin_id").val(v).change(), $("#tmp_cargo_location_bin_name").val(u), $("#tmp_cargo_material_description").val(k), $("#tmp_cargo_unit_weight").val(j), calculate(), $("#cargo-warehouse").modal("show")
     }), $("#cargo-multiline-warehouse-save").click(function() {
         var t = $("#warehouse-details tbody tr").length + 1,
                 z = parseInt(t) - 1,
@@ -223,6 +232,7 @@
                 u = $("#multiline_cargo_location_bin_id").val(),
                 m = $("#multiline_cargo_location_bin_name").val(),
                 k = $("#multiline_cargo_material_description").val(),
+                g1 = $("#multiline_cargo_unit_weight").val(),
                 b = $("#warehouse-details"),
                 x = b.find("tbody");
             for (var q = t; q < j; q++) {
@@ -236,7 +246,7 @@
                     .append(createTableContent('cargo_pieces', n, false, w))
                     .append(createTableContent('cargo_weight_unit_measurement_id', i, false, w))
                     .append(createTableContent('cargo_metric_unit_measurement_id', c, true, w))
-                    .append(createTableContent('cargo_dim_fact', f, false, w))
+                    .append(createTableContent('cargo_dim_fact', f, true, w))
                     .append(createTableContent('cargo_length', l, false, w))
                     .append(createTableContent('cargo_width', r, false, w))
                     .append(createTableContent('cargo_height', _, false, w))
@@ -246,44 +256,45 @@
                     .append(createTableContent('cargo_location_id', h, true, w))
                     .append(createTableContent('cargo_location_name', v, false, w))
                     .append(createTableContent('cargo_location_bin_id', u, true, w))
-                    .append(createTableContent('cargo_location_bin_name', m, false, w))
+                    .append(createTableContent('cargo_location_bin_name', u, false, w))
                     .append($("<td></td>"))
                     .append(createTableContent('cargo_material_description', k, true, w))
+                    .append(createTableContent('cargo_unit_weight', g1, true, w))
                     .append($("<td></td>"))
                     .append(createTableBtns()), x.append(C)
             }
-        calculate_warehouse_details(), cleanModalFields('cargo-multiline-warehouse'), $("#multiline_cargo_quantity").val(1), $("#multiline_cargo_quantity").focus()
+        calculate_warehouse_details(), cleanModalFields('cargo-multiline-warehouse'), $("#multiline_cargo_quantity").val(1),$("#multiline_cargo_location_bin_id").val(0).change(),$("#multiline_cargo_location_id").val(0).change(), $("#multiline_cargo_quantity").focus()
     }), $("#charges-save").click(function() {
         var t = $("#charge-details tbody tr").length + 1,
                 d= t - 1,
                 charge_id = $("#tmp_charge_id").val(),
-                g_1  = $("#tmp_billing_billing_id").val(),
-                g_2  = $("#tmp_billing_billing_code").val(),
-                g_3  = $("#tmp_billing_billing_description").val(),
-                g_4  = $("#tmp_billing_bill_type").val(),
-                g_5  = $("#tmp_billing_bill_party").val(),
-                g_5  = (g_5 == null) ? "C" : g_5,
-                g_6  = $("#tmp_billing_notes").val(),
-                g_7  = $("#tmp_billing_quantity").val(),
-                g_8  = $("#tmp_billing_unit_id").val(),
-                g_9  = $("#tmp_billing_unit_name").val().toUpperCase(),
-                g_10 = $("#tmp_billing_rate").val(),
-                g_11 = $("#tmp_billing_increase").val(),
+                g_1 = $("#tmp_billing_billing_id").val(),
+                g_2 = $("#tmp_billing_billing_code").val(),
+                g_3 = $("#tmp_billing_billing_description").val(),
+                g_4 = $("#tmp_billing_bill_type").val(),
+                g_5 = $("#tmp_billing_bill_party").val(),
+                g_5 = (g_5 == null) ? "C" : g_5,
+                g_6 = $("#tmp_billing_notes").val(),
+                g_7 = $("#tmp_billing_quantity").val(),
+                g_8 = $("#tmp_billing_unit_id").val(),
+                g_9 = $("#tmp_billing_unit_name").val().toUpperCase(),
+                g_10 = $("#tmp_billing_increase").val(),
+                g_11 = $("#tmp_billing_rate").val(),
                 g_12 = $("#tmp_billing_amount").val(),
                 g_13 = $("#tmp_billing_currency_type").val(),
-                g_13 = (g_13 == null) ? "1" : g_13,
+                g_13 = (g_13 == null) ? "C" : g_13,
                 g_14 = $("#tmp_billing_exchange_rate").val(),
                 g_15 = $("#tmp_billing_customer_id").val(),
                 g_16 = $("#tmp_billing_customer_name").val().toUpperCase(),
                 g_17 = $("#tmp_cost_quantity").val(),
                 g_18 = $("#tmp_cost_unit_id").val(),
-                g_19 = $("#tmp_cost_unit_name").val(),
+                g_19 = $("#tmp_cost_unit_name").val().toUpperCase(),
                 g_20 = $("#tmp_cost_rate").val(),
                 g_21 = $("#tmp_cost_amount").val(),
                 g_22 = $("#tmp_cost_currency_type").val(),
                 g_22 = (g_22 == null) ? "1" : g_22,
                 g_23 = $("#tmp_cost_exchange_rate").val(),
-                g_24 = $("#tmp_billing_vendor_id").val(),
+                g_24 = $("#tmp_billing_vendor_code").val(),
                 g_25 = $("#tmp_billing_vendor_name").val().toUpperCase(),
                 g_26 = $("#tmp_cost_date").val(),
                 g_27 = $("#tmp_cost_invoice").val().toUpperCase(),
@@ -293,40 +304,40 @@
                 x = b.find("tbody"),
                 C = $("<tr id=" + t + ">");
 
-        C.append(createTableContent('charge_id', (0 == tmp_charge_id ? t : tmp_charge_id), true,d))
+        C.append(createTableContent('charge_id', (0 == charge_id ? t : charge_id), true,d))
                 .append(createTableContent('billing_billing_id', g_1, true, d))
                 .append(createTableContent('billing_billing_code', g_2, false, d))
                 .append(createTableContent('billing_billing_description', g_3, false, d))
                 .append(createTableContent('billing_bill_type', g_4, false, d))
-                .append(createTableContent('billing_bill_party', g_5, false, d))
-                .append(createTableContent('billing_notes', g_6, true, d))
                 .append(createTableContent('billing_quantity', g_7, false, d))
-                .append(createTableContent('billing_unit_id', g_8, true, d))
-                .append(createTableContent('billing_unit_name', g_9, true, d))
-                .append(createTableContent('billing_increase', g_10, true, d))
-                .append(createTableContent('billing_rate', g_11, true, d))
+                .append(createTableContent('billing_rate', g_11, false, d))
                 .append(createTableContent('billing_amount', g_12, false, d))
                 .append(createTableContent('billing_currency_type', g_13, true, d))
+                .append(createTableContent('billing_customer_name', g_16, true, d))
+                .append(createTableContent('billing_increase', g_10, true, d))
+                .append(createTableContent('cost_cost_center', g_28, true, d))
+                .append(createTableContent('cost_currency_type', g_22, true, d))
+                .append(createTableContent('cost_invoice', g_27, true, d))
+                .append(createTableContent('cost_reference', g_29, true, d))
+
+                .append(createTableContent('billing_bill_party', g_5, true, d))
+                .append(createTableContent('billing_notes', g_6, true, d))
+                .append(createTableContent('billing_unit_id', g_8, true, d))
+                .append(createTableContent('billing_unit_name', g_9, true, d))
                 .append(createTableContent('billing_exchange_rate', g_14, true, d))
                 .append(createTableContent('billing_customer_id', g_15, true, d))
-                .append(createTableContent('billing_customer_name', g_16, true, d))
                 .append(createTableContent('cost_quantity', g_17, true, d))
                 .append(createTableContent('cost_unit_id', g_18, true, d))
                 .append(createTableContent('cost_unit_name', g_19, true, d))
                 .append(createTableContent('cost_rate', g_20, true, d))
                 .append(createTableContent('cost_amount', g_21, false, d))
-                .append(createTableContent('cost_currency_type', g_22, true, d))
                 .append(createTableContent('cost_exchange_rate', g_23, true, d))
                 .append(createTableContent('billing_vendor_id', g_24, true, d))
                 .append(createTableContent('billing_vendor_name', g_25, true, d))
                 .append(createTableContent('cost_date', g_26, true, d))
-                .append(createTableContent('cost_cost_center', g_28, true, d))
-                .append(createTableContent('cost_invoice', g_27, true, d))
-                .append(createTableContent('cost_reference', g_29, true, d))
-
-                .append(createTableBtns()), 0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields('charge_details'), $("#tmp_billing_billing_code").focus(), calculate_charges()
+                .append(createTableBtns()), 0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields('charge-warehouse'),$("#tmp_billing_unit_id").val(0).change(), $("#tmp_cost_unit_id").val(0).change(),calculate_charges(),   $("#tmp_billing_billing_code").focus()
     }), $("#charge-details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove(), calculate_charges();
+        $(this).closest("tr").remove()
     }), $("#charge-details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
             g1  = t[0].childNodes[0].textContent,
@@ -358,38 +369,39 @@
             g27 = t[0].childNodes[26].textContent,
             g28 = t[0].childNodes[27].textContent,
             g29 = t[0].childNodes[28].textContent,
-            g30 = t[0].childNodes[29].textContent;
+            g30 = t[0].childNodes[29].textContent,
+            g31 = t[0].childNodes[30].textContent;
 
         $("#tmp_charge_id").val(g1),
         $("#tmp_billing_billing_id").val(g2),
         $("#tmp_billing_billing_code").val(g3),
         $("#tmp_billing_billing_description").val(g4),
         $("#tmp_billing_bill_type").val(g5).change(),
-        $("#tmp_billing_bill_party").val(g6).change(),
-        $("#tmp_billing_notes").val(g7),
-        $("#tmp_billing_quantity").val(g8),
-        $("#tmp_billing_unit_id").val(g9),
-        $("#tmp_billing_unit_name").val(g10),
-        $("#tmp_billing_rate").val(g11),
-        $("#tmp_billing_increase").val(g12),
-        $("#tmp_billing_amount").val(g13),
-        $("#tmp_billing_currency_type").val(g14).change(),
-        $("#tmp_billing_exchange_rate").val(g15),
-        $("#tmp_billing_customer_id").val(g16),
-        $("#tmp_billing_customer_name").val(g17),
-        $("#tmp_cost_quantity").val(g18),
-        $("#tmp_cost_unit_id").val(g19),
-        $("#tmp_cost_unit_name").val(g20),
-        $("#tmp_cost_rate").val(g21),
-        $("#tmp_cost_amount").val(g22),
-        $("#tmp_cost_currency_type").val(g23).change(),
-        $("#tmp_cost_exchange_rate").val(g24),
-        $("#tmp_billing_vendor_code").val(g25),
-        $("#tmp_billing_vendor_name").val(g26),
-        $("#tmp_cost_date").val(g27),
-        $("#tmp_cost_invoice").val(g28),
-        $("#tmp_cost_cost_center").val(g29),
-        $("#tmp_cost_reference").val(g30),
+        $("#tmp_billing_quantity").val(g6),
+        $("#tmp_billing_rate").val(g7),
+        $("#tmp_billing_amount").val(g8),
+        $("#tmp_billing_currency_type").val(g9).change(),
+        $("#tmp_billing_customer_name").val(g10),
+        $("#tmp_billing_increase").val(g11),
+        $("#tmp_cost_cost_center").val(g12),
+        $("#tmp_cost_currency_type").val(g13).change(),
+        $("#tmp_cost_invoice").val(g14),
+        $("#tmp_cost_reference").val(g15),
+        $("#tmp_billing_bill_party").val(g16),
+        $("#tmp_billing_notes").val(g17),
+        $("#tmp_billing_unit_id").val(g18).change(),
+        $("#tmp_billing_unit_name").val(g19),
+        $("#tmp_billing_exchange_rate").val(g20),
+        $("#tmp_billing_customer_id").val(g21),
+        $("#tmp_cost_quantity").val(g22),
+        $("#tmp_cost_unit_id").val(g23).change(),
+        $("#tmp_cost_unit_name").val(g24),
+        $("#tmp_cost_rate").val(g25),
+        $("#tmp_cost_amount").val(g26),
+        $("#tmp_cost_exchange_rate").val(g27),
+        $("#tmp_billing_vendor_code").val(g28),
+        $("#tmp_billing_vendor_name").val(g29),
+        $("#tmp_cost_date").val(g30),
         $("#charge-warehouse").modal("show")
     });
 </script>

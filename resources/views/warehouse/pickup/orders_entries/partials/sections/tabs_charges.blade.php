@@ -18,12 +18,8 @@
                         <th width="10%" data-override="billing_bill_type">Bill type</th>
                         <th width="10%" data-override="billing_bill_party">Bill Party</th>
                         <th width="10%" data-override="billing_quantity">Qty</th>
-                        <th width="10%" data-override="billing_rate">Rate</th>
-                        <th width="10%" data-override="billing_amount">Amount</th>
-                        <th width="15%" data-override="billing_currency_type">Currency</th>
-                        <th width="10%" data-override="cost_amount">Cost</th>
-                        <th width="15%" data-override="cost_invoice">Vendor Inv</th>
-                        <th width="15%" data-override="cost_reference">Vendor Ref</th>
+                        <th width="10%" data-override="billing_amount">Bill Amount</th>
+                        <th width="10%" data-override="cost_amount">Cost Amount</th>
                         <th width="10%"/>
                     </tr>
                     </thead>
@@ -33,19 +29,19 @@
             <tr id="{{ $detail -> line }} ">
                 {!! Form::bsRowTd($detail->line, 'charge_id', $detail->line, true) !!}
                 {!! Form::bsRowTd($detail->line, 'billing_billing_id', $detail->billing_id, true) !!}
-                {!! Form::bsRowTd($detail->line, 'billing_billing_code', $detail->billing_id, false) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_billing_code', ((isset($detail) and ($detail->billing_id > 0 )) ? $detail->billing_billing->code : ""), false) !!}
                 {!! Form::bsRowTd($detail->line, 'billing_billing_description', $detail->billing_description, false) !!}
                 {!! Form::bsRowTd($detail->line, 'billing_bill_type', $detail->bill_type, false) !!}
                 {!! Form::bsRowTd($detail->line, 'billing_bill_party', $detail->bill_party, false) !!}
                 {!! Form::bsRowTd($detail->line, 'billing_quantity', $detail->billing_quantity, false) !!}
-                {!! Form::bsRowTd($detail->line, 'billing_rate', $detail->billing_rate, false) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_rate', $detail->billing_rate, true) !!}
                 {!! Form::bsRowTd($detail->line, 'billing_amount', $detail->billing_amount, false) !!}
                 {!! Form::bsRowTd($detail->line, 'billing_currency_type', $detail->billing_currency_type, true) !!}
-                {!! Form::bsRowTd($detail->line, 'billing_customer_name',  ((isset($detail)and $detail->billing_customer_id >0) ? $detail->billing_customer->name: null), false) !!}
+                {!! Form::bsRowTd($detail->line, 'billing_customer_name',  ((isset($detail)and $detail->billing_customer_id >0) ? $detail->billing_customer->name: null), true) !!}
                 {!! Form::bsRowTd($detail->line, 'cost_amount', $detail->cost_amount, false) !!}
                 {!! Form::bsRowTd($detail->line, 'cost_currency_type', $detail->cost_currency_type, true) !!}
-                {!! Form::bsRowTd($detail->line, 'cost_invoice', $detail->cost_invoice, false) !!}
-                {!! Form::bsRowTd($detail->line, 'cost_reference', $detail->cost_reference, false) !!}
+                {!! Form::bsRowTd($detail->line, 'cost_invoice', $detail->cost_invoice, true) !!}
+                {!! Form::bsRowTd($detail->line, 'cost_reference', $detail->cost_reference, true) !!}
                 {!! Form::bsRowTd($detail->line, 'billing_notes', $detail->billing_notes, true) !!}
                 {!! Form::bsRowTd($detail->line, 'billing_unit_id', $detail->billing_unit_id, true) !!}
                 {!! Form::bsRowTd($detail->line, 'billing_unit_name', ((isset($detail)and $detail->billing_unit_id >0) ? $detail->billing_unit->code: null), true) !!}

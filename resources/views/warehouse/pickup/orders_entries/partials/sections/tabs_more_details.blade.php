@@ -49,14 +49,14 @@
                                 {!! Form::bsRowTd($cargo_detail->line, 'part_info_po_number', $cargo_detail->part_info_po_number, false) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_volume_weight', $cargo_detail->cargo_volume_weight, true) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_metric_unit_measurement_id', $cargo_detail->cargo_metric_unit_measurement_id, true) !!}
-                                {!! Form::bsRowTd($cargo_detail->line, 'cargo_material', $cargo_detail->cargo_material, true) !!}
+                                {!! Form::bsRowTd($cargo_detail->line, 'cargo_material_description', $cargo_detail->cargo_material, true) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_pieces', $cargo_detail->cargo_pieces, true) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_unit_weight', $cargo_detail->cargo_unit_weight, true) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_dim_fact', $cargo_detail->cargo_dim_fact, true) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_location_id', $cargo_detail->cargo_location_id, true) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_location_name', ((isset($cargo_detail)and $cargo_detail->cargo_location_id >0) ? $cargo_detail->cargo_location->code: null), true) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_location_bin_id', $cargo_detail->cargo_location_bin_id, true) !!}
-                                {!! Form::bsRowTd($cargo_detail->line, 'cargo_location_bin_name', ((isset($cargo_detail)and $cargo_detail->cargo_location_bin_id >0) ? $cargo_detail->cargo_location_bin->code: null), true) !!}
+                                {!! Form::bsRowTd($cargo_detail->line, 'cargo_location_bin_name', $cargo_detail->cargo_location_bin_id, true) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_tare_weight', $cargo_detail->cargo_tare_weight, true) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_square_foot', $cargo_detail->cargo_square_foot, true) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'part_info_serial_number', $cargo_detail->part_info_serial_number, true) !!}
