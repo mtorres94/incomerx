@@ -1,5 +1,5 @@
 {!! Form::bsFile('Select files', 'file') !!}
-{!! Form::hidden('open_status', (isset($open_user_id) ? ($open_user_id == Auth::user()->id ? "0" : "1") : ''), ['id' => 'open_status', 'class' => 'form-control input-sm']) !!}
+{!! Form::hidden('open_status', (isset($user_open_id) ? ($user_open_id == Auth::user()->id ? "0" : "1") : "0"), ['id' => 'open_status', 'class' => 'form-control input-sm']) !!}
 {!! Form::hidden('unique_str', $unique_str, ['id' => 'unique_str', 'class' => 'form-control input-sm']) !!}
 @include('warehouse.receipts.receipts_entries.partials.sections.general_info')
 <div class="row">
@@ -41,6 +41,7 @@
 @section('scripts')
     @include('warehouse.receipts.receipts_entries.partials.scripts.compute')
     @include('warehouse.receipts.receipts_entries.partials.scripts.init')
+    @include('warehouse.receipts.receipts_entries.partials.scripts.validation')
     @include('warehouse.receipts.receipts_entries.partials.scripts.autocomplete')
     @include('warehouse.receipts.receipts_entries.partials.scripts.tables')
 @stop

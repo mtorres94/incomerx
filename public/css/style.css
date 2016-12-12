@@ -417,6 +417,18 @@ tr.shown td.details-control {
     padding-top: 4px;
 }
 
+/** Form Validation */
+.form-control-feedback.fa {
+    line-height: 10px;
+}
+textarea + i {
+    top: 0;
+}
+.form-horizontal .has-feedback .form-control-feedback {
+    top: 8px;
+    right: 62px;
+}
+
 /** Components */
 .form-horizontal .row .form-tab .form-group {
     padding-top: 5px;
