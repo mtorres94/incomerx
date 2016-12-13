@@ -42,13 +42,13 @@
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <table class="table resume-table" >
-                            <tr><td width="20%"><strong>PD#: </strong></td><td>{{ $order_entry->code }}</td></tr>
-                            <tr><td width="20%"><strong>Schedule Delivery Date: </strong></td><td>{{ $order_entry->date_order }}</td></tr>
-                            <tr><td width="20%"><strong>Order taken by: </strong></td><td>{{ Auth::user()->username }}</td></tr>
-                            <tr><td width="20%"><strong>Carrier: </strong></td><td>{{ (($order_entry->carrier_id >0 )? $order_entry->carrier->name : "") }}</td></tr>
-                            <tr><td width="20%"><strong>Driver: </strong></td><td>{{ (($order_entry->driver_id >0 )? $order_entry->driver->name : "") }}</td></tr>
-                            <tr><td width="20%"><strong>License: </strong></td><td>{{ (($order_entry->driver_id >0 )? $order_entry->driver->driver_license : "") }}</td></tr>
-                            <tr><td width="20%"><strong>Dest: </strong></td><td>{{ (($order_entry->destination_world_location_id>0 )? $order_entry->destination_world_location_id->name : "") }}</td></tr>
+                            <tr><td width="40%"><strong>PD#: </strong></td><td>{{ $order_entry->code }}</td></tr>
+                            <tr><td width="40%"><strong>Schedule Delivery Date: </strong></td><td>{{ $order_entry->date_order }}</td></tr>
+                            <tr><td width="40%"><strong>Order taken by: </strong></td><td>{{ Auth::user()->username }}</td></tr>
+                            <tr><td width="40%"><strong>Carrier: </strong></td><td>{{ strtoupper(($order_entry->carriers_carrier_id >0 )? $order_entry->carrier->name : "") }}</td></tr>
+                            <tr><td width="40%"><strong>Driver: </strong></td><td>{{ strtoupper(($order_entry->receiving_driver_id >0 )? $order_entry->receiving_driver->name : "") }}</td></tr>
+                            <tr><td width="40%"><strong>License: </strong></td><td>{{ strtoupper(($order_entry->receiving_driver_id >0 )? $order_entry->receiving_driver->driver_license : "") }}</td></tr>
+                            <tr><td width="40%"><strong>Destination: </strong></td><td>{{ strtoupper(($order_entry->destination_world_location_id>0 )? $order_entry->destination_world_location->name : "") }}</td></tr>
                         </table>
                     </div>
                 </div>
@@ -86,26 +86,34 @@
         </div>
     </div>
     <div class="row row-padding">
-        <div class="col-xs-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">Freight COD</div>
-                <div class="panel-body">
-                    <p>Freight Terms:  {{ strtoupper($order_entry->freight_terms) }}</p>
-                    <p>Freight Amount:  {{ $order_entry->freight_amt }}</p>
-                    <p>COD Terms:  {{ strtoupper($order_entry->cod_terms) }}</p>
-                    <p>COD Amount:  {{ $order_entry->cod_terms_amt }}</p>
-                    <p>Payment Term: {{ ($order_entry->payment_term_id > 0 ? $order_entry->payment_term->code : "")}}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">Emergency</div>
-                <div class="panel-body">
-                    <p>Emergency Contact:  {{ strtoupper($order_entry->hazardous_contact) }}</p>
-                    <p>Emergency phone:  {{ $order_entry->hazardous_phone }}</p>
-                </div>
-            </div>
+        <div class="col-xs-12">
+
+        <div class="col-xs-6">
+            <table class="table resume-table">
+                <thead>
+                <th>Freight COD </th>
+                <th>Emergency</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Freight Terms:  {{ strtoupper($order_entry->freight_terms) }}</td>
+                    <td>Emergency Contact:  {{ strtoupper($order_entry->hazardous_contact) }}</td>
+                </tr>
+                <tr>
+                    <td>Freight Amount:  {{ $order_entry->freight_terms_amt }}</td>
+                    <td>Emergency phone:  {{ $order_entry->hazardous_phone }}</td>
+                </tr>
+                <tr>
+                    <td>COD Terms:  {{ strtoupper($order_entry->cod_terms) }}</td>
+                </tr>
+                <tr>
+                    <td>COD Amount:  {{ $order_entry->cod_terms_amt }}</td>
+                </tr>
+                <tr>
+                    <td>Payment Term: {{ ($order_entry->payment_term_id > 0 ? $order_entry->payment_term->code : "")}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
         <div class="col-xs-6">
             <div class="row">
@@ -117,7 +125,7 @@
                             <p>{{ strtoupper(($order_entry->third_party_id >0) ? $order_entry->third_party->address : "") }}</p>
                             <p>{{ strtoupper(($order_entry->third_party_id >0) ? $order_entry->third_party->phone : "") }}</p>
                             <p>{{ strtoupper(($order_entry->third_party_id >0) ? $order_entry->third_party->fax : "") }}</p>
-                            <p>{{ strtoupper(($order_entry->third_party_id >0) ? $order_entry->third_party->coloader->name : "") }}</p>
+                            <p>{{ strtoupper((($order_entry->third_party_id >0) and ($order_entry->third_party->coloader_id > 0)) ? $order_entry->third_party->coloader->name : "") }}</p>
 
                         </div>
                     </div>
@@ -126,16 +134,16 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-6">
-            <div class="panel">
-                <p>Service : {{ strtoupper(($order_entry->service_id > 0 )? $order_entry->service->name : "") }}</p>
-            </div>
-        </div>
-        <div class="col-xs-3">
-            <p>Declared value : {{ $order_entry->declared_value }}</p>
-        </div>
-        <div class="col-xs-3">
-            <p>Insured value : {{ $order_entry->insured_value }}</p>
+        <div class="col-xs-12">
+            <table class="table resume-table">
+                <tbody>
+                <tr>
+                    <td width="50%"><strong>SERVICE: </strong>{{ strtoupper(($order_entry->location_service_id > 0 )? $order_entry->location_service->name : "") }}</td>
+                    <td width="25%"><strong>DECLARED VALUE: </strong>{{ $order_entry->third_declared_value }}</td>
+                    <td width="25%"><strong>INSURED VALUE : </strong>{{ $order_entry->third_insured_value }}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -143,7 +151,7 @@
         <div class="col-xs-6">
             <div class="panel panel-default">
                 <div class="panel-heading">Special Instructions</div>
-                <div class="panel-body">
+                <div class="panel-body" style="height: 30px">
                     <p> {{ $order_entry->reference_instruction }}</p>
                 </div>
             </div>
@@ -195,19 +203,47 @@
                 <tbody>
                 @foreach($order_entry->cargo_details as $detail)
                     <tr>
-                        <td>{{ $detail->cargo_pieces }}</td>
-                        <td>{{ $detail->cargo_weight}}</td>
+                        <td>{{ $detail->cargo_quantity}}</td>
+                        <td>{{ $detail->cargo_total_weight}}</td>
                         <td>{{ $detail->cargo_volume_weight }}</td>
                         <td>{{ $detail->cargo_type->code }}</td>
-                        <td>{{ $detail->cargo_width }} x {{ $detail->cargo_height}} x {{ $detail->cargo_length }}  -  {{ $detail->cargo_material }}</td>
+                        <td>{{ $detail->cargo_width }} x {{ $detail->cargo_height}} x {{ $detail->cargo_length }}        {{ $detail->cargo_material }}</td>
                     </tr>
                 @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
+                    <td><strong>{{ $order_entry->dr_total_pieces }}</strong></td>
+                    <td><strong>{{ $order_entry->dr_act_weight}} Lbs</strong></td>
+                    <td><strong>{{ $order_entry->dr_volume_weight }} Lbs</strong></td>
+                    <td></td>
+                    <td> {{ $order_entry->add_info_comments }}</td>
+
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><strong>{{  round($order_entry->dr_act_weight * 0.453592, 3) }} Kgs</strong></td>
+                    <td><strong>{{  round($order_entry->dr_volume_weight * 0.453592, 3) }} Kgs</strong></td>
+                    <td></td>
+                    <td></td>
 
                 </tr>
                 </tfoot>
+            </table>
+        </div>
+        <br>
+        <div class="col-xs-12">
+            <table class="table table-condensed">
+                <tr>
+                    <td width="40%"><strong>CARRIER ID:</strong> {{ strtoupper($order_entry->carriers_carrier_id > 0 ? $order_entry->carrier->code :"" ) }}</td>
+                    <td width="30"><strong>Account Number: </strong>{{ strtoupper($order_entry->carriers_carrier_id > 0 ? $order_entry->carrier->account_number :"" ) }}</td>
+                    <td width="30"><strong>Tel. : </strong>{{ ($order_entry->carriers_carrier_id > 0 ? $order_entry->carrier->phone :"" ) }}</td>
+                </tr>
+                <tr>
+                    <td><strong>CARRIER : </strong>{{ strtoupper($order_entry->carriers_carrier_id > 0 ? $order_entry->carrier->name :"" ) }}</td>
+                    <td></td>
+                    <td><strong>Fax. : </strong>{{ ($order_entry->carriers_carrier_id > 0 ? $order_entry->carrier->fax :"" ) }}</td>
+                </tr>
             </table>
         </div>
     </div>

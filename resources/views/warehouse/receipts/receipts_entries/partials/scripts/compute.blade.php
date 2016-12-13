@@ -80,15 +80,15 @@
                 total_profit_percent = 0;
 
         for (var a=0; a < tr.length; a++) {
-            var bill = parseFloat(tr[a].childNodes[7].textContent),
-                    cost = parseFloat(tr[a].childNodes[25].textContent),
+            var bill = parseFloat(tr[a].childNodes[12].textContent),
+                    cost = parseFloat(tr[a].childNodes[21].textContent),
                     profit = bill - cost,
                     profit_percent = parseFloat((profit/bill)*100).toFixed(3);
 
-            total_bill = total_bill + bill;
-            total_cost = total_cost + cost;
-            total_profit = total_profit + profit;
-            total_profit_percent = total_profit_percent + profit_percent;
+            total_bill = parseFloat(total_bill + bill);
+            total_cost = parseFloat(total_cost + cost);
+            total_profit = parseFloat(total_profit + profit);
+            total_profit_percent = parseFloat(total_profit_percent + profit_percent);
         }
 
         $("#sum_bill").val(total_bill);

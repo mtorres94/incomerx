@@ -412,7 +412,10 @@ class ReceiptEntryController extends Controller
                     'location_name' => strtoupper(($receipt_entry->location_id > 0 ? $receipt_entry->location->name : "")),
                     'location_bin_id' => strtoupper($receipt_entry->location_bin_id),
                     'location_bin_name' => strtoupper(($receipt_entry->location_bin_id > 0 ? $receipt_entry->bin->name : "")),
-                    'material_description' => strtoupper($receipt_entry->sum_cubic),
+                    'material_description' => strtoupper($receipt_entry->material_description),
+                    'dim_fact' => $receipt_entry->dim_fact,
+                    'tare_weight' => $receipt_entry->tare_weight,
+                    'net_weight' => $receipt_entry->net_weight,
                 ];
             }
 

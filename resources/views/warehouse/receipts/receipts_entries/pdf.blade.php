@@ -106,8 +106,8 @@
                         <tr>
                             <td><strong>DATE IN:</strong></td>
                             <td>{{ $receipt_entry->date_in }}</td>
-                            <td><strong>EXPIRE:</strong></td>
-                            <td>{{ $receipt_entry->expire_date }}</td>
+                            <td ><strong>EXPIRE:</strong></td>
+                            <td width="20%">{{ $receipt_entry->expire_date }}</td>
                         </tr>
                         <tr>
                             <td><strong>WH:</strong></td>
@@ -196,7 +196,7 @@
                         <th>Unit</th>
                         <th>Bin</th>
                         <th>Reference</th>
-                        <th>Date Out</th>
+
                     </thead>
                     <tbody>
                     @foreach($receipt_entry->cargo_details as $detail)
@@ -209,15 +209,15 @@
                             <td>{{ $detail->cubic }}</td>
                             <td>{{ $detail->total_weight }}</td>
                             <td>{{ ($detail->weight_unit_measurement_id == "L") ? "LBS" : "KGS" }}</td>
-                            <td>{{ ($detail->location_bin_id > 0) ? $detail->bin->code : "" }}</td>
-                            <td></td>
+                            <td>{{ ($detail->location_id > 0) ? $detail->location->code . $detail->location_bin_id : "" }}</td>
+
                             <td></td>
                         </tr>
                     @endforeach
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="3"><strong>TOTAL PIECES:</strong> {{ $receipt_entry->sum_pieces }}</td>
+                            <td colspan="2"><strong>TOTAL PIECES:</strong> {{ $receipt_entry->sum_pieces }}</td>
                             <td colspan="2" style="text-align: right"><strong>WEIGHT:</strong></td>
                             <td>{{ $receipt_entry->sum_weight }} Lbs</td>
                             <td colspan="2" style="text-align: right;"><strong>VOL. WT:</strong></td>
@@ -230,7 +230,6 @@
                             <td/>
                             <td/>
                             <td/>
-                            <td/>
                             <td>{{ round($receipt_entry->sum_weight * 0.453592, 3) }} Kgs</td>
                             <td/>
                             <td/>
@@ -238,6 +237,42 @@
                             <td/>
                             <td>{{ round($receipt_entry->sum_cubic * 0.02831685, 3) }} Cbm</td>
                         </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div class="row row padding">
+            <div class="col-xs-12">
+                <table class="table table-condensed">
+                    <thead>
+                        <th  width="15%">Code</th>
+                        <th  width="45%">Description</th>
+                        <th  width="10%">Qty</th>
+                        <th  width="10%">Unit</th>
+                        <th  width="10%">Rate</th>
+                        <th  width="10%">Amount</th>
+                    </thead>
+                    <tbody>
+                    @foreach($receipt_entry->charge_details as $detail)
+                        <tr>
+                            <td>{{ strtoupper($detail->billing_id > 0 ? $detail->billing_billing->code : "")}}</td>
+                            <td>{{ strtoupper($detail->billing_id > 0 ? $detail->billing_billing->name : "")}}</td>
+                            <td>{{ $detail->billing_quantity }}</td>
+                            <td>{{ strtoupper($detail->billing_unit_id >0 ? $detail->billing_unit->code : "") }}</td>
+                            <td>{{ $detail->billing_rate }}</td>
+                            <td>{{ $detail->billing_amount }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td colspan="2" style="text-align: right"><strong>TOT. AMOUNT</strong></td>
+                        <td><strong>{{ $receipt_entry->sum_bill }} </strong></td>
+                    </tr>
                     </tfoot>
                 </table>
             </div>

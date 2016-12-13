@@ -156,13 +156,10 @@ class OrderEntry extends Model
         return $this->belongsTo('Sass\Driver', 'receiving_driver_id');
     }
 
-    public function carriers_carrier()
-    {
-        return $this->belongsTo('Sass\Carrier', 'carriers_carrier_id');}
 
     public function carrier()
     {
-        return $this->belongsTo('Sass\Carrier', 'carrier_id');
+        return $this->belongsTo('Sass\Carrier', 'carriers_carrier_id');
     }
 
     public function shipper_zip_code()

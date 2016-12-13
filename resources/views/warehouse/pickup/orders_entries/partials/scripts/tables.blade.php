@@ -38,8 +38,8 @@
     $("#btn-charges").click(function() {
         $("#billing_bill_party").val("C").change();
         $("#billing_bill_type").val("C").change();
-        $("#bill_currency_type").val("C").change();
-        $("#cost_currency_type").val("C").change();
+        $("#billing_currency_type").val("1").change();
+        $("#cost_currency_type").val("1").change();
         for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -51,6 +51,7 @@
 
     $("#btn-pick-cargo").click(function() {
         $("#load_cargo").val("1").change();
+        $("#pick_search_type").val("1").change();
         for (var t = $("#pick-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -62,6 +63,12 @@
 
 
     $("#btn-transportation").click(function() {
+        $("#transportation_mode").val("O").change();
+        $("#origin_from_type").val("01").change();
+        $("#origin_to_type").val("01").change();
+        $("#transportation_leg_status").val("O").change();
+        $("#transportation_leg").val("1");
+
         for (var t = $("#transportation-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -112,10 +119,6 @@
     });
 
     $("#po-save").click(function() {
-        if( $("#PO_number").val() == ''){
-            show_alert();
-            $("#PO_number").focus()
-        }else{
             var r = ($('#PO_details tbody tr').length + 1),
                    _ =  ($("#PO_details tbody tr").length == 0 ? 1 : parseInt($("#PO_details tbody tr")[$("#PO_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                     l = $("#PO_line").val(),
@@ -133,7 +136,7 @@
                     .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l  ).replaceWith(p), cleanModalFields('PO-Numbers'), $("#PO_number").focus();
 console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
 
-        }
+
     }),
         $('#PO_details').on('click', 'a.btn-danger', function() {
                 $(this).closest('tr').remove()
@@ -151,10 +154,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
             }),
 
     $("#so-save").click(function() {
-        if($("#SO_number").val() == ''){
-            show_alert();
-            $("#SO_number").focus()
-        }else {
+
             var r = ($('#SO_details tbody tr').length + 1),
                     _ =  ($("#SO_details tbody tr").length == 0 ? 1 : parseInt($("#SO_details tbody tr")[$("#SO_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                     l = $("#SO_line").val(),
@@ -171,7 +171,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                     .append(createTableContent('SO_remarks', s, true, c))
                     .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),
                     cleanModalFields('SO-Numbers'), $("#SO_number").focus()
-        }
+
     }),
             $('#SO_details').on('click', 'a.btn-danger', function() {
                 $(this).closest('tr').remove()
@@ -315,10 +315,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
 
 
             $("#pro-save").click(function() {
-               if($("#PRO_number").val()== ''){
-                   show_alert();
-                   $("#PRO_number").focus()
-               }else{
+
                    var r = ($('#PRO_details tbody tr').length + 1),
                            _ =  ($("#PRO_details tbody tr").length == 0 ? 1 : parseInt($("#PRO_details tbody tr")[$("#PRO_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                            l = $("#PRO_line").val(),
@@ -335,7 +332,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                            .append(createTableContent('PRO_remarks', s, true, c))
                            .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),
                            cleanModalFields('PRO-Numbers'),$("#PRO_number").focus()
-               }
+
             }),
             $('#PRO_details').on('click', 'a.btn-danger', function() {
                 $(this).closest('tr').remove()
@@ -352,10 +349,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
             }),
 
             $("#hazardous-save").click(function() {
-                if($("#tmp_hazardous_uns_code").val()== ''){
-                    show_alert();
-                    $("#tmp_hazardous_uns_code").focus()
-                }else{
+
                     var r = ($('#hazardous-details tbody tr').length + 1),
                             l = $("#tmp_hazardous_uns_line").val(),
                             _ =  ($("#hazardus-details tbody tr").length == 0 ? 1 : parseInt($("#hazardous-details tbody tr")[$("#hazardous-details tbody tr").length - 1].childNodes[1].textContent) + 1 ),
@@ -373,7 +367,6 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                             .append(createTableContent('hazardous_uns_desc', s, false, c))
                             .append(createTableContent('hazardous_uns_note', e, true, c))
                             .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p), cleanModalFields('UNs'), $("#tmp_hazardous_uns_code").focus()
-                }
 
             }),
             $('#hazardous-details').on('click', 'a.btn-danger', function() {
@@ -390,10 +383,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
     }),
 
             $("#container-save").click(function() {
-                if($("#container_equipment_type_code").val() == ''){
-                    show_alert();
-                    $("#container_equipment_type_code").focus()
-                }else{
+
                     var r = ($('#container_details tbody tr').length + 1),
                             _ =  ($("#container_details tbody tr").length == 0 ? 1 : parseInt($("#container_details tbody tr")[$("#container_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                             l = $("#container_line").val(),
@@ -414,7 +404,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                             .append(createTableContent('container_remarks', f, false, c))
                             .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),
                             cleanModalFields('Container_Details'),$("#container_equipment_type").focus()
-                }
+
             }),
             $('#container_details').on('click', 'a.btn-danger', function() {
                 $(this).closest('tr').remove()
@@ -433,10 +423,6 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
             }),
 
             $("#dr-details-save").click(function() {
-              if($("#dr_pieces").val()==''){
-                  show_alert();
-                  $("#dr_pieces").focus()
-              }else{
                   var r = ($('#dr_details tbody tr').length + 1),
                           _ =  ($("#dr_details tbody tr").length == 0 ? 1 : parseInt($("#dr_details tbody tr")[$("#dr_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                           l = $("#dr_line").val(),
@@ -473,7 +459,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                           .append(createTableContent('dr_cargo_comments', d13, true, c))
                           .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),
                           cleanModalFields('DR_Details'),$("#dr_cargo_pieces").focus()
-              }
+
             }),
             $('#dr_details').on('click', 'a.btn-danger', function() {
                 $(this).closest('tr').remove()
@@ -727,10 +713,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
     }),
 
             $("#transportation-save").click(function() {
-                if($("#transportation_billing_code").val()== '' || $("#transportation_carrier_name").val() == '' || $("#transportation_amount").val()=='' || $("#transportation_loading_reference").val()==''){
-                    show_alert();
-                    $("#transportation_billing_code").focus();
-                }else{
+
                     var t = $("#transportation_details tbody tr").length + 1,
                             _ =  ($("#transportation_details tbody tr").length == 0 ? 1 : parseInt($("#transportation_details tbody tr")[$("#transportation_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                             transportation_id = $("#transportation_id").val(),
@@ -838,8 +821,8 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                             .append(createTableContent('origin_to_contact', g_46, true, d))
                             .append(createTableContent('origin_to_phone', g_47, true, d))
                             .append(createTableContent('origin_to_fax', g_48, true, d))
-                            .append(createTableBtns()), 0 == transportation_id ? x.append(C) : x.find("tr#" + transportation_id).replaceWith(C),transportation_plan(), $("#Transportation_Details").modal("hide"), $("#transportation_leg").focus()
-                }
+                            .append(createTableBtns()), 0 == transportation_id ? x.append(C) : x.find("tr#" + transportation_id).replaceWith(C),transportation_plan(), $("#Transportation_Details").modal("show"),    $("#transportation_mode").val("O").change(), $("#origin_from_type").val("01").change(), $("#origin_to_type").val("01").change(), $("#transportation_leg_status").val("O").change(), $("#transportation_leg").val("1"), $("#transportation_leg").focus()
+
 
             }), $("#transportation_details").on("click", "a.btn-danger", function() {
         $(this).closest("tr").remove(),
@@ -1449,10 +1432,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
 
 
             $("#vehicle-warehouse-save").click(function() {
-               if ($("#vehicle_vin").val() == ''){
-                   show_alert();
-                   $("#vehicle_vin").focus()
-               }else{
+
                    var r = ($('#warehouse_details tbody tr').length + 1),
                            _ =  ($("#warehouse_details tbody tr").length == 0 ? 1 : parseInt($("#warehouse_details tbody tr")[$("#warehouse_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                            l = $("#vehicle_id").val(),
@@ -1652,7 +1632,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                            .append(createTableContent('type_package', '1' , true, c))
                                            .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),values_warehouse(),
                            cleanModalFields('vehicle-warehouse'),$("#vehicle_quantity").focus()
-               }
+
 
             }),
             $('#warehouse_details').on('click', 'a.btn-danger', function() {

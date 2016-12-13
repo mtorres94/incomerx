@@ -39,7 +39,7 @@
                     ), ' ') !!}
                 </div>
                 <div class="row">
-                    {!! Form::bsComplete('col-md-3', 'col-md-9', 'ID', 'pickup_id', 'pickup_name', Request::get('term'), null, '') !!}
+                    {!! Form::bsComplete('col-md-3', 'col-md-9', 'Name', 'pickup_id', 'pickup_name', Request::get('term'), null, '') !!}
                 </div>
                 <div class="row">
                     {!! Form::bsMemo('col-md-3', 'col-md-9', 'Address', 'pickup_address', null, 1, 'Address') !!}

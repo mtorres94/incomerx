@@ -1,6 +1,12 @@
 <!-- Tabs Additional Information -->
 <legend>Additional info</legend>
 <div class="easyui-tabs">
+    <!-- Tab References-->
+    <div title="References">
+
+        @include("warehouse.pickup.orders_entries.partials.sections.references")
+
+    </div>
     <div title="Marks">
         <div class="form-horizontal">
             <div class="col-md-12">
@@ -17,12 +23,12 @@
             <div class="row">
                 <div class="col-md-7 form-tab">
                     {!! Form::bsSelect('col-md-5', 'col-md-7', 'Freight Terms', 'freight_terms', array(
-                           'P' => 'PREPARED',
+                           'P' => 'PREPAID',
                            'C' => 'COLLECTED',
                            'T' => 'THIRD PARTY'
                        ), 'Freight terms...') !!}
                     {!! Form::bsSelect('col-md-5', 'col-md-7', 'COD Terms', 'cod_terms', array(
-                           'P' => 'PREPARED',
+                           'P' => 'PREPAID',
                            'C' => 'COLLECTED',
                            'T' => 'THIRD PARTY'
                        ), 'COD terms...') !!}
@@ -71,10 +77,10 @@
                     @if (isset($order_entry))
                         @foreach ($order_entry->po_numbers as $detail)
                             <tr id="{{ $detail->line }}">
-                                {!! Form::bsRowTd($detail->line, 'PO_line', $detail->line, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'PO_number', $detail->po_number, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'PO_project_reference', $detail->project_number, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'PO_remarks', $detail->po_comment, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'references_line', $detail->line, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'references_po_number', $detail->po_number, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'references_ref_number', $detail->ref_number, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'references_note', $detail->notes, true) !!}
                                 {!! Form::bsRowBtns() !!}
                             </tr>
                         @endforeach
@@ -111,17 +117,20 @@
         <div class="form-horizontal">
             <div class="row">
                 <div class="col-md-6">
-                    <h4>Trailer Load</h4>
-                    <input type="radio" name="trailer_load" value="S"  />By Shipper</br>
-                    <input type="radio" name="trailer_load" value="D"  />By Driver</br>
-                </div>
-                <div class="col-md-6">
-                    <h4>Freight Counted</h4>
-                    <input type="radio" name="freight_counted" value="S"  />By Shipper</br>
-                    <input type="radio" name="freight_counted" value="PA"  />By Driver Pallets</br>
-                    <input type="radio" name="freight_counted" value="PI"  />By Driver Pieces</br>
-                </div>
+                    <div class="row">{!! Form::bsSelect('col-md-5', 'col-md-7', 'Trailer Load', 'trailer_load', array(
+                          'S' => 'By Shipper',
+                          'D' => 'By Driver',
+                      ), null) !!}
+                    </div>
+                    <div class="row">
+                        {!! Form::bsSelect('col-md-5', 'col-md-7', 'Freight Counted', 'freight_counted', array(
+                    'S' => 'By Shipper',
+                    'PA' => 'By Driver Pallets',
+                    'PI' => 'By Driver Pieces',
+                    ), null) !!}
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>

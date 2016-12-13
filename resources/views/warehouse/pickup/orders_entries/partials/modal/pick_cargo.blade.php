@@ -26,8 +26,9 @@
                     ), 'Search by') !!}</div>
                     <div class="col-md-5">{!! Form::bsComplete(null, null, 'For: ', 'pick_search_for_id', 'pick_search_for_name', Request::get('term'), null,  ' ') !!}</div>
                     <div class="col-md-4">{!! Form::bsSelect(null, null, 'Load cargo as: ', 'load_cargo', array(
-                        '1' => 'Summary',
-                        '2' => 'One by one',
+                        '1' => 'Sum of all selected Warehouses',
+                        '2' => 'Sum of each Warehouse',
+                        '3' => 'Get details of each Warehouse',
                     ), "") !!}</div>
 
 

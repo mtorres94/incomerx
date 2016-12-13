@@ -81,9 +81,9 @@ class OrderEntryController extends Controller
 
             if(isset($order_entry['create_warehouse_receipt']) and ($order_entry['create_warehouse_receipt'] == 1)){
                 $count = ReceiptEntry::count() + 1;
-                $wh_number = str_pad($count, 7, '0', STR_PAD_LEFT);
+                $wh_number = str_pad($count, 10, '0', STR_PAD_LEFT);
                 $order_entry = $request->all();
-                $order_entry['code'] = "WH-".$wh_number;
+                $order_entry['code'] = $wh_number;
                 $order_entry['sum_pieces'] = $order_entry['dr_total_pieces'];
                 $order_entry['date_in'] = $order_entry['date_order'];
                 $order_entry['sum_weight'] = $order_entry['dr_act_weight'];
@@ -142,7 +142,8 @@ class OrderEntryController extends Controller
     {
 
         $order_entry = OrderEntry::findOrFail($id);
-        $user_open_id =  Auth::user()->id;
+        $user_open_id =  ($order_entry->user_open_id == 0) ? Auth::user()->id : $order_entry->user_open_id;
+
         $order_entry = self::updateOpenStatus($order_entry);
         $order_entry->save();
 
@@ -177,7 +178,7 @@ class OrderEntryController extends Controller
             DB::rollback();
         }
         DB::commit();
-        return redirect()->route('warehouse.pickup.orders_entries.index');
+        return redirect()->route('warehouse.pickup.orders_entries.edit', [$id]);
     }
 
 
@@ -200,12 +201,14 @@ class OrderEntryController extends Controller
     {
         $data = $request->all();
         $id   = $data['id'];
-        $order_entry = OrderEntry::findOrFail($id);
-        if (Auth::user()->id == $order_entry->user_open_id)
-        {
+        if($id > 0){
+            $order_entry = OrderEntry::findOrFail($id);
+            if (Auth::user()->id == $order_entry->user_open_id)
+            {
 
-            $order_entry = self::updateCloseStatus($order_entry);
-            $order_entry->save();
+                $order_entry = self::updateCloseStatus($order_entry);
+                $order_entry->save();
+            }
         }
 
         return response()->json(['status' => 'close']);

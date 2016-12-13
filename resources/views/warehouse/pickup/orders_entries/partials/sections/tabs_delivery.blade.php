@@ -39,7 +39,7 @@
                 ), ' ') !!}
             </div>
             <div class="row">
-                {!! Form::bsComplete('col-md-3', 'col-md-9', 'ID', 'delivery_id', 'delivery_name', Request::get('term'), ((isset($order_entry) and $order_entry->delivery_id > 0) ? $order_entry->delivery->name : null), '') !!}
+                {!! Form::bsComplete('col-md-3', 'col-md-9', 'Name', 'delivery_id', 'delivery_name', Request::get('term'), ((isset($order_entry) and $order_entry->delivery_id > 0) ? $order_entry->delivery->name : null), '') !!}
             </div>
             <div class="row">
                 {!! Form::bsMemo('col-md-3', 'col-md-9', 'Address', 'delivery_address', null, 1, 'Address') !!}

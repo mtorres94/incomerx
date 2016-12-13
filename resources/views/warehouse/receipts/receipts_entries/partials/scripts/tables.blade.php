@@ -34,6 +34,9 @@
         }
     }), $("#btn-charges").click(function() {
         $("#tmp_billing_bill_party").val("C").change();
+        $("#tmp_billing_bill_type").val("C").change();
+        $("#tmp_billing_currency_type").val("1").change();
+        $("#tmp_cost_currency_type").val("1").change();
         for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style");
@@ -48,16 +51,20 @@
 
         $("#billing_bill_type").val("C").change(), $("#billing_bill_party").val("C").change();
     }), $("#hazardous-save").click(function() {
-        var r = ($('#hazardous-details tbody tr').length + 1),
-                c = r - 1,
-                l = $("#tmp_hazardous_uns_line").val(),
+        //var r = ($('#hazardous-details tbody tr').length + 1),
+        var r = ($("#hazardous-details  tbody tr").length == 0 ? 1 : parseInt($("#hazardous-details  tbody tr")[$("#hazardous-details  tbody tr").length - 1].childNodes[1].textContent) + 1 ),
+            //($('#hazardous-details tbody tr').length + 1),
+            l = $("#tmp_hazardous_uns_line").val(),
+                //c = r - 1,
+                c =(0 == l ? r : l)-1,
+
                 a = $("#tmp_hazardous_uns_id").val(),
                 d = $("#tmp_hazardous_uns_code").val().toUpperCase(),
                 s = $("#tmp_hazardous_uns_desc").val().toUpperCase(),
                 e = $("#tmp_hazardous_uns_note").val().toUpperCase(),
                 n = $("#hazardous-details"),
                 t = n.find("tbody"),
-                p = $("<tr id=" + r + ">");
+                p = $("<tr id=" + (0 == l ? r : l) + ">");
         p.append(createTableContent('hazardous_uns_id', a, true, c))
                 .append(createTableContent('hazardous_uns_line', (0 == l ? r : l), true, c))
                 .append(createTableContent('hazardous_uns_code', d, false, c))
@@ -309,33 +316,38 @@
                 .append(createTableContent('billing_billing_code', g_2, false, d))
                 .append(createTableContent('billing_billing_description', g_3, false, d))
                 .append(createTableContent('billing_bill_type', g_4, false, d))
-                .append(createTableContent('billing_quantity', g_7, false, d))
-                .append(createTableContent('billing_rate', g_11, false, d))
-                .append(createTableContent('billing_amount', g_12, false, d))
-                .append(createTableContent('billing_currency_type', g_13, true, d))
-                .append(createTableContent('billing_customer_name', g_16, true, d))
-                .append(createTableContent('billing_increase', g_10, true, d))
-                .append(createTableContent('cost_cost_center', g_28, true, d))
-                .append(createTableContent('cost_currency_type', g_22, true, d))
-                .append(createTableContent('cost_invoice', g_27, true, d))
-                .append(createTableContent('cost_reference', g_29, true, d))
-
-                .append(createTableContent('billing_bill_party', g_5, true, d))
+                .append(createTableContent('billing_bill_party', g_5, false, d))
                 .append(createTableContent('billing_notes', g_6, true, d))
+
+                .append(createTableContent('billing_quantity', g_7, false, d))
                 .append(createTableContent('billing_unit_id', g_8, true, d))
                 .append(createTableContent('billing_unit_name', g_9, true, d))
+                .append(createTableContent('billing_increase', g_10, true, d))
+                .append(createTableContent('billing_rate', g_11, true, d))
+                .append(createTableContent('billing_amount', g_12, false, d))
+                .append(createTableContent('billing_currency_type', g_13, true, d))
                 .append(createTableContent('billing_exchange_rate', g_14, true, d))
                 .append(createTableContent('billing_customer_id', g_15, true, d))
+                .append(createTableContent('billing_customer_name', g_16, true, d))
                 .append(createTableContent('cost_quantity', g_17, true, d))
                 .append(createTableContent('cost_unit_id', g_18, true, d))
                 .append(createTableContent('cost_unit_name', g_19, true, d))
                 .append(createTableContent('cost_rate', g_20, true, d))
                 .append(createTableContent('cost_amount', g_21, false, d))
+                .append(createTableContent('cost_currency_type', g_22, true, d))
                 .append(createTableContent('cost_exchange_rate', g_23, true, d))
                 .append(createTableContent('billing_vendor_id', g_24, true, d))
                 .append(createTableContent('billing_vendor_name', g_25, true, d))
                 .append(createTableContent('cost_date', g_26, true, d))
-                .append(createTableBtns()), 0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields('charge-warehouse'),$("#tmp_billing_unit_id").val(0).change(), $("#tmp_cost_unit_id").val(0).change(),calculate_charges(),   $("#tmp_billing_billing_code").focus()
+                .append(createTableContent('cost_invoice', g_27, true, d))
+                .append(createTableContent('cost_cost_center', g_28, true, d))
+                .append(createTableContent('cost_reference', g_29, true, d))
+
+
+
+
+
+                .append(createTableBtns()), 0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields('charge-warehouse'),$("#tmp_billing_unit_id").val(0).change(), $("#tmp_cost_unit_id").val(0).change(), $("#tmp_billing_bill_party").val("C").change(), $("#tmp_billing_bill_type").val("C").change(), $("#tmp_billing_currency_type").val("1").change(), $("#tmp_cost_currency_type").val("1").change(),calculate_charges(),   $("#tmp_billing_billing_code").focus()
     }), $("#charge-details").on("click", "a.btn-danger", function() {
         $(this).closest("tr").remove()
     }), $("#charge-details").on("click", "a.btn-default", function() {
@@ -372,36 +384,44 @@
             g30 = t[0].childNodes[29].textContent,
             g31 = t[0].childNodes[30].textContent;
 
-        $("#tmp_charge_id").val(g1),
-        $("#tmp_billing_billing_id").val(g2),
-        $("#tmp_billing_billing_code").val(g3),
-        $("#tmp_billing_billing_description").val(g4),
-        $("#tmp_billing_bill_type").val(g5).change(),
-        $("#tmp_billing_quantity").val(g6),
-        $("#tmp_billing_rate").val(g7),
-        $("#tmp_billing_amount").val(g8),
-        $("#tmp_billing_currency_type").val(g9).change(),
-        $("#tmp_billing_customer_name").val(g10),
-        $("#tmp_billing_increase").val(g11),
-        $("#tmp_cost_cost_center").val(g12),
-        $("#tmp_cost_currency_type").val(g13).change(),
-        $("#tmp_cost_invoice").val(g14),
-        $("#tmp_cost_reference").val(g15),
-        $("#tmp_billing_bill_party").val(g16),
-        $("#tmp_billing_notes").val(g17),
-        $("#tmp_billing_unit_id").val(g18).change(),
-        $("#tmp_billing_unit_name").val(g19),
-        $("#tmp_billing_exchange_rate").val(g20),
-        $("#tmp_billing_customer_id").val(g21),
-        $("#tmp_cost_quantity").val(g22),
-        $("#tmp_cost_unit_id").val(g23).change(),
-        $("#tmp_cost_unit_name").val(g24),
-        $("#tmp_cost_rate").val(g25),
-        $("#tmp_cost_amount").val(g26),
-        $("#tmp_cost_exchange_rate").val(g27),
-        $("#tmp_billing_vendor_code").val(g28),
-        $("#tmp_billing_vendor_name").val(g29),
-        $("#tmp_cost_date").val(g30),
+            $("#tmp_charge_id").val(g1),
+            $("#tmp_billing_billing_id").val(g2),
+            $("#tmp_billing_billing_code").val(g3),
+            $("#tmp_billing_billing_description").val(g4),
+            $("#tmp_billing_bill_type").val(g5).change(),
+            $("#tmp_billing_bill_party").val(g6).change(),
+            $("#tmp_billing_notes").val(g7),
+            $("#tmp_billing_quantity").val(g8),
+            $("#tmp_billing_unit_id").val(g9).change(),
+            $("#tmp_billing_unit_name").val(g10),
+            $("#tmp_billing_increase").val(g11),
+            $("#tmp_billing_rate").val(g12),
+            $("#tmp_billing_amount").val(g13),
+            $("#tmp_billing_currency_type").val(g14).change(),
+            $("#tmp_billing_exchange_rate").val(g15),
+            $("#tmp_billing_customer_id").val(g16),
+            $("#tmp_billing_customer_name").val(g17),
+            $("#tmp_cost_quantity").val(g18),
+            $("#tmp_cost_unit_id").val(g19).change(),
+            $("#tmp_cost_unit_name").val(g20),
+            $("#tmp_cost_rate").val(g21),
+            $("#tmp_cost_amount").val(g22),
+            $("#tmp_cost_currency_type").val(g23).change(),
+            $("#tmp_cost_exchange_rate").val(g24),
+            $("#tmp_billing_vendor_code").val(g25),
+            $("#tmp_billing_vendor_name").val(g26),
+            $("#tmp_cost_date").val(g27),
+            $("#tmp_cost_invoice").val(g28),
+            $("#tmp_cost_cost_center").val(g29),
+            $("#tmp_cost_reference").val(g30),
+
+
+
+
+
+
+
+
         $("#charge-warehouse").modal("show")
     });
 </script>

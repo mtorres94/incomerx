@@ -16,7 +16,7 @@
                         {!! Form::bsDate('col-md-4', 'col-md-6', 'Completed On', 'date_completed', null, null) !!}
                 </div>
                 <div class="row">
-                        {!! Form::bsDate('col-md-4', 'col-md-6', 'date_ETA', 'date_ETA', null, null) !!}
+                        {!! Form::bsDate('col-md-4', 'col-md-6', 'Date_ETA', 'date_ETA', null, null) !!}
                 </div>
                 <div class="row">
                         {!! Form::bsText('col-md-4', 'col-md-6', 'Waiting Time', 'waiting_time', null, '0') !!}

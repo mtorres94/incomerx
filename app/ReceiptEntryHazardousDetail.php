@@ -28,7 +28,7 @@ class ReceiptEntryHazardousDetail extends Model
 
         if (array_key_exists('hazardous_uns_line', $data)) {
             for ($i = 0; $i < count($data['hazardous_uns_line']); $i++) {
-                $obj = new ReceiptEntryReferenceDetail();
+                $obj = new ReceiptEntryHazardousDetail();
 
                 $obj->receipt_entry_id = $id;
                 $obj->uns_id           = $data['hazardous_uns_id'][$i];

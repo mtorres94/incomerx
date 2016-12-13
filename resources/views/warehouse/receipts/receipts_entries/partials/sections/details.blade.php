@@ -63,7 +63,7 @@
                         {!! Form::bsRowTd($detail->line, 'cargo_location_id', $detail->location_id, true) !!}
                         {!! Form::bsRowTd($detail->line, 'cargo_location_name', ($detail->location_id > 0) ? $detail->location->code : "", false) !!}
                         {!! Form::bsRowTd($detail->line, 'cargo_location_bin_id', $detail->location_bin_id, true) !!}
-                        {!! Form::bsRowTd($detail->line, 'cargo_location_bin_name', ($detail->location_bin_id > 0) ? $detail->bin->code : "", false) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_location_bin_name', $detail->location_bin_id , false) !!}
                         <td></td>
                         {!! Form::bsRowTd($detail->line, 'cargo_material_description', $detail->material_description, true) !!}
                         <td></td>

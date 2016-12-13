@@ -9,26 +9,7 @@
     </div>
     <div class="row">
         <div class="col-md-3">{!! Form::bsText(null, null,'P/D Number', 'code', null, '') !!}</div>
-        <div class="col-md-3">{!! Form::bsComplete(null, null,'Division', 'division_id', 'division_name', Request::get('term'),
-    ((isset($order_entry) and $order_entry->division_id > 0) ? $order_entry->division->name : null), 'Divisions...', 'options.maintenance.divisions.divisions', 'options.maintenance.divisions.divisions', 'maintenance.divisions_departments.divisions.index') !!}</div>
         <div class="col-md-3">{!! Form::bsText(null, null, 'User', 'user_id', ((isset($order_entry) and $order_entry->user_create_id > 0) ? $order_entry->user_create->username :  Auth::user()->username), '') !!}</div>
-        <div class="col-md-3">{!! Form::bsSelect(null, null, 'P/D Status', 'pd_status', array(
-            'O' => 'OPEN',
-            'C' => 'CLOSED',
-            'V' => 'VOID',
-            'D' => 'DELIVERED',
-            'P' => 'POSTED',
-            'S' => 'SCHEDULED'
-        ), 'Status...') !!}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">{!! Form::bsSelect(null, null, 'Type', 'pd_type', array(
-            'P' => 'P - PICK UP',
-            'D' => 'D - DELIVERY',
-            'C' => 'C - XCHANGE',
-            'X' => 'X - XDOCK',
-            'Q' => 'Q - QUOTATION',
-        ), 'Types...') !!}</div>
         <div class="col-md-3">{!! Form::bsSelect(null, null, 'Dispatch status', 'pd_dispatch_status', array(
             'O' => 'O - PENDING',
             'D' => 'D - DISPATCH',
@@ -42,8 +23,27 @@
             'C' => 'C - COMPLETED',
             'X' => 'X - EXCEPTIONS',
         ), 'Dispatch status') !!}</div>
+
+        <div class="col-md-3">{!! Form::bsSelect(null, null, 'Type', 'pd_type', array(
+            'P' => 'P - PICK UP',
+            'D' => 'D - DELIVERY',
+            'C' => 'C - XCHANGE',
+            'X' => 'X - XDOCK',
+            'Q' => 'Q - QUOTATION',
+        ), 'Types...') !!}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">{!! Form::bsSelect(null, null, 'P/D Status', 'pd_status', array(
+            'O' => 'OPEN',
+            'C' => 'CLOSED',
+            'V' => 'VOID',
+            'D' => 'DELIVERED',
+            'P' => 'POSTED',
+            'S' => 'SCHEDULED'
+        ), 'Status...') !!}</div>
+
         <div class="col-md-3">{!! Form::bsComplete(null, null, 'Warehouse', 'warehouse_id', 'warehouse_name', Request::get('term'),((isset($order_entry) and $order_entry->warehouse_id > 0) ? $order_entry->warehouse->name : null), 'Warehouse...') !!}</div>
-        <div class="col-md-3">{!! Form::bsCheck('Create Warehouse Receipt', 'create_warehouse_receipt') !!}</div>
+
 
     </div>
 

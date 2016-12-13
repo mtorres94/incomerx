@@ -12,7 +12,6 @@
         @include('warehouse.pickup.orders_entries.partials.sections.tabs')
         @include('warehouse.pickup.orders_entries.partials.sections.tabs_additional_info')
         @include('warehouse.pickup.orders_entries.partials.sections.tabs_carriers')
-        @include('warehouse.pickup.orders_entries.partials.sections.references')
     </div>
 </div>
 <div class="row">
@@ -32,7 +31,6 @@
         {!! Form::bsMemo(null, null, 'Comments', 'pickup_comment', null, 5) !!}
     </div>
 </div>
-
 <!-- Modal forms section -->
 @section('modals')
     @include('warehouse.pickup.orders_entries.partials.modal.po-number')
@@ -62,5 +60,6 @@
     @include('warehouse.pickup.orders_entries.partials.scripts.compute')
     @include('warehouse.pickup.orders_entries.partials.scripts.autocomplete')
     @include('warehouse.pickup.orders_entries.partials.scripts.tables')
+    @include('warehouse.pickup.orders_entries.partials.scripts.validation')
 
 @stop

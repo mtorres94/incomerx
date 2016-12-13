@@ -335,6 +335,10 @@
         if($("#currency_id").val() == ''){
             $("#currency_id").val("1").change();
         }
+
+        if($("#mode").val() == ''){
+            $("#mode").val("A").change();
+        }
     });
 
     initDate($("#date_in"), 0);
@@ -413,10 +417,10 @@
     $("#tmp_cargo_total_weight").attr("readonly", true);
     $("#multiline_cargo_total_weight").attr("readonly", true);
 
-    $("#sum_bill").attr("readonly", true);
-    $("#sum_cost").attr("readonly", true);
-    $("#sum_profit").attr("readonly", true);
-    $("#sum_profit_percent").attr("readonly", true);
+    $("#sum_bill").attr("readonly", true).number(true, 2);
+    $("#sum_cost").attr("readonly", true).number(true, 2);
+    $("#sum_profit").attr("readonly", true).number(true, 2);
+    $("#sum_profit_percent").attr("readonly", true).number(true, 3);
 
 
 
@@ -446,10 +450,10 @@
     $("#tmp_cost_amount").number(true, 3);
     $("#tmp_cost_exchange_rate").number(true, 3);
 
-    $("#charges_bill").number(true, 2);
+   /* $("#charges_bill").number(true, 2);
     $("#charges_cost").number(true, 2);
     $("#charges_profit").number(true, 2);
-    $("#charges_profit_percent").number(true, 3);
+    $("#charges_profit_percent").number(true, 3);*/
 
     $("#ippc_number").attr("readonly", !0), $("#ippc").change(function() {
         $("#ippc_number").attr("readonly", !this.checked), $("#ippc_number").val("")
