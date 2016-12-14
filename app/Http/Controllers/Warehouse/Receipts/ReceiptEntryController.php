@@ -65,7 +65,8 @@ class ReceiptEntryController extends Controller
         DB::beginTransaction();
         try {
             $last = ReceiptEntry::orderBy('code','desc')->first();
-            $code = str_pad(intval(substr($last->code, 3)), '0', 0);
+            $frmt = $last == null ? 1 : intval(substr($last->code, 3));
+            $code = str_pad($frmt, '0', 0);
             # $code = str_pad($count, 10, '0', STR_PAD_LEFT);
 
             $receipt_entry = $request->all();
@@ -86,6 +87,8 @@ class ReceiptEntryController extends Controller
             DB::rollback();
         }
         DB::commit();
+
+        $this->mail($whr->id);
 
         return redirect()->route('warehouse.receipts.receipts_entries.edit', [$whr->id]);
     }
@@ -114,8 +117,6 @@ class ReceiptEntryController extends Controller
         $unique_str = $receipt_entry->unique_str;
         $user_open_id =  ($receipt_entry->user_open_id == 0) ? Auth::user()->id : $receipt_entry->user_open_id;
 
-        $this->mail($receipt_entry->id);
-        
         $receipt_entry = self::updateOpenStatus($receipt_entry);
         $receipt_entry->save();
 
