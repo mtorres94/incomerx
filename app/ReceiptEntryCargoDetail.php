@@ -47,35 +47,42 @@ class ReceiptEntryCargoDetail extends Model
 
         DB::table('whr_receipts_entries_cargo_details')->where('receipt_entry_id', '=', $id)->delete();
 
-        if (array_key_exists('cargo_line', $data)) {
+       /* if (array_key_exists('cargo_line', $data)) {
             $j = 0;
-            for ($i = 0; $i < count($data['cargo_line']); $i++) {
-                $obj = new ReceiptEntryCargoDetail();
-                $j++;
+            for ($i = 0; $i < count($data['cargo_line']); $i++) {*/
+        if (isset($data['cargo_line'])){
+            while($a < count($data['cargo_line'])) {
+                $i++;
+                if (isset($data['cargo_line'][$i])) {
+                    $obj = new ReceiptEntryCargoDetail();
+                    //$j++;
 
-                $obj->receipt_entry_id              = $id;
-                $obj->line                          = $j;
-                # $obj->type                          = $data['cargo_type'][$i];
-                $obj->quantity                      = $data['cargo_quantity'][$i];
-                $obj->cargo_type_id                 = $data['cargo_type_id'][$i];
-                $obj->pieces                        = $data['cargo_pieces'][$i];
-                $obj->weight_unit_measurement_id    = $data['cargo_weight_unit_measurement_id'][$i];
-                $obj->metric_unit_measurement_id    = $data['cargo_metric_unit_measurement_id'][$i];
-                $obj->length                        = $data['cargo_length'][$i];
-                $obj->width                         = $data['cargo_width'][$i];
-                $obj->height                        = $data['cargo_height'][$i];
-                $obj->total_weight                  = $data['cargo_total_weight'][$i];
-                $obj->cubic                         = $data['cargo_cubic'][$i];
-                $obj->volume_weight                 = $data['cargo_volume_weight'][$i];
-                $obj->location_id                   = $data['cargo_location_id'][$i];
-                $obj->location_bin_id               = $data['cargo_location_bin_id'][$i];
-                # $obj->serial_number                 = $data['cargo_serial_number'][$i];
-                $obj->material_description          = $data['cargo_material_description'][$i];
-                $obj->tare_weight                   = (isset($data['cargo_tare_weight'][$i])? $data['cargo_tare_weight'][$i] : 0);
-                $obj->net_weight                    = (isset($data['cargo_net_weight'][$i])? $data['cargo_net_weight'][$i] : 0);
-                $obj->dim_fact                      = (isset($data['cargo_dim_fact'][$i])? $data['cargo_dim_fact'][$i] : 'I');
+                    $obj->receipt_entry_id = $id;
+                    $obj->line = $a++;
+                    # $obj->type                          = $data['cargo_type'][$i];
+                    $obj->quantity = $data['cargo_quantity'][$i];
+                    $obj->cargo_type_id = $data['cargo_type_id'][$i];
+                    $obj->pieces = $data['cargo_pieces'][$i];
+                    $obj->weight_unit_measurement_id = $data['cargo_weight_unit_measurement_id'][$i];
+                    $obj->metric_unit_measurement_id = $data['cargo_metric_unit_measurement_id'][$i];
+                    $obj->length = $data['cargo_length'][$i];
+                    $obj->width = $data['cargo_width'][$i];
+                    $obj->height = $data['cargo_height'][$i];
+                    $obj->total_weight = $data['cargo_total_weight'][$i];
+                    $obj->cubic = $data['cargo_cubic'][$i];
+                    $obj->volume_weight = $data['cargo_volume_weight'][$i];
+                    $obj->unit_weight = $data['cargo_unit_weight'][$i];
+                    $obj->location_id = $data['cargo_location_id'][$i];
+                    $obj->location_bin_id = $data['cargo_location_bin_id'][$i];
+                    # $obj->serial_number                 = $data['cargo_serial_number'][$i];
+                    $obj->material_description = $data['cargo_material_description'][$i];
+                    $obj->tare_weight = (isset($data['cargo_tare_weight'][$i]) ? $data['cargo_tare_weight'][$i] : 0);
+                    $obj->net_weight = (isset($data['cargo_net_weight'][$i]) ? $data['cargo_net_weight'][$i] : 0);
+                    $obj->dim_fact = (isset($data['cargo_dim_fact'][$i]) ? $data['cargo_dim_fact'][$i] : 'I');
 
-                $obj->save();
+                    $obj->save();
+
+                }
             }
         }
     }

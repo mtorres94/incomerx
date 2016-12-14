@@ -4,10 +4,11 @@
             <button type="button" id="btn-charges" class="btn btn-default" data-toggle="modal" data-target="#charge-warehouse" onclick="cleanModalFields('charge-warehouse')">
                 <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
             </button>
-            <button type="button" class="btn btn-danger" onclick="clearTable('charge-details')">
+            <button type="button" class="btn btn-danger" onclick="clearTable('charge-details'), calculate_charges()">
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
             </button>
         </div>
+
         <table class="table table-bordered table-condensed" id="charge-details">
             <thead>
             <tr>

@@ -27,7 +27,6 @@ class ReceiptEntryChargeDetail extends Model
                 if (isset($data['charge_id'][$i]))
                 {
                     $obj = new ReceiptEntryChargeDetail();
-
                     $obj->receipt_entry_id = $id;
                     $obj->line =  $a + 1;
                     $obj->billing_id = $data['billing_billing_id'][$i];

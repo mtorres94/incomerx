@@ -66,6 +66,7 @@
                         {!! Form::bsRowTd($detail->line, 'cargo_location_bin_name', $detail->location_bin_id , false) !!}
                         <td></td>
                         {!! Form::bsRowTd($detail->line, 'cargo_material_description', $detail->material_description, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'cargo_unit_weight', $detail->unit_weight, true) !!}
                         <td></td>
                         {!! Form::bsRowBtns() !!}
                     </tr>
@@ -73,6 +74,7 @@
             @endif
         </tbody>
         <tfoot>
+
             {!! Form::hidden('sum_pieces', null, ['id' => 'sum_pieces', 'class' => 'form-control input-sm']) !!}
             {!! Form::hidden('sum_weight', null, ['id' => 'sum_weight', 'class' => 'form-control input-sm']) !!}
             {!! Form::hidden('sum_volume_weight', null, ['id' => 'sum_volume_weight', 'class' => 'form-control input-sm']) !!}
