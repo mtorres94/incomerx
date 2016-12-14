@@ -3,6 +3,16 @@
         $('#date_in').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'date_in'); });
         $('#expire_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'expire_date'); });
 
+        $('#shipper_name').blur(function (e) {
+            $('#data').formValidation('revalidateField', 'shipper_address');
+            $('#data').formValidation('revalidateField', 'shipper_city');
+        });
+
+        $('#consignee_name').blur(function (e) {
+            $('#data').formValidation('revalidateField', 'consignee_address');
+            $('#data').formValidation('revalidateField', 'consignee_city');
+        });
+
         $("#data").formValidation({
             framework: 'bootstrap',
             icon: {
@@ -61,7 +71,44 @@
                         notEmpty: { message: "The consignee city is required" },
                     }
                 },
+                mode: {
+                    validators: {
+                        notEmpty: { message: "The mode is required" },
+                    }
+                },
+                location_origin_name: {
+                    validators: {
+                        notEmpty: { message: "The origin location is required" },
+                    }
+                },
+                location_destination_name: {
+                    validators: {
+                        notEmpty: { message: "The destination location is required" },
+                    }
+                }
             }
+        }).on('success.field.fv', function(e, data) {
+            // $(e.target)  --> The field element
+            // data.fv      --> The FormValidation instance
+            // data.field   --> The field name
+            // data.element --> The field element
+
+            var $parent = data.element.parents('.form-group');
+
+            // Remove the has-success class
+            $parent.removeClass('has-success');
+
+            // Hide the success icon
+            data.element.data('fv.icon').hide();
+
+        }).on('err.field.fv', function(e, data) {
+            // $(e.target)  --> The field element
+            // data.fv      --> The FormValidation instance
+            // data.field   --> The field name
+            // data.element --> The field element
+
+            // Hide the success icon
+            data.element.data('fv.icon').hide();
         })
     })
 </script>

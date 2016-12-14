@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Sass\DataTables\Warehouse\Receipts\ReceiptEntryDataTable;
 use Sass\Http\Controllers\Controller;
@@ -63,8 +64,9 @@ class ReceiptEntryController extends Controller
     {
         DB::beginTransaction();
         try {
-            $count = ReceiptEntry::count() + 1;
-            $code = str_pad($count, 10, '0', STR_PAD_LEFT);
+            $last = ReceiptEntry::orderBy('code','desc')->first();
+            $code = str_pad(intval(substr($last->code, 3)), '0', 0);
+            # $code = str_pad($count, 10, '0', STR_PAD_LEFT);
 
             $receipt_entry = $request->all();
 
@@ -85,9 +87,7 @@ class ReceiptEntryController extends Controller
         }
         DB::commit();
 
-        # $unique_str = str_random(25);
         return redirect()->route('warehouse.receipts.receipts_entries.edit', [$whr->id]);
-        # return view('warehouse.receipts.receipts_entries.update', compact('unique_str'));
     }
 
     /**
@@ -113,9 +113,13 @@ class ReceiptEntryController extends Controller
         $receipt_entry = ReceiptEntry::findOrFail($id);
         $unique_str = $receipt_entry->unique_str;
         $user_open_id =  ($receipt_entry->user_open_id == 0) ? Auth::user()->id : $receipt_entry->user_open_id;
+
+        $this->mail($receipt_entry->id);
         
         $receipt_entry = self::updateOpenStatus($receipt_entry);
         $receipt_entry->save();
+
+
 
         return view('warehouse.receipts.receipts_entries.edit', compact('receipt_entry', 'unique_str', 'user_open_id'));
     }
@@ -148,8 +152,9 @@ class ReceiptEntryController extends Controller
         }
         DB::commit();
 
+        $this->mail($id);
+
         return redirect()->route('warehouse.receipts.receipts_entries.edit', [$id]);
-        # return view('warehouse.receipts.receipts_entries.create', compact('unique_str'));
     }
 
     /**
@@ -354,7 +359,7 @@ class ReceiptEntryController extends Controller
         if (strlen($token) == 60) {
             try {
                 $receipt_entry = ReceiptEntry::findOrFail($id);
-                return \PDF::loadView('warehouse.receipts.receipts_entries.pdf', compact('receipt_entry'))->stream('WH '.$receipt_entry->code.'.pdf');
+                return \PDF::loadView('warehouse.receipts.receipts_entries.pdf', compact('receipt_entry','type'))->stream('WH '.$receipt_entry->code.'.pdf');
             } catch (ModelNotFoundException $e) {
                 abort(404);
             }
@@ -379,6 +384,15 @@ class ReceiptEntryController extends Controller
         } else {
             abort(403);
         }
+    }
+
+    public function mail($id)
+    {
+        $data = ReceiptEntry::findOrFail($id);
+        Mail::send('warehouse.receipts.receipts_entries.mail', ['data' => $data], function ($msj) use ($data) {
+            $msj->subject('Notifications');
+            $msj->to(['mtorres@sassblum.com']);
+        });
     }
 
     public function get_details(Request $request)

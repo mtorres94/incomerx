@@ -11,7 +11,7 @@ class ReceiptEntryCargoDetail extends Model
 
     protected $fillable = [
         'receipt_entry_id', 'line', 'type', 'quantity', 'cargo_type_id', 'pieces', 'weight_unit_measurement_id', 'metric_unit_measurement_id',
-        'length', 'width', 'height', 'total_weight', 'cubic', 'volume_weight', 'location_id', 'location_bin_id', 'serial_number',
+        'length', 'width', 'height', 'total_weight', 'cubic', 'unit_weight', 'volume_weight', 'location_id', 'location_bin_id', 'serial_number',
         'material_description', 'tare_weight', 'net_weight', 'dim_fact',
     ];
 
@@ -31,10 +31,12 @@ class ReceiptEntryCargoDetail extends Model
     {
         return $this->belongsTo('Sass\LocationBin');
     }
+
     public function receipt_entry()
     {
         return $this->belongsTo('Sass\ReceiptEntry', 'receipt_entry_id');
     }
+
     /**
      * @param $id   int
      * @param $data array

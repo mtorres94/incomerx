@@ -3,7 +3,7 @@
 /** Home Page **/
 html, body {
     font-family: 'Open Sans', sans-serif;
-    font-size: 13px;
+    font-size: 12px;
     height: 100%;
 }
 #main-body .container-fluid {
@@ -278,6 +278,9 @@ div.tab div.tab-content:not(.active){
 .tabs-header {
     border-width: 0;
 }
+.tabs-title {
+    font-size: 11px;
+}
 .tabs-panels {
     border-width: 0;
 }
@@ -434,7 +437,7 @@ textarea + i {
     padding-top: 5px;
 }
 .form-control {
-    font-size: 12px;
+    font-size: 11px;
     height: 27px;
 }
 .form-group .control-label {
@@ -571,7 +574,7 @@ table tbody td {
     margin: 0;
 }
 .panel-body ul.dropdown-menu li a {
-    font-size: 12px;
+    font-size: 11px;
     padding: 3px 12px;
 }
 .bs-searchbox .form-control {
@@ -612,7 +615,7 @@ button.dropdown-toggle {
 }
 .btn {
     border-radius: 0 !important;
-    font-size: 12px;
+    font-size: 11px;
 }
 .input-group .input-group-addon {
     font-size: 12px;
@@ -634,7 +637,7 @@ button.dropdown-toggle {
 }
 #bootstrap-panel .panel-body {
     padding: 10px 15px;
-    font-size: 12px;    
+    font-size: 11px;
 }
 #bootstrap-panel .panel-body table .btn-primary {
     padding: 1px 8px;
@@ -663,7 +666,7 @@ button.dropdown-toggle {
 .sidebar-menu > li > a {
     padding: 8px 5px 8px 15px;
     display: block;
-    font-size: 12px;
+    font-size: 11px;
 }
 .sidebar-menu .treeview-menu > li > a {
     padding: 4px 5px 4px 15px;
