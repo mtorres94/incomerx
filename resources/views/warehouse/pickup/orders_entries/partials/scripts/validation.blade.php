@@ -121,6 +121,28 @@
                     }
                 },
             }
+        }).on('success.field.fv', function(e, data) {
+            // $(e.target)  --> The field element
+            // data.fv      --> The FormValidation instance
+            // data.field   --> The field name
+            // data.element --> The field element
+
+            var $parent = data.element.parents('.form-group');
+
+            // Remove the has-success class
+            $parent.removeClass('has-success');
+
+            // Hide the success icon
+            data.element.data('fv.icon').hide();
+
+        }).on('err.field.fv', function(e, data) {
+            // $(e.target)  --> The field element
+            // data.fv      --> The FormValidation instance
+            // data.field   --> The field name
+            // data.element --> The field element
+
+            // Hide the success icon
+            data.element.data('fv.icon').hide();
         })
     })
 </script>
