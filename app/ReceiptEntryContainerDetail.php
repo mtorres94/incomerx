@@ -19,7 +19,6 @@ class ReceiptEntryContainerDetail extends Model
 
         if (array_key_exists('container_line', $data)) {
            // for ($i = 0; $i < count($data['container_line']); $i++) {
-
                 while ($a < count($data['container_line'])) {
                     if (isset($data['container_line'][$i])) {
                         $obj = new ReceiptEntryContainerDetail();

@@ -59,8 +59,11 @@ class OrderEntryController extends Controller
     {
         DB::beginTransaction();
         try {
-            $count = OrderEntry::count() + 1;
-            $pd_number = str_pad($count, 7, '0', STR_PAD_LEFT);
+           /* $count = OrderEntry::count() + 1;
+            $pd_number = str_pad($count, 7, '0', STR_PAD_LEFT);*/
+            $last = OrderEntry::orderBy('code','desc')->first();
+            $frmt = $last == null ? 1 : intval(substr($last->code, 3));
+            $pd_number = str_pad($frmt, '0', 0);
             $order_entry = $request->all();
             $order_entry['code'] = "PD-".$pd_number;
             $order_entry['user_create_id'] = Auth::user()->id;
@@ -80,8 +83,11 @@ class OrderEntryController extends Controller
             OrderEntryCargoItemDetail::saveDetail($whr->id,  $order_entry);
 
             if(isset($order_entry['create_warehouse_receipt']) and ($order_entry['create_warehouse_receipt'] == 1)){
-                $count = ReceiptEntry::count() + 1;
-                $wh_number = str_pad($count, 10, '0', STR_PAD_LEFT);
+                /*$count = ReceiptEntry::count() + 1;
+                $wh_number = str_pad($count, 10, '0', STR_PAD_LEFT);*/
+                $last = ReceiptEntry::orderBy('code','desc')->first();
+                $frmt = $last == null ? 1 : intval(substr($last->code, 3));
+                $wh_number= 'WH-'.str_pad($frmt, 7, '0', 0);
                 $order_entry = $request->all();
                 $order_entry['code'] = $wh_number;
                 $order_entry['sum_pieces'] = $order_entry['dr_total_pieces'];

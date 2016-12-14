@@ -58,7 +58,7 @@ class ReceiptEntryCargoDetail extends Model
                     //$j++;
 
                     $obj->receipt_entry_id = $id;
-                    $obj->line = $a + 1 ;
+                    $obj->line = $a++;
                     # $obj->type                          = $data['cargo_type'][$i];
                     $obj->quantity = $data['cargo_quantity'][$i];
                     $obj->cargo_type_id = $data['cargo_type_id'][$i];
@@ -79,7 +79,7 @@ class ReceiptEntryCargoDetail extends Model
                     $obj->tare_weight = (isset($data['cargo_tare_weight'][$i]) ? $data['cargo_tare_weight'][$i] : 0);
                     $obj->net_weight = (isset($data['cargo_net_weight'][$i]) ? $data['cargo_net_weight'][$i] : 0);
                     $obj->dim_fact = (isset($data['cargo_dim_fact'][$i]) ? $data['cargo_dim_fact'][$i] : 'I');
-                    $a++;
+
                     $obj->save();
 
                 }

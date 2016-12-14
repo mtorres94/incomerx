@@ -27,7 +27,6 @@ class ReceiptEntryReferenceDetail extends Model
                 if (isset($data['references_line'][$i])) {
                     $obj = new ReceiptEntryReferenceDetail();
 
-
                     $obj->receipt_entry_id = $id;
                     $obj->line = $a + 1;
                     $obj->po_number = $data['references_po_number'][$i];

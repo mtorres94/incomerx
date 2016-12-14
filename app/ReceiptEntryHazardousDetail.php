@@ -32,7 +32,6 @@ class ReceiptEntryHazardousDetail extends Model
             while ($a < count($data['hazardous_uns_line'])) {
                 if (isset($data['hazardous_uns_line'][$i])) {
                     $obj = new ReceiptEntryHazardousDetail();
-
                     $obj->receipt_entry_id = $id;
                     $obj->uns_id = $data['hazardous_uns_id'][$i];
                     $obj->line = $a + 1;

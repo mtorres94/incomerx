@@ -8,6 +8,7 @@
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
             </button>
         </div>
+
         <table class="table table-bordered table-condensed" id="charge-details">
             <thead>
             <tr>

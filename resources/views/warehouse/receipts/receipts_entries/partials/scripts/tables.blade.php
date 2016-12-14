@@ -146,8 +146,6 @@
                 m = t[0].childNodes[6].textContent;
         $('#tmp_references_line').val(r), $("#tmp_references_po_number").val(o), $("#tmp_references_ref_number").val(s), $("#tmp_references_inv_number").val(a), $("#tmp_references_booking_number").val(d), $("#tmp_references_invoice_amount").val(i), $("#tmp_references_note").val(m), $("#References").modal("show")
     }), $("#cargo-warehouse-save").click(function() {
-        /*var t = $("#warehouse-details tbody tr").length + 1,
-                z = t - 1,*/
         var t = ($("#warehouse-details  tbody tr").length == 0 ? 1 : parseInt($("#warehouse-details  tbody tr")[$("#warehouse-details  tbody tr").length - 1].childNodes[0].textContent) + 1 ),
             a = $("#tmp_cargo_line").val(),
             w =(0 == a ? t : a)-1,

@@ -21,4 +21,8 @@ class Incoterm extends Model
     {
         return $this->hasOne('Sass\User');
     }
+    public function getCodeAttribute() {
+        $code = $this->attributes['code'];
+        return strtoupper($code);
+    }
 }

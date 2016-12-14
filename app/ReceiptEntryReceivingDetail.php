@@ -33,7 +33,6 @@ class ReceiptEntryReceivingDetail extends Model
                     $obj->pro_number = $data['receiving_pro_number'][$i];
                     $obj->details = $data['receiving_details'][$i];
                     $obj->notes = $data['receiving_remarks'][$i];
-
                     $obj->save();
                     $a++;
                 }

@@ -74,6 +74,7 @@
             @endif
         </tbody>
         <tfoot>
+
             {!! Form::hidden('sum_pieces', null, ['id' => 'sum_pieces', 'class' => 'form-control input-sm']) !!}
             {!! Form::hidden('sum_weight', null, ['id' => 'sum_weight', 'class' => 'form-control input-sm']) !!}
             {!! Form::hidden('sum_volume_weight', null, ['id' => 'sum_volume_weight', 'class' => 'form-control input-sm']) !!}
