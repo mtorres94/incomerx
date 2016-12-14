@@ -13,7 +13,7 @@ class CreateReceiptEntryRequest extends Request
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -23,22 +23,6 @@ class CreateReceiptEntryRequest extends Request
      */
     public function rules()
     {
-        return [
-            'date_in'                   => 'required|date',
-            'division_id'               => 'required|exists:mst_divisions,id',
-            'status'                    => 'required|in:O,C,V,H',
-            'expire_date'               => 'required|date',
-            'currency_id'               => 'required|exists:mst_currencies,id',
-            'shipper_id'                => 'required|exists:mst_customers,id',
-            'shipper_address'           => 'required',
-            'shipper_city'              => 'required',
-            'consignee_id'              => 'required|exists:mst_customers,id',
-            'consignee_address'         => 'required',
-            'consignee_city'            => 'required',
-            'third_party_id'            => 'required|exists:mst_customers,id',
-            'mode'                      => 'required|in:A,O,W,R,T',
-            'warehouse_id'              => 'required|exists:mst_warehouse_facilities,id',
-            'location_service_id'       => 'required|exists:mst_services,id',
-        ];
+        return [];
     }
 }

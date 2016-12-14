@@ -57,10 +57,10 @@ class ReceiptEntryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateReceiptEntryRequest $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateReceiptEntryRequest $request)
+    public function store(Request $request)
     {
         DB::beginTransaction();
         try {
