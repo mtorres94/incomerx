@@ -37,6 +37,8 @@
         $("#tmp_billing_bill_type").val("C").change();
         $("#tmp_billing_currency_type").val("1").change();
         $("#tmp_cost_currency_type").val("1").change();
+        $("#tmp_billing_unit_id").val("0").change();
+        $("#tmp_cost_unit_id").val("0").change();
         for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style");
@@ -82,15 +84,17 @@
                 d = t[0].childNodes[4].textContent;
         $('#tmp_hazardous_uns_line').val(r), $("#tmp_hazardous_uns_id").val(o), $("#tmp_hazardous_uns_code").val(s), $("#tmp_hazardous_uns_desc").val(a), $("#tmp_hazardous_uns_note").val(d), $("#UNs").modal("show")
     }), $("#receiving-save").click(function() {
-        var r = ($('#receiving-details tbody tr').length + 1),
-                c = r - 1,
-                l = $("#tmp_receiving_line").val(),
+/*        var r = ($('#receiving-details tbody tr').length + 1),
+                c = r - 1,*/
+        var r = ($("#receiving-details  tbody tr").length == 0 ? 1 : parseInt($("#receiving-details  tbody tr")[$("#receiving-details  tbody tr").length - 1].childNodes[0].textContent) + 1 ),
+            l = $("#tmp_receiving_line").val(),
+            c =(0 == l ? r : l)-1,
                 a = $("#tmp_receiving_pro_number").val().toUpperCase(),
                 d = $("#tmp_receiving_details").val().toUpperCase(),
                 s = $("#tmp_receiving_remarks").val().toUpperCase(),
                 n = $("#receiving-details"),
                 t = n.find("tbody"),
-                p = $("<tr id=" + r + ">");
+                p = $("<tr id=" + (0 == l ? r : l) + ">");
         p.append(createTableContent('receiving_line', (0 == l ? r : l), true, c))
                 .append(createTableContent('receiving_pro_number', a, false, c))
                 .append(createTableContent('receiving_details', d, false, c))
@@ -106,9 +110,12 @@
                 a = t[0].childNodes[3].textContent;
         $('#tmp_receiving_line').val(o), $("#tmp_receiving_pro_number").val(r), $("#tmp_receiving_details").val(s), $("#tmp_receiving_remarks").val(a), $("#PRO-Numbers").modal("show")
     }), $("#references-save").click(function() {
-        var r = ($('#references-details tbody tr').length + 1),
-                c = r - 1,
-                l = $("#tmp_references_line").val(),
+        /*var r = ($('#references-details tbody tr').length + 1),
+                c = r - 1,*/
+        var r = ($("#references-details  tbody tr").length == 0 ? 1 : parseInt($("#references-details  tbody tr")[$("#references-details  tbody tr").length - 1].childNodes[0].textContent) + 1 ),
+            l = $("#tmp_references_line").val(),
+            c =(0 == l ? r : l)-1,
+
                 a = $("#tmp_references_po_number").val().toUpperCase(),
                 d = $("#tmp_references_ref_number").val().toUpperCase(),
                 s = $("#tmp_references_booking_number").val().toUpperCase(),
@@ -117,7 +124,7 @@
                 m = $("#tmp_references_note").val().toUpperCase(),
                 n = $("#references-details"),
                 t = n.find("tbody"),
-                p = $("<tr id=" + r + ">");
+                p = $("<tr id=" + (0 == l ? r : l) + ">");
         p.append(createTableContent('references_line', (0 == l ? r : l), true, c))
                 .append(createTableContent('references_po_number', a, false, c))
                 .append(createTableContent('references_ref_number', d, false, c))
@@ -139,9 +146,12 @@
                 m = t[0].childNodes[6].textContent;
         $('#tmp_references_line').val(r), $("#tmp_references_po_number").val(o), $("#tmp_references_ref_number").val(s), $("#tmp_references_inv_number").val(a), $("#tmp_references_booking_number").val(d), $("#tmp_references_invoice_amount").val(i), $("#tmp_references_note").val(m), $("#References").modal("show")
     }), $("#cargo-warehouse-save").click(function() {
-        var t = $("#warehouse-details tbody tr").length + 1,
-                z = t - 1,
-                a = $("#tmp_cargo_line").val(),
+        /*var t = $("#warehouse-details tbody tr").length + 1,
+                z = t - 1,*/
+        var t = ($("#warehouse-details  tbody tr").length == 0 ? 1 : parseInt($("#warehouse-details  tbody tr")[$("#warehouse-details  tbody tr").length - 1].childNodes[0].textContent) + 1 ),
+            a = $("#tmp_cargo_line").val(),
+            w =(0 == a ? t : a)-1,
+
                 e = $("#tmp_cargo_quantity").val(),
                 d = $("#tmp_cargo_type_id").val(),
                 o = $("#tmp_cargo_type_code").val(),
@@ -163,8 +173,8 @@
                 j= $("#tmp_cargo_unit_weight").val(),
                 b = $("#warehouse-details"),
                 x = b.find("tbody"),
-                C = $("<tr id=" + (0 == a ? t : a) + ">"),
-                w = (0 == a ? z : a - 1);
+                C = $("<tr id=" + (0 == a ? t : a) + ">");
+
             C.append(createTableContent('cargo_line', (0 == a ? t : a), true, w))
                     .append($("<td><i class='fa fa-cube' aria-hidden='true'></td>"))
                     .append(createTableContent('cargo_quantity', e, false, w))
@@ -189,9 +199,10 @@
                     .append(createTableContent('cargo_unit_weight', j, true, w))
                     .append($("<td></td>"))
 
-                    .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), calculate_warehouse_details(), cleanModalFields('cargo-warehouse'),$("#tmp_cargo_type_id").val(0).change(), $("#tmp_cargo_quantity").val(1), $("#tmp_cargo_pieces").val(1), $("#tmp_cargo_location_id").val(0).change(), $("#tmp_cargo_location_bin_id").val(0).change(), $("#tmp_cargo_quantity").focus()
+                    .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), calculate_warehouse_details(), cleanModalFields('cargo-warehouse'),$("#tmp_cargo_type_id").val(0).change(), $("#tmp_cargo_quantity").val(1), $("#tmp_cargo_pieces").val(1), $("#tmp_cargo_location_id").val(0).change(), $("#tmp_cargo_location_bin_id").val(0).change(), $("#tmp_cargo_weight_unit_measurement_id").val("L").change(),$("#tmp_cargo_metric_unit_measurement_id").val("I").change(),$("#tmp_cargo_dim_fact").val("I").change(), $("#tmp_cargo_quantity").focus()
     }), $("#warehouse-details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove()
+        $(this).closest("tr").remove(),
+            calculate_warehouse_details()
     }), $("#warehouse-details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
                 a = t[0].childNodes[0].textContent,
@@ -270,11 +281,14 @@
                     .append($("<td></td>"))
                     .append(createTableBtns()), x.append(C)
             }
-        calculate_warehouse_details(), cleanModalFields('cargo-multiline-warehouse'), $("#multiline_cargo_quantity").val(1),$("#multiline_cargo_location_bin_id").val(0).change(),$("#multiline_cargo_location_id").val(0).change(), $("#multiline_cargo_quantity").focus()
+        calculate_warehouse_details(), cleanModalFields('cargo-multiline-warehouse'), $("#multiline_cargo_quantity").val(1),$("#multiline_cargo_pieces").val(1),$("#multiline_cargo_location_bin_id").val(0).change(),$("#multiline_cargo_location_id").val(0).change(), $("#multiline_cargo_weight_unit_measurement_code").val("L").change(), $("#multiline_cargo_metric_unit_measurement_code").val("I").change(), $("#multiline_cargo_dim_fact").val("I").change(), $("#multiline_cargo_quantity").focus()
     }), $("#charges-save").click(function() {
-        var t = $("#charge-details tbody tr").length + 1,
-                d= t - 1,
-                charge_id = $("#tmp_charge_id").val(),
+        /*var t = $("#charge-details tbody tr").length + 1,
+                d= t - 1,*/
+        var t = ($("#charge-details  tbody tr").length == 0 ? 1 : parseInt($("#charge-details  tbody tr")[$("#charge-details  tbody tr").length - 1].childNodes[0].textContent) + 1 ),
+            charge_id = $("#tmp_charge_id").val(),
+                d =(0 == charge_id ? t : charge_id)-1,
+
                 g_1 = $("#tmp_billing_billing_id").val(),
                 g_2 = $("#tmp_billing_billing_code").val(),
                 g_3 = $("#tmp_billing_billing_description").val(),
@@ -309,7 +323,7 @@
                 g_29 = $("#tmp_cost_reference").val().toUpperCase(),
                 b = $("#charge-details"),
                 x = b.find("tbody"),
-                C = $("<tr id=" + t + ">");
+                C = $("<tr id=" + (0 == charge_id ? t : charge_id) + ">");
 
         C.append(createTableContent('charge_id', (0 == charge_id ? t : charge_id), true,d))
                 .append(createTableContent('billing_billing_id', g_1, true, d))
@@ -349,7 +363,8 @@
 
                 .append(createTableBtns()), 0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields('charge-warehouse'),$("#tmp_billing_unit_id").val(0).change(), $("#tmp_cost_unit_id").val(0).change(), $("#tmp_billing_bill_party").val("C").change(), $("#tmp_billing_bill_type").val("C").change(), $("#tmp_billing_currency_type").val("1").change(), $("#tmp_cost_currency_type").val("1").change(),calculate_charges(),   $("#tmp_billing_billing_code").focus()
     }), $("#charge-details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove()
+        $(this).closest("tr").remove(),
+        calculate_charges()
     }), $("#charge-details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
             g1  = t[0].childNodes[0].textContent,
