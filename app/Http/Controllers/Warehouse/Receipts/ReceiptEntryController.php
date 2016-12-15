@@ -65,7 +65,7 @@ class ReceiptEntryController extends Controller
         DB::beginTransaction();
         try {
             $last = ReceiptEntry::orderBy('code','desc')->first();
-            $frmt = $last == null ? 1 : intval(substr($last->code, 3));
+            $frmt = $last == null ? 1 : intval(substr($last->code, 3)) + 1;
             $code = 'WH-'.str_pad($frmt, 7, '0', 0);
             # $code = str_pad($count, 10, '0', STR_PAD_LEFT);
 

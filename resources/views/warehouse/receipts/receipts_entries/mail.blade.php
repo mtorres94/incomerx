@@ -89,7 +89,7 @@
                 </tr>
                 <tr>
                     <td class="content"><strong>Location:</strong></td>
-                    <td>{{ $data->location_id > 0 ? $data->location->code : '' }}</td>
+                    <td>{{ $detail->location_id > 0 ? $detail->location->code : '' }}</td>
                     <td class="content"><strong>Bin:</strong></td>
                     <td>{{ $detail->location_bin_id }}</td>
                 </tr>

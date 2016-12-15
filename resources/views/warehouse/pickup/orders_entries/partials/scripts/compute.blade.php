@@ -126,7 +126,7 @@
         $("#charges_bill").val(total_bill);
         $("#charges_cost").val(total_cost);
         $("#charges_profit").val(total_profit);
-        $("#charges_profit_p").val(total_profit_percent);
+        $("#charges_profit_p").val(parseFloat((total_profit/total_bill)*100).toFixed(3));
     }
 
 

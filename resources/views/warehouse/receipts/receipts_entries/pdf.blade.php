@@ -76,7 +76,8 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">THIRD PARTY</div>
                             <div class="panel-body">
-                                <p>{{ strtoupper($receipt_entry->third_party->name) }}</p>
+                                <p>{{ $receipt_entry->third_party_id > 0 ? strtoupper($receipt_entry->third_party->name) 
+: '' }}</p>
                             </div>
                         </div>
                     </div>
@@ -124,9 +125,9 @@
                         </tr>
                         <tr>
                             <td><strong>ORIGIN:</strong></td>
-                            <td>{{ strtoupper($receipt_entry->origin->code) }}</td>
+                            <td>{{ $receipt_entry->location_origin_id > 0 ? strtoupper($receipt_entry->origin->code) : '' }}</td>
                             <td><strong>DEST:</strong></td>
-                            <td>{{ strtoupper($receipt_entry->destination->code) }}</td>
+                            <td>{{ $receipt_entry->location_destination_id > 0 ? strtoupper($receipt_entry->destination->code) : '' }}</td>
                         </tr>
                         <tr>
                             <td><strong>CARRIER:</strong></td>

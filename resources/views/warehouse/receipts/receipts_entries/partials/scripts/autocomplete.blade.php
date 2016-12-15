@@ -56,8 +56,10 @@
                 id: '{{ (isset($receipt_entry) ? $receipt_entry->location_destination_id : "")}}',
                 name: '{{ ((isset($receipt_entry) and $receipt_entry->location_destination_id > 0) ? $receipt_entry->destination->name : null)}}',
                 code: '{{ ((isset($receipt_entry) and $receipt_entry->location_destination_id > 0) ? $receipt_entry->destination->code : null)}}',
-                country_id: '{{ ((isset($receipt_entry) and $receipt_entry->location_destination_id > 0) ? $receipt_entry->destination->country_id: null)}}',
-                country_name: '{{ ((isset($receipt_entry) and $receipt_entry->location_destination_id > 0) ? $receipt_entry->destination->country->name : null)}}'
+                country_id: '{{ ((isset($receipt_entry) and $receipt_entry->location_country_id > 0) ? 
+$receipt_entry->country_id: null)}}',
+                country_name: '{{ ((isset($receipt_entry) and $receipt_entry->location_country_id > 0) ? 
+$receipt_entry->country->name : null)}}'
             },
             onSelect: function(e, o) {
                 $("#location_destination_id").val(e.id), $(this).val(e.name), $("#location_country_name").val(e.country_name), $("#location_country_id").val(e.country_id)

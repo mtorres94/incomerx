@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'mail.sassblum.com'),
+    'host' => env('MAIL_HOST', 'smtp.office365.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 25),
+    'port' => env('MAIL_PORT', 587),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'notificaciones@sassblum.com', 'name' => 'Notificaciones'],
+    'from' => ['address' => 'pmondonedo@vecologistics.com', 'name' => 'Notifications'],
 
     /*
     |--------------------------------------------------------------------------

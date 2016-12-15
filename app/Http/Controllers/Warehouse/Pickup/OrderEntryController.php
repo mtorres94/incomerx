@@ -62,8 +62,8 @@ class OrderEntryController extends Controller
            /* $count = OrderEntry::count() + 1;
             $pd_number = str_pad($count, 7, '0', STR_PAD_LEFT);*/
             $last = OrderEntry::orderBy('code','desc')->first();
-            $frmt = $last == null ? 1 : intval(substr($last->code, 3));
-            $pd_number = str_pad($frmt, '0', 0);
+            $frmt = $last == null ? 1 : intval(substr($last->code, 3)) + 1;
+            $pd_number = str_pad($frmt, 7, '0', 0);
             $order_entry = $request->all();
             $order_entry['code'] = "PD-".$pd_number;
             $order_entry['user_create_id'] = Auth::user()->id;
@@ -81,12 +81,14 @@ class OrderEntryController extends Controller
             OrderEntryTransportationDetail::saveDetail($whr->id, $order_entry);
             OrderEntryCargoDetail::saveDetail($whr->id, $order_entry);
             OrderEntryCargoItemDetail::saveDetail($whr->id,  $order_entry);
+	    
+	    $id = $whr->id;
 
             if(isset($order_entry['create_warehouse_receipt']) and ($order_entry['create_warehouse_receipt'] == 1)){
                 /*$count = ReceiptEntry::count() + 1;
                 $wh_number = str_pad($count, 10, '0', STR_PAD_LEFT);*/
                 $last = ReceiptEntry::orderBy('code','desc')->first();
-                $frmt = $last == null ? 1 : intval(substr($last->code, 3));
+                $frmt = $last == null ? 1 : intval(substr($last->code, 3)) + 1;
                 $wh_number= 'WH-'.str_pad($frmt, 7, '0', 0);
                 $order_entry = $request->all();
                 $order_entry['code'] = $wh_number;
@@ -96,8 +98,16 @@ class OrderEntryController extends Controller
                 $order_entry['sum_cubic'] = $order_entry['dr_cubic_weight'];
                 $order_entry['sum_volume_weight'] = $order_entry['dr_volume_weight'];
                 $order_entry['marks'] = "CREATED FROM PD ORDER # ". $whr->code;
-                $order_entry['location_origin_id']= $order_entry['location_world_location_id'];
-                $order_entry['location_destination_id']= $order_entry['destination_world_location_id'];
+		$order_entry['status'] = 'O';
+		$order_entry['mode'] = 'R';
+		$order_entry['currency_id'] = 1;
+		$order_entry['user_create_id'] = Auth::user()->id;
+		$order_entry['user_update_id'] = Auth::user()->id;
+		$order_entry['receiving_carrier_id'] = $order_entry['carriers_carrier_id'];
+		$order_entry['sum_bill'] = $order_entry['charges_bill'];
+		$order_entry['sum_cost'] = $order_entry['charges_cost'];
+		$order_entry['sum_profit'] = $order_entry['charges_profit'];
+		$order_entry['sum_profit_percent'] = $order_entry['charges_profit_p'];
                 $whr= ReceiptEntry::create($order_entry);
                 ReceiptEntryCargoDetail::createDetail($whr->id, $order_entry);
                 ReceiptEntryReferenceDetail::createDetail($whr->id, $order_entry);
@@ -109,7 +119,7 @@ class OrderEntryController extends Controller
             DB::rollback();
         }
         DB::commit();
-        return redirect()->route('warehouse.pickup.orders_entries.index');
+        return redirect()->route('warehouse.pickup.orders_entries.edit', [$id]);
 
     }
 

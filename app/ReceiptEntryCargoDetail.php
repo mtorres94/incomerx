@@ -55,10 +55,10 @@ class ReceiptEntryCargoDetail extends Model
                 $i++;
                 if (isset($data['cargo_line'][$i])) {
                     $obj = new ReceiptEntryCargoDetail();
-                    //$j++;
+                    $a++;
 
                     $obj->receipt_entry_id = $id;
-                    $obj->line = $a++;
+                    $obj->line = $a;
                     # $obj->type                          = $data['cargo_type'][$i];
                     $obj->quantity = $data['cargo_quantity'][$i];
                     $obj->cargo_type_id = $data['cargo_type_id'][$i];

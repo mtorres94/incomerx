@@ -94,6 +94,6 @@
         $("#sum_bill").val(total_bill);
         $("#sum_cost").val(total_cost);
         $("#sum_profit").val(total_profit);
-        $("#sum_profit_percent").val(total_profit_percent);
+        $("#sum_profit_percent").val(parseFloat((total_profit/total_bill)*100).toFixed(3));
     }
 </script>

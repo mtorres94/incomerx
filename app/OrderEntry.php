@@ -25,7 +25,7 @@ class OrderEntry extends Model
 
         'dr_booking_number','dr_document_number', 'dr_export_reference', 'dr_fmc_number','dr_pre_carriage', 'dr_place_receipt', 'dr_vessel_name', 'dr_voyage_name', 'dr_exporting_carrier', 'dr_port_loading','dr_loading','dr_city_origin', 'dr_foreign_port','dr_place_delivery','dr_type_of_move',  'dr_total_pieces', 'dr_packages', 'dr_freight_charges', 'dr_act_weight', 'dr_volume_weight', 'dr_net_weight', 'dr_cubic_weight','charges_freight_charges',
 
-        'charges_bill', 'charges_cost', 'charges_profit', 'charges_profit_p', 'transportation_plans_amount','pickup_comment','created_at','updated_at','create_warehouse_receipt'
+        'charges_bill', 'charges_cost', 'charges_profit', 'charges_profit_p', 'transportation_plans_amount','pickup_comment','created_at','updated_at',
 
     ];
 

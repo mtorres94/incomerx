@@ -226,7 +226,7 @@
                 j = t[0].childNodes[21].textContent;
         $("#tmp_cargo_line").val(a), $("#tmp_cargo_quantity").val(e), $("#tmp_cargo_type_id").val(d).change(), $("#tmp_cargo_type_code").val(o), $("#tmp_cargo_pieces").val(n), $("#tmp_cargo_weight_unit_measurement_id").val(i).change(), $("#tmp_cargo_metric_unit_measurement_id").val(c).change(), $("#tmp_cargo_dim_fact").val(f).change(), $("#tmp_cargo_length").val(l), $("#tmp_cargo_width").val(r), $("#tmp_cargo_height").val(_), $("#tmp_cargo_total_weight").val(p), $("#tmp_cargo_cubic").val(s), $("#tmp_cargo_volume_weight").val(g), $("#tmp_cargo_location_id").val(b).change(), $("#tmp_cargo_location_name").val(h), $("#tmp_cargo_location_bin_id").val(v).change(), $("#tmp_cargo_location_bin_name").val(u), $("#tmp_cargo_material_description").val(k), $("#tmp_cargo_unit_weight").val(j), calculate(), $("#cargo-warehouse").modal("show")
     }), $("#cargo-multiline-warehouse-save").click(function() {
-        var t = $("#warehouse-details tbody tr").length + 1,
+        var t = $("#warehouse-details  tbody tr").length + 1,
                 z = parseInt(t) - 1,
                 j = parseInt($("#multiline_records").val()) + t,
                 a = $("#multiline_cargo_line").val(),
