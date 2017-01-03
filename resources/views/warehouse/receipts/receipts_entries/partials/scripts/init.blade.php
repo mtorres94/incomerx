@@ -289,23 +289,23 @@
             var a= $("#tmp_billing_bill_party").val();
             switch(a){
                 case "S":   $("#tmp_billing_customer_name").val( $("#shipper_name").val() );
-                    $("#tmp_billing_customer_id").val( $("#shipper_id").val() );
-                    $("#tmp_billing_customer_name").attr("readonly", true);
+                    $("#tmp_billing_customer_id").val( $("#shipper_id").val() ).change();
+                    $("#tmp_billing_customer_name").attr("disabled", true);
                     break;
 
                 case "C":   $("#tmp_billing_customer_name").val( $("#consignee_name").val() );
-                    $("#tmp_billing_customer_id").val( $("#consignee_id").val() );
-                    $("#tmp_billing_customer_name").attr("readonly", true);
+                    $("#tmp_billing_customer_id").val( $("#consignee_id").val() ).change();
+                    $("#tmp_billing_customer_name").attr("disabled", true);
                     break;
 
                 case "T":   $("#tmp_billing_customer_name").val( $("#third_party_name").val() );
-                    $("#tmp_billing_customer_id").val( $("#third_party_id").val() );
-                    $("#tmp_billing_customer_name").attr("readonly", true);
+                    $("#tmp_billing_customer_id").val( $("#third_party_id").val() ).change();
+                    $("#tmp_billing_customer_name").attr("disabled", true);
                     break;
 
                 case "O":   $("#tmp_billing_customer_name").val("");
-                    $("#tmp_billing_customer_id").val(0);
-                    $("#tmp_billing_customer_name").attr("readonly", false);
+                    $("#tmp_billing_customer_id").val(0).change();
+                    $("#tmp_billing_customer_name").attr("disabled", false);
                     break;
             }
 

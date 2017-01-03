@@ -36,4 +36,7 @@ return [
     'export' => [
         'oceans'  => 'Exportación marítima',
     ],
+    'import' => [
+        'oceans'  => 'Importación marítima',
+    ],
 ];

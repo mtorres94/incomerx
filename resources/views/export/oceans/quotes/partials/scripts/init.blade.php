@@ -1,12 +1,33 @@
 <script type="text/javascript">
 
     window.onload = (function () {
+
         openTab($("#data"));
+        renameTab();
+        updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('quotes.close') }}')
+
+        if ($("#open_status").val() == "1") {
+            disableFields('data');
+        }
         //=========================
         ($("#container_details tbody tr").length > 0 ? $("#contract_basis").val("2").change() : $("#contract_basis").val("1").change());
-        $("#billing_bill_party").change( function(){
-            ($("#billing_bill_party").val() == 'O'? $("#billing_customer_name").attr("disabled", false) : $("#billing_customer_name").attr("disabled", true));
-        });
+
+        function renameTab() {
+            if ('edit' == '{{ \Request::segment(5) }}') {
+                var gtab = window.parent.$('#tt');
+                var htab = gtab.find('.tabs-header');
+                var wtab = htab.find('.tabs-wrap');
+                var ttab = wtab.find('.tabs');
+                var stab = ttab.find('.tabs-selected');
+                var itab = stab.find('.tabs-inner');
+                var etab = itab.find('.tabs-title');
+                var span = '{{ isset($receipt_entry) ? "Edit ".$receipt_entry->code : "New" }}';
+
+                etab[1] = span
+            }
+        }
+        $("#total_unit_weight").val( "{{ (isset($quotes) ? $quotes->total_unit_weight : "L") }}").change();
+
         //============
        for (var t = $("#container_tabs").find("div"), l = 0; l < t.length; l++) {
             var a = t[l];
@@ -45,7 +66,7 @@
         removeEmptyNodes('cargo_details');
         removeEmptyNodes('charge_details');
 
-        total_cargo();
+        calculate_warehouse_details();
         values_charges();
         //===================================
         $("#box_cargo_type_id").change(function () {
@@ -80,14 +101,17 @@
                 }
             });
         });
-        $("#code").attr("disabled", true);
-        $("#total_quantity").attr("disabled", true);
-        $("#total_weight").attr("disabled", true);
-        $("#total_cubic").attr("disabled", true);
-        $("#total_bill").attr("disabled", true);
-        $("#total_cost").attr("disabled", true);
-        $("#total_profit").attr("disabled", true);
-        $("#total_profit_p").attr("disabled", true);
+        $("#code").attr("readonly", true);
+        $("#total_quantity").attr("readonly", true);
+        $("#total_weight").attr("readonly", true);
+        $("#total_unit_weight").val("L").change();
+        $("#total_cubic").attr("readonly", true);
+        $("#total_bill").attr("readonly", true);
+        $("#total_cost").attr("readonly", true);
+        $("#total_profit").attr("readonly", true);
+        $("#total_profit_p").attr("readonly", true);
+        $("#billing_amount").attr("readonly", true);
+        $("#cost_amount").attr("readonly", true);
         $("#quote_status").val("O").change();
         $("#quote_type").val("S").change();
         $("#billing_bill_party").val("S").change();
@@ -106,17 +130,78 @@
         $("#box_width").change( function(){ calculate_cargo()});
         $("#box_height").change( function(){ calculate_cargo()});
         $("#box_unit_weight").change( function(){ calculate_cargo()});
+        $("#cargo_rate").change( function(){ calculate_cargo()});
 
+        $("#cargo_charge_weight").change( function(){ calculate_cargo()});
+
+        $("#box_total_weight").attr("readonly", true);
+        $("#cargo_total").attr("readonly", true);
+        $("#box_total_cubic").attr("readonly", true);
         $("#billing_quantity").change(function() { charges_details() });
         $("#cost_quantity").change(function() { charges_details() });
         $("#billing_rate").change(function() { charges_details() });
         $("#cost_rate").change(function() { charges_details() });
         $("#billing_increase").change(function() { charges_details() });
 
+
+
     });
 
-    $("#user_id").attr("disabled", true);
-    $("#contract_basis").attr("disabled", true);
+    $("#billing_bill_party").change(function () {
+        var a= $("#billing_bill_party").val();
+        switch(a){
+            case "S":   $("#billing_customer_name").val( $("#shipper_name").val() );
+                $("#billing_customer_id").val( $("#shipper_id").val() );
+                $("#billing_customer_name").attr("readonly", true);
+                break;
+
+            case "C":   $("#billing_customer_name").val( $("#consignee_name").val() );
+                $("#billing_customer_id").val( $("#consignee_id").val() );
+                $("#billing_customer_name").attr("readonly", true);
+                break;
+
+            case "T":   $("#billing_customer_name").val( $("#third_party_name").val() );
+                $("#billing_customer_id").val( $("#third_party_id").val() );
+                $("#billing_customer_name").attr("readonly", true);
+                break;
+
+            case "O":   $("#billing_customer_name").val("");
+                $("#billing_customer_id").val(0);
+                $("#billing_customer_name").attr("readonly", false);
+                break;
+        }
+    });
+
+    //=================================================================
+    $("#billing_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#billing_unit_name").val(e[0].code);
+
+            }
+        });
+    });
+
+    $("#cost_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#cost_unit_name").val(e[0].code);
+
+            }
+        });
+    });
+    //============================================================
+
+    $("#user_id").attr("readonly", true);
+    $("#contract_basis").attr("readonly", true);
 
     $("#exchange_rate").number(true, 3);
     $("#declared_value").number(true, 3);
@@ -128,13 +213,13 @@
     $("#container_max").number(true, 2);
     $("#container_min").number(true, 2);
 
-    $("#total_quantity").number(true, 3).attr("disabled", true);
-    $("#total_weight").number(true, 3).attr("disabled", true);
-    $("#total_cubic").number(true, 3).attr("disabled", true);
-    $("#total_bill").number(true, 3).attr("disabled", true);
-    $("#total_cost").number(true, 3).attr("disabled", true);
-    $("#total_profit").number(true, 3).attr("disabled", true);
-    $("#total_profit_p").number(true, 3).attr("disabled", true);
+    $("#total_quantity").number(true, 3).attr("readonly", true);
+    $("#total_weight").number(true, 3).attr("readonly", true);
+    $("#total_cubic").number(true, 3).attr("readonly", true);
+    $("#total_bill").number(true, 3).attr("readonly", true);
+    $("#total_cost").number(true, 3).attr("readonly", true);
+    $("#total_profit").number(true, 3).attr("readonly", true);
+    $("#total_profit_p").number(true, 3).attr("readonly", true);
 
     $("#box_quantity").number(true);
     $("#box_pieces").number(true);

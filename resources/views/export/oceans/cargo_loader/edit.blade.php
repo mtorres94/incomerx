@@ -7,5 +7,6 @@
     ], $cargo_loader) !!}
     @include('export.oceans.cargo_loader.partials.fields')
     {!! Form::bsSubmit() !!}
+    {!! Form::bsClose(isset($cargo_loader) ? $cargo_loader->id : 0) !!}
     {!! Form::close() !!}
 @endsection

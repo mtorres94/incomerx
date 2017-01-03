@@ -17,8 +17,34 @@
                 l = $("#box_dim_fact").val(),
                 f = (_ * c * 0.00694444);
         "I" === i && "L" === g ?(a = _ * c * t / 1728, e = _ * c * t /("I" === l ? 166 : 194)) : "C" === i && "L" === g ? (a = _ * c * t / 28316.846592, e = _ * c * t / ("I" === l ? 2720.252408 : 3179.089028)) : "I" === i && "K" === g ? (a = _ * c * t / 61023, e = _ * c * t / ("I" === l ? 366 : 427.895923)) : "C" === i && "K" === g && (a = _ * c * t / 1e6, e = _ * c * t / ("I" === l ? 6e3 : 7012)), $("#box_total_cubic").val(a.toFixed(3)), $("#box_vol_weight").val(e.toFixed(3));$("#box_total_weight").val(q*u );
+
+        var r= $("#cargo_rate").val(),
+            ch= $("#cargo_charge_weight").val();
+        $("#cargo_gross_weight").val(ch);
+        $("#cargo_total").val(r * ch);
     }
 
+    function calculate_warehouse_details() {
+        var tr = $('#cargo_details tbody tr'),
+            total_pieces = 0,
+            total_weight = 0,
+            total_cubic = 0;
+
+        for (var a=0; a < tr.length; a++) {
+            var unit = tr[a].childNodes[5].textContent,
+                pieces = parseInt(tr[a].childNodes[4].textContent),
+                weight = parseFloat(tr[a].childNodes[10].textContent),
+                cubic = parseFloat(tr[a].childNodes[11].textContent);
+
+            total_pieces = total_pieces + pieces;
+            total_weight = total_weight + ((unit == "L") ? weight : (weight * 2.2));
+            total_cubic = total_cubic + cubic;
+        }
+        $("#total_quantity").val(total_pieces);
+        $("#total_weight").val(total_weight);
+        $("#total_cubic").val(total_cubic);
+    }
+    /*
     function total_cargo()
     {
         var tr = $('#cargo_details tbody tr');
@@ -32,36 +58,43 @@
         $("#total_weight").val(weight_k);
         $("#total_cubic").val(cubic_k);
 
-    }
+    }*/
 
     function charges_details()
     {
-        $("#billing_amount").val($("#billing_quantity").val()* $("#billing_rate").val());
-        $("#cost_amount").val($("#cost_quantity").val()* $("#cost_rate").val());
+        var rb = $("#billing_rate").val(),
+            ib= $("#billing_increase").val(),
+            qb = $("#billing_quantity").val(),
+            rc = $("#cost_rate").val(),
+            qc = $("#cost_quantity").val();
 
-        var x= parseFloat($("#cost_amount").val()),
-                y= parseFloat($("#billing_increase").val()/100), z=0 ;
-        z= x* y + parseFloat($("#cost_amount").val());
-        $("#billing_amount").val(z);
-        var w= parseInt($("#billing_quantity").val());
-        w= z/ w;
-        $("#billing_rate").val(w);
+        var ab = (rb * qb) + ((rb * qb) * (ib/100) ),
+            ac = rc * qc;
+
+        $("#billing_amount").val(ab), $("#cost_amount").val(ac);
     }
 
     function values_charges() {
-        var tr = $('#charge_details tbody tr');
-        var r = tr.length, s_bill=0, s_cost=0, profit=0, profit_p=0, bill=0, cost=0;
-        for (var a = 0; a < r; a++) {
-            bill = parseFloat(tr[a].childNodes[10].textContent);
-            cost = parseFloat(tr[a].childNodes[13].textContent);
-            s_bill = bill+ s_bill;
-            s_cost = cost + s_cost;
+        var tr = $('#charge_details tbody tr'),
+            total_bill = 0,
+            total_cost = 0,
+            total_profit = 0,
+            total_profit_percent = 0;
+
+        for (var a=0; a < tr.length; a++) {
+            var bill = parseFloat(tr[a].childNodes[10].textContent),
+                cost = parseFloat(tr[a].childNodes[13].textContent),
+                profit = bill - cost,
+                profit_percent = parseFloat((profit/bill)*100).toFixed(3);
+            total_bill = total_bill + bill;
+            total_cost = total_cost + cost;
+            total_profit = total_profit + profit;
+            total_profit_percent = total_profit_percent + profit_percent;
         }
-        profit = s_bill - s_cost;
-        $("#total_bill").val(s_bill);
-        $("#total_cost").val(s_cost);
-        $("#total_profit").val(profit);
-        profit_p = parseFloat((profit * 100 )/ s_bill);
-        $("#total_profit_p").val(profit_p);
+
+        $("#total_bill").val(total_bill);
+        $("#total_cost").val(total_cost);
+        $("#total_profit").val(total_profit);
+        $("#total_profit_p").val(parseFloat((total_profit/total_bill)*100).toFixed(3));
     }
 </script>

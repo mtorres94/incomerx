@@ -29,7 +29,29 @@ removeEmptyNodes('load-warehouse-details');
         $("#cost_rate").change(function () { charges_details() });
 
         $("#billing_bill_party").change(function () {
-            $("#billing_bill_party").val() == 'O' ?  $("#billing_customer_name").attr("disabled", false): $("#billing_customer_name").attr("disabled", true) ;
+            var a= $("#billing_bill_party").val();
+            switch(a){
+                case "S":   $("#billing_customer_name").val( $("#shipper_name").val() );
+                    $("#billing_customer_id").val( $("#shipper_id").val() );
+                    $("#billing_customer_name").attr("readonly", true);
+                    break;
+
+                case "C":   $("#billing_customer_name").val( $("#consignee_name").val() );
+                    $("#billing_customer_id").val( $("#consignee_id").val() );
+                    $("#billing_customer_name").attr("readonly", true);
+                    break;
+
+                case "T":   $("#billing_customer_name").val( $("#third_party_name").val() );
+                    $("#billing_customer_id").val( $("#third_party_id").val() );
+                    $("#billing_customer_name").attr("readonly", true);
+                    break;
+
+                case "O":   $("#billing_customer_name").val("");
+                    $("#billing_customer_id").val(0);
+                    $("#billing_customer_name").attr("readonly", false);
+                    break;
+            }
+
         });
         for (var t = $("#tabs_HBL").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
@@ -95,7 +117,31 @@ removeEmptyNodes('load-warehouse-details');
 
     });
 
+    $("#billing_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#billing_unit_name").val(e[0].code);
 
+            }
+        });
+    });
+
+    $("#cost_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#cost_unit_name").val(e[0].code);
+
+            }
+        });
+    });
 
 
     $("#cargo_cargo_type_id").change(function () {
@@ -246,12 +292,13 @@ removeEmptyNodes('load-warehouse-details');
     $("#bl_type").val('P').change();
     $("#rate_class").val(1).change();
     $("#shipment_type").val('C').change();
+    $("#currency_type").val('1').change();
     $("#total_freight_charge").val('C').change();
     $("#total_other_charge").val('C').change();
-    $("#total_weight_unit_measurement").val('K').change();
+    $("#total_weight_unit_measurement").val('L').change();
     $("#booking_status").val('P').change();
     $("#type_of_move").val(1).change();
-    $("#bl_class").val(2).change();
+    $("#bl_class").val(3).change();
     $("#cargo_metric_unit_measurement_id").val('I').change();
     $("#cargo_dim_fact").val('I').change();
     $("#cargo_weight_unit_measurement_id").val('L').change();
@@ -260,7 +307,7 @@ removeEmptyNodes('load-warehouse-details');
 
     $("#container_ventilation").val('A');
     $("#container_degrees").val('F');
-    $("#pd_status").val(1);
+    $("#pd_status").val(1).change();
 
     $("#user_id").attr("disabled", true);
     $("#total_quantity").attr("disabled", true).number(true,3);
@@ -316,6 +363,7 @@ removeEmptyNodes('load-warehouse-details');
     $("#transportation_amount").number(true,3);
 
     initDate($("#date_today"), 0);
+    initDate($("#bl_date"), 0);
 
     $(document).ready(function () {
         //Initialize tooltips

@@ -5,6 +5,8 @@
     <div class="col-md-12">
         @include('export.oceans.step_by_step.partials.sections.HBL_details.details')
     </div>
+</div>
+<div class="row">
     <div class="col-md-12">
         <div class="col-md-6">
             <legend>Domestic Routing/ Export Instructions</legend>
@@ -16,6 +18,7 @@
             @include('export.oceans.step_by_step.partials.sections.HBL_details.BL_comments')
         </div>
     </div>
+</div>
     <div class="row">
         <div class="col-md-12">
             <div class="easyui-tabs" id="tabs_HBL">
@@ -42,12 +45,3 @@
             </div>
         </div>
     </div>
-
-
-<div class="col-md-12">
-
-</div>
-
-</div>
-
-

@@ -92,11 +92,9 @@ class OrderEntryController extends Controller
                 $wh_number= 'WH-'.str_pad($frmt, 7, '0', 0);
                 $order_entry = $request->all();
                 $order_entry['code'] = $wh_number;
-                $order_entry['sum_pieces'] = $order_entry['dr_total_pieces'];
+
                 $order_entry['date_in'] = $order_entry['date_order'];
-                $order_entry['sum_weight'] = $order_entry['dr_act_weight'];
-                $order_entry['sum_cubic'] = $order_entry['dr_cubic_weight'];
-                $order_entry['sum_volume_weight'] = $order_entry['dr_volume_weight'];
+
                 $order_entry['marks'] = "CREATED FROM PD ORDER # ". $whr->code;
 		$order_entry['status'] = 'O';
 		$order_entry['mode'] = 'R';
@@ -104,10 +102,7 @@ class OrderEntryController extends Controller
 		$order_entry['user_create_id'] = Auth::user()->id;
 		$order_entry['user_update_id'] = Auth::user()->id;
 		$order_entry['receiving_carrier_id'] = $order_entry['carriers_carrier_id'];
-		$order_entry['sum_bill'] = $order_entry['charges_bill'];
-		$order_entry['sum_cost'] = $order_entry['charges_cost'];
-		$order_entry['sum_profit'] = $order_entry['charges_profit'];
-		$order_entry['sum_profit_percent'] = $order_entry['charges_profit_p'];
+
                 $whr= ReceiptEntry::create($order_entry);
                 ReceiptEntryCargoDetail::createDetail($whr->id, $order_entry);
                 ReceiptEntryReferenceDetail::createDetail($whr->id, $order_entry);
@@ -172,8 +167,6 @@ class OrderEntryController extends Controller
         try {
 
             $order_entry = $request->all();
-
-
             $sent = OrderEntry::findorfail($id);
             $whr = $sent->update($order_entry);
             $order_entry['user_update_id'] = Auth::user()->id;

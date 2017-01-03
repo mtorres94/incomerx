@@ -1,7 +1,7 @@
 <div class="row">
     <legend>HBL Details</legend>
     <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
-
+        <button type="button" id="btn_create_hbl"  data-toggle="modal"  data-target="#CreateHouse" class="btn btn-primary">Create HBL</button>
         <button type="button" class="btn btn-danger" onclick="clearTable('hbl_details')">
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
         </button>

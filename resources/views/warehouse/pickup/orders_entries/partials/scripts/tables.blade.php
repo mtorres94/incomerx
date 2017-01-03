@@ -6,6 +6,7 @@
         $("#cargo_metric_unit_measurement_id").val("I").change();
         $("#cargo_weight_unit_measurement_id").val("L").change();
         $("#cargo_dim_fact").val("I").change();
+        $("#cargo_cargo_type_id").val("0").change();
         $("#cargo_location_bin_id").val(0).change();
 
           for (var t = $("#cargo-tabs").find("div"), l = 0; l < t.length  ; l++) {
@@ -134,7 +135,7 @@
                     .append(createTableContent('references_ref_number', d, false, c))
                     .append(createTableContent('references_note', s, true, c))
                     .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l  ).replaceWith(p), cleanModalFields('PO-Numbers'), $("#PO_number").focus();
-console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
+
 
 
     }),
@@ -1051,8 +1052,8 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                         .append(createTableContent('cargo_cubic', g10, false, c))
 
                         /*GENERAL */
-                        .append(createTableContent('part_info_po_number', g11, false, c))
-                        .append(createTableContent('cargo_volume_weight', g12, true, c))
+                        .append(createTableContent('part_info_po_number', g11, true, c))
+                        .append(createTableContent('cargo_volume_weight', g12, false, c))
                         .append(createTableContent('cargo_metric_unit_measurement_id', g13, true, c))
                         .append(createTableContent('cargo_material_description', g14, true, c))
                         .append(createTableContent('cargo_pieces', g15, true, c))
@@ -1159,7 +1160,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                         .append(createTableContent('vehicle_buyer_number', '', true, c))
                         .append(createTableContent('type_package', '0' , true, c))
 
-                        .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),values_warehouse(),cleanModalFields('cargo-warehouse'),$("#cargo_cargo_type_id").val(0).change(), $("#cargo_quantity").val(1), $("#cargo_pieces").val(1), $("#cargo_location_id").val(0).change(), $("#cargo_location_bin_id").val(0).change(), $("#cargo_dim_fact").val("I").change(), $("#cargo_weight_unit_measurement_id").val("L").change(), $("#cargo_metric_unit_measurement_id").val("I").change() ,$("#cargo_quantity").focus();
+                        .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),calculate_warehouse_details(),cleanModalFields('cargo-warehouse'),$("#cargo_cargo_type_id").val(0).change(), $("#cargo_quantity").val(1), $("#cargo_pieces").val(1), $("#cargo_location_id").val(0).change(), $("#cargo_location_bin_id").val(0).change(),$("#cargo_cargo_type_id").val("0").change(),  $("#cargo_dim_fact").val("I").change(), $("#cargo_weight_unit_measurement_id").val("L").change(), $("#cargo_metric_unit_measurement_id").val("I").change() ,$("#cargo_quantity").focus();
 
 
              var id_row =  (0== l? _ : l);
@@ -1199,7 +1200,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                 var id_row = $(this).closest('tr').attr('id');
                 $("#items_warehouse_details tbody [data-id='" + id_row + "']").remove();
                 $(this).closest('tr').remove();
-                values_warehouse();
+                calculate_warehouse_details();
 
             }),
 
@@ -1519,7 +1520,7 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                            .append(createTableContent('cargo_cubic', g10, false, c))
                            .append(createTableContent('part_info_po_number', '', false, c))
                            /*GENERAL */
-                           .append(createTableContent('cargo_volume_weight', g11, true, c))
+                           .append(createTableContent('cargo_volume_weight', g11, false, c))
                            .append(createTableContent('cargo_metric_unit_measurement_id', g12, true, c))
                            .append(createTableContent('cargo_material_description', g13, true, c))
                            .append(createTableContent('cargo_pieces', g14, true, c))
@@ -1630,14 +1631,14 @@ console.log('if  '+(0 == l ? _ : l) + ' l ' + l);
                            .append(createTableContent('vehicle_buyer_number', ve24, true, c))
 
                            .append(createTableContent('type_package', '1' , true, c))
-                                           .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),values_warehouse(),
+                                           .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),calculate_warehouse_details(),
                            cleanModalFields('vehicle-warehouse'),$("#vehicle_quantity").focus()
 
 
             }),
             $('#warehouse_details').on('click', 'a.btn-danger', function() {
                 $(this).closest('tr').remove(),
-                        values_warehouse()
+                    calculate_warehouse_details()
             }),
 
             $("#warehouse_details").on("click", "a.btn-default", function() {

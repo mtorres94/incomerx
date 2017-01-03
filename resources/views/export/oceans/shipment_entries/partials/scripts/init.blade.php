@@ -2,6 +2,12 @@
 
     window.onload = (function () {
         openTab($("#data"));
+        updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('eo_shipment_entries.close') }}')
+
+        if ($("#open_status").val() == "1") {
+            disableFields('data');
+        }
+
 removeEmptyNodes('container_details');
 removeEmptyNodes('hzd_details');
 
@@ -14,10 +20,21 @@ removeEmptyNodes('hzd_details');
                     o2 = e2.indexOf("display: none;");
                 $(a2).removeAttr("style"), n2 >= 0 && $(a2).attr("style", "display: block;"), o2 >= 0 && $(a2).attr("style", "display: none;")}
         }
+
+        $("#shipment_type").val("C").change();
+        $("#rate_class").val("1").change();
+        $("#total_weight_unit").val("L").change();
+        $("#bl_status").val("O").change();
+
     });
-    $("#bl_status").val("O").change();
-    $("#rate_class").val("1").change();
-    $("#shipment_type").val("C").change();
+
+    $('#confirmed').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#spot_rate').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+
 
     initDate($("#date_today"), 0);
     $("#user_id").attr("disabled", true);

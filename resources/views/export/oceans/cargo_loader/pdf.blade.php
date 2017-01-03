@@ -40,7 +40,7 @@
         <div class="col-xs-6">
             <div class="row">
                 <div class="document-info pull-right">
-                    <h5><strong>LOAD PLAN</strong></h5>
+                    <h5><strong>LOADING PLAN</strong></h5>
                     <p class="code-bar">{{ $cargo_loader->code }}</p>
                     <p class="document_number"><strong>CARGO LOADER # {{ $cargo_loader->code }}</strong></p>
                 </div>
@@ -90,14 +90,14 @@
                @foreach($cargo_loader->pivote as $pivot)
                 <table class="table table-condensed">
                     <thead>
-                        <th width="5%"><p><strong>WR#</strong></p></th>
-                        <td width="10%"><p>{{ $pivot->receipt_entry->code }}</p></td>
-                        <th width="10%"><p><strong> WR LOC</strong></p></th>
-                        <td width="10%"><p>{{ strtoupper($pivot->receipt_entry->location_origin_id > 0? $pivot->receipt_entry->origin->name : "") }}</p></td>
-                        <th width="10%"><p><strong>SHIPPER: </strong></p></th>
-                        <td width="20%"><p> {{ strtoupper($pivot->receipt_entry->shipper_id >0 ? $pivot->receipt_entry->shipper->name : "")}}</p></td>
-                        <th width="10%"><p><strong>CONSIGNEE: </strong></p></th>
-                        <td width="20%"><p> {{ strtoupper($pivot->receipt_entry->consignee_id >0 ? $pivot->receipt_entry->consignee->name : "")}}</p></td>
+                        <th width="5%" valign="bottom"><strong>WR#</strong></th>
+                        <td width="10%" valign="bottom">{{ $pivot->receipt_entry->code }}</td>
+                        <th width="10%" valign="bottom"><strong> WR LOC</strong></th>
+                        <td width="10%" valign="bottom">{{ strtoupper($pivot->receipt_entry->location_origin_id > 0? $pivot->receipt_entry->origin->name : "") }}</td>
+                        <th width="10%" valign="bottom"><strong>SHIPPER: </strong></th>
+                        <td width="20%" valign="bottom"> {{ strtoupper($pivot->receipt_entry->shipper_id >0 ? $pivot->receipt_entry->shipper->name : "")}}</td>
+                        <th width="10%" valign="bottom"><strong>CONSIGNEE: </strong></th>
+                        <td width="20%" valign="bottom"> {{ strtoupper($pivot->receipt_entry->consignee_id >0 ? $pivot->receipt_entry->consignee->name : "")}}</td>
                     </thead>
                    <tbody>
                    <table class="table table-condensed">

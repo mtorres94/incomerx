@@ -2,14 +2,15 @@
 <!-- Tables scripts -->
 <script type="text/javascript">
     $("#btn-cargo").click(function() {
-        $("#tmp_cargo_quantity").val(1);
+        $("#tmp_cargo_quantity").val("");
+
         $("#tmp_cargo_pieces").val(1);
         $("#tmp_cargo_metric_unit_measurement_id").val("I").change();
         $("#tmp_cargo_weight_unit_measurement_id").val("L").change();
         $("#tmp_cargo_dim_fact").val("I").change();
         $("#tmp_cargo_location_bin_id").val(0).change();
-        $("#tmp_location_id").val(0).change();
-
+        $("#tmp_cargo_location_id").val(0).change();
+        $("#tmp_cargo_type_id").val(0).change();
         for (var t = $("#cargo-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -17,14 +18,17 @@
                     o = e.indexOf("display: none;");
             $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
         }
+        $("#tmp_cargo_quantity").focus();
     }), $("#btn-cargo-multiline").click(function() {
-        $("#multiline_cargo_quantity").val(1);
+        $("#multiline_cargo_quantity").val("");
+
         $("#multiline_cargo_pieces").val(1);
         $("#multiline_cargo_metric_unit_measurement_id").val("I").change();
         $("#multiline_cargo_weight_unit_measurement_id").val("L").change();
         $("#multiline_cargo_dim_fact").val("I").change();
         $("#multiline_cargo_location_bin_id").val(0).change();
-
+        $("#multiline_cargo_location_id").val(0).change();
+        $("#multiline_cargo_type_id").val(0).change();
         for (var t = $("#cargo-multiline-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -32,6 +36,7 @@
                     o = e.indexOf("display: none;");
             $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
         }
+        $("#multiline_cargo_quantity").focus();
     }), $("#btn-charges").click(function() {
         $("#tmp_billing_bill_party").val("C").change();
         $("#tmp_billing_bill_type").val("C").change();
@@ -51,7 +56,7 @@
             }
         }
 
-        $("#billing_bill_type").val("C").change(), $("#billing_bill_party").val("C").change();
+        //$("#billing_bill_type").val("C").change(), $("#billing_bill_party").val("C").change();
     }), $("#hazardous-save").click(function() {
         //var r = ($('#hazardous-details tbody tr').length + 1),
         var r = ($("#hazardous-details  tbody tr").length == 0 ? 1 : parseInt($("#hazardous-details  tbody tr")[$("#hazardous-details  tbody tr").length - 1].childNodes[1].textContent) + 1 ),
@@ -197,7 +202,7 @@
                     .append(createTableContent('cargo_unit_weight', j, true, w))
                     .append($("<td></td>"))
 
-                    .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), calculate_warehouse_details(), cleanModalFields('cargo-warehouse'),$("#tmp_cargo_type_id").val(0).change(), $("#tmp_cargo_quantity").val(1), $("#tmp_cargo_pieces").val(1), $("#tmp_cargo_location_id").val(0).change(), $("#tmp_cargo_location_bin_id").val(0).change(), $("#tmp_cargo_weight_unit_measurement_id").val("L").change(),$("#tmp_cargo_metric_unit_measurement_id").val("I").change(),$("#tmp_cargo_dim_fact").val("I").change(), $("#tmp_cargo_quantity").focus()
+                    .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), calculate_warehouse_details(), cleanModalFields('cargo-warehouse'),$("#tmp_cargo_type_id").val(0).change(), $("#tmp_cargo_quantity").val(""), $("#tmp_cargo_pieces").val(1), $("#tmp_cargo_location_id").val(0).change(), $("#tmp_cargo_location_bin_id").val(0).change(), $("#tmp_cargo_weight_unit_measurement_id").val("L").change(),$("#tmp_cargo_metric_unit_measurement_id").val("I").change(),$("#tmp_cargo_dim_fact").val("I").change(), $("#tmp_cargo_quantity").focus()
     }), $("#warehouse-details").on("click", "a.btn-danger", function() {
         $(this).closest("tr").remove(),
             calculate_warehouse_details()
@@ -279,7 +284,7 @@
                     .append($("<td></td>"))
                     .append(createTableBtns()), x.append(C)
             }
-        calculate_warehouse_details(), cleanModalFields('cargo-multiline-warehouse'), $("#multiline_cargo_quantity").val(1),$("#multiline_cargo_pieces").val(1),$("#multiline_cargo_location_bin_id").val(0).change(),$("#multiline_cargo_location_id").val(0).change(), $("#multiline_cargo_weight_unit_measurement_code").val("L").change(), $("#multiline_cargo_metric_unit_measurement_code").val("I").change(), $("#multiline_cargo_dim_fact").val("I").change(), $("#multiline_cargo_quantity").focus()
+        calculate_warehouse_details(), cleanModalFields('cargo-multiline-warehouse'), $("#multiline_cargo_quantity").val(""),$("#multiline_cargo_pieces").val(1),$("#multiline_cargo_location_bin_id").val(0).change(),$("#multiline_cargo_location_id").val(0).change(), $("#multiline_cargo_weight_unit_measurement_code").val("L").change(), $("#multiline_cargo_metric_unit_measurement_code").val("I").change(), $("#multiline_cargo_dim_fact").val("I").change(), $("#multiline_cargo_quantity").focus()
     }), $("#charges-save").click(function() {
         /*var t = $("#charge-details tbody tr").length + 1,
                 d= t - 1,*/
@@ -412,7 +417,7 @@
             $("#tmp_billing_amount").val(g13),
             $("#tmp_billing_currency_type").val(g14).change(),
             $("#tmp_billing_exchange_rate").val(g15),
-            $("#tmp_billing_customer_id").val(g16),
+            $("#tmp_billing_customer_id").val(g16).change(),
             $("#tmp_billing_customer_name").val(g17),
             $("#tmp_cost_quantity").val(g18),
             $("#tmp_cost_unit_id").val(g19).change(),
@@ -427,14 +432,7 @@
             $("#tmp_cost_invoice").val(g28),
             $("#tmp_cost_cost_center").val(g29),
             $("#tmp_cost_reference").val(g30),
-
-
-
-
-
-
-
-
         $("#charge-warehouse").modal("show")
+
     });
 </script>

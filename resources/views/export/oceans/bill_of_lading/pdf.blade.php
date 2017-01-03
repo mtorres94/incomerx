@@ -182,10 +182,11 @@
                                    <td>
                                    <td><p>
                                    @foreach( $bill_of_lading->pivot as $pivot)
-                                            WR#:{{ strtoupper($pivot->receipt_entry->code) }} {{ $pivot->receipt_entry->sum_pieces  }}
+                                            {{ strtoupper($pivot->receipt_entry->code) }} PIECES: {{ $pivot->receipt_entry->sum_pieces  }}
                                                @foreach ($pivot->receipt_entry_details as $receipt_details)
                                                    {{ $receipt_details->cargo_type->code }}
                                                @endforeach
+                                            <br>
                                      @endforeach
                                        </p></td>
                                    <td>{{( $detail->cargo_weight_l >0 ?  $detail->cargo_weight_l : 0) }} Lbs</td>
@@ -217,7 +218,7 @@
 
                             @foreach($bill_of_lading->charge as $charge)
                                 <tr id="{{ $charge->line }}">
-                                {!! Form::bsRowTd($charge->line, 'type', $charge->billing_id , false) !!}
+                                {!! Form::bsRowTd($charge->line, 'type', ($charge->billing_id > 0 ? $charge->billing->code : ""), false) !!}
                                 @if($charge->bill_type == 'P')
                                     {!! Form::bsRowTd($charge->line, 'prepaid', $charge->billing_amount, false) !!}
                                     {!! Form::bsRowTd($charge->line, 'collected','' , false) !!}

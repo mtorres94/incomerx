@@ -38,4 +38,8 @@ return [
         'oceans'    => 'Ocean Export',
         'air'       => 'Air Export',
     ],
+    'import' => [
+        'oceans'    => 'Ocean Import',
+        'air'       => 'Air Import',
+    ],
 ];

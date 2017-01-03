@@ -1,5 +1,10 @@
 <script type="text/javascript">
     $("#btn_container_details").click(function() {
+        $("#pd_status").val("1").change();
+        $("#container_pickup_type").val("02").change();
+        $("#container_delivery_type").val("02").change();
+        $("#container_drop_type").val("02").change();
+        $("#total_weight_unit").val("L").change();
         for (var t = $("#container_tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -13,7 +18,6 @@
 
     $("#container-save").click(function() {
         if($("#equipment_type_code").val()==''){
-            show_alert('Insert Equipment type code');
             $("#equipment_type_code").focus();
         }else {
             var t = $("#container_details tbody tr").length + 1,
@@ -177,7 +181,11 @@
 
                     .append(createTableContent('container_comments', g_74, true, d))
                     .append(createTableBtns()),
-                    0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#Container_Details").modal("hide"), $("#equipment_type_code").focus();
+                    0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#pd_status").val("1").change();
+            $("#container_pickup_type").val("02").change(),
+            $("#container_delivery_type").val("02").change(),
+            $("#container_drop_type").val("02").change(),
+            $("#total_weight_unit").val("L").change(),cleanModalFields('Container_Details'), $("#Container_Details").modal("show"), $("#equipment_type_code").focus();
 
             //===================
             var id_row = (0 == container_id ? _ : container_id);
@@ -284,61 +292,61 @@
                 g70 = t[0].childNodes[69].textContent;
 
         $("#container_line").val(g1),
-                $("#equipment_type_id").val(g2),
+                $("#equipment_type_id").val(g2).change(),
                 $("#equipment_type_code").val(g3),
                 $("#container_number").val(g4),
                 $("#container_seal_number").val(g5),
                 $("#total_weight_unit").val(g6).change(),
                 $("#shipper_owned").val(g7),
-                $("#container_commodity_id").val(g8),
+                $("#container_commodity_id").val(g8).change(),
                 $("#container_commodity_name").val(g9),
                 $("#pd_status").val(g10).change(),
                 $("#container_spotting_date").val(g11),
                 $("#container_pull_date").val(g12),
-                $("#container_carrier_id").val(g13),
+                $("#container_carrier_id").val(g13).change(),
                 $("#container_carrier_name").val(g14),
-                $("#container_ventilation").val(g15),
+                $("#container_ventilation").val(g15).change(),
                 $("#container_degrees").val(g16).change(),
                 $("#container_temperature").val(g17),
                 $("#container_max").val(g18),
                 $("#container_min").val(g19),
 
-                $("#container_pickup_id").val(g20),
-                $("#container_pickup_name").val(g21),
                 $("#container_pickup_type").val(g22).change(),
+                $("#container_pickup_id").val(g20).change(),
+                $("#container_pickup_name").val(g21),
                 $("#container_pickup_address").val(g23),
                 $("#container_pickup_city").val(g24),
-                $("#container_pickup_state_id").val(g25),
+                $("#container_pickup_state_id").val(g25).change(),
                 $("#container_pickup_state_name").val(g26),
-                $("#container_pickup_zip_code_id").val(g27),
+                $("#container_pickup_zip_code_id").val(g27).change(),
                 $("#container_pickup_zip_code_code").val(g28),
                 $("#container_pickup_phone").val(g29),
                 $("#container_pickup_contact").val(g30),
                 $("#container_pickup_date").val(g31),
                 $("#container_pickup_number").val(g32),
 
-                $("#container_delivery_id").val(g33),
-                $("#container_delivery_name").val(g34),
                 $("#container_delivery_type").val(g35).change(),
+                $("#container_delivery_id").val(g33).change(),
+                $("#container_delivery_name").val(g34),
                 $("#container_delivery_address").val(g36),
                 $("#container_delivery_city").val(g37),
-                $("#container_delivery_state_id").val(g38),
+                $("#container_delivery_state_id").val(g38).change(),
                 $("#container_delivery_state_name").val(g39),
-                $("#container_delivery_zip_code_id").val(g40),
+                $("#container_delivery_zip_code_id").val(g40).change(),
                 $("#container_delivery_zip_code_code").val(g41),
                 $("#container_delivery_phone").val(g42),
                 $("#container_delivery_contact").val(g43),
                 $("#container_delivery_date").val(g44),
                 $("#container_delivery_number").val(g45),
 
-                $("#container_drop_id").val(g46),
-                $("#container_drop_name").val(g47),
                 $("#container_drop_type").val(g48).change(),
+                $("#container_drop_id").val(g46).change(),
+                $("#container_drop_name").val(g47),
                 $("#container_drop_address").val(g49),
                 $("#container_drop_city").val(g50),
-                $("#container_drop_state_id").val(g51),
+                $("#container_drop_state_id").val(g51).change(),
                 $("#container_drop_state_name").val(g52),
-                $("#container_drop_zip_code_id").val(g53),
+                $("#container_drop_zip_code_id").val(g53).change(),
                 $("#container_drop_zip_code_code").val(g54),
                 $("#container_drop_phone").val(g55),
                 $("#container_drop_contact").val(g56),
@@ -390,7 +398,6 @@
 
     $("#uns-save").click(function() {
         if($("#hazardous_uns_code").val()== ''){
-            show_alert('Insert UNs code');
             $("#hazardous_uns_code").focus()
         }else{
             var r = ($('#hazardous_details tbody tr').length + 1),

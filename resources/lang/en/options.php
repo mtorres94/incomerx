@@ -119,6 +119,7 @@ return [
             'shipment_entries'      => 'Shipment Entry',
             'cargo_loader'      => 'Cargo Loader',
             'step_by_step'      => 'Step by Step',
+            'quotes'      => 'Quotes Entry',
         ],
         'air' => [
             'booking_entries'   => 'Booking Entry',
@@ -126,5 +127,13 @@ return [
             'shipment_entries'  => 'Shipment Entry',
             'step_by_step'      => 'Step by Step'
         ],
+    ],
+    'import' => [
+        'oceans'  => [
+
+            'bill_of_lading'      => 'Bill of Lading',
+            'shipment_entries'      => 'Shipment Entry',
+
+        ]
     ]
 ];

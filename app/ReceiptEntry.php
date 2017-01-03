@@ -41,6 +41,24 @@ class ReceiptEntry extends Model
             }
         }
     }
+    //===========================================================
+    public static function set_pd_order($id, $data)
+    {
+        $i = -1;
+        $a = 0;
+        if (isset($data['line_warehouse_id'])){
+            while ($a < count($data['line_warehouse_id'])) {
+                $i++;
+                if (isset($data['line_warehouse_id'][$i])) {
+
+                    ReceiptEntry::where('id', '=', $data['whr_id'][$i])->update(['pd_order_id' => $id]);
+                    $a++;
+
+                }
+            }
+        }
+    }
+    //===========================================================
 
     public function division()
     {

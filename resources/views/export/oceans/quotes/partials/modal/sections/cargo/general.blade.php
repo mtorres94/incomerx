@@ -2,7 +2,7 @@
     {!! Form::hidden('box_cargo_type_code', null, ['id' => 'box_cargo_type_code', 'class' => 'form-control input-sm']) !!}
 
     <div class="col-md-1">{!! Form::bsText(null, null, 'Qty', 'box_quantity', null, '') !!}</div>
-    <div class="col-md-3">{!! Form::bsSelect(null, null, 'Cargo Type', 'box_cargo_type_id', Sass\CargoType::all()->lists('code', 'id'),'Type', true) !!}</div>
+    <div class="col-md-3">{!! Form::bsSelect(null, null, 'Cargo Type', 'box_cargo_type_id', Sass\CargoType::all()->lists('code', 'id'),'Type', false) !!}</div>
     <div class="col-md-2">{!! Form::bsSelect(null, null, 'Inches/Cms', 'box_metric_unit',  array('C' => 'CMS','I' => 'INCHES' ), null)!!}</div>
     <div class="col-md-2">{!! Form::bsText(null, null, 'Length', 'box_length', null, '0.000') !!}</div>
     <div class="col-md-2">{!! Form::bsText(null, null, 'Width', 'box_width', null, '0.000') !!}</div>

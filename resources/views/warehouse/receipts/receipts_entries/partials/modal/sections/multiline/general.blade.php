@@ -12,7 +12,7 @@
             {!! Form::hidden('multiline_cargo_metric_unit_measurement_code', null, ['id' => 'multiline_cargo_metric_unit_measurement_code', 'class' => 'form-control input-sm']) !!}
 
             <div class="col-md-3">{!! Form::bsText(null, null, 'Qty.', 'multiline_cargo_quantity', null, '0') !!}</div>
-            <div class="col-md-5">{!! Form::bsSelect(null, null, 'Cargo Type', 'multiline_cargo_type_id', Sass\CargoType::all()->lists('code', 'id'), 'CARGO TYPES', true) !!}</div>
+            <div class="col-md-5">{!! Form::bsSelect(null, null, 'Cargo Type', 'multiline_cargo_type_id', Sass\CargoType::all()->lists('code', 'id'), 'CARGO TYPES', false) !!}</div>
             <div class="col-md-4">{!! Form::bsSelect(null, null, 'Inches/Cms', 'multiline_cargo_metric_unit_measurement_id', array('C' => 'CMS', 'I' => 'INCHES'), null) !!}</div>
             <div class="col-md-4">{!! Form::bsText(null, null, 'Length', 'multiline_cargo_length', null, '0.000') !!}</div>
             <div class="col-md-4">{!! Form::bsText(null, null, 'Width', 'multiline_cargo_width', null, '0.000') !!}</div>

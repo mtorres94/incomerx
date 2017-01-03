@@ -74,6 +74,7 @@ class ReceiptEntryController extends Controller
             $receipt_entry['code'] = $code;
             $receipt_entry['user_create_id'] = Auth::user()->id;
             $receipt_entry['user_update_id'] = Auth::user()->id;
+            $receipt_entry['cargo_loader_id'] = 0;
 
             $whr = ReceiptEntry::create($receipt_entry);
 
@@ -301,6 +302,7 @@ class ReceiptEntryController extends Controller
                                 break;
                         }
                     }
+                    $query->Where('whr_receipts_entries.cargo_loader_id', '=', 0);
 
                 })->take(10)->get();
 

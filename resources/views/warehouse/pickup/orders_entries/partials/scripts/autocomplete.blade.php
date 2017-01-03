@@ -74,7 +74,7 @@
             selected:{
                 id: '{{ (isset($order_entry)? $order_entry->shipper_id : "") }}',
                 value: '{{ ((isset($order_entry) and ($order_entry->shipper_id > 0 ))? $order_entry->shipper->name : "") }}',
-                address: '{{ trim(preg_replace('/\s\s+/', ' ',(isset($order_entry)? $order_entry->shipper_address : ""))) }}',
+                address: '{{ trim(preg_replace(array('/\s{2,}/', '/[\t\n]/'), ' ',(isset($order_entry)? $order_entry->shipper_address : ""))) }}',
                 city: '{{ (isset($order_entry)? $order_entry->shipper_city: "") }}',
                 zip_code_id: '{{ (isset($order_entry)? $order_entry->shipper_zip_code_id : "") }}',
                 zip_code_code: '{{ ((isset($order_entry)and( $order_entry->shipper_zip_code_id > 0 ))? $order_entry->shipper_zip_code->code : "") }}',
@@ -118,7 +118,7 @@
 
                 id: '{{ (isset($order_entry )? $order_entry->consignee_id  : "")}}',
                 value: '{{ ((isset($order_entry) and $order_entry->consignee_id >0) ? $order_entry->consignee->name : "") }}',
-                address: "{{ trim(preg_replace('/\s\s+/', ' ', (isset($order_entry) ? $order_entry->consignee_address : null)) )}}",
+                address: "{{ trim(preg_replace(array('/\s{2,}/', '/[\t\n]/'), ' ', (isset($order_entry) ? $order_entry->consignee_address : null)) )}}",
                 city: '{{ (isset($order_entry )? $order_entry->consignee_city : "")}}',
                 state_id: '{{ (isset($order_entry )? $order_entry->consignee_state_id: "")}}',
                 state_name: '{{ ((isset($order_entry )and  $order_entry->consignee_state_id >0 )? $order_entry->consignee_state->name: "")}}',
@@ -268,7 +268,7 @@
                     id: '{{ (isset($order_entry)? $order_entry->pickup_id : "") }}',
                     value: '{{ ((isset($order_entry) and ($order_entry->pickup_id >0 ))? $order_entry->pickup_name->name : "") }}',
                     name: '{{ ((isset($order_entry) and ($order_entry->pickup_id >0 ))? $order_entry->pickup_name->name : "") }}',
-                    address: '{{ trim(preg_replace('/\s\s+/', ' ',((isset($order_entry) and ($order_entry->pickup_id > 0))? $order_entry->pickup_name->address : ""))) }}',
+                    address: '{{ trim(preg_replace(array('/\s{2,}/', '/[\t\n]/'), ' ',((isset($order_entry) and ($order_entry->pickup_id > 0))? $order_entry->pickup_name->address : ""))) }}',
                     city: '{{ ((isset($order_entry) and ($order_entry->pickup_id > 0))? $order_entry->pickup_name->city : "") }}',
                     state_id: '{{ (isset($order_entry) ? $order_entry->pickup_state_id: "") }}',
                     state_name: '{{ ((isset($order_entry) and ($order_entry->pickup_state_id >0 ))? $order_entry->pickup_state->name : "") }}',
@@ -308,7 +308,7 @@
                 id: '{{ (isset($order_entry)? $order_entry->delivery_id : "") }}',
                 value: '{{ ((isset($order_entry) and ($order_entry->delivery_id >0 ))? $order_entry->delivery->name : "") }}',
                 name: '{{ ((isset($order_entry) and ($order_entry->delivery_id >0 ))? $order_entry->delivery->name : "") }}',
-                address: '{{ trim(preg_replace('/\s\s+/', ' ',((isset($order_entry) and ($order_entry->delivery_id > 0))? $order_entry->delivery->address : ""))) }}',
+                address: '{{ trim(preg_replace(array('/\s{2,}/', '/[\t\n]/'), ' ',((isset($order_entry) and ($order_entry->delivery_id > 0))? $order_entry->delivery->address : ""))) }}',
                 city: '{{ ((isset($order_entry) and ($order_entry->delivery_id > 0))? $order_entry->delivery->city : "") }}',
                 state_id: '{{ (isset($order_entry) ? $order_entry->delivery_state_id: "") }}',
                 state_name: '{{ ((isset($order_entry) and ($order_entry->delivery_state_id >0 ))? $order_entry->delivery_state->name : "") }}',
@@ -624,7 +624,7 @@
                     .append(createTableContent('pick_service_name', e.service_name , false, r))
                     .append(createTableContent('inserted_id', e.id, true, r))
                     t.append(p);
-
+                values_pick_cargo();
 
         },minChars:3, data: {
             "type_for": type,

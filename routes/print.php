@@ -25,10 +25,10 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['namespace' => 'Export'], function () {
         Route::group(['namespace' => 'OceanExport'], function () {
-            Route::get('shipment_entries/pdf/{token}/{id}', ['as' => 'shipment_entries.pdf', 'uses' => 'ShipmentEntryController@pdf']);
-            Route::get('bill_of_lading/pdf/{token}/{id}', ['as' => 'bill_of_lading.pdf', 'uses' => 'BillOfLadingController@pdf']);
-            Route::get('bill_of_lading/delivery_order/{token}/{id}', ['as' => 'bill_of_lading.delivery_order', 'uses' => 'BillOfLadingController@delivery_order']);
-            Route::get('cargo_loader/pdf/{token}/{id}', ['as' => 'cargo_loader.pdf', 'uses' => 'CargoLoaderController@pdf']);
+            Route::get('shipment_entries/pdf/{token}/{id}', ['as' => 'shipment_entries.pdf', 'uses' => 'EoShipmentEntryController@pdf']);
+            Route::get('bill_of_lading/pdf/{token}/{id}', ['as' => 'bill_of_lading.pdf', 'uses' => 'EoBillOfLadingController@pdf']);
+            Route::get('bill_of_lading/delivery_order/{token}/{id}', ['as' => 'bill_of_lading.delivery_order', 'uses' => 'EoBillOfLadingController@delivery_order']);
+            Route::get('cargo_loader/pdf/{token}/{id}', ['as' => 'cargo_loader.pdf', 'uses' => 'EoCargoLoaderController@pdf']);
         });
     });
 });

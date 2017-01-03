@@ -15,10 +15,10 @@
                         <th data-override="hbl_line" hidden></th>
                         <th width="5%" data-override="hbl_check"></th>
                         <th width="10%" data-override="hbl_wr_number">HBL #</th>
-                        <th width="25%" data-override="hbl_date_in">Container Number</th>
-                        <th width="25%" data-override="hbl_shipper_name" >Equip. Type</th>
-                        <th width="15%" data-override="hbl_consignee_name">Seal Number</th>
+                        <th width="25%" data-override="hbl_date_in">Description</th>
                         <th width="10%" data-override="hbl_consignee_name">Pieces</th>
+                        <th width="10%" data-override="hbl_consignee_name">Weight</th>
+                        <th width="10%" data-override="hbl_consignee_name">Cubic</th>
                     </tr>
                     </thead>
                     <tbody>

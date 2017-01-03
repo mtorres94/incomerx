@@ -22,24 +22,24 @@
             },
             fields: {
                 date_in: {
-                    validators: {
-                        notEmpty: { message: "The date in is required" },
-                        date: {
-                            format: "YYYY-MM-DD",
-                            max: 'expire_date',
-                            message: "The date in is invalid"
+                        validators: {
+                            notEmpty: { message: "The date in is required" },
+                            date: {
+                                format: "YYYY-MM-DD",
+                                max: 'expire_date',
+                                message: "The date in is invalid"
+                            }
                         }
-                    }
-                },
-                expire_date: {
-                    validators: {
-                        notEmpty: { message: "The expire date is required" },
-                        date: {
-                            format: "YYYY-MM-DD",
-                            min: "date_in",
-                            message: "The expire date is invalid"
+                    },
+                    expire_date: {
+                        validators: {
+                            notEmpty: { message: "The expire date is required" },
+                            date: {
+                                format: "YYYY-MM-DD",
+                                min: "date_in",
+                                message: "The expire date is invalid"
+                            }
                         }
-                    }
                 },
                 shipper_name: {
                     validators: {

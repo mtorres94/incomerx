@@ -4,7 +4,7 @@
         <button type="button" id="btn_cargo_details" class="btn btn-default" data-toggle="modal" data-target="#Cargo_Details" onclick="cleanModalFields('Cargo_Details')">
             <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
         </button>
-        <button type="button" class="btn btn-danger"  onclick="clearTable('cargo_details'), total_cargo()">
+        <button type="button" class="btn btn-danger"  onclick="clearTable('cargo_details'), calculate_warehouse_details()">
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
         </button>
     </div>
@@ -20,13 +20,9 @@
             <th width="10%" data-override="length">Length</th>
             <th width="10%" data-override="width">Width</th>
             <th width="10%" data-override="height">Height</th>
-            <th width="10%" data-override="unit_weight">Unit Weight</th>
             <th width="10%" data-override="total_weight">Total Weight</th>
             <th width="10%" data-override="cubic">Cubic</th>
-            <th width="10%" data-override="charge_weight">Charge Weight</th>
-            <th width="10%" data-override="rate">Rate</th>
-            <th width="10%" data-override="total_charge">Total Charge</th>
-            <th width="12%"/>
+            <th width="10%"/>
         </tr>
         </thead>
         <tbody>
@@ -34,7 +30,7 @@
             @foreach($quotes->cargo as $detail)
                 <tr id="{{ $detail->line }}">
                     {!! Form::bsRowTd($detail->line, 'cargo_line', $detail->line, true) !!}
-                    {!! Form::bsRowTd() !!}
+                    <td><i class='fa fa-cube' aria-hidden='true'/></td>
                     {!! Form::bsRowTd($detail->line, 'cargo_type_id', $detail->cargo_type_id, true) !!}
                     {!! Form::bsRowTd($detail->line, 'cargo_type_code', ($detail->cargo_type_id >0 ? $detail->cargo_type->code : ""), false) !!}
                     {!! Form::bsRowTd($detail->line, 'cargo_quantity', $detail->quantity, false) !!}
@@ -42,12 +38,12 @@
                     {!! Form::bsRowTd($detail->line, 'cargo_length', $detail->length, false) !!}
                     {!! Form::bsRowTd($detail->line, 'cargo_width', $detail->width, false) !!}
                     {!! Form::bsRowTd($detail->line, 'cargo_height', $detail->height, false) !!}
-                    {!! Form::bsRowTd($detail->line, 'cargo_unit_weight', $detail->unit_weight, false) !!}
+                    {!! Form::bsRowTd($detail->line, 'cargo_unit_weight', $detail->unit_weight, true) !!}
                     {!! Form::bsRowTd($detail->line, 'cargo_total_weight', $detail->total_weight, false) !!}
                     {!! Form::bsRowTd($detail->line, 'cargo_total_cubic', $detail->total_cubic, false) !!}
-                    {!! Form::bsRowTd($detail->line, 'cargo_charge_weight', $detail->charge_weight, false) !!}
-                    {!! Form::bsRowTd($detail->line, 'cargo_rate', $detail->cargo_rate, false) !!}
-                    {!! Form::bsRowTd($detail->line, 'cargo_total', $detail->cargo_total, false) !!}
+                    {!! Form::bsRowTd($detail->line, 'cargo_charge_weight', $detail->charge_weight, true) !!}
+                    {!! Form::bsRowTd($detail->line, 'cargo_rate', $detail->rate, true) !!}
+                    {!! Form::bsRowTd($detail->line, 'cargo_total', $detail->cargo_total, true) !!}
 
                     {!! Form::bsRowTd($detail->line, 'cargo_metric_unit', $detail->metric_unit, true) !!}
                     {!! Form::bsRowTd($detail->line, 'cargo_material', $detail->material, true) !!}

@@ -21,7 +21,6 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-
         @include('warehouse.pickup.orders_entries.partials.sections.tabs_more_details')
         @include('warehouse.pickup.orders_entries.partials.sections.tabs_charges')
     </div>

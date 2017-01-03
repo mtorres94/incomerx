@@ -3,7 +3,7 @@
 namespace Sass\DataTables\Export\Ocean;
 
 use Sass\DataTables\CustomDataTable;
-use Sass\ShipmentEntry;
+use Sass\EoShipmentEntry;
 use Sass\User;
 use Yajra\Datatables\Services\DataTable;
 
@@ -36,13 +36,13 @@ class ShipmentEntryDataTable extends CustomDataTable
      */
     public function query()
     {
-        $query = ShipmentEntry::leftJoin('mst_divisions', 'exp_shipment_entries.division_id', '=', 'mst_divisions.id')
-            ->leftJoin('mst_customers AS c1', 'exp_shipment_entries.shipper_id', '=', 'c1.id')
-            ->leftJoin('mst_customers AS c2', 'exp_shipment_entries.consignee_id', '=', 'c2.id')
-            ->leftJoin('mst_customers AS c3', 'exp_shipment_entries.agent_id', '=', 'c3.id')
-            ->leftJoin('mst_ocean_ports AS c4', 'exp_shipment_entries.port_loading_id', '=', 'c4.id')
-            ->leftJoin('mst_ocean_ports AS c5', 'exp_shipment_entries.port_unloading_id', '=', 'c5.id')
-            ->select(['exp_shipment_entries.id','exp_shipment_entries.code','exp_shipment_entries.date_today', 'exp_shipment_entries.booking_code','mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS port_loading_name', 'c5.name AS port_unloading_name']);
+        $query = EoShipmentEntry::leftJoin('mst_divisions', 'eo_shipment_entries.division_id', '=', 'mst_divisions.id')
+            ->leftJoin('mst_customers AS c1', 'eo_shipment_entries.shipper_id', '=', 'c1.id')
+            ->leftJoin('mst_customers AS c2', 'eo_shipment_entries.consignee_id', '=', 'c2.id')
+            ->leftJoin('mst_customers AS c3', 'eo_shipment_entries.agent_id', '=', 'c3.id')
+            ->leftJoin('mst_ocean_ports AS c4', 'eo_shipment_entries.port_loading_id', '=', 'c4.id')
+            ->leftJoin('mst_ocean_ports AS c5', 'eo_shipment_entries.port_unloading_id', '=', 'c5.id')
+            ->select(['eo_shipment_entries.id','eo_shipment_entries.code','eo_shipment_entries.date_today', 'eo_shipment_entries.booking_code','mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS port_loading_name', 'c5.name AS port_unloading_name']);
         return $this->applyScopes($query);
     }
 
@@ -68,9 +68,9 @@ class ShipmentEntryDataTable extends CustomDataTable
     protected function getColumns()
     {
         return [
-            ['data' => 'code',   'name' => 'exp_shipment_entries.code', 'title' => 'Code'],
-            ['data' => 'date_today',   'name' => 'exp_shipment_entries.date_today', 'title' => 'Date'],
-            ['data' => 'booking_code',   'name' => 'exp_shipment_entries.booking_code', 'title' => 'Booking'],
+            ['data' => 'code',   'name' => 'eo_shipment_entries.code', 'title' => 'Code'],
+            ['data' => 'date_today',   'name' => 'eo_shipment_entries.date_today', 'title' => 'Date'],
+            ['data' => 'booking_code',   'name' => 'eo_shipment_entries.booking_code', 'title' => 'Booking'],
             ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
             ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
 

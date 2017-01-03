@@ -1,6 +1,6 @@
 <legend>Agent Information</legend>
 <div class="row">
-    <div class="col-md-12">    {!! Form::bsComplete('col-md-3', 'col-md-9', 'Name', 'agent_id', 'agent_name', Request::get('term'), ((isset($quotes) and $quotes->agent_id > 0) ? $quotes->agent->name : null), 'Ocean Ports') !!}</div>
+    <div class="col-md-12">    {!! Form::bsComplete('col-md-3', 'col-md-9', 'Name', 'agent_id', 'agent_name', Request::get('term'), ((isset($quotes) and $quotes->agent_id > 0) ? $quotes->agent->name : null), 'Customers') !!}</div>
 </div>
 <div class="row">
     <div class="col-md-12">

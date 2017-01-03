@@ -143,8 +143,8 @@
                         <td>{{ $detail->cargo_marks }}</td>
                         <td>{{ $detail->cargo_pieces }}</td>
                         <td>{{ $detail->cargo_description }}</td>
-                        <td>{{ $detail->cargo_weight_k }}Kgs </td>
-                        <td>{{ $detail->cargo_cubic_k }} Cbm</td>
+                        <td>{{ $detail->cargo_weight_l }}  Lbs</td>
+                        <td>{{ $detail->cargo_cubic_l }}  Cft</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -163,8 +163,8 @@
                     <td width="30%"><strong>TOTALS: </strong></td>
                     <td width="10%">{{ $bill_of_lading->total_pieces }}</td>
                     <td width="30%"></td>
-                    <td width="15%">{{ $bill_of_lading->total_weight_kgs}} Kgs</td>
-                    <td width="15%">{{ $bill_of_lading->total_cubic_cbm}} Cbm</td>
+                    <td width="15%">{{ round($bill_of_lading->total_weight_lbs * 0.453592, 3)}} Kgs</td>
+                    <td width="15%">{{ round ($bill_of_lading->total_cubic_cft * 0.453592, 3)}} Cbm</td>
                 </tr>
                 <tr>
                     <td width="30%"></td>

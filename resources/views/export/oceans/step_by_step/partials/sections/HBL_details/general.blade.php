@@ -1,4 +1,4 @@
-<fieldset>
+<div class="col-md-12">
        <div class="row">
         <div class="col-md-2">{!! Form::bsSelect(null, null, ' BL Class', 'bl_class', array(
             '1' => 'DBL',
@@ -26,4 +26,4 @@
             'V' => 'VOID',
         ), '') !!}</div>
     </div>
-</fieldset>
+</div>

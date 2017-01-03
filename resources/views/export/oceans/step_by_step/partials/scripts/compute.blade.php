@@ -83,8 +83,8 @@
         for (var a=0; a< r ; a++){
 
             pieces = parseInt(tr[a].childNodes[12].textContent) + pieces;
-            weight_k = parseFloat(tr[a].childNodes[9].textContent) + weight_k;
-            cubic_k= parseFloat(tr[a].childNodes[14].textContent) + cubic_k;
+            weight_k = parseFloat(tr[a].childNodes[14].textContent) + weight_k;
+            cubic_k= parseFloat(tr[a].childNodes[9].textContent) + cubic_k;
 
         }
         $("#total_quantity").val(pieces),
@@ -116,8 +116,8 @@
         for (var a=0; a< r ; a++){
             wr_number= wr_number + "WR#: " + tr[a].childNodes[1].textContent +"\n";
             wr_number= wr_number + "Date in: " + tr[a].childNodes[2].textContent +"\n";
-            wr_number= wr_number + "Shipper: " + tr[a].childNodes[3].textContent +"\n";
-            wr_number= wr_number + "Consignee: " + tr[a].childNodes[4].textContent +"\n\n";
+            wr_number= wr_number + "Shipper: " + tr[a].childNodes[4].textContent +"\n";
+            wr_number= wr_number + "Consignee: " + tr[a].childNodes[14].textContent +"\n\n";
         }
         $("#domestic_instruction").val(wr_number);
     }

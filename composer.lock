@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2aa644e6a3ad238307c12853f34bce7c",
+    "hash": "d278af23c11009c27d187cce84c94ef5",
     "content-hash": "3ec820fa9733022cd7b0b6d39cfe0a46",
     "packages": [
         {
@@ -3170,16 +3170,16 @@
     "packages-dev": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.20.5",
+            "version": "3.20.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "5a05ae6851405587f0bdeedb67abfe997a079ac0"
+                "reference": "d45648693759a237ad991f15c011136d77cfffb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5a05ae6851405587f0bdeedb67abfe997a079ac0",
-                "reference": "5a05ae6851405587f0bdeedb67abfe997a079ac0",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d45648693759a237ad991f15c011136d77cfffb5",
+                "reference": "d45648693759a237ad991f15c011136d77cfffb5",
                 "shasum": ""
             },
             "require": {
@@ -3246,7 +3246,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2016-12-12 23:02:57"
+            "time": "2016-12-15 21:05:32"
         },
         {
             "name": "doctrine/instantiator",

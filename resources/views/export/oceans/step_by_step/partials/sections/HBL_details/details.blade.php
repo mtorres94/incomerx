@@ -34,24 +34,34 @@
     </div>
 </div>
 <div class="col-md-6">
-    <fieldset id="More details">
+
         <div class="row">
-            {!! Form::bsComplete('col-md-3', 'col-md-9','Country of origin ', 'origin_country_id', 'origin_country_name', Request::get('term'),((isset($bill_lading) and $bill_lading->origin_country_id > 0) ? $bill_lading->origin_country->name : null), 'Country') !!}
-        </div>
-        <div class="row">
-            {!! Form::bsText('col-md-3', 'col-md-9', 'Customs Code', 'customs_code', null, null) !!}
-        </div>
-        <div class="row">
-            <div class="col-md-6">{!! Form::bsText('col-md-6', 'col-md-6', 'IT Number', 'it_number', null, null) !!}
+            <div class="col-md-12">
+                {!! Form::bsComplete('col-md-3', 'col-md-9','Country of origin ', 'origin_country_id', 'origin_country_name', Request::get('term'),((isset($bill_lading) and $bill_lading->origin_country_id > 0) ? $bill_lading->origin_country->name : null), 'Country') !!}
             </div>
-            <div class="col-md-6">{!! Form::bsSelect('col-md-6', 'col-md-6', ' Incoterm', 'incoterm_type', Sass\Incoterm::all()->lists('code', 'id'), null) !!}</div>
         </div>
-        <div class="row"> {!! Form::bsComplete('col-md-3', 'col-md-9','Co-Loader ', 'coloader_id', 'coloader_name', Request::get('term'),((isset($bill_lading) and $bill_lading->coloader_id > 0) ? $bill_lading->coloader->name : null), null) !!}
+        <div class="row">
+            <div class="col-md-12">
+                {!! Form::bsText('col-md-3', 'col-md-9', 'Customs Code', 'customs_code', null, null) !!}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6">{!! Form::bsText('col-md-6', 'col-md-6', 'IT Number', 'it_number', null, null) !!}
+                </div>
+                <div class="col-md-6">{!! Form::bsSelect('col-md-6', 'col-md-6', ' Incoterm', 'incoterm_type', Sass\Incoterm::all()->lists('code', 'id'), null) !!}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {!! Form::bsComplete('col-md-3', 'col-md-9','Co-Loader ', 'coloader_id', 'coloader_name', Request::get('term'),((isset($bill_lading) and $bill_lading->coloader_id > 0) ? $bill_lading->coloader->name : null), null) !!}
+            </div>
         </div>
 
-    </fieldset>
     <div class="row">
-        {!! Form::bsComplete('col-md-3', 'col-md-9', 'Forwarding Agent', 'forwarding_agent_id', 'forwarding_agent_name', Request::get('term'), ((isset($booking_entry) and $booking_entry->forwarding_agent_id > 0) ? $booking_entry->forwarding_agent->name : null), 'Customers...') !!}
+        <div class="col-md-12">
+            {!! Form::bsComplete('col-md-3', 'col-md-9', 'Forwarding Agent', 'forwarding_agent_id', 'forwarding_agent_name', Request::get('term'), ((isset($booking_entry) and $booking_entry->forwarding_agent_id > 0) ? $booking_entry->forwarding_agent->name : null), 'Customers...') !!}
+        </div>
     </div>
 </div>
 </fieldset>

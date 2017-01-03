@@ -13,10 +13,16 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-md-12">
         <div class="col-md-4">{!! Form::bsText('col-md-6', 'col-md-6', 'Foreign Port of Unloading', 'foreign_port', null, ' ') !!}</div>
         <div class="col-md-4">{!! Form::bsText('col-md-6', 'col-md-6', 'Place of Delivery', 'place_delivery', null, ' ') !!}</div>
-        <div class="col-md-4"><p><b> Containerized (Vessel Only)</b></p>
-            <div class="col-md-4">{!! Form::bsCheck('Yes', 'vessel_yes') !!}</div>
-            <div class="col-md-4">{!! Form::bsCheck('No', 'vessel_no') !!}</div>
+        <div class="col-md-4">
+            <div class="col-md-6"></div>
+            <div class="col-md-6"><b> Containerized (Vessel Only)</b></div>
+            <div class="col-md-6"></div>
+            <div class="col-md-3">{!! Form::bsCheck('Yes', 'vessel_yes') !!}</div>
+            <div class="col-md-3">{!! Form::bsCheck('No', 'vessel_no') !!}</div>
         </div>
+    </div>
+
 </div>

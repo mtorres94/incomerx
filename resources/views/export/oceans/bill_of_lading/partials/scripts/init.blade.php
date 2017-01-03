@@ -3,8 +3,53 @@
 <script type="text/javascript">
     window.onload = (function () {
         var unique_str = $("#unique_str").val();
-        openTab($("#data"));
 
+        openTab($("#data"));
+        renameTab();
+        updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('eo_bill_of_lading.close') }}')
+
+        if ($("#open_status").val() == "1") {
+            disableFields('data');
+        }
+        function renameTab() {
+            if ('edit' == '{{ \Request::segment(5) }}') {
+                var gtab = window.parent.$('#tt');
+                var htab = gtab.find('.tabs-header');
+                var wtab = htab.find('.tabs-wrap');
+                var ttab = wtab.find('.tabs');
+                var stab = ttab.find('.tabs-selected');
+                var itab = stab.find('.tabs-inner');
+                var etab = itab.find('.tabs-title');
+                var span = '{{ isset($bill_of_lading) ? "Edit ".$bill_of_lading->code : "New" }}';
+
+                etab[1] = span
+            }
+        }
+        $("#billing_bill_party").change(function () {
+            var a= $("#billing_bill_party").val();
+            switch(a){
+                case "S":   $("#billing_customer_name").val( $("#shipper_name").val() );
+                    $("#billing_customer_id").val( $("#shipper_id").val() );
+                    $("#billing_customer_name").attr("readonly", true);
+                    break;
+
+                case "C":   $("#billing_customer_name").val( $("#consignee_name").val() );
+                    $("#billing_customer_id").val( $("#consignee_id").val() );
+                    $("#billing_customer_name").attr("readonly", true);
+                    break;
+
+                case "T":   $("#billing_customer_name").val( $("#third_party_name").val() );
+                    $("#billing_customer_id").val( $("#third_party_id").val() );
+                    $("#billing_customer_name").attr("readonly", true);
+                    break;
+
+                case "O":   $("#billing_customer_name").val("");
+                    $("#billing_customer_id").val(0);
+                    $("#billing_customer_name").attr("readonly", false);
+                    break;
+            }
+
+        });
         for (var t2 = $("#transportation-tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
             var a2 = t2[l2];
             var e2 = $(a2).attr("style");
@@ -66,9 +111,37 @@
 
 
         initDate($("#bl_date"), 0);
+        $("#bl_type").val("C").change();
+        $("#total_weight_unit_measurement").val("L").change();
+        $("#bl_status").val("O").change();
+        $("#rate_class").val("1").change();
+        $("#bl_class").val("3").change();
+        $("#currency_type").val("1").change();
 
-        $("#billing_bill_party").change(function () {
-            $("#billing_bill_party").val() == 'O' ?  $("#billing_customer_name").attr("disabled", false): $("#billing_customer_name").attr("disabled", true) ;
+        $("#billing_unit_id").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ route('units.get') }}",
+                data: { id: id },
+                type: 'GET',
+                success: function (e) {
+                    $("#billing_unit_name").val(e[0].code);
+
+                }
+            });
+        });
+
+        $("#cost_unit_id").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ route('units.get') }}",
+                data: { id: id },
+                type: 'GET',
+                success: function (e) {
+                    $("#cost_unit_name").val(e[0].code);
+
+                }
+            });
         });
 
         $("#box_cargo_type_id").change(function () {
@@ -152,95 +225,10 @@
             });
         });
 
-        //===================================================
-      /*  $("#shipment_id").change(function () {
-            var id = $(this).val();
-            $.ajax({
-
-                data: {id: id},
-                type: 'GET',
-                success: function (e) {
-                    var  d =  ($("#container_details tbody tr").length == 0 ? 1 : parseInt($("#container_details tbody tr")[$("#container_details tbody tr").length - 1].childNodes[0].textContent)  ),
-                            b = $("#container_details"),
-                            x = b.find("tbody"),
-                            C = $("<tr id=" + (d + 1) + ">");
-                    C.append(createTableContent('container_line', (d + 1) , true,d))
-                            .append(createTableContent('equipment_type_id', g_1, true, d))
-                            .append(createTableContent('equipment_type_code', g_2, false, d))
-                            .append(createTableContent('container_number', g_3, false, d))
-                            .append(createTableContent('container_seal_number', g_4, false, d))
-                            .append(createTableContent('container_seal_number2', g_5, true, d))
-                            .append(createTableContent('container_commodity_id', g_6, true, d))
-                            .append(createTableContent('container_commodity_name', g_7, true, d))
-                            .append(createTableContent('pd_status', g_8, true, d))
-                            .append(createTableContent('container_spotting_date', g_9, true, d))
-                            .append(createTableContent('container_pull_date', g_10, true, d))
-                            .append(createTableContent('container_carrier_id', g_11, true, d))
-                            .append(createTableContent('container_carrier_name', g_12, true, d))
-                            .append(createTableContent('container_ventilation', g_13, true, d))
-                            .append(createTableContent('container_degrees', g_14, true, d))
-                            .append(createTableContent('container_temperature', g_15, true, d))
-                            .append(createTableContent('container_max', g_16, true, d))
-                            .append(createTableContent('container_min', g_17, true, d))
-
-                            .append(createTableContent('container_pickup_id', g_18, true, d))
-                            .append(createTableContent('container_pickup_name', g_19, false, d))
-                            .append(createTableContent('container_pickup_type', g_20, true, d))
-                            .append(createTableContent('container_pickup_address', g_21, true, d))
-                            .append(createTableContent('container_pickup_city', g_22, true, d))
-                            .append(createTableContent('container_pickup_state_id', g_23, true, d))
-                            .append(createTableContent('container_pickup_state_name', g_24, true, d))
-                            .append(createTableContent('container_pickup_zip_code_id', g_25, true, d))
-                            .append(createTableContent('container_pickup_zip_code_code', g_26, true, d))
-                            .append(createTableContent('container_pickup_phone', g_27, true, d))
-                            .append(createTableContent('container_pickup_contact', g_28, true, d))
-                            .append(createTableContent('container_pickup_date', g_29, true, d))
-                            .append(createTableContent('container_pickup_number', g_30, true, d))
-
-                            .append(createTableContent('container_delivery_id', g_31, true, d))
-                            .append(createTableContent('container_delivery_name', g_32, false, d))
-                            .append(createTableContent('container_delivery_type', g_33, true, d))
-                            .append(createTableContent('container_delivery_address', g_34, true, d))
-                            .append(createTableContent('container_delivery_city', g_35, true, d))
-                            .append(createTableContent('container_delivery_state_id', g_36, true, d))
-                            .append(createTableContent('container_delivery_state_name', g_37, true, d))
-                            .append(createTableContent('container_delivery_zip_code_id', g_38, true, d))
-                            .append(createTableContent('container_delivery_zip_code_code', g_39, true, d))
-                            .append(createTableContent('container_delivery_phone', g_40, true, d))
-                            .append(createTableContent('container_delivery_contact', g_41, true, d))
-                            .append(createTableContent('container_delivery_date', g_42, true, d))
-                            .append(createTableContent('container_delivery_number', g_43, true, d))
-
-                            .append(createTableContent('container_drop_id', g_44, true, d))
-                            .append(createTableContent('container_drop_name', g_45, false, d))
-                            .append(createTableContent('container_drop_type', g_46, true, d))
-                            .append(createTableContent('container_drop_address', g_47, true, d))
-                            .append(createTableContent('container_drop_city', g_48, true, d))
-                            .append(createTableContent('container_drop_state_id', g_49, true, d))
-                            .append(createTableContent('container_drop_state_name', g_50, true, d))
-                            .append(createTableContent('container_drop_zip_code_id', g_51, true, d))
-                            .append(createTableContent('container_drop_zip_code_code', g_52, true, d))
-                            .append(createTableContent('container_drop_phone', g_53, true, d))
-                            .append(createTableContent('container_drop_contact', g_54, true, d))
-                            .append(createTableContent('container_drop_date', g_55, true, d))
-                            .append(createTableContent('container_drop_number', g_56, true, d))
-                            .append(createTableContent('container_hazardous_contact', g_57, true, d))
-                            .append(createTableContent('container_hazardous_phone', g_58, true, d))
-
-
-                            .append(createTableContent('container_comments', g_74, true, d))
-                            .append(createTableBtns()),
-
-                            0 == container_id ? x.append(C)
-                }
-            });
-        });*/
-
-
-     transportation_plan();
+        transportation_plan();
         weight_totals();
         values_charges();
-        values_box_vehicle();
+      //  values_box_vehicle();
         $("#billing_quantity").change(function() { charges_details() });
         $("#billing_rate").change(function() { charges_details() });
         $("#billing_increase").change(function() { charges_details() });
@@ -269,6 +257,97 @@
         $("#vehicle_dim_fact").change(function () { calculate_vehicle() });
 
         $("#cargo_rate").change(function() { values_box_vehicle()});
+
+
+
+
+    });
+
+    //===================================================
+    //CONTAINER DETAILS
+
+    $("shipment_code").change(function(){
+        var id = $("#shipment_id").val(), x = 0;
+        console.log(id);
+        $.ajax({
+
+            url: "{{ route('shipment_entries.get') }}",
+            data: {id: id},
+            type: 'GET',
+
+            success: function (e) {
+                var f = $("#container_details tbody tr").length,
+                    n1 = $("#container_details"),
+                    t1 = n1.find("tbody"),
+                    p = $("<tr id=" + (f + 1) + ">");
+                p.append(createTableContent('container_line', (f + 1), true, f))
+                    .append(createTableContent('equipment_type_id', e[0].equipment_type_id, true, f))
+                    .append(createTableContent('equipment_type_code', e[0].equipmnt_type_code, false, f))
+                    .append(createTableContent('container_number', e[0].container_number , false, f))
+                    .append(createTableContent('container_seal_number', e[0].container_seal_number, false, f))
+                    .append(createTableContent('container_seal_number2', e[0].container_seal_number2, true, f))
+                    .append(createTableContent('container_commodity_id', e[0].container_commodity_id, true, f))
+                    .append(createTableContent('container_commodity_name', e[0].container_commodity_name, true, f))
+                    .append(createTableContent('pd_status', e[0].pd_status, true, f))
+                    .append(createTableContent('container_spotting_date', e[0].spotting_date, true, f))
+                    .append(createTableContent('container_pull_date', e[0].pull_date , true, f))
+                    .append(createTableContent('container_carrier_id', e[0].carrier_id , true, f))
+                    .append(createTableContent('container_carrier_name', e[0].carrier_name , true, f))
+                    .append(createTableContent('container_ventilation', e[0].ventilation, true, f))
+                    .append(createTableContent('container_degrees', e[0].degrees, true, f))
+                    .append(createTableContent('container_temperature', e[0].temperature, true, f))
+                    .append(createTableContent('container_max', e[0].temperature_max, true, f))
+                    .append(createTableContent('container_min', e[0].temperature_min , true, f))
+
+                    .append(createTableContent('container_pickup_id', e[0].pickup_id, true, f))
+                    .append(createTableContent('container_pickup_name', e[0].pickup_name, false, f))
+                    .append(createTableContent('container_pickup_type', e[0].pickup_type, true, f))
+                    .append(createTableContent('container_pickup_address', e[0].pickup_address, true, f))
+                    .append(createTableContent('container_pickup_city', e[0].pickup_city, true, f))
+                    .append(createTableContent('container_pickup_state_id', e[0].pickup_state_id, true, f))
+                    .append(createTableContent('container_pickup_state_name', e[0].pickup_state_name , true, f))
+                    .append(createTableContent('container_pickup_zip_code_id', e[0].pickup_zip_code_id, true, f))
+                    .append(createTableContent('container_pickup_zip_code_code', e[0].pickup_zip_code, true, f))
+                    .append(createTableContent('container_pickup_phone', e[0].pickup_phone, true, f))
+                    .append(createTableContent('container_pickup_contact', e[0].pickup_contact, true, f))
+                    .append(createTableContent('container_pickup_date', e[0].pickup_date, true, f))
+                    .append(createTableContent('container_pickup_number', e[0].pickup_number, true, f))
+
+                    .append(createTableContent('container_delivery_id', e[0].delivery_id, true, f))
+                    .append(createTableContent('container_delivery_name', e[0].delivery_name, false, f))
+                    .append(createTableContent('container_delivery_type', e[0].delivery_type, true, f))
+                    .append(createTableContent('container_delivery_address', e[0].delivery_address, true, f))
+                    .append(createTableContent('container_delivery_city', e[0].delivery_city, true, f))
+                    .append(createTableContent('container_delivery_state_id', e[0].delivery_state_id, true, f))
+                    .append(createTableContent('container_delivery_state_name', e[0].delivery_state_name, true, f))
+                    .append(createTableContent('container_delivery_zip_code_id', e[0].delivery_zip_code_id, true, f))
+                    .append(createTableContent('container_delivery_zip_code_code', e[0].delivery_zip_code, true, f))
+                    .append(createTableContent('container_delivery_phone', e[0].delivery_phone, true, f))
+                    .append(createTableContent('container_delivery_contact', e[0].delivery_contact, true, f))
+                    .append(createTableContent('container_delivery_date', e[0].delivery_date, true, f))
+                    .append(createTableContent('container_delivery_number', e[0].delivery_number, true, f))
+                    .append(createTableContent('container_drop_id', e[0].drop_id, true, f))
+                    .append(createTableContent('container_drop_name', e[0].drop_name, false, f))
+                    .append(createTableContent('container_drop_type', e[0].drop_type, true, f))
+                    .append(createTableContent('container_drop_address', e[0].drop_a, true, f))
+                    .append(createTableContent('container_drop_city', e[0].drop_city, true, f))
+                    .append(createTableContent('container_drop_state_id', e[0].drop_state_id, true, f))
+                    .append(createTableContent('container_drop_state_name', e[0].drop_state_name, true, f))
+                    .append(createTableContent('container_drop_zip_code_id', e[0].drop_zip_code_id, true, f))
+                    .append(createTableContent('container_drop_zip_code_code', e[0].drop_zip_code, true, f))
+                    .append(createTableContent('container_drop_phone', e[0].drop_phone, true, f))
+                    .append(createTableContent('container_drop_contact', e[0].drop_contact, true, f))
+                    .append(createTableContent('container_drop_date', e[0].drop_date, true, f))
+                    .append(createTableContent('container_drop_number', e[0].drop_number, true, f))
+                    .append(createTableContent('container_hazardous_contact', e[0].hazardous_contact, true, f))
+                    .append(createTableContent('container_hazardous_phone', e[0].hazardous_phone, true, f))
+
+
+                    .append(createTableContent('container_comments', e[0].container_comments, true, f))
+                    .append(createTableBtns()),
+                    t1.append(p);
+            }
+        });
     });
     //===================================================
     $("#btn-load-houses").click(function () {
@@ -291,20 +370,21 @@
                     p.append(createTableContent('resume_line', r, true, x))
                             .append("<td><input type='checkbox' name='hbl_select[]' id='hbl_select' value='" + e[x].id + "'></td>")
                             .append(createTableContent('hbl_code', e[x].hbl_code, false, x))
-                            .append(createTableContent('container_number', e[x].container_number, false, x))
-                            .append(createTableContent('equipment_type_id', e[x].equipment_type_id, true, x))
-                            .append(createTableContent('equipment_type_code', e[x].equipment_type_code, false, x))
-                            .append(createTableContent('seal_number', e[x].seal_number, false, x))
-                            .append(createTableContent('seal_number2', e[x].seal_number2, true, x))
-                            .append(createTableContent('weight_unit', 'K', true, x))
+                            .append(createTableContent('hbl_marks', e[x].marks, false, x))
+                            .append(createTableContent('hbl_cargo_type_id', e[x].cargo_type_id, true, x))
+                            .append(createTableContent('hbl_cargo_type_code', e[x].cargo_type_code, true, x))
+                            .append(createTableContent('hbl_weight_unit', 'L', true, x))
                             .append(createTableContent('total_pieces', e[x].total_pieces, false, x))
-                            .append(createTableContent('total_weight_k', e[x].total_weight_k, true, x))
-                            .append(createTableContent('total_cubic_k', e[x].total_cubic_k, true, x))
-                            .append(createTableContent('total_charge_weight_k', e[x].total_charge_weight_k, true, x))
+                            .append(createTableContent('total_weight_l', e[x].total_weight_l, false, x))
+                            .append(createTableContent('total_cubic_l', e[x].total_cubic_l, false, x))
+                            .append(createTableContent('total_charge_weight_l', e[x].total_charge_weight_l, true, x))
                             .append(createTableContent('hbl_id', e[x].id, true, x))
                             .append(createTableContent('container_id', e[x].container_id, true, x))
                             .append(createTableContent('cargo_loader_id', e[x].cargo_loader_id, true, x))
                             .append(createTableContent('inserted_id', e[x].id, true, x))
+                            .append(createTableContent('total_weight_k', e[x].total_weight_k, true, x))
+                            .append(createTableContent('total_cubic_k', e[x].total_cubic_k, true, x))
+                            .append(createTableContent('total_charge_weight_k', e[x].total_charge_weight_k, true, x))
                     t.append(p);
                     x= x+1;
                     $("#cargo_loader_id").val(e[x].cargo_loader_id);

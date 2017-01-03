@@ -10,6 +10,11 @@
                             <a type="button" class="btn btn-default btn-sm" id="btn-vehicle" onclick="cleanModalFields('vehicle-warehouse')" data-toggle="modal" data-target="#"><i class="fa fa-car" aria-hidden="true"></i><span>Vehicle</span></a>
                         </div>
                     </div>
+                    <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
+                        <button type="button" class="btn btn-danger" onclick="clearTable('warehouse_details'), clearTable('warehouse_receipts_id'), calculate_warehouse_details()">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
+                    </div>
 
                     <table class="table table-bordered table-condensed" id="warehouse_details">
                         <thead>
@@ -26,7 +31,7 @@
                             <th width="10%" data-override="warehouse_details_net_weight">Net Weight</th>
                             <th width="5%" data-override="warehouse_details_unit">Unit</th>
                             <th width="10%" data-override="warehouse_details_cubic">Cubic</th>
-                            <th width="10%" data-override="warehouse_details_PO Number">Po. Number</th>
+                            <th width="10%" data-override="warehouse_details_PO Number">Volume Weight</th>
                             <th width="12%"/>
                         </tr>
                         </thead>
@@ -46,8 +51,8 @@
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_net_weight', $cargo_detail->cargo_net_weight, false) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_weight_unit_measurement_id', $cargo_detail->cargo_weight_unit_measurement_id, false) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_cubic', $cargo_detail->cargo_cubic, false) !!}
-                                {!! Form::bsRowTd($cargo_detail->line, 'part_info_po_number', $cargo_detail->part_info_po_number, false) !!}
-                                {!! Form::bsRowTd($cargo_detail->line, 'cargo_volume_weight', $cargo_detail->cargo_volume_weight, true) !!}
+                                {!! Form::bsRowTd($cargo_detail->line, 'part_info_po_number', $cargo_detail->part_info_po_number, true) !!}
+                                {!! Form::bsRowTd($cargo_detail->line, 'cargo_volume_weight', $cargo_detail->cargo_volume_weight, false) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_metric_unit_measurement_id', $cargo_detail->cargo_metric_unit_measurement_id, true) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_material_description', $cargo_detail->cargo_material, true) !!}
                                 {!! Form::bsRowTd($cargo_detail->line, 'cargo_pieces', $cargo_detail->cargo_pieces, true) !!}
@@ -306,16 +311,19 @@
 
         </div>
 
+    <table class="hidden" id="warehouse_receipts_id">
+        <tbody></tbody>
+    </table>
 <div class="row">
     <div class="pull-right">
     <div class="col-md-2">{!! Form::bsSelect(null, null, 'Freight Charges', 'charges_freight_charges', array('BR' => 'BR - BANK RELEASE','COD' => 'COD - COD','COL' => 'COL - COLLECT','PPD' => 'PPD - PREPAID',), '') !!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'Total Pcs', 'dr_total_pieces', null, '0') !!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'Packages', 'dr_packages', null, '0') !!}</div>
-    <div class="col-md-1">{!! Form::bsSelect(null, null, 'KGS/LBS', 'dr_freight_charges', array('K' => 'KGS','L' => 'LBS' ), null) !!}</div>
+    <div class="col-md-1">{!! Form::bsText(null,null, 'Total Pcs', 'sum_pieces', null, '0') !!}</div>
+    <div class="col-md-1">{!! Form::bsText(null,null, 'Packages', 'sum_packages', null, '0') !!}</div>
+    <div class="col-md-1">{!! Form::bsSelect(null, null, 'KGS/LBS', 'sum_weight_unit', array('K' => 'KGS','L' => 'LBS' ), null) !!}</div>
 
-    <div class="col-md-1">{!! Form::bsText(null,null, 'Act. Wght', 'dr_act_weight', null, '0.00') !!}</div>
-    <div class="col-md-2">{!! Form::bsText(null,null, 'Vol. Weight', 'dr_volume_weight', null, '0.00') !!}</div>
-    <div class="col-md-2">{!! Form::bsText(null,null, 'Net. Weight', 'dr_net_weight', null, '0.00') !!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'Cubic', 'dr_cubic_weight', null, '0.00') !!}</div>
+    <div class="col-md-1">{!! Form::bsText(null,null, 'Act. Wght', 'sum_weight', null, '0.00') !!}</div>
+    <div class="col-md-2">{!! Form::bsText(null,null, 'Vol. Weight', 'sum_volume_weight', null, '0.00') !!}</div>
+    <div class="col-md-2">{!! Form::bsText(null,null, 'Net. Weight', 'sum_net_weight', null, '0.00') !!}</div>
+    <div class="col-md-1">{!! Form::bsText(null,null, 'Cubic', 'sum_cubic', null, '0.00') !!}</div>
 </div>
 </div>

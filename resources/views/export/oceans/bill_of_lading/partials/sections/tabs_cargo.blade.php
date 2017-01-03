@@ -3,6 +3,7 @@
         <div title="Cargo Details">
             <div class="form-horizontal">
                 <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
+                    <a type="button" class="btn btn-primary btn-sm" id="btn-load-houses" onclick="validateShipmentId(), clearTable('load_warehouses')"><span>Link Houses</span></a>
                     <button type="button" id="btn_cargo_details" class="btn btn-default" data-toggle="modal" data-target="#Cargo_Details" onclick="cleanModalFields('Cargo_Details'),  clearTable('cargo_vehicle_details'),  clearTable('container_details')">
                         <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
                     </button>
@@ -15,9 +16,9 @@
                     <thead>
                     <tr>
                         <th data-override="cargo_line" hidden></th>
-                        <th width="10%" data-override="cargo_marks">Marks</th>
+                        <th width="20%" data-override="cargo_marks">Marks</th>
                         <th width="5%" data-override="cargo_pieces">Pieces</th>
-                        <th width="15%" data-override="cargo_description">Comm. Description</th>
+                        <th width="20%" data-override="cargo_description">Comm. Description</th>
                         <th width="5%" data-override="cargo_unit">Unit</th>
                         <th width="10%" data-override="cargo_gross_weight">Gross Weight</th>
                         <th width="10%" data-override="cargo_cubic">Cubic</th>
@@ -30,25 +31,25 @@
                         @foreach($bill_of_lading->cargo as $detail)
                             <tr id="{{ $detail->line }}">
                                 {!! Form::bsRowTd($detail->line, 'cargo_line', $detail->line, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_marks', $detail->cargo_marks, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_marks', strtoupper($detail->cargo_marks), false) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_pieces', $detail->cargo_pieces, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_description', $detail->cargo_description, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_description', strtoupper($detail->cargo_description), false) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_weight_unit', $detail->cargo_weight_unit, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_weight_k', $detail->cargo_weight_k, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_cubic_k', $detail->cargo_cubic_k, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_charge_weight_k', $detail->cargo_charge_weight_k, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_weight_l', $detail->cargo_weight_l, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_cubic_l', $detail->cargo_cubic_l, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_charge_weight_l', $detail->cargo_charge_weight_l, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_weight_k', $detail->cargo_weight_k, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_cubic_k', $detail->cargo_cubic_k, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_charge_weight_k', $detail->cargo_charge_weight_k, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_weight_l', $detail->cargo_weight_l, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_cubic_l', $detail->cargo_cubic_l, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_charge_weight_l', $detail->cargo_charge_weight_l, false) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_rate', $detail->cargo_rate, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_amount', $detail->cargo_amount, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_container', $detail->cargo_container, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_type_id', $detail->cargo_type_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_type_code', (($detail->cargo_type_id >0) ? $detail->cargo_type->code: null), true) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_type_code', strtoupper(($detail->cargo_type_id >0) ? $detail->cargo_type->code: null), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_commodity_id', $detail->cargo_commodity_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_commodity_name', (($detail->cargo_commodity_id >0) ? $detail->cargo_commodity->code: null), true) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_commodity_name', strtoupper($detail->cargo_commodity_id >0) ? $detail->cargo_commodity->code: null), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_comments', $detail->cargo_comments, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_hbl_id', "", true) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_hbl_id', "0", true) !!}
                                 {!! Form::bsRowBtns() !!}
                         </tr>
                         @endforeach
@@ -72,9 +73,9 @@
                             {!! Form::bsRowTd($detail->line, 'details_total_weight', $detail->total_weight, true) !!}
                             {!! Form::bsRowTd($detail->line, 'details_total_cubic', $detail->total_cubic, true) !!}
                             {!! Form::bsRowTd($detail->line, 'details_cargo_type_id', $detail->cargo_type_id, true) !!}
-                            {!! Form::bsRowTd($detail->line, 'details_cargo_type_code',  (($detail->cargo_type_id >0) ? $detail->cargo_type->code: null), true) !!}
+                            {!! Form::bsRowTd($detail->line, 'details_cargo_type_code',  strtoupper(($detail->cargo_type_id >0) ? $detail->cargo_type->code: null), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'details_metric_unit', $detail->metric_unit, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'details_materials', $detail->materials, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'details_materials', strtoupper($detail->materials), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'details_pieces', $detail->pieces, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'details_unit_weight', $detail->unit_weight, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'details_dim_fact', $detail->dim_fact, true) !!}
@@ -83,7 +84,7 @@
                                 {!! Form::bsRowTd($detail->line, 'details_barcode', $detail->barcode, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'details_Model', $detail->Model, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'details_commodity_id', $detail->commodity_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'details_commodity_name', (($detail->commodity_id >0) ? $detail->commodity->code: null), true) !!}
+                                {!! Form::bsRowTd($detail->line, 'details_commodity_name', strtoupper(($detail->commodity_id >0) ? $detail->commodity->code: null), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'details_pro_number', $detail->pro_number, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'details_project', $detail->project, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'details_po_number', $detail->po_number, true) !!}
@@ -196,16 +197,16 @@
                     </thead>
                     <tbody>
                     @if(isset($bill_of_lading))
-                        @foreach($bill_of_lading->cargo_loader->container_details as $detail)
+                        @foreach($bill_of_lading->container as $detail)
                             <tr id="{{ $detail->line }}">
                             {!! Form::bsRowTd($detail->line, 'container_line', $detail->line, true) !!}
                             {!! Form::bsRowTd($detail->line, 'equipment_type_id', $detail->equipment_type_id, true) !!}
-                            {!! Form::bsRowTd($detail->line, 'equipment_type_code',  (($detail->equipment_type_id >0) ? $detail->equipment_type->code: null), false) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_number', $detail->container_number, false) !!}
+                            {!! Form::bsRowTd($detail->line, 'equipment_type_code',  strtoupper(($detail->equipment_type_id >0) ? $detail->equipment_type->code: null), false) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_number', strtoupper($detail->container_number), false) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_seal_number', $detail->container_seal_number, false) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_seal_number2', $detail->container_seal_number2, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_commodity_id', $detail->container_commodity_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_commodity_name',  (($detail->container_commodity_id >0) ? $detail->container_commodity->code: null), true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_commodity_name',  strtoupper(($detail->container_commodity_id >0) ? $detail->container_commodity->code: null), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'pd_status', $detail->pd_status, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_spotting_date', $detail->spotting_date, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pull_date', $detail->pull_date, true) !!}
@@ -218,48 +219,48 @@
                                 {!! Form::bsRowTd($detail->line, 'container_max', $detail->container_max, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_min', $detail->container_min, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_id', $detail->pickup_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_pickup_name',  (($detail->pickup_id >0) ? $detail->pickup->name: null), false) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_pickup_name',  strtoupper(($detail->pickup_id >0) ? $detail->pickup->name: null), false) !!}
 
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_type', $detail->pickup_type, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_pickup_address', $detail->pickup_address, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_pickup_city', $detail->pickup_city, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_pickup_address', strtoupper($detail->pickup_address), true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_pickup_city', strtoupper($detail->pickup_city), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_state_id', $detail->pickup_state_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_pickup_state_name',  (($detail->pickup_state_id >0) ? $detail->pickup_state->name: null), true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_pickup_state_name',  strtoupper(($detail->pickup_state_id >0) ? $detail->pickup_state->name: null), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_zip_code_id', $detail->pickup_zip_code_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_pickup_zip_code_code',  (($detail->pickup_zip_code_id >0) ? $detail->pickup_zip_code->name: null), true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_pickup_zip_code_code',  strtoupper(($detail->pickup_zip_code_id >0) ? $detail->pickup_zip_code->name: null), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_phone', $detail->pickup_phone, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_contact', $detail->pickup_contact, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_date', $detail->pickup_date, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_number', $detail->pickup_number, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_delivery_id', $detail->delivery_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_delivery_name',  (($detail->delivery_id >0) ? $detail->delivery->name: null), false) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_delivery_name',  strtoupper(($detail->delivery_id >0) ? $detail->delivery->name: null), false) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_delivery_type', $detail->delivery_type, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_delivery_address', $detail->delivery_address, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_delivery_city', $detail->delivery_city, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_delivery_address', strtoupper($detail->delivery_address), true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_delivery_city', strtoupper($detail->delivery_city), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_delivery_state_id', $detail->delivery_state_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_delivery_state_name',  (($detail->delivery_state_id >0) ? $detail->delivery_state->name: null), true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_delivery_state_name',  strtoupper(($detail->delivery_state_id >0) ? $detail->delivery_state->name: null), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_delivery_zip_code_id', $detail->delivery_zip_code_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_delivery_zip_code_code',  (($detail->delivery_zip_code_id >0) ? $detail->delivery_zip_code->name: null), true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_delivery_zip_code_code',  strtoupper(($detail->delivery_zip_code_id >0) ? $detail->delivery_zip_code->name: null), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_delivery_phone', $detail->delivery_phone, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_delivery_contact', $detail->delivery_contact, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_delivery_date', $detail->delivery_date, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_delivery_number', $detail->delivery_number, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_drop_id', $detail->drop_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_drop_name', (($detail->drop_id >0) ? $detail->drop->name: null), false) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_drop_name', strtoupper(($detail->drop_id >0) ? $detail->drop->name: null), false) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_drop_type', $detail->drop_type, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_drop_address', $detail->drop_address, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_drop_city', $detail->drop_city, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_drop_address', strtoupper($detail->drop_address), true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_drop_city', strtoupper($detail->drop_city), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_drop_state_id', $detail->drop_state_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_drop_state_name', (($detail->drop_state_id >0) ? $detail->drop_state->name: null), true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_drop_state_name', strtoupper(($detail->drop_state_id >0) ? $detail->drop_state->name: null), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_drop_zip_code_id', $detail->drop_zip_code_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_drop_zip_code_code', (($detail->drop_zip_code_id >0) ? $detail->drop_zip_code->name: null), true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_drop_zip_code_code', strtoupper(($detail->drop_zip_code_id >0) ? $detail->drop_zip_code->name: null), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_drop_phone', $detail->drop_phone, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_drop_contact', $detail->drop_contact, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_drop_date', $detail->drop_date, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_drop_number', $detail->drop_number, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_hazardous_contact', $detail->container_hazardous_contact, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_hazardous_phone', $detail->container_hazardous_phone, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_comments', $detail->container_comments, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_comments', strtoupper($detail->container_comments), true) !!}
                                 {!! Form::bsRowBtns() !!}
                         @endforeach
                     @endif

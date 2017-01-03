@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        {!! Form::bsComplete('col-md-2','col-md-4', 'ID', 'container_pickup_id', 'container_pickup_name', Request::get('term'), null, 'ID') !!}
+        {!! Form::bsComplete('col-md-2','col-md-4', 'Name', 'container_pickup_id', 'container_pickup_name', Request::get('term'), null, 'ID') !!}
         {!! Form::bsSelect('col-md-1','col-md-2', 'Type', 'container_pickup_type', array('01' => '01 - CARRIER','02' => '02 - CUSTOMER'), null) !!}
     </div>
 </div>

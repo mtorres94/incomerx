@@ -2,7 +2,7 @@
 
 namespace Sass\DataTables\Export\Ocean;
 
-use Sass\CargoLoader;
+use Sass\EoCargoLoader;
 use Sass\DataTables\CustomDataTable;
 use Sass\User;
 use Yajra\Datatables\Services\DataTable;
@@ -18,9 +18,9 @@ class CargoLoaderDataTable extends CustomDataTable
     {
         return $this->datatables
             ->eloquent($this->query())
-            ->addColumn('action', function ($booking_entry) {
+            ->addColumn('action', function ($cargo_loader) {
                 return $this->groupButton(
-                    $booking_entry,
+                    $cargo_loader,
                     'export.oceans.cargo_loader',[
                         ['route' => 'cargo_loader.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF'],
 
@@ -37,13 +37,13 @@ class CargoLoaderDataTable extends CustomDataTable
      */
     public function query()
     {
-        $query = CargoLoader::leftJoin('mst_customers AS c1', 'exp_cargo_loader.shipper_id', '=', 'c1.id')
-            ->leftJoin('mst_customers AS c2', 'exp_cargo_loader.consignee_id', '=', 'c2.id')
-            ->leftJoin('mst_customers AS c3', 'exp_cargo_loader.agent_id', '=', 'c3.id')
-            ->leftJoin('mst_ocean_ports AS c4', 'exp_cargo_loader.port_loading_id', '=', 'c4.id')
-            ->leftJoin('mst_ocean_ports AS c5', 'exp_cargo_loader.port_unloading_id', '=', 'c5.id')
-            ->leftJoin('mst_carriers AS c6', 'exp_cargo_loader.carrier_id', '=', 'c6.id')
-            ->select(['exp_cargo_loader.id','exp_cargo_loader.code','exp_cargo_loader.cargo_loader_status',  'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS port_loading_name', 'c5.name AS port_unloading_name', 'c6.name as carrier_name']);
+        $query = EoCargoLoader::leftJoin('mst_customers AS c1', 'eo_cargo_loader.shipper_id', '=', 'c1.id')
+            ->leftJoin('mst_customers AS c2', 'eo_cargo_loader.consignee_id', '=', 'c2.id')
+            ->leftJoin('mst_customers AS c3', 'eo_cargo_loader.agent_id', '=', 'c3.id')
+            ->leftJoin('mst_ocean_ports AS c4', 'eo_cargo_loader.port_loading_id', '=', 'c4.id')
+            ->leftJoin('mst_ocean_ports AS c5', 'eo_cargo_loader.port_unloading_id', '=', 'c5.id')
+            ->leftJoin('mst_carriers AS c6', 'eo_cargo_loader.carrier_id', '=', 'c6.id')
+            ->select(['eo_cargo_loader.id','eo_cargo_loader.code','eo_cargo_loader.cargo_loader_status',  'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS port_loading_name', 'c5.name AS port_unloading_name', 'c6.name as carrier_name']);
         return $this->applyScopes($query);
     }
 
@@ -69,8 +69,8 @@ class CargoLoaderDataTable extends CustomDataTable
     protected function getColumns()
     {
         return [
-            ['data' => 'code',   'name' => 'exp_cargo_loader.code', 'title' => 'Code'],
-            ['data' => 'cargo_loader_status',          'name' => 'exp_cargo_loader.cargo_loader_status', 'title' => 'Status'],
+            ['data' => 'code',   'name' => 'eo_cargo_loader.code', 'title' => 'Code'],
+            ['data' => 'cargo_loader_status',          'name' => 'eo_cargo_loader.cargo_loader_status', 'title' => 'Status'],
             ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
             ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
             ['data' => 'agent_name',   'name' => 'c3.name', 'title' => 'Agent'],

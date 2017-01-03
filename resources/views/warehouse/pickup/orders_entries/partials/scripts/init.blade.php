@@ -66,7 +66,7 @@
         removeEmptyNodes('container_details');
         removeEmptyNodes('dr_details');
         removeEmptyNodes('warehouse_details');
-        values_warehouse();
+        calculate_warehouse_details();
         calculate_charges();
         dock_receipts();
         transportation_plan();
@@ -213,8 +213,8 @@
         $("#vehicle_weight_unit_measurement_id").change(function () { calculate_vehicle() });
         $("#vehicle_dim_fact").change(function () { calculate_vehicle() });
 
-        $("#warehouse_details").change(function () { values_warehouse() });
-        $("#dr_total_pieces").change(function () { values_warehouse() });
+        $("#warehouse_details").change(function () { calculate_warehouse_details() });
+        $("#sum_pieces").change(function () { calculate_warehouse_details() });
         $("#dr_cargo_cubic").change(function() { dock_receipts() });
         $("#dr_cargo_rate").change(function() { dock_receipts() });
         $("#dr_cargo_chgrw").change(function() { dock_receipts() });
@@ -241,6 +241,7 @@
         $("#pd_type").val("P").change();
         $("#pd_dispatch_status").val("O").change();
     });
+
 
     //=================================================================
     $("#billing_unit_id").change(function () {
@@ -313,8 +314,8 @@
                     .append(createTableContent('cargo_cubic', $("#pick_cubic").val(), false, c))
 
                     /*GENERAL */
-                    .append(createTableContent('part_info_po_number', "", false, c))
-                    .append(createTableContent('cargo_volume_weight', $("#pick_weight").val(), true, c))
+                    .append(createTableContent('part_info_po_number', "", true, c))
+                    .append(createTableContent('cargo_volume_weight', $("#pick_weight").val(), false, c))
                     .append(createTableContent('cargo_metric_unit_measurement_id', "", true, c))
                     .append(createTableContent('cargo_material_description', "", true, c))
                     .append(createTableContent('cargo_pieces', "", true, c))
@@ -446,8 +447,8 @@
                             .append(createTableContent('cargo_cubic', tr[d].childNodes[8].textContent, false, c))
 
                             /*GENERAL */
-                            .append(createTableContent('part_info_po_number', "", false, c))
-                            .append(createTableContent('cargo_volume_weight',tr[d].childNodes[7].textContent, true, c))
+                            .append(createTableContent('part_info_po_number', "", true, c))
+                            .append(createTableContent('cargo_volume_weight',tr[d].childNodes[7].textContent, false, c))
                             .append(createTableContent('cargo_metric_unit_measurement_id', "", true, c))
                             .append(createTableContent('cargo_material_description', "", true, c))
                             .append(createTableContent('cargo_pieces', "", true, c))
@@ -590,8 +591,8 @@
                                 .append(createTableContent('cargo_cubic', e[x].cubic, false, r))
 
                                 /*GENERAL */
-                                .append(createTableContent('part_info_po_number', "", false, r))
-                                .append(createTableContent('cargo_volume_weight',e[x].volume_weight, true, r))
+                                .append(createTableContent('part_info_po_number', "", true, r))
+                                .append(createTableContent('cargo_volume_weight',e[x].volume_weight, false, r))
                                 .append(createTableContent('cargo_metric_unit_measurement_id', e[x].metric_unit, true, r))
                                 .append(createTableContent('cargo_material_description', e[x].material_description, true, r))
                                 .append(createTableContent('cargo_pieces', e[x].pieces, true, r))
@@ -707,10 +708,24 @@
                 });
             }
         }
-
+        warehouse_receipts_id(pick_select);
         $("#PickCargo").modal("hide");
+        calculate_warehouse_details();
+
 
     });
+    function warehouse_receipts_id(pick_select){
+        var l= $("#warehouse_receipts_id tbody tr").length,
+            t= $("#warehouse_receipts_id"),
+            b= t.find("tbody");
+        for (var x=0 ; x < pick_select.length; x++){
+            var r= $("<tr id= "+ (l + 1) +">");
+            r.append(createTableContent('line_warehouse_id', (l + 1), true, x))
+                .append(createTableContent('whr_id', pick_select[x], true, x))
+            t.append(r);
+            l++;
+        }
+    }
 
     $("#cargo_quantity").number(true);
     $("#cargo_pieces").number(true);
@@ -771,23 +786,19 @@
     $("#transportation_plans_amount").number(true, 3).attr("readonly", true);
     $("#transportation_amount").number(true, 3);
 
-
-
-$("#warehouse_details tbody").change( function(){ values_warehouse()});
-
-    $("#dr_total_pieces").number(true).attr("readonly", true);
-    $("#dr_packages").number(true).attr("readonly", true);
-    $("#dr_act_weight").number(true,3).attr("readonly", true);
-    $("#dr_volume_weight").number(true,3).attr("readonly", true);
-    $("#dr_net_weight").number(true, 3).attr("readonly", true);
-    $("#dr_cubic_weight").number(true, 3).attr("readonly", true);
+    $("#sum_pieces").number(true);
+    $("#sum_packages").number(true);
+    $("#sum_weight").number(true,3);
+    $("#sum_volume_weight").number(true,3);
+    $("#sum_net_weight").number(true, 3);
+    $("#sum_cubic").number(true, 3);
 
     $("#user_id").attr("readonly", true);
     $("#pd_code").attr("readonly", true);
-    $("#charges_bill").number(true,2).attr("readonly", true);
-    $("#charges_cost").number(true,2).attr("readonly", true);
-    $("#charges_profit").number(true,2).attr("readonly", true);
-    $("#charges_profit_p").number(true,2).attr("readonly", true);
+    $("#sum_bill").number(true,2);
+    $("#sum_cost").number(true,2);
+    $("#sum_profit").number(true,2);
+    $("#sum_profit_percent").number(true,2);
     $("#billing_customer_name").attr("readonly", true);
     $("#billing_exchange_rate").number(true,2);
     $("#cost_exchange_rate").number(true,2);
@@ -806,5 +817,8 @@ $("#warehouse_details tbody").change( function(){ values_warehouse()});
     $("#pick_weight").number(true, 3).attr("readonly", true);
     $("#pick_cubic").number(true, 3).attr("readonly", true);
     $("#pick_unlinked").number(true).attr("readonly", true);
+
+    //
+    $("#sum_weight_unit").val("L").change();
 
 </script>

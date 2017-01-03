@@ -148,8 +148,8 @@
                     <tr>
                         <td>{{ ($detail->equipment_type_id >0 ? $detail->equipment_type->code : "") }}</td>
                         <td>{{ strtoupper($detail->container_number) }}</td>
-                        <td>{{ $detail->container_seal_number }}</td>
-                        <td>{{ $detail->container_seal_number2 }} </td>
+                        <td>{{ strtoupper($detail->container_seal_number ) }}</td>
+                        <td>{{ strtoupper($detail->container_seal_number2) }} </td>
                         <td>{{ strtoupper(($detail->carrier_id >0 ? $detail->carrier->name : "")) }}</td>
                     </tr>
                 @endforeach
@@ -201,7 +201,7 @@
         <div class="col-xs-12">
             <div class="panel-body">
                 <p><strong>COMMENTS: </strong></p>
-                <p> {{ $shipment_entry->shipment_comments }}</p>
+                <p> {{ strtoupper($shipment_entry->shipment_comments )}}</p>
             </div>
         </div>
     </div>

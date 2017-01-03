@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class EoShipmentEntryContainer extends Model
 {
-    protected $table = "exp_oceans_shipment_entries_container";
+    protected $table = "eo_shipment_entries_container";
 
     protected $fillable = [
         'id', 'line', 'created_at', 'updated_at', 'equipment_type_id', 'container_number', 'container_seal_number', 'container_seal_number2', 'total_weight_unit', 'container_commodity_id', 'pd_status', 'spotting_date', 'pull_date', 'carrier_id', 'ventilation', 'temperature', 'degrees', 'temperature_max', 'temperature_min',
@@ -21,8 +21,9 @@ class EoShipmentEntryContainer extends Model
     {
         $i = -1;
         $a = 0;
+        $details = DB::table('eo_shipment_entries_container')->where('shipment_id', '=', $id)->delete();
         if (isset($data['container_line'])) {
-            $details = DB::table('exp_oceans_shipment_entries_container')->where('shipment_id', '=', $id)->delete();
+
             while ($a < count($data['container_line'])) {
                 $i++;
                 if (isset($data['container_line'][$i])) {
@@ -102,7 +103,7 @@ class EoShipmentEntryContainer extends Model
 
     public function shipment()
     {
-        return $this->belongsTo('Sass\ShipmentEntry', 'shipment_id');
+        return $this->belongsTo('Sass\EoShipmentEntry', 'shipment_id');
     }
 
     public function pickup_zip_code()

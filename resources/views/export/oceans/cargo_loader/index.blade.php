@@ -7,6 +7,7 @@
 @section('scripts')
     {!! $dataTable->scripts() !!}
     <script>
+        preventOpen($('#dataTableBuilder'), '{{ route('cargo_loader.open') }}', '{{ \Auth::user()->id }}');
         ajaxDelete($('#dataTableBuilder'));
     </script>
 @stop

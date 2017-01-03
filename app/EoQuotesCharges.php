@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class EoQuotesCharges extends Model
 {
-    protected $table = "exp_oceans_quotes_charges";
+    protected $table = "eo_quotes_charges";
 
     protected $fillable = [
 'id', 'created_at' , 'updated_at', 'line', 'quotes_id', 'billing_id', 'billing_description', 'vendor_id',  'bill_type', 'bill_party', 'billing_quantity', 'billing_rate', 'billing_amount', 'billing_currency_type', 'cost_amount', 'cost_currency_type', 'cost_invoice', 'cost_reference' , 'billing_notes', 'billing_unit_id' , 'billing_exchange_rate' , 'cost_quantity', 'cost_unit_id', 'cost_rate', 'cost_center', 'cost_date', 'billing_increase', 'billing_customer_id'];
@@ -36,8 +36,9 @@ class EoQuotesCharges extends Model
 
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
+        $details= DB::table('eo_quotes_charges')->where('quotes_id', '=', $id)->delete();
         if (isset($data['charge_id'])){
-            $details= DB::table('exp_oceans_quotes_charges')->where('quotes_id', '=', $id)->delete();
+
             while($a < count($data['charge_id'])){
                 $i++;
                 if(isset($data['charge_id'][$i])){

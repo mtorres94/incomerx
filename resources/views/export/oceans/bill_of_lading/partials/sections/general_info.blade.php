@@ -1,11 +1,7 @@
 <fieldset>
     <div class="row">
-        <div class="col-md-6"><legend>General info</legend></div>
-        <div class="col-md-6">
-            <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
-                <a type="button" class="btn btn-default btn-sm" id="btn-load-houses" onclick="validateShipmentId(), clearTable('load_warehouses')"><span>Link Houses</span></a>
-            </div>
-        </div>
+        <legend>General info</legend>
+
     </div>
 
     {!! Form::hidden('cargo_loader_id', null, ['id' => 'cargo_loader_id', 'class' => 'form-control input-sm']) !!}

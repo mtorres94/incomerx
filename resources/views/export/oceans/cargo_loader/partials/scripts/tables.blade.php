@@ -1,5 +1,10 @@
 <script type="text/javascript">
     $("#btn_container_details").click(function() {
+        $("#pd_status").val("1").change();
+        $("#container_pickup_type").val("02").change();
+        $("#container_delivery_type").val("02").change();
+        $("#container_drop_type").val("02").change();
+        $("#total_weight_unit").val("L").change();
         for (var t = $("#container_tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -20,6 +25,7 @@
     });
 
     $("#btn-load-warehouse").click(function() {
+        $("#pick_search_type").val("1").change();
         for (var t = $("#load-warehouse-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -62,6 +68,7 @@
             whr_select.push($(this).val());
         });
 
+        console.log(_);
 
         for(var a =0; a < t.length ; a++){
             c=0;
@@ -69,14 +76,16 @@
             while(c < whr_select.length){
                 if(t[a].childNodes[35].textContent == whr_select[c] ){
                     description= t[a].childNodes[37].textContent + "\n";
-                    warehouses= warehouses + " - WH#: "+t[a].childNodes[2].textContent ;
+                    warehouses= warehouses + "  "+t[a].childNodes[2].textContent ;
                     pieces= parseInt( t[a].childNodes[28].textContent) + pieces;
                     g_weight= parseFloat(t[a].childNodes[29].textContent) + g_weight;
                     cubic= parseFloat(t[a].childNodes[30].textContent) + cubic;
-                    marks= "Container #: " + t[a].childNodes[38].textContent + " - " + t[a].childNodes[39].textContent;
+                    marks= t[a].childNodes[38].textContent + " -  " + t[a].childNodes[39].textContent;
                   //  marks= marks + "Seal #: " + t[a].childNodes[39].textContent + "\n";
                     container_id= t[a].childNodes[0].textContent;
                     $("#hidden_warehouse tbody tr td").find("input[id='hidden_flag["+ (a + 1) +"]']").val(_);
+                    //$("#hidden_warehouse tbody tr td").find("input[id='hidden_group_by["+ (a + 1) +"]']").val(_);
+                    console.log(a);
 
                 }
                 c++;
@@ -86,8 +95,8 @@
         C.append(createTableContent('resume_line', _ , true, _))
                 .append(createTableContent('resume_marks',  marks ,  false, _))
                 .append(createTableContent('resume_pieces',pieces , false, _ ))
-                .append(createTableContent('resume_description', description + warehouses , false, _ ))
-                .append(createTableContent('resume_weight_unit', "K", false, _ ))
+                .append(createTableContent('resume_description', description + "  "+ warehouses , false, _ ))
+                .append(createTableContent('resume_weight_unit', "L", false, _ ))
                 .append(createTableContent('resume_gross_weight', g_weight , false, _ ))
                 .append(createTableContent('resume_cubic', cubic , false, _ ))
                 .append(createTableContent('resume_charge_weight', g_weight, false, _ ))
@@ -96,6 +105,32 @@
                 .append(createTableBtns())
         x.append(C)
 $("#CreateHouse").modal("hide");
+    });
+    $("#cargo-save").click(function(){
+        var r = ($('#hbl_details tbody tr').length + 1),
+            _ =  ($("#hbl_details tbody tr").length == 0 ? 1 : parseInt($("#hbl_details tbody tr")[$("#hbl_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
+            c1= $("#cargo_id").val(),
+            c2= $("#cargo_marks").val(),
+            c3= $("#cargo_pcs").val(),
+            c4= $("#cargo_description").val(),
+            c5= $("#cargo_weight_unit").val(),
+            c6= $("#cargo_weight_l").val(),
+            c7= $("#cargo_cubic_l").val(),
+            c8= $("#cargo_charge_weight_l").val(),
+            c = (0 == c1 ? _ : c1)-1,
+            n = $("#hbl_details"),
+            t = n.find("tbody"),
+            p = $("<tr id=" + (0==c1? _ : c1) + ">");
+        p.append(createTableContent('resume_line', c1 , true, _))
+            .append(createTableContent('resume_marks',  c2 ,  false, _))
+            .append(createTableContent('resume_pieces',c3, false, _ ))
+            .append(createTableContent('resume_description', c4, false, _ ))
+            .append(createTableContent('resume_weight_unit', c5, false, _ ))
+            .append(createTableContent('resume_gross_weight', c6, false, _ ))
+            .append(createTableContent('resume_cubic', c7 , false, _ ))
+            .append(createTableContent('resume_charge_weight',c8, false, _ ))
+            .append(createTableContent('inserted_id', 0, true, _ ))
+            .append(createTableBtns()), 0 == c1 ? t.append(p) : t.find("tr#" + c1).replaceWith(p), cleanModalFields('HBL_Cargo'), $("#cargo_marks").focus()
     });
     $("#hbl_details").on("click", "a.btn-danger", function() {
         $(this).closest("tr").remove()
@@ -116,10 +151,13 @@ $("#CreateHouse").modal("hide");
         $("#cargo_marks").val(c2);
         $("#cargo_pcs").val(c3);
         $("#cargo_description").val(c4);
-        $("#cargo_weight_unit").val(c5);
-        $("#cargo_weight_k").val(c6);
-        $("#cargo_cubic_k").val(c7);
-        $("#cargo_charge_weight_k").val(c8);
+        $("#cargo_weight_unit").val(c5).change();
+        $("#cargo_weight_l").val(c6);
+        $("#cargo_cubic_l").val(c7);
+        $("#cargo_charge_weight_l").val(c8);
+        $("#cargo_weight_k").val( $("#cargo_weight_l").val() * 0.453592);
+        $("#cargo_charge_weight_k").val( $("#cargo_weight_l").val() * 0.453592);
+        $("#cargo_cubic_k").val( $("#cargo_cubic_l").val() * 0.453592);
         $("#HBL_Cargo").modal("show")
     });
 
@@ -623,13 +661,13 @@ $("#CreateHouse").modal("hide");
                 .append(createTableContent('container_order_number',c7, false, d))
 
                 .append(createTableContent('container_comments', c8, true, d))
-                .append(createTableContent('cubic_max', c9, false, d))
+                .append(createTableContent('cubic_max', c9, true, d))
                 .append(createTableContent('cubic_load', c10, false, d))
                 .append(createTableContent('cubic_load_p', c11, true, d))
                 .append(createTableContent('cubic_excess', c12, true, d))
                 .append(createTableContent('pieces_loaded', c13, true, d))
 
-                .append(createTableContent('max_weight', c14, false, d))
+                .append(createTableContent('max_weight', c14, true, d))
                 .append(createTableContent('weight_load', c15, false, d))
                 .append(createTableContent('weight_load_p', c16, true, d))
                 .append(createTableContent('weight_excess', c17, true, d))
@@ -758,6 +796,7 @@ $("#CreateHouse").modal("hide");
                     .append(createTableContent('equipment_type_code', c3 , true, d))
                     .append(createTableContent('container_number', c4 , true, d))
                     .append(createTableContent('container_seal_number', c5 , true, d))
+                    //.append(createTableContent('hidden_group_by', '0' , true, d))
 
             t.append(p_1);
             d+=1;

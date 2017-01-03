@@ -1,5 +1,5 @@
 <div id="errorBlock" class="help-block"></div>
-
+{!! Form::hidden('open_status', (isset($user_open_id) ? ($user_open_id == Auth::user()->id ? "0" : "1") : "0"), ['id' => 'open_status', 'class' => 'form-control input-sm']) !!}
 @include('export.oceans.cargo_loader.partials.sections.general')
 <div class="row">
     <div class="col-md-6">
@@ -86,5 +86,6 @@
     @include('export.oceans.cargo_loader.partials.scripts.compute')
     @include('export.oceans.cargo_loader.partials.scripts.autocomplete')
     @include('export.oceans.cargo_loader.partials.scripts.tables')
+    @include('export.oceans.cargo_loader.partials.scripts.validation')
 
 @stop

@@ -60,6 +60,12 @@
     });
 
     $("#btn-charges").click(function() {
+        $("#billing_bill_party").val("C").change();
+        $("#billing_bill_type").val("C").change();
+        $("#billing_currency_type").val("1").change();
+        $("#cost_currency_type").val("1").change();
+        $("#billing_unit_id").val("0").change();
+        $("#cost_unit_id").val("0").change();
         for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -1613,14 +1619,14 @@
                     .append(createTableContent('billing_bill_type', g_4, false, d))
                     .append(createTableContent('billing_bill_party', g_5, false, d))
                     .append(createTableContent('billing_quantity', g_7, false, d))
-                    .append(createTableContent('billing_rate', g_11, false, d))
+                    .append(createTableContent('billing_rate', g_11, true, d))
                     .append(createTableContent('billing_amount', g_12, false, d))
-                    .append(createTableContent('billing_currency_type', g_13, false, d))
-                    .append(createTableContent('billing_customer_name', g_16, false, d))
+                    .append(createTableContent('billing_currency_type', g_13, true, d))
+                    .append(createTableContent('billing_customer_name', g_16, true, d))
                     .append(createTableContent('cost_amount', g_21, false, d))
-                    .append(createTableContent('cost_currency_type', g_22, false, d))
-                    .append(createTableContent('cost_invoice', g_27, false, d))
-                    .append(createTableContent('cost_reference', g_29, false, d))
+                    .append(createTableContent('cost_currency_type', g_22, true, d))
+                    .append(createTableContent('cost_invoice', g_27, true, d))
+                    .append(createTableContent('cost_reference', g_29, true, d))
 
 
                     .append(createTableContent('billing_notes', g_6, true, d))
@@ -1640,7 +1646,8 @@
                     .append(createTableContent('billing_increase', g_10, true, d))
                     .append(createTableBtns()),
 
-                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C),values_charges(), cleanModalFields("Charge_Details"), $("#Charge_Details").modal("show"), $("#billing_billing_code").focus()
+                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C),$("#billing_bill_party").val("C").change();
+            $("#billing_bill_type").val("C").change(), $("#billing_currency_type").val("1").change(), $("#cost_currency_type").val("1").change(), $("#billing_unit_id").val("0").change(),  $("#cost_unit_id").val("0").change(), values_charges(), cleanModalFields("Charge_Details"), $("#Charge_Details").modal("show"), $("#billing_billing_code").focus()
         }
 
     }), $("#chargeDetails").on("click", "a.btn-danger", function() {
@@ -1697,12 +1704,12 @@
                 $("#cost_reference").val(g15),
 
                 $("#billing_notes").val(g16),
-                $("#billing_unit_id").val(g17),
+                $("#billing_unit_id").val(g17).change(),
                 $("#billing_unit_name").val(g18),
                 $("#billing_exchange_rate").val(g19),
                 $("#billing_customer_id").val(g20),
                 $("#cost_quantity").val(g21),
-                $("#cost_unit_id").val(g22),
+                $("#cost_unit_id").val(g22).change(),
                 $("#cost_unit_name").val(g23),
                 $("#cost_rate").val(g24),
                 $("#cost_cost_center").val(g25),
@@ -1984,108 +1991,35 @@
             hbl_select.push($(this).val());
         });
         var d = $("#cargo_details tbody tr").length ,
-            f = $("#container_details tbody tr").length ,
                 n = $("#cargo_details"),
                 t = n.find("tbody"),
-                n1 = $("#container_details"),
-                t1 = n1.find("tbody"),
                 hbl= $("#load_warehouses tbody tr");
         for (x=0 ; x < hbl.length; x++){
-                if( hbl[x].childNodes[13].textContent == hbl_select[r]) {
+                if( hbl[x].childNodes[11].textContent == hbl_select[r]) {
                     //CARGO
                     var p = $("<tr id=" + (d + 1) + ">");
                     p.append(createTableContent('cargo_line',(d+1), true, d))
-                            .append(createTableContent('cargo_marks', hbl[x].childNodes[3].textContent + " - " + hbl[x].childNodes[6].textContent, false, d))
-                            .append(createTableContent('cargo_pieces', hbl[x].childNodes[9].textContent, false, d))
-                            .append(createTableContent('cargo_description', "WR: "+ hbl[x].childNodes[2].textContent , false, d))
-                            .append(createTableContent('cargo_weight_unit', 'K', false, d))
-                            .append(createTableContent('cargo_weight_k', hbl[x].childNodes[10].textContent, false, d))
-                            .append(createTableContent('cargo_cubic_k', hbl[x].childNodes[11].textContent, false, d))
-                            .append(createTableContent('cargo_charge_weight_k', hbl[x].childNodes[12].textContent, false, d))
-                            .append(createTableContent('cargo_weight_l', parseFloat(hbl[x].childNodes[10].textContent) * 2.2, true, d))
-                            .append(createTableContent('cargo_cubic_l', parseFloat(hbl[x].childNodes[11].textContent) * 2.2, true, d))
-                            .append(createTableContent('cargo_charge_weight_l', parseFloat(hbl[x].childNodes[12].textContent) * 2.2, true, d))
+                            .append(createTableContent('cargo_marks', hbl[x].childNodes[2].textContent + " - " + hbl[x].childNodes[5].textContent, false, d))
+                            .append(createTableContent('cargo_pieces', hbl[x].childNodes[7].textContent, false, d))
+                            .append(createTableContent('cargo_description',  hbl[x].childNodes[3].textContent , false, d))
+                            .append(createTableContent('cargo_weight_unit', 'L', false, d))
+                            .append(createTableContent('cargo_weight_k', hbl[x].childNodes[15].textContent, true, d))
+                            .append(createTableContent('cargo_cubic_k', hbl[x].childNodes[16].textContent, true, d))
+                            .append(createTableContent('cargo_charge_weight_k', hbl[x].childNodes[17].textContent, true, d))
+                            .append(createTableContent('cargo_weight_l', hbl[x].childNodes[8].textContent , false, d))
+                            .append(createTableContent('cargo_cubic_l', hbl[x].childNodes[9].textContent , false, d))
+                            .append(createTableContent('cargo_charge_weight_l', hbl[x].childNodes[10].textContent, false, d))
                             .append(createTableContent('cargo_rate', "", true, d))
                             .append(createTableContent('cargo_amount', "", true, d))
                             .append(createTableContent('cargo_container', "", true, d))
-                            .append(createTableContent('cargo_type_id', "", true, d))
-                            .append(createTableContent('cargo_type_code', "", true, d))
+                            .append(createTableContent('cargo_type_id', hbl[x].childNodes[4].textContent, true, d))
+                            .append(createTableContent('cargo_type_code', hbl[x].childNodes[5].textContent, true, d))
                             .append(createTableContent('cargo_commodity_id', "", true, d))
                             .append(createTableContent('cargo_commodity_name', "", true, d))
                             .append(createTableContent('cargo_comments', "", true, d))
                             .append(createTableContent('cargo_hbl_id', hbl_select[r], true, d))
                             .append(createTableBtns())
                     t.append(p);
-
-                    //CONTAINER DETAILS
-                    p = $("<tr id=" + (f +1) + ">");
-                    p.append(createTableContent('container_line', (f + 1), true, f))
-                            .append(createTableContent('equipment_type_id', hbl[x].childNodes[4].textContent, true, f))
-                            .append(createTableContent('equipment_type_code', hbl[x].childNodes[5].textContent, false, f))
-                            .append(createTableContent('container_number', hbl[x].childNodes[3].textContent, false, f))
-                            .append(createTableContent('container_seal_number', hbl[x].childNodes[6].textContent, false, f))
-                            .append(createTableContent('container_seal_number2', hbl[x].childNodes[7].textContent, true, f))
-                            .append(createTableContent('container_commodity_id', '', true, f))
-                            .append(createTableContent('container_commodity_name', '', true, f))
-                            .append(createTableContent('pd_status', '', true, f))
-                            .append(createTableContent('container_spotting_date', '', true, f))
-                            .append(createTableContent('container_pull_date', '', true, f))
-                            .append(createTableContent('container_carrier_id', '', true, f))
-                            .append(createTableContent('container_carrier_name', '', true, f))
-                            .append(createTableContent('container_ventilation', '', true, f))
-                            .append(createTableContent('container_degrees', '', true, f))
-                            .append(createTableContent('container_temperature', '', true, f))
-                            .append(createTableContent('container_max', '', true, f))
-                            .append(createTableContent('container_min', '', true, f))
-
-                            .append(createTableContent('container_pickup_id', '', true, f))
-                            .append(createTableContent('container_pickup_name', '', false, f))
-                            .append(createTableContent('container_pickup_type', '', true, f))
-                            .append(createTableContent('container_pickup_address', '', true, f))
-                            .append(createTableContent('container_pickup_city', '', true, f))
-                            .append(createTableContent('container_pickup_state_id', '', true, f))
-                            .append(createTableContent('container_pickup_state_name', '', true, f))
-                            .append(createTableContent('container_pickup_zip_code_id', '', true, f))
-                            .append(createTableContent('container_pickup_zip_code_code', '', true, f))
-                            .append(createTableContent('container_pickup_phone', '', true, f))
-                            .append(createTableContent('container_pickup_contact', '', true, f))
-                            .append(createTableContent('container_pickup_date', '', true, f))
-                            .append(createTableContent('container_pickup_number', '', true, f))
-
-                            .append(createTableContent('container_delivery_id', '', true, f))
-                            .append(createTableContent('container_delivery_name', '', false, f))
-                            .append(createTableContent('container_delivery_type', '', true, f))
-                            .append(createTableContent('container_delivery_address', '', true, f))
-                            .append(createTableContent('container_delivery_city', '', true, f))
-                            .append(createTableContent('container_delivery_state_id', '', true, f))
-                            .append(createTableContent('container_delivery_state_name', '', true, f))
-                            .append(createTableContent('container_delivery_zip_code_id', '', true, f))
-                            .append(createTableContent('container_delivery_zip_code_code', '', true, f))
-                            .append(createTableContent('container_delivery_phone', '', true, f))
-                            .append(createTableContent('container_delivery_contact', '', true, f))
-                            .append(createTableContent('container_delivery_date', '', true, f))
-                            .append(createTableContent('container_delivery_number', '', true, f))
-
-                            .append(createTableContent('container_drop_id', '', true, f))
-                            .append(createTableContent('container_drop_name', '', false, f))
-                            .append(createTableContent('container_drop_type', '', true, f))
-                            .append(createTableContent('container_drop_address', '', true, f))
-                            .append(createTableContent('container_drop_city', '', true, f))
-                            .append(createTableContent('container_drop_state_id', '', true, f))
-                            .append(createTableContent('container_drop_state_name', '', true, f))
-                            .append(createTableContent('container_drop_zip_code_id', '', true, f))
-                            .append(createTableContent('container_drop_zip_code_code', '', true, f))
-                            .append(createTableContent('container_drop_phone', '', true, f))
-                            .append(createTableContent('container_drop_contact', '', true, f))
-                            .append(createTableContent('container_drop_date', '', true, f))
-                            .append(createTableContent('container_drop_number', '', true, f))
-                            .append(createTableContent('container_hazardous_contact', '', true, f))
-                            .append(createTableContent('container_hazardous_phone', '', true, f))
-
-
-                            .append(createTableContent('container_comments', '', true, f))
-                            .append(createTableBtns()),
-                            t1.append(p);
                     d++;
                     r++;
                 }

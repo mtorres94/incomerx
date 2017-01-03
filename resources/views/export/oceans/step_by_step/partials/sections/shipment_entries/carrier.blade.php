@@ -15,6 +15,16 @@
             <div class="row">
                 {!! Form::bsText('col-md-3', 'col-md-4', 'Booking #', 'booking_code', null, '') !!}
             </div>
+            <div class="row">
+                {!! Form::bsDate('col-md-3', 'col-md-4', 'Release date', 'release_date', null, '') !!}
+            </div>
+            <div class="row">
+                {!! Form::bsDate('col-md-3', 'col-md-4', 'Loading date', 'loading_date', null, '') !!}
+            </div>
+            <div class="row">
+                {!! Form::bsDate('col-md-3', 'col-md-4', 'Cut off date', 'cut_off_date', null, '') !!}
+            </div>
+
         </div>
     </div>
 

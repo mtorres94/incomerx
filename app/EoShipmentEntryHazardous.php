@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class EoShipmentEntryHazardous extends Model
 {
-    protected $table = "exp_oceans_shipment_entries_hazardous";
+    protected $table = "eo_shipment_entries_hazardous";
 
     protected $fillable = [
         'id', 'created_at', 'updated_at', 'line', 'shipment_id', 'container_id', 'hzd_uns_id', 'hzd_uns_desc', 'hzd_uns_note'
@@ -15,8 +15,9 @@ class EoShipmentEntryHazardous extends Model
 
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
+        $details= DB::table('eo_shipment_entries_hazardous')->where('shipment_id', '=', $id)->delete();
         if (isset($data['hzd_line']) ){
-            $details= DB::table('exp_oceans_shipment_entries_hazardous')->where('shipment_id', '=', $id)->delete();
+
             while($a < count($data['hzd_line'])){
                 $i++;
                 if (isset($data['hzd_line'][$i])){

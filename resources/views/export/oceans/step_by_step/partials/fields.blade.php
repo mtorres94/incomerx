@@ -1,15 +1,10 @@
 <div id="errorBlock" class="help-block"></div>
+{!! Form::hidden('open_status', (isset($user_open_id) ? ($user_open_id == Auth::user()->id ? "0" : "1") : "0"), ['id' => 'open_status', 'class' => 'form-control input-sm']) !!}
 
-<div class="container">
-    <div class="row">
-        <section>
-            <div class="wizard">
-                @include('export.oceans.step_by_step.partials.sections.nav_tabs')
-            </div>
-        </section>
-    </div>
-
+<div class="wizard">
+    @include('export.oceans.step_by_step.partials.sections.nav_tabs')
 </div>
+
 
 
 <!-- Modal forms section -->
@@ -39,5 +34,6 @@
     @include('export.oceans.step_by_step.partials.scripts.compute')
     @include('export.oceans.step_by_step.partials.scripts.autocomplete')
     @include('export.oceans.step_by_step.partials.scripts.tables')
+    @include('export.oceans.step_by_step.partials.scripts.validation')
 
 @stop

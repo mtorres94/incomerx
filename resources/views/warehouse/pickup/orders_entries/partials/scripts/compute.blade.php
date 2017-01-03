@@ -31,59 +31,38 @@
         $("#vehicle_total_weight").val(q*u );
     }
 
-    function values_warehouse(){
-        var tr = $('#warehouse_details tbody tr');
-        var r = tr.length, b=0, weight_K=0,  vol_K=0, cub_K=0, n_weight_K=0, c=0, d=0, e=0, f=0;
-        for (var a=0; a< r ; a++){
-            var pieces=0, weight=0, vol=0, cub=0, n_weight=0;
-            pieces= parseInt(tr[a].childNodes[2].textContent);
+    function calculate_warehouse_details() {
+        var tr = $('#warehouse_details tbody tr'),
+            r = tr.length,
+            total_pieces = 0,
+            total_weight = 0,
+            total_volume_weight = 0,
+            total_cubic = 0,
+            total_net_weight= 0;
 
-            weight = parseFloat(tr[a].childNodes[8].textContent);
-            vol = parseFloat(tr[a].childNodes[13].textContent);
-            cub= parseFloat(tr[a].childNodes[11].textContent);
-            n_weight= parseFloat(tr[a].childNodes[9].textContent);
-            if(tr[a].childNodes[10].textContent == 'L'){
-                weight_K = (weight/2.2) + weight_K;
-                vol_K = (vol/2.2) + vol_K;
-                cub_K = (cub/2.2)+ cub_K;
-                n_weight_K = (n_weight/2.2) + n_weight_K;
-            }
-            else {
-                c = weight + c;
-                d = vol + d;
-                e = cub + e;
-                f = n_weight + f;
+        for (var a=0; a < tr.length; a++) {
+            var unit = tr[a].childNodes[10].textContent,
+                pieces = parseInt(tr[a].childNodes[16].textContent),
+                weight = parseFloat(tr[a].childNodes[8].textContent),
+                volume_weight = parseFloat(tr[a].childNodes[13].textContent),
+                cubic = parseFloat(tr[a].childNodes[11].textContent),
+                net_weight= parseFloat(tr[a].childNodes[9].textContent);
 
-            }
-            b= pieces +b;
-
+            total_pieces = total_pieces + pieces;
+            total_weight = total_weight + ((unit == "L") ? weight : (weight * 2.2));
+            total_volume_weight = total_volume_weight + ((unit == "L") ? volume_weight : (volume_weight * 2.2));
+            total_cubic = total_cubic + cubic;
+            total_net_weight= total_net_weight + net_weight;
         }
-        c = weight_K +c;
-        d = vol_K + d;
-        e = cub_K + e;
-        f = n_weight_K + f ;
 
-        //More details- results
-        $("#dr_total_pieces").val(b);
-        $("#dr_packages").val(r);
-        if ($("#dr_freight_charges").val()== 'L')
-        {
-            var w= parseFloat(c*2.2), x= d*2.2, y= e*2.2, z= f*2.2;
-            $("#dr_act_weight").val(w);
-            $("#dr_volume_weight").val(x);
-            $("#dr_net_weight").val(z);
-            $("#dr_cubic_weight").val(y);
+        $("#sum_pieces").val(total_pieces);
+        $("#sum_packages").val(r);
+        $("#sum_weight").val(total_weight);
+        $("#sum_volume_weight").val(total_volume_weight);
+        $("#sum_net_weight").val(total_net_weight);
+        $("#sum_cubic").val(total_cubic);
 
-        }
-        else{
-                $("#dr_act_weight").val(c);
-                $("#dr_volume_weight").val(d);
-                $("#dr_net_weight").val(f);
-                $("#dr_cubic_weight").val(e);
-
-        }
     }
-
     function dock_receipts()
     {
         var a=$("#dr_cargo_cubic").val(), b= $("#dr_cargo_rate").val();
@@ -123,10 +102,10 @@
             total_profit_percent = total_profit_percent + profit_percent;
         }
 
-        $("#charges_bill").val(total_bill);
-        $("#charges_cost").val(total_cost);
-        $("#charges_profit").val(total_profit);
-        $("#charges_profit_p").val(parseFloat((total_profit/total_bill)*100).toFixed(3));
+        $("#sum_bill").val(total_bill);
+        $("#sum_cost").val(total_cost);
+        $("#sum_profit").val(total_profit);
+        $("#sum_profit_percent").val(parseFloat((total_profit/total_bill)*100).toFixed(3));
     }
 
 
@@ -155,6 +134,7 @@
         var tr = $('#pick_cargo_details tbody tr');
         var r = tr.length, qty=0, weight=0, cubic =0, s_qty=0, s_weight=0, s_cubic=0 ;
         for (var a = 0; a < r; a++) {
+
             if( pick_select[x] == tr[a].childNodes[12].textContent){
                 qty = parseFloat(tr[a].childNodes[6].textContent);
                 weight = parseFloat(tr[a].childNodes[7].textContent);

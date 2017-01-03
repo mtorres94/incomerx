@@ -118,10 +118,17 @@ return [
     'export' => [
         'oceans' => [
             'booking_entries' => 'Entradas ',
-            'bill_of_lading' => 'Registro de entradas',
-            'shipment_entries' => 'Registro de entradas',
+            'bill_of_lading' => 'B/L',
+            'shipment_entries' => 'Archivos',
             'step_by_step' => 'Paso a Paso',
-            'cargo_loader' => 'Carga',
+            'cargo_loader' => 'Plan de Carga',
+            'quotes' => 'Cotizaciones',
+        ],
+    ],
+    'import' => [
+        'oceans' => [
+            'bill_of_lading' => 'B/L',
+            'shipment_entries' => 'Archivos',
         ],
     ],
 ];

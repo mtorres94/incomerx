@@ -12,6 +12,8 @@
 
 
     $("#btn_container_details").click(function() {
+        $("#total_weight_unit").val("L").change();
+        $("#pd_status").val("1").change();
         for (var t = $("#container_tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -22,6 +24,12 @@
     });
 
     $("#btn_charge_details").click(function() {
+        $("#billing_bill_party").val("C").change();
+        $("#billing_bill_type").val("C").change();
+        $("#billing_currency_type").val("1").change();
+        $("#cost_currency_type").val("1").change();
+        $("#billing_unit_id").val("0").change();
+        $("#cost_unit_id").val("0").change();
         for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -32,6 +40,7 @@
     });
 
     $("#btn-load-warehouse").click(function() {
+        $("#pick_search_type").val("1").change();
         for (var t = $("#load-warehouse-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -119,7 +128,7 @@
                 .append(createTableContent('resume_marks', description+"- "+ marks ,  false, _))
                 .append(createTableContent('resume_pieces',pieces , false, _ ))
                 .append(createTableContent('resume_description', "" , false, _ ))
-                .append(createTableContent('resume_weight_unit', "K", false, _ ))
+                .append(createTableContent('resume_weight_unit', "L", false, _ ))
                 .append(createTableContent('resume_gross_weight', g_weight , false, _ ))
                 .append(createTableContent('resume_cubic', cubic , false, _ ))
                 .append(createTableContent('resume_charge_weight', g_weight, false, _ ))
@@ -139,9 +148,9 @@
                 c3= $("#cargo_pcs").val(),
                 c4= $("#cargo_description").val(),
                 c5= $("#cargo_weight_unit").val(),
-                c6= $("#cargo_weight_k").val(),
-                c7= $("#cargo_cubic_k").val(),
-                c8= $("#cargo_charge_weight_k").val(),
+                c6= $("#cargo_weight_l").val(),
+                c7= $("#cargo_cubic_l").val(),
+                c8= $("#cargo_charge_weight_l").val(),
                 b = $("#hbl_details"),
                 x = b.find("tbody"),
                 C = $("<tr id=" + (c1 == 0 ? _ : c1) + ">");
@@ -177,10 +186,10 @@
         $("#cargo_marks").val(c2);
         $("#cargo_pcs").val(c3);
         $("#cargo_description").val(c4);
-        $("#cargo_weight_unit").val(c5);
-        $("#cargo_weight_k").val(c6);
-        $("#cargo_cubic_k").val(c7);
-        $("#cargo_charge_weight_k").val(c8);
+        $("#cargo_weight_unit").val(c5).change();
+        $("#cargo_weight_l").val(c6);
+        $("#cargo_cubic_l").val(c7);
+        $("#cargo_charge_weight_l").val(c8);
         $("#HBL_Cargo").modal("show")
     });
 
@@ -640,7 +649,7 @@
 
                     .append(createTableBtns()),
 
-                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields("Charge_Details"), $("#Charge_Details").modal("hide"), $("#billing_billing_code").focus()
+                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields("Charge_Details"),     $("#billing_bill_party").val("C").change(), $("#billing_bill_type").val("C").change(), $("#billing_currency_type").val("1").change(), $("#cost_currency_type").val("1").change(), $("#billing_unit_id").val("0").change(), $("#cost_unit_id").val("0").change(), $("#Charge_Details").modal("show"), $("#billing_billing_code").focus()
         }
 
     }), $("#charge_details").on("click", "a.btn-danger", function() {

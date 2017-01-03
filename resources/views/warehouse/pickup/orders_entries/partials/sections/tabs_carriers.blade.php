@@ -4,7 +4,7 @@
     <div title="Carriers">
         <div class="form-horizontal">
             <div class="row">
-                    {!! Form::bsComplete('col-md-4','col-md-7' , 'Carrier', 'carriers_carrier_id', 'carriers_carrier_name', Request::get('term'), ((isset($order_entry) and $order_entry->carriers_carrier_id > 0) ? $order_entry->carriers_carrier->name : null),  'Carriers...') !!}
+                    {!! Form::bsComplete('col-md-4','col-md-7' , 'Carrier', 'carriers_carrier_id', 'carriers_carrier_name', Request::get('term'), ((isset($order_entry) and $order_entry->carriers_carrier_id > 0) ? $order_entry->carrier->name : null),  'Carriers...') !!}
             </div>
             <div class="row">
                 {!! Form::bsComplete('col-md-4','col-md-7' , 'Equipment Type', 'equipment_type_id', 'equipment_type_code',  Request::get('term'), ((isset($order_entry) and $order_entry->equipment_type_id > 0) ? $order_entry->equipment_type->name : null), ' ') !!}

@@ -19,7 +19,9 @@
         {!! Form::bsComplete('col-md-3', 'col-md-9', 'Zip Postal Code', 'shipper_zip_code_id', 'shipper_zip_code_code', Request::get('term'), ((isset($cargo_loader) and $cargo_loader->shipper_zip_code_id > 0) ? $cargo_loader->shipper_zip_code->code : null), 'Zip Code') !!}
     </div>
     <div class="row">
-        <div class="col-md-6"> {!! Form::bsText('col-md-6', 'col-md-6', 'Phone', 'shipper_phone', null, '') !!}</div>
-        <div class="col-md-6">  {!! Form::bsText('col-md-6', 'col-md-6', 'Fax', 'shipper_fax', null, '') !!}</div>
+
+            <div class="col-md-6"> {!! Form::bsText('col-md-6', 'col-md-6', 'Phone', 'shipper_phone', null, '') !!}</div>
+            <div class="col-md-6">  {!! Form::bsText('col-md-6', 'col-md-6', 'Fax', 'shipper_fax', null, '') !!}</div>
+
     </div>
 </fieldset>

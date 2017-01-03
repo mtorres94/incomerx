@@ -29,13 +29,13 @@
             @foreach ($hbl_details->cargo as $detail)
                 <tr id="{{ $detail->line }}">
                 {!! Form::bsRowTd($detail->line, 'resume_line', $detail->line, true) !!}
-                {!! Form::bsRowTd($detail->line, 'resume_marks', $detail->cargo_marks, false) !!}
+                {!! Form::bsRowTd($detail->line, 'resume_marks', strtoupper($detail->cargo_marks), false) !!}
                 {!! Form::bsRowTd($detail->line, 'resume_pieces', $detail->cargo_pieces, false) !!}
-                {!! Form::bsRowTd($detail->line, 'resume_description', $detail->cargo_description, false) !!}
+                {!! Form::bsRowTd($detail->line, 'resume_description', strtoupper($detail->cargo_description), false) !!}
                 {!! Form::bsRowTd($detail->line, 'resume_weight_unit', $detail->cargo_weight_unit, false) !!}
-                {!! Form::bsRowTd($detail->line, 'resume_gross_weight', $detail->cargo_weight_k, false) !!}
-                {!! Form::bsRowTd($detail->line, 'resume_cubic', $detail->cargo_cubic_k, false) !!}
-                {!! Form::bsRowTd($detail->line, 'resume_charge_weight', $detail->cargo_charge_weight_k, false) !!}
+                {!! Form::bsRowTd($detail->line, 'resume_gross_weight', $detail->cargo_weight_l, false) !!}
+                {!! Form::bsRowTd($detail->line, 'resume_cubic', $detail->cargo_cubic_l, false) !!}
+                {!! Form::bsRowTd($detail->line, 'resume_charge_weight', $detail->cargo_charge_weight_l, false) !!}
                 {!! Form::bsRowTd($detail->line, 'resume_container_id', 0, true) !!}
                 {!! Form::bsRowTd($detail->line, 'inserted_id', 0, true) !!}
                 {!! Form::bsRowBtns() !!}

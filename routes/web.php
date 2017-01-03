@@ -89,23 +89,20 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::group(['prefix' => 'export', 'namespace' => 'Export'], function () {
-        Route::group(['prefix' => 'air', 'namespace' => 'AirExport'], function () {
-            Route::resource('step_by_step', 'StepByStepController');
-        });
         Route::group(['prefix' => 'oceans', 'namespace' => 'OceanExport'], function () {
             Route::resource('booking_entries', 'BookingEntryController');
-            Route::resource('bill_of_lading', 'BillOfLadingController');
-            Route::resource('shipment_entries', 'ShipmentEntryController');
-            Route::resource('cargo_loader', 'CargoLoaderController');
-            Route::resource('step_by_step', 'StepByStepController');
-            Route::resource('quotes', 'ExportOceanQuotesController');
+            Route::resource('bill_of_lading', 'EoBillOfLadingController');
+            Route::resource('shipment_entries', 'EoShipmentEntryController');
+            Route::resource('cargo_loader', 'EoCargoLoaderController');
+            Route::resource('step_by_step', 'EoStepByStepController');
+            Route::resource('quotes', 'EoQuotesController');
         });
     });
 
     Route::group(['prefix' => 'import', 'namespace' => 'Import'], function () {
-        Route::group(['prefix' => 'oceans', 'namespace' => 'OceanImport'], function () {
-            Route::resource('shipment_entries', 'ShipmentEntryController');
-            Route::resource('bill_of_lading', 'BillOfLadingController');
+        Route::group(['prefix' => 'oceans', 'namespace' => 'Ocean'], function () {
+            Route::resource('shipment_entries', 'IoShipmentEntryController');
+            Route::resource('bill_of_lading', 'IoBillOfLadingController');
         });
     });
 });

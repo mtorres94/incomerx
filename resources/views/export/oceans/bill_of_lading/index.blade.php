@@ -7,6 +7,7 @@
 @section('scripts')
     {!! $dataTable->scripts() !!}
     <script>
+        preventOpen($('#dataTableBuilder'), '{{ route('eo_bill_of_lading.open') }}', '{{ \Auth::user()->id }}');
         ajaxDelete($('#dataTableBuilder'));
     </script>
 @stop

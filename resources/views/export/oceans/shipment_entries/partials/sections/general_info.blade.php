@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-2">{!! Form::bsText(null, null,'Shipment #', 'code',null, '') !!}</div>
         <div class="col-md-2">{!! Form::bsSelect(null, null, ' Shipment Type', 'shipment_type', array(
-            'O' => 'Consolidation',
+            'C' => 'Consolidation',
             'D' => 'Direct',
         ), 'Type') !!}</div>
         <div class="col-md-2">{!! Form::bsDate(null, null,'Date', 'date_today', null, '') !!}</div>

@@ -13,6 +13,9 @@
 <!-- Form Validation Files -->
 {!! Html::script('js/plugins/formvalidation/formvalidation.min.js') !!}
 
+<!-- Bootstrap Wizard Files -->
+{!! Html::script('js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js') !!}
+
 <!-- Datepicker Files -->
 {!! Html::script('js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') !!}
 
