@@ -689,7 +689,7 @@
             agent_commission: '{{ (isset($bill_of_lading)? $bill_of_lading->agent_commission_p: "") }}',
             agent_amount: '{{ (isset($bill_of_lading)? $bill_of_lading->agent_commission_amount: "") }}',
     forwarding_agent_id: '{{ (isset($bill_of_lading)? $bill_of_lading->forwarding_agent_id: "") }}',
-        forwarding_agent_name: '{{ ((isset($bill_of_lading) and ($bill_of_lading->forwarding_agent_id > 0))? $bill_of_lading->forwarding_agent->name : "") }}',
+        forwarding_agent_name: '{{ ((isset($bill_of_lading) and ($bill_of_lading->forwarding_agent_id > 0))? $bill_of_lading->forwarding_agent->name : "") }}'
             },
             onSelect:function(e,o){
 

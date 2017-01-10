@@ -101,8 +101,14 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'import', 'namespace' => 'Import'], function () {
         Route::group(['prefix' => 'oceans', 'namespace' => 'Ocean'], function () {
-            Route::resource('shipment_entries', 'IoShipmentEntryController');
+            Route::resource('quotes', 'IoQuoteController');
             Route::resource('bill_of_lading', 'IoBillOfLadingController');
+            Route::resource('routing_order', 'IoRoutingOrderController');
+        });
+        Route::group(['prefix' => 'air', 'namespace' => 'Air'], function () {
+            Route::resource('quotes', 'IaQuoteController');
+            Route::resource('bill_of_lading', 'IaBillOfLadingController');
+            Route::resource('routing_order', 'IaRoutingOrderController');
         });
     });
 });

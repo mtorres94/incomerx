@@ -285,7 +285,35 @@ removeEmptyNodes('load-warehouse-details');
         //=============================================
         $("#LoadWarehouse").modal("hide");
     });
+    $('#vessel_yes').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
 
+    $('#vessel_no').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+
+    $('#collect_free').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#insurance').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#stand_by').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#partial').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#spot_rate').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#confirmed').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+    $('#POD_info').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
     $("#warehouse_number").attr("disabled", true);
     $("#billing_customer_name").attr("disabled", true);
     $("#bl_status").val('O').change();

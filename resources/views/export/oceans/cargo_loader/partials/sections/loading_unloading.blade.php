@@ -20,8 +20,8 @@
             <div class="col-md-6"></div>
             <div class="col-md-6"><b> Containerized (Vessel Only)</b></div>
             <div class="col-md-6"></div>
-            <div class="col-md-3">{!! Form::bsCheck('Yes', 'vessel_yes') !!}</div>
-            <div class="col-md-3">{!! Form::bsCheck('No', 'vessel_no') !!}</div>
+            <div class="col-md-3">{!! Form::bsCheck('Yes', 'vessel_yes', (isset($cargo_loader) ? $cargo_loader->vessel_yes : 0)) !!}</div>
+            <div class="col-md-3">{!! Form::bsCheck('No', 'vessel_no', (isset($cargo_loader) ? $cargo_loader->vessel_no : 0)) !!}</div>
         </div>
     </div>
 

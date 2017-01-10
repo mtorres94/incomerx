@@ -47,7 +47,7 @@
                                 {!! Form::bsRowTd($detail->line, 'cargo_type_id', $detail->cargo_type_id, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_type_code', strtoupper(($detail->cargo_type_id >0) ? $detail->cargo_type->code: null), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_commodity_id', $detail->cargo_commodity_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_commodity_name', strtoupper($detail->cargo_commodity_id >0) ? $detail->cargo_commodity->code: null), true) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_commodity_name', strtoupper($detail->cargo_commodity_id >0 ? $detail->cargo_commodity->code: null), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_comments', $detail->cargo_comments, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_hbl_id', "0", true) !!}
                                 {!! Form::bsRowBtns() !!}

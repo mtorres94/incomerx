@@ -44,6 +44,19 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('io_shipment_entries/update_close', ['as' => 'io_shipment_entries.close', 'uses' => 'IoShipmentEntryController@updateClose']);
             Route::post('io_bill_of_lading/verify_open',  ['as' => 'io_bill_of_lading.open',  'uses' => 'IoBillOfLadingController@getOpenStatus']);
             Route::post('io_bill_of_lading/update_close', ['as' => 'io_bill_of_lading.close', 'uses' => 'IoBillOfLadingController@updateClose']);
+            Route::post('io_routing_order/verify_open',  ['as' => 'io_routing_order.open',  'uses' => 'IoRoutingOrderController@getOpenStatus']);
+            Route::post('io_routing_order/update_close', ['as' => 'io_routing_order.close', 'uses' => 'IoRoutingOrderController@updateClose']);
+            Route::post('io_quotes/verify_open',  ['as' => 'io_quotes.open',  'uses' => 'IoQuoteController@getOpenStatus']);
+            Route::post('io_quotes/update_close', ['as' => 'io_quotes.close', 'uses' => 'IoQuoteController@updateClose']);
+        });
+
+        Route::group(['namespace' => 'Air'], function () {
+            Route::post('ia_bill_of_lading/verify_open',  ['as' => 'ia_bill_of_lading.open',  'uses' => 'IaBillOfLadingController@getOpenStatus']);
+            Route::post('ia_bill_of_lading/update_close', ['as' => 'ia_bill_of_lading.close', 'uses' => 'IaBillOfLadingController@updateClose']);
+            Route::post('ia_routing_order/verify_open',  ['as' => 'ia_routing_order.open',  'uses' => 'IaRoutingOrderController@getOpenStatus']);
+            Route::post('ia_routing_order/update_close', ['as' => 'ia_routing_order.close', 'uses' => 'IaRoutingOrderController@updateClose']);
+            Route::post('ia_quotes/verify_open',  ['as' => 'ia_quotes.open',  'uses' => 'IaQuoteController@getOpenStatus']);
+            Route::post('ia_quotes/update_close', ['as' => 'ia_quotes.close', 'uses' => 'IaQuoteController@updateClose']);
         });
 
     });

@@ -19,7 +19,7 @@ class ComponentServiceProvider extends ServiceProvider
         Form::component('bsComplete', 'components.form.complete', ['lbl','col','label','name','tmp','value','tmp_value','placeholder','tab_id','tab_title','route']);
         Form::component('bsFile', 'components.form.file', ['label','name']);
         Form::component('bsMemo', 'components.form.memo', ['lbl','col','label','name','value','rows','placeholder']);
-        Form::component('bsSelect', 'components.form.select', ['lbl','col','label','name','array','placeholder','flag']);
+        Form::component('bsSelect', 'components.form.select', ['lbl','col','label','name','array','placeholder','container','flag']);
         Form::component('bsCheck', 'components.form.check', ['label','name','value']);
         Form::component('bsLabel', 'components.form.chk', ['value', 'label']); // Only for PDF generation
         Form::component('bsDate', 'components.form.date', ['lbl', 'col', 'label','name','value','placeholder']);

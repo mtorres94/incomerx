@@ -85,8 +85,9 @@ class EoStepByStepController extends Controller
             //=========================================================
 
             //SHIPMENT ENTRY CODE
-            $count = EoShipmentEntry::count() + 1;
-            $code= str_pad($count, 6, '0', STR_PAD_LEFT);
+            $last = EoShipmentEntry::orderBy('code','desc')->first();
+            $frmt = $last == null ? 1 : intval(substr($last->code, 4)) + 1;
+            $code = str_pad($frmt, 6, '0', 0);
             $data['code'] = "EOF-".$code;
             $shipment_id= EoShipmentEntry::create($data);
             $data['shipment_id']= $shipment_id->id;
@@ -94,8 +95,9 @@ class EoStepByStepController extends Controller
             EoShipmentEntryHazardous::saveDetail($shipment_id->id, $data);
 
             //CARGO LOADER
-            $count = EoCargoLoader::count() + 1;
-            $code= str_pad($count, 6, '0', STR_PAD_LEFT);
+            $last = EoCargoLoader::orderBy('code','desc')->first();
+            $frmt = $last == null ? 1 : intval(substr($last->code, 4)) + 1;
+            $code = str_pad($frmt, 6, '0', 0);
             $data['code'] = "EOG-".$code;
             $cl= EoCargoLoader::create($data);
             $data['cargo_loader_id']= $cl->id;
@@ -105,9 +107,10 @@ class EoStepByStepController extends Controller
 
 
             // BILL OF LADING (MBL)
-            $count = EoBillOfLading::count() + 1;
-            $bill_of_lading_code= str_pad($count, 6, '0', STR_PAD_LEFT);
-            $data['code'] = "MBL-".$bill_of_lading_code;
+            $last = EoBillOfLading::orderBy('code','desc')->first();
+            $frmt = $last == null ? 1 : intval(substr($last->code, 4)) + 1;
+            $code = str_pad($frmt, 6, '0', 0);
+            $data['code'] = "MBL-".$code;
             $bl= EoBillOfLading::create($data);
             //EoBillOfLadingCargo::saveDetail($bl->id, $data);
             EoBillOfLadingCharge::saveDetail($bl->id, $data);

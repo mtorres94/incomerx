@@ -133,6 +133,7 @@ return [
 
             'bill_of_lading'      => 'Bill of Lading',
             'shipment_entries'      => 'Shipment Entry',
+            'routing_order'      => 'Routing Order',
 
         ]
     ]

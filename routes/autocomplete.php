@@ -87,7 +87,16 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['namespace' => 'Import'], function () {
         Route::group(['namespace' => 'Ocean'], function () {
             Route::get('shipment_entries/autocomplete_import', ['as' => 'shipment_entries.autocomplete_import', 'uses' => 'IoShipmentEntryController@autocomplete_import']);
-
+            Route::get('io_quotes/autocomplete', ['as' => 'io_quotes.autocomplete', 'uses' => 'IoQuoteController@autocomplete']);
+            Route::get('io_quotes/get', ['as' => 'io_quotes.get', 'uses' => 'IoQuoteController@get']);
+            Route::get('io_routing_order/autocomplete', ['as' => 'io_routing_order.autocomplete', 'uses' => 'IoRoutingOrderController@autocomplete']);
+            Route::get('io_routing_order/get', ['as' => 'io_routing_order.get', 'uses' => 'IoRoutingOrderController@get']);
+        });
+        Route::group(['namespace' => 'Air'], function () {
+            Route::get('ia_quotes/autocomplete', ['as' => 'ia_quotes.autocomplete', 'uses' => 'IaQuoteController@autocomplete']);
+            Route::get('ia_quotes/get', ['as' => 'ia_quotes.get', 'uses' => 'IaQuoteController@get']);
+            Route::get('ia_routing_order/autocomplete', ['as' => 'ia_routing_order.autocomplete', 'uses' => 'IaRoutingOrderController@autocomplete']);
+            Route::get('ia_routing_order/get', ['as' => 'ia_routing_order.get', 'uses' => 'IaRoutingOrderController@get']);
         });
     });
 });

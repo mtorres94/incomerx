@@ -24,13 +24,13 @@ class EoBillOfLading extends Model
     {
         $i = 0;
         $a = 0;
-
             while ($a < count($data['cargo_hbl_id'])) {
                 if (isset($data['cargo_hbl_id'][$i])) {
                     if ($data['cargo_hbl_id'][$i] > 0) {
                         EoBillOfLading::where('id', '=', $data['cargo_hbl_id'][$i])->update(['bill_of_lading_id' => $id]);
-                        $a++;
+
                     }
+                    $a++;
                 }
                 $i++;
             }
@@ -57,8 +57,16 @@ class EoBillOfLading extends Model
                             'bl_date' => $data['date_today'],
                             'user_create_id' => Auth::user()->id,
                             'user_open_id' => 0,
+                            'it_number' => $data['it_number'],
+                            'incoterm_type' => $data['incoterm_type'],
                             'user_update_id' => $data['user_update_id'],
                             'shipment_id' => $data['shipment_id'],
+                            'coloader_id' => $data['coloader_id'],
+                            'origin_country_id' => $data['origin_country_id'],
+                            'amount' => $data['amount'],
+                            'insured_value' => $data['insured_value'],
+                            'declared_value' => $data['declared_value'],
+                            'customs_code' => $data['customs_code'],
                             'code' => $data['code'],
                             'hbl_code' => $data['code'],
                             'bl_class' => "2",

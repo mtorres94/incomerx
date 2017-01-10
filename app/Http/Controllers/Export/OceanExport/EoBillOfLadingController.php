@@ -48,8 +48,9 @@ class EoBillOfLadingController extends Controller
     {
         DB::beginTransaction();
             try {
-                $count = EoBillOfLading::count() + 1;
-                $code = str_pad($count, 6, '0', STR_PAD_LEFT);
+                $last = EoBillOfLading::orderBy('code','desc')->first();
+                $frmt = $last == null ? 1 : intval(substr($last->code, 4)) + 1;
+                $code = str_pad($frmt, 6, '0', 0);
                 $bl = $request->all();
                 $bl['code'] = 'MBL-'.$code;
                 $bl['user_create_id'] = Auth::user()->id;

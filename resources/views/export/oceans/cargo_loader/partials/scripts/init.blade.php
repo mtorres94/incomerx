@@ -339,6 +339,14 @@
         $("#cargo_dim_fact").change(function () { calculate_warehouse() });
     });
 
+    $('#vessel_yes').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+
+    $('#vessel_no').change(function() {
+        ((this.checked)? $(this).val("1"): $(this).val("0"))
+    });
+
     $("#cargo_cubic").attr("disabled", true).number(true, 3);
     $("#cargo_volume_weight").attr("disabled", true).number(true, 3);
     $("#cargo_square_foot").attr("disabled", true).number(true, 3);

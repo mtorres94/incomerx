@@ -118,7 +118,12 @@ class WorldLocationController extends Controller
 
             $results = [];
             foreach ($world_locations as $world_location) {
-                $results[] = ['id' => $world_location->id, 'value' => strtoupper($world_location->name)];
+                $results[] = [
+                    'id' => $world_location->id,
+                    'value' => strtoupper($world_location->name),
+                    'country_id' => $world_location->country_id,
+                    'country_name' => ($world_location->country_id > 0 ? $world_location->country->name : "")
+                ];
             }
 
             return response()->json($results);
