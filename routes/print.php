@@ -31,4 +31,22 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('cargo_loader/pdf/{token}/{id}', ['as' => 'cargo_loader.pdf', 'uses' => 'EoCargoLoaderController@pdf']);
         });
     });
+
+    Route::group(['namespace' => 'Import'], function () {
+        Route::group(['namespace' => 'Ocean'], function () {
+            Route::get('io_quotes/pdf/{token}/{id}', ['as' => 'io_quotes.pdf', 'uses' => 'IoQuoteController@pdf']);
+            Route::get('io_routing_order/pdf/{token}/{id}', ['as' => 'io_routing_order.pdf', 'uses' => 'IoRoutingOrderController@pdf']);
+            Route::get('io_bill_of_lading/pre_alert/{token}/{id}', ['as' => 'io_bill_of_lading.pre_alert', 'uses' => 'IoBillOfLadingController@pre_alert']);
+            Route::get('io_bill_of_lading/delivery_order/{token}/{id}', ['as' => 'io_bill_of_lading.delivery_order', 'uses' => 'IoBillOfLadingController@delivery_order']);
+            Route::get('io_bill_of_lading/bill_of_lading/{token}/{id}', ['as' => 'io_bill_of_lading.bill_of_lading', 'uses' => 'IoBillOfLadingController@bill_of_lading']);
+
+        });
+        Route::group(['namespace' => 'Air'], function () {
+            Route::get('ia_quotes/pdf/{token}/{id}', ['as' => 'ia_quotes.pdf', 'uses' => 'IoQuoteController@pdf']);
+            Route::get('ia_routing_order/pdf/{token}/{id}', ['as' => 'ia_routing_order.pdf', 'uses' => 'IaRoutingOrderController@pdf']);
+            Route::get('ia_bill_of_lading/pre_alert/{token}/{id}', ['as' => 'ia_bill_of_lading.pre_alert', 'uses' => 'IaBillOfLadingController@pre_alert']);
+            Route::get('ia_bill_of_lading/delivery_order/{token}/{id}', ['as' => 'ia_bill_of_lading.delivery_order', 'uses' => 'IaBillOfLadingController@delivery_order']);
+            Route::get('ia_bill_of_lading/bill_of_lading/{token}/{id}', ['as' => 'ia_bill_of_lading.bill_of_lading', 'uses' => 'IaBillOfLadingController@bill_of_lading']);
+        });
+    });
 });
