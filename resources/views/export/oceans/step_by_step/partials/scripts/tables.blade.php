@@ -30,7 +30,7 @@
         $("#cost_currency_type").val("1").change();
         $("#billing_unit_id").val("0").change();
         $("#cost_unit_id").val("0").change();
-        for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
+        for (var t = $("#origin_charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
                     n = e.indexOf("display: block;"),
@@ -569,7 +569,7 @@
         total_warehouse_cargo();
     });
 
-    $("#charges-save").click(function() {
+    $("#origin_charges-save").click(function() {
         if($("#billing_billing_code").val()==''){
             show_alert('Insert Billing Code');
             $("#billing_billing_code").focus();

@@ -563,7 +563,7 @@ $("#btn_charge_details").click(function(){
                 $("#Cargo_Details").modal("show"), $("#box_quantity").focus()
     });
 
-    $("#charges-save").click(function() {
+    $("#origin_charges-save").click(function() {
         if($("#billing_billing_code").val()==''){
             show_alert();
             $("#billing_billing_code").focus();
