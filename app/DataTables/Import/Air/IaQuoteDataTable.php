@@ -37,8 +37,13 @@ class IaQuoteDataTable extends CustomDataTable
      */
     public function query()
     {
-        $query = IaQuote::select(['ia_quotes.*']);
+        $query = IaQuote::leftJoin('mst_customers AS c1', 'ia_quotes.shipper_id', '=', 'c1.id')
+            ->leftJoin('mst_customers AS c2', 'ia_quotes.consignee_id', '=', 'c2.id')
+            ->leftJoin('mst_customers AS c3', 'ia_quotes.agent_id', '=', 'c3.id')
+            ->leftJoin('mst_customers AS c5', 'ia_quotes.customer_id', '=', 'c5.id')
+            ->select(['ia_quotes.id','ia_quotes.code','ia_quotes.status',  'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name',  'c5.name AS customer_name']);
         return $this->applyScopes($query);
+
     }
 
     /**
@@ -63,10 +68,12 @@ class IaQuoteDataTable extends CustomDataTable
     protected function getColumns()
     {
         return [
-            'id',
-            // add your columns
-            'created_at',
-            'updated_at',
+            ['data' => 'code',   'name' => 'ia_quotes.code', 'title' => 'Code'],
+            ['data' => 'status',          'name' => 'ia_quotes.status', 'title' => 'Status'],
+            ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
+            ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
+            ['data' => 'agent_name',   'name' => 'c3.name', 'title' => 'Agent'],
+            ['data' => 'customer_name',   'name' => 'c5.name', 'title' => 'Customer'],
         ];
     }
 

@@ -16,24 +16,22 @@ $("#btn_container_details").click(function(){
     $("#container_drop_type").val("02").change();
     $("#container_total_weight_unit").val("L").change();
 });
-$("#btn-origin-origin_charges").click(function(){
+$("#btn-origin-charges").click(function(){
     $("#billing_bill_type").val("C").change();
     $("#billing_bill_party").val("C").change();
     $("#billing_currency_type").val("1").change();
     $("#cost_currency_type").val("1").change();
     $("#billing_unit_id").val("0").change();
     $("#cost_unit_id").val("0").change();
-
 });
 
-$("#btn-destination-origin_charges").click(function(){
-    $("#billing_bill_type").val("C").change();
-    $("#billing_bill_party").val("C").change();
-    $("#billing_currency_type").val("1").change();
-    $("#cost_currency_type").val("1").change();
-    $("#billing_unit_id").val("0").change();
-    $("#cost_unit_id").val("0").change();
-
+$("#btn-destination-charges").click(function(){
+    $("#dest_bill_type").val("C").change();
+    $("#dest_bill_party").val("C").change();
+    $("#dest_billing_currency_type").val("1").change();
+    $("#dest_cost_currency_type").val("1").change();
+    $("#dest_billing_unit_id").val("0").change();
+    $("#dest_cost_unit_id").val("0").change();
 });
 
 
@@ -166,7 +164,7 @@ $("#btn-destination-origin_charges").click(function(){
                 $("#Cargo_Details").modal("show"), $("#box_quantity").focus()
     });
 
-    $("#origin-charges-save").click(function() {
+    $("#origin-charge-save").click(function() {
         if($("#billing_billing_code").val()==''){
 
             $("#billing_billing_code").focus();
@@ -209,6 +207,7 @@ $("#btn-destination-origin_charges").click(function(){
                     b = $("#originChargeDetails"),
                     x = b.find("tbody"),
                     C = $("<tr id=" + (0== charge_id? _ : charge_id) + ">");
+
             C.append(createTableContent('charge_id', (0== charge_id? _: charge_id) , true,d))
                     .append(createTableContent('billing_billing_id', g_1, true, d))
                     .append(createTableContent('billing_billing_code', g_2, false, d))
@@ -246,7 +245,7 @@ $("#btn-destination-origin_charges").click(function(){
         }
 
     }), $("#originChargeDetails").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove(),
+        $(this).closest("tr").remove();
                 origin_values_charges()
     }), $("#originChargeDetails").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
@@ -320,13 +319,12 @@ $("#btn-destination-origin_charges").click(function(){
 
 $("#destination-charge-save").click(function() {
     if($("#dest_billing_code").val()==''){
-
         $("#dest_billing_code").focus();
     }else{
         var t = $("#destinationChargeDetails tbody tr").length + 1,
             _ =  ($("#destinationChargeDetails tbody tr").length == 0 ? 1 : parseInt($("#destinationChargeDetails tbody tr")[$("#destinationChargeDetails tbody tr").length - 1].childNodes[0].textContent) + 1 ),
 
-            charge_id = $("#charge_line").val(),
+            charge_id = $("#dest_charge_line").val(),
             d= (0== charge_id? _: charge_id)-1,
             g_1 = $("#dest_billing_id").val(),
             g_2 = $("#dest_billing_code").val(),
@@ -361,37 +359,37 @@ $("#destination-charge-save").click(function() {
             b = $("#destinationChargeDetails"),
             x = b.find("tbody"),
             C = $("<tr id=" + (0== charge_id? _ : charge_id) + ">");
-        C.append(createTableContent('charge_id', (0== charge_id? _: charge_id) , true,d))
-            .append(createTableContent('billing_billing_id', g_1, true, d))
-            .append(createTableContent('billing_billing_code', g_2, false, d))
-            .append(createTableContent('billing_billing_description', g_3, false, d))
-            .append(createTableContent('billing_vendor_name', g_25, true, d))
-            .append(createTableContent('billing_unit_name', g_9, true, d))
-            .append(createTableContent('billing_bill_type', g_4, false, d))
-            .append(createTableContent('billing_bill_party', g_5, false, d))
-            .append(createTableContent('billing_quantity', g_7, false, d))
-            .append(createTableContent('billing_rate', g_11, true, d))
-            .append(createTableContent('billing_amount', g_12, false, d))
-            .append(createTableContent('billing_currency_type', g_13, true, d))
-            .append(createTableContent('billing_customer_name', g_16, true, d))
-            .append(createTableContent('cost_amount', g_21, false, d))
-            .append(createTableContent('cost_currency_type', g_22, true, d))
-            .append(createTableContent('cost_invoice', g_27, true, d))
-            .append(createTableContent('cost_reference', g_29, true, d))
+        C.append(createTableContent('dest_charge_id', (0== charge_id? _: charge_id) , true,d))
+            .append(createTableContent('dest_billing_id', g_1, true, d))
+            .append(createTableContent('dest_billing_code', g_2, false, d))
+            .append(createTableContent('dest_billing_description', g_3, false, d))
+            .append(createTableContent('dest_vendor_name', g_25, true, d))
+            .append(createTableContent('dest_billing_unit_name', g_9, true, d))
+            .append(createTableContent('dest_bill_type', g_4, false, d))
+            .append(createTableContent('dest_bill_party', g_5, false, d))
+            .append(createTableContent('dest_billing_quantity', g_7, false, d))
+            .append(createTableContent('dest_billing_rate', g_11, true, d))
+            .append(createTableContent('dest_billing_amount', g_12, false, d))
+            .append(createTableContent('dest_billing_currency_type', g_13, true, d))
+            .append(createTableContent('dest_billing_customer_name', g_16, true, d))
+            .append(createTableContent('dest_cost_amount', g_21, false, d))
+            .append(createTableContent('dest_cost_currency_type', g_22, true, d))
+            .append(createTableContent('dest_cost_invoice', g_27, true, d))
+            .append(createTableContent('dest_cost_reference', g_29, true, d))
 
-            .append(createTableContent('billing_notes', g_6, true, d))
-            .append(createTableContent('billing_unit_id', g_8, true, d))
-            .append(createTableContent('billing_exchange_rate', g_14, true, d))
-            .append(createTableContent('billing_customer_id', g_15, true, d))
-            .append(createTableContent('cost_quantity', g_17, true, d))
-            .append(createTableContent('cost_unit_id', g_18, true, d))
-            .append(createTableContent('cost_unit_name', g_19, true, d))
-            .append(createTableContent('cost_rate', g_20, true, d))
-            .append(createTableContent('cost_cost_center', g_28, true, d))
-            .append(createTableContent('cost_exchange_rate', g_23, true, d))
-            .append(createTableContent('billing_vendor_code', g_24, true, d))
-            .append(createTableContent('cost_date', g_26, true, d))
-            .append(createTableContent('billing_increase', g_10, true, d))
+            .append(createTableContent('dest_notes', g_6, true, d))
+            .append(createTableContent('dest_billing_unit_id', g_8, true, d))
+            .append(createTableContent('dest_billing_exchange_rate', g_14, true, d))
+            .append(createTableContent('dest_billing_customer_id', g_15, true, d))
+            .append(createTableContent('dest_cost_quantity', g_17, true, d))
+            .append(createTableContent('dest_cost_unit_id', g_18, true, d))
+            .append(createTableContent('dest_cost_unit_name', g_19, true, d))
+            .append(createTableContent('dest_cost_rate', g_20, true, d))
+            .append(createTableContent('dest_cost_center', g_28, true, d))
+            .append(createTableContent('dest_cost_exchange_rate', g_23, true, d))
+            .append(createTableContent('dest_vendor_code', g_24, true, d))
+            .append(createTableContent('dest_cost_date', g_26, true, d))
+            .append(createTableContent('dest_billing_increase', g_10, true, d))
             .append(createTableBtns()),
 
             0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), destination_values_charges(), cleanModalFields("Destination_Charge_Details"), $("#dest_bill_type").val("C").change(), $("#dest_bill_party").val("C").change(), $("#dest_billing_currency_type").val("1").change(), $("#dest_cost_currency_type").val("1").change(), $("#dest_billing_unit_id").val("0").change(),$("#dest_cost_unit_id").val("0").change(), $("#Destination_Charge_Details").modal("show"), $("#dest_billing_code").focus()
@@ -433,7 +431,7 @@ $("#destination-charge-save").click(function() {
         g29 = t[0].childNodes[28].textContent,
         g30 = t[0].childNodes[29].textContent;
 
-    $("#charge_line").val(g1),
+    $("#dest_charge_line").val(g1),
         $("#dest_billing_id").val(g2),
         $("#dest_billing_code").val(g3),
         $("#dest_billing_description").val(g4),

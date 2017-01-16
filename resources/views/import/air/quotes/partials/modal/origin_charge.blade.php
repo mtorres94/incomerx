@@ -1,4 +1,4 @@
-<div id="Charge_Details" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+<div id="Origin_Charge_Details" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <div class="modal-content">
@@ -19,7 +19,7 @@
                     <div class="col-md-12">  {!! Form::bsMemo(null,null, 'Comments', 'billing_notes', null, 3, '') !!}</div>
                 </div>
                 <legend>Details</legend>
-                <div id="charges_tabs" class="easyui-tabs">
+                <div id="origin_charges_tabs" class="easyui-tabs">
                     <div title="Billing">
                         @include('import.air.quotes.partials.modal.sections.charges.billing')
                     </div>

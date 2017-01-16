@@ -10,18 +10,18 @@ class IaQuoteCargo extends Model
     protected $table = 'ia_quotes_cargo';
 
     protected $fillable = [
-        'id', 'line' ,  'quotes_id', 'cargo_type_id', 'quantity' , 'weight_unit' , 'length' , 'width', 'height' , 'unit_weight', 'total_weight',  'total_cubic', 'charge_weight' , 'rate' , 'cargo_total', 'metric_unit', 'material' , 'pieces' , 'dim_fact', 'vol_weight',  'comments', 'marks' , 'container', 'gross_weight' ];
+        'id', 'line' ,  'quote_id', 'cargo_type_id', 'quantity' , 'weight_unit' , 'length' , 'width', 'height' , 'unit_weight', 'total_weight',  'total_cubic', 'charge_weight' , 'rate' , 'cargo_total', 'metric_unit', 'material' , 'pieces' , 'dim_fact', 'vol_weight',  'comments', 'marks' , 'container', 'gross_weight' ];
     public $timestamps = false;
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
-        DB::table('ia_quotes_cargo')->where('quotes_id', '=', $id)->delete();
+        DB::table('ia_quotes_cargo')->where('quote_id', '=', $id)->delete();
         if (isset($data['cargo_line'])){
 
             while($a < count($data['cargo_line'])){
                 $i++;
                 if(isset($data['cargo_line'][$i])){
                     $obj = new IaQuoteCargo();
-                    $obj->quotes_id = $id;
+                    $obj->quote_id = $id;
                     $obj->line =  $a + 1;
                     $obj-> cargo_type_id = $data['cargo_type_id'][$i];
                     $obj-> quantity = $data['cargo_quantity'][$i];
@@ -53,7 +53,7 @@ class IaQuoteCargo extends Model
 
 
     public static function Search($id){
-        return self::where('quotes_id', $id)->get();
+        return self::where('quote_id', $id)->get();
     }
     public function export_code()
     {

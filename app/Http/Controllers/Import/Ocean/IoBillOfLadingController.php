@@ -13,7 +13,8 @@ use Sass\IoBillOfLadingCargo;
 use Sass\IoBillOfLadingContainer;
 use Sass\IoBillOfLadingDestinationCharge;
 use Sass\IoBillOfLadingOriginCharge;
-use Sass\IoBillOfLadingTransportation;
+
+use Maatwebsite\Excel\Facades\Excel;
 
 class IoBillOfLadingController extends Controller
 {
@@ -208,6 +209,23 @@ class IoBillOfLadingController extends Controller
         } else {
             abort(403);
         }
+    }
+
+    public function excel(Request $request)
+    {
+        Excel::create('bl_excel', function ($excel)  use ($request) {
+            $excel->sheet('bl_excel', function ($sheet) use ($request) {
+                $query = IoBillOfLading::leftJoin('mst_divisions', 'io_bill_of_lading.division_id', '=', 'mst_divisions.id')
+                    ->leftJoin('io_routing_order AS ro', 'io_bill_of_lading.routing_order_id', '=', 'ro.id')
+                    ->leftJoin('mst_customers AS c1', 'io_bill_of_lading.shipper_id', '=', 'c1.id')
+                    ->leftJoin('mst_customers AS c2', 'io_bill_of_lading.consignee_id', '=', 'c2.id')
+                    ->leftJoin('mst_ocean_ports AS p1', 'io_bill_of_lading.port_loading_id', '=', 'p1.id')
+                    ->leftJoin('mst_services AS service', 'io_bill_of_lading.service_id', '=', 'service.id')
+
+                    ->select(['io_bill_of_lading.shipment_code as FILE','ro.code as RO', DB::raw('upper(c2.name) as CLIENTE'), DB::raw('upper(c1.name) as SHIPPER'), DB::raw('upper(io_bill_of_lading.customer_reference) as CUSTOMER_REFERENCE'), DB::raw('space(1) as VOLUMEN'),  DB::raw('upper(p1.name) as PORT_OF_LOADING'), DB::raw('upper(service.name) as SERVICIO'), 'io_bill_of_lading.mbl_number as BOOKING_MBL', 'io_bill_of_lading.departure_date as ETD','io_bill_of_lading.code as HBL', DB::raw('upper(io_bill_of_lading.bill_comments ) as NOVEDADES'), DB::raw('space(1) as ESTADO_DE_EMBARQUE'), DB::raw('space(1) as CONFIRMACION_DE_ZARPE'), DB::raw('space(1) as PREALERTA_FINAL_AGENTE'), DB::raw('space(1) as PREALERTA_FINAL_CLIENTE'), DB::raw('space(1) as DOCUMENTO_EN_SISTEMA'), DB::raw('space(1) as INGRESO_CONTIFICO'), DB::raw('space(1) as AVISO_DE_LLEGADA'), DB::raw('space(1) as FACTURACION'), DB::raw('space(1) as FACTURA_ENVIADA_A_CLIENTE'), DB::raw('space(1) as CAS_HABILITADA'), DB::raw('space(1) as LIQUIDACION_DE_FILE'), DB::raw('space(1) as STATUS_FILE'), DB::raw('space(1) as ENTREGA_DE_BL'), DB::raw('space(1) as ENTREGA_DE_FACTURA'),]);
+                $sheet->fromArray($query->get());
+            });
+        })->download('xlsx');
     }
 
 }

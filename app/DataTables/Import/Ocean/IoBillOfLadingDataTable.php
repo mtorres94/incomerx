@@ -72,8 +72,7 @@ class IoBillOfLadingDataTable extends CustomDataTable
     {
         return [
             ['data' => 'code',   'name' => 'io_bill_of_lading.code', 'title' => 'Code'],
-            ['data' => 'bl_status',          'name' => 'imp_bill_of_lading_oceans.bl_status', 'title' => 'Status'],
-            ['data' => 'division_name',    'name' => 'mst_divisions.name', 'title' => 'Division'],
+            ['data' => 'bl_status',          'name' => 'io_bill_of_lading_oceans.bl_status', 'title' => 'Status'],
             ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
             ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
             ['data' => 'agent_name',   'name' => 'c3.name', 'title' => 'Agent'],

@@ -21,10 +21,10 @@
                 <legend>Details</legend>
                 <div id="destination_charges_tabs" class="easyui-tabs">
                     <div title="Billing">
-                        @include('import.oceans.quotes.partials.modal.sections.destination_charges.billing')
+                        @include('import.air.quotes.partials.modal.sections.destination_charges.billing')
                     </div>
                     <div title="Cost">
-                        @include('import.oceans.quotes.partials.modal.sections.destination_charges.cost')
+                        @include('import.air.quotes.partials.modal.sections.destination_charges.cost')
                     </div>
                 </div>
             </div>

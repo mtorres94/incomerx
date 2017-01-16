@@ -75,7 +75,8 @@
         //===================================
         removeEmptyNodes('container_details');
         removeEmptyNodes('cargo_details');
-        removeEmptyNodes('chargeDetails');
+        removeEmptyNodes('originChargeDetails');
+        removeEmptyNodes('destinationChargeDetails');
 
         calculate_warehouse_details();
         origin_values_charges();
@@ -197,6 +198,31 @@
         }
     });
 
+    $("#dest_bill_party").change(function () {
+        var a= $("#dest_bill_party").val();
+        switch(a){
+            case "S":   $("#dest_customer_name").val( $("#shipper_name").val() );
+                $("#dest_customer_id").val( $("#shipper_id").val() );
+                $("#dest_customer_name").attr("readonly", true);
+                break;
+
+            case "C":   $("#dest_customer_name").val( $("#consignee_name").val() );
+                $("#dest_customer_id").val( $("#consignee_id").val() );
+                $("#dest_customer_name").attr("readonly", true);
+                break;
+
+            case "T":   $("#dest_customer_name").val( $("#third_party_name").val() );
+                $("#dest_customer_id").val( $("#third_party_id").val() );
+                $("#dest_customer_name").attr("readonly", true);
+                break;
+
+            case "O":   $("#dest_customer_name").val("");
+                $("#dest_customer_id").val(0);
+                $("#dest_customer_name").attr("readonly", false);
+                break;
+        }
+    });
+
     //=================================================================
     $("#billing_unit_id").change(function () {
         var id = $(this).val();
@@ -219,6 +245,32 @@
             type: 'GET',
             success: function (e) {
                 $("#cost_unit_name").val(e[0].code);
+
+            }
+        });
+    });
+
+    $("#dest_billing_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#dest_billing_unit_name").val(e[0].code);
+
+            }
+        });
+    });
+
+    $("#dest_cost_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#dest_cost_unit_name").val(e[0].code);
 
             }
         });

@@ -16,7 +16,7 @@ $("#btn_container_details").click(function(){
     $("#container_drop_type").val("02").change();
     $("#container_total_weight_unit").val("L").change();
 });
-$("#btn-origin_charges").click(function(){
+$("#btn-origin-charges").click(function(){
     $("#billing_bill_type").val("C").change();
     $("#billing_bill_party").val("C").change();
     $("#billing_currency_type").val("1").change();
@@ -24,6 +24,14 @@ $("#btn-origin_charges").click(function(){
     $("#billing_unit_id").val("0").change();
     $("#cost_unit_id").val("0").change();
 
+});
+$("#btn-destination-charges").click(function(){
+    $("#dest_bill_type").val("C").change();
+    $("#dest_bill_party").val("C").change();
+    $("#dest_billing_currency_type").val("1").change();
+    $("#dest_cost_currency_type").val("1").change();
+    $("#dest_billing_unit_id").val("0").change();
+    $("#dest_cost_unit_id").val("0").change();
 });
 
 
@@ -156,13 +164,13 @@ $("#btn-origin_charges").click(function(){
                 $("#Cargo_Details").modal("show"), $("#box_quantity").focus()
     });
 
-    $("#origin_charges-save").click(function() {
+    $("#origin-charge-save").click(function() {
         if($("#billing_billing_code").val()==''){
 
             $("#billing_billing_code").focus();
         }else{
-            var t = $("#chargeDetails tbody tr").length + 1,
-                    _ =  ($("#chargeDetails tbody tr").length == 0 ? 1 : parseInt($("#chargeDetails tbody tr")[$("#chargeDetails tbody tr").length - 1].childNodes[0].textContent) + 1 ),
+            var t = $("#originChargeDetails tbody tr").length + 1,
+                    _ =  ($("#originChargeDetails tbody tr").length == 0 ? 1 : parseInt($("#originChargeDetails tbody tr")[$("#originChargeDetails tbody tr").length - 1].childNodes[0].textContent) + 1 ),
 
                     charge_id = $("#charge_line").val(),
                     d= (0== charge_id? _: charge_id)-1,
@@ -196,7 +204,7 @@ $("#btn-origin_charges").click(function(){
                     g_28 = $("#cost_cost_center").val().toUpperCase(),
                     g_29 = $("#cost_reference").val().toUpperCase(),
 
-                    b = $("#chargeDetails"),
+                    b = $("#originChargeDetails"),
                     x = b.find("tbody"),
                     C = $("<tr id=" + (0== charge_id? _ : charge_id) + ">");
             C.append(createTableContent('charge_id', (0== charge_id? _: charge_id) , true,d))
@@ -232,13 +240,13 @@ $("#btn-origin_charges").click(function(){
                     .append(createTableContent('billing_increase', g_10, true, d))
                     .append(createTableBtns()),
 
-                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), values_charges(), cleanModalFields("Charge_Details"), $("#billing_bill_type").val("C").change(), $("#billing_bill_party").val("C").change(), $("#billing_currency_type").val("1").change(), $("#cost_currency_type").val("1").change(), $("#billing_unit_id").val("0").change(),$("#cost_unit_id").val("0").change(), $("#Charge_Details").modal("show"), $("#billing_billing_code").focus()
+                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), origin_values_charges(), cleanModalFields("Origin_Charge_Details"), $("#billing_bill_type").val("C").change(), $("#billing_bill_party").val("C").change(), $("#billing_currency_type").val("1").change(), $("#cost_currency_type").val("1").change(), $("#billing_unit_id").val("0").change(),$("#cost_unit_id").val("0").change(), $("#Origin_Charge_Details").modal("show"), $("#billing_billing_code").focus()
         }
 
-    }), $("#chargeDetails").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove(),
-                values_charges()
-    }), $("#chargeDetails").on("click", "a.btn-default", function() {
+    }), $("#originChargeDetails").on("click", "a.btn-danger", function() {
+        $(this).closest("tr").remove();
+                origin_values_charges()
+    }), $("#originChargeDetails").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
                 g1 = t[0].childNodes[0].textContent,
                 g2 = t[0].childNodes[1].textContent,
@@ -305,8 +313,160 @@ $("#btn-origin_charges").click(function(){
                 $("#cost_date").val(g29),
                 $("#billing_increase").val(g30),
 
-                $("#Charge_Details").modal("show"), $("#billing_billing_code").focus()
+                $("#Origin_Charge_Details").modal("show"), $("#billing_billing_code").focus()
     });
+
+$("#destination-charge-save").click(function() {
+    if($("#dest_billing_code").val()==''){
+        $("#dest_billing_code").focus();
+    }else{
+        var t = $("#destinationChargeDetails tbody tr").length + 1,
+            _ =  ($("#destinationChargeDetails tbody tr").length == 0 ? 1 : parseInt($("#destinationChargeDetails tbody tr")[$("#destinationChargeDetails tbody tr").length - 1].childNodes[0].textContent) + 1 ),
+
+            charge_id = $("#dest_charge_line").val(),
+            d= (0== charge_id? _: charge_id)-1,
+            g_1 = $("#dest_billing_id").val(),
+            g_2 = $("#dest_billing_code").val(),
+            g_3 = $("#dest_billing_description").val(),
+            g_4 = $("#dest_bill_type").val(),
+            g_5 = $("#dest_bill_party").val(),
+            g_6 = $("#dest_notes").val(),
+            g_7 = $("#dest_billing_quantity").val(),
+            g_8 = $("#dest_billing_unit_id").val(),
+            g_9 = $("#dest_billing_unit_name").val().toUpperCase(),
+            g_10 = $("#dest_billing_increase").val(),
+            g_11 = $("#dest_billing_rate").val(),
+            g_12 = $("#dest_billing_amount").val(),
+            g_13 = $("#dest_billing_currency_type").val(),
+            g_14 = $("#dest_billing_exchange_rate").val(),
+            g_15 = $("#dest_customer_id").val(),
+            g_16 = $("#dest_customer_name").val().toUpperCase(),
+            g_17 = $("#dest_cost_quantity").val(),
+            g_18 = $("#dest_cost_unit_id").val(),
+            g_19 = $("#dest_cost_unit_name").val().toUpperCase(),
+            g_20 = $("#dest_cost_rate").val(),
+            g_21 = $("#dest_cost_amount").val(),
+            g_22 = $("#dest_cost_currency_type").val(),
+            g_23 = $("#dest_cost_exchange_rate").val(),
+            g_24 = $("#dest_vendor_code").val(),
+            g_25 = $("#dest_vendor_name").val().toUpperCase(),
+            g_26 = $("#dest_cost_date").val(),
+            g_27 = $("#dest_cost_invoice").val().toUpperCase(),
+            g_28 = $("#dest_cost_cost_center").val().toUpperCase(),
+            g_29 = $("#dest_cost_reference").val().toUpperCase(),
+
+            b = $("#destinationChargeDetails"),
+            x = b.find("tbody"),
+            C = $("<tr id=" + (0== charge_id? _ : charge_id) + ">");
+        C.append(createTableContent('dest_charge_id', (0== charge_id? _: charge_id) , true,d))
+            .append(createTableContent('dest_billing_id', g_1, true, d))
+            .append(createTableContent('dest_billing_code', g_2, false, d))
+            .append(createTableContent('dest_billing_description', g_3, false, d))
+            .append(createTableContent('dest_vendor_name', g_25, true, d))
+            .append(createTableContent('dest_billing_unit_name', g_9, true, d))
+            .append(createTableContent('dest_bill_type', g_4, false, d))
+            .append(createTableContent('dest_bill_party', g_5, false, d))
+            .append(createTableContent('dest_billing_quantity', g_7, false, d))
+            .append(createTableContent('dest_billing_rate', g_11, true, d))
+            .append(createTableContent('dest_billing_amount', g_12, false, d))
+            .append(createTableContent('dest_billing_currency_type', g_13, true, d))
+            .append(createTableContent('dest_billing_customer_name', g_16, true, d))
+            .append(createTableContent('dest_cost_amount', g_21, false, d))
+            .append(createTableContent('dest_cost_currency_type', g_22, true, d))
+            .append(createTableContent('dest_cost_invoice', g_27, true, d))
+            .append(createTableContent('dest_cost_reference', g_29, true, d))
+
+            .append(createTableContent('dest_notes', g_6, true, d))
+            .append(createTableContent('dest_billing_unit_id', g_8, true, d))
+            .append(createTableContent('dest_billing_exchange_rate', g_14, true, d))
+            .append(createTableContent('dest_billing_customer_id', g_15, true, d))
+            .append(createTableContent('dest_cost_quantity', g_17, true, d))
+            .append(createTableContent('dest_cost_unit_id', g_18, true, d))
+            .append(createTableContent('dest_cost_unit_name', g_19, true, d))
+            .append(createTableContent('dest_cost_rate', g_20, true, d))
+            .append(createTableContent('dest_cost_center', g_28, true, d))
+            .append(createTableContent('dest_cost_exchange_rate', g_23, true, d))
+            .append(createTableContent('dest_vendor_code', g_24, true, d))
+            .append(createTableContent('dest_cost_date', g_26, true, d))
+            .append(createTableContent('dest_billing_increase', g_10, true, d))
+            .append(createTableBtns()),
+
+            0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), destination_values_charges(), cleanModalFields("Destination_Charge_Details"), $("#dest_bill_type").val("C").change(), $("#dest_bill_party").val("C").change(), $("#dest_billing_currency_type").val("1").change(), $("#dest_cost_currency_type").val("1").change(), $("#dest_billing_unit_id").val("0").change(),$("#dest_cost_unit_id").val("0").change(), $("#Destination_Charge_Details").modal("show"), $("#dest_billing_code").focus()
+    }
+
+}), $("#destinationChargeDetails").on("click", "a.btn-danger", function() {
+    $(this).closest("tr").remove(),
+        destination_values_charges()
+}), $("#destinationChargeDetails").on("click", "a.btn-default", function() {
+    var t = $(this).closest("tr"),
+        g1 = t[0].childNodes[0].textContent,
+        g2 = t[0].childNodes[1].textContent,
+        g3 = t[0].childNodes[2].textContent,
+        g4 = t[0].childNodes[3].textContent,
+        g5 = t[0].childNodes[4].textContent,
+        g6 = t[0].childNodes[5].textContent,
+        g7 = t[0].childNodes[6].textContent,
+        g8 = t[0].childNodes[7].textContent,
+        g9 = t[0].childNodes[8].textContent,
+        g10 = t[0].childNodes[9].textContent,
+        g11 = t[0].childNodes[10].textContent,
+        g12 = t[0].childNodes[11].textContent,
+        g13 = t[0].childNodes[12].textContent,
+        g14 = t[0].childNodes[13].textContent,
+        g15 = t[0].childNodes[14].textContent,
+        g16 = t[0].childNodes[15].textContent,
+        g17 = t[0].childNodes[16].textContent,
+        g18 = t[0].childNodes[17].textContent,
+        g19 = t[0].childNodes[18].textContent,
+        g20 = t[0].childNodes[19].textContent,
+        g21 = t[0].childNodes[20].textContent,
+        g22 = t[0].childNodes[21].textContent,
+        g23 = t[0].childNodes[22].textContent,
+        g24 = t[0].childNodes[23].textContent,
+        g25 = t[0].childNodes[24].textContent,
+        g26 = t[0].childNodes[25].textContent,
+        g27 = t[0].childNodes[26].textContent,
+        g28 = t[0].childNodes[27].textContent,
+        g29 = t[0].childNodes[28].textContent,
+        g30 = t[0].childNodes[29].textContent;
+
+    $("#dest_charge_line").val(g1),
+        $("#dest_billing_id").val(g2),
+        $("#dest_billing_code").val(g3),
+        $("#dest_billing_description").val(g4),
+        $("#dest_vendor_name").val(g5),
+        $("#dest_billing_unit_name").val(g6),
+
+        $("#dest_bill_type").val(g7).change(),
+        $("#dest_bill_party").val(g8).change(),
+        $("#dest_billing_quantity").val(g9),
+        $("#dest_billing_rate").val(g10),
+        $("#dest_billing_amount").val(g11),
+        $("#dest_billing_currency_type").val(g12).change(),
+        $("#dest_customer_name").val(g13),
+        $("#dest_cost_amount").val(g14),
+        $("#dest_cost_currency_type").val(g15).change(),
+        $("#dest_cost_invoice").val(g16),
+        $("#dest_cost_reference").val(g17),
+
+        $("#dest_billing_notes").val(g18),
+        $("#dest_billing_unit_id").val(g19).change(),
+        $("#dest_billing_exchange_rate").val(g20),
+        $("#dest_customer_id").val(g21).change(),
+        $("#dest_cost_quantity").val(g22),
+        $("#dest_cost_unit_id").val(g23).change(),
+        $("#dest_cost_unit_name").val(g24),
+
+        $("#dest_cost_rate").val(g25),
+        $("#dest_cost_cost_center").val(g26),
+        $("#dest_cost_exchange_rate").val(g27),
+        $("#dest_billing_vendor_code").val(g28),
+        $("#dest_cost_date").val(g29),
+        $("#dest_billing_increase").val(g30),
+
+        $("#Destination_Charge_Details").modal("show"), $("#billing_billing_code").focus()
+});
+
 
 
 </script>

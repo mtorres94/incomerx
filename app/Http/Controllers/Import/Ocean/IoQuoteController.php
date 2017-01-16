@@ -12,6 +12,8 @@ use Sass\Http\Requests;
 use Sass\IoQuote;
 use Sass\IoQuoteCargo;
 use Sass\IoQuoteCharge;
+use Sass\IoQuoteDestinationCharge;
+use Sass\IoQuoteOriginCharge;
 
 class IoQuoteController extends Controller
 {
@@ -53,11 +55,12 @@ class IoQuoteController extends Controller
             $quotes['code']='IOQ-'.$quote_code;
             $quotes['user_create_id'] = Auth::user()->id;
             $quotes['user_update_id'] = Auth::user()->id;
-
+            //dd($quotes);
             $imp=IoQuote::create($quotes);
             $id = $imp->id;
             IoQuoteCargo::saveDetail($id, $quotes);
-            IoQuoteCharge::saveDetail($id, $quotes);
+            IoQuoteOriginCharge::saveDetail($id, $quotes);
+            IoQuoteDestinationCharge::saveDetail($id, $quotes);
         } catch (ValidationException $e) {
             DB::rollback();
         }
@@ -112,7 +115,8 @@ class IoQuoteController extends Controller
             $quotes['user_update_id'] = Auth::user()->id;
 
             IoQuoteCargo::saveDetail($id, $quotes);
-            IoQuoteCharge::saveDetail($id, $quotes);
+            IoQuoteOriginCharge::saveDetail($id, $quotes);
+            IoQuoteDestinationCharge::saveDetail($id, $quotes);
 
         } catch (ValidationException $e) {
             DB::rollback();
@@ -137,6 +141,7 @@ class IoQuoteController extends Controller
             try {
                 $quote = IoQuote::findOrFail($id);
                 return \PDF::loadView('import.oceans.quotes.pdf', compact('quote','type'))->stream($quote->code.'.pdf');
+                #return view('import.oceans.quotes.pdf', compact('quote','type'));
             } catch (ModelNotFoundException $e) {
                 abort(404);
             }
@@ -238,10 +243,10 @@ class IoQuoteController extends Controller
     public function get(Request $request)
     {
         if ($request->ajax()) {
-            $charges = IoQuoteCharge::select(['io_quotes_charge.*'])
+            $charges = IoQuoteOriginCharge::select(['io_quote_origin_charges.*'])
                 ->where(function ($query) use ($request) {
                     $quote_id = $request->get('id');
-                    $query->orWhere('io_quotes_charge.quotes_id', '=', $quote_id );
+                    $query->orWhere('io_quote_origin_charges.quote_id', '=', $quote_id );
                 })->get();
 
             $results = [];

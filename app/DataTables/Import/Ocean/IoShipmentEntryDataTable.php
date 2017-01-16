@@ -3,11 +3,11 @@
 namespace Sass\DataTables\Import\Ocean;
 
 use Sass\DataTables\CustomDataTable;
-use Sass\IoQuote;
+use Sass\IoShipmentEntry;
 use Sass\User;
 use Yajra\Datatables\Services\DataTable;
 
-class IoQuoteDataTable extends CustomDataTable
+class IoShipmentEntryDataTable extends CustomDataTable
 {
     /**
      * Display ajax response.
@@ -18,13 +18,11 @@ class IoQuoteDataTable extends CustomDataTable
     {
         return $this->datatables
             ->eloquent($this->query())
-            ->addColumn('action', function ($quotes) {
+            ->addColumn('action', function ($shipment_entries) {
                 return $this->groupButton(
-                    $quotes,
-                    'import.oceans.quotes',
-                    [
-                        ['route' => 'io_quotes.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF'],
-                    ]);
+                    $shipment_entries,
+                    'import.oceans.shipment_entries',null
+                );
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);
@@ -37,13 +35,14 @@ class IoQuoteDataTable extends CustomDataTable
      */
     public function query()
     {
-        $query = IoQuote::leftJoin('mst_customers AS c1', 'io_quotes.shipper_id', '=', 'c1.id')
-            ->leftJoin('mst_customers AS c2', 'io_quotes.consignee_id', '=', 'c2.id')
-            ->leftJoin('mst_customers AS c3', 'io_quotes.agent_id', '=', 'c3.id')
-            ->leftJoin('mst_customers AS c5', 'io_quotes.customer_id', '=', 'c5.id')
-            ->select(['io_quotes.id','io_quotes.code','io_quotes.quote_status',  'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name',  'c5.name AS customer_name']);
+        $query = IoShipmentEntry::leftJoin('mst_divisions', 'io_shipment_entries.division_id', '=', 'mst_divisions.id')
+            ->leftJoin('mst_customers AS c1', 'io_shipment_entries.shipper_id', '=', 'c1.id')
+            ->leftJoin('mst_customers AS c2', 'io_shipment_entries.consignee_id', '=', 'c2.id')
+            ->leftJoin('mst_customers AS c3', 'io_shipment_entries.agent_id', '=', 'c3.id')
+            ->leftJoin('mst_ocean_ports AS c4', 'io_shipment_entries.port_loading_id', '=', 'c4.id')
+            ->leftJoin('mst_ocean_ports AS c5', 'io_shipment_entries.port_unloading_id', '=', 'c5.id')
+            ->select(['io_shipment_entries.*','mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS port_loading_name', 'c5.name AS port_unloading_name']);
         return $this->applyScopes($query);
-
     }
 
     /**
@@ -56,7 +55,7 @@ class IoQuoteDataTable extends CustomDataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->ajax('')
-                    ->addAction(['width' => 'auto'])
+                    ->addAction(['width' => '80px'])
                     ->parameters($this->getBuilderParameters());
     }
 
@@ -68,12 +67,13 @@ class IoQuoteDataTable extends CustomDataTable
     protected function getColumns()
     {
         return [
-            ['data' => 'code',   'name' => 'io_quotes.code', 'title' => 'Code'],
-            ['data' => 'quote_status',          'name' => 'io_quotes.quote_status', 'title' => 'Status'],
+            ['data' => 'code',   'name' => 'io_shipment_entries.code', 'title' => 'Code'],
+            ['data' => 'division_name',    'name' => 'mst_divisions.name', 'title' => 'Division'],
             ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
             ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
-            ['data' => 'agent_name',   'name' => 'c3.name', 'title' => 'Agent'],
-            ['data' => 'customer_name',   'name' => 'c5.name', 'title' => 'Customer'],
+
+            ['data' => 'port_loading_name',   'name' => 'c4.name', 'title' => 'Port Loading'],
+            ['data' => 'port_unloading_name',   'name' => 'c5.name', 'title' => 'Port Unloading'],
         ];
     }
 

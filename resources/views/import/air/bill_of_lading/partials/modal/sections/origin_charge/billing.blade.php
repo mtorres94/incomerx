@@ -9,7 +9,7 @@
     <div class="col-md-2">{!! Form::bsText(null, null, 'Amount', 'origin_bill_amount', null, '0.000') !!}</div>
     <div class="col-md-2">{!! Form::bsSelect(null, null, 'Currency', 'origin_bill_currency_type',Sass\Currency::all()->lists('code', 'id'),  ' ')
      !!}</div>
-    <div class="col-md-2">{!! Form::bsText(null, null, 'Exchange Rate', 'origin_bill_exchange_rate', null, '0.00') !!}</div>
+    <div class="col-md-1">{!! Form::bsText(null, null, 'Xch R.', 'origin_bill_exchange_rate', null, '0.00') !!}</div>
     <div class="col-md-12">{!! Form::bsComplete(null, null, 'Customer', 'origin_customer_id', 'origin_customer_name', Request::get('term'),null, 'Customers...') !!}
     </div>
 

@@ -1,5 +1,12 @@
 <script type="text/javascript">
-
+    $("#btn-charges-origin").click(function(){
+        $("origin_bill_unit_id").val("").change();
+        $("origin_cost_unit_id").val("").change();
+        $("origin_bill_type").val("C").change();
+        $("origin_bill_party").val("C").change();
+        $("origin_cost_currency_type").val("1").change();
+        $("origin_billing_currency_type").val("1").change();
+    });
     $("#btn_box_details").click(function(){
         $("#box_quantity").val(1);
         $("#box_metric_unit").val("I").change();
@@ -519,7 +526,7 @@ $("#container-save").click(function() {
                         .append(createTableContent('billing_increase', g_10, true, d))
                         .append(createTableBtns()),
 
-                            0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields("Origin_Charges"), $("#Origin_Charges").modal("show"), $("#origin_billing_code").focus(), values_charges()
+                            0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields("Origin_Charges"), $("#Origin_Charges").modal("show"),   $("origin_bill_unit_id").val("").change(), $("origin_cost_unit_id").val("").change(), $("origin_bill_type").val("C").change(), $("origin_bill_party").val("C").change(), $("origin_cost_currency_type").val("1").change(),  $("origin_billing_currency_type").val("1").change(), $("#origin_billing_code").focus(), values_charges()
                 }
 
             }), $("#origin_charge").on("click", "a.btn-danger", function() {

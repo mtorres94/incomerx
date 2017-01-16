@@ -187,9 +187,11 @@
                     <td></td>
                     <td align="center" valign="center"><p></p></td>
                 </tr>
-                <tr >
-
+                <tr>
                     <td width="10%" ><p class="document_number"><strong>DELIVERY BY</strong></p></td>
+                </tr>
+                <tr>
+                    <td width="10%"></td>
                     <td width="5%"></td>
                     <td width="30%" align="center"  class="footer-sign-td"><p><strong>NAME</strong></p></td>
                     <td width="5%"  ></td>
@@ -199,12 +201,14 @@
                     <td align="center" valign="center"><p></p></td>
                     <td width="5%"></td>
                     <td align="center" valign="center"><p></p></td>
-                    <td></td>
+                    <td width="5%"></td>
                     <td align="center" valign="center"><p></p></td>
                 </tr>
-                <tr >
-
+                <tr>
                     <td width="10%" ><p class="document_number"><strong>RECEIVED BY</strong></p></td>
+                </tr>
+                <tr>
+                    <td width="10%"></td>
                     <td width="5%"></td>
                     <td width="30%" align="center"  class="footer-sign-td"><p><strong>NAME</strong></p></td>
                     <td width="5%"  ></td>

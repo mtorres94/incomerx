@@ -37,14 +37,14 @@
             $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
         }
         $("#multiline_cargo_quantity").focus();
-    }), $("#btn-charges").click(function() {
+    }), $("#btn-origin_charges").click(function() {
         $("#tmp_billing_bill_party").val("C").change();
         $("#tmp_billing_bill_type").val("C").change();
         $("#tmp_billing_currency_type").val("1").change();
         $("#tmp_cost_currency_type").val("1").change();
         $("#tmp_billing_unit_id").val("0").change();
         $("#tmp_cost_unit_id").val("0").change();
-        for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
+        for (var t = $("#origin_charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style");
             if (e === undefined) {
@@ -285,7 +285,7 @@
                     .append(createTableBtns()), x.append(C)
             }
         calculate_warehouse_details(), cleanModalFields('cargo-multiline-warehouse'), $("#multiline_cargo_quantity").val(""),$("#multiline_cargo_pieces").val(1),$("#multiline_cargo_location_bin_id").val(0).change(),$("#multiline_cargo_location_id").val(0).change(), $("#multiline_cargo_weight_unit_measurement_code").val("L").change(), $("#multiline_cargo_metric_unit_measurement_code").val("I").change(), $("#multiline_cargo_dim_fact").val("I").change(), $("#multiline_cargo_quantity").focus()
-    }), $("#charges-save").click(function() {
+    }), $("#origin_charges-save").click(function() {
         /*var t = $("#charge-details tbody tr").length + 1,
                 d= t - 1,*/
         var t = ($("#charge-details  tbody tr").length == 0 ? 1 : parseInt($("#charge-details  tbody tr")[$("#charge-details  tbody tr").length - 1].childNodes[0].textContent) + 1 ),

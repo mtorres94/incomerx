@@ -37,8 +37,11 @@ class IoRoutingOrderDataTable extends CustomDataTable
      */
     public function query()
     {
-        $query = IoRoutingOrder::select(['io_routing_order.id','io_routing_order.code']);;
-
+        $query = IoRoutingOrder::leftJoin('mst_customers AS c1', 'io_routing_order.shipper_id', '=', 'c1.id')
+            ->leftJoin('mst_customers AS c2', 'io_routing_order.consignee_id', '=', 'c2.id')
+            ->leftJoin('mst_ocean_ports AS p1', 'io_routing_order.port_loading_id', '=', 'p1.id')
+            ->leftJoin('mst_ocean_ports AS p2', 'io_routing_order.port_unloading_id', '=', 'p2.id')
+            ->select(['io_routing_order.id','io_routing_order.code','io_routing_order.status',  'c1.name AS shipper_name', 'c2.name AS consignee_name', 'p1.name as port_loading_name', 'p2.name as port_unloading_name' ]);
         return $this->applyScopes($query);
     }
 
@@ -65,7 +68,11 @@ class IoRoutingOrderDataTable extends CustomDataTable
     {
         return [
             ['data' => 'code',   'name' => 'io_routing_order.code', 'title' => 'Code'],
-
+            ['data' => 'status',          'name' => 'io_routing_order.status', 'title' => 'Status'],
+            ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
+            ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
+            ['data' => 'port_loading_name',   'name' => 'p1.name', 'title' => 'Loading Port'],
+            ['data' => 'port_unloading_name',   'name' => 'p2.name', 'title' => 'Unloading Port'],
         ];
     }
 

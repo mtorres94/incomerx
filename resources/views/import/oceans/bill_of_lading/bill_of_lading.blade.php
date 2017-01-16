@@ -133,11 +133,11 @@
                 <td>{{ strtoupper($bill_of_lading->port_loading) }}</td>
             </tr>
             <tr>
-                <td width="12%"><strong>Foreign Port: </strong></td>
+                <td width="10%"><strong>Foreign Port: </strong></td>
                 <td>{{ strtoupper($bill_of_lading->port_unloading) }}</td>
-                <td width="12%"><strong>Place of Delivery: </strong></td>
+                <td width="15%"><strong>Place of Delivery: </strong></td>
                 <td>{{ strtoupper($bill_of_lading->place_delivery) }}</td>
-                <td width="10%"><strong>Type of Move: </strong></td>
+                <td width="15%"><strong>Type of Move: </strong></td>
                 <td width="10%">{{ strtoupper($bill_of_lading->type_move) }}</td>
                 <td width="10%"><strong>Type: </strong></td>
                 <td width="10%">{{ ($bill_of_lading->bl_type == 'C' ? "COLLECTED": "PREPAID") }}</td>
@@ -174,6 +174,12 @@
                     </tr>
                 @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6" style="text-align: right"><strong>TOTAL (USD):</strong> </td>
+                        <td colspan="2"><strong>{{  $bill_of_lading->origin_bill  }}</strong></td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>

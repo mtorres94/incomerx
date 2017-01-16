@@ -51,7 +51,7 @@
             }
         }
 
-        for ( t = $("#charges_tabs").find("div"), l = 0; l < t.length; l++) {
+        for ( t = $("#origin_charges_tabs").find("div"), l = 0; l < t.length; l++) {
             a = t[l];
             e = $(a).attr("style");
             if (e === undefined) {
@@ -61,13 +61,26 @@
                 $(a).removeAttr("style"); n >= 0 && $(a).attr("style", "display: block;"); o >= 0 && $(a).attr("style", "display: none;")
             }
         }
+
+        for ( t = $("#destination_charges_tabs").find("div"), l = 0; l < t.length; l++) {
+            a = t[l];
+            e = $(a).attr("style");
+            if (e === undefined) {
+            } else {
+                n = e.indexOf("display: block;");
+                o = e.indexOf("display: none;");
+                $(a).removeAttr("style"); n >= 0 && $(a).attr("style", "display: block;"); o >= 0 && $(a).attr("style", "display: none;")
+            }
+        }
         //===================================
         removeEmptyNodes('container_details');
         removeEmptyNodes('cargo_details');
-        removeEmptyNodes('chargeDetails');
+        removeEmptyNodes('originChargeDetails');
+        removeEmptyNodes('destinationChargeDetails');
 
         calculate_warehouse_details();
-        values_charges();
+        origin_values_charges();
+        destination_values_charges();
         //===================================
         $("#box_cargo_type_id").change(function () {
             var id = $(this).val();
@@ -139,11 +152,17 @@
         $("#box_total_weight").attr("readonly", true);
         $("#cargo_total").attr("readonly", true);
         $("#box_total_cubic").attr("readonly", true);
-        $("#billing_quantity").change(function() { charges_details() });
-        $("#cost_quantity").change(function() { charges_details() });
-        $("#billing_rate").change(function() { charges_details() });
-        $("#cost_rate").change(function() { charges_details() });
-        $("#billing_increase").change(function() { charges_details() });
+        $("#billing_quantity").change(function() { origin_charges_details() });
+        $("#cost_quantity").change(function() { origin_charges_details() });
+        $("#billing_rate").change(function() { origin_charges_details() });
+        $("#cost_rate").change(function() { origin_charges_details() });
+        $("#billing_increase").change(function() { origin_charges_details() });
+        $("#dest_billing_quantity").change(function() { destination_charges_details() });
+        $("#dest_cost_quantity").change(function() { destination_charges_details() });
+        $("#dest_billing_rate").change(function() { destination_charges_details() });
+        $("#dest_cost_rate").change(function() { destination_charges_details() });
+        $("#dest_billing_increase").change(function() { destination_charges_details() });
+
 
 
 
@@ -174,6 +193,33 @@
         }
     });
 
+
+
+    $("#dest_bill_party").change(function () {
+        var a= $("#dest_bill_party").val();
+        switch(a){
+            case "S":   $("#dest_customer_name").val( $("#shipper_name").val() );
+                $("#dest_customer_id").val( $("#shipper_id").val() );
+                $("#dest_customer_name").attr("readonly", true);
+                break;
+
+            case "C":   $("#dest_customer_name").val( $("#consignee_name").val() );
+                $("#dest_customer_id").val( $("#consignee_id").val() );
+                $("#dest_customer_name").attr("readonly", true);
+                break;
+
+            case "T":   $("#dest_customer_name").val( $("#third_party_name").val() );
+                $("#dest_customer_id").val( $("#third_party_id").val() );
+                $("#dest_customer_name").attr("readonly", true);
+                break;
+
+            case "O":   $("#dest_customer_name").val("");
+                $("#dest_customer_id").val(0);
+                $("#dest_customer_name").attr("readonly", false);
+                break;
+        }
+    });
+
     //=================================================================
     $("#billing_unit_id").change(function () {
         var id = $(this).val();
@@ -196,6 +242,32 @@
             type: 'GET',
             success: function (e) {
                 $("#cost_unit_name").val(e[0].code);
+
+            }
+        });
+    });
+
+    $("#dest_billing_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#dest_billing_unit_name").val(e[0].code);
+
+            }
+        });
+    });
+
+    $("#dest_cost_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#dest_cost_unit_name").val(e[0].code);
 
             }
         });

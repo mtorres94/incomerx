@@ -46,10 +46,10 @@
             </div>
         </div>
     </div>
-    <div class="row">
 
         <div class="col-xs-6">
-            <table  class="table resume-table">
+            <div class="row row-padding">
+            <table  class="table header-table">
                 <tr>
                     <td><strong>Para:</strong></td>
                     <td>{{ strtoupper((isset($quote) and ($quote->consignee_id > 0))? $quote->consignee->name : "") }}</td>
@@ -70,11 +70,13 @@
         </div>
     </div>
     <div align="center" class="row">
-        <p><strong> Cotizaci&oacute;n de Importaci&oacute;n Mar&iacute;tima</strong></p>
+        <div class="col-xs-12">
+            <p><strong> Cotizaci&oacute;n de Importaci&oacute;n Mar&iacute;tima</strong></p>
+        </div>
     </div>
     <div class="row">
         <div class="col-xs-6">
-            <table  class="table resume-table">
+            <table  class="table header-table">
                 <tr>
                     <td><strong>Condici&oacute;n:</strong></td>
                     <td>Embarque mar&iacute;timo - OCEAN</td>
@@ -100,7 +102,7 @@
             </table>
         </div>
         <div class="col-xs-6">
-            <table  class="table resume-table">
+            <table  class="table header-table">
                 <tr>
                     <td><strong>Origen:</strong></td>
                     <td>{{ strtoupper((isset($quote) and ($quote->place_receipt_id > 0)) ? $quote->place_receipt->name : "" )}}</td>
@@ -112,13 +114,29 @@
             </table>
         </div>
     </div>
+    <div align="left" class="row">
+        <div class="col-xs-12">
+            <p><strong> ORIGIN CHARGES</strong></p>
+        </div>
+    </div>
     <div class="row row padding">
         <div class="col-xs-12">
             <table class="table table-condensed">
-
+                <thead>
+                    <tr>
+                        <td><strong>BILLING CODE</strong></td>
+                        <td><strong>TYPE</strong></td>
+                        <td><strong>QTY.</strong></td>
+                        <td><strong>UNIT</strong></td>
+                        <td><strong>RATE</strong></td>
+                        <td><strong>CURRENCY</strong></td>
+                        <td><strong>AMOUNT</strong></td>
+                        <td><strong>NOTE</strong></td>
+                    </tr>
+                </thead>
                 <tbody>
-                @foreach($quote->charge as $detail)
-                    @if($detail->billing->billing_type == "")
+                @foreach($quote->origin_charge as $detail)
+
                     <tr>
                         <td width="30%">{{ strtoupper($detail->billing_id > 0 ? $detail->billing->name : "") }}</td>
                         <td width="10%">{{ ($detail->bill_type == "C" ? "COLLECTED" : "PREPAID") }}</td>
@@ -130,7 +148,7 @@
                         <td width="20%">{{ $detail->billing_notes }}</td>
 
                     </tr>
-                    @endif
+
                 @endforeach
                 </tbody>
                 <tfoot>
@@ -144,7 +162,7 @@
     </div>
     <div class="row">
         <div class="col-xs-6">
-            <table class="table resume-table">
+            <table class="table header-table">
                 <tr>
                     <td><strong>Tr&aacute;nsito: </strong></td>
                     <td >{{ $quote->transit_day }} d&iacute;as aproximadamente</td>
@@ -156,7 +174,7 @@
             </table>
         </div>
         <div class="col-xs-6">
-            <table class="table resume-table">
+            <table class="table header-table">
                 <tr>
                     <td><strong>Frecuencia: </strong></td>
                     <td >{{ ($quote->frequency == "1"? "DAILY" : ($quote->frequency == "2")? "WEEKLY" : ($quote->frequency == "3" ? "BIWEEKLY" :  ($quote->frequency == "4"? "MONTHLY" : "ANNUALLY")) ) }}</td>
@@ -164,13 +182,29 @@
             </table>
         </div>
     </div>
+    <div align="left" class="row">
+        <div class="col-xs-12">
+            <p><strong> DESTINATION CHARGES</strong></p>
+        </div>
+    </div>
     <div class="row row padding">
         <div class="col-xs-12">
             <table class="table table-condensed">
-
+                <thead>
+                <tr>
+                    <td><strong>BILLING CODE</strong></td>
+                    <td><strong>TYPE</strong></td>
+                    <td><strong>QTY.</strong></td>
+                    <td><strong>UNIT</strong></td>
+                    <td><strong>RATE</strong></td>
+                    <td><strong>CURRENCY</strong></td>
+                    <td><strong>AMOUNT</strong></td>
+                    <td><strong>NOTE</strong></td>
+                </tr>
+                </thead>
                 <tbody>
-                @foreach($quote->charge as $detail)
-                    @if($detail->billing->billing_type == "D")
+                @foreach($quote->destination_charge as $detail)
+
                     <tr>
                         <td width="30%">{{ strtoupper($detail->billing_id > 0 ? $detail->billing->name : "") }}</td>
                         <td width="10%">{{ ($detail->bill_type == "C" ? "COLLECTED" : "PREPAID") }}</td>
@@ -181,13 +215,13 @@
                         <td width="10%">{{ $detail->billing_amount }}</td>
                         <td width="20%">{{ $detail->billing_notes }}</td>
                     </tr>
-                    @endif
+
                 @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
                     <td colspan="6" style="text-align: right"><strong>TOTAL (USD):</strong> </td>
-                    <td colspan="2"><strong>{{  $quote->sum_bill  }}</strong></td>
+                    <td colspan="2"><strong>{{  $quote->dest_sum_bill  }}</strong></td>
                 </tr>
                 </tfoot>
             </table>

@@ -70,51 +70,108 @@
             </div>
         </div>
     </div>
-
+<br>
     <div class="row">
         <div class="col-xs-12">
-            <table class="table resume-table">
+            <table class="table header-table">
                 <tr>
-                    <td width="20%"><strong>MANIFEST: </strong></td>
+                    <td width="20%"><strong>SHIPMENT #: </strong></td>
                     <td width="30%">{{ strtoupper($bill_of_lading->shipment_code) }}</td>
                     <td width="20%"><strong>ETD: </strong></td>
                     <td width="30%">{{ $bill_of_lading->departure_date }}</td>
                 </tr>
                 <tr>
-                    <td width="20%"><strong>MBL: </strong></td>
+                    <td width="20%"><strong>MAWB: </strong></td>
                     <td width="30%">{{ strtoupper($bill_of_lading->mbl_number) }}</td>
                     <td width="20%"><strong>ETA: </strong></td>
                     <td width="30%">{{ $bill_of_lading->arrival_date }}</td>
                 </tr>
                 <tr>
-                    <td width="20%"><strong>HBL: </strong></td>
+                    <td width="20%"><strong>HAWB: </strong></td>
                     <td width="30%">{{ strtoupper($bill_of_lading->code )}}</td>
-                    <td width="20%"><strong>ORIGIN: </strong></td>
-                    <td width="30%">{{ strtoupper($bill_of_lading->port_loading) }}</td>
+
                 </tr>
                 <tr>
                     <td width="20%"><strong>CARRIER: </strong></td>
                     <td width="30%">{{ strtoupper($bill_of_lading->carrier_id >0 ? $bill_of_lading->carrier->name : "" )}}</td>
-                    <td width="20%"><strong>DESTINATION: </strong></td>
-                    <td width="30%">{{ strtoupper($bill_of_lading->port_unloading) }}</td>
+                    <td width="20%"><strong>ORIGIN</strong></td>
+                    <td width="30%">{{ strtoupper($bill_of_lading->port_loading) }}</td>
                 </tr>
                 <tr>
                     <td width="20%"><strong>FLIGHT: </strong></td>
                     <td width="30%">{{ strtoupper($bill_of_lading->voyage_name)}}</td>
-                    <td width="20%"><strong>PIECES: </strong></td>
-                    <td width="30%">{{ $bill_of_lading->total_pieces }}</td>
+                    <td width="20%"><strong>DESTINATION: </strong></td>
+                    <td width="30%">{{ strtoupper($bill_of_lading->port_unloading) }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+<br>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table header-table">
+                <tr>
+                    <td width="20%"><strong>CUSTOMS: </strong></td>
+                    <td width="30%"></td>
+                    <td width="20%"><strong>DATA AVAILABLE: </strong></td>
+                    <td width="30%"></td>
                 </tr>
                 <tr>
-                    <td width="20%"><strong>BL TYPE: </strong></td>
-                    <td width="30%">{{ ($bill_of_lading->bl_type == 'C' ? "COLLECTED": "PREPAID")}}</td>
-                    <td width="20%"><strong>ACT WEIGHT: </strong></td>
-                    <td width="30%">{{ strtoupper($bill_of_lading->total_gross_weight) }}</td>
+                    <td width="20%"><strong>GO #: </strong></td>
+                    <td width="30%"></td>
+                    <td width="20%"><strong>FREE TIME EXPIRES: </strong></td>
+                    <td width="30%"></td>
                 </tr>
                 <tr>
-                    <td width="20%"><strong>COMMODITY: </strong></td>
-                    <td width="30%">{{ ($bill_of_lading->total_commodity_id > 0 ? $bill_of_lading->total_commodity->name : "")}}</td>
-                    <td width="20%"><strong>VOLUME WEIGHT: </strong></td>
+                    <td width="20%"><strong>IT #: </strong></td>
+                    <td width="30%"></td>
+                    <td width="20%"><strong>FREIGHT LOCATION: </strong></td>
+                    <td width="30%">{{ strtoupper($bill_of_lading->location_id  >0 ? $bill_of_lading->location->name : "" )}}</td>
+
+                </tr>
+                <tr>
+                    <td width="20%"><strong>IT DATE: </strong></td>
+                    <td width="30%"></td>
+                    <td width="20%"><strong>IT PORT</strong></td>
+                    <td width="30%">{{ strtoupper($bill_of_lading->port_loading) }}</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table header-table">
+                <tr>
+                    <td width="20%"><strong>Pieces: </strong></td>
+                    <td width="30%">{{ strtoupper($bill_of_lading->total_pieces) }}</td>
+                    <td width="20%"><strong>Fax</strong></td>
+                    <td width="30%">{{ $bill_of_lading->total_ }}</td>
+                </tr>
+                <tr>
+                    <td width="20%"><strong>Act. Weight: </strong></td>
                     <td width="30%">{{ strtoupper($bill_of_lading->total_gross_weight) }}</td>
+                    <td width="20%"><strong>Phone: </strong></td>
+                    <td width="30%">{{ $bill_of_lading->location_phone }}</td>
+                </tr>
+                <tr>
+                    <td width="20%"><strong>Chg. Weight: </strong></td>
+                    <td width="30%">{{ strtoupper($bill_of_lading->total_amount )}}</td>
+                    <td width="20%"><strong>Contact: </strong></td>
+                    <td width="30%"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table header-table">
+                <tr>
+                    <td width="10%"><strong>COMMENTS: </strong></td>
+                    <td width="90%">{{ strtoupper($bill_of_lading->bill_comments) }}</td>
                 </tr>
             </table>
         </div>

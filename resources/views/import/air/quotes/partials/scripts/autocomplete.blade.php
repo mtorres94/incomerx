@@ -487,4 +487,22 @@
             $("#container_drop_name_img").removeClass("img-display").addClass("img-none"),$("#container_drop_name_spn").removeClass("img-none").addClass("img-display")
         }).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#container_drop_id").val(0)}).blur(function(){var e=$("#container_drop_id").val()});
     });
+
+
+    $("#dest_billing_code").marcoPolo({url:"{{ route('billing_codes.autocomplete') }}",formatItem:function(e,o){return e.code + '|'+ e.value},onSelect:function(e,o){$("#dest_billing_id").val(e.id),$(this).val(e.code), $("#dest_billing_description").val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#dest_billing_code_img").removeClass("img-none").addClass("img-display"),$("#dest_billing_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#dest_billing_code_img").removeClass("img-display").addClass("img-none"),$("#dest_billing_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#dest_billing_id").val(0)}).blur(function(){var e=$("#dest_billing_id").val();0==e&&($(this).val(""))});
+
+
+
+    $("#dest_customer_name").marcoPolo({url:"{{ route('customers.autocomplete') }}",formatItem:function(e,o){return e.value},onSelect:function(e,o){$("#dest_customer_id").val(e.id),$(this).val(e.value)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#dest_customer_name_img").removeClass("img-none").addClass("img-display"),$("#dest_customer_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#dest_customer_name_img").removeClass("img-display").addClass("img-none"),$("#dest_customer_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#dest_customer_id").val(0)}).blur(function(){var e=$("#dest_customer_id").val();0==e&&($(this).val(""))});
+
+
+    $("#dest_vendor_name").marcoPolo({url:"{{ route('vendors.autocomplete') }}",formatItem:function(e,o){return e.name},onSelect:function(e,o){$("#dest_vendor_code").val(e.id),$(this).val(e.name)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#dest_vendor_name_img").removeClass("img-none").addClass("img-display"),$("#dest_vendor_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#dest_vendor_name_img").removeClass("img-display").addClass("img-none"),$("#dest_vendor_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#dest_vendor_code").val(0)}).blur(function(){var e=$("#dest_vendor_code").val();0==e&&($(this).val(""))});
+
+
+    $("#dest_cost_unit_name").marcoPolo({url:"{{ route('units.autocomplete') }}",formatItem:function(e,o){return e.value},onSelect:function(e,o){$("#dest_cost_unit_id").val(e.id),$(this).val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#dest_cost_unit_name_img").removeClass("img-none").addClass("img-display"),$("#dest_cost_unit_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#dest_cost_unit_name_img").removeClass("img-display").addClass("img-none"),$("#dest_cost_unit_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#dest_cost_unit_id").val(0)}).blur(function(){var e=$("#dest_cost_unit_id").val()});
+
+
+    $("#dest_billing_unit_name").marcoPolo({url:"{{ route('units.autocomplete') }}",formatItem:function(e,o){return e.value},onSelect:function(e,o){$("#dest_billing_unit_id").val(e.id),$(this).val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#dest_billing_unit_name_img").removeClass("img-none").addClass("img-display"),$("#dest_billing_unit_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#dest_billing_unit_name_img").removeClass("img-display").addClass("img-none"),$("#dest_billing_unit_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#dest_billing_unit_id").val(0)}).blur(function(){var e=$("#dest_billing_unit_id").val()});
+
+
 </script>

@@ -47,7 +47,7 @@
         $("#total_weight").val(total_weight);
         $("#total_cubic").val(total_cubic);
     }
-    function charges_details()
+    function origin_charges_details()
     {
         var rb = $("#billing_rate").val(),
             ib= $("#billing_increase").val(),
@@ -61,8 +61,46 @@
         $("#billing_amount").val(ab), $("#cost_amount").val(ac);
     }
 
-    function values_charges() {
-        var tr = $('#chargeDetails tbody tr'),
+    function destination_charges_details()
+    {
+        var rb = $("#dest_billing_rate").val(),
+            ib= $("#dest_billing_increase").val(),
+            qb = $("#dest_billing_quantity").val(),
+            rc = $("#dest_cost_rate").val(),
+            qc = $("#dest_cost_quantity").val();
+
+        var ab = (rb * qb) + ((rb * qb) * (ib/100) ),
+            ac = rc * qc;
+
+        $("#dest_billing_amount").val(ab), $("#dest_cost_amount").val(ac);
+    }
+
+
+    function destination_values_charges() {
+        var tr = $('#destinationChargeDetails tbody tr'),
+            total_bill = 0,
+            total_cost = 0,
+            total_profit = 0,
+            total_profit_percent = 0;
+
+        for (var a=0; a < tr.length; a++) {
+            var bill = parseFloat(tr[a].childNodes[10].textContent),
+                cost = parseFloat(tr[a].childNodes[13].textContent),
+                profit = bill - cost,
+                profit_percent = parseFloat((profit/bill)*100).toFixed(3);
+            total_bill = total_bill + bill;
+            total_cost = total_cost + cost;
+            total_profit = total_profit + profit;
+            total_profit_percent = total_profit_percent + profit_percent;
+        }
+
+        $("#dest_sum_bill").val(total_bill);
+        $("#dest_sum_cost").val(total_cost);
+        $("#dest_sum_profit").val(total_profit);
+        $("#dest_sum_profit_percent").val(parseFloat((total_profit/total_bill)*100).toFixed(3));
+    }
+    function origin_values_charges() {
+        var tr = $('#originChargeDetails tbody tr'),
             total_bill = 0,
             total_cost = 0,
             total_profit = 0,

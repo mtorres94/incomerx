@@ -5,24 +5,24 @@ namespace Sass;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class IaQuoteCharge extends Model
+class IaQuoteOriginCharge extends Model
 {
-    protected $table = "ia_quotes_charge";
+    protected $table = "ia_quote_origin_charges";
 
     protected $fillable = [
-        'id', 'quotes_id','line', 'billing_id', 'bill_type', 'bill_party','billing_quantity','billing_description', 'billing_rate', 'billing_amount', 'billing_currency_type', 'billing_customer_id', 'cost_amount', 'cost_currency_type', 'cost_invoice', 'cost_reference', 'billing_notes', 'billing_unit_id', 'billing_exchange_rate', 'cost_quantity', 'cost_unit_id', 'cost_rate', 'cost_center', 'cost_exchange_rate', 'billing_vendor_code', 'cost_date', 'billing_increase' ];
+        'id', 'quote_id','line', 'billing_id', 'bill_type', 'bill_party','billing_quantity','billing_description', 'billing_rate', 'billing_amount', 'billing_currency_type', 'billing_customer_id', 'cost_amount', 'cost_currency_type', 'cost_invoice', 'cost_reference', 'billing_notes', 'billing_unit_id', 'billing_exchange_rate', 'cost_quantity', 'cost_unit_id', 'cost_rate', 'cost_center', 'cost_exchange_rate', 'billing_vendor_code', 'cost_date', 'billing_increase' ];
     public $timestamps= false;
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
-        DB::table('ia_quotes_charge')->where('quotes_id', '=', $id)->delete();
+        DB::table('ia_quote_origin_charges')->where('quote_id', '=', $id)->delete();
         if (isset($data['charge_id'])){
 
             while($a < count($data['charge_id'])){
                 $i++;
                 if (isset($data['charge_id'][$i])){
-                    $obj = new IaQuoteCharge();
+                    $obj = new IaQuoteOriginCharge();
 
-                    $obj->quotes_id = $id;
+                    $obj->quote_id = $id;
                     $obj->line=  $a + 1;
                     $obj-> billing_id = $data['billing_billing_id'][$i];
                     $obj-> bill_type = $data['billing_bill_type'][$i];
@@ -57,7 +57,7 @@ class IaQuoteCharge extends Model
 
 
     public static function Search($id){
-        return self::where('quotes_id', $id)->get();
+        return self::where('quote_id', $id)->get();
     }
     public function billing()
     {

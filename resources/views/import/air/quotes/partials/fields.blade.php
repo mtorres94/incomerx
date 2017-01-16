@@ -60,7 +60,8 @@
 <!-- Modal forms section -->
 @section('modals')
     @include('import.air.quotes.partials.modal.cargo_details')
-    @include('import.air.quotes.partials.modal.charge_details')
+    @include('import.oceans.quotes.partials.modal.origin_charge')
+    @include('import.oceans.quotes.partials.modal.destination_charge')
 
 @stop
 

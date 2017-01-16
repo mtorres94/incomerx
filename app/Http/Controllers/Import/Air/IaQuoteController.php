@@ -11,6 +11,8 @@ use Sass\Http\Requests;
 use Sass\IaQuote;
 use Sass\IaQuoteCargo;
 use Sass\IaQuoteCharge;
+use Sass\IaQuoteDestinationCharge;
+use Sass\IaQuoteOriginCharge;
 
 class IaQuoteController extends Controller
 {
@@ -56,7 +58,8 @@ class IaQuoteController extends Controller
             $imp=IaQuote::create($quotes);
             $id = $imp->id;
             IaQuoteCargo::saveDetail($id, $quotes);
-            IaQuoteCharge::saveDetail($id, $quotes);
+            IaQuoteOriginCharge::saveDetail($id, $quotes);
+            IaQuoteDestinationCharge::saveDetail($id, $quotes);
         } catch (ValidationException $e) {
             DB::rollback();
         }
@@ -107,11 +110,13 @@ class IaQuoteController extends Controller
 
             $quotes = $request->all();
             $sent = IaQuote::findorfail($id);
+
             $sent->update($quotes);
             $quotes['user_update_id'] = Auth::user()->id;
 
             IaQuoteCargo::saveDetail($id, $quotes);
-            IaQuoteCharge::saveDetail($id, $quotes);
+            IaQuoteOriginCharge::saveDetail($id, $quotes);
+            IaQuoteDestinationCharge::saveDetail($id, $quotes);
 
         } catch (ValidationException $e) {
             DB::rollback();

@@ -1,7 +1,8 @@
 <?php
 
-namespace Sass\DataTables;
+namespace Sass\DataTables\Import\Air;
 
+use Sass\DataTables\CustomDataTable;
 use Sass\IaBillOfLading;
 use Sass\User;
 use Yajra\Datatables\Services\DataTable;
@@ -23,8 +24,8 @@ class IaBillOfLadingDataTable extends CustomDataTable
                     'import.air.bill_of_lading',
                     [
                         ['route' => 'ia_bill_of_lading.pre_alert',   'icon' => 'icon-file-pdf', 'name' => 'Pre Alert'],
-                        ['route' => 'ia_bill_of_lading.ia_delivery_order',   'icon' => 'icon-file-pdf', 'name' => 'Delivery Order'],
-                        ['route' => 'ia_bill_of_lading.ia_bill_of_lading',   'icon' => 'icon-file-pdf', 'name' => 'Bill of Lading'],
+                        ['route' => 'ia_bill_of_lading.delivery_order',   'icon' => 'icon-file-pdf', 'name' => 'Delivery Order'],
+                        ['route' => 'ia_bill_of_lading.bill_of_lading',   'icon' => 'icon-file-pdf', 'name' => 'Bill of Lading'],
                     ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
@@ -72,7 +73,6 @@ class IaBillOfLadingDataTable extends CustomDataTable
         return [
             ['data' => 'code',   'name' => 'ia_bill_of_lading.code', 'title' => 'Code'],
             ['data' => 'bl_status',          'name' => 'ia_bill_of_lading.bl_status', 'title' => 'Status'],
-            ['data' => 'division_name',    'name' => 'mst_divisions.name', 'title' => 'Division'],
             ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
             ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
             ['data' => 'agent_name',   'name' => 'c3.name', 'title' => 'Agent'],

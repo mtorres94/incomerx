@@ -26,7 +26,7 @@
 
 
 
-        for (var t = $("#origin_charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
+        for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
                 n = e.indexOf("display: block;"),
