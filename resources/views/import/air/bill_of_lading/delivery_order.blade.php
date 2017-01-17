@@ -154,11 +154,11 @@
                 @foreach($bill_of_lading->cargo as $detail)
                     <tr>
                         <td>{{ $bill_of_lading->code }}</td>
-                        <td>{{ $bill_of_lading->marks }}</td>
+                        <td>{{ strtoupper( $detail->marks)  }}</td>
                         <td></td>
-                        <td>{{ $bill_of_lading->pieces }}</td>
-                        <td>{{ $bill_of_lading->description }}</td>
-                        <td>{{ $bill_of_lading->grossw }}</td>
+                        <td>{{ $detail->pieces }}</td>
+                        <td>{{ strtoupper($detail->description) }}</td>
+                        <td>{{ $detail->grossw }}</td>
                     </tr>
                 @endforeach
                 </tbody>

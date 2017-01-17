@@ -110,7 +110,7 @@
                     <p>{{ strtoupper($bill_of_lading->notify_id > 0 ? $bill_of_lading->notify->name : "") }}</p>
                     <p>{{ strtoupper($bill_of_lading->notify_address) }}</p>
                     <p>{{ strtoupper($bill_of_lading->notify_city) }} {{ ($bill_of_lading->notify_state_id > 0) ? ', '.strtoupper($bill_of_lading->notify_state->name) : "" }} {{ ($bill_of_lading->notify_zip_code_id > 0) ? ', '.strtoupper($bill_of_lading->notify_zip_code->code) : ""  }}</p>
-                    <p>Phone: {{ $bill_of_lading->notify->phone }} / Fax: {{ $bill_of_lading->notify->fax }}</p>
+                    <p>Phone: {{ ($bill_of_lading->notify_id > 0 ? $bill_of_lading->notify->phone : "")  }} / Fax: {{ ($bill_of_lading->notify_id > 0 ? $bill_of_lading->notify->fax : "") }}</p>
                 </div>
             </div>
         </div>

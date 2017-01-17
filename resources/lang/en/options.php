@@ -130,11 +130,14 @@ return [
     ],
     'import' => [
         'oceans'  => [
-
             'bill_of_lading'      => 'Bill of Lading',
-            'shipment_entries'      => 'Shipment Entry',
             'routing_order'      => 'Routing Order',
-
+            'quotes'      => 'Quotes',
+        ],
+         'air'  => [
+            'bill_of_lading'      => 'Airwaybill',
+            'routing_order'      => 'Routing Order',
+            'quotes'      => 'Quotes',
         ]
     ]
 ];

@@ -62,32 +62,30 @@
                 }
             });
         });
-
-        $("#billing_customer_name").attr("disabled", true);
-        $("#billing_bill_party").change(function () {
-            var a= $("#billing_bill_party").val();
-            switch(a){
-                case "S":   $("#billing_customer_name").val( $("#shipper_name").val() );
-                    $("#billing_customer_id").val( $("#shipper_id").val() );
-                    $("#billing_customer_name").attr("readonly", true);
-                    break;
-
-                case "C":   $("#billing_customer_name").val( $("#consignee_name").val() );
-                    $("#billing_customer_id").val( $("#consignee_id").val() );
-                    $("#billing_customer_name").attr("readonly", true);
-                    break;
-
-
-                case "O":   $("#billing_customer_name").val("");
-                    $("#billing_customer_id").val(0);
-                    $("#billing_customer_name").attr("readonly", false);
-                    break;
-            }
-
-        });
-
-
     });
+
+    $("#billing_bill_party").change(function () {
+        var a= $("#billing_bill_party").val();
+        switch(a){
+            case "S":   $("#billing_customer_name").val( $("#shipper_name").val() );
+                $("#billing_customer_id").val( $("#shipper_id").val() ).change();
+                $("#billing_customer_name").attr("readonly", true);
+                break;
+
+            case "C":   $("#billing_customer_name").val( $("#consignee_name").val() );
+                $("#billing_customer_id").val( $("#consignee_id").val() ).change();
+                $("#billing_customer_name").attr("readonly", true);
+                break;
+
+
+            case "O":   $("#billing_customer_name").val("");
+                $("#billing_customer_id").val("0").change();
+                $("#billing_customer_name").attr("readonly", false);
+                break;
+        }
+        });
+    $("#billing_bill_party").val("C").change();
+
     //=========================================
     $("#quote_code").change(function () {
         var id = $("#quote_id").val();

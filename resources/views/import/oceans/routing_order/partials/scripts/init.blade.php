@@ -62,8 +62,8 @@
                 }
             });
         });
+    });
 
-        $("#billing_customer_name").attr("disabled", true);
         $("#billing_bill_party").change(function () {
             var a= $("#billing_bill_party").val();
             switch(a){
@@ -79,15 +79,16 @@
 
 
                 case "O":   $("#billing_customer_name").val("");
-                    $("#billing_customer_id").val(0);
+                    $("#billing_customer_id").val("0");
                     $("#billing_customer_name").attr("readonly", false);
                     break;
             }
-
+            console.log("sdfsdf");
         });
+    $("#billing_bill_party").val("C").change();
 
 
-    });
+
     //=========================================
     $("#quote_code").change(function () {
         var id = $("#quote_id").val();
@@ -103,7 +104,7 @@
                     n = $("#chargeDetails"),
                     t = n.find("tbody"),
                     r = 0;
-                while (e[r] != '') {
+                while (e[r].line != "" ) {
                     var C = $("<tr id=" + (d + 1) + " >");
                     C.append(createTableContent('charge_id', (d + 1), true, d))
                         .append(createTableContent('billing_billing_id', e[r].billing_id, true, d))

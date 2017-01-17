@@ -252,6 +252,7 @@ class IoQuoteController extends Controller
             $results = [];
             foreach ($charges as $charge) {
                 $results[] = [
+                    'line' => $charge->line,
                     'billing_id' => $charge->billing_id,
                     'billing_code' =>  strtoupper($charge->billing_id > 0 ? $charge->billing->code : ""),
                     'billing_description'                 => strtoupper($charge->billing_description),

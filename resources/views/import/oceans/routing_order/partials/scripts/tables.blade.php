@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    $("#btn-origin_charges").click(function() {
+    $("#btn-charges").click(function() {
         $("#billing_bill_party").val("C").change();
         $("#billing_bill_type").val("C").change();
         $("#billing_currency_type").val("1").change();
@@ -155,7 +155,7 @@
             $("#billing_unit_id").val(g17).change(),
             $("#billing_unit_name").val(g18),
             $("#billing_exchange_rate").val(g19),
-            $("#billing_customer_id").val(g20).change(),
+            $("#billing_customer_id").val(g20),
             $("#cost_quantity").val(g21),
             $("#cost_unit_id").val(g22).change(),
             $("#cost_unit_name").val(g23),

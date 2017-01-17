@@ -176,8 +176,8 @@
         <div class="col-xs-6">
             <table class="table header-table">
                 <tr>
-                    <td><strong>Frecuencia: </strong></td>
-                    <td >{{ ($quote->frequency == "1"? "DAILY" : ($quote->frequency == "2")? "WEEKLY" : ($quote->frequency == "3" ? "BIWEEKLY" :  ($quote->frequency == "4"? "MONTHLY" : "ANNUALLY")) ) }}</td>
+                    <td width="15%"><strong>Frecuencia: </strong></td>
+                    <td width="35%">{{ ($quote->frequency == "1"? "DAILY" : ($quote->frequency == "2")? "WEEKLY" : ($quote->frequency == "3" ? "BIWEEKLY" :  ($quote->frequency == "4"? "MONTHLY" : "ANNUALLY")) ) }}</td>
                 </tr>
             </table>
         </div>

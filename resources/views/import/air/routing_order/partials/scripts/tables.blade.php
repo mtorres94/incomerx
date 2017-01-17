@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    $("#btn-origin_charges").click(function() {
+    $("#btn-charges").click(function() {
         $("#billing_bill_party").val("C").change();
         $("#billing_bill_type").val("C").change();
         $("#billing_currency_type").val("1").change();
@@ -15,7 +15,7 @@
         }
     });
 
-    $("#origin_charges-save").click(function() {
+    $("#charges-save").click(function() {
 
         if($("#billing_billing_code").val()==''){
             $("#billing_billing_code").focus();
@@ -139,13 +139,14 @@
             $("#billing_billing_id").val(g2),
             $("#billing_billing_code").val(g3),
             $("#billing_billing_description").val(g4),
+            $("#billing_customer_id").val(g20).change(),
+            $("#billing_customer_name").val(g11),
             $("#billing_bill_type").val(g5).change(),
             $("#billing_bill_party").val(g6).change(),
             $("#billing_quantity").val(g7),
             $("#billing_rate").val(g8),
             $("#billing_amount").val(g9),
             $("#billing_currency_type").val(g10).change(),
-            $("#billing_customer_name").val(g11),
             $("#cost_amount").val(g12),
             $("#cost_currency_type").val(g13).change(),
             $("#cost_invoice").val(g14),
@@ -155,7 +156,7 @@
             $("#billing_unit_id").val(g17).change(),
             $("#billing_unit_name").val(g18),
             $("#billing_exchange_rate").val(g19),
-            $("#billing_customer_id").val(g20).change(),
+
             $("#cost_quantity").val(g21),
             $("#cost_unit_id").val(g22).change(),
             $("#cost_unit_name").val(g23),

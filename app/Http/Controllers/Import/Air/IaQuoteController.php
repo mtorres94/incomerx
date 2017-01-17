@@ -243,15 +243,16 @@ class IaQuoteController extends Controller
     public function get(Request $request)
     {
         if ($request->ajax()) {
-            $charges = IaQuoteCharge::select(['ia_quotes_charge.*'])
+            $charges = IaQuoteOriginCharge::select(['ia_quote_origin_charges.*'])
                 ->where(function ($query) use ($request) {
                     $quote_id = $request->get('id');
-                    $query->orWhere('ia_quotes_charge.quotes_id', '=', $quote_id );
+                    $query->orWhere('ia_quote_origin_charges.quote_id', '=', $quote_id );
                 })->get();
 
             $results = [];
             foreach ($charges as $charge) {
                 $results[] = [
+                    'line' => $charge->line,
                     'billing_id' => $charge->billing_id,
                     'billing_code' =>  strtoupper($charge->billing_id > 0 ? $charge->billing->code : ""),
                     'billing_description'                 => strtoupper($charge->billing_description),
