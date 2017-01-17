@@ -152,7 +152,6 @@ return [
          * Vendor Services Providers...
          */
         Collective\Html\HtmlServiceProvider::class,
-        Orangehill\Iseed\IseedServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,

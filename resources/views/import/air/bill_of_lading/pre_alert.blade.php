@@ -176,7 +176,89 @@
             </table>
         </div>
     </div>
-
+    <br>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table header-table">
+                <tbody>
+                <tr>
+                    <td>Nota: La fecha de llegada de la nave est&aacute; sujeta a cambios, ya que se puede suscitar alg&uacute;n atraso fortuito.</td>
+                </tr>
+                <tr><td></td></tr>
+                <tr>
+                    <td>
+                        Por disposición de Gerencia General, no podremos recibir pagos en efectivo, todo pago ser&aacute; efectuado con cheque certificado a la orden de VECO LOGISTICS ECUADOR S.A. RUC # 0992600780001. O para mayor comodidad ponemos a su disposici&oacute;n las siguientes Cuentas Corrientes.</td>
+                </tr>
+                <tr><td></td></tr>
+                <tr>
+                    <td>BCO PICHINCHA: CTA. CTE. #3476137304</td>
+                </tr>
+                <tr><td></td></tr>
+                <tr>
+                    <td>BCO BOLIVARIANO: CTA. CTE. #0945005360</td>
+                </tr>
+                <tr><td></td></tr>
+                <tr>
+                    <td>Para servirle mejor ponemos a disposición las personas quienes le ayudarán con el ingreso al SICE, AVISO DE LLEGADA, FACTURAS y STATUS EN GENERAL.</td>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+            <table class="table header-table">
+                <tbody>
+                <tr>
+                    <td width="30%"><strong>OPERACIONES:</strong></td>
+                </tr>
+                <tr>
+                    <td>SR. PEDRO AVILES</td>
+                    <td> operaciones.gye@vecologistics.com</td>
+                </tr>
+                <tr>
+                    <td>SRA. ROSAURA PEÑA</td>
+                    <td> rpena@vecologistics.com</td>
+                </tr>
+                <tr><td></td></tr>
+                <tr><td></td></tr>
+                <tr>
+                    <td><strong>CUSTOMER SERVICE:</strong></td>
+                </tr>
+                <tr>
+                    <td>SRA. LISSETTE SALAZAR</td>
+                    <td> lsalazar@vecologistics.com</td>
+                </tr>
+                <tr>
+                    <td>SR. JAIME SABANDO</td>
+                    <td> ventas3@vecologistics.com</td>
+                </tr>
+                <tr>
+                    <td>SRA. GABRIELA BENAVIDES</td>
+                    <td> gbenavides@vecologistics.com</td>
+                </tr>
+                <tr>
+                    <td>SRA. MAYRA MACIAS</td>
+                    <td> ventas2@vecologistics.com</td>
+                </tr>
+                <tr><td></td></tr>
+                <tr><td></td></tr>
+                <tr>
+                    <td><strong>FINANZAS:</strong></td>
+                </tr>
+                <tr>
+                    <td>SR. JORGE CHAGUAY</td>
+                    <td> jchaguay@vecologistics.com</td>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+            <table class="table header-table">
+                <tbody>
+                <tr>
+                    <td>Gracias por confiar en nosotros y como siempre le brindaremos el mejor servicio para todas sus cargas.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 
