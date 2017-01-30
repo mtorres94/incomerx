@@ -52,7 +52,7 @@
                         notEmpty: { message: "Cut off date is required" },
                         date: {
                             format: "YYYY-MM-DD",
-                            min: "departure_date",
+                            min: "loading_date",
                             message: "The cut off date is invalid"
                         }
                     }
@@ -112,7 +112,7 @@
                     validators: {
                         notEmpty: { message: "Carrier name is required" },
                     }
-                },
+                }
 
             }
         }).on('success.field.fv', function(e, data) {

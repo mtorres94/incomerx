@@ -78,8 +78,11 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('shipment_entries/autocomplete', ['as' => 'shipment_entries.autocomplete', 'uses' => 'EoShipmentEntryController@autocomplete']);
             Route::get('shipment_entries/get', ['as' => 'shipment_entries.get', 'uses' => 'EoShipmentEntryController@get']);
             Route::get('quotes/autocomplete', ['as' => 'quotes.autocomplete', 'uses' => 'EoQuotesController@autocomplete']);
+            Route::get('eo_quotes/get_details', ['as' => 'eo_quotes.get_details', 'uses' => 'EoQuotesController@get_details']);
             Route::get('bill_of_lading/get_details', ['as' => 'bill_of_lading.get_details', 'uses' => 'EoBillOfLadingController@get_details']);
             Route::get('booking_entries/autocomplete', ['as' => 'booking_entries.autocomplete', 'uses' => 'BookingEntryController@autocomplete']);
+            Route::get('eo_cargo_loader/autocomplete', ['as' => 'eo_cargo_loader.autocomplete', 'uses' => 'EoCargoLoaderController@autocomplete']);
+            Route::get('eo_cargo_loader/get_warehouses', ['as' => 'eo_cargo_loader.get_warehouses', 'uses' => 'EoCargoLoaderController@get_warehouses']);
 
         });
     });

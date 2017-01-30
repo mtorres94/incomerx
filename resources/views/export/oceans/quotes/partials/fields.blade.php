@@ -1,18 +1,55 @@
 <div id="errorBlock" class="help-block"></div>
 {!! Form::hidden('open_status', (isset($user_open_id) ? ($user_open_id == Auth::user()->id ? "0" : "1") : "0"), ['id' => 'open_status', 'class' => 'form-control input-sm']) !!}
-@include('export.oceans.quotes.partials.sections.general')
 <div class="row">
-    <div class="col-md-6">@include('export.oceans.quotes.partials.sections.customer')</div>
-    <div class="col-md-6"> @include('export.oceans.quotes.partials.sections.loading_details')</div>
+<div class="col-md-12">
+    <div class="col-md-6">
+         @include('export.oceans.quotes.partials.sections.loading_details')
+    </div>
+    <div class="col-md-6">
+        @include('export.oceans.quotes.partials.sections.general')
+    </div>
+</div>
 </div>
 <div class="row">
-    <div class="col-md-6">@include('export.oceans.quotes.partials.sections.from')</div>
-    <div class="col-md-6">@include('export.oceans.quotes.partials.sections.to')</div>
+    <div class="col-md-12">
+        <div class="easyui-tabs" id="quotes_tabs">
+            <!--- Customer / Agent  -->
+            <div title="Customer / Agent">
+                <div class="form-horizontal">
+                    <div class="col-md-12">
+                        <div style="padding-top: 10px;padding-bottom: 15px;">
+                            <div class="col-md-6">@include('export.oceans.quotes.partials.sections.customer')</div>
+                            <div class="col-md-6">@include('export.oceans.quotes.partials.sections.agent_information')</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--- Shipper / Consignee-->
+            <div title="Shipper / Consignee">
+                <div class="form-horizontal">
+                    <div class="col-md-12">
+                        <div style="padding-top: 10px;padding-bottom: 15px;">
+                            <div class="col-md-6">@include('export.oceans.quotes.partials.sections.from')</div>
+                            <div class="col-md-6">@include('export.oceans.quotes.partials.sections.to')</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--- Container details -->
+            <div title="Container Details">
+                <div class="form-horizontal">
+                    <div class="col-md-12">
+                        <div style="padding-top: 10px;padding-bottom: 15px;">
+                            @include('export.oceans.quotes.partials.sections.instructions')
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
-<div class="row">
-    <div class="col-md-6">@include('export.oceans.quotes.partials.sections.instructions')</div>
-    <div class="col-md-6">@include('export.oceans.quotes.partials.sections.agent_information')</div>
-</div>
+
 <div class="row">
    <div class="col-md-12"> @include('export.oceans.quotes.partials.sections.cargo_details')</div>
 </div>

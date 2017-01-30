@@ -12,13 +12,14 @@
         @include('export.oceans.cargo_loader.partials.sections.container_details')
         @include('export.oceans.cargo_loader.partials.sections.inland_carrier')
     </div>
-    <div class="col-md-12">
+    <!--<div class="col-md-12">
         @include('export.oceans.cargo_loader.partials.sections.hbl_details')
-    </div>
+    </div>-->
 </div>
+<!--
 <div class="row">
     <div id="tabs_cargo" class="easyui-tabs">
-        <!--- Shipper / Consignee  -->
+        <!--- Shipper / Consignee
         <div title="Shipper - Consignee">
             <div class="form-horizontal">
                 <div class="col-md-12">
@@ -35,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <!--- Notify  -->
+        <!--- Notify
         <div title="Notify">
             <div class="form-horizontal">
                 <div class="col-md-12">
@@ -47,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <!--- Loading/ Unloading  -->
+        <!--- Loading/ Unloading
         <div title="Loading/ Unloading">
             <div class="form-horizontal">
                 <div class="col-md-12">
@@ -60,7 +61,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 
 <!-- Modal forms section -->

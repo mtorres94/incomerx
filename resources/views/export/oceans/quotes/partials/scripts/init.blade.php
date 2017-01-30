@@ -4,7 +4,7 @@
 
         openTab($("#data"));
         renameTab();
-        updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('quotes.close') }}')
+        updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('eo_quotes.close') }}');
 
         if ($("#open_status").val() == "1") {
             disableFields('data');
@@ -50,7 +50,6 @@
                 $(a).removeAttr("style"); n >= 0 && $(a).attr("style", "display: block;"); o >= 0 && $(a).attr("style", "display: none;")
             }
         }
-
         for ( t = $("#charges_tabs").find("div"), l = 0; l < t.length; l++) {
             a = t[l];
             e = $(a).attr("style");
@@ -61,14 +60,24 @@
                 $(a).removeAttr("style"); n >= 0 && $(a).attr("style", "display: block;"); o >= 0 && $(a).attr("style", "display: none;")
             }
         }
+        for ( t = $("#quotes_tabs").find("div"), l = 0; l < t.length; l++) {
+            a = t[l];
+            e = $(a).attr("style");
+            if (e === undefined) {
+            } else {
+                n = e.indexOf("display: block;");
+                o = e.indexOf("display: none;");
+                $(a).removeAttr("style"); n >= 0 && $(a).attr("style", "display: block;"); o >= 0 && $(a).attr("style", "display: none;")
+            }
+        }
         //===================================
         removeEmptyNodes('container_details');
         removeEmptyNodes('cargo_details');
         removeEmptyNodes('charge_details');
 
-        calculate_warehouse_details();
-        values_charges();
+
         //===================================
+        $("#incoterm_type").val("0").change();
         $("#box_cargo_type_id").change(function () {
             var id = $(this).val();
             $.ajax({
@@ -105,13 +114,8 @@
         $("#total_quantity").attr("readonly", true);
         $("#total_weight").attr("readonly", true);
         $("#total_unit_weight").val("L").change();
-        $("#total_cubic").attr("readonly", true);
-        $("#total_bill").attr("readonly", true);
-        $("#total_cost").attr("readonly", true);
-        $("#total_profit").attr("readonly", true);
-        $("#total_profit_p").attr("readonly", true);
-        $("#billing_amount").attr("readonly", true);
-        $("#cost_amount").attr("readonly", true);
+
+
         $("#quote_status").val("O").change();
         $("#quote_type").val("S").change();
         $("#billing_bill_party").val("S").change();
@@ -213,13 +217,13 @@
     $("#container_max").number(true, 2);
     $("#container_min").number(true, 2);
 
-    $("#total_quantity").number(true, 3).attr("readonly", true);
-    $("#total_weight").number(true, 3).attr("readonly", true);
-    $("#total_cubic").number(true, 3).attr("readonly", true);
-    $("#total_bill").number(true, 3).attr("readonly", true);
-    $("#total_cost").number(true, 3).attr("readonly", true);
-    $("#total_profit").number(true, 3).attr("readonly", true);
-    $("#total_profit_p").number(true, 3).attr("readonly", true);
+    $("#total_quantity").attr("readonly", true);
+    $("#total_weight").attr("readonly", true);
+
+    $("#total_bill").attr("readonly", true);
+    $("#total_cost").attr("readonly", true);
+    $("#total_profit").attr("readonly", true);
+    $("#total_profit_p").attr("readonly", true);
 
     $("#box_quantity").number(true);
     $("#box_pieces").number(true);
@@ -230,15 +234,15 @@
     $("#box_total_weight").number(true, 3);
     $("#box_vol_weight").number(true, 3);
     $("#box_total_cubic").number(true, 3);
-    $("#cargo_total").number(true, 3);
+
     $("#cargo_gross_weight").number(true, 3);
     $("#cargo_charge_weight").number(true, 3);
     $("#cargo_rate").number(true, 3);
-
+$("#total_cubic").attr("readonly", true);
     $("#billing_quantity").number(true);
     $("#billing_amount").number(true, 3);
     $("#billing_increase").number(true, 3);
-    $("#billing_rate").number(true, 3);
+    $("#billing_rate").number(true);
     $("#billing_exchange_rate").number(true, 3);
     $("#cost_amount").number(true, 3);
     $("#cost_rate").number(true, 3);

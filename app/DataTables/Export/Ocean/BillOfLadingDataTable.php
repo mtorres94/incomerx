@@ -25,6 +25,7 @@ class BillOfLadingDataTable extends CustomDataTable
                     [
                         ['route' => 'bill_of_lading.pdf',   'icon' => 'icon-file-pdf', 'name' => 'B/L'],
                         ['route' => 'bill_of_lading.delivery_order',   'icon' => 'icon-file-pdf', 'name' => 'DO'],
+                        ['route' => 'bill_of_lading.label',   'icon' => 'icon-file-pdf', 'name' => 'Label'],
                     ]
 
                 );

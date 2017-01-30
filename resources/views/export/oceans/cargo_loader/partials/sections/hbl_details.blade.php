@@ -1,6 +1,7 @@
 
 <legend>HBL Details</legend>
 <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
+
     <button type="button" id="btn_create_hbl" class="btn btn-default" data-toggle="modal" data-target="#CreateHouse" onclick="cleanModalFields('CreateHouse')">
         <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
     </button>

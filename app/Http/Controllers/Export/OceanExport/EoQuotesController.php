@@ -109,7 +109,8 @@ class EoQuotesController extends Controller
             $quotes = $request->all();
             $quotes['user_update_id'] = Auth::user()->id;
             $sent = EoQuotes::findorfail($id);
-            $exp_quotes = $sent->update($quotes);
+
+            $sent->update($quotes);
 
             EoQuotesContainer::saveDetail($id, $quotes);
             EoQuotesCharges::saveDetail($id, $quotes);
@@ -131,10 +132,95 @@ class EoQuotesController extends Controller
     {
         $quotes = EoQuotes::find($id);
         $quotes->delete();
-        $quotes_cargo= DB::table('eo_quotes_cargo')->where('quotes_id', '=', $id)->delete();
-        $quotes_container= DB::table('eo_quotes_container')->where('quotes_id', '=', $id)->delete();
-        $quotes_charge= DB::table('eo_quotes_charges')->where('quotes_id', '=', $id)->delete();
+        DB::table('eo_quotes_cargo')->where('quotes_id', '=', $id)->delete();
+        DB::table('eo_quotes_container')->where('quotes_id', '=', $id)->delete();
+        DB::table('eo_quotes_charges')->where('quotes_id', '=', $id)->delete();
     }
+    public function pdf($token, $id)
+    {
+        if (strlen($token) == 60) {
+            try {
+                $quotes= EoQuotes::findOrFail($id);
+                return \PDF::loadView('export.oceans.quotes.pdf', compact('quotes'))->stream($quotes->code.'.pdf');
+            } catch (ModelNotFoundException $e) {
+                abort(404);
+            }
+        } else {
+            abort(403);
+        }
+    }
+
+    public function get_details(Request $request)
+    {
+        if ($request->ajax()) {
+            $containers = EoQuotesContainer::select(['eo_quotes_container.*'])
+                ->where(function ($query) use ($request) {
+                    $shipment_id = $request->get('id');
+                    $query->orWhere('eo_quotes_container.quotes_id', '=', $shipment_id);
+                })->get();
+
+            $results = [];
+            foreach ($containers as $container) {
+                $results[] = [
+                    'id' => $container->id,
+                    'equipment_type_id' =>$container->equipment_type_id ,
+                    'equipment_type_name' =>($container->equipment_type_id > 0 ? $container->equipment_type->code : ""),
+                'container_number' =>$container->container_number ,
+                'seal_number' =>$container->seal_number ,
+                'pieces' =>$container->pieces,
+                'gross_weight' =>$container->gross_weight,
+                'cubic' =>$container->cubic ,
+                'seal_number2' =>$container->seal_number2 ,
+                'pd_status' =>$container->pd_status ,
+                'carrier_id' =>$container->carrier_id ,
+                'carrier_name' =>($container->carrier_id > 0 ? $container->carrier->name : ""),
+                'ventilation' =>$container->ventilation ,
+                'degrees' =>$container->degrees ,
+                'temperature' =>$container->temperature ,
+                'temperature_max' =>$container->temperature_max ,
+                'temperature_min' =>$container->temperature_min,
+                'pickup_id' =>$container->pickup_id,
+                'pickup_name' => ($container->pickup_id > 0 ? $container->pickup->name : ""),
+                'pickup_type' =>$container->pickup_type,
+                'pickup_address' =>$container->pickup_address,
+                'pickup_city' =>$container->pickup_city,
+                'pickup_state_id' =>$container->pickup_state_id,
+                'pickup_state_name' =>($container->pickup_state_id > 0 ? $container->pickup_state->name : ""),
+                'pickup_zip_code_id' =>$container->pickup_zip_code_id,
+                'pickup_zip_code' =>( $container->pickup_zip_code_id >0 ? $container->pickup_zip_code->code : ""),
+                'pickup_phone' =>$container->pickup_phone,
+                'pickup_date' =>$container->pickup_date ,
+                'pickup_number' =>$container->pickup_number,
+                'delivery_id ' =>$container->delivery_id ,
+                'delivery_name' =>( $container->delivery_id > 0 ? $container->delivery->name : "") ,
+                'delivery_address' =>$container->delivery_address ,
+                'delivery_type' =>$container->delivery_type ,
+                'delivery_city' =>$container->delivery_city,
+                'delivery_state_id' =>$container->delivery_state_id,
+                'delivery_state_name' =>( $container->delivery_state_id > 0 ? $container->delivery_state->name : ""),
+                'delivery_zip_code_id' =>$container->delivery_zip_code_id ,
+                'delivery_zip_code' =>( $container->delivery_zip_code_id >0 ? $container->delivery_zip_code->code: "") ,
+                'delivery_phone' =>$container->delivery_phone ,
+                'delivery_date' =>$container->delivery_date,
+                'delivery_number' =>$container->delivery_number,
+                'drop_id' =>$container->drop_id,
+                'drop_name' => ($container->drop_id > 0 ? $container->drop->name : ""),
+                'drop_type' =>$container->drop_type,
+                'drop_address' =>$container->drop_address,
+                'drop_city' =>$container->drop_city,
+                'drop_state_id' =>$container->drop_state_id,
+                'drop_state_name' =>($container->drop_state_id > 0 ? $container->drop_state->name : ""),
+                'drop_zip_code_id' =>$container->drop_zip_code_id,
+                'drop_zip_code' =>( $container->drop_zip_code_id >0 ? $container->drop_zip_code->code : ""),
+                'drop_phone' =>$container->drop_phone ,
+                'drop_date' =>$container->drop_date ,
+                'total_weight_unit' =>$container->total_weight_unit,
+                ];
+            }
+            return response()->json($results);
+        }
+    }
+
     public function autocomplete(Request $request)
     {
         if ($request->ajax()) {

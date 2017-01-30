@@ -60,7 +60,7 @@
                                     <td width="20%">
                                         <p> {{ strtoupper($bill_of_lading->carrier_id > 0 ? $bill_of_lading->carrier->name : "") }}</p>
                                         <p> {{ strtoupper($bill_of_lading->port_loading_id > 0 ? $bill_of_lading->loading->name : "") }}</p>
-                                        <p> {{ strtoupper($bill_of_lading->carrier_id > 0 ? $bill_of_lading->carrier->state->name : "") }} , {{($bill_of_lading->carrier_id > 0 ? $bill_of_lading->carrier->zip_code->code : "")}}</p>
+
                                     </td>
                                 </tr>
                             </table>

@@ -30,7 +30,6 @@ class ReceiptEntry extends Model
     {
         $i = -1;
         $a = 0;
-
         while ($a < count($data['hidden_receipt_entry'])) {
             $i++;
             if (isset($data['hidden_receipt_entry'][$i])) {

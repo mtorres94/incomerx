@@ -40,7 +40,7 @@
     });
 
     $("#btn_charge_details").click(function() {
-        for (var t = $("#origin_charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
+        for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
                     n = e.indexOf("display: block;"),
@@ -50,7 +50,7 @@
     });
 
     $("#btn_edit_charge").click(function() {
-        for (var t = $("#origin_charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
+        for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
                     n = e.indexOf("display: block;"),
@@ -59,14 +59,14 @@
         }
     });
 
-    $("#btn-origin_charges").click(function() {
+    $("#btn-charges").click(function() {
         $("#billing_bill_party").val("C").change();
         $("#billing_bill_type").val("C").change();
         $("#billing_currency_type").val("1").change();
         $("#cost_currency_type").val("1").change();
         $("#billing_unit_id").val("0").change();
         $("#cost_unit_id").val("0").change();
-        for (var t = $("#origin_charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
+        for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
                     n = e.indexOf("display: block;"),
@@ -158,7 +158,7 @@
 
     $("#pro-save").click(function() {
         if($("#pro_number").val()== ''){
-            show_alert();
+
             $("#pro_number").focus()
         }else{
             var r = ($('#PRO_details tbody tr').length + 1),
@@ -195,7 +195,7 @@
 
     $("#customerReference-save").click(function() {
         if($("#po_number").val()== ''){
-            show_alert();
+
             $("#po_number").focus()
         }else{
             var r = ($('#customer_details tbody tr').length + 1),
@@ -235,7 +235,7 @@
 
     $("#item_save").click(function() {
         if($("#item_name").val()== ''){
-            show_alert();
+
             $("#item_name").focus()
         }else{
             var r = ($('#items_details tbody tr').length + 1),
@@ -623,7 +623,7 @@
 
     $("#box-save").click(function() {
         if($("#box_cargo_type_code").val()==''){
-            show_alert();
+
             $("#box_cargo_type_code").focus();
         }else{
             var t = $("#cargo_vehicle_details tbody tr").length + 1,
@@ -932,7 +932,7 @@
 
     $("#vehicle-save").click(function() {
         if($("#vehicle_vin").val()==''){
-            show_alert();
+
             $("#vehicle_vin").focus();
         }else{
             var t = $("#cargo_vehicle_details tbody tr").length + 1,
@@ -1233,7 +1233,7 @@
 
     $("#container-save").click(function() {
         if($("#equipment_type_code").val()==''){
-            show_alert();
+
             $("#equipment_type_code").focus();
         }else{
             var t = $("#container_details tbody tr").length + 1,
@@ -1567,10 +1567,9 @@
         }
     });
 
-    $("#origin_charges-save").click(function() {
+    $("#charges-save").click(function() {
 
         if($("#billing_billing_code").val()==''){
-            show_alert();
             $("#billing_billing_code").focus();
         }else{
             var t = $("#chargeDetails tbody tr").length + 1,
@@ -1646,8 +1645,7 @@
                     .append(createTableContent('billing_increase', g_10, true, d))
                     .append(createTableBtns()),
 
-                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C),$("#billing_bill_party").val("C").change();
-            $("#billing_bill_type").val("C").change(), $("#billing_currency_type").val("1").change(), $("#cost_currency_type").val("1").change(), $("#billing_unit_id").val("0").change(),  $("#cost_unit_id").val("0").change(), values_charges(), cleanModalFields("Charge_Details"), $("#Charge_Details").modal("show"), $("#billing_billing_code").focus()
+                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C),values_charges(), cleanModalFields("Charge_Details"),$("#billing_bill_party").val("C").change(),$("#billing_bill_type").val("C").change(), $("#billing_currency_type").val("1").change(), $("#cost_currency_type").val("1").change(), $("#billing_unit_id").val("0").change(),  $("#cost_unit_id").val("0").change(),  $("#Charge_Details").modal("show"), $("#billing_billing_code").focus()
         }
 
     }), $("#chargeDetails").on("click", "a.btn-danger", function() {
@@ -1724,7 +1722,7 @@
 
             $("#transportation-save").click(function() {
                 if($("#transportation_billing_code").val()== '' || $("#transportation_carrier_name").val() == '' || $("#transportation_amount").val()=='' || $("#transportation_loading_reference").val()==''){
-                    show_alert();
+
                     $("#transportation_billing_code").focus();
                 }else{
                     var t = $("#transportation_details tbody tr").length + 1,
@@ -1949,7 +1947,7 @@
 
     $("#uns-save").click(function() {
         if($("#hazardous_uns_code").val()== ''){
-            show_alert();
+
             $("#hazardous_uns_code").focus()
         }else{
             var r = ($('#hazardous-details tbody tr').length + 1),
@@ -1986,7 +1984,8 @@
     });
 
     $("#createHouse_save").click(function(){
-        var hbl_select = new Array(), c=0, r=0,  x=0;
+        var hbl_select = new Array(),
+            i=0,  r=0,  x=0;
         $("input[name='hbl_select[]']:checked").each(function() {
             hbl_select.push($(this).val());
         });
@@ -1994,31 +1993,32 @@
                 n = $("#cargo_details"),
                 t = n.find("tbody"),
                 hbl= $("#load_warehouses tbody tr");
+
         for (x=0 ; x < hbl.length; x++){
                 if( hbl[x].childNodes[11].textContent == hbl_select[r]) {
-                    //CARGO
+
                     var p = $("<tr id=" + (d + 1) + ">");
                     p.append(createTableContent('cargo_line',(d+1), true, d))
-                            .append(createTableContent('cargo_marks', hbl[x].childNodes[2].textContent + " - " + hbl[x].childNodes[5].textContent, false, d))
-                            .append(createTableContent('cargo_pieces', hbl[x].childNodes[7].textContent, false, d))
-                            .append(createTableContent('cargo_description',  hbl[x].childNodes[3].textContent , false, d))
-                            .append(createTableContent('cargo_weight_unit', 'L', false, d))
-                            .append(createTableContent('cargo_weight_k', hbl[x].childNodes[15].textContent, true, d))
-                            .append(createTableContent('cargo_cubic_k', hbl[x].childNodes[16].textContent, true, d))
-                            .append(createTableContent('cargo_charge_weight_k', hbl[x].childNodes[17].textContent, true, d))
-                            .append(createTableContent('cargo_weight_l', hbl[x].childNodes[8].textContent , false, d))
-                            .append(createTableContent('cargo_cubic_l', hbl[x].childNodes[9].textContent , false, d))
-                            .append(createTableContent('cargo_charge_weight_l', hbl[x].childNodes[10].textContent, false, d))
-                            .append(createTableContent('cargo_rate', "", true, d))
-                            .append(createTableContent('cargo_amount', "", true, d))
-                            .append(createTableContent('cargo_container', "", true, d))
-                            .append(createTableContent('cargo_type_id', hbl[x].childNodes[4].textContent, true, d))
-                            .append(createTableContent('cargo_type_code', hbl[x].childNodes[5].textContent, true, d))
-                            .append(createTableContent('cargo_commodity_id', "", true, d))
-                            .append(createTableContent('cargo_commodity_name', "", true, d))
-                            .append(createTableContent('cargo_comments', "", true, d))
-                            .append(createTableContent('cargo_hbl_id', hbl_select[r], true, d))
-                            .append(createTableBtns())
+                        .append(createTableContent('cargo_marks', hbl[x].childNodes[2].textContent + " - " + hbl[x].childNodes[5].textContent, false, d))
+                        .append(createTableContent('cargo_pieces', hbl[x].childNodes[7].textContent, false, d))
+                        .append(createTableContent('cargo_description',  hbl[x].childNodes[3].textContent , false, d))
+                        .append(createTableContent('cargo_weight_unit', 'L', false, d))
+                        .append(createTableContent('cargo_weight_k', hbl[x].childNodes[15].textContent, true, d))
+                        .append(createTableContent('cargo_cubic_k', hbl[x].childNodes[16].textContent, true, d))
+                        .append(createTableContent('cargo_charge_weight_k', hbl[x].childNodes[17].textContent, true, d))
+                        .append(createTableContent('cargo_weight_l', hbl[x].childNodes[8].textContent , false, d))
+                        .append(createTableContent('cargo_cubic_l', hbl[x].childNodes[9].textContent , false, d))
+                        .append(createTableContent('cargo_charge_weight_l', hbl[x].childNodes[10].textContent, false, d))
+                        .append(createTableContent('cargo_rate', "", true, d))
+                        .append(createTableContent('cargo_amount', "", true, d))
+                        .append(createTableContent('cargo_container', "", true, d))
+                        .append(createTableContent('cargo_type_id', hbl[x].childNodes[4].textContent, true, d))
+                        .append(createTableContent('cargo_type_code', hbl[x].childNodes[5].textContent, true, d))
+                        .append(createTableContent('cargo_commodity_id', "", true, d))
+                        .append(createTableContent('cargo_commodity_name', "", true, d))
+                        .append(createTableContent('cargo_comments', "", true, d))
+                        .append(createTableContent('cargo_hbl_id', hbl_select[r], true, d))
+                        .append(createTableBtns())
                     t.append(p);
                     d++;
                     r++;
@@ -2028,6 +2028,5 @@
         weight_totals();
         $("#CreateHouse").modal("hide");
     });
-
 
 </script>

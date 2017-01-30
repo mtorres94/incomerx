@@ -225,8 +225,6 @@
                     var d= $("#container_details tbody tr").length ,
                             n= $("#container_details"),
                             t= n.find("tbody");
-                            console.log( e[0].code);
-
                             var p = $("<tr id="+ (d + 1) +" >");
                             p.append(createTableContent('container_line', (d + 1), true, d))
                                     .append(createTableContent('equipment_type_id', e[0].equipment_type_id, true, d))
@@ -321,12 +319,15 @@
 
                      }
             });
+            removeEmptyNodes("container_details");
         });
 
 
 //=====================================================================
 
-
+        $('#create_hbl').change(function() {
+            ((this.checked)? $(this).val("1"): $(this).val("0"))
+        });
 
         $("#cargo_length").change(function () { calculate_warehouse() });
         $("#cargo_quantity").change(function () { calculate_warehouse() });

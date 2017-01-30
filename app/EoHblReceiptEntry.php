@@ -31,6 +31,21 @@ class EoHblReceiptEntry extends Model
                 }
                 $i++;
             }
+        }elseif (isset($data['cargo_hbl_id'])) {
+            while ($a < count($data['cargo_hbl_id'])) {
+                if (isset($data['cargo_hbl_id'][$i])) {
+
+                    $obj = new EoHblReceiptEntry();
+                    $obj->line = $a + 1;
+                    $obj->bill_of_lading_id = $id;
+                    $obj->receipt_entry_id = $data['cargo_hbl_id'][$i];
+                    $obj->cargo_loader_id = $data['cargo_loader_id'];
+                    $obj->save();
+                    ReceiptEntry::where('id', '=', $data['cargo_hbl_id'][$i])->update(['status' => "C"]);
+                    $a++;
+                }
+                $i++;
+            }
         }
     }
 

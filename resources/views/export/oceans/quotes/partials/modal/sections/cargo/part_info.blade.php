@@ -11,7 +11,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        {!! Form::bsComplete('col-md-2', 'col-md-5', 'Commodity', 'box_commodity_id', 'box_commodity_name', Request::get('term'), null, 'Search Commodity...') !!}
+        {!! Form::bsComplete('col-md-2', 'col-md-5', 'Commodity', 'box_commodity_id', 'box_commodity_name', Request::get('term'), null ,'Search Commodity...', 'options.maintenance.items.commodities', 'options.maintenance.items.commodities', 'maintenance.items.commodities.index') !!}
     </div>
 </div>
 <div class="row">

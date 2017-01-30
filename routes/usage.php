@@ -25,8 +25,8 @@ Route::group(['middleware' => ['web']], function () {
     });
     Route::group(['namespace' => 'Export'], function () {
         Route::group(['namespace' => 'OceanExport'], function () {
-            Route::post('quotes/verify_open',  ['as' => 'quotes.open',  'uses' => 'EoQuotesController@getOpenStatus']);
-            Route::post('quotes/update_close', ['as' => 'quotes.close', 'uses' => 'EoQuotesController@updateClose']);
+            Route::post('eo_quotes/verify_open',  ['as' => 'eo_quotes.open',  'uses' => 'EoQuotesController@getOpenStatus']);
+            Route::post('eo_quotes/update_close', ['as' => 'eo_quotes.close', 'uses' => 'EoQuotesController@updateClose']);
 
             Route::post('eo_shipment_entries/verify_open',  ['as' => 'eo_shipment_entries.open',  'uses' => 'EoShipmentEntryController@getOpenStatus']);
             Route::post('eo_shipment_entries/update_close', ['as' => 'eo_shipment_entries.close', 'uses' => 'EoShipmentEntryController@updateClose']);

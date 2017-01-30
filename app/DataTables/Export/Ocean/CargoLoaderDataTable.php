@@ -73,7 +73,6 @@ class CargoLoaderDataTable extends CustomDataTable
             ['data' => 'cargo_loader_status',          'name' => 'eo_cargo_loader.cargo_loader_status', 'title' => 'Status'],
             ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
             ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
-            ['data' => 'agent_name',   'name' => 'c3.name', 'title' => 'Agent'],
             ['data' => 'port_loading_name',   'name' => 'c4.name', 'title' => 'Loading Port'],
             ['data' => 'port_unloading_name',   'name' => 'c5.name', 'title' => 'Unloading Port'],
             ['data' => 'carrier_name',   'name' => 'c6.name', 'title' => 'Carrier'],

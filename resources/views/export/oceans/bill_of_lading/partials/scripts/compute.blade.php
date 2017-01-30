@@ -37,16 +37,16 @@
 
     function charges_details()
     {
-        $("#billing_amount").val($("#billing_quantity").val()* $("#billing_rate").val());
-        $("#cost_amount").val($("#cost_quantity").val()* $("#cost_rate").val());
+        var rb = $("#billing_rate").val(),
+            ib= $("#billing_increase").val(),
+            qb = $("#billing_quantity").val(),
+            rc = $("#cost_rate").val(),
+            qc = $("#cost_quantity").val();
 
-        var x= parseFloat($("#cost_amount").val()),
-                y= parseFloat($("#billing_increase").val()/100), z=0 ;
-        z= x* y + parseFloat($("#cost_amount").val());
-        $("#billing_amount").val(z);
-        var w= parseInt($("#billing_quantity").val());
-        w= z/ w;
-        $("#billing_rate").val(w);
+        var ab = (rb * qb) + ((rb * qb) * (ib/100) ),
+            ac = rc * qc;
+
+        $("#billing_amount").val(ab), $("#cost_amount").val(ac);
     }
 
     function values_charges() {
@@ -123,24 +123,34 @@
             weight_l = parseFloat(tr[a].childNodes[8].textContent) + weight_l;
             cubic_l= parseFloat(tr[a].childNodes[9].textContent) + cubic_l;
             charge_weight_l= parseFloat(tr[a].childNodes[10].textContent) + charge_weight_l;
-
         }
-        $("#total_pieces").val(pieces),
-        $("#total_weight_kgs").val(weight_k),
-                $("#total_cubic_cbm").val(cubic_k),
-                $("#total_charge_weight_kgs").val(charge_weight_k),
-                $("#total_weight_lbs").val(weight_l),
-                $("#total_cubic_cft").val(cubic_l),
-                $("#total_charge_weight_lbs").val(charge_weight_l)
+            $("#total_pieces").val(pieces),
+            $("#total_weight_kgs").val(weight_k),
+            $("#total_cubic_cbm").val(cubic_k),
+            $("#total_charge_weight_kgs").val(charge_weight_k),
+            $("#total_weight_lbs").val(weight_l),
+            $("#total_cubic_cft").val(cubic_l),
+            $("#total_charge_weight_lbs").val(charge_weight_l)
     }
 
-    function validateShipmentId(){
-        if($("#shipment_id").val() > 0){
-            $("#CreateHouse").modal("show");
-        } else {
-            show_alert();
-            $("#shipment_code").focus();
+    function validateRequiredField(){
+        if($("#bl_class").val() == 3){
+            if($("#shipment_id").val() > 0){
+
+            } else {
+                show_alert();
+                $("#shipment_code").focus();
+            }
+        }else{
+            if($("#cargo_loader_id").val() > 0){
+
+            } else {
+                show_alert();
+                $("#cargo_loader_code").focus();
+            }
         }
+
     }
+
 
 </script>

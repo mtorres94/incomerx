@@ -170,7 +170,7 @@
             state_name:'{{ ((isset($bill_of_lading) and ($bill_of_lading->consignee_state_id > 0)) ? $bill_of_lading->consignee_state->name : "") }}',
             zip_code_id:'{{ (isset($bill_of_lading) ? $bill_of_lading->consignee_zip_code_id : "") }}',
             zip_code_code:'{{ ((isset($bill_of_lading) and ($bill_of_lading->consignee_zip_code_id > 0)) ? $bill_of_lading->consignee_zip_code->code : "") }}',
-        },onSelect:function(e,o){$("#consignee_id").val(e.id),$(this).val(e.value),$("#consignee_address").val(e.address),$("#consignee_city").val(e.city),$("#consignee_state_id").val(e.state_id),$("#consignee_state_name").val(e.state_name),$("#consignee_zip_code_id").val(e.zip_code_id),$("#consignee_zip_code_code").val(e.zip_code_code),$("#consignee_phone").val(e.phone),$("#consignee_fax").val(e.fax)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#consignee_name_img").removeClass("img-none").addClass("img-display"),$("#consignee_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#consignee_name_img").removeClass("img-display").addClass("img-none"),$("#consignee_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#consignee_id").val(0)}).blur(function(){var e=$("#consignee_id").val();0==e&&($(this).val(""), $("#consignee_address").val(""),$("#consignee_city").val(""),$("#consignee_state_id").val(""),$("#consignee_state_name").val(""),$("#consignee_zip_code_id").val(""),$("#consignee_zip_code_code").val(""),$("#consignee_phone").val(""),$("#consignee_fax").val(""))});
+        },onSelect:function(e,o){$("#consignee_id").val(e.id),$(this).val(e.value),$("#consignee_address").val(e.address),$("#consignee_city").val(e.city),$("#consignee_state_id").val(e.state_id),$("#consignee_state_name").val(e.state_name),$("#consignee_zip_code_id").val(e.zip_code_id),$("#consignee_zip_code_code").val(e.zip_code_code),$("#consignee_phone").val(e.phone),$("#consignee_fax").val(e.fax)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#consignee_name_img").removeClass("img-none").addClass("img-display"),$("#consignee_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#consignee_name_img").removeClass("img-display").addClass("img-none"),$("#consignee_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#consignee_id").val(0)}).blur(function(){var e=$("#consignee_id").val();0==e&&($(this).val(""), $("#consignee_address").val(""),$("#consignee_city").val(""),$("#consignee_state_id").val(""),$("#consignee_state_name").val(""),$("#consignee_zip_code_id").val(""),$("#consignee_zip_code_code").val(""),$("#consignee_phone").val(""), $("#consignee_fax").val(""))});
 
 
 
@@ -205,7 +205,7 @@
             phone:'{{ (isset($bill_of_lading)  ? $bill_of_lading->agent_phone : "") }}',
             fax:'{{ (isset($bill_of_lading) ? $bill_of_lading->agent_fax : "") }}',
         }
-        ,onSelect:function(e,o){$("#agent_id").val(e.id),$(this).val(e.value),$("#agent_address").val(e.address),$("#agent_city").val(e.city),$("#agent_state_id").val(e.state_id),$("#agent_state_name").val(e.state_name),$("#agent_zip_code_id").val(e.zip_code_id),$("#agent_zip_code_code").val(e.zip_code_code),$("#agent_phone").val(e.phone),$("#agent_fax").val(e.fax)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#agent_name_img").removeClass("img-none").addClass("img-display"),$("#agent_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#agent_name_img").removeClass("img-display").addClass("img-none"),$("#agent_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#agent_id").val(0)}).blur(function(){var e=$("#agent_id").val();0==e&&($(this).val(""),$("#agent_id").val(0),$("#agent_address").val(""),$("#agent_city").val(""),$("#agent_state_id").val(""),$("#agent_state_name").val(""),$("#agent_zip_code_id").val(""),$("#agent_zip_code_code").val(""),$("#agent_phone").val(""),$("#agent_fax").val(""))});
+        ,onSelect:function(e,o){$("#agent_id").val(e.id),$(this).val(e.value),$("#agent_address").val(e.address),$("#agent_city").val(e.city),$("#agent_state_id").val(e.state_id),$("#agent_state_name").val(e.state_name),$("#agent_zip_code_id").val(e.zip_code_id),$("#agent_zip_code_code").val(e.zip_code_code),$("#agent_phone").val(e.phone),$("#agent_fax").val(e.fax)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#agent_name_img").removeClass("img-none").addClass("img-display"),$("#agent_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#agent_name_img").removeClass("img-display").addClass("img-none"),$("#agent_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#agent_id").val(0)}).blur(function(){var e=$("#agent_id").val();0==e&&($(this).val(""),$("#agent_address").val(""),$("#agent_city").val(""),$("#agent_state_id").val(""),$("#agent_state_name").val(""),$("#agent_zip_code_id").val(""),$("#agent_zip_code_code").val(""),$("#agent_phone").val(""),$("#agent_fax").val(""))});
 
 
 
@@ -303,7 +303,8 @@
         },onSelect:function(e,o){$("#transhipment_port_id").val(e.id),$(this).val(e.name)},minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#transhipment_port_name_img").removeClass("img-none").addClass("img-display"),$("#transhipment_port_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#transhipment_port_name_img").removeClass("img-display").addClass("img-none"),$("#transhipment_port_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#transhipment_port_id").val(0)}).blur(function(){var e=$("#transhipment_port_id").val();0==e&&($(this).val(""))});
 
 
-        $("#total_commodity_name").marcoPolo({url:"{{ route('commodities.autocomplete') }}",formatItem:function(e,o){return e.value},onSelect:function(e,o){$("#total_commodity_id").val(e.id),$(this).val(e.value)},minChars:2,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#total_commodity_name_img").removeClass("img-none").addClass("img-display"),$("#total_commodity_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#total_commodity_name_img").removeClass("img-display").addClass("img-none"),$("#total_commodity_name_spn").removeClass("img-none").addClass("img-display")}).on("marcopoloblur",function(){""==$(this).val().trim()&&($("#total_commodity_id").val(0),$("#total_commodity_name").val(""))});
+        $("#total_commodity_name").marcoPolo({url:"{{ route('commodities.autocomplete') }}",formatItem:function(e,o){return e.name}
+          ,onSelect:function(e,o){$("#total_commodity_id").val(e.id),$(this).val(e.name)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#total_commodity_name_img").removeClass("img-none").addClass("img-display"),$("#total_commodity_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#total_commodity_name_img").removeClass("img-display").addClass("img-none"),$("#total_commodity_name_spn").removeClass("img-none").addClass("img-display")}).on("marcopoloblur",function(){""==$(this).val().trim()&&($("#total_commodity_id").val(0),$("#total_commodity_name").val(""))});
 
 
         $("#broker_name").marcoPolo({url:"{{ route('vendors.autocomplete') }}",formatItem:function(e,o){return e.name}, selected:{
@@ -319,6 +320,52 @@
 
 
         $("#cargo_type_code").marcoPolo({url:"{{ route('cargo_types.autocomplete') }}",formatItem:function(e,o){return e.code},onSelect:function(e,o){$("#cargo_type_id").val(e.id),$(this).val(e.code)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#cargo_type_code_img").removeClass("img-none").addClass("img-display"),$("#cargo_type_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#cargo_type_code_img").removeClass("img-display").addClass("img-none"),$("#cargo_type_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#cargo_type_id").val(0)}).blur(function(){var e=$("#cargo_type_id").val();0==e&&($(this).val(""))});
+
+    $("#cargo_loader_code").marcoPolo({url:"{{ route('eo_cargo_loader.autocomplete') }}",formatItem:function(e,o){return e.code}, selected:{
+        id: '{{ (isset($bill_of_lading) ? $bill_of_lading->cargo_loader_id : "") }}',
+        code: '{{ ((isset($bill_of_lading) and ($bill_of_lading->cargo_loader_id > 0))? $bill_of_lading->cargo_loader->code : "") }}',
+        shipment_id: '{{ (isset($bill_of_lading) ? $bill_of_lading->shipment_id : "") }}',
+        shipment_code: '{{ ((isset($bill_of_lading) and ($bill_of_lading->shipment_id > 0))? $bill_of_lading->shipment->code : "") }}',
+        type: '{{ (isset($bill_of_lading) ? $bill_of_lading->bl_type : "") }}',
+        bl_status: '{{ (isset($bill_of_lading)? $bill_of_lading->bl_status : "") }}',
+        vessel: '{{ (isset($bill_of_lading)? $bill_of_lading->vessel_name : "") }}',
+        voyage: '{{ (isset($bill_of_lading)? $bill_of_lading->voyage_name : "") }}',
+        carrier_id: '{{ (isset($bill_of_lading) ? $bill_of_lading->carrier_id : "") }}',
+        carrier_name: '{{ ((isset($bill_of_lading) and ($bill_of_lading->carrier_id > 0))? $bill_of_lading->carrier->name : "") }}',
+        departure: '{{ (isset($bill_of_lading)? $bill_of_lading->departure_date : "") }}',
+        arrival: '{{ (isset($bill_of_lading)? $bill_of_lading->arrival_date : "") }}',
+        booking_code: '{{ (isset($bill_of_lading) ? $bill_of_lading->booking_code : "") }}',
+
+        loading_port_id: '{{ (isset($bill_of_lading)? $bill_of_lading->port_loading_id : "") }}',
+        loading_port_name: '{{ ((isset($bill_of_lading) and ($bill_of_lading->port_loading_id >0))? $bill_of_lading->loading->name : "") }}',
+        unloading_port_id: '{{ (isset($bill_of_lading)? $bill_of_lading->port_unloading_id : "") }}',
+        unloading_port_name: '{{ ((isset($bill_of_lading)and ($bill_of_lading->port_unloading_id > 0))? $bill_of_lading->unloading->name : "") }}',
+
+        location_origin_name: '{{ (isset($bill_of_lading)? $bill_of_lading->place_receipt : "")  }}',
+        location_destination_name: '{{ (isset($bill_of_lading)? $bill_of_lading->place_delivery: "") }}'
+    },onSelect:function(e,o){$("#cargo_loader_id").val(e.id),$(this).val(e.code), $("#shipment_id").val(e.shipment_id), $("#shipment_code").val(e.shipment_code).change(), $("#exporting_carrier").val(e.carrier_name), $("#shipment_type").val(e.type).change(),
+            $("#bl_status").val(e.bl_status).change(),
+            $("#vessel_name").val(e.vessel),
+            $("#voyage_name").val(e.voyage),
+            $("#carrier_id").val(e.carrier_id),
+            $("#carrier_name").val(e.carrier_name),
+            $("#departure_date").val(e.departure),
+            $("#arrival_date").val(e.arrival),
+            $("#booking_code").val(e.booking_code),
+
+            $("#port_loading_id").val(e.loading_port_id),
+            $("#port_loading_name").val(e.loading_port_name),
+            $("#port_unloading_id").val(e.unloading_port_id),
+            $("#port_unloading_name").val(e.unloading_port_name),
+            $("#place_receipt_id").val(e.location_origin_id),
+            $("#place_receipt_name").val(e.location_origin_name),
+            $("#place_delivery_id").val(e.location_destination_id),
+            $("#place_delivery_name").val(e.location_destination_name),
+            $("#place_receipt").val(e.location_origin_name),
+            $("#place_delivery").val(e.location_destination_name),
+            $("#port_loading").val(e.loading_port_name),
+            $("#foreign_port").val(e.unloading_port_name)
+    },minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#cargo_loader_code_img").removeClass("img-none").addClass("img-display"),$("#cargo_loader_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#cargo_loader_code_img").removeClass("img-display").addClass("img-none"),$("#cargo_loader_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#cargo_loader_id").val(0)}).blur(function(){var e=$("#cargo_loader_id").val();0==e&&($(this).val(""), $("#shipment_id").val(""), $("#shipment_code").val(""), $("#shipment_type").val("").change(),$("#bl_status").val("").change(),$("#vessel_name").val(""),$("#voyage_name").val(""),$("#carrier_id").val(""),$("#carrier_name").val(""),$("#departure_date").val(""),$("#arrival_date").val(""),$("#booking_code").val(""),$("#port_loading_id").val(""),$("#port_loading_name").val(""),$("#port_unloading_id").val(""),$("#port_unloading_name").val(""),$("#place_receipt_id").val(""),$("#place_receipt_name").val(""),$("#place_delivery_id").val(""),$("#place_delivery_name").val(""),$("#place_receipt").val(""),$("#place_delivery").val(""),$("#port_loading").val(""),$("#foreign_port").val(""), $("#exporting_carrier").val(""))});
 
 
         $("#cargo_commodity_name").marcoPolo({url:"{{ route('commodities.autocomplete') }}",formatItem:function(e,o){return e.value},onSelect:function(e,o){$("#cargo_commodity_id").val(e.id),$(this).val(e.value)},minChars:2,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#cargo_commodity_name_img").removeClass("img-none").addClass("img-display"),$("#cargo_commodity_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#cargo_commodity_name_img").removeClass("img-display").addClass("img-none"),$("#cargo_commodity_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#cargo_commodity_id").val(0)}).blur(function(){var e=$("#cargo_commodity_id").val();0==e&&($(this).val(""))});
@@ -480,7 +527,7 @@
     });
 
 
-        $("#billing_billing_code").marcoPolo({url:"{{ route('billing_codes.autocomplete') }}",formatItem:function(e,o){return e.id + '|'+ e.value},onSelect:function(e,o){$("#billing_billing_id").val(e.id),$(this).val(e.code), $("#billing_billing_description").val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#billing_billing_code_img").removeClass("img-none").addClass("img-display"),$("#billing_billing_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#billing_billing_code_img").removeClass("img-display").addClass("img-none"),$("#billing_billing_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#billing_billing_id").val(0)}).blur(function(){var e=$("#billing_billing_id").val();0==e&&($(this).val(""))});
+        $("#billing_billing_code").marcoPolo({url:"{{ route('billing_codes.autocomplete') }}",formatItem:function(e,o){return e.code + '|'+ e.value},onSelect:function(e,o){$("#billing_billing_id").val(e.id),$(this).val(e.code), $("#billing_billing_description").val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#billing_billing_code_img").removeClass("img-none").addClass("img-display"),$("#billing_billing_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#billing_billing_code_img").removeClass("img-display").addClass("img-none"),$("#billing_billing_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#billing_billing_id").val(0)}).blur(function(){var e=$("#billing_billing_id").val();0==e&&($(this).val(""))});
 
         $("#billing_customer_name").marcoPolo({url:"{{ route('customers.autocomplete') }}",formatItem:function(e,o){return e.value},onSelect:function(e,o){$("#billing_customer_id").val(e.id),$(this).val(e.value)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#billing_customer_name_img").removeClass("img-none").addClass("img-display"),$("#billing_customer_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#billing_customer_name_img").removeClass("img-display").addClass("img-none"),$("#billing_customer_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#billing_customer_id").val(0)}).blur(function(){var e=$("#billing_customer_id").val();0==e&&($(this).val(""))});
 
@@ -499,11 +546,7 @@
 
         $("#transportation_service_name").marcoPolo({url:"{{ route('services.autocomplete') }}",formatItem:function(e,o){return e.name},onSelect:function(e,o){$("#transportation_service_id").val(e.id),$(this).val(e.name)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#transportation_service_name_img").removeClass("img-none").addClass("img-display"),$("#transportation_service_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#transportation_service_name_img").removeClass("img-display").addClass("img-none"),$("#transportation_service_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#transportation_service_id").val(0)}).blur(function(){var e=$("#transportation_service_id").val();0==e&&($(this).val(""))});
 
-
-
         $("#transportation_billing_code").marcoPolo({url:"{{ route('billing_codes.autocomplete') }}",formatItem:function(e,o){return e.id + '|'+ e.value},onSelect:function(e,o){$("#transportation_billing_id").val(e.id),$(this).val(e.id), $("#transportation_description").val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#transportation_billing_code_img").removeClass("img-none").addClass("img-display"),$("#transportation_billing_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#transportation_billing_code_img").removeClass("img-display").addClass("img-none"),$("#transportation_billing_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#transportation_billing_id").val(0)}).blur(function(){var e=$("#transportation_billing_id").val();0==e&&($(this).val(""), $("#transportation_description").val(""))});
-
-
 
         $("#transportation_loading_location_name").marcoPolo({url:"{{ route('world_locations.autocomplete') }}",formatItem:function(e,o){return e.value},onSelect:function(e,o){$("#transportation_loading_location_id").val(e.id),$(this).val(e.value)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#transportation_loading_location_name_img").removeClass("img-none").addClass("img-display"),$("#transportation_loading_location_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#transportation_loading_location_name_img").removeClass("img-display").addClass("img-none"),$("#transportation_loading_location_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#transportation_loading_location_id").val(0)}).blur(function(){var e=$("#transportation_loading_location_id").val();0==e&&($(this).val(""))});
 
@@ -532,8 +575,8 @@
                         $("#origin_from_state_id").val(e.state_id),
                         $("#origin_from_state_name").val(e.state_name),
                         $("#origin_from_zip_code_id").val(e.zip_code_id),
-                        $("#origin_from_zip_code_code").val(e.zip_code_code)
-                $("#origin_from_phone").val(e.phone)
+                        $("#origin_from_zip_code_code").val(e.zip_code_code),
+                $("#origin_from_phone").val(e.phone),
                 $("#origin_from_fax").val(e.fax)
             },
             minChars:3,
@@ -602,9 +645,7 @@
 
         $("#item_name").marcoPolo({url:"{{ route('items.autocomplete') }}",formatItem:function(e,o){return e.value},onSelect:function(e,o){$("#item_id").val(e.id),$(this).val(e.value)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#item_name_img").removeClass("img-none").addClass("img-display"),$("#item_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#item_name_img").removeClass("img-display").addClass("img-none"),$("#item_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#item_id").val(0)}).blur(function(){var e=$("#item_id").val();0==e&&($(this).val(""))});
 
-
-
-        $("#item_type_name").marcoPolo({
+       $("#item_type_name").marcoPolo({
             url: "{{ route('cargo_types.autocomplete') }}", formatItem: function (e, o) {
                 return e.code
             }, onSelect: function (e, o) {
@@ -619,6 +660,7 @@
 
         $("#shipment_code").marcoPolo({url:"{{ route('shipment_entries.autocomplete') }}",formatItem:function(e,o){return e.code},
             selected:{
+
                 id: '{{ (isset($bill_of_lading) ? $bill_of_lading->shipment_id : "") }}',
             code: '{{ ((isset($bill_of_lading) and ($bill_of_lading->shipment_id > 0))? $bill_of_lading->shipment->code : "") }}',
             type: '{{ (isset($bill_of_lading) ? $bill_of_lading->bl_type : "") }}',
@@ -692,7 +734,6 @@
         forwarding_agent_name: '{{ ((isset($bill_of_lading) and ($bill_of_lading->forwarding_agent_id > 0))? $bill_of_lading->forwarding_agent->name : "") }}'
             },
             onSelect:function(e,o){
-
             $("#shipment_id").val(e.id),
                 $(this).val(e.code).change(),
                 $("#shipment_type").val(e.type).change(),
@@ -726,7 +767,7 @@
                 $("#shipper_state_id").val(e.shipper_state_id),
                 $("#shipper_state_name").val(e.shipper_state_name),
                 $("#shipper_zip_code_id").val(e.shipper_zip_code_id),
-                $("#shipper_zip_code_code").val(e.shipper_zip_code_code),
+                $("#shipper_zip_code_code").val(e.shipper_zip_code),
 
                 $("#consignee_id").val(e.consignee_id),
                 $("#consignee_name").val(e.consignee_name),
@@ -736,7 +777,7 @@
                 $("#consignee_state_id").val(e.consignee_state_id),
                 $("#consignee_state_name").val(e.consignee_state_name),
                 $("#consignee_zip_code_id").val(e.consignee_zip_code_id),
-                $("#consignee_zip_code_code").val(e.consignee_zip_code_code),
+                $("#consignee_zip_code_code").val(e.consignee_zip_code),
 
                 $("#notify_id").val(e.notify_id),
                 $("#notify_name").val(e.notify_name),
@@ -746,14 +787,14 @@
                 $("#notify_state_id").val(e.notify_state_id),
                 $("#notify_state_name").val(e.notify_state_name),
                 $("#notify_zip_code_id").val(e.notify_zip_code_id),
-                $("#notify_zip_code_code").val(e.notify_zip_code_code),
+                $("#notify_zip_code_code").val(e.notify_zip_code),
 
                 $("#agent_name").val(e.agent_name),
                 $("#agent_id").val(e.agent_id),
                 $("#agent_state_id").val(e.agent_state_id),
                 $("#agent_zip_code_id").val(e.agent_zip_code_id),
                 $("#agent_country_id").val(e.agent_country_id),
-                $("#agent_country_name").val(e.agent_country_name),
+                $("#agent_country_name").val(e.agent_country),
                 $("#agent_state_name").val(e.agent_state_name),
                 $("#agent_zip_code").val(e.agent_zip_code),
                 $("#agent_phone").val(e.agent_phone),
@@ -764,15 +805,10 @@
                 $("#forwarding_agent_id").val(e.forwarding_agent_id),
                 $("#forwarding_agent_name").val(e.forwarding_agent_name)},
 
-            minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#shipment_code_img").removeClass("img-none").addClass("img-display"),$("#shipment_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#shipment_code_img").removeClass("img-display").addClass("img-none"),$("#shipment_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#shipment_id").val(0)}).blur(function(){var e=$("#shipment_id").val(); 0 == e && ($(this).val(""), $("#shipment_type").val("").change(),$("#bl_status").val("").change(),$("#vessel_name").val(""),$("#voyage_name").val(""),$("#carrier_id").val(""),$("#carrier_name").val(""),$("#departure_date").val(""),$("#arrival_date").val(""),$("#booking_code").val(""),
+            minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#shipment_code_img").removeClass("img-none").addClass("img-display"), $("#shipment_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#shipment_code_img").removeClass("img-display").addClass("img-none"), $("#shipment_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#shipment_id").val(0)}).blur(function(){var e=$("#shipment_id").val(); 0 == e && ($(this).val(""), $("#shipment_type").val("").change(),$("#bl_status").val("").change(),$("#vessel_name").val(""),$("#voyage_name").val(""),$("#carrier_id").val(""),$("#carrier_name").val(""),$("#departure_date").val(""),$("#arrival_date").val(""),$("#booking_code").val(""),
 $("#port_loading_id").val(""),$("#port_loading_name").val(""),$("#port_unloading_id").val(""),$("#port_unloading_name").val(""),$("#place_receipt_id").val(""),$("#place_receipt_name").val(""),$("#place_delivery_id").val(""),$("#place_delivery_name").val(""),$("#place_receipt").val(""),$("#place_delivery").val(""),$("#port_loading").val(""),$("#foreign_port").val(""),
 $("#shipper_id").val(""),$("#shipper_name").val(""),$("#shipper_address").val(""),$("#shipper_city").val(""),$("#shipper_phone").val(""),$("#shipper_state_id").val(""),$("#shipper_state_name").val(""),$("#shipper_zip_code_id").val(""),$("#shipper_zip_code_code").val(""),
-$("#consignee_id").val(""),$("#consignee_name").val(""),$("#consignee_address").val(""),$("#consignee_city").val(""),$("#consignee_phone").val(""),$("#consignee_state_id").val(""),$("#consignee_state_name").val(""),$("#consignee_zip_code_id").val(""),$("#consignee_zip_code_code").val(""),
-$("#notify_id").val(""),$("#notify_name").val(""),$("#notify_address").val(""),$("#notify_city").val(""),$("#notify_phone").val(""),$("#notify_state_id").val(""),$("#notify_state_name").val(""),$("#notify_zip_code_id").val(""),$("#notify_zip_code_code").val(""),
+$("#consignee_id").val(""),$("#consignee_name").val(""),$("#consignee_address").val(""),$("#consignee_city").val(""),$("#consignee_phone").val(""),$("#consignee_state_id").val(""),$("#consignee_state_name").val(""),$("#consignee_zip_code_id").val(""),$("#consignee_zip_code_code").val(""), $("#notify_id").val(""),$("#notify_name").val(""),$("#notify_address").val(""),$("#notify_city").val(""),$("#notify_phone").val(""),$("#notify_state_id").val(""),$("#notify_state_name").val(""),$("#notify_zip_code_id").val(""),$("#notify_zip_code_code").val(""),
 $("#agent_name").val(""),$("#agent_id").val(""),$("#agent_state_id").val(""),$("#agent_zip_code_id").val(""),$("#agent_country_id").val(""),$("#agent_country_name").val(""),$("#agent_state_name").val(""),$("#agent_zip_code").val(""),$("#agent_phone").val(""),$("#agent_fax").val(""),$("#agent_contact").val(""),$("#agent_commission").val(""),$("#spotting_amount").val(""),$("#forwarding_agent_id").val(""),$("#forwarding_agent_name").val(""))
             });
-
-
-
-
 </script>

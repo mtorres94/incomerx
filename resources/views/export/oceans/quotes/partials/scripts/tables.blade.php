@@ -11,10 +11,14 @@ $("#btn_cargo_details").click(function(){
 });
 
 $("#btn_container_details").click(function(){
+    cleanModalFields("Container_Details");
     $("#container_pickup_type").val("02").change();
     $("#container_delivery_type").val("02").change();
     $("#container_drop_type").val("02").change();
     $("#container_total_weight_unit").val("L").change();
+    $("#container_ventilation").val("A").change();
+    $("#container_degrees").val("F").change();
+    $("#pd_status").val("1").change();
 });
 $("#btn_charge_details").click(function(){
     $("#billing_bill_type").val("C").change();
@@ -28,7 +32,7 @@ $("#btn_charge_details").click(function(){
 
     $("#container-save").click(function() {
         if($("#equipment_type_code").val()==''){
-            show_alert();
+
             $("#equipment_type_code").focus();
         }else{
             var t = $("#container_details tbody tr").length + 1,
@@ -152,7 +156,8 @@ $("#btn_charge_details").click(function(){
                     .append(createTableContent('container_drop_date', g_51, true, d))
                     .append(createTableContent('container_total_weight_unit', g_52, true, d))
                     .append(createTableBtns()),
-                    0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#Container_Details").modal("hide"), $("#equipment_type_code").focus();
+                    0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#Container_Details").modal("show"), cleanModalFields("Container_Details"), $("#pd_status").val("1").change(), $("#equipment_type_code").focus();
+
             ($("#container_details tbody tr").length > 0 ? $("#contract_basis").val("2").change() : $("#contract_basis").val("1").change());
 
         }
@@ -280,7 +285,7 @@ $("#btn_charge_details").click(function(){
 
     $("#cargo-save").click(function() {
         if($("#box_cargo_type_code").val()==''){
-            show_alert();
+
             $("#box_cargo_type_code").focus();
         }else{
             var t = $("#cargo_details tbody tr").length + 1,
@@ -563,9 +568,9 @@ $("#btn_charge_details").click(function(){
                 $("#Cargo_Details").modal("show"), $("#box_quantity").focus()
     });
 
-    $("#origin_charges-save").click(function() {
+    $("#charges-save").click(function() {
         if($("#billing_billing_code").val()==''){
-            show_alert();
+
             $("#billing_billing_code").focus();
         }else{
             var t = $("#charge_details tbody tr").length + 1,

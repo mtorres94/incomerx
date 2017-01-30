@@ -22,11 +22,8 @@
         {!! Form::bsText('col-md-3', 'col-md-6', 'Phone', 'agent_phone', null, '') !!}
     </div>
     <div class="row">
-        <div class="col-md-6">{!! Form::bsText('col-md-6', 'col-md-6', 'Comm. Amt', 'agent_commission_amount', null, '') !!}</div>
-        <div class="col-md-6">{!! Form::bsText('col-md-2', 'col-md-6', '%', 'agent_commission_p', null, '') !!}</div>
+        <div class="col-md-6">{!! Form::bsText('col-md-6', 'col-md-6', 'Commission', 'agent_commission_amount', null, '') !!}</div>
+        <div class="col-md-6">{!! Form::bsText('col-md-2', 'col-md-6', 'Amount %', 'agent_commission_p', null, '') !!}</div>
     </div>
-    <legend>Domestic Routing/ Export Instructions</legend>
-    <div class="row">
-        {!! Form::bsMemo(null, null, '', 'domestic_instruction', null, 18, ' ') !!}
-    </div>
+
 </fieldset>

@@ -6,7 +6,7 @@
 
         openTab($("#data"));
         renameTab();
-        updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('eo_bill_of_lading.close') }}')
+        updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('eo_bill_of_lading.close') }}');
 
         if ($("#open_status").val() == "1") {
             disableFields('data');
@@ -22,9 +22,11 @@
                 var etab = itab.find('.tabs-title');
                 var span = '{{ isset($bill_of_lading) ? "Edit ".$bill_of_lading->code : "New" }}';
 
-                etab[1] = span
+                etab[1] = span;
             }
         }
+
+
         $("#billing_bill_party").change(function () {
             var a= $("#billing_bill_party").val();
             switch(a){
@@ -67,6 +69,14 @@
                     o2 = e2.indexOf("display: none;");
                 $(a2).removeAttr("style"), n2 >= 0 && $(a2).attr("style", "display: block;"), o2 >= 0 && $(a2).attr("style", "display: none;")}
         }
+        for (var t2 = $("#bill_of_lading_tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
+            var a2 = t2[l2];
+            var e2 = $(a2).attr("style");
+            if (e2 === undefined) {
+            } else {var n2 = e2.indexOf("display: block;"),
+                    o2 = e2.indexOf("display: none;");
+                $(a2).removeAttr("style"), n2 >= 0 && $(a2).attr("style", "display: block;"), o2 >= 0 && $(a2).attr("style", "display: none;")}
+        }
 
         for (var t2 = $("#container-tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
             var a2 = t2[l2];
@@ -77,7 +87,7 @@
                 $(a2).removeAttr("style"), n2 >= 0 && $(a2).attr("style", "display: block;"), o2 >= 0 && $(a2).attr("style", "display: none;")}
         }
 
-        for (var t2 = $("#origin_charges-tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
+        for (var t2 = $("#charges-tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
             var a2 = t2[l2];
             var e2 = $(a2).attr("style");
             if (e2 === undefined) {
@@ -107,15 +117,16 @@
         removeEmptyNodes('hazardous-details');
         removeEmptyNodes('chargeDetails');
         removeEmptyNodes('transportation_details');
+        weight_totals();
         //===================================================================
 
-
+        $("#group_by").attr("disabled", true);
         initDate($("#bl_date"), 0);
         $("#bl_type").val("C").change();
         $("#total_weight_unit_measurement").val("L").change();
         $("#bl_status").val("O").change();
         $("#rate_class").val("1").change();
-        $("#bl_class").val("3").change();
+
         $("#currency_type").val("1").change();
 
         $("#billing_unit_id").change(function () {
@@ -225,9 +236,7 @@
             });
         });
 
-        transportation_plan();
-        weight_totals();
-        values_charges();
+
       //  values_box_vehicle();
         $("#billing_quantity").change(function() { charges_details() });
         $("#billing_rate").change(function() { charges_details() });
@@ -257,32 +266,43 @@
         $("#vehicle_dim_fact").change(function () { calculate_vehicle() });
 
         $("#cargo_rate").change(function() { values_box_vehicle()});
-
-
-
-
     });
+
+
+    $("#bl_class").change(function(){
+       if ($("#bl_class").val() == '3'){
+           $("#shipment_id").attr("readonly", false);
+           $("#shipment_code").attr("readonly", false);
+           $("#cargo_loader_id").val(0).attr("readonly", true);
+           $("#cargo_loader_code").val("").attr("readonly", true);
+
+       }else{
+           $("#shipment_id").val(0).attr("readonly", true);
+           $("#shipment_code").val("").attr("readonly", true);
+           $("#cargo_loader_id").attr("readonly", false);
+           $("#cargo_loader_code").attr("readonly", false);
+       }
+    });
+    $("#bl_class").val({{ (isset($bill_of_lading) ? $bill_of_lading->bl_class:  "3" ) }}).change();
 
     //===================================================
     //CONTAINER DETAILS
-
-    $("shipment_code").change(function(){
+    $("#shipment_code").change(function(){
         var id = $("#shipment_id").val(), x = 0;
-        console.log(id);
         $.ajax({
-
             url: "{{ route('shipment_entries.get') }}",
             data: {id: id},
             type: 'GET',
 
             success: function (e) {
+                clearTable("container_details");
                 var f = $("#container_details tbody tr").length,
                     n1 = $("#container_details"),
                     t1 = n1.find("tbody"),
                     p = $("<tr id=" + (f + 1) + ">");
                 p.append(createTableContent('container_line', (f + 1), true, f))
                     .append(createTableContent('equipment_type_id', e[0].equipment_type_id, true, f))
-                    .append(createTableContent('equipment_type_code', e[0].equipmnt_type_code, false, f))
+                    .append(createTableContent('equipment_type_code', e[0].equipment_type_code, false, f))
                     .append(createTableContent('container_number', e[0].container_number , false, f))
                     .append(createTableContent('container_seal_number', e[0].container_seal_number, false, f))
                     .append(createTableContent('container_seal_number2', e[0].container_seal_number2, true, f))
@@ -341,8 +361,6 @@
                     .append(createTableContent('container_drop_number', e[0].drop_number, true, f))
                     .append(createTableContent('container_hazardous_contact', e[0].hazardous_contact, true, f))
                     .append(createTableContent('container_hazardous_phone', e[0].hazardous_phone, true, f))
-
-
                     .append(createTableContent('container_comments', e[0].container_comments, true, f))
                     .append(createTableBtns()),
                     t1.append(p);
@@ -351,23 +369,24 @@
     });
     //===================================================
     $("#btn-load-houses").click(function () {
-        var id= $("#shipment_id").val() , x=0 ;
+        clearTable("load_warehouses");
+        if( $("#bl_class").val() == '3'){
+            var id= $("#shipment_id").val() , x=0;
+            $("#group_by").attr("disabled", true);
+            $.ajax({
+                url:  "{{ route('bill_of_lading.get_details') }}",
+                data: {id: id},
+                type: 'GET',
 
-        $.ajax({
+                success: function (e) {
+                    x = 0;
 
-            url: "{{ route('bill_of_lading.get_details') }}",
-            data: {id: id},
-            type: 'GET',
-
-            success: function (e) {
-                x = 0;
-
-                while (e[x].hbl_code != "") {
-                    var r = $("#load_warehouses tbody tr").length + 1,
+                    while (e[x].hbl_code != "") {
+                        var r = $("#load_warehouses tbody tr").length + 1,
                             n = $("#load_warehouses"),
                             t = n.find("tbody"),
                             p = $("<tr id=" + r + ">");
-                    p.append(createTableContent('resume_line', r, true, x))
+                        p.append(createTableContent('resume_line', r, true, x))
                             .append("<td><input type='checkbox' name='hbl_select[]' id='hbl_select' value='" + e[x].id + "'></td>")
                             .append(createTableContent('hbl_code', e[x].hbl_code, false, x))
                             .append(createTableContent('hbl_marks', e[x].marks, false, x))
@@ -385,13 +404,61 @@
                             .append(createTableContent('total_weight_k', e[x].total_weight_k, true, x))
                             .append(createTableContent('total_cubic_k', e[x].total_cubic_k, true, x))
                             .append(createTableContent('total_charge_weight_k', e[x].total_charge_weight_k, true, x))
-                    t.append(p);
-                    x= x+1;
-                    $("#cargo_loader_id").val(e[x].cargo_loader_id);
+                            .append(createTableContent('shipper_id', "", true, x))
+                            .append(createTableContent('consignee_id', "", true, x))
+                        t.append(p);
+                        x= x+1;
+                        $("#cargo_loader_id").val(e[x].cargo_loader_id);
+                        $("#CreateHouse").modal("show");
+                    }
                 }
+            });
+        }else{
+            var id= $("#cargo_loader_id").val() ,
+                x=0;
 
-            }
-        });
+            $("#group_by").attr("disabled", false);
+            $.ajax({
+                url:  "{{ route('eo_cargo_loader.get_warehouses') }}",
+                data: {id: id},
+                type: 'GET',
+
+                success: function (e) {
+                    x = 0;
+
+                    while (e[x].hbl_code != "") {
+                        var r = $("#load_warehouses tbody tr").length + 1,
+                            n = $("#load_warehouses"),
+                            t = n.find("tbody"),
+                            p = $("<tr id=" + r + ">"),
+                            description= "Shipper: "+ e[x].shipper_name + "  /  Consignee: " + e[x].consignee_name;
+                        p.append(createTableContent('resume_line', r, true, x))
+                            .append("<td><input type='checkbox' name='hbl_select[]' id='hbl_select' value='" + e[x].id + "'></td>")
+                            .append(createTableContent('hbl_code', e[x].value, false, x))
+                            .append(createTableContent('hbl_marks', description, false, x))
+                            .append(createTableContent('hbl_cargo_type_id', 0, true, x))
+                            .append(createTableContent('hbl_cargo_type_code',"", true, x))
+                            .append(createTableContent('hbl_weight_unit', 'L', true, x))
+                            .append(createTableContent('total_pieces', e[x].quantity, false, x))
+                            .append(createTableContent('total_weight_l', e[x].sum_weight, false, x))
+                            .append(createTableContent('total_cubic_l', e[x].sum_cubic, false, x))
+                            .append(createTableContent('total_charge_weight_l', e[x].volume_weight, true, x))
+                            .append(createTableContent('hbl_id', e[x].id, true, x))
+                            .append(createTableContent('container_id', e[x].container_id, true, x))
+                            .append(createTableContent('cargo_loader_id', e[x].cargo_loader_id, true, x))
+                            .append(createTableContent('inserted_id', e[x].id, true, x))
+                            .append(createTableContent('total_weight_k', (e[x].sum_weight * 2.2), true, x))
+                            .append(createTableContent('total_cubic_k', (e[x].sum_cubic * 2.2), true, x))
+                            .append(createTableContent('total_charge_weight_k', (e[x].volume_weight * 2.2), true, x))
+                            .append(createTableContent('shipper_id', e[x].shipper_id, true, x))
+                            .append(createTableContent('consignee_id', e[x].consignee, true, x))
+                        t.append(p);
+                        x= x+1;
+                        $("#CreateHouse").modal("show");
+                    }
+                }
+            });
+        }
     });
 
     //===================================================
@@ -427,31 +494,18 @@
     $("#agent_commission").number(true);
     $("#container_temperature").number(true, 2);
     $("#container_max").number(true, 3);
-
+    $("#incoterm_type").val("0").change();
     $("#container_inner_quantity").number(true, 2);
     $("#container_net_weight").number(true, 2);
     $("#container_number_equipment").number(true, 2);
     $("#container_outer_quantity").number(true, 2);
     $("#container_tare_weight").number(true, 2);
 
-    $("#billing_quantity").number(true);
-    $("#billing_increase").number(true, 3);
-    $("#billing_rate").number(true, 3);
-    $("#billing_amount").number(true, 3).attr("readonly", true);
-    $("#billing_exchange_rate").number(true, 3);
-
-    $("#cost_quantity").number(true);
-    $("#cost_rate").number(true, 3);
-    $("#cost_amount").number(true, 3).attr("readonly", true);
-    $("#cost_exchange_rate").number(true, 3);
-
-    $("#cargo_grossw").number(true, 3).attr("readonly", true);
-    $("#cargo_cubic").number(true, 3).attr("readonly", true);
 
     $("#box_length").number(true, 3);
     $("#box_quantity").number(true);
     $("#box_unit_weight").number(true, 3);
-    $("#box_total_weight").number(true, 3).attr("readonly", true);
+    $("#box_total_weight").attr("readonly", true);
     $("#box_width").number(true, 3);
     $("#box_height").number(true, 3);
     $("#box_vol_weight").number(true, 3).attr("readonly", true);
@@ -468,32 +522,30 @@
     $("#vehicle_vol_weight").number(true, 3).attr("readonly", true);
     $("#vehicle_total_cubic").number(true, 3).attr("readonly", true);
 
-    $("#total_quantity").number(true).attr("readonly", true);
+    $("#total_quantity").attr("readonly", true);
    // $("#booking_code").attr("readonly", true);
-    $("#total_weight_kgs").number(true, 3).attr("readonly", true);
-    $("#total_cubic_cbm").number(true, 3).attr("readonly", true);
-    $("#total_charge_weight_kgs").number(true, 3).attr("readonly", true);
-    $("#total_weight_lbs").number(true, 3).attr("readonly", true);
-    $("#total_cubic_cft").number(true, 3).attr("readonly", true);
-    $("#total_charge_weight_lbs").number(true, 3).attr("readonly", true);
+    $("#total_weight_kgs").attr("readonly", true);
+    $("#total_cubic_cbm").attr("readonly", true);
+    $("#total_charge_weight_kgs").attr("readonly", true);
+    $("#total_weight_lbs").attr("readonly", true);
+    $("#total_cubic_cft").attr("readonly", true);
+    $("#total_charge_weight_lbs").attr("readonly", true);
     $("#billing_customer_name").attr("readonly", true);
-    $("#cargo_weight_k").number(true, 3).attr("readonly", true);
-            $("#cargo_cubic_k").number(true, 3).attr("readonly", true);
-            $("#cargo_charge_weight_k").number(true, 3).attr("readonly", true);
-            $("#cargo_weight_l").number(true, 3).attr("readonly", true);
-            $("#cargo_cubic_l").number(true, 3).attr("readonly", true);
-            $("#cargo_charge_weight_l").number(true, 3).attr("readonly", true);
-            $("#cargo_rate").number(true, 3);
-            $("#cargo_amount").number(true, 3).attr("readonly", true);
+    $("#cargo_weight_k").attr("readonly", true);
+            $("#cargo_cubic_k").attr("readonly", true);
+            $("#cargo_charge_weight_k").attr("readonly", true);
+            $("#cargo_weight_l").attr("readonly", true);
+            $("#cargo_cubic_l").attr("readonly", true);
+            $("#cargo_charge_weight_l").attr("readonly", true);
+            $("#cargo_amount").attr("readonly", true);
     //$("#user_id").attr("readonly", true);
     $("#user_id").attr("readonly", true);
 
-    $("#charges_bill").number(true, 3).attr("readonly", true);
-    $("#charges_cost").number(true, 3).attr("readonly", true);
-    $("#charges_profit").number(true, 3).attr("readonly", true);
-    $("#charges_profit_p").number(true, 3).attr("readonly", true);
-    $("#transportation_plans_amount").number(true, 3).attr("readonly", true);
-    $("#transportation_amount").number(true, 3);
+    $("#charges_bill").attr("readonly", true);
+    $("#charges_cost").attr("readonly", true);
+    $("#charges_profit").attr("readonly", true);
+    $("#charges_profit_p").attr("readonly", true);
+    $("#transportation_plans_amount").attr("readonly", true);
 
 
 </script>

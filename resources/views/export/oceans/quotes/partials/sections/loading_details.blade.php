@@ -19,18 +19,6 @@
 <div class="row">
     <div class="col-md-12">
         {!! Form::bsComplete('col-md-3', 'col-md-3', 'Service', 'service_id', 'service_name', Request::get('term'), ((isset($quotes) and $quotes->service_id > 0) ? $quotes->service->name : null), 'Services') !!}
-        {!! Form::bsSelect('col-md-3', 'col-md-3', ' Incoterm', 'incoterm_type', Sass\Incoterm::all()->lists('code', 'id'), null) !!}
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        {!! Form::bsSelect('col-md-3', 'col-md-3', ' Currency', 'currency_type', Sass\Currency::all()->lists('code', 'id'), null) !!}
-        {!! Form::bsText('col-md-3', 'col-md-3', 'Declared Value', 'declared_value',null, '0.000') !!}
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        {!! Form::bsText('col-md-3', 'col-md-3', 'Exchange rate', 'exchange_rate',null, '0.000') !!}
-        {!! Form::bsText('col-md-3', 'col-md-3', 'Insured Value', 'insured_value',null, '0.000') !!}
+        {!! Form::bsSelect('col-md-3', 'col-md-3', ' Incoterm', 'incoterm_type', Sass\Incoterm::all()->lists('code', 'id'), "TYPE") !!}
     </div>
 </div>

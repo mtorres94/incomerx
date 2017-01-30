@@ -1,5 +1,6 @@
 <script type="text/javascript">
     $("#btn_container_details").click(function() {
+        $("#container_spotting_date").val($("#loading_date").val());
         $("#pd_status").val("1").change();
         $("#container_pickup_type").val("02").change();
         $("#container_delivery_type").val("02").change();
@@ -67,9 +68,6 @@
         $("input[name='warehouse_select[]']:checked").each(function () {
             whr_select.push($(this).val());
         });
-
-        console.log(_);
-
         for(var a =0; a < t.length ; a++){
             c=0;
 
@@ -85,8 +83,6 @@
                     container_id= t[a].childNodes[0].textContent;
                     $("#hidden_warehouse tbody tr td").find("input[id='hidden_flag["+ (a + 1) +"]']").val(_);
                     //$("#hidden_warehouse tbody tr td").find("input[id='hidden_group_by["+ (a + 1) +"]']").val(_);
-                    console.log(a);
-
                 }
                 c++;
             }
@@ -101,7 +97,6 @@
                 .append(createTableContent('resume_cubic', cubic , false, _ ))
                 .append(createTableContent('resume_charge_weight', g_weight, false, _ ))
                 .append(createTableContent('inserted_id', 0, true, _ ))
-
                 .append(createTableBtns())
         x.append(C)
 $("#CreateHouse").modal("hide");
@@ -165,7 +160,7 @@ $("#CreateHouse").modal("hide");
 
     $("#uns-save").click(function() {
         if($("#hazardous_uns_code").val()== ''){
-            show_alert();
+
             $("#hazardous_uns_code").focus()
         }else{
             var r = ($('#hazardous_details tbody tr').length + 1),
@@ -745,7 +740,7 @@ $("#CreateHouse").modal("hide");
         //=========== DETALLES warehouse
         var id_row =  (c1 == 0? _ : c1);
         $("#hidden_warehouse tbody [data-id='" + id_row + "']").remove();
-        n = $("#hidden_warehouse"),
+        n = $("#hidden_warehouse");
                 t = n.find("tbody");
         var tr=  $("#cargo_details tbody tr"),
                 tr_1= $("#hidden_warehouse tbody tr");
@@ -755,7 +750,7 @@ $("#CreateHouse").modal("hide");
         for(var a =0; a< r_1 ; a++) {
             var p_1 = $("<tr data-id=" + id_row + ">");
             p_1.append(createTableContent('hidden_container_id', id_row, true, d))
-                    .append(createTableContent('hidden_warehouse_line', tr[a].childNodes[0].textContent, true, d))
+                    .append(createTableContent('hidden_warehouse_line', tr[a].childNodes[34].textContent, true, d))
                     .append(createTableContent('hidden_warehouse_number', tr[a].childNodes[1].textContent, false, d))
                     .append(createTableContent('hidden_date_in', tr[a].childNodes[2].textContent, false, d))
                     .append(createTableContent('hidden_shipper_id', tr[a].childNodes[3].textContent, true, d))
@@ -792,13 +787,11 @@ $("#CreateHouse").modal("hide");
                     .append(createTableContent('hidden_warehouse_code', tr[a].childNodes[32].textContent, true, d))
                     .append(createTableContent('hidden_flag', '0', true, d))
                     .append(createTableContent('hidden_receipt_entry', tr[a].childNodes[34].textContent, true, d))
-                    .append(createTableContent('hbl_line_id', 0 , true, d))
+                    .append(createTableContent('hbl_line_id','0' , true, d))
                     .append(createTableContent('equipment_type_code', c3 , true, d))
                     .append(createTableContent('container_number', c4 , true, d))
                     .append(createTableContent('container_seal_number', c5 , true, d))
-                    //.append(createTableContent('hidden_group_by', '0' , true, d))
-
-            t.append(p_1);
+                 t.append(p_1);
             d+=1;
         }
 

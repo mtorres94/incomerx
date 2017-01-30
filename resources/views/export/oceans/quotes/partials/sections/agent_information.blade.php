@@ -8,15 +8,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
-        {!! Form::bsText('col-md-3', 'col-md-3', 'Transit days', 'transit_day',null) !!}
-        {!! Form::bsSelect('col-md-3', 'col-md-3', 'Type', 'payment_type', array(
-            '1' => '1- CHECK',
-            '2' => '2- CC',
-            '3' => '3- CASH',
-            '4' => '4- WIRE',
-        ), null) !!}
-    </div>
+        <div class="col-md-6">{!! Form::bsText('col-md-6', 'col-md-6', 'Transit days', 'transit_day',null) !!}</div>
+        <div class="col-md-6">  {!! Form::bsSelect('col-md-6', 'col-md-6', 'Type', 'payment_type', array( '1' => '1- CHECK', '2' => '2- CC', '3' => '3- CASH', '4' => '4- WIRE'), null) !!}</div>
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -30,16 +23,13 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
-        {!! Form::bsDate('col-md-3', 'col-md-3', 'Starting Date', 'starting_date',null) !!}
-        {!! Form::bsDate('col-md-3', 'col-md-3', 'Starting Process date', 'starting_process_date',null) !!}
-    </div>
+        <div class="col-md-6">{!! Form::bsDate('col-md-6', 'col-md-6', 'Starting Date', 'starting_date',null) !!}</div>
+        <div class="col-md-6">{!! Form::bsDate('col-md-6', 'col-md-6', 'Starting Process date', 'starting_process_date',null) !!}
+        </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
-        {!! Form::bsDate('col-md-3', 'col-md-3', 'Ending Date', 'ending_date',null) !!}
-        {!! Form::bsDate('col-md-3', 'col-md-3', 'Approved Date', 'approved_date',null) !!}
-    </div>
+    <div class="col-md-6">{!! Form::bsDate('col-md-6', 'col-md-6', 'Ending Date', 'ending_date',null) !!}</div>
+    <div class="col-md-6">{!! Form::bsDate('col-md-6', 'col-md-6', 'Approved Date', 'approved_date',null) !!}</div>
 </div>
 <div class="row">
     <div class="col-md-12">

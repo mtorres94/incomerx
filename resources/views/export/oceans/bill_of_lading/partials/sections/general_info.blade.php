@@ -1,10 +1,10 @@
-<fieldset>
+
     <div class="row">
         <legend>General info</legend>
 
     </div>
 
-    {!! Form::hidden('cargo_loader_id', null, ['id' => 'cargo_loader_id', 'class' => 'form-control input-sm']) !!}
+
     <div class="row">
         <div class="col-md-1">{!! Form::bsSelect(null, null, ' BL Class', 'bl_class', array(
             '1' => 'DBL',
@@ -34,4 +34,3 @@
             'V' => 'VOID',
         ), 'Status') !!}</div>
         </div>
-</fieldset>

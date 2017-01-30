@@ -21,8 +21,9 @@ class EoQuotesDataTable extends CustomDataTable
             ->addColumn('action', function ($quotes) {
                 return $this->groupButton(
                     $quotes,
-                    'export.oceans.quotes',
-                    null);
+                    'export.oceans.quotes',[
+                        ['route' => 'eo_quotes.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF']
+                ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);

@@ -12,6 +12,7 @@ use Sass\EoBillOfLadingCharge;
 
 use Sass\DataTables\Export\Ocean\BillOfLadingDataTable;
 use Sass\EoBillOfLadingContainer;
+use Sass\EoHblReceiptEntry;
 use Sass\Http\Controllers\Controller;
 
 
@@ -48,11 +49,13 @@ class EoBillOfLadingController extends Controller
     {
         DB::beginTransaction();
             try {
-                $last = EoBillOfLading::orderBy('code','desc')->first();
+                $bl = $request->all();
+                $type = $bl['bl_class'] == 1 ? 'DBL' : ($bl['bl_class'] == 2 ? 'HBL' : 'MBL');
+                $last = EoBillOfLading::orderBy('code','desc')->where('code', 'LIKE', $type.'%') ->first();
                 $frmt = $last == null ? 1 : intval(substr($last->code, 4)) + 1;
                 $code = str_pad($frmt, 6, '0', 0);
-                $bl = $request->all();
-                $bl['code'] = 'MBL-'.$code;
+                $bl['code'] = $type."-".$code;
+
                 $bl['user_create_id'] = Auth::user()->id;
                 $bl['user_update_id'] = Auth::user()->id;
                 $bl['user_open_id'] = Auth::user()->id;
@@ -69,19 +72,18 @@ class EoBillOfLadingController extends Controller
                 $bl['sum_prepaid']= $sum_prepaid;
                 $bl['sum_collected']= $sum_collect;
 
+                $exp=EoBillOfLading::create($bl);
+                EoBillOfLadingCargo::saveDetail($exp->id, $bl);
+                if($bl['bl_class'] == 3){
+                    EoBillOfLading::updateHBL($exp->id, $bl);
+                }else{
+                    EoHblReceiptEntry::saveDetail($exp->id, $bl);
+                }
 
-                $whr=EoBillOfLading::create($bl);
-                EoBillOfLadingCargo::saveDetail($whr->id, $bl);
-                EoBillOfLading::updateHBL($whr->id, $bl);
-                //BillOfLadingCargoDetail::saveDetail($whr->id, $bl);
-                EoBillOfLadingContainer::saveDetail($whr->id, $bl);
-                EoBillOfLadingCharge::saveDetail($whr->id, $bl);
-              /*  BillOfLadingTransportation::saveDetail($whr->id, $bl);
-                BillOfLadingProTracking::saveDetail($whr->id, $bl);
-                BillOfLadingItem::saveDetail($whr->id, $bl);
-                BillOfLadingCustomerReference::saveDetail($whr->id, $bl);
-                BillOfLadingHazardous::saveDetail($whr->id, $bl);*/
-                $id= $whr->id;
+                EoBillOfLadingContainer::saveDetail($exp->id, $bl);
+                EoBillOfLadingCharge::saveDetail($exp->id, $bl);
+
+                $id= $exp->id;
 
         } catch (ValidationException $e) {
             DB::rollback();
@@ -142,7 +144,6 @@ class EoBillOfLadingController extends Controller
             $bill_of_lading['sum_prepaid']= $sum_prepaid;
             $bill_of_lading['sum_collected']= $sum_collect;
             $bill_of_lading['user_update_id'] = Auth::user()->id;
-
             $sent->fill($bill_of_lading);
             $sent->update($bill_of_lading);
             EoBillOfLadingCargo::saveDetail($id, $bill_of_lading);
@@ -165,16 +166,16 @@ class EoBillOfLadingController extends Controller
     public function destroy($id)
     {
         $bill_lading = EoBillOfLading::find($id);
+        DB::table('eo_bill_of_lading_cargo')->where('bill_of_lading_id', '=', $id)->delete();
+        DB::table('eo_bill_of_lading_cargo_details')->where('bill_of_lading_id', '=', $id)->delete();
+        DB::table('eo_bill_of_lading_container')->where('bill_of_lading_id', '=', $id)->delete();
+        DB::table('eo_bill_of_lading_charge')->where('bill_of_lading_id', '=', $id)->delete();
+        DB::table('eo_bill_of_lading_hazardous_details')->where('bill_of_lading_id', '=', $id)->delete();
+        DB::table('eo_bill_of_lading_transportation')->where('bill_of_lading_id', '=', $id)->delete();
+        DB::table('eo_bill_of_lading_pro_tracking')->where('bill_of_lading_id', '=', $id)->delete();
+        DB::table('eo_bill_of_lading_items')->where('bill_of_lading_id', '=', $id)->delete();
+        DB::table('eo_bill_of_lading_customer_references')->where('bill_of_lading_id', '=', $id)->delete();
         $bill_lading->delete();
-        $bill_lading_cargo= DB::table('eo_bill_of_lading_cargo')->where('bill_of_lading_id', '=', $id)->delete();
-        $bill_lading_cargo_details= DB::table('eo_bill_of_lading_cargo_details')->where('bill_of_lading_id', '=', $id)->delete();
-        $bill_lading_container= DB::table('eo_bill_of_lading_container')->where('bill_of_lading_id', '=', $id)->delete();
-        $bill_lading_charge= DB::table('eo_bill_of_lading_charge')->where('bill_of_lading_id', '=', $id)->delete();
-        $bill_lading_hazardous= DB::table('eo_bill_of_lading_hazardous_details')->where('bill_of_lading_id', '=', $id)->delete();
-        $bill_lading_transportation= DB::table('eo_bill_of_lading_transportation')->where('bill_of_lading_id', '=', $id)->delete();
-        $bill_lading_pro_tracking= DB::table('eo_bill_of_lading_pro_tracking')->where('bill_of_lading_id', '=', $id)->delete();
-        $bill_lading_item= DB::table('eo_bill_of_lading_items')->where('bill_of_lading_id', '=', $id)->delete();
-        $bill_lading_customer_reference= DB::table('eo_bill_of_lading_customer_references')->where('bill_of_lading_id', '=', $id)->delete();
 
 
     }
@@ -184,7 +185,7 @@ class EoBillOfLadingController extends Controller
             try {
                 $bill_of_lading= EoBillOfLading::findOrFail($id);
                 return \PDF::loadView('export.oceans.bill_of_lading.pdf', compact('bill_of_lading'))->stream('B/L-'.$bill_of_lading->code.'.pdf');
-                return view('export.oceans.bill_of_lading.pdf', compact('bill_of_lading'));
+               // return view('export.oceans.bill_of_lading.pdf', compact('bill_of_lading'));
             } catch (ModelNotFoundException $e) {
                 abort(404);
             }
@@ -199,7 +200,22 @@ class EoBillOfLadingController extends Controller
             try {
                 $bill_of_lading= EoBillOfLading::findOrFail($id);
                 return \PDF::loadView('export.oceans.bill_of_lading.delivery_order', compact('bill_of_lading'))->stream('DO-'.$bill_of_lading->code.'.pdf');
-                return view('export.oceans.bill_of_lading.delivery_order', compact('bill_of_lading'));
+                //return view('export.oceans.bill_of_lading.delivery_order', compact('bill_of_lading'));
+            } catch (ModelNotFoundException $e) {
+                abort(404);
+            }
+        } else {
+            abort(403);
+        }
+    }
+
+    public function label($token, $id)
+    {
+        if (strlen($token) == 60) {
+            try {
+                $bill_of_lading= EoBillOfLading::findOrFail($id);
+                return \PDF::loadView('export.oceans.bill_of_lading.label', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
+                //return view('export.oceans.bill_of_lading.delivery_order', compact('bill_of_lading'));
             } catch (ModelNotFoundException $e) {
                 abort(404);
             }
@@ -220,42 +236,25 @@ class EoBillOfLadingController extends Controller
                 })->get();
             $results = [];
             foreach ($bill_of_lading as $bl) {
-               /* foreach ($bl->cargo_loader->container_details as $bl_container) {
+              //  foreach ($bl->cargo as $bl_cargo) {
                     $results[] = [
                         'id' => $bl->id,
                         'hbl_code' => $bl->code,
-                        'container_number' => $bl_container->container_number,
-                        'equipment_type_id' => $bl_container->equipment_type_id,
-                        'equipment_type_code' => ($bl_container->equipment_type_id >0 ? $bl_container->equipment_type->code: ""),
-                        'seal_number' => $bl_container->container_seal_number,
-                        'seal_number2' => $bl_container->container_seal_number2,
+                        'marks' => "SHIPPER ".strtoupper($bl->shipper_id > 0 ? $bl->shipper->name : "")." CONSIGNEE: ".strtoupper($bl->consignee_id > 0 ? $bl->consignee->name : ""),
+                        'cargo_type_id' => $bl->cargo_type_id,
+                        'cargo_type_code' => ($bl->cargo_type_id >0 ? $bl->cargo_type->code: ""),
+
                         'total_pieces' => $bl->total_pieces,
                         'total_weight_l' => $bl->total_weight_lbs,
                         'total_cubic_l' => $bl->total_cubic_cft,
                         'total_charge_weight_l' => $bl->total_charge_weight_lbs,
+                        'total_weight_k' => $bl->total_weight_kgs,
+                        'total_cubic_k' => $bl->total_cubic_cbm,
+                        'total_charge_weight_k' => $bl->total_charge_weight_kgs,
                         'cargo_loader_id' => $bl->cargo_loader_id,
-                        'container_id' => $bl_container->id,
+                        'container_id' => $bl->id,
                     ];
-                }*/
-                foreach ($bl->cargo as $bl_cargo) {
-                    $results[] = [
-                        'id' => $bl->id,
-                        'hbl_code' => $bl->code,
-                        'marks' => $bl_cargo->cargo_marks,
-                        'cargo_type_id' => $bl_cargo->cargo_type_id,
-                        'cargo_type_code' => ($bl_cargo->cargo_type_id >0 ? $bl_cargo->cargo_type->code: ""),
-
-                        'total_pieces' => $bl_cargo->cargo_pieces,
-                        'total_weight_l' => $bl_cargo->cargo_weight_l,
-                        'total_cubic_l' => $bl_cargo->cargo_cubic_l,
-                        'total_charge_weight_l' => $bl_cargo->cargo_charge_weight_l,
-                        'total_weight_k' => $bl_cargo->cargo_weight_k,
-                        'total_cubic_k' => $bl_cargo->cargo_cubic_k,
-                        'total_charge_weight_k' => $bl_cargo->cargo_charge_weight_k,
-                        'cargo_loader_id' => $bl->cargo_loader_id,
-                        'container_id' => $bl_cargo->id,
-                    ];
-                }
+              //  }
             }
 
             return response($results);

@@ -36,12 +36,12 @@
         }
     });
 
-    $("#btn-origin_charges").click(function() {
+    $("#btn-charges").click(function() {
         $("#billing_bill_party").val("C").change();
         $("#billing_bill_type").val("C").change();
         $("#billing_currency_type").val("1").change();
         $("#cost_currency_type").val("1").change();
-        for (var t = $("#origin_charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
+        for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
                     n = e.indexOf("display: block;"),
@@ -80,7 +80,7 @@
     });
 
     $("#btn_edit_charge").click(function() {
-        for (var t = $("#origin_charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
+        for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
                     n = e.indexOf("display: block;"),
@@ -562,7 +562,7 @@
                         $("#ItemModal").modal("show"), $("#item_pieces").focus()
             }),
 
-    $("#origin_charges-save").click(function() {
+    $("#charges-save").click(function() {
 
             var t = $("#charge_details tbody tr").length + 1,
                     _ =  ($("#charge_details tbody tr").length == 0 ? 1 : parseInt($("#charge_details tbody tr")[$("#charge_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),

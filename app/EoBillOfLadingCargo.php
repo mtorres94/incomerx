@@ -45,67 +45,35 @@ class EoBillOfLadingCargo extends Model
                 $i++;
             }
         }
-       /* elseif(isset($data['container_line'])){
-
-            //Step by Step - MBL Cargo *
-            //============================================
-            $details= DB::table('eo_bill_of_lading_cargo')->where('bill_of_lading_id', '=', $id)->delete();
-            while($a < count($data['container_line'])) {
-                $i++;
-                if (isset($data['container_line'][$i])) {
-                    $weight_l= ($data['total_weight'])* 2.2;
-                    $cubic_l= ($data['total_cubic']) * 2.2;
-                    $obj = new EoBillOfLadingCargo();
-                    $obj->line= $i;
-                    $obj-> cargo_marks = $data['container_number'];
-                    $obj->cargo_pieces = $data['total_quantity'];
-                    $obj->cargo_description = $data['cargo_description'];
-                    $obj->cargo_weight_unit = $data['total_weight_unit_measurement'];
-                    $obj->cargo_weight_k = $data['total_weight'];
-                    $obj->cargo_cubic_k = $data['total_cubic'];
-                    $obj->cargo_charge_weight_k = $data['total_weight'];
-                    $obj->cargo_weight_l = $weight_l;
-                    $obj->cargo_cubic_l = $cubic_l;
-                    $obj->cargo_charge_weight_l =$weight_l;
-                    $obj->cargo_type_id = $data['total_cargo_type_id'];
-                    $obj->cargo_commodity_id = $data['total_commodity_id'];
-                    $obj->save();
-                    $a++;
-                }
-            }
-
-            //============================================
-        }*/
-
     }
 
     public static function saveDetailHBL($data) {
-        $i=-1; $a=0;
-        if (isset($data['resume_line'])){
-           // $details= DB::table('exp_bill_of_lading_cargo')->where('bill_of_lading_id', '=', $id)->delete();
-            while($a < count($data['resume_line'])){
-                $i++;
-                if (isset($data['resume_line'][$i])){
-                    $weight_k = ($data['resume_gross_weight'][$i]) * 0.453592;
-                    $cubic_k = ($data['resume_cubic'][$i]) * 0.453592;
+        $i = 0; $a = 0;
+        if (isset($data['hidden_warehouse_line'])){
+           //DB::table('exp_bill_of_lading_cargo')->where('bill_of_lading_id', '=', $id)->delete();
+            while($a < count($data['hidden_warehouse_line'])){
+                if (isset($data['hidden_warehouse_line'][$i])){
+                    $weight_k = ($data['hidden_sum_weight'][$i]) * 0.453592;
+                    $cubic_k = ($data['hidden_sum_cubic'][$i]) * 0.453592;
                     $obj = new EoBillOfLadingCargo();
 
-                    $obj->bill_of_lading_id = $data['inserted_id'][$i];
-                    $obj->line= $data['resume_line'][$i];
-                    $obj-> cargo_marks = $data['resume_marks'][$i];
-                    $obj->cargo_pieces = $data['resume_pieces'][$i];
-                    $obj->cargo_description = $data['resume_description'][$i];
-                    $obj->cargo_weight_unit = $data['resume_weight_unit'][$i];
+                    $obj->bill_of_lading_id = $data['hbl_line_id'][$i];
+                    $obj->line= $a + 1;
+                    $obj-> cargo_marks =  $data['hidden_warehouse_number'][$i];
+                    $obj->cargo_pieces = $data['hidden_sum_pieces'][$i];
+                    $obj->cargo_description =  "SHIPPER: ".$data['hidden_shipper_name'][$i]." - CONSIGNEE: ". $data['hidden_consignee_name'][$i];
+                    $obj->cargo_weight_unit = "L";
                     $obj->cargo_weight_k = $weight_k;
                     $obj->cargo_cubic_k = $cubic_k;
-                    $obj->cargo_weight_l = $data['resume_gross_weight'][$i];
-                    $obj->cargo_cubic_l =$data['resume_cubic'][$i];
-                    $obj->cargo_charge_weight_l = $data['resume_charge_weight'][$i];
+                    $obj->cargo_weight_l = $data['hidden_sum_weight'][$i];
+                    $obj->cargo_cubic_l =$data['hidden_sum_cubic'][$i];
+                    $obj->cargo_charge_weight_l = $data['hidden_sum_weight'][$i];
                     $obj->cargo_charge_weight_k = $weight_k;
 
                     $obj->save();
                     $a++;
                 }
+                $i++;
             }
         }
     }

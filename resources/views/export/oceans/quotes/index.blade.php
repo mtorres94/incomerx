@@ -7,7 +7,7 @@
 @section('scripts')
     {!! $dataTable->scripts() !!}
     <script>
-        preventOpen($('#dataTableBuilder'), '{{ route('io_quotes.open') }}', '{{ \Auth::user()->id }}');
+        preventOpen($('#dataTableBuilder'), '{{ route('eo_quotes.open') }}', '{{ \Auth::user()->id }}');
         ajaxDelete($('#dataTableBuilder'));
     </script>
 @stop

@@ -224,9 +224,6 @@ class EoShipmentEntryController extends Controller
                     'agent_commission_amount'   => $shipmentEntry->agent_commission_amount,
                     'agent_contact'   => $shipmentEntry->agent_contact,
                     'agent_amount'   => $shipmentEntry->agent_amount,
-
-
-
                 ];
             }
 
