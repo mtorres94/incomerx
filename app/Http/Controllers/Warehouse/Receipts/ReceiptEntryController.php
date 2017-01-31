@@ -302,7 +302,8 @@ class ReceiptEntryController extends Controller
                                 break;
                         }
                     }
-                    $query->Where('whr_receipts_entries.cargo_loader_id', '=', 0);
+
+                        $query->Where('whr_receipts_entries.cargo_loader_id', '=', 0);
 
                 })->take(10)->get();
 
@@ -356,6 +357,7 @@ class ReceiptEntryController extends Controller
             return response($results);
         }
     }
+
 
     public function pdf($token, $id)
     {

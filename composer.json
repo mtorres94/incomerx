@@ -36,7 +36,10 @@
         ],
         "psr-4": {
             "Sass\\": "app/"
-        }
+        },
+        "files": [
+            "app/Helpers/functions.php"
+        ]
     },
     "autoload-dev": {
         "classmap": [
