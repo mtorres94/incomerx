@@ -174,7 +174,7 @@
         consignee_fax: '{{ (isset($routing_order)? $routing_order->consignee_fax : "") }}'
     },onSelect:function(e,o){
         $("#quote_id").val(e.id).change(),
-        $(this).val(e.code).change(),
+        $(this).val(e.code),
             $("#service_id").val(e.service_id),
             $("#service_name").val(e.service_name),
             $("#port_loading_id").val(e.port_loading_id),

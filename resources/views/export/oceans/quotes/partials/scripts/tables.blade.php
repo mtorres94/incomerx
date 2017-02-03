@@ -1,13 +1,16 @@
 <script type="text/javascript">
-
+function resetModal(form){
+    $('#'+ form +'').formValidation('resetForm', true);
+}
 
 $("#btn_cargo_details").click(function(){
-    $("#box_quantity").val(1);
+    $("#box_quantity").val(0);
     $("#box_pieces").val(1);
     $("#box_metric_unit").val("I").change();
     $("#box_weight_unit").val("L").change();
     $("#box_dim_fact").val("I").change();
     $("#box_cargo_type_id").val("0").change();
+    resetModal("CargoModal");
 });
 
 $("#btn_container_details").click(function(){
@@ -19,6 +22,7 @@ $("#btn_container_details").click(function(){
     $("#container_ventilation").val("A").change();
     $("#container_degrees").val("F").change();
     $("#pd_status").val("1").change();
+    resetModal("ContainerModal");
 });
 $("#btn_charge_details").click(function(){
     $("#billing_bill_type").val("C").change();
@@ -27,12 +31,11 @@ $("#btn_charge_details").click(function(){
     $("#cost_currency_type").val("1").change();
     $("#billing_unit_id").val("0").change();
     $("#cost_unit_id").val("0").change();
-
+    resetModal("ChargeModal");
 });
 
     $("#container-save").click(function() {
         if($("#equipment_type_code").val()==''){
-
             $("#equipment_type_code").focus();
         }else{
             var t = $("#container_details tbody tr").length + 1,
@@ -103,11 +106,11 @@ $("#btn_charge_details").click(function(){
                     .append(createTableContent('equipment_type_id', g_1, true, d))
                     .append(createTableContent('equipment_type_code', g_2, false, d))
                     .append(createTableContent('container_number', g_3, false, d))
-                    .append(createTableContent('container_seal_number', g_4, true, d))
+                    .append(createTableContent('container_seal_number', g_4, false, d))
                     .append(createTableContent('container_seal_number2', g_5, true, d))
-                    .append(createTableContent('container_pieces', g_6, true, d))
-                    .append(createTableContent('container_gross_weight', g_7, true, d))
-                    .append(createTableContent('container_cubic', g_8, true, d))
+                    .append(createTableContent('container_pieces', g_6, false, d))
+                    .append(createTableContent('container_gross_weight', g_7, false, d))
+                    .append(createTableContent('container_cubic', g_8, false, d))
                     .append(createTableContent('pd_status', g_9, true, d))
                     .append(createTableContent('container_carrier_id', g_10, true, d))
                     .append(createTableContent('container_carrier_name', g_11, true, d))
@@ -156,7 +159,7 @@ $("#btn_charge_details").click(function(){
                     .append(createTableContent('container_drop_date', g_51, true, d))
                     .append(createTableContent('container_total_weight_unit', g_52, true, d))
                     .append(createTableBtns()),
-                    0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#Container_Details").modal("show"), cleanModalFields("Container_Details"), $("#pd_status").val("1").change(), $("#equipment_type_code").focus();
+                    0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#Container_Details").modal("show"), cleanModalFields("Container_Details"), $("#pd_status").val("1").change(), resetModal('ContainerModal'),$("#equipment_type_code").focus();
 
             ($("#container_details tbody tr").length > 0 ? $("#contract_basis").val("2").change() : $("#contract_basis").val("1").change());
 
@@ -284,153 +287,150 @@ $("#btn_charge_details").click(function(){
     });
 
     $("#cargo-save").click(function() {
-        if($("#box_cargo_type_code").val()==''){
+if ($("#box_quantity").val() == "" || $("#box_cargo_type_code").val() == ""){
+}else {
+    var t = $("#cargo_details tbody tr").length + 1,
+        _ = ($("#cargo_details tbody tr").length == 0 ? 1 : parseInt($("#cargo_details tbody tr")[$("#cargo_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
+        box_id = $("#cargo_line").val(),
+        d = (0 == box_id ? _ : box_id) - 1,
+        g_1 = $("#box_quantity").val(),
+        g_2 = $("#box_cargo_type_id").val(),
+        g_3 = $("#box_cargo_type_code").val(),
+        g_4 = $("#box_metric_unit").val(),
+        g_5 = $("#box_length").val(),
+        g_6 = $("#box_width").val(),
+        g_7 = $("#box_height").val(),
+        g_8 = $("#box_materials").val(),
+        g_9 = $("#box_pieces").val(),
+        g_10 = $("#box_weight_unit").val(),
+        g_11 = $("#box_unit_weight").val(),
+        g_12 = $("#box_total_weight").val(),
+        g_13 = $("#box_total_cubic").val(),
+        g_14 = $("#box_dim_fact").val(),
+        g_15 = $("#box_vol_weight").val(),
 
-            $("#box_cargo_type_code").focus();
-        }else{
-            var t = $("#cargo_details tbody tr").length + 1,
-                    _ =  ($("#cargo_details tbody tr").length == 0 ? 1 : parseInt($("#cargo_details tbody tr")[$("#cargo_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
-                    box_id = $("#cargo_line").val(),
-                    d= (0== box_id? _: box_id)-1,
-                    g_1 = $("#box_quantity").val(),
-                    g_2 = $("#box_cargo_type_id").val(),
-                    g_3 = $("#box_cargo_type_code").val(),
-                    g_4 = $("#box_metric_unit").val(),
-                    g_5 = $("#box_length").val(),
-                    g_6 = $("#box_width").val(),
-                    g_7 = $("#box_height").val(),
-                    g_8 = $("#box_materials").val(),
-                    g_9 = $("#box_pieces").val(),
-                    g_10 = $("#box_weight_unit").val(),
-                    g_11 = $("#box_unit_weight").val(),
-                    g_12 = $("#box_total_weight").val(),
-                    g_13 = $("#box_total_cubic").val(),
-                    g_14 = $("#box_dim_fact").val(),
-                    g_15 = $("#box_vol_weight").val(),
+        g_16 = $("#box_serial_number").val(),
+        g_17 = $("#box_barcode").val(),
+        g_18 = $("#box_Model").val(),
+        g_19 = $("#box_commodity_id").val(),
+        g_20 = $("#box_commodity_name").val(),
+        g_21 = $("#box_pro_number").val(),
+        g_22 = $("#box_project").val(),
+        g_23 = $("#box_po_number").val(),
+        g_24 = $("#box_inv_number").val(),
+        g_25 = $("#box_lot_number").val(),
+        g_26 = $("#box_sku_number").val(),
+        g_27 = $("#box_destination_point").val(),
+        g_28 = $("#box_attention").val(),
 
-                    g_16 = $("#box_serial_number").val(),
-                    g_17 = $("#box_barcode").val(),
-                    g_18 = $("#box_Model").val(),
-                    g_19 = $("#box_commodity_id").val(),
-                    g_20 = $("#box_commodity_name").val(),
-                    g_21 = $("#box_pro_number").val(),
-                    g_22 = $("#box_project").val(),
-                    g_23 = $("#box_po_number").val(),
-                    g_24 = $("#box_inv_number").val(),
-                    g_25 = $("#box_lot_number").val(),
-                    g_26 = $("#box_sku_number").val(),
-                    g_27 = $("#box_destination_point").val(),
-                    g_28 = $("#box_attention").val(),
+        g_29 = $("#box_scheduleb_id").val(),
+        g_30 = $("#box_scheduleb_code").val(),
+        g_31 = $("#box_scheduleb_description").val(),
+        g_32 = $("#box_hts_id").val(),
+        g_33 = $("#box_hts_code").val(),
+        g_34 = $("#box_hts_description").val(),
+        g_35 = $("#box_value").val(),
+        g_36 = $("#box_eccn").val(),
+        g_37 = $("#box_export_id").val(),
+        g_38 = $("#box_export_code").val(),
+        g_39 = $("#box_license_type_id").val(),
+        g_40 = $("#box_license_type_code").val(),
+        g_41 = $("#box_origin").val(),
 
-                    g_29 = $("#box_scheduleb_id").val(),
-                    g_30 = $("#box_scheduleb_code").val(),
-                    g_31 = $("#box_scheduleb_description").val(),
-                    g_32 = $("#box_hts_id").val(),
-                    g_33 = $("#box_hts_code").val(),
-                    g_34 = $("#box_hts_description").val(),
-                    g_35 = $("#box_value").val(),
-                    g_36 = $("#box_eccn").val(),
-                    g_37 = $("#box_export_id").val(),
-                    g_38 = $("#box_export_code").val(),
-                    g_39 = $("#box_license_type_id").val(),
-                    g_40 = $("#box_license_type_code").val(),
-                    g_41 = $("#box_origin").val(),
+        g_42 = $("#box_uns_id").val(),
+        g_43 = $("#box_uns_code").val(),
+        g_44 = $("#box_uns_description").val(),
+        g_45 = $("#box_class_id").val(),
+        g_46 = $("#box_class_description").val(),
+        g_47 = $("#box_special_instructions").val(),
+        g_48 = $("#box_material_page").val(),
+        g_49 = $("#box_hazardous_level").val(),
+        g_50 = $("#box_emergency_contact").val(),
+        g_51 = $("#box_emergency_contact_phone").val(),
+        g_52 = $("#cargo_comments").val(),
 
-                    g_42 = $("#box_uns_id").val(),
-                    g_43 = $("#box_uns_code").val(),
-                    g_44 = $("#box_uns_description").val(),
-                    g_45 = $("#box_class_id").val(),
-                    g_46 = $("#box_class_description").val(),
-                    g_47 = $("#box_special_instructions").val(),
-                    g_48 = $("#box_material_page").val(),
-                    g_49 = $("#box_hazardous_level").val(),
-                    g_50 = $("#box_emergency_contact").val(),
-                    g_51 = $("#box_emergency_contact_phone").val(),
-                    g_52 = $("#cargo_comments").val(),
-
-                    g_53 = $("#cargo_marks").val(),
-                    g_54 = $("#cargo_container").val(),
-                    g_55 = $("#cargo_charge_weight").val(),
-                    g_56 = $("#cargo_gross_weight").val(),
-                    g_57 = $("#cargo_rate").val(),
-                    g_58 = $("#cargo_total").val(),
-                    b = $("#cargo_details"),
-                    x = b.find("tbody"),
-                    C = $("<tr id=" + (0== box_id? _ : box_id) + ">");
+        g_53 = $("#cargo_marks").val(),
+        g_54 = $("#cargo_container").val(),
+        g_55 = $("#cargo_charge_weight").val(),
+        g_56 = $("#cargo_gross_weight").val(),
+        g_57 = $("#cargo_rate").val(),
+        g_58 = $("#cargo_total").val(),
+        b = $("#cargo_details"),
+        x = b.find("tbody"),
+        C = $("<tr id=" + (0 == box_id ? _ : box_id) + ">");
 
 
-            C.append(createTableContent('cargo_line', (0 == box_id ? _  : box_id), true,d))
-                    .append($("<td><i class='fa fa-cube' aria-hidden='true'></td>"))
-                    .append(createTableContent('cargo_type_id', g_2, true, d))
-                    .append(createTableContent('cargo_type_code', g_3, false, d))
-                    .append(createTableContent('cargo_quantity', g_1, false, d))
-                    .append(createTableContent('cargo_weight_unit', g_10, false, d))
-                    .append(createTableContent('cargo_length', g_5, false, d))
-                    .append(createTableContent('cargo_width', g_6, false, d))
-                    .append(createTableContent('cargo_height', g_7, false, d))
-                    .append(createTableContent('cargo_unit_weight', g_11, true, d))
-                    .append(createTableContent('cargo_total_weight', g_12, false, d))
-                    .append(createTableContent('cargo_total_cubic', g_13, false, d))
-                    .append(createTableContent('cargo_charge_weight', g_55, true, d))
-                    .append(createTableContent('cargo_rate', g_57, true, d))
-                    .append(createTableContent('cargo_total', g_58, true, d))
+    C.append(createTableContent('cargo_line', (0 == box_id ? _ : box_id), true, d))
+        .append($("<td><i class='fa fa-cube' aria-hidden='true'></td>"))
+        .append(createTableContent('cargo_type_id', g_2, true, d))
+        .append(createTableContent('cargo_type_code', g_3, false, d))
+        .append(createTableContent('cargo_quantity', g_1, false, d))
+        .append(createTableContent('cargo_weight_unit', g_10, false, d))
+        .append(createTableContent('cargo_length', g_5, false, d))
+        .append(createTableContent('cargo_width', g_6, false, d))
+        .append(createTableContent('cargo_height', g_7, false, d))
+        .append(createTableContent('cargo_unit_weight', g_11, true, d))
+        .append(createTableContent('cargo_total_weight', g_12, false, d))
+        .append(createTableContent('cargo_total_cubic', g_13, false, d))
+        .append(createTableContent('cargo_charge_weight', g_55, true, d))
+        .append(createTableContent('cargo_rate', g_57, true, d))
+        .append(createTableContent('cargo_total', g_58, true, d))
 
 
-                    .append(createTableContent('cargo_metric_unit', g_4, true, d))
-                    .append(createTableContent('cargo_material', g_8, true, d))
-                    .append(createTableContent('cargo_pieces', g_9, true, d))
-                    .append(createTableContent('cargo_dim_fact', g_14, true, d))
-                    .append(createTableContent('cargo_vol_weight', g_15, true, d))
+        .append(createTableContent('cargo_metric_unit', g_4, true, d))
+        .append(createTableContent('cargo_material', g_8, true, d))
+        .append(createTableContent('cargo_pieces', g_9, true, d))
+        .append(createTableContent('cargo_dim_fact', g_14, true, d))
+        .append(createTableContent('cargo_vol_weight', g_15, true, d))
 
-                    .append(createTableContent('cargo_serial_number', g_16, true, d))
-                    .append(createTableContent('cargo_barcode', g_17, true, d))
-                    .append(createTableContent('cargo_Model', g_18, true, d))
-                    .append(createTableContent('cargo_commodity_id', g_19, true, d))
-                    .append(createTableContent('cargo_commodity_name', g_20, true, d))
-                    .append(createTableContent('cargo_pro_number', g_21, true, d))
-                    .append(createTableContent('cargo_project', g_22, true, d))
-                    .append(createTableContent('cargo_po_number', g_23, true, d))
-                    .append(createTableContent('cargo_inv_number', g_24, true, d))
-                    .append(createTableContent('cargo_lot_number', g_25, true, d))
-                    .append(createTableContent('cargo_sku_number', g_26, true, d))
-                    .append(createTableContent('cargo_destination_point', g_27, true, d))
-                    .append(createTableContent('cargo_attention', g_28, true, d))
+        .append(createTableContent('cargo_serial_number', g_16, true, d))
+        .append(createTableContent('cargo_barcode', g_17, true, d))
+        .append(createTableContent('cargo_Model', g_18, true, d))
+        .append(createTableContent('cargo_commodity_id', g_19, true, d))
+        .append(createTableContent('cargo_commodity_name', g_20, true, d))
+        .append(createTableContent('cargo_pro_number', g_21, true, d))
+        .append(createTableContent('cargo_project', g_22, true, d))
+        .append(createTableContent('cargo_po_number', g_23, true, d))
+        .append(createTableContent('cargo_inv_number', g_24, true, d))
+        .append(createTableContent('cargo_lot_number', g_25, true, d))
+        .append(createTableContent('cargo_sku_number', g_26, true, d))
+        .append(createTableContent('cargo_destination_point', g_27, true, d))
+        .append(createTableContent('cargo_attention', g_28, true, d))
 
-                    .append(createTableContent('cargo_scheduleb_id', g_29, true, d))
-                    .append(createTableContent('cargo_scheduleb_code', g_30, true, d))
-                    .append(createTableContent('cargo_scheduleb_description', g_31, true, d))
-                    .append(createTableContent('cargo_hts_id', g_32, true, d))
-                    .append(createTableContent('cargo_hts_code', g_33, true, d))
-                    .append(createTableContent('cargo_hts_description', g_34, true, d))
-                    .append(createTableContent('cargo_value', g_35, true, d))
-                    .append(createTableContent('cargo_eccn', g_36, true, d))
-                    .append(createTableContent('cargo_export_id', g_37, true, d))
-                    .append(createTableContent('cargo_export_code', g_38, true, d))
-                    .append(createTableContent('cargo_license_type_id', g_39, true, d))
-                    .append(createTableContent('cargo_license_type_code', g_40, true, d))
-                    .append(createTableContent('cargo_origin', g_41, true, d))
+        .append(createTableContent('cargo_scheduleb_id', g_29, true, d))
+        .append(createTableContent('cargo_scheduleb_code', g_30, true, d))
+        .append(createTableContent('cargo_scheduleb_description', g_31, true, d))
+        .append(createTableContent('cargo_hts_id', g_32, true, d))
+        .append(createTableContent('cargo_hts_code', g_33, true, d))
+        .append(createTableContent('cargo_hts_description', g_34, true, d))
+        .append(createTableContent('cargo_value', g_35, true, d))
+        .append(createTableContent('cargo_eccn', g_36, true, d))
+        .append(createTableContent('cargo_export_id', g_37, true, d))
+        .append(createTableContent('cargo_export_code', g_38, true, d))
+        .append(createTableContent('cargo_license_type_id', g_39, true, d))
+        .append(createTableContent('cargo_license_type_code', g_40, true, d))
+        .append(createTableContent('cargo_origin', g_41, true, d))
 
-                    .append(createTableContent('cargo_uns_id', g_42, true, d))
-                    .append(createTableContent('cargo_uns_code', g_43, true, d))
-                    .append(createTableContent('cargo_uns_description', g_44, true, d))
-                    .append(createTableContent('cargo_class_id', g_45, true, d))
-                    .append(createTableContent('cargo_class_description', g_46, true, d))
-                    .append(createTableContent('cargo_special_instructions', g_47, true, d))
-                    .append(createTableContent('cargo_material_page', g_48, true, d))
-                    .append(createTableContent('cargo_hazardous_levels', g_49, true, d))
-                    .append(createTableContent('cargo_emergency_contact', g_50, true, d))
-                    .append(createTableContent('cargo_emergency_contact_phone', g_51, true, d))
-                    .append(createTableContent('cargo_comments', g_52, true, d))
+        .append(createTableContent('cargo_uns_id', g_42, true, d))
+        .append(createTableContent('cargo_uns_code', g_43, true, d))
+        .append(createTableContent('cargo_uns_description', g_44, true, d))
+        .append(createTableContent('cargo_class_id', g_45, true, d))
+        .append(createTableContent('cargo_class_description', g_46, true, d))
+        .append(createTableContent('cargo_special_instructions', g_47, true, d))
+        .append(createTableContent('cargo_material_page', g_48, true, d))
+        .append(createTableContent('cargo_hazardous_levels', g_49, true, d))
+        .append(createTableContent('cargo_emergency_contact', g_50, true, d))
+        .append(createTableContent('cargo_emergency_contact_phone', g_51, true, d))
+        .append(createTableContent('cargo_comments', g_52, true, d))
 
-                    .append(createTableContent('cargo_marks', g_53, true, d))
-                    .append(createTableContent('cargo_container', g_54, true, d))
-                    .append(createTableContent('cargo_gross_weight', g_56, true, d))
+        .append(createTableContent('cargo_marks', g_53, true, d))
+        .append(createTableContent('cargo_container', g_54, true, d))
+        .append(createTableContent('cargo_gross_weight', g_56, true, d))
 
-                    .append(createTableBtns()),
+        .append(createTableBtns()),
 
-                    0 == box_id ? x.append(C) : x.find("tr#" + box_id).replaceWith(C), calculate_warehouse_details(), cleanModalFields("Cargo_Details") , $("#box_quantity").val("1"), $("#box_pieces").val("1"), $("#box_metric_unit").val("I").change(), $("#box_weight_unit").val("L").change(), $("#box_weight_unit").val("L").change(), $("#box_dim_fact").val("I").change(), $("#box_cargo_type_id").val(0).change(), $("#Cargo_Details").modal("show"), $("#box_quantity").focus()
-        }
-
+        0 == box_id ? x.append(C) : x.find("tr#" + box_id).replaceWith(C), calculate_warehouse_details(), cleanModalFields("Cargo_Details"), $("#box_quantity").val("1"), $("#box_pieces").val("1"), $("#box_metric_unit").val("I").change(), $("#box_weight_unit").val("L").change(), $("#box_weight_unit").val("L").change(), $("#box_dim_fact").val("I").change(), $("#box_cargo_type_id").val(0).change(), $("#Cargo_Details").modal("show"), resetModal('CargoModal') , $("#box_quantity").focus()
+}
     }), $("#cargo_details").on("click", "a.btn-danger", function() {
         $(this).closest("tr").remove(),
             calculate_warehouse_details()
@@ -569,8 +569,7 @@ $("#btn_charge_details").click(function(){
     });
 
     $("#charges-save").click(function() {
-        if($("#billing_billing_code").val()==''){
-
+        if($("#billing_billing_code").val()=='' || $("#billing_quantity").val() == ""){
             $("#billing_billing_code").focus();
         }else{
             var t = $("#charge_details tbody tr").length + 1,
@@ -644,7 +643,7 @@ $("#btn_charge_details").click(function(){
                     .append(createTableContent('billing_increase', g_10, true, d))
                     .append(createTableBtns()),
 
-                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), values_charges(), cleanModalFields("Charge_Details"), $("#billing_bill_type").val("C").change(), $("#billing_bill_party").val("S").change(), $("#billing_currency_type").val("1").change(), $("#cost_currency_type").val("1").change(), $("#billing_unit_id").val("0").change(),$("#cost_unit_id").val("0").change(), $("#Charge_Details").modal("show"), $("#billing_billing_code").focus()
+                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), values_charges(), cleanModalFields("Charge_Details"), $("#billing_bill_type").val("C").change(), $("#billing_bill_party").val("C").change(), $("#billing_currency_type").val("1").change(), $("#cost_currency_type").val("1").change(), $("#billing_unit_id").val("0").change(),$("#cost_unit_id").val("0").change(), $("#Charge_Details").modal("show"), resetModal("ChargeModal"), $("#billing_billing_code").focus()
         }
 
     }), $("#charge_details").on("click", "a.btn-danger", function() {

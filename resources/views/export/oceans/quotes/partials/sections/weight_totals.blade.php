@@ -6,8 +6,7 @@
     <div class="col-md-1">{{ Form::bsText(null, null, 'Cubic', 'total_cubic', null, '0.00') }}</div>
     <div class="col-md-2"> {!! Form::bsComplete(null, null, 'Cargo Type', 'total_cargo_type_id', 'total_cargo_type_code', Request::get('term'), ((isset($quotes) and $quotes->total_cargo_type_id > 0) ? $quotes->total_cargo_type->name : null), null) !!}</div>
     <div class="col-md-2"> {!! Form::bsComplete(null, null, 'Commodity', 'total_commodity_id', 'total_commodity_name', Request::get('term'), ((isset($quotes) and $quotes->total_commodity_id > 0) ? $quotes->total_commodity->name : null), null, 'options.maintenance.items.commodities', 'options.maintenance.items.commodities', 'maintenance.items.commodities.index') !!}</div>
-    <div class="col-md-2">{{ Form::bsText(null, null, 'Description', 'total_description', null) }}</div>
-    <div class="col-md-1">{!! Form::bsSelect(null, null, 'F. Charges', 'freight_charges', array('C' => '1. COLLECTED','P' => '2. PREPAID'), null) !!}</div>
-    <div class="col-md-1">{!! Form::bsSelect(null, null, 'O. Charges', 'other_charges', array('C' => '1. COLLECTED','P' => '2. PREPAID'), null) !!}</div>
+    <div class="col-md-2">{!! Form::bsSelect(null, null, 'F. Charges', 'freight_charges', array('C' => '1. COLLECTED','P' => '2. PREPAID'), null) !!}</div>
+    <div class="col-md-2">{!! Form::bsSelect(null, null, 'O. Charges', 'other_charges', array('C' => '1. COLLECTED','P' => '2. PREPAID'), null) !!}</div>
         </div>
 </div>

@@ -52,6 +52,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('ia_bill_of_lading/delivery_order/{token}/{id}', ['as' => 'ia_bill_of_lading.delivery_order', 'uses' => 'IaBillOfLadingController@delivery_order']);
             Route::get('ia_bill_of_lading/bill_of_lading/{token}/{id}', ['as' => 'ia_bill_of_lading.bill_of_lading', 'uses' => 'IaBillOfLadingController@bill_of_lading']);
             Route::get('ia_bill_of_lading/arrival_notice/{token}/{id}', ['as' => 'ia_bill_of_lading.arrival_notice', 'uses' => 'IaBillOfLadingController@arrival_notice']);
+            Route::post('ia_bill_of_lading/excel', ['as' => 'ia_bill_of_lading.excel', 'uses' => 'IaBillOfLadingController@excel']);
         });
     });
 });

@@ -64,14 +64,13 @@ class EoBillOfLadingController extends Controller
                 $sum_collect=0;
                 $i=0;
                 while (isset($bl['billing_amount'][$i])){
-
                     if($bl['billing_bill_type'][$i] == 'P' ){ $sum_prepaid += $bl['billing_amount'][$i]; }
                     else{ $sum_collect+= $bl['billing_amount'][$i]; };
                     $i++;
                 }
                 $bl['sum_prepaid']= $sum_prepaid;
                 $bl['sum_collected']= $sum_collect;
-
+                $bill_of_lading['flag']=1;
                 $exp=EoBillOfLading::create($bl);
                 EoBillOfLadingCargo::saveDetail($exp->id, $bl);
                 if($bl['bl_class'] == 3){
@@ -144,10 +143,16 @@ class EoBillOfLadingController extends Controller
             $bill_of_lading['sum_prepaid']= $sum_prepaid;
             $bill_of_lading['sum_collected']= $sum_collect;
             $bill_of_lading['user_update_id'] = Auth::user()->id;
+            $bill_of_lading['flag']=1;
             $sent->fill($bill_of_lading);
             $sent->update($bill_of_lading);
+
+            if($bill_of_lading['bl_class'] == 3){
+                EoBillOfLading::updateHBL($id, $bill_of_lading);
+            }else{
+                EoHblReceiptEntry::saveDetail($id, $bill_of_lading);
+            }
             EoBillOfLadingCargo::saveDetail($id, $bill_of_lading);
-            EoBillOfLading::updateHBL($id, $bill_of_lading);
             EoBillOfLadingContainer::saveDetail($id, $bill_of_lading);
             EoBillOfLadingCharge::saveDetail($id, $bill_of_lading);
         } catch (ValidationException $e) {
@@ -214,7 +219,12 @@ class EoBillOfLadingController extends Controller
         if (strlen($token) == 60) {
             try {
                 $bill_of_lading= EoBillOfLading::findOrFail($id);
-                return \PDF::loadView('export.oceans.bill_of_lading.label', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
+
+                return \PDF::loadView('export.oceans.bill_of_lading.label', compact('bill_of_lading'))
+                    ->setOrientation('landscape')
+                    ->setOption('margin-top', 3)
+                    ->setOption('margin-left', 2)
+                    ->stream($bill_of_lading->code.'.pdf');
                 //return view('export.oceans.bill_of_lading.delivery_order', compact('bill_of_lading'));
             } catch (ModelNotFoundException $e) {
                 abort(404);
@@ -232,6 +242,7 @@ class EoBillOfLadingController extends Controller
                     $shipment_id = $request->get('id');
                     $query->where('eo_bills_of_lading.shipment_id', '=', $shipment_id);
                     $query->where('eo_bills_of_lading.bl_class', '<=','2');
+                    $query->where('eo_bills_of_lading.bl_status', '=','O');
 
                 })->get();
             $results = [];

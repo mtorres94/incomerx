@@ -49,7 +49,9 @@
         </div>
     </div>
 </div>
-
+<div class="row">
+    <div class="col-md-12"> {{ Form::bsMemo(null, null, 'Instructions', 'quote_instruction', null) }}</div>
+</div>
 <div class="row">
    <div class="col-md-12"> @include('export.oceans.quotes.partials.sections.cargo_details')</div>
 </div>
@@ -79,5 +81,6 @@
     @include('export.oceans.quotes.partials.scripts.autocomplete')
     @include('export.oceans.quotes.partials.scripts.tables')
     @include('export.oceans.quotes.partials.scripts.validation')
+
 
 @stop

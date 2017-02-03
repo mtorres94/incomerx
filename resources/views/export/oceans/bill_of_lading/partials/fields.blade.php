@@ -65,11 +65,25 @@
 <div class="row">
     <div class="col-md-12">
         @include('export.oceans.bill_of_lading.partials.sections.details_of_loading')
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
         @include('export.oceans.bill_of_lading.partials.sections.tabs_cargo')
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
         @include('export.oceans.bill_of_lading.partials.sections.tabs_charges')
     </div>
+</div>
+<div class="row">
     <div class="col-md-12">
         {!! Form::bsMemo(null,null, 'Letter of Credit Comments', 'letter_comments', null, 3, null) !!}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
         {!! Form::bsMemo(null,null, 'Comments', 'comments_comment', null, 3, null) !!}
     </div>
 </div>
@@ -102,5 +116,6 @@
     @include('export.oceans.bill_of_lading.partials.scripts.autocomplete')
     @include('export.oceans.bill_of_lading.partials.scripts.tables')
     @include('export.oceans.bill_of_lading.partials.scripts.validation')
+
 
 @stop

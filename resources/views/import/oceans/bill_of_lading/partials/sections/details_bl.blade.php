@@ -1,5 +1,3 @@
-<fieldset id="BL Details">
-<div class="row">
     <div class="col-md-6">
         <div class="row">
             <div class="col-md-6">{!! Form::bsText(null, null,'Document Number', 'document_number', null, '') !!}</div>
@@ -31,7 +29,4 @@
                     <div class="col-md-4">{!! Form::bsCheck('No', 'vessel_no') !!}</div>
                 </div>
         </div>
-
-    </div>
 </div>
-</fieldset>

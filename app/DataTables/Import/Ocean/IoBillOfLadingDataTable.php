@@ -26,6 +26,7 @@ class IoBillOfLadingDataTable extends CustomDataTable
                         ['route' => 'io_bill_of_lading.pre_alert',   'icon' => 'icon-file-pdf', 'name' => 'Pre Alert'],
                         ['route' => 'io_bill_of_lading.delivery_order',   'icon' => 'icon-file-pdf', 'name' => 'Delivery Order'],
                         ['route' => 'io_bill_of_lading.bill_of_lading',   'icon' => 'icon-file-pdf', 'name' => 'Bill of Lading'],
+                        ['route' => 'io_bill_of_lading.arrival_notice',   'icon' => 'icon-file-pdf', 'name' => 'Arrival Notice'],
                     ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])

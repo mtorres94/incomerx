@@ -1,9 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <div class="col-md-5">{{ Form::bsMemo(null, null, 'Instructions', 'quote_instruction', null) }}</div>
-        <div class="col-md-1"></div>
-        <div class="col-md-6">
-            <div class="row">
+
             <legend>Container Details</legend>
             <div class="form-horizontal">
                 <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
@@ -20,9 +17,13 @@
                     <thead>
                     <tr>
                         <th data-override="container" hidden></th>
-                        <th width="25%" data-override="equipment_type">Equipment Type</th>
-                        <th width="55%" data-override="cargo_pieces">Equipment/ Container Number</th>
-                        <th width="20%"/>
+                        <th width="30%" >Equipment Type</th>
+                        <th width="25%" >Equipment #</th>
+                        <th width="30%" >Seal Number</th>
+                        <th width="15%" >Pieces</th>
+                        <th width="15%" >Weight</th>
+                        <th width="15%" >Cubic</th>
+                        <th width="15%"/>
                     </tr>
                     </thead>
                     <tbody>
@@ -33,11 +34,11 @@
                                 {!! Form::bsRowTd($detail->line, 'equipment_type_id', $detail->equipment_type_id, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'equipment_type_code', ($detail->equipment_type_id >0 ? $detail->equipment_type->code : ""), false) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_number', $detail->container_number, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_seal_number', $detail->seal_number, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_seal_number', $detail->seal_number, false) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_seal_number2', $detail->seal_number2, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_pieces', $detail->pieces, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_gross_weight', $detail->gross_weight, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_cubic', $detail->cubic, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_pieces', $detail->pieces, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_gross_weight', $detail->gross_weight, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_cubic', $detail->cubic, false) !!}
                                 {!! Form::bsRowTd($detail->line, 'pd_status', $detail->pd_status, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_carrier_id', $detail->carrier_id, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_carrier_name', ($detail->carrier_id ? $detail->carrier->name : ""), true) !!}
@@ -92,7 +93,5 @@
                     </tbody>
                 </table>
             </div>
-            </div>
-        </div>
     </div>
 </div>

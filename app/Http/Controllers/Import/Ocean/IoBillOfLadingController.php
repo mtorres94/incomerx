@@ -57,7 +57,16 @@ class IoBillOfLadingController extends Controller
             $bill_of_lading['user_create_id'] = Auth::user()->id;
             $bill_of_lading['user_update_id'] = Auth::user()->id;
             $bill_of_lading['user_open_id'] = Auth::user()->id;
-            //dd($bill_of_lading);
+            $sum_prepaid =0;
+            $sum_collect=0;
+            $i=0;
+            while (isset($bill_of_lading['billing_amount'][$i])){
+                if($bill_of_lading['billing_bill_type'][$i] == 'P' ){ $sum_prepaid += $bill_of_lading['billing_amount'][$i]; }
+                else{ $sum_collect+= $bill_of_lading['billing_amount'][$i]; };
+                $i++;
+            }
+            $bill_of_lading['sum_prepaid']= $sum_prepaid;
+            $bill_of_lading['sum_collected']= $sum_collect;
             $imp=IoBillOfLading::create($bill_of_lading);
             IoBillOfLadingCargo::saveDetail($imp->id, $bill_of_lading);
             //IoBillOfLadingCargoDetails::saveDetail($imp->id, $bill_of_lading);
@@ -116,6 +125,16 @@ class IoBillOfLadingController extends Controller
 
             $bill_of_lading = $request->all();
             $sent = IoBillOfLading::findorfail($id);
+            $sum_prepaid =0;
+            $sum_collect=0;
+            $i=0;
+            while (isset($bill_of_lading['billing_amount'][$i])){
+                if($bill_of_lading['billing_bill_type'][$i] == 'P' ){ $sum_prepaid += $bill_of_lading['billing_amount'][$i]; }
+                else{ $sum_collect+= $bill_of_lading['billing_amount'][$i]; };
+                $i++;
+            }
+            $bill_of_lading['sum_prepaid']= $sum_prepaid;
+            $bill_of_lading['sum_collected']= $sum_collect;
             $imp = $sent->update($bill_of_lading);
             $bill_of_lading['user_update_id'] = Auth::user()->id;
 
@@ -203,6 +222,20 @@ class IoBillOfLadingController extends Controller
             try {
                 $bill_of_lading = IoBillOfLading::findOrFail($id);
                 return \PDF::loadView('import.oceans.bill_of_lading.bill_of_lading', compact('bill_of_lading','type'))->stream($bill_of_lading->code.'.pdf');
+            } catch (ModelNotFoundException $e) {
+                abort(404);
+            }
+        } else {
+            abort(403);
+        }
+    }
+
+    public function arrival_notice($token, $id)
+    {
+        if (strlen($token) == 60) {
+            try {
+                $bill_of_lading = IoBillOfLading::findOrFail($id);
+                return \PDF::loadView('import.oceans.bill_of_lading.arrival_notice', compact('bill_of_lading','type'))->stream($bill_of_lading->code.'.pdf');
             } catch (ModelNotFoundException $e) {
                 abort(404);
             }

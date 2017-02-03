@@ -8,6 +8,8 @@ $("#btn_cargo_details").click(function(){
     $("#box_weight_unit").val("L").change();
     $("#box_dim_fact").val("I").change();
     $("#box_cargo_type_id").val("0").change();
+    $("#CargoModal").formValidation("resetForm", true);
+    $("#box_quantity").focus();
 });
 
 $("#btn_container_details").click(function(){
@@ -15,6 +17,7 @@ $("#btn_container_details").click(function(){
     $("#container_delivery_type").val("02").change();
     $("#container_drop_type").val("02").change();
     $("#container_total_weight_unit").val("L").change();
+    $("#ContainerModal").formValidation("resetForm", true);
 });
 $("#btn-origin-charges").click(function(){
     $("#billing_bill_type").val("C").change();
@@ -23,6 +26,7 @@ $("#btn-origin-charges").click(function(){
     $("#cost_currency_type").val("1").change();
     $("#billing_unit_id").val("0").change();
     $("#cost_unit_id").val("0").change();
+    $("#OriginModal").formValidation("resetForm", true);
 
 });
 $("#btn-destination-charges").click(function(){
@@ -32,6 +36,7 @@ $("#btn-destination-charges").click(function(){
     $("#dest_cost_currency_type").val("1").change();
     $("#dest_billing_unit_id").val("0").change();
     $("#dest_cost_unit_id").val("0").change();
+    $("#DestinationModal").formValidation("resetForm", true);
 });
 
 

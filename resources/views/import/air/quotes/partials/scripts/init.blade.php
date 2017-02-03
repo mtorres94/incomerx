@@ -27,7 +27,7 @@
             }
         }
         $("#total_unit_weight").val( "{{ (isset($quotes) ? $quotes->total_unit_weight : "L") }}").change();
-
+        $("#quote_status").val("O").change();
         //============
        for (var t = $("#quotes_tabs").find("div"), l = 0; l < t.length; l++) {
             var a = t[l];
@@ -78,9 +78,6 @@
         removeEmptyNodes('originChargeDetails');
         removeEmptyNodes('destinationChargeDetails');
 
-        calculate_warehouse_details();
-        origin_values_charges();
-        destination_values_charges();
         //===================================
         $("#box_cargo_type_id").change(function () {
             var id = $(this).val();
@@ -120,10 +117,14 @@
         $("#total_weight").attr("readonly", true);
         $("#total_unit_weight").val("L").change();
         $("#total_cubic").attr("readonly", true);
-        $("#sum_bill").attr("readonly", true).number(3, true);
-        $("#sum_cost").attr("readonly", true).number(3, true);
-        $("#sum_profit").attr("readonly", true).number(3, true);
-        $("#sum_profit_percent").attr("readonly", true).number(3, true);
+        $("#sum_bill").attr("readonly", true);
+        $("#sum_cost").attr("readonly", true);
+        $("#sum_profit").attr("readonly", true);
+        $("#sum_profit_percent").attr("readonly", true);
+        $("#dest_sum_bill").attr("readonly", true);
+        $("#dest_sum_cost").attr("readonly", true);
+        $("#dest_sum_profit").attr("readonly", true);
+        $("#dest_sum_profit_percent").attr("readonly", true);
         $("#billing_amount").attr("readonly", true);
         $("#cost_amount").attr("readonly", true);
         $("#quote_status").val("O").change();
@@ -276,49 +277,12 @@
 
     $("#user_id").attr("readonly", true);
     $("#contract_basis").attr("readonly", true);
-
-    $("#exchange_rate").number(true, 3);
-    $("#declared_value").number(true, 3);
-    $("#insured_value").number(true, 3);
-
-    $("#container_gross_weight").number(true, 3);
-    $("#container_cubic").number(true, 3);
-    $("#container_temperature").number(true, 2);
-    $("#container_max").number(true, 2);
-    $("#container_min").number(true, 2);
-
-    $("#total_quantity").number(true, 3).attr("readonly", true);
-    $("#total_weight").number(true, 3).attr("readonly", true);
-    $("#total_cubic").number(true, 3).attr("readonly", true);
-    $("#total_bill").number(true, 3).attr("readonly", true);
-    $("#total_cost").number(true, 3).attr("readonly", true);
-    $("#total_profit").number(true, 3).attr("readonly", true);
-    $("#total_profit_p").number(true, 3).attr("readonly", true);
-
-    $("#box_quantity").number(true);
-    $("#box_pieces").number(true);
-    $("#box_length").number(true, 3);
-    $("#box_width").number(true, 3);
-    $("#box_height").number(true, 3);
-    $("#box_unit_weight").number(true, 3);
-    $("#box_total_weight").number(true, 3);
-    $("#box_vol_weight").number(true, 3);
-    $("#box_total_cubic").number(true, 3);
-    $("#cargo_total").number(true, 3);
-    $("#cargo_gross_weight").number(true, 3);
-    $("#cargo_charge_weight").number(true, 3);
-    $("#cargo_rate").number(true, 3);
-
-    $("#billing_quantity").number(true);
-    $("#billing_amount").number(true, 3);
-    $("#billing_increase").number(true, 3);
-    $("#billing_rate").number(true, 3);
-    $("#billing_exchange_rate").number(true, 3);
-    $("#cost_amount").number(true, 3);
-    $("#cost_rate").number(true, 3);
-    $("#cost_exchange_rate").number(true, 3);
-    $("#cost_quantity").number(true);
-
-
+    $("#total_quantity").attr("readonly", true);
+    $("#total_weight").attr("readonly", true);
+    $("#total_cubic").attr("readonly", true);
+    $("#total_bill").attr("readonly", true);
+    $("#total_cost").attr("readonly", true);
+    $("#total_profit").attr("readonly", true);
+    $("#total_profit_p").attr("readonly", true);
 
 </script>

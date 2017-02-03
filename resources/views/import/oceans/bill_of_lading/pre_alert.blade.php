@@ -41,6 +41,7 @@
             <div class="row">
                 <div class="document-info pull-right">
                     <h5><strong>PRE ALERTA</strong></h5>
+                    <p class="code-bar">{{ $bill_of_lading->code }}</p>
                     <p class="document_number">{{ $bill_of_lading->code }}</p>
                 </div>
             </div>

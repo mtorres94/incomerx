@@ -3,11 +3,10 @@
     {!! Form::hidden('origin_cost_unit_name', null, ['id' => 'origin_cost_unit_name', 'class' => 'form-control input-sm']) !!}
 
     <div class="col-md-1">{!! Form::bsText(null, null, 'Qty.', 'origin_cost_quantity', null, '0') !!}</div>
-    <div class="col-md-3">{!! Form::bsSelect(null, null, 'Unit', 'origin_cost_unit_id', Sass\Unit::all()->lists('code', 'id'), null ,'body', false) !!}</div>
+    <div class="col-md-3">{!! Form::bsSelect(null, null, 'Unit', 'origin_cost_unit_id', Sass\Unit::all()->lists('code', 'id'), 'UNIT' ,'body', false) !!}</div>
     <div class="col-md-2">{!! Form::bsText(null, null, 'Rate', 'origin_cost_rate', null, '0.000') !!}</div>
     <div class="col-md-2">{!! Form::bsText(null, null, 'Amount', 'origin_cost_amount', null, '0.000') !!}</div>
-    <div class="col-md-2">{!! Form::bsSelect(null, null, 'Currency', 'origin_cost_currency_type', Sass\Currency::all()->lists('code', 'id'), ' ')
-     !!}</div>
+    <div class="col-md-2">{!! Form::bsSelect(null, null, 'Currency', 'origin_cost_currency_type', Sass\Currency::all()->lists('code', 'id'), '', 'body', false)!!}</div>
     <div class="col-md-2">{!! Form::bsText(null, null, 'Exchange Rate', 'origin_cost_exchange_rate', null, '0.00') !!}</div>
 </div>
 <div class="row">

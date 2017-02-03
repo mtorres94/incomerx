@@ -7,7 +7,7 @@
                     <button type="button" id="btn-destination-charges" class="btn btn-default" data-toggle="modal" data-target="#Destination_Charge_Details" onclick="cleanModalFields('Destination_Charge_Details')">
                         <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-danger" onclick="clearTable('destinationChargeDetails')">
+                    <button type="button" class="btn btn-danger" onclick="clearTable('destinationChargeDetails'), destination_values_charges()">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -68,13 +68,14 @@
                     @endif
                     </tbody>
                 </table>
-                <div class="pull-right">
-                    <div class="col-md-2">{!! Form::bsText(null,null, 'Bill', 'dest_sum_bill', null, '0.00') !!}</div>
-                    <div class="col-md-2">{!! Form::bsText(null,null, 'Cost', 'dest_sum_cost', null, '0.00') !!}</div>
-                    <div class="col-md-2">{!! Form::bsText(null,null, 'Profit', 'dest_sum_profit', null, '0.00') !!}</div>
-                    <div class="col-md-2">{!! Form::bsText(null,null, 'Profit %', 'dest_sum_profit_percent', null, '0.00') !!}</div>
 
-                </div>
+            </div>
+            <div class="pull-right">
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Bill', 'dest_sum_bill', null, '0.00') !!}</div>
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Cost', 'dest_sum_cost', null, '0.00') !!}</div>
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Profit', 'dest_sum_profit', null, '0.00') !!}</div>
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Profit %', 'dest_sum_profit_percent', null, '0.00') !!}</div>
+
             </div>
         </div>
 
@@ -84,7 +85,7 @@
                     <button type="button" id="btn-origin-charges" class="btn btn-default" data-toggle="modal" data-target="#Origin_Charge_Details" onclick="cleanModalFields('Charge_Details')">
                         <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-danger" onclick="clearTable('originChargeDetails')">
+                    <button type="button" class="btn btn-danger" onclick="clearTable('originChargeDetails'), origin_values_charges()">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -145,13 +146,14 @@
                     @endif
                     </tbody>
                 </table>
-                <div class="pull-right">
-                    <div class="col-md-2">{!! Form::bsText(null,null, 'Bill', 'sum_bill', null, '0.00') !!}</div>
-                    <div class="col-md-2">{!! Form::bsText(null,null, 'Cost', 'sum_cost', null, '0.00') !!}</div>
-                    <div class="col-md-2">{!! Form::bsText(null,null, 'Profit', 'sum_profit', null, '0.00') !!}</div>
-                    <div class="col-md-2">{!! Form::bsText(null,null, 'Profit %', 'sum_profit_percent', null, '0.00') !!}</div>
 
-                </div>
+            </div>
+            <div class="pull-right">
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Bill', 'sum_bill', null, '0.00') !!}</div>
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Cost', 'sum_cost', null, '0.00') !!}</div>
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Profit', 'sum_profit', null, '0.00') !!}</div>
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Profit %', 'sum_profit_percent', null, '0.00') !!}</div>
+
             </div>
         </div>
     </div>

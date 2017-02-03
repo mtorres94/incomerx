@@ -4,6 +4,7 @@
     <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <div class="modal-content">
+            <form id="ContainerModal" method="post">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">New Container Details</h4>
@@ -59,10 +60,11 @@
                 <a class="btn btn-default btn-footer" data-dismiss="modal">
                     <i class="fa fa-times"></i> Close
                 </a>
-                <a id="container-save" class="btn btn-primary btn-footer" href="javascript:void(0)">
+                <button id="container-save" type="button" class="btn btn-primary">
                     <i class="icon ion-android-done-all"></i> Save data
-                </a>
+                </button>
             </div>
+            </form>
         </div>
     </div>
 </div>

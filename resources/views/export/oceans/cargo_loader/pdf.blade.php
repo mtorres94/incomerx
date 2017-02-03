@@ -115,7 +115,6 @@
                        </thead>
                        <tbody>
                        @foreach( $pivot->receipt_entry->cargo_details as $cargo_detail)
-
                            <tr>
                                <td width="10%">{{ $cargo_detail->pieces  }}/ {{ strtoupper($cargo_detail->cargo_type_id >0 ? $cargo_detail->cargo_type->code : "") }}</td>
                                <td width="10%">{{ round($cargo_detail->length)  }}x {{ round($cargo_detail->width)  }}x {{ round($cargo_detail->height)  }}</td>

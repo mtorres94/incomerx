@@ -90,15 +90,15 @@
             id: '{{  (isset($quotes) ? $quotes->shipper_id : "") }}',
             value: '{{  ((isset($quotes) and ($quotes->shipper_id > 0)) ? $quotes->shipper->name : "") }}',
             address: '{{ trim(preg_replace(array('/\s{2,}/', '/[\t\n]/'),  ' ',((isset($quotes) and ($quotes->shipper_id > 0)) ? $quotes->shipper->address : ""))) }}',
-            city: '{{  ((isset($quotes) and ($quotes->shipper_id > 0)) ? $quotes->shipper->city: "") }}',
+            city: '{{  ((isset($quotes) and ($quotes->shipper_id > 0)) ? $quotes->shipper_city: "") }}',
             state_id: '{{  (isset($quotes) ? $quotes->shipper_state_id : "") }}',
             state_name: '{{  ((isset($quotes) and ($quotes->shipper_state_id > 0)) ? $quotes->shipper_state->name: "") }}',
             zip_code_id: '{{  (isset($quotes) ? $quotes->shipper_zip_code_id : "") }}',
             zip_code_code: '{{  ((isset($quotes) and ($quotes->shipper_zip_code_id > 0)) ? $quotes->shipper_zip_code->code: "") }}',
             country_id: '{{  (isset($quotes)  ? $quotes->shipper_country_id : "") }}',
             country_name: '{{  ((isset($quotes) and ($quotes->shipper_country_id > 0)) ? $quotes->shipper_country->name: "") }}',
-            phone: '{{  ((isset($quotes) and ($quotes->shipper_id > 0)) ? $quotes->shipper->phone : "") }}',
-            fax: '{{  ((isset($quotes) and ($quotes->shipper_id > 0)) ? $quotes->shipper->fax : "") }}'
+            phone: '{{  ((isset($quotes) and ($quotes->shipper_id > 0)) ? $quotes->shipper_phone : "") }}',
+            fax: '{{  ((isset($quotes) and ($quotes->shipper_id > 0)) ? $quotes->shipper_fax : "") }}'
         },onSelect:function(e,o){$("#shipper_id").val(e.id),$(this).val(e.value),$("#shipper_address").val(e.address),$("#shipper_city").val(e.city),$("#shipper_state_id").val(e.state_id),$("#shipper_state_name").val(e.state_name),$("#shipper_zip_code_id").val(e.zip_code_id),$("#shipper_zip_code_code").val(e.zip_code_code),$("#shipper_country_id").val(e.country_id),$("#shipper_country_name").val(e.country_name),$("#shipper_phone").val(e.phone),$("#shipper_fax").val(e.fax)},minChars:3,param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#shipper_name_img").removeClass("img-none").addClass("img-display"),$("#shipper_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#shipper_name_img").removeClass("img-display").addClass("img-none"),$("#shipper_name_spn").removeClass("img-none").addClass("img-display")}).
         keydown(function(e) {
             var o = e.keyCode ? e.keyCode : e.which;
@@ -140,9 +140,9 @@
             id: '{{ (isset($quotes)? $quotes->consignee_id : "") }}',
             value: '{{ ((isset($quotes) and ($quotes->consignee_id > 0))? $quotes->consignee->name : "") }}',
             address: '{{ trim(preg_replace(array('/\s{2,}/', '/[\t\n]/'),  ' ',((isset($quotes) and ($quotes->consignee_id > 0))? $quotes->consignee->address : ""))) }}',
-            city: '{{ ((isset($quotes) and ($quotes->consignee_id > 0))? $quotes->consignee->city : "") }}',
-            phone: '{{ ((isset($quotes) and ($quotes->consignee_id > 0))? $quotes->consignee->phone : "") }}',
-            fax: '{{ ((isset($quotes) and ($quotes->consignee_id > 0))? $quotes->consignee->fax : "") }}',
+            city: '{{ ((isset($quotes) and ($quotes->consignee_id > 0))? $quotes->consignee_city : "") }}',
+            phone: '{{ ((isset($quotes) and ($quotes->consignee_id > 0))? $quotes->consignee_phone : "") }}',
+            fax: '{{ ((isset($quotes) and ($quotes->consignee_id > 0))? $quotes->consignee_fax : "") }}',
             state_id: '{{ (isset($quotes) ? $quotes->consignee_state_id : "") }}',
             state_name: '{{ ((isset($quotes) and ($quotes->consignee_state_id > 0))? $quotes->consignee_state->name : "") }}',
             country_id: '{{ (isset($quotes) ? $quotes->consignee_country_id : "") }}',

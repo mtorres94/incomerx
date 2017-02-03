@@ -147,7 +147,7 @@
                         <td>{{ $detail->length }}</td>
                         <td>{{ $detail->width }}</td>
                         <td>{{ $detail->height }}</td>
-                        <td>{{ $detail->cubic }}</td>
+                        <td>{{ $detail->total_cubic }}</td>
                         <td>{{ $detail->total_weight }}</td>
                         <td>{{ ($detail->weight_unit_measurement_id == "L") ? "LBS" : "KGS" }}</td>
                         <td>{{ ($detail->location_id > 0) ? $detail->location->code . $detail->location_bin_id : "" }}</td>

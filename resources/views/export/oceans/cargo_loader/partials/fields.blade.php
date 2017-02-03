@@ -16,52 +16,6 @@
         @include('export.oceans.cargo_loader.partials.sections.hbl_details')
     </div>-->
 </div>
-<!--
-<div class="row">
-    <div id="tabs_cargo" class="easyui-tabs">
-        <!--- Shipper / Consignee
-        <div title="Shipper - Consignee">
-            <div class="form-horizontal">
-                <div class="col-md-12">
-                    <div style="padding-top: 10px;padding-bottom: 15px;">
-                        <div class="row">
-                            <div class="col-md-6">
-                                @include('export.oceans.cargo_loader.partials.sections.shipper')
-                            </div>
-                            <div class="col-md-6">
-                                @include('export.oceans.cargo_loader.partials.sections.consignee')
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--- Notify
-        <div title="Notify">
-            <div class="form-horizontal">
-                <div class="col-md-12">
-                    <div style="padding-top: 10px;padding-bottom: 15px;">
-                        <div class="row">
-                            @include('export.oceans.cargo_loader.partials.sections.notify')
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--- Loading/ Unloading
-        <div title="Loading/ Unloading">
-            <div class="form-horizontal">
-                <div class="col-md-12">
-                    <div style="padding-top: 10px;padding-bottom: 15px;">
-                        <div class="row">
-                            @include('export.oceans.cargo_loader.partials.sections.loading_unloading')
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>-->
 
 
 <!-- Modal forms section -->
@@ -88,5 +42,6 @@
     @include('export.oceans.cargo_loader.partials.scripts.autocomplete')
     @include('export.oceans.cargo_loader.partials.scripts.tables')
     @include('export.oceans.cargo_loader.partials.scripts.validation')
+
 
 @stop

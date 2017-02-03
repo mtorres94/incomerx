@@ -13,13 +13,14 @@ class EoCargoLoaderReceiptEntry extends Model
     public $timestamps = false;
     public static function saveDetail($id, $data)
     {
-        $i = -1;
+        $i = 0;
         $a = 0;
-        DB::table('eo_cargo_loader_receipt_entries')->where('cargo_loader_id', '=', $id)->delete();
+        DB::table('eo_cargo_loader_receipt_entries')->where('cargo_loader_id', $id)->delete();
+        DB::table('whr_receipts_entries')->where('cargo_loader_id', $id)->update(['cargo_loader_id' => 0]);
         if (isset($data['hidden_warehouse_line'])) {
 
             while ($a < count($data['hidden_warehouse_line'])) {
-                $i++;
+
                 if (isset($data['hidden_warehouse_line'][$i])) {
                     $obj = new EoCargoLoaderReceiptEntry();
                     $obj->line = $a + 1;
@@ -27,25 +28,13 @@ class EoCargoLoaderReceiptEntry extends Model
                     $obj->container_line = $data['hidden_container_id'][$i];
                     $obj->receipt_entry_id = $data['hidden_warehouse_line'][$i];
                     $obj->group_by = $data['hidden_flag'][$i];
+                    ReceiptEntry::where('id', $data['hidden_warehouse_line'][$i])->update(['cargo_loader_id' => $id]);
                     $obj->save();
-                    $a++;
-                }
-            }
-        }
-        //ACTUALIZAR ESTADO DE LOS RECEIPT
-        //======================================
-        $a=0; $i=0;
-        if (isset($data['hidden_warehouse_line'])) {
-            while ($a < count($data['hidden_warehouse_line'])) {
-                if (isset($data['hidden_warehouse_line'][$i])) {
-                    ReceiptEntry::where('id', '=', $data['hidden_warehouse_line'][$i])->update(['status' => "C"]);
                     $a++;
                 }
                 $i++;
             }
         }
-        //======================================
-
     }
 
     public function receipt_entry()

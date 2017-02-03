@@ -64,13 +64,11 @@
             @endif
             </tbody>
         </table>
-        <div class="pull-right">
-
-            <div class="col-md-2">{!! Form::bsText(null,null, 'Bill', 'sum_bill', null, '0.00') !!}</div>
-            <div class="col-md-2">{!! Form::bsText(null,null, 'Cost', 'sum_cost', null, '0.00') !!}</div>
-            <div class="col-md-2">{!! Form::bsText(null,null, 'Profit', 'sum_profit', null, '0.00') !!}</div>
-            <div class="col-md-2">{!! Form::bsText(null,null, 'Profit %', 'sum_profit_percent', null, '0.00') !!}</div>
-
-        </div>
+            <div class="pull-right">
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Bill', 'sum_bill', null, '0.00') !!}</div>
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Cost', 'sum_cost', null, '0.00') !!}</div>
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Profit', 'sum_profit', null, '0.00') !!}</div>
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Profit %', 'sum_profit_percent', null, '0.00') !!}</div>
+            </div>
     </div>
 </div>

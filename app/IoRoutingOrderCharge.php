@@ -14,15 +14,12 @@ class IoRoutingOrderCharge extends Model
         'id', 'routing_order_id','line', 'billing_id', 'bill_type', 'bill_party','billing_quantity', 'billing_rate', 'billing_amount', 'billing_currency_type', 'billing_customer_id', 'cost_amount', 'cost_currency_type', 'cost_invoice', 'cost_reference', 'billing_notes', 'billing_unit_id', 'billing_exchange_rate', 'cost_quantity', 'cost_unit_id', 'cost_rate', 'cost_center', 'cost_exchange_rate', 'billing_vendor_code', 'cost_date', 'billing_increase', 'billing_description'];
     public $timestamps = false;
     public static function saveDetail($id, $data) {
-        $i=-1; $a=0;
+        $i=0; $a=0;
         DB::table('io_routing_order_charge')->where('routing_order_id', '=', $id)->delete();
         if (isset($data['charge_id'])){
-
             while($a < count($data['charge_id'])){
-                $i++;
                 if (isset($data['charge_id'][$i])){
                     $obj = new IoRoutingOrderCharge();
-
                     $obj->routing_order_id = $id;
                     $obj->line=  $a + 1;
                     $obj-> billing_id = $data['billing_billing_id'][$i];
@@ -50,7 +47,7 @@ class IoRoutingOrderCharge extends Model
                     $obj->save();
                     $a++;
                 }
-
+                $i++;
             }
         }
 

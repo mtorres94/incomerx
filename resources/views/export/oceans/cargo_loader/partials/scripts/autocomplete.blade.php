@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
 $("#pick_search_for_name").focus(function () {
-var  type= $("#pick_search_type").val();  $("#pick_search_for_name").marcoPolo({url:"{{ route('receipts_entries.autocomplete') }}",formatItem:function(e,o){return e.value +'|'+ e.date_in + '|' + e.shipper_name + '|' + e.consignee_name + '|'+ e.third_party_name + '|' + e.agent_name},
+var  type= $("#pick_search_type").val();  $("#pick_search_for_name").marcoPolo({url:"{{ route('receipts_entries.autocomplete') }}",formatItem:function(e,o){return e.value +'|'+ e.date_in + '|' + e.shipper_name + '|' + e.consignee_name},
 onSelect:function(e,o)
 {var r=$("#load_warehouse_details tbody tr").length + 1,  n = $("#load_warehouse_details"),
         t = n.find("tbody"),

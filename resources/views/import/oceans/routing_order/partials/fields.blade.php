@@ -71,11 +71,11 @@
     <script>
 
     </script>
-
     @include('import.oceans.routing_order.partials.scripts.init')
     @include('import.oceans.routing_order.partials.scripts.compute')
     @include('import.oceans.routing_order.partials.scripts.autocomplete')
     @include('import.oceans.routing_order.partials.scripts.tables')
     @include('import.oceans.routing_order.partials.scripts.validation')
+
 
 @stop

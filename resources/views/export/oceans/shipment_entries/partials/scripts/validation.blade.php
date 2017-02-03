@@ -27,7 +27,7 @@
                         notEmpty: { message: "Departure date is required" },
                         date: {
                             format: "YYYY-MM-DD",
-                            max: 'arrival_date',
+                            min: 'date_today',
                             message: "The departure date is invalid"
                         }
                     }
@@ -140,6 +140,30 @@
             // data.element --> The field element
 
             // Hide the success icon
+            data.element.data('fv.icon').hide();
+        });
+
+        $("#ContainerModal").formValidation({
+            framework: 'bootstrap',
+            excluded: ':disabled',
+            icon: {
+                valid: 'fa fa-check',
+                invalid: 'fa fa-times',
+                validating: 'fa fa-refresh'
+            },
+            fields: {
+                equipment_type_code: {
+                    validators: {
+                        notEmpty: { message: "Equipment type is required" }
+                    }
+                }
+            }
+        }).on('success.field.fv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+            $parent.removeClass('has-success');
+            data.element.data('fv.icon').hide();
+
+        }).on('err.field.fv', function (e, data) {
             data.element.data('fv.icon').hide();
         })
     })

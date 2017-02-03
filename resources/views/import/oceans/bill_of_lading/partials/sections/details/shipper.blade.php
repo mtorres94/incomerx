@@ -17,6 +17,6 @@
         {!! Form::bsComplete('col-md-3', 'col-md-9', 'Zip Postal Code', 'shipper_zip_code_id', 'shipper_zip_code_code', Request::get('term'), ((isset($bill_of_lading) and $bill_of_lading->shipper_zip_code_id > 0) ? $bill_of_lading->shipper_zip_code->code : null), 'Zip Code') !!}
     </div>
     <div class="row">
-        {!! Form::bsText('col-md-3', 'col-md-6', 'Phone', 'shipper_phone', null, '') !!}
+        {!! Form::bsText('col-md-3', 'col-md-3', 'Phone', 'shipper_phone', null, '') !!}
     </div>
 </fieldset>

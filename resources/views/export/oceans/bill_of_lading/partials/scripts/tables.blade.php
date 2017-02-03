@@ -9,6 +9,7 @@
         }
     });
 
+
     $("#btn-container").click(function() {
         for (var t = $("#container-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
@@ -27,6 +28,7 @@
                     o = e.indexOf("display: none;");
             $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
         }
+        $("#ContainerModal").formValidation("resetForm", true);
     });
 
     $("#btn_edit_container").click(function() {
@@ -47,6 +49,7 @@
                     o = e.indexOf("display: none;");
             $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
         }
+        $("#ChargeModal").formValidation("resetForm", true);
     });
 
     $("#btn_edit_charge").click(function() {
@@ -73,6 +76,7 @@
                     o = e.indexOf("display: none;");
             $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
         }
+        $("#ChargeModal").formValidation("resetForm", true);
     });
 
     $("#btn_cargo_details").click(function() {
@@ -1232,8 +1236,7 @@
 
 
     $("#container-save").click(function() {
-        if($("#equipment_type_code").val()==''){
-
+        if($("#equipment_type_code").val()=='' || $("#container_number").val() == ""){
             $("#equipment_type_code").focus();
         }else{
             var t = $("#container_details tbody tr").length + 1,
@@ -1376,7 +1379,7 @@
                     .append(createTableContent('container_comments', g_74, true, d))
                     .append(createTableBtns()),
 
-                    0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#Container_Details").modal("hide"), $("#equipment_type_code").focus();
+                    0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#Container_Details").modal("show"), $("#ContainerModal").formValidation("resetForm", true), $("#equipment_type_code").focus();
 
             //===================
             var id_row = (0 == container_id ? _ : container_id);
@@ -1569,7 +1572,7 @@
 
     $("#charges-save").click(function() {
 
-        if($("#billing_billing_code").val()==''){
+        if($("#billing_billing_code").val()=='' || $("#billing_quantity").val() == ""){
             $("#billing_billing_code").focus();
         }else{
             var t = $("#chargeDetails tbody tr").length + 1,
@@ -1645,7 +1648,7 @@
                     .append(createTableContent('billing_increase', g_10, true, d))
                     .append(createTableBtns()),
 
-                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C),values_charges(), cleanModalFields("Charge_Details"),$("#billing_bill_party").val("C").change(),$("#billing_bill_type").val("C").change(), $("#billing_currency_type").val("1").change(), $("#cost_currency_type").val("1").change(), $("#billing_unit_id").val("0").change(),  $("#cost_unit_id").val("0").change(),  $("#Charge_Details").modal("show"), $("#billing_billing_code").focus()
+                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C),values_charges(), cleanModalFields("Charge_Details"),$("#billing_bill_party").val("C").change(),$("#billing_bill_type").val("C").change(), $("#billing_currency_type").val("1").change(), $("#cost_currency_type").val("1").change(), $("#billing_unit_id").val("0").change(),  $("#cost_unit_id").val("0").change(),  $("#Charge_Details").modal("show"), $("#ChargeModal").formValidation("resetForm", true), $("#billing_billing_code").focus()
         }
 
     }), $("#chargeDetails").on("click", "a.btn-danger", function() {
@@ -1999,7 +2002,7 @@
 
                     var p = $("<tr id=" + (d + 1) + ">");
                     p.append(createTableContent('cargo_line',(d+1), true, d))
-                        .append(createTableContent('cargo_marks', hbl[x].childNodes[2].textContent + " - " + hbl[x].childNodes[5].textContent, false, d))
+                        .append(createTableContent('cargo_marks', hbl[x].childNodes[2].textContent , false, d))
                         .append(createTableContent('cargo_pieces', hbl[x].childNodes[7].textContent, false, d))
                         .append(createTableContent('cargo_description',  hbl[x].childNodes[3].textContent , false, d))
                         .append(createTableContent('cargo_weight_unit', 'L', false, d))

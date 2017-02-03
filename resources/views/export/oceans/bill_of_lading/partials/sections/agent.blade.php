@@ -23,7 +23,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">{!! Form::bsText('col-md-6', 'col-md-6', 'Commission', 'agent_commission_amount', null, '') !!}</div>
-        <div class="col-md-6">{!! Form::bsText('col-md-2', 'col-md-6', 'Amount %', 'agent_commission_p', null, '') !!}</div>
+        <div class="col-md-6">{!! Form::bsText('col-md-2', 'col-md-6', 'Amnt %', 'agent_commission_p', null, '') !!}</div>
     </div>
 
 </fieldset>

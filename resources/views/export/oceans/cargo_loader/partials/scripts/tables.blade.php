@@ -13,6 +13,7 @@
                     o = e.indexOf("display: none;");
             $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
         }
+        $("#ContainerModal").formValidation('resetForm', true);
     });
 
     $("#btn_warehouse").click(function() {
@@ -554,39 +555,42 @@ $("#CreateHouse").modal("hide");
     });
 
     $("#container-save").click(function(){
-        var r= $("#container_details tbody tr").length + 1,
-                _ =  ($("#container_details tbody tr").length == 0 ? 1 : parseInt($("#container_details tbody tr")[$("#container_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
-                c1=$("#container_id").val(),
-                d= (c1 == 0? _ : c1)-1,
-                c2= $("#equipment_type_id").val(),
-                c3= $("#equipment_type_code").val(),
-                c4= $("#container_number").val(),
-                c5= $("#container_seal_number1").val(),
-                c6= $("#container_seal_number2").val(),
-                c7= $("#container_order_number").val(),
+        if ($("#equipment_type_id").val() == "" || $("#container_number").val() == ""){
+            $("#equipment_type_code").focus();
+        }else {
+            var r = $("#container_details tbody tr").length + 1,
+                _ = ($("#container_details tbody tr").length == 0 ? 1 : parseInt($("#container_details tbody tr")[$("#container_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
+                c1 = $("#container_id").val(),
+                d = (c1 == 0 ? _ : c1) - 1,
+                c2 = $("#equipment_type_id").val(),
+                c3 = $("#equipment_type_code").val(),
+                c4 = $("#container_number").val(),
+                c5 = $("#container_seal_number1").val(),
+                c6 = $("#container_seal_number2").val(),
+                c7 = $("#container_order_number").val(),
 
-                c8= $("#comments_instructions").val(),
-                c9= $("#cubic_max").val(),
-                c10= $("#cubic_load").val(),
-                c11= $("#cubic_load_p").val(),
-                c12= $("#cubic_excess").val(),
-                c13= $("#pieces_loaded").val(),
-                c14= $("#max_weight").val(),
-                c15= $("#weight_load").val(),
-                c16= $("#weight_load_p").val(),
-                c17= $("#weight_excess").val(),
+                c8 = $("#comments_instructions").val(),
+                c9 = $("#cubic_max").val(),
+                c10 = $("#cubic_load").val(),
+                c11 = $("#cubic_load_p").val(),
+                c12 = $("#cubic_excess").val(),
+                c13 = $("#pieces_loaded").val(),
+                c14 = $("#max_weight").val(),
+                c15 = $("#weight_load").val(),
+                c16 = $("#weight_load_p").val(),
+                c17 = $("#weight_excess").val(),
 
                 c18 = $("#container_commodity_id").val(),
                 c19 = $("#container_commodity_name").val().toUpperCase(),
                 c20 = $("#pd_status").val(),
-                c21= $("#container_spotting_date").val(),
-                c22= $("#container_pull_date").val(),
+                c21 = $("#container_spotting_date").val(),
+                c22 = $("#container_pull_date").val(),
 
                 c23 = $("#container_pickup_id").val(),
                 c24 = $("#container_pickup_name").val().toUpperCase(),
                 c25 = $("#container_pickup_type").val(),
                 c26 = $("#container_pickup_address").val(),
-                c27= $("#container_pickup_city").val(),
+                c27 = $("#container_pickup_city").val(),
                 c28 = $("#container_pickup_state_id").val(),
                 c29 = $("#container_pickup_state_name").val().toUpperCase(),
                 c30 = $("#container_pickup_zip_code_id").val(),
@@ -626,11 +630,11 @@ $("#CreateHouse").modal("hide");
 
                 c62 = $("#container_hazardous_contact").val(),
                 c63 = $("#container_hazardous_phone").val(),
-                c64= $("#container_degrees").val(),
-                c65= $("#container_max").val(),
-                c66= $("#container_min").val(),
-                c67= $("#container_ventilation").val(),
-                c68= $("#container_temperature").val(),
+                c64 = $("#container_degrees").val(),
+                c65 = $("#container_max").val(),
+                c66 = $("#container_min").val(),
+                c67 = $("#container_ventilation").val(),
+                c68 = $("#container_temperature").val(),
 
                 c69 = $("#container_inner_code").val().toUpperCase(),
                 c70 = $("#container_inner_quantity").val(),
@@ -642,18 +646,18 @@ $("#CreateHouse").modal("hide");
                 c76 = $("#container_requested_equipment").val(),
                 c77 = $("#container_tare_weight").val(),
                 c78 = $("#total_weight_unit").val(),
-                c79= $("#container_carrier_id").val(),
-                c80= $("#container_carrier_name").val(),
+                c79 = $("#container_carrier_id").val(),
+                c80 = $("#container_carrier_name").val(),
                 n = $("#container_details"),
-                t= n.find("tbody"),
-                p = $("<tr id="+ (c1 == 0? _ : c1) +" >");
-        p.append(createTableContent('container_line', (c1 == 0? _ : c1), true, d))
+                t = n.find("tbody"),
+                p = $("<tr id=" + (c1 == 0 ? _ : c1) + " >");
+            p.append(createTableContent('container_line', (c1 == 0 ? _ : c1), true, d))
                 .append(createTableContent('equipment_type_id', c2, true, d))
                 .append(createTableContent('equipment_type_code', c3, false, d))
                 .append(createTableContent('container_number', c4, false, d))
                 .append(createTableContent('container_seal_number', c5, false, d))
                 .append(createTableContent('container_seal_number2', c6, true, d))
-                .append(createTableContent('container_order_number',c7, false, d))
+                .append(createTableContent('container_order_number', c7, false, d))
 
                 .append(createTableContent('container_comments', c8, true, d))
                 .append(createTableContent('cubic_max', c9, true, d))
@@ -716,12 +720,12 @@ $("#CreateHouse").modal("hide");
                 .append(createTableContent('container_drop_number', c61, true, d))
 
                 .append(createTableContent('container_hazardous_contact', c62, true, d))
-                .append(createTableContent('container_hazardous_phone',c63, true, d))
+                .append(createTableContent('container_hazardous_phone', c63, true, d))
                 .append(createTableContent('container_degrees', c64, true, d))
-                .append(createTableContent('container_max',c65, true, d))
-                .append(createTableContent('container_min',c66, true, d))
-                .append(createTableContent('container_ventilation',c67, true, d))
-                .append(createTableContent('container_temperature',c68, true, d))
+                .append(createTableContent('container_max', c65, true, d))
+                .append(createTableContent('container_min', c66, true, d))
+                .append(createTableContent('container_ventilation', c67, true, d))
+                .append(createTableContent('container_temperature', c68, true, d))
 
                 .append(createTableContent('container_inner_code', c69, true, d))
                 .append(createTableContent('container_inner_quantity', c70, true, d))
@@ -732,24 +736,24 @@ $("#CreateHouse").modal("hide");
                 .append(createTableContent('container_release_number', c75, true, d))
                 .append(createTableContent('container_requested_equipment', c76, true, d))
                 .append(createTableContent('container_tare_weight', c77, true, d))
-                .append(createTableContent('total_weight_unit',c78, true, d))
+                .append(createTableContent('total_weight_unit', c78, true, d))
                 .append(createTableContent('container_carrier_id', c79, true, d))
                 .append(createTableContent('container_carrier_name', c80, true, d))
-                .append(createTableBtns()),0 == c1 ? t.append(p) : t.find("tr#" + c1).replaceWith(p);
+                .append(createTableBtns()), 0 == c1 ? t.append(p) : t.find("tr#" + c1).replaceWith(p);
 
-        //=========== DETALLES warehouse
-        var id_row =  (c1 == 0? _ : c1);
-        $("#hidden_warehouse tbody [data-id='" + id_row + "']").remove();
-        n = $("#hidden_warehouse");
-                t = n.find("tbody");
-        var tr=  $("#cargo_details tbody tr"),
-                tr_1= $("#hidden_warehouse tbody tr");
-        var  r_1= tr.length;
-        d =tr_1.length + 1;
+            //=========== DETALLES warehouse
+            var id_row = (c1 == 0 ? _ : c1);
+            $("#hidden_warehouse tbody [data-id='" + id_row + "']").remove();
+            n = $("#hidden_warehouse");
+            t = n.find("tbody");
+            var tr = $("#cargo_details tbody tr"),
+                tr_1 = $("#hidden_warehouse tbody tr");
+            var r_1 = tr.length;
+            d = tr_1.length + 1;
 
-        for(var a =0; a< r_1 ; a++) {
-            var p_1 = $("<tr data-id=" + id_row + ">");
-            p_1.append(createTableContent('hidden_container_id', id_row, true, d))
+            for (var a = 0; a < r_1; a++) {
+                var p_1 = $("<tr data-id=" + id_row + ">");
+                p_1.append(createTableContent('hidden_container_id', id_row, true, d))
                     .append(createTableContent('hidden_warehouse_line', tr[a].childNodes[34].textContent, true, d))
                     .append(createTableContent('hidden_warehouse_number', tr[a].childNodes[1].textContent, false, d))
                     .append(createTableContent('hidden_date_in', tr[a].childNodes[2].textContent, false, d))
@@ -757,11 +761,11 @@ $("#CreateHouse").modal("hide");
                     .append(createTableContent('hidden_shipper_name', tr[a].childNodes[4].textContent, false, d))
                     .append(createTableContent('hidden_shipper_address', tr[a].childNodes[5].textContent, true, d))
                     .append(createTableContent('hidden_shipper_city', tr[a].childNodes[6].textContent, true, d))
-                    .append(createTableContent('hidden_shipper_state_id',tr[a].childNodes[7].textContent, true, d))
+                    .append(createTableContent('hidden_shipper_state_id', tr[a].childNodes[7].textContent, true, d))
                     .append(createTableContent('hidden_shipper_state_name', tr[a].childNodes[8].textContent, true, d))
-                    .append(createTableContent('hidden_shipper_zip_code_id',tr[a].childNodes[9].textContent, true, d))
+                    .append(createTableContent('hidden_shipper_zip_code_id', tr[a].childNodes[9].textContent, true, d))
                     .append(createTableContent('hidden_shipper_zip_code_code', tr[a].childNodes[10].textContent, true, d))
-                    .append(createTableContent('hidden_shipper_phone',tr[a].childNodes[11].textContent, true, d))
+                    .append(createTableContent('hidden_shipper_phone', tr[a].childNodes[11].textContent, true, d))
                     .append(createTableContent('hidden_shipper_fax', tr[a].childNodes[12].textContent, true, d))
                     .append(createTableContent('hidden_consignee_id', tr[a].childNodes[13].textContent, true, d))
                     .append(createTableContent('hidden_consignee_name', tr[a].childNodes[14].textContent, false, d))
@@ -769,7 +773,7 @@ $("#CreateHouse").modal("hide");
                     .append(createTableContent('hidden_consignee_city', tr[a].childNodes[16].textContent, true, d))
                     .append(createTableContent('hidden_consignee_state_id', tr[a].childNodes[17].textContent, true, d))
                     .append(createTableContent('hidden_consignee_state_name', tr[a].childNodes[18].textContent, true, d))
-                    .append(createTableContent('hidden_consignee_zip_code_id',tr[a].childNodes[19].textContent, true, d))
+                    .append(createTableContent('hidden_consignee_zip_code_id', tr[a].childNodes[19].textContent, true, d))
                     .append(createTableContent('hidden_consignee_zip_code_code', tr[a].childNodes[20].textContent, true, d))
                     .append(createTableContent('hidden_consignee_phone', tr[a].childNodes[21].textContent, true, d))
                     .append(createTableContent('hidden_consignee_fax', tr[a].childNodes[22].textContent, true, d))
@@ -787,34 +791,35 @@ $("#CreateHouse").modal("hide");
                     .append(createTableContent('hidden_warehouse_code', tr[a].childNodes[32].textContent, true, d))
                     .append(createTableContent('hidden_flag', '0', true, d))
                     .append(createTableContent('hidden_receipt_entry', tr[a].childNodes[34].textContent, true, d))
-                    .append(createTableContent('hbl_line_id','0' , true, d))
-                    .append(createTableContent('equipment_type_code', c3 , true, d))
-                    .append(createTableContent('container_number', c4 , true, d))
-                    .append(createTableContent('container_seal_number', c5 , true, d))
-                 t.append(p_1);
-            d+=1;
-        }
+                    .append(createTableContent('hbl_line_id', '0', true, d))
+                    .append(createTableContent('equipment_type_code', c3, true, d))
+                    .append(createTableContent('container_number', c4, true, d))
+                    .append(createTableContent('container_seal_number', c5, true, d))
+                t.append(p_1);
+                d += 1;
+            }
 
             // HAZARDOUS DETAILS
-                $("#hidden_hazardous tbody [data-id='" + id_row + "']").remove();
-                n = $("#hidden_hazardous");
-                        t = n.find("tbody");
-                tr=  $("#hazardous_details tbody tr");
-                        tr_1= $("#hidden_hazardous tbody tr");
-                r_1= tr.length;
-                d =tr_1.length + 1;
-                for(a =0; a< r_1 ; a++) {
-                     p_1 = $("<tr data-id=" + id_row + ">");
-                    p_1.append(createTableContent('hzd_container_id', id_row, true, d))
-                            .append(createTableContent('hzd_uns_id', tr[a].childNodes[0].textContent, false, d))
-                            .append(createTableContent('hzd_line', tr[a].childNodes[1].textContent, true, d))
-                            .append(createTableContent('hzd_uns_code', tr[a].childNodes[2].textContent, false, d))
-                            .append(createTableContent('hzd_uns_desc', tr[a].childNodes[3].textContent, false, d))
-                            .append(createTableContent('hzd_uns_note', tr[a].childNodes[4].textContent, false, d))
-                    t.append(p_1);
-                    d+=1;
-                }
-        cleanModalFields("Container_Details"), clearTable("cargo_details"), $("#equipment_type_code").focus();
+            $("#hidden_hazardous tbody [data-id='" + id_row + "']").remove();
+            n = $("#hidden_hazardous");
+            t = n.find("tbody");
+            tr = $("#hazardous_details tbody tr");
+            tr_1 = $("#hidden_hazardous tbody tr");
+            r_1 = tr.length;
+            d = tr_1.length + 1;
+            for (a = 0; a < r_1; a++) {
+                p_1 = $("<tr data-id=" + id_row + ">");
+                p_1.append(createTableContent('hzd_container_id', id_row, true, d))
+                    .append(createTableContent('hzd_uns_id', tr[a].childNodes[0].textContent, false, d))
+                    .append(createTableContent('hzd_line', tr[a].childNodes[1].textContent, true, d))
+                    .append(createTableContent('hzd_uns_code', tr[a].childNodes[2].textContent, false, d))
+                    .append(createTableContent('hzd_uns_desc', tr[a].childNodes[3].textContent, false, d))
+                    .append(createTableContent('hzd_uns_note', tr[a].childNodes[4].textContent, false, d))
+                t.append(p_1);
+                d += 1;
+            }
+            cleanModalFields("Container_Details"), clearTable("cargo_details"), $("#ContainerModal").formValidation('resetForm', true), $("#equipment_type_code").focus();
+        }
         //======================================
     }),
             $("#container_details").on("click", "a.btn-danger", function() {

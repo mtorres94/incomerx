@@ -128,6 +128,64 @@
 
             // Hide the success icon
             data.element.data('fv.icon').hide();
+        });
+
+        $("#ContainerModal").formValidation({
+            framework: 'bootstrap',
+            excluded: ':disabled',
+            icon: {
+                valid: 'fa fa-check',
+                invalid: 'fa fa-times',
+                validating: 'fa fa-refresh'
+            },
+            fields: {
+                equipment_type_code: {
+                    validators: {
+                        notEmpty: { message: "Equipment type is required" }
+                    }
+                },
+                container_number: {
+                    validators: {
+                        notEmpty: { message: "Pieces is required" }
+                    }
+                }
+            }
+        }).on('success.field.fv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+            $parent.removeClass('has-success');
+            data.element.data('fv.icon').hide();
+
+        }).on('err.field.fv', function (e, data) {
+            data.element.data('fv.icon').hide();
+        });
+
+        $("#ChargeModal").formValidation({
+            framework: 'bootstrap',
+            excluded: ':disabled',
+            icon: {
+                valid: 'fa fa-check',
+                invalid: 'fa fa-times',
+                validating: 'fa fa-refresh'
+            },
+            fields: {
+                billing_billing_code: {
+                    validators: {
+                        notEmpty: { message: "Billing code is required" }
+                    }
+                },
+                billing_quantity: {
+                    validators: {
+                        notEmpty: { message: "Quantity is required" }
+                    }
+                }
+            }
+        }).on('success.field.fv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+            $parent.removeClass('has-success');
+            data.element.data('fv.icon').hide();
+
+        }).on('err.field.fv', function (e, data) {
+            data.element.data('fv.icon').hide();
         })
     })
 </script>

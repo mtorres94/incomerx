@@ -24,7 +24,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">{!! Form::bsText('col-md-3', 'col-md-9', 'HBL', 'hbl_code', null, ' ') !!}</div>
+        <div class="col-md-12">{!! Form::bsText('col-md-3', 'col-md-9', 'HBL', 'code', null, ' ') !!}</div>
     </div>
     <div class="row">
         <div class="col-md-12">

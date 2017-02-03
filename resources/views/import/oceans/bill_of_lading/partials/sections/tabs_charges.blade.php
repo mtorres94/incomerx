@@ -1,85 +1,4 @@
 <div class="easyui-tabs">
-    <!--<div title="Destination Charges">
-        <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
-            <button type="button" id="btn-origin_charges-destination" class="btn btn-default" data-toggle="modal" data-target="#Destination_Charges" onclick="cleanModalFields('Destination_Charges')">
-                <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-            </button>
-            <button type="button" class="btn btn-danger" onclick="clearTable('destination_charge')">
-                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-            </button>
-        </div>
-        <table class="table table-bordered table-condensed" id="destination_charge">
-            <thead>
-            <tr>
-                <th  data-override="charge_id" hidden></th>
-                <th data-override="billing_billing_id" hidden></th>
-                <th width="10%" data-override="billing_billing_code">Billing Code</th>
-                <th width="15%" data-override="billing_billing_description">Description</th>
-                <th width="10%" data-override="billing_bill_type">Bill type</th>
-                <th width="10%" data-override="billing_bill_party">Bill Party</th>
-                <th width="10%" data-override="billing_quantity">Qty</th>
-                <th width="10%" data-override="billing_rate">Rate</th>
-                <th width="10%" data-override="billing_amount">Amount</th>
-                <th width="10%" data-override="billing_currency_type">Currency</th>
-                <th width="20%" data-override="billing_customer_name">Bill to</th>
-                <th width="10%" data-override="cost_amount">Cost</th>
-                <th width="10%" data-override="cost_currency_type">Currency</th>
-                <th width="15%" data-override="cost_invoice">Vendor Inv</th>
-                <th width="15%" data-override="cost_reference">Vendor Ref</th>
-                <th width="5%"/>
-            </tr>
-            </thead>
-            <tbody>
-            @if(isset($bill_of_lading))
-                @foreach($bill_of_lading->destination_charge as $detail)
-                    <tr id="{{ $detail->line }}">
-                    {!! Form::bsRowTd($detail->line, 'destination_charge_id', $detail->line, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_billing_id', $detail->billing_id, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_billing_code', $detail->billing_id , false) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_billing_description', $detail->billing_description, false) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_bill_type', $detail->bill_type, false) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_bill_party', $detail->bill_party, false) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_bill_quantity', $detail->bill_quantity, false) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_bill_rate', $detail->bill_rate, false) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_bill_amount', $detail->bill_amount, false) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_bill_currency_type', $detail->bill_currency_type, false) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_customer_name', ($detail->customer_id >0 ? $detail->customer->name :""), false) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_cost_amount', $detail->cost_amount, false) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_cost_currency_type', $detail->cost_currency_type, false) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_cost_invoice', $detail->cost_invoice, false) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_cost_reference', $detail->cost_reference, false) !!}
-
-                    {!! Form::bsRowTd($detail->line, 'destination_notes', $detail->notes, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_bill_unit_id', $detail->bill_unit_id, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_bill_unit_name', ($detail->bill_unit_id >0 ? $detail->bill_unit->code :""), true) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_bill_exchange_rate', $detail->bill_exchange_rate, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_customer_id', $detail->customer_id, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_cost_quantity', $detail->cost_quantity, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_cost_unit_id', $detail->cost_unit_id, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_cost_unit_name', ($detail->cost_unit_id >0 ? $detail->cost_unit->code :""), true) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_cost_rate', $detail->cost_rate, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_cost_center', $detail->cost_center, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_cost_exchange_rate', $detail->cost_exchange_rate, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_vendor_code', $detail->vendor_code, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_vendor_name', ($detail->vendor_code >0 ? $detail->vendor->name : ""), true) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_cost_date', $detail->cost_date, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'destination_bill_increase', $detail->bill_increase, true) !!}
-
-                        {!! Form::bsRowBtns() !!}
-                </tr>
-                @endforeach
-            @endif
-            </tbody>
-        </table>
-        <div class="pull-right">
-            <div class="col-md-3">{!! Form::bsSelect(null, null, 'Freight Payable at', 'payable_at', array('D' => 'Destination', 'O' => 'Origin'), null) !!}</div>
-            <div class="col-md-2">{!! Form::bsText(null,null, 'Bill', 'destination_bill', null, '0.00') !!}</div>
-            <div class="col-md-2">{!! Form::bsText(null,null, 'Cost', 'destination_cost', null, '0.00') !!}</div>
-            <div class="col-md-2">{!! Form::bsText(null,null, 'Profit', 'destination_profit', null, '0.00') !!}</div>
-            <div class="col-md-2">{!! Form::bsText(null,null, 'Profit %', 'destination_profit_p', null, '0.00') !!}</div>
-
-        </div>
-    </div>-->
     <div title="Origin Charges">
         <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
             <button type="button" id="btn-charges-origin" class="btn btn-default" data-toggle="modal" data-target="#Origin_Charges" onclick="cleanModalFields('Origin_Charges')">
@@ -125,7 +44,7 @@
 
                         {!! Form::bsRowTd($detail->line, 'billing_notes', $detail->billing_notes, true) !!}
                         {!! Form::bsRowTd($detail->line, 'bill_unit_id', $detail->billing_unit_id, true) !!}
-                        {!! Form::bsRowTd($detail->line, 'billing_unit_name', ($detail->billing_unit_id >0 ? $detail->bill_unit->code :""), true) !!}
+                        {!! Form::bsRowTd($detail->line, 'billing_unit_name', ($detail->bill_unit_id >0 ? $detail->billing_unit->code :""), true) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_exchange_rate', $detail->bill_exchange_rate, true) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_customer_id', $detail->customer_id, true) !!}
                         {!! Form::bsRowTd($detail->line, 'cost_quantity', $detail->cost_quantity, true) !!}

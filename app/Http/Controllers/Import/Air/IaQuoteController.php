@@ -23,7 +23,7 @@ class IaQuoteController extends Controller
      */
     public function index(IaQuoteDataTable $dataTable)
     {
-        return $dataTable->render('import.air.bill_of_lading.index');
+        return $dataTable->render('import.air.quotes.index');
     }
 
     /**

@@ -47,12 +47,10 @@ class IoRoutingOrderController extends Controller
       //dd($request->all());
         DB::beginTransaction();
         try {
-
+            $routing_order = $request->all();
             $last = IoRoutingOrder::orderBy('code','desc')->first();
             $frmt = $last == null ? 1 : intval(substr($last->code, 4)) + 1;
             $code = str_pad($frmt, 6, '0', 0);
-            $routing_order = $request->all();
-
             $routing_order['code']="IOR-".$code;
             $routing_order['mode']="O";
             $routing_order['user_create_id'] = Auth::user()->id;
@@ -124,7 +122,7 @@ class IoRoutingOrderController extends Controller
         try {
             $routing_order = $request->all();
             $sent = IoRoutingOrder::findorfail($id);
-            $imp = $sent->update($routing_order);
+            $sent->update($routing_order);
             $routing_order['user_update_id'] = Auth::user()->id;
             IoRoutingOrderCharge::saveDetail($id, $routing_order);
         } catch (ValidationException $e) {
@@ -203,6 +201,7 @@ class IoRoutingOrderController extends Controller
                     'shipper_id'                => $routing_order->shipper_id,
                     'shipper_name'   => strtoupper($routing_order->shipper_name ),
                     'shipper_address'   => strtoupper($routing_order->shipper_address),
+                    'shipper_city'   => strtoupper($routing_order->shipper_id > 0 ? $routing_order->shipper->city : ""),
                     'shipper_phone'   => $routing_order->shipper_phone,
                     'shipper_fax'   => $routing_order->shipper_fax,
                     'shipper_state_id' => $routing_order->shipper_state_id  ,
@@ -210,6 +209,7 @@ class IoRoutingOrderController extends Controller
                     'consignee_id'                => $routing_order->consignee_id,
                     'consignee_name'   => strtoupper($routing_order->consignee_name),
                     'consignee_address'   => strtoupper($routing_order->consignee_address),
+                    'consignee_city'   => strtoupper($routing_order->consignee_id > 0 ? $routing_order->consignee->city : ""),
                     'consignee_phone'   => $routing_order->consignee_phone,
                     'consignee_fax'   => $routing_order->consignee_fax,
                     'consignee_state_id' => $routing_order->consignee_state_id  ,

@@ -2,7 +2,7 @@
     $("#shipper_name").marcoPolo({url:"{{ route('customers.autocomplete') }}",formatItem:function(e,o){return e.value},selected:{
         id: '{{  (isset($routing_order) ? $routing_order->shipper_id : "") }}',
         value: '{{  ((isset($routing_order) and ($routing_order->shipper_id > 0)) ? $routing_order->shipper->name : "") }}',
-        address: '{{ trim(preg_replace(array('/\s{2,}/', '/[\t\n]/'),  ' ',((isset($routing_order) and ($routing_order->shipper_id > 0)) ? $routing_order->shipper->address : ""))) }}',
+        address: '{{ trim(preg_replace(array('/\s+/', '/[\t\n]/'),  ' ',((isset($routing_order) and ($routing_order->shipper_id > 0)) ? $routing_order->shipper->address : ""))) }}',
 
         phone: '{{  (isset($routing_order)? $routing_order->shipper_phone : "") }}',
         email: '{{  (isset($routing_order)? $routing_order->shipper_email: "") }}',
@@ -163,18 +163,18 @@
 
         shipper_id: '{{ (isset($routing_order)? $routing_order->shipper_id : "") }}',
         shipper_name: '{{ ((isset($routing_order) and ($routing_order->shipper_id > 0))? $routing_order->shipper->name  : "") }}',
-        shipper_address: '{{ (isset($routing_order)? $routing_order->shipper_address : "") }}',
+        shipper_address: '{{ trim(preg_replace(array('/\s+/', '/[\t\n]/'),  ' ',(isset($routing_order)? $routing_order->shipper_address : ""))) }}',
         shipper_phone: '{{ (isset($routing_order)? $routing_order->shipper_phone : "") }}',
         shipper_fax: '{{ (isset($routing_order)? $routing_order->shipper_fax : "") }}',
 
         consignee_id: '{{ (isset($routing_order)? $routing_order->consignee_id : "") }}',
         consignee_name: '{{ ((isset($routing_order) and ($routing_order->consignee_id >0))? $routing_order->consignee->name: "") }}',
-        consignee_address: '{{ (isset($routing_order)? $routing_order->consignee_address : "") }}',
+        consignee_address: '{{ trim(preg_replace(array('/\s+/', '/[\t\n]/'),  ' ',(isset($routing_order)? $routing_order->consignee_address : ""))) }}',
         consignee_phone: '{{ (isset($routing_order)? $routing_order->consignee_phone : "") }}',
         consignee_fax: '{{ (isset($routing_order)? $routing_order->consignee_fax : "") }}'
     },onSelect:function(e,o){
         $("#quote_id").val(e.id).change(),
-        $(this).val(e.code).change(),
+        $(this).val(e.code),
             $("#service_id").val(e.service_id),
             $("#service_name").val(e.service_name),
             $("#port_loading_id").val(e.port_loading_id),

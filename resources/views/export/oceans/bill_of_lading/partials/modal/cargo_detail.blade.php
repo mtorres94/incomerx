@@ -2,6 +2,7 @@
     <div class="modal-dialog modal-lg" >
         <!-- Modal content-->
         <div class="modal-content">
+            <form id="CargoModal" method="post">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">New Cargo & Vehicle Details</h4>
@@ -48,6 +49,7 @@
                     <i class="icon ion-android-done-all"></i> Save data
                 </a>
             </div>
+            </form>
         </div>
     </div>
 </div>

@@ -41,6 +41,7 @@
             <div class="row">
                 <div class="document-info pull-right">
                     <h5><strong>ROUTING ORDER</strong></h5>
+                    <p class="code-bar">{{ $routing_order->code }}</p>
                     <p class="document_number">{{ $routing_order->code }}</p>
                 </div>
             </div>

@@ -98,17 +98,16 @@
         $("#destination_bill_rate").val(w);
     }
 
-    function origin_charges_details()
-    {
-        $("#origin_bill_amount").val($("#origin_bill_quantity").val()* $("#origin_bill_rate").val());
-        $("#origin_cost_amount").val($("#origin_cost_quantity").val()* $("#origin_cost_rate").val());
+    function calculate_individual_charges() {
+        var rb = $("#origin_bill_rate").val(),
+            ib=$("#origin_bill_increase").val(),
+            qb = $("#origin_bill_quantity").val(),
+            rc = $("#origin_cost_rate").val(),
+            qc = $("#origin_cost_quantity").val();
 
-        var x= parseFloat($("#origin_cost_amount").val()),
-                y= parseFloat($("#origin_bill_increase").val()/100), z=0 ;
-        z= x* y + parseFloat($("#origin_cost_amount").val());
-        $("#origin_bill_amount").val(z);
-        var w= parseInt($("#origin_bill_quantity").val());
-        w= z/ w;
-        $("#origin_bill_rate").val(w);
+        var ab = (rb * qb) + ((rb * qb) * (ib/100) ),
+            ac = rc * qc;
+
+        $("#origin_bill_amount").val(ab), $("#origin_cost_amount").val(ac);
     }
 </script>

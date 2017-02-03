@@ -3,14 +3,14 @@
 
 
 <div class="row">
-    <div class="col-md-12">
-        <div class="col-md-6">
-            @include('import.oceans.quotes.partials.sections.shipment_details')
-        </div>
-        <div class="col-md-6">
-            @include('import.oceans.quotes.partials.sections.general')
-        </div>
+<div class="col-md-12">
+    <div class="col-md-6">
+        @include('import.oceans.quotes.partials.sections.shipment_details')
     </div>
+    <div class="col-md-6">
+        @include('import.oceans.quotes.partials.sections.general')
+    </div>
+</div>
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -76,5 +76,6 @@
     @include('import.oceans.quotes.partials.scripts.autocomplete')
     @include('import.oceans.quotes.partials.scripts.tables')
     @include('import.oceans.quotes.partials.scripts.validation')
+
 
 @stop

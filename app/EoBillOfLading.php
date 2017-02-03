@@ -24,12 +24,10 @@ class EoBillOfLading extends Model
     {
         $i = 0;
         $a = 0;
+        EoBillOfLading::where('bill_of_lading_id', $id)->update(['bl_status' => "O",'bill_of_lading_id' => "0"]);
             while ($a < count($data['cargo_hbl_id'])) {
                 if (isset($data['cargo_hbl_id'][$i])) {
-                    if ($data['cargo_hbl_id'][$i] > 0) {
-                        EoBillOfLading::where('id', '=', $data['cargo_hbl_id'][$i])->update(['bill_of_lading_id' => $id]);
-
-                    }
+                        EoBillOfLading::where('id', $data['cargo_hbl_id'][$i])->update(['bl_status' => "C",'bill_of_lading_id' => $id]);
                     $a++;
                 }
                 $i++;
@@ -94,13 +92,13 @@ class EoBillOfLading extends Model
                         EoBillOfLadingContainer::saveDetail($id_hbl, $data);
                         //$data['inserted_id'] = Common::replaceId($id_hbl, $data['resume_line'][$i], $data['resume_line'], $data['inserted_id']);
                         //$data['hbl_line_id'] = Common::replaceId($id_hbl, $data['resume_line'][$i], $data['hidden_flag'], $data['hbl_line_id']);
-                        //dd($data, $data['hidden_shipper_id'], $id_shipper);
+
                         $data['hbl_line_id'] = Common::replaceId($id_hbl, $id_shipper[$a], $data['hidden_shipper_id'], $data['hbl_line_id']);
 
                         $a++;
                     }
                 }
-               // dd($data);
+
                 EoBillOfLadingCargo::saveDetailHBL($data);
                 EoHblReceiptEntry::saveDetail($id, $data);
 

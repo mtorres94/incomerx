@@ -13,11 +13,12 @@
                 o = e.indexOf("display: none;");
             $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
         }
+        $("#ChargeModal").formValidation("resetForm", true);
     });
 
     $("#charges-save").click(function() {
 
-        if($("#billing_billing_code").val()==''){
+        if($("#billing_billing_code").val()=='' || $("#billing_quantity").val() == ""){
             $("#billing_billing_code").focus();
         }else{
             var t = $("#chargeDetails tbody tr").length + 1,
@@ -93,9 +94,7 @@
                 .append(createTableContent('billing_increase', g_10, true, d))
                 .append(createTableBtns()),
 
-                0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C),cleanModalFields("Charge_Details"), $("#Charge_Details").modal("show"),$("#billing_bill_party").val("C").change(), $("#billing_bill_type").val("C").change(), $("#billing_currency_type").val("1").change(), $("#cost_currency_type").val("1").change(), $("#billing_unit_id").val("0").change(),  $("#cost_unit_id").val("0").change(), values_charges(),  $("#billing_billing_code").focus()
-
-
+                0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C),cleanModalFields("Charge_Details"), $("#Charge_Details").modal("show"),$("#billing_bill_party").val("C").change(), $("#billing_bill_type").val("C").change(), $("#billing_currency_type").val("1").change(), $("#cost_currency_type").val("1").change(), $("#billing_unit_id").val("0").change(),  $("#cost_unit_id").val("0").change(), values_charges(),$("#ChargeModal").formValidation("resetForm", true),  $("#billing_billing_code").focus()
         }
 
     }), $("#chargeDetails").on("click", "a.btn-danger", function() {

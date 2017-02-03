@@ -37,8 +37,7 @@
         name: '{{ ((isset($quotes) and ($quotes->carrier_id > 0) )? $quotes->carrier->name: "") }}',
     },onSelect: function(e, o) {$("#carrier_id").val(e.id), $(this).val(e.name)},
         minChars: 3,
-        param: "term",
-        required: !0
+        param: "term"
     }).on("marcopolorequestbefore", function() {
         $("#carrier_name_img").removeClass("img-none").addClass("img-display"), $("#carrier_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter", function() {$("#carrier_name_img").removeClass("img-display").addClass("img-none"), $("#carrier_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e) {
         var o = e.keyCode ? e.keyCode : e.which;
@@ -233,10 +232,10 @@
         },onSelect:function(e,o){$("#total_cargo_type_id").val(e.id),$(this).val(e.code)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#total_cargo_type_code_img").removeClass("img-none").addClass("img-display"),$("#total_cargo_type_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#total_cargo_type_code_img").removeClass("img-display").addClass("img-none"),$("#total_cargo_type_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#total_cargo_type_id").val(0)}).blur(function(){var e=$("#total_cargo_type_id").val();0==e&&($(this).val(""))});
 
 
-        $("#total_commodity_name").marcoPolo({url:"{{ route('commodities.autocomplete') }}",formatItem:function(e,o){return e.value}, selected:{
+        $("#total_commodity_code").marcoPolo({url:"{{ route('commodities.autocomplete') }}",formatItem:function(e,o){return e.value}, selected:{
             id: '{{ (isset($quotes) ? $quotes->total_commodity_id : "") }}',
-            value: '{{ ((isset($quotes) and ($quotes->total_commodity_id > 0)) ? $quotes->total_commodity->name: "") }}',
-        },onSelect:function(e,o){$("#total_commodity_id").val(e.id),$(this).val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#total_commodity_name_img").removeClass("img-none").addClass("img-display"),$("#total_commodity_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#total_commodity_name_img").removeClass("img-display").addClass("img-none"),$("#total_commodity_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#total_commodity_id").val(0)}).blur(function(){var e=$("#total_commodity_id").val();0==e&&($(this).val(""))});
+            name: '{{ ((isset($quotes) and ($quotes->total_commodity_id > 0)) ? $quotes->total_commodity->name: "") }}',
+        },onSelect:function(e,o){$("#total_commodity_id").val(e.id),$(this).val(e.name)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#total_commodity_code_img").removeClass("img-none").addClass("img-display"),$("#total_commodity_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#total_commodity_code_img").removeClass("img-display").addClass("img-none"),$("#total_commodity_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#total_commodity_id").val(0)}).blur(function(){var e=$("#total_commodity_id").val();0==e&&($(this).val(""))});
 
 
         $("#equipment_type_code").marcoPolo({url:"{{ route('cargo_types.autocomplete') }}",formatItem:function(e,o){return e.code},selected:{
@@ -352,6 +351,7 @@
 
 
         $("#box_license_type_code").marcoPolo({url:"{{ route('license_types.autocomplete') }}",formatItem:function(e,o){return e.id +'|'+ e.value},onSelect:function(e,o){$("#box_license_type_id").val(e.id),$(this).val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#box_license_type_code_img").removeClass("img-none").addClass("img-display"),$("#box_license_type_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#box_license_type_code_img").removeClass("img-display").addClass("img-none"),$("#box_license_type_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#box_license_type_id").val(0)}).blur(function(){var e=$("#box_license_type_id").val();0==e&&($(this).val(""))});
+
 
 
         $("#box_export_code").marcoPolo({url:"{{ route('export_codes.autocomplete') }}",formatItem:function(e,o){return e.id +'|'+ e.value},onSelect:function(e,o){$("#box_export_id").val(e.id),$(this).val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#box_export_code_img").removeClass("img-none").addClass("img-display"),$("#box_export_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#box_export_code_img").removeClass("img-display").addClass("img-none"),$("#box_export_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#box_export_id").val(0)}).blur(function(){var e=$("#box_export_id").val();0==e&&($(this).val(""))});

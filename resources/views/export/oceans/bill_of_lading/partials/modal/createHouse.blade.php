@@ -9,11 +9,7 @@
             </div>
 
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-6">{!! Form::bsSelect('col-md-3', 'col-md-9', ' GROUP BY', 'group_by', array( '1' => 'SHIPPER', '2' => 'CONSIGNEE', '3' => 'ONE BY ONE'), null) !!}</div>
-                    </div>
-                </div>
+
                 <table class="table table-bordered table-condensed" id="load_warehouses">
                     <thead>
                     <tr>

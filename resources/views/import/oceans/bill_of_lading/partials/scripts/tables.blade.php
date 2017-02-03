@@ -8,8 +8,13 @@
         $("#origin_bill_party").val("C").change();
         $("#origin_cost_currency_type").val("1").change();
         $("#origin_bill_currency_type").val("1").change();
+        $("#OriginModal").formValidation("resetForm", true);
     });
-
+$("#btn_container_details").click(function(){
+   $("#spotting_date").val($("#departure_date").val());
+    $("#tmp_pd_status").val("1").change();
+    $("#ContainerModal").formValidation("resetForm", true);
+});
     $("#btn_box_details").click(function(){
         $("#box_quantity").val(1);
         $("#box_metric_unit").val("I").change();
@@ -18,10 +23,10 @@
     });
     $("#btn_cargo_details").click(function(){
         $("#tmp_weight_unit").val("L").change();
+        $("#CargoModal").formValidation("resetForm", true);
     });
 $("#container-save").click(function() {
-    if($("#tmp_equipment_type_code").val()==''){
-    //show_alert();
+    if($("#tmp_equipment_type_code").val()=='' || $("#tmp_number").val() == "") {
     $("#tmp_equipment_type_code").focus();
     }else{
     var t = $("#container_details tbody tr").length + 1,
@@ -159,7 +164,7 @@ $("#container-save").click(function() {
         .append(createTableContent('container_comments', g_74, true, d))
         .append(createTableBtns()),
 
-        0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#Container_Details").modal("show"), $("#tmp_equipment_type_code").focus();
+        0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#Container_Details").modal("show"), $("#ContainerModal").formValidation("resetFomr", true),$("#tmp_equipment_type_code").focus();
 
 
         }
@@ -454,8 +459,7 @@ $("#container-save").click(function() {
 
             $("#origin-charge-save").click(function() {
 
-                if($("#origin_billing_code").val()==''){
-                    //  show_alert();
+                if($("#origin_billing_code").val()=='' || $("#origing_billing_quantity").val() == ""){
                     $("#origin_billing_code").focus();
                 }else{
                     var t = $("#origin_charge tbody tr").length + 1,
@@ -529,7 +533,7 @@ $("#container-save").click(function() {
                         .append(createTableContent('billing_increase', g_10, true, d))
                         .append(createTableBtns()),
 
-                            0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields("Origin_Charges"), $("#Origin_Charges").modal("show"),   $("#origin_bill_unit_id").val("").change(), $("#origin_cost_unit_id").val("").change(), $("#origin_bill_type").val("C").change(), $("#origin_bill_party").val("C").change(), $("#origin_cost_currency_type").val("1").change(),  $("#origin_billing_currency_type").val("1").change(), $("#origin_billing_code").focus(), values_charges()
+                            0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields("Origin_Charges"), $("#Origin_Charges").modal("show"),   $("#origin_bill_unit_id").val("").change(), $("#origin_cost_unit_id").val("").change(), $("#origin_bill_type").val("C").change(), $("#origin_bill_party").val("C").change(), $("#origin_cost_currency_type").val("1").change(),  $("#origin_billing_currency_type").val("1").change(), $("#ChargeModal").formValidation("resetForm", true), $("#origin_billing_code").focus(), values_charges()
                 }
 
             }), $("#origin_charge").on("click", "a.btn-danger", function() {
@@ -834,9 +838,9 @@ $("#container-save").click(function() {
 
 $("#cargo-save").click(function() {
 
-    if($("#cargo_marks").val()==''){
+    if($("#tmp_marks").val()=='' || $("#tmp_pieces").val() == ""){
         //  show_alert();
-        $("#cargo_marks").focus();
+        $("#tmp_marks").focus();
     }else{
         var t = $("#cargo_details tbody tr").length + 1,
                 _ =  ($("#cargo_details tbody tr").length == 0 ? 1 : parseInt($("#cargo_details tbody tr")[$("#cargo_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
@@ -879,7 +883,7 @@ $("#cargo-save").click(function() {
                 .append(createTableContent('cargo_rate', g_14, true, d))
                 .append(createTableContent('cargo_amount', g_15, false, d))
                 .append(createTableBtns()),
-                0 == cargo_id ? x.append(C) : x.find("tr#" + cargo_id).replaceWith(C), cleanModalFields("Cargo_Details"), $("#Cargo_Details").modal("show"),$("#tmp_weight_unit").val("L").change(), $("#tmp_marks").focus(), values_box_vehicle()
+                0 == cargo_id ? x.append(C) : x.find("tr#" + cargo_id).replaceWith(C), cleanModalFields("Cargo_Details"), $("#Cargo_Details").modal("show"),$("#tmp_weight_unit").val("L").change(), $("#CargoModal").formValidation("resetForm", true),  $("#tmp_marks").focus(), values_box_vehicle()
 
         //===================
 

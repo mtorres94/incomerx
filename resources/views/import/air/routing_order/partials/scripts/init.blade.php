@@ -24,7 +24,11 @@
             }
         }
 
-
+        removeEmptyNodes("chargeDetails");
+        $("#sum_bill").attr("readonly", true);
+        $("#sum_cost").attr("readonly", true);
+        $("#sum_profit").attr("readonly", true);
+        $("#sum_profit_percent").attr("readonly", true);
 
         for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];

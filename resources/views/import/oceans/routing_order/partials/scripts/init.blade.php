@@ -23,8 +23,11 @@
                 etab[1] = span
             }
         }
-
-
+        removeEmptyNodes("chargeDetails");
+        $("#sum_bill").attr("readonly", true);
+        $("#sum_cost").attr("readonly", true);
+        $("#sum_profit").attr("readonly", true);
+        $("#sum_profit_percent").attr("readonly", true);
 
         for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
@@ -63,31 +66,6 @@
             });
         });
     });
-
-        $("#billing_bill_party").change(function () {
-            var a= $("#billing_bill_party").val();
-            switch(a){
-                case "S":   $("#billing_customer_name").val( $("#shipper_name").val() );
-                    $("#billing_customer_id").val( $("#shipper_id").val() );
-                    $("#billing_customer_name").attr("readonly", true);
-                    break;
-
-                case "C":   $("#billing_customer_name").val( $("#consignee_name").val() );
-                    $("#billing_customer_id").val( $("#consignee_id").val() );
-                    $("#billing_customer_name").attr("readonly", true);
-                    break;
-
-
-                case "O":   $("#billing_customer_name").val("");
-                    $("#billing_customer_id").val("0");
-                    $("#billing_customer_name").attr("readonly", false);
-                    break;
-            }
-            console.log("sdfsdf");
-        });
-    $("#billing_bill_party").val("C").change();
-
-
 
     //=========================================
     $("#quote_code").change(function () {
@@ -142,14 +120,38 @@
             }
         });
         removeEmptyNodes("chargeDetails");
-       values_charges();
+        values_charges();
     });
+        $("#billing_bill_party").change(function () {
+            var a= $("#billing_bill_party").val();
+            switch(a){
+                case "S":   $("#billing_customer_name").val( $("#shipper_name").val() );
+                    $("#billing_customer_id").val( $("#shipper_id").val() );
+                    $("#billing_customer_name").attr("readonly", true);
+                    break;
+
+                case "C":   $("#billing_customer_name").val( $("#consignee_name").val() );
+                    $("#billing_customer_id").val( $("#consignee_id").val() );
+                    $("#billing_customer_name").attr("readonly", true);
+                    break;
+
+
+                case "O":   $("#billing_customer_name").val("");
+                    $("#billing_customer_id").val("0");
+                    $("#billing_customer_name").attr("readonly", false);
+                    break;
+            }
+        });
+    $("#billing_bill_party").val("C").change();
+
+
 
 
 
 
 //================================================
     $("#code").attr("readonly", true);
+    $("#billing_exchange_rate").attr("number", true);
       $("#unit_weight").val("L").change();
     $("#billing_quantity").change(function() { charges_details() });
     $("#cost_quantity").change(function() { charges_details() });

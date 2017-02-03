@@ -2,6 +2,7 @@
     <div class="modal-dialog modal-lg" >
         <!-- Modal content-->
         <div class="modal-content">
+            <form id="CargoModal" method="post">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">New Cargo  Details</h4>
@@ -31,7 +32,8 @@
                         {!! Form::bsMemo(null,null, '', 'cargo_comments', null, '') !!}
                     </div>
                 </div>
-                <div class="modal-footer">
+            </div>
+            <div class="modal-footer">
                     <a class="btn btn-default btn-footer" data-dismiss="modal">
                         <i class="fa fa-times"></i> Close
                     </a>
@@ -39,7 +41,7 @@
                         <i class="icon ion-android-done-all"></i> Save data
                     </a>
                 </div>
-            </div>
+        </form>
         </div>
     </div>
 </div>

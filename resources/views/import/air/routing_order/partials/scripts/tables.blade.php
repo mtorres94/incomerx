@@ -6,13 +6,14 @@
         $("#cost_currency_type").val("1").change();
         $("#billing_unit_id").val("0").change();
         $("#cost_unit_id").val("0").change();
-        for (var t = $("#origin_charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
+        for (var t = $("#charges-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
                 n = e.indexOf("display: block;"),
                 o = e.indexOf("display: none;");
             $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
         }
+        $("#ChargeModal").formValidation("resetForm", true);
     });
 
     $("#charges-save").click(function() {
@@ -93,7 +94,7 @@
                 .append(createTableContent('billing_increase', g_10, true, d))
                 .append(createTableBtns()),
 
-                0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C),cleanModalFields("Charge_Details"), $("#Charge_Details").modal("show"),$("#billing_bill_party").val("C").change(), $("#billing_bill_type").val("C").change(), $("#billing_currency_type").val("1").change(), $("#cost_currency_type").val("1").change(), $("#billing_unit_id").val("0").change(),  $("#cost_unit_id").val("0").change(), values_charges(),  $("#billing_billing_code").focus()
+                0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C),cleanModalFields("Charge_Details"), $("#Charge_Details").modal("show"),$("#billing_bill_party").val("C").change(), $("#billing_bill_type").val("C").change(), $("#billing_currency_type").val("1").change(), $("#cost_currency_type").val("1").change(), $("#billing_unit_id").val("0").change(),  $("#cost_unit_id").val("0").change(), values_charges(),$("#ChargeModal").formValidation("resetForm", true),   $("#billing_billing_code").focus()
 
 
         }

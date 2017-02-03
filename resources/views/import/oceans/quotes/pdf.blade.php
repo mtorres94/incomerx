@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Quote {{ $quote->code }}</title>
+    <title>{{ $quote->code }}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,190 +41,233 @@
             <div class="row">
                 <div class="document-info pull-right">
                     <h5><strong>QUOTE</strong></h5>
+                    <p class="code-bar">{{ $quote->code }}</p>
                     <p class="document_number">{{ $quote->code }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">EFFECTIVE DATE</div>
+                        <div class="panel-body">
+                            <p>{{ strtoupper($quote->date_today) }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">EXPIRATION DATE</div>
+                        <div class="panel-body">
+                            <p>{{ strtoupper($quote->valid_date) }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="row row-padding">
+        <div class="col-xs-6">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">CUSTOMER</div>
+                        <div class="panel-body">
+                            <p>{{ strtoupper($quote->customer->name) }}</p>
+                            <p>{{ strtoupper($quote->customer->address) }}</p>
+                            <p>{{ strtoupper($quote->customer->city) }} {{ ($quote->customer_state_id > 0) ? ', '.strtoupper($quote->customer->state->name) : "" }}</p>
+                            <p>Phone: {{ $quote->customer->phone }} / Fax: {{ $quote->customer->fax }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">SHIPPER</div>
+                        <div class="panel-body">
+                            <p>{{ strtoupper($quote->shipper->name) }}</p>
+                            <p>{{ strtoupper($quote->shipper->address) }}</p>
+                            <p>{{ strtoupper($quote->shipper->city) }} {{ ($quote->shipper_state_id > 0) ? ', '.strtoupper($quote->shipper->state->name) : "" }}</p>
+                            <p>Phone: {{ $quote->shipper->phone }} / Fax: {{ $quote->shipper->fax }}</p>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="col-xs-6">
-            <div class="row row-padding">
-            <table  class="table header-table">
-                <tr>
-                    <td><strong>Para:</strong></td>
-                    <td>{{ strtoupper((isset($quote) and ($quote->consignee_id > 0))? $quote->consignee->name : "") }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Atte:</strong></td>
-                    <td>{{ strtoupper(isset($quote) ? $quote->consignee_contact : "") }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Telf/ Fax:</strong></td>
-                    <td>{{ (isset($quote) ? $quote->consignee_phone. "/ ". $quote->consignee_fax  : "") }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Email:</strong></td>
-                    <td>{{ (isset($quote) ? $quote->consignee_email : "" )}}</td>
-                </tr>
-            </table>
+            </div>
         </div>
-    </div>
-    <div align="center" class="row">
-        <div class="col-xs-12">
-            <p><strong> Cotizaci&oacute;n de Importaci&oacute;n Mar&iacute;tima</strong></p>
+
+        <div class="row row-padding">
+            <div class="col-xs-6">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">ADDITIONAL INFORMATION</div>
+                            <div class="panel-body">
+                                <p><strong>ORIGIN: </strong>{{ ($quote->port_loading_id ? strtoupper($quote->port_loading->name) : "") }}</p>
+                                <p><strong>DESTINATION: </strong> {{ ($quote->port_unloading_id > 0 ? strtoupper($quote->port_unloading->name) : "") }}</p>
+                                <p><strong>SERVICE:</strong> {{ $quote->service_id > 0 ?  strtoupper($quote->service->name) : ""}} </p>
+                                <p><strong>COMMODITY: </strong>{{ ($quote->total_commodity_id > 0 ? $quote->total_commodity->name : "") }} </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">CONSIGNEE</div>
+                            <div class="panel-body">
+                                <p>{{ strtoupper($quote->consignee->name) }}</p>
+                                <p>{{ strtoupper($quote->consignee->address) }}</p>
+                                <p>{{ strtoupper($quote->consignee->city) }} {{ ($quote->consignee_state_id > 0) ? ', '.strtoupper($quote->consignee->state->name) : "" }}</p>
+                                <p>Phone: {{ $quote->consignee->phone }} / Fax: {{ $quote->consignee->fax }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <table  class="table header-table">
-                <tr>
-                    <td><strong>Condici&oacute;n:</strong></td>
-                    <td>Embarque mar&iacute;timo - OCEAN</td>
-                </tr>
-                <tr>
-                    <td><strong>Producto:</strong></td>
+
+        <div class="row row padding">
+            <div class="col-xs-12">
+                <table class="table table-condensed">
+                    <thead>
+                    <th>Qty</th>
+                    <th>Type</th>
+                    <th>Length</th>
+                    <th>Width</th>
+                    <th>Height</th>
+                    <th>Cubic</th>
+                    <th>Weight</th>
+                    <th>Unit</th>
+                    <th>Bin</th>
+                    <th>Reference</th>
+
+                    </thead>
+                    <tbody>
                     @foreach($quote->cargo as $detail)
-                        <td>{{ strtoupper( $detail->marks ) }}</td>
+                        <tr>
+                            <td>{{ $detail->quantity }}</td>
+                            <td>{{ $detail->cargo_type->code }}</td>
+                            <td>{{ $detail->length }}</td>
+                            <td>{{ $detail->width }}</td>
+                            <td>{{ $detail->height }}</td>
+                            <td>{{ $detail->total_cubic }}</td>
+                            <td>{{ $detail->total_weight }}</td>
+                            <td>{{ ($detail->weight_unit_measurement_id == "L") ? "LBS" : "KGS" }}</td>
+                            <td>{{ ($detail->location_id > 0) ? $detail->location->code . $detail->location_bin_id : "" }}</td>
+
+                            <td></td>
+                        </tr>
                     @endforeach
-                </tr>
-                <tr>
-                    <td><strong>Servicios:</strong></td>
-                    <td>{{ strtoupper((isset($quote) and ($quote->service_id >0 ))? $quote->service->name   : "") }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Tipo de Equipo: </strong></td>
-                    <td>{{ strtoupper((isset($quote) and ($quote->total_cargo_type_id > 0)) ? $quote->total_cargo_type->code : "" )}}</td>
-                </tr>
-                <tr>
-                    <td><strong>Naviera: </strong></td>
-                    <td>{{ strtoupper((isset($quote) and ($quote->carrier_id > 0)) ? $quote->carrier->name : "" )}}</td>
-                </tr>
-            </table>
-        </div>
-        <div class="col-xs-6">
-            <table  class="table header-table">
-                <tr>
-                    <td><strong>Origen:</strong></td>
-                    <td>{{ strtoupper((isset($quote) and ($quote->place_receipt_id > 0)) ? $quote->place_receipt->name : "" )}}</td>
-                </tr>
-                <tr>
-                    <td><strong>Destino:</strong></td>
-                    <td> {{ strtoupper((isset($quote) and ($quote->place_delivery_id > 0)) ? $quote->place_delivery->name : "" )}}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div align="left" class="row">
-        <div class="col-xs-12">
-            <p><strong> ORIGIN CHARGES</strong></p>
-        </div>
-    </div>
-    <div class="row row padding">
-        <div class="col-xs-12">
-            <table class="table table-condensed">
-                <thead>
+                    </tbody>
+                    <tfoot>
                     <tr>
-                        <td><strong>BILLING CODE</strong></td>
-                        <td><strong>TYPE</strong></td>
-                        <td><strong>QTY.</strong></td>
-                        <td><strong>UNIT</strong></td>
-                        <td><strong>RATE</strong></td>
-                        <td><strong>CURRENCY</strong></td>
-                        <td><strong>AMOUNT</strong></td>
-                        <td><strong>NOTE</strong></td>
+                        <td colspan="2"><strong>TOTAL PIECES:</strong> {{ $quote->total_quantity}}</td>
+                        <td colspan="2" style="text-align: right"><strong>WEIGHT:</strong></td>
+                        <td>{{ $quote->total_weight }} Lbs</td>
+                        <td colspan="3" style="text-align: right;"><strong>CUBIC:</strong></td>
+                        <td>{{ $quote->total_cubic }} Cft</td>
+                        <td></td>
                     </tr>
-                </thead>
-                <tbody>
-                @foreach($quote->origin_charge as $detail)
-
                     <tr>
-                        <td width="30%">{{ strtoupper($detail->billing_id > 0 ? $detail->billing->name : "") }}</td>
-                        <td width="10%">{{ ($detail->bill_type == "C" ? "COLLECTED" : "PREPAID") }}</td>
-                        <td width="10%">{{ $detail->billing_quantity }}</td>
-                        <td width="10%">{{ ($detail->billing_unit_id > 0 ? $detail->billing_unit->code : "") }}</td>
-                        <td width="10%">{{ $detail->billing_rate }}</td>
-                        <td width="10%">{{ ($detail->billing_currency_type > 0 ? $detail->billing_currency->code : "") }}</td>
-                        <td width="10%">{{ $detail->billing_amount }}</td>
-                        <td width="20%">{{ $detail->billing_notes }}</td>
-
+                        <td colspan="4"></td>
+                        <td>{{ round($quote->total_weight * 0.453592, 3) }} Kgs</td>
+                        <td colspan="3"></td>
+                        <td>{{ round($quote->total_cubic * 0.02831685, 3) }} Cbm</td>
+                        <td></td>
                     </tr>
-
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="6" style="text-align: right"><strong>TOTAL (USD):</strong> </td>
-                    <td colspan="2"><strong>{{  $quote->sum_bill  }}</strong></td>
-                </tr>
-                </tfoot>
-            </table>
+                    </tfoot>
+                </table>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <table class="table header-table">
-                <tr>
-                    <td><strong>Tr&aacute;nsito: </strong></td>
-                    <td >{{ $quote->transit_day }} d&iacute;as aproximadamente</td>
-                </tr>
-                <tr>
-                    <td width="15%"><strong>Vigencia: </strong></td>
-                    <td width="35%">{{ $quote->valid_date  }}</td>
-                </tr>
-            </table>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <p class="document_number"><strong>Origin Charges</strong></p>
+            </div>
         </div>
-        <div class="col-xs-6">
-            <table class="table header-table">
-                <tr>
-                    <td width="15%"><strong>Frecuencia: </strong></td>
-                    <td width="35%">{{ ($quote->frequency == "1"? "DAILY" : ($quote->frequency == "2")? "WEEKLY" : ($quote->frequency == "3" ? "BIWEEKLY" :  ($quote->frequency == "4"? "MONTHLY" : "ANNUALLY")) ) }}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div align="left" class="row">
-        <div class="col-xs-12">
-            <p><strong> DESTINATION CHARGES</strong></p>
-        </div>
-    </div>
-    <div class="row row padding">
-        <div class="col-xs-12">
-            <table class="table table-condensed">
-                <thead>
-                <tr>
-                    <td><strong>BILLING CODE</strong></td>
-                    <td><strong>TYPE</strong></td>
-                    <td><strong>QTY.</strong></td>
-                    <td><strong>UNIT</strong></td>
-                    <td><strong>RATE</strong></td>
-                    <td><strong>CURRENCY</strong></td>
-                    <td><strong>AMOUNT</strong></td>
-                    <td><strong>NOTE</strong></td>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($quote->destination_charge as $detail)
-
+        <div class="row row padding">
+            <div class="col-xs-12">
+                <table class="table table-condensed">
+                    <thead>
                     <tr>
-                        <td width="30%">{{ strtoupper($detail->billing_id > 0 ? $detail->billing->name : "") }}</td>
-                        <td width="10%">{{ ($detail->bill_type == "C" ? "COLLECTED" : "PREPAID") }}</td>
-                        <td width="10%">{{ $detail->billing_quantity }}</td>
-                        <td width="10%">{{ ($detail->billing_unit_id > 0 ? $detail->billing_unit->code : "") }}</td>
-                        <td width="10%">{{ $detail->billing_rate }}</td>
-                        <td width="10%">{{ ($detail->billing_currency_type > 0 ? $detail->billing_currency->code : "") }}</td>
-                        <td width="10%">{{ $detail->billing_amount }}</td>
-                        <td width="20%">{{ $detail->billing_notes }}</td>
+                        <th  width="15%">Code</th>
+                        <th  width="45%">Description</th>
+                        <th  width="10%">Qty</th>
+                        <th  width="10%">Unit</th>
+                        <th  width="10%">Rate</th>
+                        <th  width="10%">Amount</th>
                     </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($quote->origin_charge as $detail)
+                        <tr>
+                            <td>{{ strtoupper($detail->billing_id > 0 ? $detail->billing->code : "")}}</td>
+                            <td>{{ strtoupper($detail->billing_id > 0 ? $detail->billing->name : "")}}</td>
+                            <td>{{ $detail->billing_quantity }}</td>
+                            <td>{{ strtoupper($detail->billing_unit_id >0 ? $detail->billing_unit->code : "") }}</td>
+                            <td>{{ $detail->billing_rate }}</td>
+                            <td>{{ $detail->billing_amount }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td colspan="2" style="text-align: right"><strong>TOT. AMOUNT</strong></td>
+                        <td><strong>{{ $quote->sum_bill }} </strong></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
 
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="6" style="text-align: right"><strong>TOTAL (USD):</strong> </td>
-                    <td colspan="2"><strong>{{  $quote->dest_sum_bill  }}</strong></td>
-                </tr>
-                </tfoot>
-            </table>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <p class="document_number"><strong>Destination Charges</strong></p>
+            </div>
+        </div>
+        <div class="row row padding">
+            <div class="col-xs-12">
+                <table class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th  width="15%">Code</th>
+                        <th  width="45%">Description</th>
+                        <th  width="10%">Qty</th>
+                        <th  width="10%">Unit</th>
+                        <th  width="10%">Rate</th>
+                        <th  width="10%">Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($quote->destination_charge as $detail)
+                        <tr>
+                            <td>{{ strtoupper($detail->billing_id > 0 ? $detail->billing->code : "")}}</td>
+                            <td>{{ strtoupper($detail->billing_id > 0 ? $detail->billing->name : "")}}</td>
+                            <td>{{ $detail->billing_quantity }}</td>
+                            <td>{{ strtoupper($detail->billing_unit_id >0 ? $detail->billing_unit->code : "") }}</td>
+                            <td>{{ $detail->billing_rate }}</td>
+                            <td>{{ $detail->billing_amount }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td colspan="2" style="text-align: right"><strong>TOT. AMOUNT</strong></td>
+                        <td><strong>{{ $quote->dest_sum_bill }} </strong></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="row row-padding">
+            <div class="col-xs-12 footer">
+                <p><strong>COMMENTS:</strong> {{ $quote->quotes_comments }}</p>
+                <p><strong>INSTRUCTIONS:</strong> {{ $quote->quote_instruction }}</p>
+            </div>
         </div>
     </div>
 </div>

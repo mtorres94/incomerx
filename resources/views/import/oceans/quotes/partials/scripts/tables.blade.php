@@ -8,6 +8,7 @@ $("#btn_cargo_details").click(function(){
     $("#box_weight_unit").val("L").change();
     $("#box_dim_fact").val("I").change();
     $("#box_cargo_type_id").val("0").change();
+    $("#CargoModal").formValidation("resetForm", true);
 });
 
 $("#btn_container_details").click(function(){
@@ -23,6 +24,7 @@ $("#btn-origin-charges").click(function(){
     $("#cost_currency_type").val("1").change();
     $("#billing_unit_id").val("0").change();
     $("#cost_unit_id").val("0").change();
+    $("#OriginModal").formValidation("resetForm", true);
 });
 
 $("#btn-destination-charges").click(function(){
@@ -32,6 +34,7 @@ $("#btn-destination-charges").click(function(){
     $("#dest_cost_currency_type").val("1").change();
     $("#dest_billing_unit_id").val("0").change();
     $("#dest_cost_unit_id").val("0").change();
+    $("#DestinationModal").formValidation("resetForm", true);
 });
 
 
@@ -99,7 +102,7 @@ $("#btn-destination-charges").click(function(){
 
                     .append(createTableBtns()),
 
-                    0 == box_id ? x.append(C) : x.find("tr#" + box_id).replaceWith(C), calculate_warehouse_details(), cleanModalFields("Cargo_Details") , $("#box_quantity").val("1"), $("#box_pieces").val("1"), $("#box_metric_unit").val("I").change(), $("#box_weight_unit").val("L").change(), $("#box_weight_unit").val("L").change(), $("#box_dim_fact").val("I").change(), $("#box_cargo_type_id").val(0).change(), $("#Cargo_Details").modal("show"), $("#box_quantity").focus()
+                    0 == box_id ? x.append(C) : x.find("tr#" + box_id).replaceWith(C), calculate_warehouse_details(), cleanModalFields("Cargo_Details") , $("#box_quantity").val("1"), $("#box_pieces").val("1"), $("#box_metric_unit").val("I").change(), $("#box_weight_unit").val("L").change(), $("#box_weight_unit").val("L").change(), $("#box_dim_fact").val("I").change(), $("#box_cargo_type_id").val(0).change(), $("#Cargo_Details").modal("show"), $("#CargoModal").formValidation("resetForm", true), $("#box_quantity").focus()
         }
 
     }), $("#cargo_details").on("click", "a.btn-danger", function() {
@@ -166,7 +169,6 @@ $("#btn-destination-charges").click(function(){
 
     $("#origin-charge-save").click(function() {
         if($("#billing_billing_code").val()==''){
-
             $("#billing_billing_code").focus();
         }else{
             var t = $("#originChargeDetails tbody tr").length + 1,
@@ -241,7 +243,7 @@ $("#btn-destination-charges").click(function(){
                     .append(createTableContent('billing_increase', g_10, true, d))
                     .append(createTableBtns()),
 
-                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), origin_values_charges(), cleanModalFields("Origin_Charge_Details"), $("#billing_bill_type").val("C").change(), $("#billing_bill_party").val("C").change(), $("#billing_currency_type").val("1").change(), $("#cost_currency_type").val("1").change(), $("#billing_unit_id").val("0").change(),$("#cost_unit_id").val("0").change(), $("#Origin_Charge_Details").modal("show"), $("#billing_billing_code").focus()
+                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), origin_values_charges(), cleanModalFields("Origin_Charge_Details"), $("#billing_bill_type").val("C").change(), $("#billing_bill_party").val("C").change(), $("#billing_currency_type").val("1").change(), $("#cost_currency_type").val("1").change(), $("#billing_unit_id").val("0").change(),$("#cost_unit_id").val("0").change(), $("#Origin_Charge_Details").modal("show"), $("#OriginModal").formValidation("resetForm", true), $("#billing_billing_code").focus()
         }
 
     }), $("#originChargeDetails").on("click", "a.btn-danger", function() {
@@ -392,7 +394,7 @@ $("#destination-charge-save").click(function() {
             .append(createTableContent('dest_billing_increase', g_10, true, d))
             .append(createTableBtns()),
 
-            0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), destination_values_charges(), cleanModalFields("Destination_Charge_Details"), $("#dest_bill_type").val("C").change(), $("#dest_bill_party").val("C").change(), $("#dest_billing_currency_type").val("1").change(), $("#dest_cost_currency_type").val("1").change(), $("#dest_billing_unit_id").val("0").change(),$("#dest_cost_unit_id").val("0").change(), $("#Destination_Charge_Details").modal("show"), $("#dest_billing_code").focus()
+            0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), destination_values_charges(), cleanModalFields("Destination_Charge_Details"), $("#dest_bill_type").val("C").change(), $("#dest_bill_party").val("C").change(), $("#dest_billing_currency_type").val("1").change(), $("#dest_cost_currency_type").val("1").change(), $("#dest_billing_unit_id").val("0").change(),$("#dest_cost_unit_id").val("0").change(), $("#Destination_Charge_Details").modal("show"), $("#DestinationModal").formValidation("resetForm", true), $("#dest_billing_code").focus()
     }
 
 }), $("#destinationChargeDetails").on("click", "a.btn-danger", function() {

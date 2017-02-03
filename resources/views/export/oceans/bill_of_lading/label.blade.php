@@ -32,24 +32,48 @@
                 <p>MIAMI, FLORIDA 33122</p>
             </div>
             <div class="info shipper-info">
-                <p class="label-content">{{ strtoupper($bill_of_lading->carrier_id > 0 ? $bill_of_lading->carrier->name : "") }}</p>
+                <p class="label-content"><strong>CARRIER:</strong></p>
+                <p class="p-content">{{ strtoupper($bill_of_lading->carrier_id > 0 ? $bill_of_lading->carrier->name : "") }}</p>
             </div>
             <div class="info consignee-info">
-                <p class="label-content"><strong>BOOKING: </strong></p>
-                <p class="p-content">{{ strtoupper($bill_of_lading->booking_code)  }}</p>
+                <p class="label-content"><strong>CONSIGNEE:</strong></p>
+                <p class="p-content">{{ strtoupper($bill_of_lading->consignee_id > 0 ? $bill_of_lading->consignee->name : "") }}</p>
             </div>
             <div class="info consignee-info">
-                <p class="label-content"><strong>TO: </strong>{{ strtoupper($bill_of_lading->port_unloading_id > 0 ? $bill_of_lading->unloading->name : "")  }}</p>
+                <p class="label-content"><strong>BOOKING:</strong> {{ strtoupper($bill_of_lading->booking_code) }}</p>
             </div>
             <div class="info consignee-info">
-                <p class="label-content"><strong>HBL: </strong>{{ strtoupper($bill_of_lading->code)  }}</p>
+                <p class="label-content"><strong>TO:</strong> {{ strtoupper($bill_of_lading->port_unloading_id > 0 ? $bill_of_lading->unloading->name : "") }}</p>
             </div>
-            <div class="info consignee-info">
-                <p class="p-content">{{ strtoupper($bill_of_lading->consignee_id > 0 ? $bill_of_lading->consignee->name : "")  }}</p>
+            <div class="col-xs-5">
+                <p class="label-content label-wh"><strong>HBL #:</strong></p>
             </div>
-
-
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <div class="col-xs-7 date">
+                <p class="label-content label-date"><strong>DATE IN: {{ $bill_of_lading->bl_date }}</strong></p>
+            </div>
+            <div class="warehouse">
+                {{ $bill_of_lading->code }}
+            </div>
+            <div class="col-xs-4 unit-metrics">
+                    <p class="label-units"><strong>CUBIC KGS</strong></p>
+                <p class="p-units">{{ round($bill_of_lading->total_cubic_cft, 0) }} </p>
+            </div>
+            <div class="col-xs-5 center-unit unit-metrics">
+                <p class="label-units"><strong>CUBIC CBM </strong></p>
+                <p class="p-units">{{ round($bill_of_lading->total_cubic_cbm, 0) }} </p>
+            </div>
+            <div class="col-xs-3 unit-metrics">
+                <p class="label-units"><strong>PIECES</strong></p>
+                <p class="p-units">{{ $detail->line }} of {{ $bill_of_lading->cargo->count() }}</p>
+            </div>
+            <div class="col-xs-12 ">
+                <p class="label-units"><strong>BARCODE:</strong></p>
+                <p class="code-bar">{{ $bill_of_lading->code }}</p>
+                <p class="legend-barcode">{{ $bill_of_lading->code }}</p>
+            </div>
+        </div>
+    </div>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 @endforeach
 </body>
 

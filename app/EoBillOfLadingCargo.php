@@ -9,7 +9,7 @@ class EoBillOfLadingCargo extends Model
     protected $table = "eo_bill_of_lading_cargo";
 
     protected $fillable = [
-        'id', 'bill_of_lading_id','created_at', 'updated_at','line','cargo_marks', 'cargo_pieces', 'cargo_description', 'cargo_weight_unit', 'cargo_weight_k', 'cargo_cubic_k', 'cargo_charge_weight_k', 'cargo_weight_l', 'cargo_cubic_l', 'cargo_charge_weight_l', 'cargo_rate', 'cargo_amount', 'cargo_container', 'cargo_type_id', 'cargo_commodity_id', 'cargo_comments' ];
+        'id', 'bill_of_lading_id','created_at', 'updated_at','line','cargo_marks', 'cargo_pieces', 'cargo_description', 'cargo_weight_unit', 'cargo_weight_k', 'cargo_cubic_k', 'cargo_charge_weight_k', 'cargo_weight_l', 'cargo_cubic_l', 'cargo_charge_weight_l', 'cargo_rate', 'cargo_amount', 'cargo_container', 'cargo_type_id', 'cargo_commodity_id', 'cargo_comments', 'id_line' ];
 
     public static function saveDetail($id, $data) {
         $i=0; $a=0;
@@ -39,6 +39,7 @@ class EoBillOfLadingCargo extends Model
                     $obj->cargo_type_id = $data['cargo_type_id'][$i];
                     $obj->cargo_commodity_id = $data['cargo_commodity_id'][$i];
                     $obj->cargo_comments = $data['cargo_comments'][$i];
+                    $obj->id_line = $data['cargo_hbl_id'][$i];
                     $obj->save();
                     $a++;
                 }
@@ -69,6 +70,7 @@ class EoBillOfLadingCargo extends Model
                     $obj->cargo_cubic_l =$data['hidden_sum_cubic'][$i];
                     $obj->cargo_charge_weight_l = $data['hidden_sum_weight'][$i];
                     $obj->cargo_charge_weight_k = $weight_k;
+                    $obj->id_line = $data['hidden_warehouse_line'][$i];
 
                     $obj->save();
                     $a++;

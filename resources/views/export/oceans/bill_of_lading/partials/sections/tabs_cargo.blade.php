@@ -1,12 +1,9 @@
-<div class="row">
+
     <div class="easyui-tabs" id="tabs_details">
         <div title="Cargo Details">
             <div class="form-horizontal">
                 <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
                     <a type="button" class="btn btn-primary btn-sm" id="btn-load-houses" onclick="validateRequiredField(), clearTable('load_warehouses')"><span>Link Houses</span></a>
-                    <button type="button" id="btn_cargo_details" class="btn btn-default" data-toggle="modal" data-target="#Cargo_Details" onclick="cleanModalFields('Cargo_Details'),  clearTable('cargo_vehicle_details'),  clearTable('container_details')">
-                        <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-                    </button>
                     <button type="button" class="btn btn-danger"  onclick="clearTable('cargo_details'), clearTable('container_details'), weight_totals()">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
@@ -49,7 +46,7 @@
                                 {!! Form::bsRowTd($detail->line, 'cargo_commodity_id', $detail->cargo_commodity_id, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_commodity_name', strtoupper($detail->cargo_commodity_id >0 ? $detail->cargo_commodity->code: null), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_comments', $detail->cargo_comments, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_hbl_id', "0", true) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_hbl_id', $detail->id_line, true) !!}
                                 {!! Form::bsRowBtns() !!}
                         </tr>
                         @endforeach
@@ -288,17 +285,17 @@
 
 
     </div>
-</div>
+
 
 <div class="row row-panel">
     <div class="col-md-1">{!! Form::bsText(null,null, 'Pieces', 'total_pieces', null, '0') !!}</div>
     <div class="col-md-3">{!! Form::bsComplete(null, null,'Commodity', 'total_commodity_id', 'total_commodity_name', Request::get('term'), ((isset($bill_of_lading) and $bill_of_lading->total_commodity_id > 0) ? $bill_of_lading->total_commodity->code : null), 'Commodity', 'options.maintenance.items.commodities', 'options.maintenance.items.commodities', 'maintenance.items.commodities.index') !!}</div>
     <div class="col-md-1">{!! Form::bsSelect(null, null, 'Kgs/Lbs.', 'total_weight_unit_measurement',  array('K' => 'KGS','L' => 'LBS' ), null)!!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'Weight (Kgs)', 'total_weight_kgs', null, '0.000') !!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'Cubic (CBM)', 'total_cubic_cbm', null, '0.000') !!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'C Wght (Kgs)', 'total_charge_weight_kgs', null, '0.000') !!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'Weight (Lbs)', 'total_weight_lbs', null, '0.000') !!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'Cubic (CFT)', 'total_cubic_cft', null, '0.000') !!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'C Wght (Lbs)', 'total_charge_weight_lbs', null, '0.000') !!}</div>
+    <div class="col-md-1">{!! Form::bsText(null,null, 'Weight(K)', 'total_weight_kgs', null, '0.000') !!}</div>
+    <div class="col-md-1">{!! Form::bsText(null,null, 'Cubic(K)', 'total_cubic_cbm', null, '0.000') !!}</div>
+    <div class="col-md-1">{!! Form::bsText(null,null, 'C Wght(K)', 'total_charge_weight_kgs', null, '0.000') !!}</div>
+    <div class="col-md-1">{!! Form::bsText(null,null, 'Weight(L)', 'total_weight_lbs', null, '0.000') !!}</div>
+    <div class="col-md-1">{!! Form::bsText(null,null, 'Cubic(L)', 'total_cubic_cft', null, '0.000') !!}</div>
+    <div class="col-md-1">{!! Form::bsText(null,null, 'C Wght(L)', 'total_charge_weight_lbs', null, '0.000') !!}</div>
 
 </div>

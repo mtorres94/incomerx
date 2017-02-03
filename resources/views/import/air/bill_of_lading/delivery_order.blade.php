@@ -32,7 +32,7 @@
                 <div class="col-xs-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">DATE</div>
-                        <div class="panel-body"><p>{{ $bill_of_lading->bl_date }}</p></div>
+                        <div class="panel-body"><p>{{ $bill_of_lading->date_today }}</p></div>
                     </div>
                 </div>
                 <div class="col-xs-4"><p class="document_number">{{ $bill_of_lading->our_reference }}</p></div>

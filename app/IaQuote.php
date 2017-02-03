@@ -10,7 +10,7 @@ class IaQuote extends Model
 
     protected $fillable = [
         'id', 'user_create_id', 'user_update_id','user_open_id', 'created_at', 'updated_at','code',
-        'date_today' ,'valid_date' ,'type' ,'rate_class' ,'status' ,'quote_type' ,'currency_type' ,'declared_value' ,'exchange_rate' ,'insured_value' ,'place_receipt_id' ,'port_loading_id' ,'transhipment_port_id' ,'place_delivery_id' ,'carrier_id' ,'service_id' ,'incoterm_type' ,'customer_id' ,'customer_address' ,'customer_city' ,'customer_state_id' ,'customer_country_id' ,'customer_zip_code_id' ,'customer_contact' ,'customer_email' ,'customer_phone' ,'customer_fax' ,'shipper_id' ,'shipper_address' ,'shipper_state_id' ,'shipper_city' ,'shipper_zip_code_id' ,'shipper_contact' ,'shipper_phone' ,'shipper_fax' ,'shipper_country_id' ,'consignee_id' ,'consignee_address' ,'consignee_city' ,'consignee_state_id' ,'consignee_country_id' ,'consignee_contact' ,'consignee_phone' ,'consignee_fax' ,'agent_id' ,'agent_phone' ,'transit_day' ,'payment_type' ,'frequency' ,'total_quantity' ,'total_pieces' ,'total_unit_weight' ,'total_weight' ,'total_cubic' ,'sum_bill' ,'sum_cost' ,'sum_profit' ,'sum_profit_percent', 'port_unloading_id',  'starting_date' ,'port_unloading_id',  'starting_process_date' , 'ending_date' , 'approved_date' , 'closed_date', 'dest_sum_bill', 'dest_sum_cost', 'dest_sum_profit', 'dest_sum_profit_percent'];
+        'date_today' ,'valid_date' ,'type' ,'rate_class' ,'status' ,'quote_type' ,'currency_type' ,'declared_value' ,'exchange_rate' ,'insured_value' ,'place_receipt_id' ,'port_loading_id' ,'transhipment_port_id' ,'place_delivery_id' ,'carrier_id' ,'service_id' ,'incoterm_type' ,'customer_id' ,'customer_address' ,'customer_city' ,'customer_state_id' ,'customer_country_id' ,'customer_zip_code_id' ,'customer_contact' ,'customer_email' ,'customer_phone' ,'customer_fax' ,'shipper_id' ,'shipper_address' ,'shipper_state_id' ,'shipper_city' ,'shipper_zip_code_id' ,'shipper_contact' ,'shipper_phone' ,'shipper_fax' ,'shipper_country_id' ,'consignee_id' ,'consignee_address' ,'consignee_city' ,'consignee_state_id' ,'consignee_country_id' ,'consignee_contact' ,'consignee_phone' ,'consignee_fax' ,'agent_id' ,'agent_phone' ,'transit_day' ,'payment_type' ,'frequency' ,'total_quantity' ,'total_pieces' ,'total_unit_weight' ,'total_weight' ,'total_cubic' ,'sum_bill' ,'sum_cost' ,'sum_profit' ,'sum_profit_percent', 'port_unloading_id',  'starting_date' ,'port_unloading_id',  'starting_process_date' , 'ending_date' , 'approved_date' , 'closed_date', 'dest_sum_bill', 'dest_sum_cost', 'dest_sum_profit', 'dest_sum_profit_percent', 'total_commodity_id', 'total_cargo_type_id' ];
 
     public function user_create()
     {
@@ -19,6 +19,14 @@ class IaQuote extends Model
     public function user_open()
     {
         return $this->belongsTo('Sass\User', 'user_open_id');
+    }
+    public function total_cargo_type()
+    {
+        return $this->belongsTo('Sass\CargoType', 'total_cargo_type_id');
+    }
+    public function total_commodity()
+    {
+        return $this->belongsTo('Sass\Commodity', 'total_commodity_id');
     }
     public function customer()
     {

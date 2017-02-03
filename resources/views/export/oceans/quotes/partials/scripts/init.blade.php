@@ -21,7 +21,7 @@
                 var stab = ttab.find('.tabs-selected');
                 var itab = stab.find('.tabs-inner');
                 var etab = itab.find('.tabs-title');
-                var span = '{{ isset($receipt_entry) ? "Edit ".$receipt_entry->code : "New" }}';
+                var span = '{{ isset($quotes) ? "Edit ".$quotes->code : "New" }}';
 
                 etab[1] = span
             }
@@ -77,39 +77,8 @@
 
 
         //===================================
-        $("#incoterm_type").val("0").change();
-        $("#box_cargo_type_id").change(function () {
-            var id = $(this).val();
-            $.ajax({
-                url: "{{ route('cargo_types.get') }}",
-                data: {id: id},
-                type: 'GET',
-                success: function (e) {
-                    var act = $("#box_cargo_type_code").val();
-                    $("#box_cargo_type_code").val(e[0].code);
-                    var flag = (act === e[0].code);
-                    if (e[0].length > 0 || e[0].width > 0 || e[0].height > 0) {
-                        if (!flag) {
-                            swal({
-                                title: "",
-                                text: "Do you want to update the screen with the cargo type details?",
-                                type: "question",
-                                showCancelButton: true,
-                                confirmButtonColor: "#3c8dbc",
-                                confirmButtonText: "¡Yes, I want to update!",
-                                cancelButtonText: "No...",
-                                closeOnConfirm: false
-                            }).then(function (isConfirm) {
-                                if (isConfirm) {
-                                    $("#box_length").val(e[0].length), $("#box_width").val(e[0].width), $("#box_height").val(e[0].height);
-                                    calculate_box();
-                                }
-                            });
-                        }
-                    }
-                }
-            });
-        });
+
+
         $("#code").attr("readonly", true);
         $("#total_quantity").attr("readonly", true);
         $("#total_weight").attr("readonly", true);
@@ -199,6 +168,39 @@
             success: function (e) {
                 $("#cost_unit_name").val(e[0].code);
 
+            }
+        });
+    });
+
+    $("#box_cargo_type_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('cargo_types.get') }}",
+            data: {id: id},
+            type: 'GET',
+            success: function (e) {
+                var act = $("#box_cargo_type_code").val();
+                $("#box_cargo_type_code").val(e[0].code);
+                var flag = (act === e[0].code);
+                if (e[0].length > 0 || e[0].width > 0 || e[0].height > 0) {
+                    if (!flag) {
+                        swal({
+                            title: "",
+                            text: "Do you want to update the screen with the cargo type details?",
+                            type: "question",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3c8dbc",
+                            confirmButtonText: "¡Yes, I want to update!",
+                            cancelButtonText: "No...",
+                            closeOnConfirm: false
+                        }).then(function (isConfirm) {
+                            if (isConfirm) {
+                                $("#box_length").val(e[0].length), $("#box_width").val(e[0].width), $("#box_height").val(e[0].height);
+                                calculate_cargo();
+                            }
+                        });
+                    }
+                }
             }
         });
     });

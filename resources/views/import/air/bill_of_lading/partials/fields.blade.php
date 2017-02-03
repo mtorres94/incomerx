@@ -24,12 +24,12 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
+
         @include('import.air.bill_of_lading.partials.sections.total_charges')
-    </div>
+
 </div>
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-10">
         {!! Form::bsMemo(null, null,'Comments', 'bill_comments', null, 3, '') !!}
     </div>
     <div class="col-md-2">
@@ -58,5 +58,7 @@
     @include('import.air.bill_of_lading.partials.scripts.compute')
     @include('import.air.bill_of_lading.partials.scripts.autocomplete')
     @include('import.air.bill_of_lading.partials.scripts.tables')
+    @include('import.air.bill_of_lading.partials.scripts.validation')
+
 
 @stop

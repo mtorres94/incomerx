@@ -13,7 +13,7 @@ class EoQuotesContainer extends Model
 
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
-        $details= DB::table('eo_quotes_container')->where('quotes_id', '=', $id)->delete();
+        DB::table('eo_quotes_container')->where('quotes_id', '=', $id)->delete();
         if (isset($data['container_line'])){
 
             while($a < count($data['container_line'])){

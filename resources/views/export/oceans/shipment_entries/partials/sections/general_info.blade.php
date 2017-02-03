@@ -32,12 +32,9 @@
     <div class="row">
         <div class="col-md-2">{!! Form::bsComplete(null, null,'Quote#', 'quote_id', 'quote_code', Request::get('term'),
     ((isset($quotes) and $quotes->quote_id > 0) ? $quotes->quote->name : null), 'Quote Number') !!}</div>
-
-
         <div class="col-md-2">{!! Form::bsText(null, null,'Booking #', 'booking_code', null, '') !!}</div>
-
-
-
+        <div class="col-md-2">{!! Form::bsDate(null, null, 'Departure', 'departure_date', null, '') !!}</div>
+        <div class="col-md-2">{!! Form::bsDate(null, null, 'Arrival', 'arrival_date', null, '') !!}</div>
     </div>
 
 </fieldset>

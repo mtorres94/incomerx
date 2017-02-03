@@ -1,5 +1,6 @@
 <div class="row">
-    <div class="easyui-tabs">
+    <div class="col-md-12">
+        <div class="easyui-tabs">
         <div title="Cargo Details">
             <div class="form-horizontal">
                 <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
@@ -56,18 +57,19 @@
             </div>
         </div>
     </div>
-
+    </div>
 </div>
 
 
 <div class="row row-panel">
 
     <div class="col-md-1">{!! Form::bsText(null,null, 'Pcs', 'total_pieces', null, '0') !!}</div>
-    <div class="col-md-2">{!! Form::bsComplete(null, null,'Commodity', 'total_commodity_id', 'total_commodity_name', Request::get('term'), ((isset($bill_of_lading) and $bill_of_lading->total_commodity_id > 0) ? $bill_of_lading->total_commodity->code : null), 'Commodity') !!}</div>
+    <div class="col-md-2">{!! Form::bsComplete(null, null,'Cargo Type', 'total_cargo_type_id', 'total_cargo_type_name', Request::get('term'), ((isset($bill_of_lading) and $bill_of_lading->total_cargo_type_id > 0) ? $bill_of_lading->total_cargo_type->code : null), '') !!}</div>
+    <div class="col-md-2">{!! Form::bsComplete(null, null,'Commodity', 'total_commodity_id', 'total_commodity_name', Request::get('term'), ((isset($bill_of_lading) and $bill_of_lading->total_commodity_id > 0) ? $bill_of_lading->total_commodity->code : null), '', 'options.maintenance.items.commodities', 'options.maintenance.items.commodities', 'maintenance.items.commodities.index') !!}</div>
     <div class="col-md-1">{!! Form::bsSelect(null, null, 'Kgs/Lbs', 'total_weight_unit',  array('K' => 'KGS','L' => 'LBS' ), null)!!}</div>
 
-    <div class="col-md-1">{!! Form::bsText(null,null, 'Gross Wght', 'total_gross_weight', null, '0.000') !!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'Amount', 'total_amount', null, '0.000') !!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'Cubic', 'total_cubic', null, '0.000') !!}</div>
+    <div class="col-md-2">{!! Form::bsText(null,null, 'Gross W.', 'total_gross_weight', null, '0.000') !!}</div>
+    <div class="col-md-2">{!! Form::bsText(null,null, 'Amount', 'total_amount', null, '0.000') !!}</div>
+    <div class="col-md-2">{!! Form::bsText(null,null, 'Cubic', 'total_cubic', null, '0.000') !!}</div>
 
 </div>

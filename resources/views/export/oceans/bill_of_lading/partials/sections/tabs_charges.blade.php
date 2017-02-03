@@ -72,7 +72,7 @@
 
         </div>
     </div>
-    <div title="Transportation Plans">
+  <!--  <div title="Transportation Plans">
         <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
             <button type="button" id="btn-transportation"class="btn btn-default" data-toggle="modal" data-target="#TransportationDetails" onclick="cleanModalFields('TransportationDetails')">
                 <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
@@ -165,5 +165,5 @@
         <div class="pull-right" >
             <div class="col-md-9">{!! Form::bsText(null,null, 'Amount', 'transportation_plans_amount', null, '0.000') !!}</div>
         </div>
-    </div>
+    </div>-->
 </div>

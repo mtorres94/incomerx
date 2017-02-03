@@ -1,5 +1,6 @@
 <script type="text/javascript">
     $("#btn_container_details").click(function() {
+        $("#container_spotting_date").val( $("#departure_date").val());
         $("#pd_status").val("1").change();
         $("#container_pickup_type").val("02").change();
         $("#container_delivery_type").val("02").change();
@@ -12,6 +13,7 @@
                     o = e.indexOf("display: none;");
             $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
         }
+        $('#ContainerModal').formValidation('resetForm', true);
     });
 
 
@@ -185,7 +187,7 @@
             $("#container_pickup_type").val("02").change(),
             $("#container_delivery_type").val("02").change(),
             $("#container_drop_type").val("02").change(),
-            $("#total_weight_unit").val("L").change(),cleanModalFields('Container_Details'), $("#Container_Details").modal("show"), $("#equipment_type_code").focus();
+            $("#total_weight_unit").val("L").change(),cleanModalFields('Container_Details'), $("#Container_Details").modal("show"),$('#ContainerModal').formValidation('resetForm', true),  $("#equipment_type_code").focus();
 
             //===================
             var id_row = (0 == container_id ? _ : container_id);
