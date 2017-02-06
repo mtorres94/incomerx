@@ -203,7 +203,7 @@
                 <tbody>
                 @foreach($order_entry->cargo_details as $detail)
                     <tr>
-                        <td>{{ $detail->cargo_quantity}}</td>
+                        <td>{{ $detail->cargo_pieces}}</td>
                         <td>{{ $detail->cargo_total_weight}}</td>
                         <td>{{ $detail->cargo_volume_weight }}</td>
                         <td>{{ $detail->cargo_type->code }}</td>
@@ -213,17 +213,17 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                    <td><strong>{{ $order_entry->dr_total_pieces }}</strong></td>
-                    <td><strong>{{ $order_entry->dr_act_weight}} Lbs</strong></td>
-                    <td><strong>{{ $order_entry->dr_volume_weight }} Lbs</strong></td>
+                    <td><strong>{{ $order_entry->sum_pieces }}</strong></td>
+                    <td><strong>{{ $order_entry->sum_weight}} Lbs</strong></td>
+                    <td><strong>{{ $order_entry->sum_volume_weight }} Lbs</strong></td>
                     <td></td>
                     <td> {{ $order_entry->add_info_comments }}</td>
 
                 </tr>
                 <tr>
                     <td></td>
-                    <td><strong>{{  round($order_entry->dr_act_weight * 0.453592, 3) }} Kgs</strong></td>
-                    <td><strong>{{  round($order_entry->dr_volume_weight * 0.453592, 3) }} Kgs</strong></td>
+                    <td><strong>{{  round($order_entry->sum_weight * 0.453592, 3) }} Kgs</strong></td>
+                    <td><strong>{{  round($order_entry->sum_volume_weight * 0.453592, 3) }} Kgs</strong></td>
                     <td></td>
                     <td></td>
 

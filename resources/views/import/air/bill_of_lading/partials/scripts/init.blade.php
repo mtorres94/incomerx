@@ -111,7 +111,7 @@
                     });
             });
 
-            initDate($("#date_today"), 0);
+            if($("#date_today").val() == ''){ initDate($("#date_today"), 0); }
 $("#box_quantity").change(function(){ calculate_box() });
 $("#box_length").change(function(){ calculate_box() });
 $("#box_width").change(function(){ calculate_box() });

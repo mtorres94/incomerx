@@ -92,8 +92,10 @@
         $("#type").val("P").change();
         $("#rate_class").val("1").change();
 
-        initDate($("#quote_date"), 0);
-        initDate($("#valid_date"), 0);
+        if($("#quote_date").val() == ''){
+            initDate($("#quote_date"), 0);
+            initDate($("#valid_date"), 0);
+        }
 
         $("#box_quantity").change( function(){ calculate_cargo()});
         $("#box_dim_fact").change( function(){ calculate_cargo()});

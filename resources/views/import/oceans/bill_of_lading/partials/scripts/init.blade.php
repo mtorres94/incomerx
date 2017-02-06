@@ -111,7 +111,9 @@
                     });
             });
 
-            initDate($("#bl_date"), 0);
+            if($("#bl_date").val() == ''){
+                initDate($("#bl_date"), 0);
+            }
 $("#box_quantity").change(function(){ calculate_box() });
 $("#box_length").change(function(){ calculate_box() });
 $("#box_width").change(function(){ calculate_box() });

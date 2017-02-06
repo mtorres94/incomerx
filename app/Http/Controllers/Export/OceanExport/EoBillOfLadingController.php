@@ -243,6 +243,8 @@ class EoBillOfLadingController extends Controller
                     $query->where('eo_bills_of_lading.shipment_id', '=', $shipment_id);
                     $query->where('eo_bills_of_lading.bl_class', '<=','2');
                     $query->where('eo_bills_of_lading.bl_status', '=','O');
+                    $query->where('eo_bills_of_lading.shipper_id', '>','0');
+                    $query->where('eo_bills_of_lading.consignee_id', '>','0');
 
                 })->get();
             $results = [];
@@ -268,7 +270,7 @@ class EoBillOfLadingController extends Controller
               //  }
             }
 
-            return response($results);
+            return response()->json($results);
         }
     }
 

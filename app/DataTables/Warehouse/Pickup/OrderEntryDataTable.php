@@ -67,13 +67,12 @@ class OrderEntryDataTable extends CustomDataTable
     protected function getColumns()
     {
         return [
-            ['data' => 'pd_status',          'name' => 'whr_orders_entries.pd_status', 'title' => 'Status'],
             ['data' => 'code',   'name' => 'whr_orders_entries.code', 'title' => 'Code'],
+            ['data' => 'pd_status',          'name' => 'whr_orders_entries.pd_status', 'title' => 'Status'],
             ['data' => 'date_order',   'name' => 'whr_orders_entries.date_order', 'title' => 'Order Date'],
             ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
             ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
             ['data' => 'agent_name',   'name' => 'c3.name', 'title' => 'Agent'],
-            ['data' => 'third_party_name',   'name' => 'c4.name', 'title' => 'Third Party'],
             ['data' => 'pickup_name',   'name' => 'c4.name', 'title' => 'Pick Up'],
 
         ];

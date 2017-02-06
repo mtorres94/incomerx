@@ -28,7 +28,7 @@
         removeEmptyNodes('hidden_warehouse');
         removeEmptyNodes('hidden_hazardous');
 
-        initDate($("#date_today"), 0);
+        if($("#date_today").val() == ''){ initDate($("#date_today"), 0); }
         $("#cargo_loader_status").val("O").change();
         $("#total_weight_unit").val("L").change();
 

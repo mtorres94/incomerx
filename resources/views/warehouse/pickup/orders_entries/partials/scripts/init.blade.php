@@ -10,7 +10,7 @@
         $('#create_warehouse_receipt').change(function() {
             ((this.checked)? $(this).val("1"): $(this).val("0"))
         });
-        initDate($("#date_order"), 0);
+        if($("#date_order").val() == ''){ initDate($("#date_order"), 0); }
 
         //===================================================
         $("#dr_freight_charges").val("L").change();
@@ -66,10 +66,7 @@
         removeEmptyNodes('container_details');
         removeEmptyNodes('dr_details');
         removeEmptyNodes('warehouse_details');
-        calculate_warehouse_details();
-        calculate_charges();
-        dock_receipts();
-        transportation_plan();
+
 
         $('.collapse').on('show.bs.collapse', function () {
             $('.collapse.in').collapse('hide');
@@ -786,19 +783,19 @@
     $("#transportation_plans_amount").number(true, 3).attr("readonly", true);
     $("#transportation_amount").number(true, 3);
 
-    $("#sum_pieces").number(true);
-    $("#sum_packages").number(true);
-    $("#sum_weight").number(true,3);
-    $("#sum_volume_weight").number(true,3);
-    $("#sum_net_weight").number(true, 3);
-    $("#sum_cubic").number(true, 3);
+    $("#sum_pieces").attr("readonly", true);
+    $("#sum_packages").attr("readonly", true);
+    $("#sum_weight").attr("readonly", true);
+    $("#sum_volume_weight").attr("readonly", true);
+    $("#sum_net_weight").attr("readonly", true);
+    $("#sum_cubic").attr("readonly", true);
 
     $("#user_id").attr("readonly", true);
     $("#pd_code").attr("readonly", true);
-    $("#sum_bill").number(true,2);
-    $("#sum_cost").number(true,2);
-    $("#sum_profit").number(true,2);
-    $("#sum_profit_percent").number(true,2);
+    $("#sum_bill").attr("readonly", true);
+    $("#sum_cost").attr("readonly", true);
+    $("#sum_profit").attr("readonly", true);
+    $("#sum_profit_percent").attr("readonly", true);
     $("#billing_customer_name").attr("readonly", true);
     $("#billing_exchange_rate").number(true,2);
     $("#cost_exchange_rate").number(true,2);

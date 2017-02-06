@@ -23,7 +23,7 @@
         <div class="col-md-2">{!! Form::bsSelect(null, null, 'Dim Fact', 'cargo_dim_fact', array('I' => 'INT', 'D' => 'DOM'), ' ') !!}</div>
         <div class="col-md-2">{!! Form::bsText(null, null, 'Vol. Weight', 'cargo_volume_weight', null, '0.000') !!}</div>
         <div class="col-md-3">{!! Form::bsSelect(null, null, 'Location', 'cargo_location_id', Sass\Location::all()->lists('code', 'id'),  'Location', false) !!}</div>
-        <div class="col-md-3">{!! Form::bsSelect(null, null, 'Bin', 'cargo_location_bin_id', array('A' => 'A', 'B' => 'B', 'C' => 'C'),null) !!}</div>
+        <div class="col-md-3">{!! Form::bsSelect(null, null, 'Bin', 'cargo_location_bin_id', array('A' => 'A', 'B' => 'B', 'C' => 'C'),null, 'body', false) !!}</div>
         <div class="col-md-2">{!! Form::bsText(null, null, 'Tare Weight', 'cargo_tare_weight', null, '0.000') !!}</div>
         <div class="col-md-2">{!! Form::bsText(null, null, 'Net Weight', 'cargo_net_weight', null, '0.000') !!}</div>
         <div class="col-md-2">{!! Form::bsText(null, null, 'Sq. Foot', 'cargo_square_foot', null, '0.000') !!}</div>

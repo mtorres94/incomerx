@@ -96,12 +96,12 @@ class OrderEntryController extends Controller
                 $order_entry['date_in'] = $order_entry['date_order'];
 
                 $order_entry['marks'] = "CREATED FROM PD ORDER # ". $whr->code;
-		$order_entry['status'] = 'O';
-		$order_entry['mode'] = 'R';
-		$order_entry['currency_id'] = 1;
-		$order_entry['user_create_id'] = Auth::user()->id;
-		$order_entry['user_update_id'] = Auth::user()->id;
-		$order_entry['receiving_carrier_id'] = $order_entry['carriers_carrier_id'];
+                $order_entry['status'] = 'O';
+                $order_entry['mode'] = 'R';
+                $order_entry['currency_id'] = 1;
+                $order_entry['user_create_id'] = Auth::user()->id;
+                $order_entry['user_update_id'] = Auth::user()->id;
+                $order_entry['receiving_carrier_id'] = $order_entry['carriers_carrier_id'];
 
                 $whr= ReceiptEntry::create($order_entry);
                 ReceiptEntryCargoDetail::createDetail($whr->id, $order_entry);
@@ -126,21 +126,7 @@ class OrderEntryController extends Controller
      */
     public function show($id)
     {
-        dd();
-        /*
-        $order_entry = OrderEntry::findOrFail($id);
-        $po_numbers = OrderEntryPO::Search($id);
-        $so_numbers = OrderEntrySO::Search($id);
-        $pro_numbers = OrderEntryPRO::Search($id);
-        $stop_numbers = OrderEntryStop::Search($id);
-        $uns_numbers = OrderEntryHazardous::Search($id);
-        $container_details = OrderEntryContainerDetail::Search($id);
-        $dr_details = OrderEntryDockReceiptDetail::Search($id);
-        $charge_details = OrderEntryChargeDetail::Search($id);
-        $trans_details = OrderEntryTransportationDetail::Search($id);
-        $cargo_details = OrderEntryCargoDetail::Search($id);
-        $cargo_items_details = OrderEntryCargoItemDetail::Search($id);
-        return view('warehouse.pickup.orders_entries.show', compact('order_entry', 'po_numbers', 'so_numbers', 'pro_numbers', 'stop_numbers', 'uns_numbers', 'container_details', 'dr_details','charge_details', 'trans_details', 'cargo_details', 'cargo_items_details'));/*/
+
     }
 
     /**
@@ -163,12 +149,14 @@ class OrderEntryController extends Controller
 
     public function update(Request $request, $id)
     {
+        $order_entry = $request->all();
         DB::beginTransaction();
         try {
 
-            $order_entry = $request->all();
+
             $sent = OrderEntry::findorfail($id);
-            $whr = $sent->update($order_entry);
+
+            $sent->update($order_entry);
             $order_entry['user_update_id'] = Auth::user()->id;
 
             OrderEntryPO::saveDetail($id, $order_entry);

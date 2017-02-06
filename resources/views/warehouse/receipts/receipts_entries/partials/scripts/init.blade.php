@@ -341,8 +341,10 @@
         }
     });
 
-    initDate($("#date_in"), 0);
-    initDate($("#expire_date"), 30);
+    if ($("#date_in").val() == '') {
+        initDate($("#date_in"), 0);
+        initDate($("#expire_date"), 30);
+    }
 
     $("#warehouse_name").attr("readonly", true);
 

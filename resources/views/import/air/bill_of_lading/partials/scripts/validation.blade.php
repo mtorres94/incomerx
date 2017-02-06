@@ -1,7 +1,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        $('#quote_date').on('change', function(e) { $('#data').formValidation('revalidateField', 'quote_date'); });
         $('#date_today').on('change', function(e) { $('#data').formValidation('revalidateField', 'date_today'); });
         $('#departure_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'departure_date'); });
         $('#arrival_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'arrival_date'); });

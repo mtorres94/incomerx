@@ -512,7 +512,7 @@
 
     }
         ,onSelect: function(e, o) {
-        $("#routing_order_id").val(e.id).change(), $("#routing_order_code").val(e.code).change(),
+        $("#routing_order_id").val(e.id), $("#routing_order_code").val(e.code).change(),
             $("#port_loading_id").val(e.port_loading_id),
                 $("#port_unloading_id").val(e.port_unloading_id),
                 $("#port_loading_name").val(e.port_loading_name),

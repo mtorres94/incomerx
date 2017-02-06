@@ -1,7 +1,7 @@
 <script type="text/javascript">
     window.onload = (function () {
         var unique_str = $("#unique_str").val();
-        initDate($("#date_today"), 0);
+        if($("#date_today").val() == ''){ initDate($("#date_today"), 0); }
         openTab($("#data"));
         renameTab();
         updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('io_routing_order.close') }}');

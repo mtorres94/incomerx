@@ -30,14 +30,14 @@
                         {!! Form::bsRowTd($detail->line, 'charge_id', $detail->line, true) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_billing_id', $detail->billing_id, true) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_billing_code', strtoupper($detail->billing_id >0 ? $detail->billing->code : ""), false) !!}
-                        {!! Form::bsRowTd($detail->line, 'billing_billing_description', ($detail->billing_id > 0 ? $detail->billing->name : ""), false) !!}
+                        {!! Form::bsRowTd($detail->line, 'billing_billing_description', strtoupper($detail->billing_id > 0 ? $detail->billing->name : ""), false) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_bill_type', $detail->bill_type, false) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_bill_party', $detail->bill_party, false) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_quantity', $detail->billing_quantity, false) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_rate', $detail->billing_rate, true) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_amount', $detail->billing_amount, false) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_currency_type', $detail->billing_currency_type, true) !!}
-                        {!! Form::bsRowTd($detail->line, 'billing_customer_name', (($detail->billing_customer_id >0) ? $detail->billing_customer->name: null), true) !!}
+                        {!! Form::bsRowTd($detail->line, 'billing_customer_name', strtoupper(($detail->billing_customer_id >0) ? $detail->billing_customer->name: null), true) !!}
                         {!! Form::bsRowTd($detail->line, 'cost_amount', $detail->cost_amount, false) !!}
                         {!! Form::bsRowTd($detail->line, 'cost_currency_type', $detail->cost_currency_type, true) !!}
                         {!! Form::bsRowTd($detail->line, 'cost_invoice', $detail->cost_invoice, true) !!}

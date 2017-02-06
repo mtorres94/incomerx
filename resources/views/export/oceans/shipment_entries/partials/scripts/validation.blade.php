@@ -27,7 +27,7 @@
                         notEmpty: { message: "Departure date is required" },
                         date: {
                             format: "YYYY-MM-DD",
-                            min: 'date_today',
+                            min: "date_today",
                             message: "The departure date is invalid"
                         }
                     }

@@ -45,7 +45,6 @@
                         notEmpty: { message: "Loading date is required" },
                         date: {
                             format: "YYYY-MM-DD",
-                            min: "date_today",
                             message: "Loading date is invalid"
                         }
                     }

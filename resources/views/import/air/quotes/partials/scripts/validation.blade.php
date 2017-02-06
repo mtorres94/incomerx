@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        $('#quote_date').on('change', function(e) { $('#data').formValidation('revalidateField', 'quote_date'); });
+        $('#date_today').on('change', function(e) { $('#data').formValidation('revalidateField', 'date_today'); });
         $('#starting_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'starting_date'); });
         $('#starting_process_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'starting_process_date'); });
         $('#ending_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'ending_date'); });
@@ -45,7 +45,6 @@
                         date: {
                             format: "YYYY-MM-DD",
                             min: 'starting_date',
-
                             message: "Starting process date is invalid"
                         }
                     }

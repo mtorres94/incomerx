@@ -139,7 +139,9 @@ removeEmptyNodes('hzd_details');
     });
 
 
-    initDate($("#date_today"), 0);
+    if($("#date_today").val() == ''){
+        initDate($("#date_today"), 0);
+    }
     $("#user_id").attr("disabled", true);
     $("#code").attr("disabled", true);
     $("#total_weight").number(true, 3);

@@ -121,7 +121,7 @@
         //===================================================================
 
         $("#group_by").attr("disabled", true);
-        initDate($("#bl_date"), 0);
+        if($("#bl_date").val() == ''){initDate($("#bl_date"), 0);}
         $("#bl_type").val("C").change();
         $("#total_weight_unit_measurement").val("L").change();
         $("#bl_status").val("O").change();

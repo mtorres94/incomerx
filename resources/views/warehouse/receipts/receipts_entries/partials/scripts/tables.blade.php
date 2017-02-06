@@ -17,8 +17,10 @@
                     n = e.indexOf("display: block;"),
                     o = e.indexOf("display: none;");
             $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
+
         }
         $("#tmp_cargo_quantity").focus();
+        $("#CargoModal").formValidation("resetForm", true);
     }), $("#btn-cargo-multiline").click(function() {
         $("#multiline_cargo_quantity").val("");
 
@@ -55,6 +57,7 @@
                 $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
             }
         }
+        $("#ChargeModal").formValidation("resetForm", true);
 
         //$("#billing_bill_type").val("C").change(), $("#billing_bill_party").val("C").change();
     }), $("#hazardous-save").click(function() {
@@ -151,6 +154,10 @@
                 m = t[0].childNodes[6].textContent;
         $('#tmp_references_line').val(r), $("#tmp_references_po_number").val(o), $("#tmp_references_ref_number").val(s), $("#tmp_references_inv_number").val(a), $("#tmp_references_booking_number").val(d), $("#tmp_references_invoice_amount").val(i), $("#tmp_references_note").val(m), $("#References").modal("show")
     }), $("#cargo-warehouse-save").click(function() {
+        if($("#tmp_cargo_quantity").val() == "" || $("#tmp_cargo_type_id").val() == '0'){
+            $("#tmp_cargo_quantity").focus();
+        }
+        else{
         var t = ($("#warehouse-details  tbody tr").length == 0 ? 1 : parseInt($("#warehouse-details  tbody tr")[$("#warehouse-details  tbody tr").length - 1].childNodes[0].textContent) + 1 ),
             a = $("#tmp_cargo_line").val(),
             w =(0 == a ? t : a)-1,
@@ -202,7 +209,8 @@
                     .append(createTableContent('cargo_unit_weight', j, true, w))
                     .append($("<td></td>"))
 
-                    .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), calculate_warehouse_details(), cleanModalFields('cargo-warehouse'),$("#tmp_cargo_type_id").val(0).change(), $("#tmp_cargo_quantity").val(""), $("#tmp_cargo_pieces").val(1), $("#tmp_cargo_location_id").val(0).change(), $("#tmp_cargo_location_bin_id").val(0).change(), $("#tmp_cargo_weight_unit_measurement_id").val("L").change(),$("#tmp_cargo_metric_unit_measurement_id").val("I").change(),$("#tmp_cargo_dim_fact").val("I").change(), $("#tmp_cargo_quantity").focus()
+                    .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), calculate_warehouse_details(), cleanModalFields('cargo-warehouse'),$("#CargoModal").formValidation("resetForm", true), $("#tmp_cargo_type_id").val(0).change(), $("#tmp_cargo_quantity").val(""), $("#tmp_cargo_pieces").val(1), $("#tmp_cargo_location_id").val(0).change(), $("#tmp_cargo_location_bin_id").val(0).change(), $("#tmp_cargo_weight_unit_measurement_id").val("L").change(),$("#tmp_cargo_metric_unit_measurement_id").val("I").change(),$("#tmp_cargo_dim_fact").val("I").change(), $("#tmp_cargo_quantity").focus()
+        }
     }), $("#warehouse-details").on("click", "a.btn-danger", function() {
         $(this).closest("tr").remove(),
             calculate_warehouse_details()
@@ -288,6 +296,10 @@
     }), $("#charges-save").click(function() {
         /*var t = $("#charge-details tbody tr").length + 1,
                 d= t - 1,*/
+        if($("#tmp_billing_billing_id").val() == '0' || $("#tmp_billing_quantity").val() == ''){
+            $("#tmp_billing_billing_code").focus();
+        }else{
+
         var t = ($("#charge-details  tbody tr").length == 0 ? 1 : parseInt($("#charge-details  tbody tr")[$("#charge-details  tbody tr").length - 1].childNodes[0].textContent) + 1 ),
             charge_id = $("#tmp_charge_id").val(),
                 d =(0 == charge_id ? t : charge_id)-1,
@@ -359,12 +371,8 @@
                 .append(createTableContent('cost_invoice', g_27, true, d))
                 .append(createTableContent('cost_cost_center', g_28, true, d))
                 .append(createTableContent('cost_reference', g_29, true, d))
-
-
-
-
-
-                .append(createTableBtns()), 0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields('charge-warehouse'),$("#tmp_billing_unit_id").val(0).change(), $("#tmp_cost_unit_id").val(0).change(), $("#tmp_billing_bill_party").val("C").change(), $("#tmp_billing_bill_type").val("C").change(), $("#tmp_billing_currency_type").val("1").change(), $("#tmp_cost_currency_type").val("1").change(),calculate_charges(),   $("#tmp_billing_billing_code").focus()
+                .append(createTableBtns()), 0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields('charge-warehouse'), $("#ChargeModal").formValidation("resetForm", true), $("#tmp_billing_unit_id").val(0).change(), $("#tmp_cost_unit_id").val(0).change(), $("#tmp_billing_bill_party").val("C").change(), $("#tmp_billing_bill_type").val("C").change(), $("#tmp_billing_currency_type").val("1").change(), $("#tmp_cost_currency_type").val("1").change(),calculate_charges(),   $("#tmp_billing_billing_code").focus()
+        }
     }), $("#charge-details").on("click", "a.btn-danger", function() {
         $(this).closest("tr").remove(),
         calculate_charges()

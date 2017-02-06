@@ -89,6 +89,7 @@
         $("#sum_profit").val(profit);
         profit_p = parseFloat((profit * 100 )/ s_bill);
         $("#sum_profit_percent").val(profit_p);
+        calculate_totals();
     }
     function transportation_plan()
     {

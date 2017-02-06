@@ -1,5 +1,13 @@
 <script type="text/javascript">
 
+    $("#btn_dock_receipt").click(function(){
+       $("#DockModal").formValidation("resetForm", true);
+    });
+
+    $("#btn_container").click(function(){
+        $("#ContainerModal").formValidation("resetForm", true);
+    });
+
     $("#btn-cargo").click(function() {
         $("#cargo_quantity").val(1);
         $("#cargo_pieces").val(1);
@@ -8,7 +16,7 @@
         $("#cargo_dim_fact").val("I").change();
         $("#cargo_cargo_type_id").val("0").change();
         $("#cargo_location_bin_id").val(0).change();
-
+        $("#CargoModal").formValidation("resetForm", true);
           for (var t = $("#cargo-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
@@ -16,8 +24,8 @@
                     o = e.indexOf("display: none;");
             $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
         }
-    });
 
+    });
 
 
     $("#btn-vehicle").click(function() {
@@ -48,6 +56,7 @@
                     o = e.indexOf("display: none;");
             $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
         }
+        $("#ChargeModal").formValidation("resetForm", true);
     });
 
     $("#btn-pick-cargo").click(function() {
@@ -384,7 +393,9 @@
     }),
 
             $("#container-save").click(function() {
-
+                        if($("#container_equipment_type_id").val() == ""){
+                            $("#container_equipment_type_id").focus();
+                        }else{
                     var r = ($('#container_details tbody tr').length + 1),
                             _ =  ($("#container_details tbody tr").length == 0 ? 1 : parseInt($("#container_details tbody tr")[$("#container_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                             l = $("#container_line").val(),
@@ -404,8 +415,8 @@
                             .append(createTableContent('container_seal_number', s, false, c))
                             .append(createTableContent('container_remarks', f, false, c))
                             .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),
-                            cleanModalFields('Container_Details'),$("#container_equipment_type").focus()
-
+                            cleanModalFields('Container_Details'),$("#ContainerModal").formValidation("resetForm", true), $("#container_equipment_type").focus()
+                        }
             }),
             $('#container_details').on('click', 'a.btn-danger', function() {
                 $(this).closest('tr').remove()
@@ -424,6 +435,9 @@
             }),
 
             $("#dr-details-save").click(function() {
+                if($("#dr_cargo_marks").val() == "" || $("#dr_cargo_pieces").val() == ""){
+                    $("#dr_cargo_marks").focus();
+                }else{
                   var r = ($('#dr_details tbody tr').length + 1),
                           _ =  ($("#dr_details tbody tr").length == 0 ? 1 : parseInt($("#dr_details tbody tr")[$("#dr_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                           l = $("#dr_line").val(),
@@ -459,8 +473,8 @@
                           .append(createTableContent('dr_cargo_amount', d12, true, c))
                           .append(createTableContent('dr_cargo_comments', d13, true, c))
                           .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),
-                          cleanModalFields('DR_Details'),$("#dr_cargo_pieces").focus()
-
+                          cleanModalFields('DR_Details'), $("#DockModal").formValidation("resetForm", true),$("#dr_cargo_pieces").focus()
+                }
             }),
             $('#dr_details').on('click', 'a.btn-danger', function() {
                 $(this).closest('tr').remove()
@@ -563,7 +577,9 @@
             }),
 
     $("#charges-save").click(function() {
-
+                if($("#billing_billing_id").val() == '0' || $("#billing_quantity").val() == ""){
+                    $("#billing_billing_id").focus();
+                }else{
             var t = $("#charge_details tbody tr").length + 1,
                     _ =  ($("#charge_details tbody tr").length == 0 ? 1 : parseInt($("#charge_details tbody tr")[$("#charge_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                     charge_id = $("#charge_id").val(),
@@ -638,8 +654,8 @@
 
                     .append(createTableBtns()),
 
-                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C),  cleanModalFields('Charge_Details'),calculate_charges(),  $("#billing_unit_id").val(0).change(), $("#cost_unit_id").val(0).change(),$("#billing_bill_party").val("C").change(), $("#billing_bill_type").val("C").change(),$("#billing_billing_code").focus()
-
+                    0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C),  cleanModalFields('Charge_Details'),calculate_charges(), $("#ChargeModal").formValidation("resetForm", true), $("#billing_unit_id").val(0).change(), $("#cost_unit_id").val(0).change(),$("#billing_bill_party").val("C").change(), $("#billing_bill_type").val("C").change(),$("#billing_billing_code").focus()
+                }
 
     }), $("#charge_details").on("click", "a.btn-danger", function() {
         $(this).closest("tr").remove(),
@@ -937,262 +953,266 @@
 
 
             $("#cargo-warehouse-save").click(function() {
+                if($("#cargo_quantity").val() == '' || $("#cargo_cargo_type_id").val() == '0'){
+                    $("#cargo_quantity").focus();
+                }
+                else{
                 var r = ($('#warehouse_details tbody tr').length + 1),
-                        _ =  ($("#warehouse_details tbody tr").length == 0 ? 1 : parseInt($("#warehouse_details tbody tr")[$("#warehouse_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
-                        l = $("#cargo_id").val(),
-                        c = (0==l? _ : l)-1,
-                        g1 = $("#cargo_quantity").val().toUpperCase(),
-                        g2 = $("#cargo_cargo_type_id").val(),
-                        g3 = $("#cargo_cargo_type_code").val(),
-                        g4 = $("#cargo_length").val(),
-                        g5 = $("#cargo_width").val(),
-                        g6 = $("#cargo_height").val(),
-                        g7 = $("#cargo_total_weight").val(),
-                        g8 = $("#cargo_net_weight").val(),
-                        g9 = $("#cargo_weight_unit_measurement_id").val(),
-                        g10 = $("#cargo_cubic").val(),
-                        g11 = $("#part_info_po_number").val(),
+                    _ = ($("#warehouse_details tbody tr").length == 0 ? 1 : parseInt($("#warehouse_details tbody tr")[$("#warehouse_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
+                    l = $("#cargo_id").val(),
+                    c = (0 == l ? _ : l) - 1,
+                    g1 = $("#cargo_quantity").val().toUpperCase(),
+                    g2 = $("#cargo_cargo_type_id").val(),
+                    g3 = $("#cargo_cargo_type_code").val(),
+                    g4 = $("#cargo_length").val(),
+                    g5 = $("#cargo_width").val(),
+                    g6 = $("#cargo_height").val(),
+                    g7 = $("#cargo_total_weight").val(),
+                    g8 = $("#cargo_net_weight").val(),
+                    g9 = $("#cargo_weight_unit_measurement_id").val(),
+                    g10 = $("#cargo_cubic").val(),
+                    g11 = $("#part_info_po_number").val(),
 
-                        g12 = $("#cargo_volume_weight").val(),
-                        g13 = $("#cargo_metric_unit_measurement_id").val(),
-                        g14 = $("#cargo_material").val().toUpperCase(),
-                        g15 = $("#cargo_pieces").val(),
-                        g16 = $("#cargo_unit_weight").val(),
-                        g17 = $("#cargo_dim_fact").val(),
-                        g18 = $("#cargo_location_id").val(),
-                        g19 = $("#cargo_location_name").val(),
-                        g20 = $("#cargo_location_bin_id").val(),
+                    g12 = $("#cargo_volume_weight").val(),
+                    g13 = $("#cargo_metric_unit_measurement_id").val(),
+                    g14 = $("#cargo_material").val().toUpperCase(),
+                    g15 = $("#cargo_pieces").val(),
+                    g16 = $("#cargo_unit_weight").val(),
+                    g17 = $("#cargo_dim_fact").val(),
+                    g18 = $("#cargo_location_id").val(),
+                    g19 = $("#cargo_location_name").val(),
+                    g20 = $("#cargo_location_bin_id").val(),
 
-                        g22 = $("#cargo_tare_weight").val(),
-                        g23 = $("#cargo_square_foot").val(),
+                    g22 = $("#cargo_tare_weight").val(),
+                    g23 = $("#cargo_square_foot").val(),
 
-                        pi1= $("#part_info_serial_number").val(),
-                        pi2= $("#part_info_barcode").val(),
-                        pi3= $("#part_info_Model").val(),
-                        pi4= $("#part_info_commodity_id").val(),
-                        pi5= $("#part_info_commodity_name").val(),
-                        pi6= $("#part_info_pro_number").val(),
-                        pi7= $("#part_info_project").val(),
-                        pi8= $("#part_info_inv_number").val(),
-                        pi9= $("#part_info_lot_number").val(),
-                        pi10= $("#part_info_sku_number").val(),
-                        pi11= $("#part_info_destination_point").val(),
-                        pi12= $("#part_info_attention").val(),
+                    pi1 = $("#part_info_serial_number").val(),
+                    pi2 = $("#part_info_barcode").val(),
+                    pi3 = $("#part_info_Model").val(),
+                    pi4 = $("#part_info_commodity_id").val(),
+                    pi5 = $("#part_info_commodity_name").val(),
+                    pi6 = $("#part_info_pro_number").val(),
+                    pi7 = $("#part_info_project").val(),
+                    pi8 = $("#part_info_inv_number").val(),
+                    pi9 = $("#part_info_lot_number").val(),
+                    pi10 = $("#part_info_sku_number").val(),
+                    pi11 = $("#part_info_destination_point").val(),
+                    pi12 = $("#part_info_attention").val(),
 
-                        eei1= $("#eei_info_scheduleb_id").val(),
-                        eei2= $("#eei_info_scheduleb_code").val(),
-                        eei3= $("#eei_info_scheduleb_description").val(),
-                        eei4= $("#eei_info_hts_id").val(),
-                        eei5= $("#eei_info_hts_name").val(),
-                        eei6= $("#eei_info_hts_description").val(),
-                        eei7= $("#eei_info_value").val(),
-                        eei8= $("#eei_info_eccn").val(),
-                        eei9= $("#eei_info_export_id").val(),
-                        eei10= $("#eei_info_export_code").val(),
-                        eei11= $("#eei_info_license_type_id").val(),
-                        eei12= $("#eei_info_license_type_code").val(),
-                        eei13= $("#eei_info_origin").val(),
+                    eei1 = $("#eei_info_scheduleb_id").val(),
+                    eei2 = $("#eei_info_scheduleb_code").val(),
+                    eei3 = $("#eei_info_scheduleb_description").val(),
+                    eei4 = $("#eei_info_hts_id").val(),
+                    eei5 = $("#eei_info_hts_name").val(),
+                    eei6 = $("#eei_info_hts_description").val(),
+                    eei7 = $("#eei_info_value").val(),
+                    eei8 = $("#eei_info_eccn").val(),
+                    eei9 = $("#eei_info_export_id").val(),
+                    eei10 = $("#eei_info_export_code").val(),
+                    eei11 = $("#eei_info_license_type_id").val(),
+                    eei12 = $("#eei_info_license_type_code").val(),
+                    eei13 = $("#eei_info_origin").val(),
 
-                        hzd1=$("#hazardous_proper_shipping_name").val(),
-                        hzd2=$("#hazardous_un_id").val(),
-                        hzd3=$("#hazardous_un_code").val(),
-                        hzd4=$("#hazardous_un_description").val(),
-                        hzd5=$("#hazardous_class_id").val(),
-                        hzd6=$("#hazardous_class_description").val(),
-                        hzd7=$("#hazardous_packing_group").val(),
-                        hzd8=$("#hazardous_flash_point").val(),
-                        hzd9=$("#hazardous_flashing_point_type").val(),
-                        hzd10=$("#hazardous_special_instructions").val(),
-                        hzd11=$("#hazardous_units").val(),
-                        hzd12=$("#hazardous_material_page").val(),
-                        hzd13=$("#hazardous_quantity").val(),
-                        hzd14=$("#hazardous_label_required").val(),
-                        hzd15=$("#hazardous_emergency_contact").val(),
-                        hzd16=$("#hazardous_emergency_contact_phone").val(),
+                    hzd1 = $("#hazardous_proper_shipping_name").val(),
+                    hzd2 = $("#hazardous_un_id").val(),
+                    hzd3 = $("#hazardous_un_code").val(),
+                    hzd4 = $("#hazardous_un_description").val(),
+                    hzd5 = $("#hazardous_class_id").val(),
+                    hzd6 = $("#hazardous_class_description").val(),
+                    hzd7 = $("#hazardous_packing_group").val(),
+                    hzd8 = $("#hazardous_flash_point").val(),
+                    hzd9 = $("#hazardous_flashing_point_type").val(),
+                    hzd10 = $("#hazardous_special_instructions").val(),
+                    hzd11 = $("#hazardous_units").val(),
+                    hzd12 = $("#hazardous_material_page").val(),
+                    hzd13 = $("#hazardous_quantity").val(),
+                    hzd14 = $("#hazardous_label_required").val(),
+                    hzd15 = $("#hazardous_emergency_contact").val(),
+                    hzd16 = $("#hazardous_emergency_contact_phone").val(),
 
-                        ref1=$("#reference_vendor_code").val(),
-                        ref2=$("#reference_vendor_name").val(),
-                        ref3=$("#reference_final_dest").val(),
-                        ref4=$("#reference_customer_reference").val(),
+                    ref1 = $("#reference_vendor_code").val(),
+                    ref2 = $("#reference_vendor_name").val(),
+                    ref3 = $("#reference_final_dest").val(),
+                    ref4 = $("#reference_customer_reference").val(),
 
-                        shp1=$("#shipping_type").val(),
-                        shp2=$("#shipping_date_in").val(),
-                        shp3=$("#shipping_date_out").val(),
-                        shp4=$("#user_id").val(),
-                        shp5=$("#shipping_reference").val(),
-                        shp6=$("#shipping_file").val(),
+                    shp1 = $("#shipping_type").val(),
+                    shp2 = $("#shipping_date_in").val(),
+                    shp3 = $("#shipping_date_out").val(),
+                    shp4 = $("#user_id").val(),
+                    shp5 = $("#shipping_reference").val(),
+                    shp6 = $("#shipping_file").val(),
 
-                        oth1=$("#other_vendor_delivery").val(),
-                        oth2=$("#other_shipping_date").val(),
-                        oth3=$("#other_department_id").val(),
-                        oth4=$("#other_department_name").val(),
-                        oth5=$("#other_from_system").val(),
-                        oth6=$("#other_concession").val(),
-                        oth7=$("#other_ultimate_consignee_id").val(),
-                        oth8=$("#other_ultimate_consignee_name").val(),
+                    oth1 = $("#other_vendor_delivery").val(),
+                    oth2 = $("#other_shipping_date").val(),
+                    oth3 = $("#other_department_id").val(),
+                    oth4 = $("#other_department_name").val(),
+                    oth5 = $("#other_from_system").val(),
+                    oth6 = $("#other_concession").val(),
+                    oth7 = $("#other_ultimate_consignee_id").val(),
+                    oth8 = $("#other_ultimate_consignee_name").val(),
 
-                        comm=$("#comments_comment").val(),
+                    comm = $("#comments_comment").val(),
 
-                        n = $("#warehouse_details"),
-                        t = n.find("tbody"),
-                        p = $("<tr id=" + (0==l? _ : l) + ">");
+                    n = $("#warehouse_details"),
+                    t = n.find("tbody"),
+                    p = $("<tr id=" + (0 == l ? _ : l) + ">");
                 /* Items details*/
 
-                p.append(createTableContent('cargo_line', (0==l? _ : l) , true, c))
-                        .append($("<td><i class='fa fa-cube' aria-hidden='true'></td>"))
-                        .append(createTableContent('cargo_quantity', g1, false, c))
-                        .append(createTableContent('cargo_type_id', g2, true, c))
-                        .append(createTableContent('cargo_type_code', g3, false, c))
-                        .append(createTableContent('cargo_length', g4, false, c))
-                        .append(createTableContent('cargo_width', g5, false, c))
-                        .append(createTableContent('cargo_height', g6, false, c))
-                        .append(createTableContent('cargo_total_weight', g7, false, c))
-                        .append(createTableContent('cargo_net_weight', g8, false, c))
-                        .append(createTableContent('cargo_weight_unit_measurement_id', g9, false, c))
-                        .append(createTableContent('cargo_cubic', g10, false, c))
+                p.append(createTableContent('cargo_line', (0 == l ? _ : l), true, c))
+                    .append($("<td><i class='fa fa-cube' aria-hidden='true'></td>"))
+                    .append(createTableContent('cargo_quantity', g1, false, c))
+                    .append(createTableContent('cargo_type_id', g2, true, c))
+                    .append(createTableContent('cargo_type_code', g3, false, c))
+                    .append(createTableContent('cargo_length', g4, false, c))
+                    .append(createTableContent('cargo_width', g5, false, c))
+                    .append(createTableContent('cargo_height', g6, false, c))
+                    .append(createTableContent('cargo_total_weight', g7, false, c))
+                    .append(createTableContent('cargo_net_weight', g8, false, c))
+                    .append(createTableContent('cargo_weight_unit_measurement_id', g9, false, c))
+                    .append(createTableContent('cargo_cubic', g10, false, c))
 
-                        /*GENERAL */
-                        .append(createTableContent('part_info_po_number', g11, true, c))
-                        .append(createTableContent('cargo_volume_weight', g12, false, c))
-                        .append(createTableContent('cargo_metric_unit_measurement_id', g13, true, c))
-                        .append(createTableContent('cargo_material_description', g14, true, c))
-                        .append(createTableContent('cargo_pieces', g15, true, c))
-                        .append(createTableContent('cargo_unit_weight', g16, true, c))
-                        .append(createTableContent('cargo_dim_fact', g17, true, c))
-                        .append(createTableContent('cargo_location_id', g18, true, c))
-                        .append(createTableContent('cargo_location_name', g19, true, c))
-                        .append(createTableContent('cargo_location_bin_id', g20, true, c))
-                        .append(createTableContent('cargo_location_bin_name', g20, true, c))
-                        .append(createTableContent('cargo_tare_weight', g22, true, c))
-                        .append(createTableContent('cargo_square_foot', g23, true, c))
-                                /*PART INFO */
-                        .append(createTableContent('part_info_serial_number', pi1, true, c))
-                        .append(createTableContent('part_info_barcode', pi2, true, c))
-                        .append(createTableContent('part_info_Model', pi3, true, c))
-                        .append(createTableContent('part_info_commodity_id', pi4, true, c))
-                        .append(createTableContent('part_info_commodity_name', pi5, true, c))
-                        .append(createTableContent('part_info_pro_number', pi6, true, c))
-                        .append(createTableContent('part_info_project', pi7, true, c))
-                        .append(createTableContent('part_info_inv_number', pi8, true, c))
-                        .append(createTableContent('part_info_lot_number', pi9, true, c))
-                        .append(createTableContent('part_info_sku_number', pi10, true, c))
-                        .append(createTableContent('part_info_destination_point', pi11, true, c))
-                        .append(createTableContent('part_info_attention', pi12, true, c))
-                                /*EEI INFO*/
-                        .append(createTableContent('eei_info_scheduleb_id', eei1, true, c))
-                        .append(createTableContent('eei_info_scheduleb_code', eei2, true, c))
-                        .append(createTableContent('eei_info_scheduleb_description', eei3, true, c))
-                        .append(createTableContent('eei_info_hts_id', eei4, true, c))
-                        .append(createTableContent('eei_info_hts_name', eei5, true, c))
-                        .append(createTableContent('eei_info_hts_description', eei6, true, c))
-                        .append(createTableContent('eei_info_value', eei7, true, c))
-                        .append(createTableContent('eei_info_eccn', eei8, true, c))
-                        .append(createTableContent('eei_info_export_id', eei9, true, c))
-                        .append(createTableContent('eei_info_export_code', eei10, true, c))
-                        .append(createTableContent('eei_info_license_type_id', eei11, true, c))
-                        .append(createTableContent('eei_info_license_type_code', eei12, true, c))
-                        .append(createTableContent('eei_info_origin', eei13, true, c))
-                                /* HAZARDOUS */
-                        .append(createTableContent('hazardous_proper_shipping_name', hzd1, true, c))
-                        .append(createTableContent('hazardous_un_id', hzd2, true, c))
-                        .append(createTableContent('hazardous_un_code', hzd3, true, c))
-                        .append(createTableContent('hazardous_un_description', hzd4, true, c))
-                        .append(createTableContent('hazardous_class_id', hzd5, true, c))
-                        .append(createTableContent('hazardous_class_description', hzd6, true, c))
-                        .append(createTableContent('hazardous_packing_group', hzd7, true, c))
-                        .append(createTableContent('hazardous_flash_point', hzd8, true, c))
-                        .append(createTableContent('hazardous_flashing_point_type', hzd9, true, c))
-                        .append(createTableContent('hazardous_special_instructions', hzd10, true, c))
-                        .append(createTableContent('hazardous_units', hzd11, true, c))
-                        .append(createTableContent('hazardous_material_page', hzd12, true, c))
-                        .append(createTableContent('hazardous_quantity', hzd13, true, c))
-                        .append(createTableContent('hazardous_label_required', hzd14, true, c))
-                        .append(createTableContent('hazardous_emergency_contact', hzd15, true, c))
-                        .append(createTableContent('hazardous_emergency_contact_phone', hzd16, true, c))
-                                /*REFERENCE*/
-                        .append(createTableContent('reference_vendor_code', ref1, true, c))
-                        .append(createTableContent('reference_vendor_name', ref2, true, c))
-                        .append(createTableContent('reference_final_dest', ref3, true, c))
-                        .append(createTableContent('reference_customer_reference', ref4, true, c))
-                                /* SHIPPING REFERENCE*/
-                        .append(createTableContent('shipping_type', shp1, true, c))
-                        .append(createTableContent('shipping_date_in', shp2, true, c))
-                        .append(createTableContent('shipping_date_out', shp3, true, c))
-                        .append(createTableContent('user_id', shp4, true, c))
-                        .append(createTableContent('shipping_reference', shp5, true, c))
-                        .append(createTableContent('shipping_file', shp6, true, c))
-                                    /* OTHER REFERENCE */
-                        .append(createTableContent('other_vendor_delivery', oth1, true, c))
-                        .append(createTableContent('other_shipping_date', oth2, true, c))
-                        .append(createTableContent('other_department_id', oth3, true, c))
-                        .append(createTableContent('other_department_name', oth4, true, c))
-                        .append(createTableContent('other_from_system', oth5, true, c))
-                        .append(createTableContent('other_concession', oth6, true, c))
-                        .append(createTableContent('other_ultimate_consignee_id', oth7, true, c))
-                        .append(createTableContent('other_ultimate_consignee_name', oth8, true, c))
+                    /*GENERAL */
+                    .append(createTableContent('part_info_po_number', g11, true, c))
+                    .append(createTableContent('cargo_volume_weight', g12, false, c))
+                    .append(createTableContent('cargo_metric_unit_measurement_id', g13, true, c))
+                    .append(createTableContent('cargo_material_description', g14, true, c))
+                    .append(createTableContent('cargo_pieces', g15, true, c))
+                    .append(createTableContent('cargo_unit_weight', g16, true, c))
+                    .append(createTableContent('cargo_dim_fact', g17, true, c))
+                    .append(createTableContent('cargo_location_id', g18, true, c))
+                    .append(createTableContent('cargo_location_name', g19, true, c))
+                    .append(createTableContent('cargo_location_bin_id', g20, true, c))
+                    .append(createTableContent('cargo_location_bin_name', g20, true, c))
+                    .append(createTableContent('cargo_tare_weight', g22, true, c))
+                    .append(createTableContent('cargo_square_foot', g23, true, c))
+                    /*PART INFO */
+                    .append(createTableContent('part_info_serial_number', pi1, true, c))
+                    .append(createTableContent('part_info_barcode', pi2, true, c))
+                    .append(createTableContent('part_info_Model', pi3, true, c))
+                    .append(createTableContent('part_info_commodity_id', pi4, true, c))
+                    .append(createTableContent('part_info_commodity_name', pi5, true, c))
+                    .append(createTableContent('part_info_pro_number', pi6, true, c))
+                    .append(createTableContent('part_info_project', pi7, true, c))
+                    .append(createTableContent('part_info_inv_number', pi8, true, c))
+                    .append(createTableContent('part_info_lot_number', pi9, true, c))
+                    .append(createTableContent('part_info_sku_number', pi10, true, c))
+                    .append(createTableContent('part_info_destination_point', pi11, true, c))
+                    .append(createTableContent('part_info_attention', pi12, true, c))
+                    /*EEI INFO*/
+                    .append(createTableContent('eei_info_scheduleb_id', eei1, true, c))
+                    .append(createTableContent('eei_info_scheduleb_code', eei2, true, c))
+                    .append(createTableContent('eei_info_scheduleb_description', eei3, true, c))
+                    .append(createTableContent('eei_info_hts_id', eei4, true, c))
+                    .append(createTableContent('eei_info_hts_name', eei5, true, c))
+                    .append(createTableContent('eei_info_hts_description', eei6, true, c))
+                    .append(createTableContent('eei_info_value', eei7, true, c))
+                    .append(createTableContent('eei_info_eccn', eei8, true, c))
+                    .append(createTableContent('eei_info_export_id', eei9, true, c))
+                    .append(createTableContent('eei_info_export_code', eei10, true, c))
+                    .append(createTableContent('eei_info_license_type_id', eei11, true, c))
+                    .append(createTableContent('eei_info_license_type_code', eei12, true, c))
+                    .append(createTableContent('eei_info_origin', eei13, true, c))
+                    /* HAZARDOUS */
+                    .append(createTableContent('hazardous_proper_shipping_name', hzd1, true, c))
+                    .append(createTableContent('hazardous_un_id', hzd2, true, c))
+                    .append(createTableContent('hazardous_un_code', hzd3, true, c))
+                    .append(createTableContent('hazardous_un_description', hzd4, true, c))
+                    .append(createTableContent('hazardous_class_id', hzd5, true, c))
+                    .append(createTableContent('hazardous_class_description', hzd6, true, c))
+                    .append(createTableContent('hazardous_packing_group', hzd7, true, c))
+                    .append(createTableContent('hazardous_flash_point', hzd8, true, c))
+                    .append(createTableContent('hazardous_flashing_point_type', hzd9, true, c))
+                    .append(createTableContent('hazardous_special_instructions', hzd10, true, c))
+                    .append(createTableContent('hazardous_units', hzd11, true, c))
+                    .append(createTableContent('hazardous_material_page', hzd12, true, c))
+                    .append(createTableContent('hazardous_quantity', hzd13, true, c))
+                    .append(createTableContent('hazardous_label_required', hzd14, true, c))
+                    .append(createTableContent('hazardous_emergency_contact', hzd15, true, c))
+                    .append(createTableContent('hazardous_emergency_contact_phone', hzd16, true, c))
+                    /*REFERENCE*/
+                    .append(createTableContent('reference_vendor_code', ref1, true, c))
+                    .append(createTableContent('reference_vendor_name', ref2, true, c))
+                    .append(createTableContent('reference_final_dest', ref3, true, c))
+                    .append(createTableContent('reference_customer_reference', ref4, true, c))
+                    /* SHIPPING REFERENCE*/
+                    .append(createTableContent('shipping_type', shp1, true, c))
+                    .append(createTableContent('shipping_date_in', shp2, true, c))
+                    .append(createTableContent('shipping_date_out', shp3, true, c))
+                    .append(createTableContent('user_id', shp4, true, c))
+                    .append(createTableContent('shipping_reference', shp5, true, c))
+                    .append(createTableContent('shipping_file', shp6, true, c))
+                    /* OTHER REFERENCE */
+                    .append(createTableContent('other_vendor_delivery', oth1, true, c))
+                    .append(createTableContent('other_shipping_date', oth2, true, c))
+                    .append(createTableContent('other_department_id', oth3, true, c))
+                    .append(createTableContent('other_department_name', oth4, true, c))
+                    .append(createTableContent('other_from_system', oth5, true, c))
+                    .append(createTableContent('other_concession', oth6, true, c))
+                    .append(createTableContent('other_ultimate_consignee_id', oth7, true, c))
+                    .append(createTableContent('other_ultimate_consignee_name', oth8, true, c))
 
-                        .append(createTableContent('comments_comment', comm, true, c))
+                    .append(createTableContent('comments_comment', comm, true, c))
 
-                        /* VEHICLE DETAILS */
-                        .append(createTableContent('vehicle_vin', '', true, c))
-                        .append(createTableContent('vehicle_type', '', true, c))
-                        .append(createTableContent('vehicle_color', '', true, c))
-                        .append(createTableContent('vehicle_year', '', true, c))
-                        .append(createTableContent('vehicle_condition', '', true, c))
-                        .append(createTableContent('vehicle_make', '', true, c))
-                        .append(createTableContent('vehicle_keys', '', true, c))
-                        .append(createTableContent('vehicle_model', '', true, c))
-                        .append(createTableContent('vehicle_running', '', true, c))
-                        .append(createTableContent('vehicle_trim', '', true, c))
-                        .append(createTableContent('vehicle_mileage', '', true, c))
-                        .append(createTableContent('vehicle_engine', '', true, c))
-                        .append(createTableContent('vehicle_tag', '', true, c))
-                        .append(createTableContent('vehicle_body', '', true, c))
-                        .append(createTableContent('vehicle_other', '', true, c))
-                        .append(createTableContent('vehicle_number', '', true, c))
-                        .append(createTableContent('vehicle_state_province_id', '', true, c))
-                        .append(createTableContent('vehicle_state_province_name', '', true, c))
-                        .append(createTableContent('vehicle_received', '', true, c))
-                        .append(createTableContent('vehicle_inspection_number', '', true, c))
-                        .append(createTableContent('vehicle_inspection_date', '', true, c))
-                        .append(createTableContent('vehicle_inspection_by', '', true, c))
-                        .append(createTableContent('vehicle_lot_number', '', true, c))
-                        .append(createTableContent('vehicle_buyer_number', '', true, c))
-                        .append(createTableContent('type_package', '0' , true, c))
+                    /* VEHICLE DETAILS */
+                    .append(createTableContent('vehicle_vin', '', true, c))
+                    .append(createTableContent('vehicle_type', '', true, c))
+                    .append(createTableContent('vehicle_color', '', true, c))
+                    .append(createTableContent('vehicle_year', '', true, c))
+                    .append(createTableContent('vehicle_condition', '', true, c))
+                    .append(createTableContent('vehicle_make', '', true, c))
+                    .append(createTableContent('vehicle_keys', '', true, c))
+                    .append(createTableContent('vehicle_model', '', true, c))
+                    .append(createTableContent('vehicle_running', '', true, c))
+                    .append(createTableContent('vehicle_trim', '', true, c))
+                    .append(createTableContent('vehicle_mileage', '', true, c))
+                    .append(createTableContent('vehicle_engine', '', true, c))
+                    .append(createTableContent('vehicle_tag', '', true, c))
+                    .append(createTableContent('vehicle_body', '', true, c))
+                    .append(createTableContent('vehicle_other', '', true, c))
+                    .append(createTableContent('vehicle_number', '', true, c))
+                    .append(createTableContent('vehicle_state_province_id', '', true, c))
+                    .append(createTableContent('vehicle_state_province_name', '', true, c))
+                    .append(createTableContent('vehicle_received', '', true, c))
+                    .append(createTableContent('vehicle_inspection_number', '', true, c))
+                    .append(createTableContent('vehicle_inspection_date', '', true, c))
+                    .append(createTableContent('vehicle_inspection_by', '', true, c))
+                    .append(createTableContent('vehicle_lot_number', '', true, c))
+                    .append(createTableContent('vehicle_buyer_number', '', true, c))
+                    .append(createTableContent('type_package', '0', true, c))
 
-                        .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p),calculate_warehouse_details(),cleanModalFields('cargo-warehouse'),$("#cargo_cargo_type_id").val(0).change(), $("#cargo_quantity").val(1), $("#cargo_pieces").val(1), $("#cargo_location_id").val(0).change(), $("#cargo_location_bin_id").val(0).change(),$("#cargo_cargo_type_id").val("0").change(),  $("#cargo_dim_fact").val("I").change(), $("#cargo_weight_unit_measurement_id").val("L").change(), $("#cargo_metric_unit_measurement_id").val("I").change() ,$("#cargo_quantity").focus();
+                    .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p), calculate_warehouse_details(), cleanModalFields('cargo-warehouse'), $("#CargoModal").formValidation("resetForm", true), $("#cargo_cargo_type_id").val(0).change(), $("#cargo_quantity").val(1), $("#cargo_pieces").val(1), $("#cargo_location_id").val(0).change(), $("#cargo_location_bin_id").val(0).change(), $("#cargo_cargo_type_id").val("0").change(), $("#cargo_dim_fact").val("I").change(), $("#cargo_weight_unit_measurement_id").val("L").change(), $("#cargo_metric_unit_measurement_id").val("I").change() , $("#cargo_quantity").focus();
 
 
-             var id_row =  (0== l? _ : l);
-              $("#items_warehouse_details tbody [data-id='" + id_row + "']").remove();
+                var id_row = (0 == l ? _ : l);
+                $("#items_warehouse_details tbody [data-id='" + id_row + "']").remove();
 
                 //===================
                 n = $("#items_warehouse_details"),
-                t = n.find("tbody");
-                var tr=  $("#items_details tbody tr"),
-                    tr_1= $("#items_warehouse_details tbody tr");
+                    t = n.find("tbody");
+                var tr = $("#items_details tbody tr"),
+                    tr_1 = $("#items_warehouse_details tbody tr");
                 var l_1 = $("#item_line").val();
-                var  r_1= tr.length;
-                var count =tr_1.length + 1;
-                for(var a =0; a< r_1 ; a++){
-                    var  p_1=  $("<tr data-id=" + id_row + ">");
-                        p_1.append(createTableContent('cargo_whr_id', id_row , true, count))
-                                .append(createTableContent('item_whr_line',tr[a].childNodes[0].textContent, true, count))
-                                .append(createTableContent('item_whr_pieces', tr[a].childNodes[1].textContent, true, count))
-                                .append(createTableContent('item_whr_item_name', tr[a].childNodes[2].textContent, true, count))
-                                .append(createTableContent('item_whr_unit_weight', tr[a].childNodes[3].textContent, true, count))
-                                .append(createTableContent('item_whr_brand', tr[a].childNodes[4].textContent, true, count))
-                                .append(createTableContent('item_whr_vendor_name', tr[a].childNodes[5].textContent, true, count))
-                                .append(createTableContent('item_whr_origin', tr[a].childNodes[6].textContent, true, count))
-                                .append(createTableContent('item_whr_exp_date', tr[a].childNodes[7].textContent, true, count))
-                                .append(createTableContent('item_whr_item_id', tr[a].childNodes[8].textContent, true, count))
-                                .append(createTableContent('item_whr_vendor_code', tr[a].childNodes[9].textContent, true, count))
-                                ,t.append(p_1);
-                    count =count + 1 ;
+                var r_1 = tr.length;
+                var count = tr_1.length + 1;
+                for (var a = 0; a < r_1; a++) {
+                    var p_1 = $("<tr data-id=" + id_row + ">");
+                    p_1.append(createTableContent('cargo_whr_id', id_row, true, count))
+                        .append(createTableContent('item_whr_line', tr[a].childNodes[0].textContent, true, count))
+                        .append(createTableContent('item_whr_pieces', tr[a].childNodes[1].textContent, true, count))
+                        .append(createTableContent('item_whr_item_name', tr[a].childNodes[2].textContent, true, count))
+                        .append(createTableContent('item_whr_unit_weight', tr[a].childNodes[3].textContent, true, count))
+                        .append(createTableContent('item_whr_brand', tr[a].childNodes[4].textContent, true, count))
+                        .append(createTableContent('item_whr_vendor_name', tr[a].childNodes[5].textContent, true, count))
+                        .append(createTableContent('item_whr_origin', tr[a].childNodes[6].textContent, true, count))
+                        .append(createTableContent('item_whr_exp_date', tr[a].childNodes[7].textContent, true, count))
+                        .append(createTableContent('item_whr_item_id', tr[a].childNodes[8].textContent, true, count))
+                        .append(createTableContent('item_whr_vendor_code', tr[a].childNodes[9].textContent, true, count))
+                        , t.append(p_1);
+                    count = count + 1;
 
-                  }
+                }
                 clearTable('items_details');
-
+            }
                 //===================
             }),
             $('#warehouse_details').on('click', 'a.btn-danger', function() {

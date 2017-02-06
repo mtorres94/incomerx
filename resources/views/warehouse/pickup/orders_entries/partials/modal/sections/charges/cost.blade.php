@@ -1,5 +1,4 @@
 <div class="row ">
-    {!! Form::hidden('charge_id', null, ['id' => 'charge_id', 'class' => 'form-control input-sm']) !!}
     {!! Form::hidden('cost_unit_name', null, ['id' => 'cost_unit_name', 'class' => 'form-control input-sm']) !!}
         <div class="col-md-1">{!! Form::bsText(null, null, 'Qty.', 'cost_quantity', null, '0') !!}</div>
         <div class="col-md-3">{!! Form::bsSelect(null, null, 'Unit', 'cost_unit_id',Sass\Unit::all()->lists('code', 'id'), 'Units', false) !!}</div>
