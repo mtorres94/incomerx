@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        $('#date_today').on('change', function(e) { $('#data').formValidation('revalidateField', 'date_today'); });
+        $('#bl_date').on('change', function(e) { $('#data').formValidation('revalidateField', 'bl_date'); });
         $('#departure_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'departure_date'); });
         $('#arrival_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'arrival_date'); });
 
@@ -32,7 +32,7 @@
                         notEmpty: { message: "Departure date is required" },
                         date: {
                             format: "YYYY-MM-DD",
-                            min: 'date_today',
+                            min: 'bl_date',
                             max: 'arrival_date',
                             message: "The departure date is invalid"
                         }

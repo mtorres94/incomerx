@@ -70,7 +70,7 @@ class EoBillOfLadingController extends Controller
                 }
                 $bl['sum_prepaid']= $sum_prepaid;
                 $bl['sum_collected']= $sum_collect;
-                $bill_of_lading['flag']=1;
+                $bl['flag']=1;
                 $exp=EoBillOfLading::create($bl);
                 EoBillOfLadingCargo::saveDetail($exp->id, $bl);
                 if($bl['bl_class'] == 3){
