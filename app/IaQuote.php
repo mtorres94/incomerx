@@ -106,7 +106,7 @@ class IaQuote extends Model
     }
     public function service()
     {
-        return $this->belongsTo('Sass\service', 'service_id');
+        return $this->belongsTo('Sass\Service', 'service_id');
     }
     public function cargo()
     {

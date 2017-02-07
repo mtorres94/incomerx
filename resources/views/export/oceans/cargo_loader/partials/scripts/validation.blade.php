@@ -2,9 +2,12 @@
     $(document).ready(function () {
 
         $('#date_today').on('change', function(e) { $('#data').formValidation('revalidateField', 'date_today'); });
+        $('#booked_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'booked_date'); });
+        $('#loading_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'loading_date'); });
+        $('#equipment_cut_off_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'equipment_cut_off_date'); });
+        $('#documents_cut_off_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'documents_cut_off_date'); });
         $('#departure_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'departure_date'); });
         $('#arrival_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'arrival_date'); });
-        $('#cut_off_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'cut_off_date'); });
 
         $("#consignee_name").blur(function(e){
             $('#data').formValidation('revalidateField', 'consignee_address');
@@ -27,36 +30,43 @@
                 validating: 'fa fa-refresh'
             },
             fields: {
-                release_date: {
+                booked_date: {
                     validators: {
-                        notEmpty: { message: "Release date is required" },
+                        notEmpty: { message: "Booked on date is required" },
                         date: {
                             format: "YYYY-MM-DD",
-                            min: 'date_today',
-                            max: 'loading_date',
-                            message: "The release date is invalid"
+                            max: "loading_date",
+                            message: "Booked on date is invalid"
                         }
                     }
                 },
-
-
                 loading_date: {
                     validators: {
                         notEmpty: { message: "Loading date is required" },
                         date: {
                             format: "YYYY-MM-DD",
+                            min: "booked_date",
                             message: "Loading date is invalid"
                         }
                     }
                 },
-                cut_off_date: {
+                equipment_cut_off_date: {
                     validators: {
-                        notEmpty: { message: "Cut off date is required" },
+                        notEmpty: { message: "Equipment cut off date is required" },
                         date: {
                             format: "YYYY-MM-DD",
                             min: "loading_date",
-                            max: "departure_date",
-                            message: "The cut off date is invalid"
+                            message: "Equipment cut off date is invalid"
+                        }
+                    }
+                },
+                documents_cut_off_date: {
+                    validators: {
+                        notEmpty: { message: "Documents cut off date is required" },
+                        date: {
+                            format: "YYYY-MM-DD",
+                            min: "equipment_cut_off_date",
+                            message: "Documents cut off date is invalid"
                         }
                     }
                 },
@@ -65,8 +75,7 @@
                         notEmpty: { message: "Departure date is required" },
                         date: {
                             format: "YYYY-MM-DD",
-                            min: 'cut_off_date',
-                            max: 'arrival_date',
+                            min: "documents_cut_off_date",
                             message: "The departure date is invalid"
                         }
                     }
@@ -81,7 +90,6 @@
                         }
                     }
                 },
-
                 shipper_name: {
                     validators: {
                         notEmpty: { message: "The shipper name is required" },

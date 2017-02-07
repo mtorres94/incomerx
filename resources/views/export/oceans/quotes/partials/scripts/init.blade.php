@@ -207,6 +207,18 @@
         });
     });
     //============================================================
+    $("#equipment_type_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('cargo_types.get') }}",
+            data: {id: id},
+            type: 'GET',
+            success: function (e) {
+                $("#equipment_type_code").val(e[0].code);
+            }
+        });
+    });
+    //============================================================
 
     $("#user_id").attr("readonly", true);
     $("#contract_basis").attr("readonly", true);

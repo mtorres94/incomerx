@@ -104,6 +104,7 @@ class EoShipmentEntryController extends Controller
         DB::beginTransaction();
         try {
             $shipment_entry = $request->all();
+
             $sent = EoShipmentEntry::findorfail($id);
             $exp = $sent->update($shipment_entry);
             EoShipmentEntryContainer::saveDetail($id, $shipment_entry);
@@ -224,6 +225,17 @@ class EoShipmentEntryController extends Controller
                     'agent_commission_amount'   => $shipmentEntry->agent_commission_amount,
                     'agent_contact'   => $shipmentEntry->agent_contact,
                     'agent_amount'   => $shipmentEntry->agent_amount,
+
+                    'inland_carrier_id'   => $shipmentEntry->inland_carrier_id,
+                    'inland_driver_id'   => $shipmentEntry->inland_driver_id,
+                    'inland_carrier_name'   => strtoupper($shipmentEntry->inland_carrier_id > 0 ? $shipmentEntry->inland_carrier->name : ""),
+                    'inland_driver_name'   => strtoupper($shipmentEntry->inland_driver_id > 0 ? $shipmentEntry->inland_driver->name : ""),
+                    'inland_lic_number'   => strtoupper($shipmentEntry->inland_lic_number),
+
+                    'booked_date'   => strtoupper($shipmentEntry->booked_date),
+                    'loading_date'   => strtoupper($shipmentEntry->loading_date),
+                    'equipment_cut_off_date'   => strtoupper($shipmentEntry->equipment_cut_off_date),
+                    'documents_cut_off_date'   => strtoupper($shipmentEntry->documents_cut_off_date)
                 ];
             }
 
@@ -329,6 +341,20 @@ class EoShipmentEntryController extends Controller
             try {
                 $shipment_entry= EoShipmentEntry::findOrFail($id);
                 return \PDF::loadView('export.oceans.shipment_entries.pdf', compact('shipment_entry'))->stream('BC '.$shipment_entry->booking_code.'.pdf');
+            } catch (ModelNotFoundException $e) {
+                abort(404);
+            }
+        } else {
+            abort(403);
+        }
+    }
+
+    public function container_release($token, $id)
+    {
+        if (strlen($token) == 60) {
+            try {
+                $shipment_entry= EoShipmentEntry::findOrFail($id);
+                return \PDF::loadView('export.oceans.shipment_entries.container_release', compact('shipment_entry'))->stream($shipment_entry->booking_code.'.pdf');
             } catch (ModelNotFoundException $e) {
                 abort(404);
             }

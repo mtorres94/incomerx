@@ -13,7 +13,7 @@ class EoCargoLoader extends Model
         'consignee_id', 'consignee_address', 'consignee_city', 'consignee_state_id', 'consignee_country_id', 'consignee_zip_code_id', 'consignee_phone', 'consignee_fax',
         'booking_code', 'date_today', 'user_id', 'shipment_type', 'shipment_id', 'division_id','cargo_loader_status', 'inland_carrier_id', 'inland_driver_id', 'inland_lic_number', 'inland_mark', 'inland_comments', 'agent_id','forwarding_agent_id', 'notify_id', 'notify_address', 'notify_city', 'notify_state_id', 'notify_country_id', 'notify_zip_code_id', 'notify_contact', 'notify_contact_phone', 'notify_email', 'domestic_instruction',
         'pre_carriage_by', 'place_receipt', 'loading_terminal', 'exporting_carrier', 'port_loading', 'type_of_move', 'foreign_port', 'place_delivery', 'vessel_yes', 'vessel_no',
-        'shipper_id', 'shipper_address', 'shipper_city', 'shipper_state_id', 'shipper_country_id', 'shipper_zip_code_id', 'shipper_phone', 'shipper_fax', 'vessel_name', 'voyage_name', 'release_date', 'loading_date', 'departure_date','arrival_date', 'cut_off_date', 'receipt_entries_id', 'user_open_id'];
+        'shipper_id', 'shipper_address', 'shipper_city', 'shipper_state_id', 'shipper_country_id', 'shipper_zip_code_id', 'shipper_phone', 'shipper_fax', 'vessel_name', 'voyage_name', 'loading_date', 'departure_date','arrival_date', 'booked_date', 'equipment_cut_off_date','documents_cut_off_date', 'receipt_entries_id', 'user_open_id', ];
 
 
     public function user_create()

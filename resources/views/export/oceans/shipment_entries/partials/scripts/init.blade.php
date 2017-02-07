@@ -144,8 +144,6 @@ removeEmptyNodes('hzd_details');
     }
     $("#user_id").attr("disabled", true);
     $("#code").attr("disabled", true);
-    $("#total_weight").number(true, 3);
-    $("#total_cubic").number(true, 3);
     $("#total_volume_weight").number(true, 3);
     $("#total_pieces").number(true);
     $("#total_actual_weight").number(true, 3);

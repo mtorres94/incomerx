@@ -4,8 +4,8 @@ function resetModal(form){
 }
 
 $("#btn_cargo_details").click(function(){
-    $("#box_quantity").val(0);
-    $("#box_pieces").val(1);
+    $("#box_quantity").val("");
+    $("#box_pieces").val("");
     $("#box_metric_unit").val("I").change();
     $("#box_weight_unit").val("L").change();
     $("#box_dim_fact").val("I").change();
@@ -22,6 +22,7 @@ $("#btn_container_details").click(function(){
     $("#container_ventilation").val("A").change();
     $("#container_degrees").val("F").change();
     $("#pd_status").val("1").change();
+    $("#equipment_type_id").val("0").change();
     resetModal("ContainerModal");
 });
 $("#btn_charge_details").click(function(){
@@ -159,7 +160,7 @@ $("#btn_charge_details").click(function(){
                     .append(createTableContent('container_drop_date', g_51, true, d))
                     .append(createTableContent('container_total_weight_unit', g_52, true, d))
                     .append(createTableBtns()),
-                    0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#Container_Details").modal("show"), cleanModalFields("Container_Details"), $("#pd_status").val("1").change(), resetModal('ContainerModal'),$("#equipment_type_code").focus();
+                    0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#Container_Details").modal("show"), cleanModalFields("Container_Details"), $("#pd_status").val("1").change(),$("#equipment_type_id").val("0").change() ,resetModal('ContainerModal'),$("#equipment_type_code").focus();
 
             ($("#container_details tbody tr").length > 0 ? $("#contract_basis").val("2").change() : $("#contract_basis").val("1").change());
 
@@ -429,7 +430,7 @@ if ($("#box_quantity").val() == "" || $("#box_cargo_type_code").val() == ""){
 
         .append(createTableBtns()),
 
-        0 == box_id ? x.append(C) : x.find("tr#" + box_id).replaceWith(C), calculate_warehouse_details(), cleanModalFields("Cargo_Details"), $("#box_quantity").val("1"), $("#box_pieces").val("1"), $("#box_metric_unit").val("I").change(), $("#box_weight_unit").val("L").change(), $("#box_weight_unit").val("L").change(), $("#box_dim_fact").val("I").change(), $("#box_cargo_type_id").val(0).change(), $("#Cargo_Details").modal("show"), resetModal('CargoModal') , $("#box_quantity").focus()
+        0 == box_id ? x.append(C) : x.find("tr#" + box_id).replaceWith(C), calculate_warehouse_details(), cleanModalFields("Cargo_Details"), $("#box_quantity").val(""), $("#box_pieces").val(""), $("#box_metric_unit").val("I").change(), $("#box_weight_unit").val("L").change(), $("#box_weight_unit").val("L").change(), $("#box_dim_fact").val("I").change(), $("#box_cargo_type_id").val(0).change(), $("#Cargo_Details").modal("show"), resetModal('CargoModal') , $("#box_quantity").focus()
 }
     }), $("#cargo_details").on("click", "a.btn-danger", function() {
         $(this).closest("tr").remove(),

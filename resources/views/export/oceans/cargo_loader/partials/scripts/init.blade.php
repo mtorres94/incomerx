@@ -366,6 +366,7 @@
     $("#hazardous_max").number(true);
     $("#hazardous_min").number(true);
     $("#hazardous_temperature").number(true);
+    $("#user_id").attr("readonly", true);
 
     $("#cubic_max").number(true, 3);
     $("#cubic_load_p").number(true, 3);

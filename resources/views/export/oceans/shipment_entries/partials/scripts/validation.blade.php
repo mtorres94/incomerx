@@ -1,5 +1,9 @@
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#booked_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'booked_date'); });
+        $('#loading_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'loading_date'); });
+        $('#equipment_cut_off_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'equipment_cut_off_date'); });
+        $('#documents_cut_off_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'documents_cut_off_date'); });
         $('#departure_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'departure_date'); });
         $('#arrival_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'arrival_date'); });
 
@@ -22,12 +26,52 @@
                 validating: 'fa fa-refresh'
             },
             fields: {
+                booked_date: {
+                    validators: {
+                        notEmpty: { message: "Booked on date is required" },
+                        date: {
+                            format: "YYYY-MM-DD",
+                            max: "loading_date",
+                            message: "Booked on date is invalid"
+                        }
+                    }
+                },
+                loading_date: {
+                    validators: {
+                        notEmpty: { message: "Loading date is required" },
+                        date: {
+                            format: "YYYY-MM-DD",
+                            min: "booked_date",
+                            message: "Loading date is invalid"
+                        }
+                    }
+                },
+                equipment_cut_off_date: {
+                    validators: {
+                        notEmpty: { message: "Equipment cut off date is required" },
+                        date: {
+                            format: "YYYY-MM-DD",
+                            min: "loading_date",
+                            message: "Equipment cut off date is invalid"
+                        }
+                    }
+                },
+                documents_cut_off_date: {
+                    validators: {
+                        notEmpty: { message: "Documents cut off date is required" },
+                        date: {
+                            format: "YYYY-MM-DD",
+                            min: "equipment_cut_off_date",
+                            message: "Documents cut off date is invalid"
+                        }
+                    }
+                },
                 departure_date: {
                     validators: {
                         notEmpty: { message: "Departure date is required" },
                         date: {
                             format: "YYYY-MM-DD",
-                            min: "date_today",
+                            min: "documents_cut_off_date",
                             message: "The departure date is invalid"
                         }
                     }

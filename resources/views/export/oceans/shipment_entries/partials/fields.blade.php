@@ -57,8 +57,12 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-md-12">@include('export.oceans.shipment_entries.partials.sections.weight_totals')</div>
+</div>
+<div class="row">
     <div class="col-md-12">@include('export.oceans.shipment_entries.partials.sections.container_details')</div>
 </div>
+@include('export.oceans.shipment_entries.partials.sections.inland_carrier')
 <div class="row">
     <div class="col-md-12">{!! Form::bsMemo(null, null, 'Comments', 'shipment_comments', null, 2, ' ') !!}</div>
 </div>

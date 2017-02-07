@@ -291,6 +291,17 @@ class EoQuotesController extends Controller
                     'carrier_name'   => strtoupper($quote->carrier_name),
                     'service_id'   => $quote->service_id,
                     'service_name'   => strtoupper($quote->service_name),
+
+                    'total_quantity'   => $quote->total_quantity,
+                    'total_unit_weight'   => strtoupper($quote->total_unit_weight),
+                    'total_weight'   => strtoupper($quote->total_weight),
+                    'total_cubic'   => strtoupper($quote->total_cubic),
+                    'total_cargo_type_id'   => $quote->total_cargo_type_id,
+                    'total_cargo_type_code'   => strtoupper($quote->total_cargo_type_id > 0 ?  $quote->total_cargo_type->code : ""),
+                    'total_commodity_id'   => $quote->total_commodity_id,
+                    'total_commodity_code'   => strtoupper($quote->total_commodity_id > 0 ?  $quote->total_commodity->code : ""),
+                    'freight_charges'   => $quote->freight_charges,
+                    'other_charges'   => $quote->other_charges,
                 ];
             }
 

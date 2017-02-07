@@ -45,9 +45,9 @@ class BillOfLadingDataTable extends CustomDataTable
             ->leftJoin('mst_customers AS c1', 'eo_bills_of_lading.shipper_id', '=', 'c1.id')
             ->leftJoin('mst_customers AS c2', 'eo_bills_of_lading.consignee_id', '=', 'c2.id')
             ->leftJoin('mst_customers AS c3', 'eo_bills_of_lading.agent_id', '=', 'c3.id')
-            ->leftJoin('mst_customers AS c4', 'eo_bills_of_lading.forwarding_agent_id', '=', 'c4.id')
-            ->leftJoin('mst_customers AS c5', 'eo_bills_of_lading.notify_id', '=', 'c5.id')
-            ->select(['eo_bills_of_lading.id','eo_bills_of_lading.code','eo_bills_of_lading.bl_class','eo_bills_of_lading.bl_date','eo_bills_of_lading.bl_status', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS forwarding_agent_name', 'c5.name AS notify_name']);
+            ->leftJoin('mst_customers AS c4', 'eo_bills_of_lading.third_id', '=', 'c4.id')
+            ->leftJoin('eo_shipment_entries AS f', 'eo_bills_of_lading.shipment_id', '=', 'f.id')
+            ->select(['eo_bills_of_lading.id','eo_bills_of_lading.code','eo_bills_of_lading.bl_class','eo_bills_of_lading.booking_code','eo_bills_of_lading.bl_date','eo_bills_of_lading.bl_status', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS third_party_name', 'f.code AS shipment_code']);
         return $this->applyScopes($query);
     }
 
@@ -73,14 +73,13 @@ class BillOfLadingDataTable extends CustomDataTable
     {
         return [
             ['data' => 'code',   'name' => 'eo_bills_of_lading.code', 'title' => 'Code'],
+            ['data' => 'shipment_code',   'name' => 'f.code', 'title' => 'File#'],
             ['data' => 'bl_status',          'name' => 'eo_bills_of_lading.bl_status', 'title' => 'Status'],
             ['data' => 'bl_date',          'name' => 'eo_bills_of_lading.bl_date', 'title' => 'Date'],
-            ['data' => 'bl_class',          'name' => 'eo_bills_of_lading.bl_class', 'title' => 'Class'],
+            ['data' => 'booking_code',          'name' => 'eo_bills_of_lading.booking_code', 'title' => 'Booking#'],
             ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
             ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
-            ['data' => 'agent_name',   'name' => 'c3.name', 'title' => 'Agent'],
-
-
+            ['data' => 'third_party_name',   'name' => 'c4.name', 'title' => 'Third Party'],
         ];
     }
 

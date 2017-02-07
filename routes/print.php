@@ -27,6 +27,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::group(['namespace' => 'OceanExport'], function () {
             Route::get('eo_quotes/pdf/{token}/{id}', ['as' => 'eo_quotes.pdf', 'uses' => 'EoQuotesController@pdf']);
             Route::get('shipment_entries/pdf/{token}/{id}', ['as' => 'shipment_entries.pdf', 'uses' => 'EoShipmentEntryController@pdf']);
+            Route::get('shipment_entries/container_release/{token}/{id}', ['as' => 'shipment_entries.container_release', 'uses' => 'EoShipmentEntryController@container_release']);
             Route::get('bill_of_lading/pdf/{token}/{id}', ['as' => 'bill_of_lading.pdf', 'uses' => 'EoBillOfLadingController@pdf']);
             Route::get('bill_of_lading/delivery_order/{token}/{id}', ['as' => 'bill_of_lading.delivery_order', 'uses' => 'EoBillOfLadingController@delivery_order']);
             Route::get('bill_of_lading/label/{token}/{id}', ['as' => 'bill_of_lading.label', 'uses' => 'EoBillOfLadingController@label']);

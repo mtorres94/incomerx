@@ -168,6 +168,18 @@
             value : '{{ ((isset($shipment_entry) and ($shipment_entry->notify_country_id > 0)) ? $shipment_entry->notify_country->name : "") }}',
         },onSelect:function(e,o){$("#notify_country_id").val(e.id),$(this).val(e.value)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#notify_country_name_img").removeClass("img-none").addClass("img-display"),$("#notify_country_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#notify_country_name_img").removeClass("img-display").addClass("img-none"),$("#notify_country_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#notify_country_id").val(0)}).blur(function(){var e=$("#notify_country_id").val();0==e&&($(this).val(""))});
 
+    $("#inland_carrier_name").marcoPolo({url: "{{ route('carriers.autocomplete') }}",formatItem: function(e, o) {return  e.name},selected:{
+        id:'{{ (isset($shipment_entry) ? $shipment_entry->inland_carrier_id : "") }}',
+        name:'{{ ((isset($shipment_entry) and ($shipment_entry->inland_carrier_id > 0)) ? $shipment_entry->inland_carrier->name : "") }}',
+    },onSelect: function(e, o) {$("#inland_carrier_id").val(e.id), $(this).val(e.name)},minChars: 3,param: "term",required: !0}).on("marcopolorequestbefore", function() {$("#inland_carrier_name_img").removeClass("img-none").addClass("img-display"), $("#inland_carrier_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter", function() {$("#inland_carrier_name_img").removeClass("img-display").addClass("img-none"), $("#inland_carrier_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#inland_carrier_id").val(0)}).blur(function(){var e=$("#inland_carrier_id").val();0==e&&($(this).val(""))});
+
+
+    $("#inland_driver_name").marcoPolo({url: "{{ route('drivers.autocomplete') }}",formatItem: function(e, o) {return  e.name},selected: {
+        id:'{{ (isset($shipment_entry) ? $shipment_entry->inland_driver_id : "") }}',
+        name:'{{ ((isset($shipment_entry) and ($shipment_entry->inland_driver_id )) ? $shipment_entry->inland_driver->name : "") }}',
+        license:'{{ ((isset($shipment_entry) and ($shipment_entry->inland_driver_id )) ? $shipment_entry->inland_driver->driver_license : "") }}',
+    },onSelect: function(e, o) {$("#inland_driver_id").val(e.id), $(this).val(e.name), $("#inland_lic_number").val(e.license)},minChars: 3,param: "term",required: !0}).on("marcopolorequestbefore", function() {$("#inland_driver_name_img").removeClass("img-none").addClass("img-display"), $("#inland_driver_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter", function() {$("#inland_driver_name_img").removeClass("img-display").addClass("img-none"), $("#inland_driver_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#inland_driver_id").val(0)}).blur(function(){var e=$("#inland_driver_id").val();0==e&&($(this).val(""), $("#inland_lic_number").val(""))});
+
 
         $("#total_cargo_type_code").marcoPolo({url:"{{ route('cargo_types.autocomplete') }}",formatItem:function(e,o){return e.code},selected:{
             id: '{{ (isset($shipment_entry) ? $shipment_entry->total_cargo_type_id : "") }}',
@@ -222,7 +234,15 @@
                 place_receipt_name: '{{ ((isset($shipment_entry) and ($shipment_entry->place_receipt_id > 0 )) ? $shipment_entry->place_receipt->name : "") }}',
                 place_delivery_id: '{{ (isset($shipment_entry) ? $shipment_entry->place_delivery_id : "") }}',
                 place_delivery_name: '{{ ((isset($shipment_entry) and ($shipment_entry->place_delivery_id > 0 )) ? $shipment_entry->place_delivery->name : "") }}',
-
+                total_cargo_type_id: '{{ (isset($shipment_entry) ? $shipment_entry->total_cargo_type_id : "") }}',
+                total_cargo_type_code: '{{ ((isset($shipment_entry) and ($shipment_entry->total_cargo_type_id > 0 )) ? $shipment_entry->total_cargo_type->code : "") }}',
+                total_commodity_id: '{{ (isset($shipment_entry) ? $shipment_entry->total_commodity_id : "") }}',
+                total_commodity_code: '{{ ((isset($shipment_entry) and ($shipment_entry->total_commodity_id > 0 )) ? $shipment_entry->total_commodity->code : "") }}',
+                total_quantity: '{{ (isset($shipment_entry) ? $shipment_entry->total_quantity : "") }}',
+                total_unit_weight: '{{ (isset($shipment_entry) ? $shipment_entry->total_unit_weight: "") }}',
+                total_cubic: '{{ (isset($shipment_entry) ? $shipment_entry->total_cubic: "") }}',
+                freight_charges: '{{ (isset($shipment_entry) ? $shipment_entry->freight_charges: "") }}',
+                other_charges: '{{ (isset($shipment_entry) ? $shipment_entry->other_charges: "") }}'
             },onSelect:function(e,o){
                     $("#quote_id").val(e.id),
                     $(this).val(e.code).change(),
@@ -258,11 +278,22 @@
                     $("#place_receipt_id").val(e.place_receipt_id),
                     $("#place_delivery_id").val(e.place_delivery_id),
                     $("#place_receipt_name").val(e.place_receipt_name),
-                    $("#place_delivery_name").val(e.place_delivery_name)
+                    $("#place_delivery_name").val(e.place_delivery_name),
                     $("#carrier_id").val(e.carrier_id),
-                    $("#carrier_name").val(e.carrier_name)
+                    $("#carrier_name").val(e.carrier_name),
                     $("#service_id").val(e.service_id),
-                    $("#service_name").val(e.service_name)
+                    $("#service_name").val(e.service_name),
+
+                    $("#total_quantity").val(e.total_quantity),
+                    $("#total_cargo_type_id").val(e.total_cargo_type_id),
+                    $("#total_cargo_type_code").val(e.total_cargo_type_code),
+                    $("#total_commodity_id").val(e.total_commodity_id),
+                    $("#total_commodity_code").val(e.total_commodity_code),
+                    $("#total_unit_weight").val(e.total_unit_weight).change(),
+                    $("#total_weight").val(e.total_weight),
+                    $("#total_cubic").val(e.total_cubic),
+                    $("#freight_charges").val(e.freight_charges),
+                    $("#other_charges").val(e.other_charges)
         },minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#quote_code_img").removeClass("img-none").addClass("img-display"),$("#quote_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#quote_code_img").removeClass("img-display").addClass("img-none"),$("#quote_code_spn").removeClass("img-none").addClass("img-display")}).on("marcopoloblur",function(){""==$(this).val().trim()&&($("#quote_id").val(0))});
 
 

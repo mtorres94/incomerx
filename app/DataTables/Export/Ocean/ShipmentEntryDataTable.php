@@ -22,7 +22,8 @@ class ShipmentEntryDataTable extends CustomDataTable
                 return $this->groupButton(
                     $shipment_entries,
                     'export.oceans.shipment_entries',[
-                    ['route' => 'shipment_entries.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF'],
+                    ['route' => 'shipment_entries.pdf',   'icon' => 'icon-file-pdf', 'name' => 'Booking Confirmation'],
+                    ['route' => 'shipment_entries.container_release',   'icon' => 'icon-file-pdf', 'name' => 'Container Release'],
                 ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])

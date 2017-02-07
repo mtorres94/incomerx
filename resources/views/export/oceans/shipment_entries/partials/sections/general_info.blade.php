@@ -30,11 +30,21 @@
 
     </div>
     <div class="row">
+        <div class="col-md-2">{!! Form::bsDate(null, null, 'Booked on (1)', 'booked_date', null, '') !!}</div>
+        <div class="col-md-2">{!! Form::bsDate(null, null, 'Loading date (2)', 'loading_date', null, '') !!}</div>
+        <div class="col-md-2">{!! Form::bsDate(null, null, 'Equipment Cut off (3)', 'equipment_cut_off_date', null, '') !!}</div>
+        <div class="col-md-2">{!! Form::bsDate(null, null, 'Documents Cut off (4)', 'documents_cut_off_date', null, '') !!}</div>
+        <div class="col-md-2">{!! Form::bsDate(null, null, 'Departure (5)', 'departure_date', null, '') !!}</div>
+        <div class="col-md-2">{!! Form::bsDate(null, null, 'Arrival (6)', 'arrival_date', null, '') !!}</div>
+    </div>
+    <div class="row">
         <div class="col-md-2">{!! Form::bsComplete(null, null,'Quote#', 'quote_id', 'quote_code', Request::get('term'),
     ((isset($quotes) and $quotes->quote_id > 0) ? $quotes->quote->name : null), 'Quote Number') !!}</div>
         <div class="col-md-2">{!! Form::bsText(null, null,'Booking #', 'booking_code', null, '') !!}</div>
-        <div class="col-md-2">{!! Form::bsDate(null, null, 'Departure', 'departure_date', null, '') !!}</div>
-        <div class="col-md-2">{!! Form::bsDate(null, null, 'Arrival', 'arrival_date', null, '') !!}</div>
+        <div class="col-md-2">{!! Form::bsText(null, null, 'Vessel', 'vessel_name', null, '') !!}</div>
+        <div class="col-md-2">{!! Form::bsText(null, null, 'Voyage', 'voyage_name', null, '') !!}</div>
+        <div class="col-md-4">{!! Form::bsText(null, null, 'References', 'reference', null, '') !!}</div>
     </div>
+
 
 </fieldset>

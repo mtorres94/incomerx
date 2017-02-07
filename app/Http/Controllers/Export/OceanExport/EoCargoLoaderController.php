@@ -81,7 +81,7 @@ class EoCargoLoaderController extends Controller
             $cargo_loader['flag']=0;
             EoCargoLoaderContainer::saveDetail($cl->id, $cargo_loader);
             EoCargoLoaderReceiptEntry::saveDetail($cl->id, $cargo_loader);
-            if($cargo_loader['create_hbl'] == "1")
+            if(isset($cargo_loader['create_hbl'] ) and ($cargo_loader['create_hbl'] == "1"))
                 EoBillOfLading::saveDetail($cl->id, $cargo_loader, $id_shipper);
 
             $id= $cl->id;

@@ -5,7 +5,7 @@
         <div class="col-md-3">{!! Form::bsText(null, null,'Cargo Load #', 'code', null, '') !!}</div>
         <div class="col-md-3">{!! Form::bsText(null, null,'Booking # ','booking_code', null, '') !!}</div>
         <div class="col-md-3">{!! Form::bsDate(null, null,'Date', 'date_today', null, '') !!}</div>
-        <div class="col-md-3">{!! Form::bsText(null, null, 'User Id', 'user_id', ((isset($cargo_loader) and $cargo_loader->user_create_id > 0) ? $cargo_loader->user_create->username :  Auth::user()->username), '') !!}</div>
+        <div class="col-md-3">{!! Form::bsText(null, null, 'User', 'user_id', ((isset($cargo_loader) and $cargo_loader->user_create_id > 0) ? $cargo_loader->user_create->username :  Auth::user()->username), '') !!}</div>
     </div>
 
     <div class="row">

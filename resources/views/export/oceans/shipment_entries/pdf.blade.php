@@ -57,8 +57,8 @@
                         <div class="panel-body">
                             <table class="table resume-table">
                                 <tr><td width="20%"><strong>DATE: </strong></td><td>{{ $shipment_entry->date_today }}</td></tr>
-                                <tr><td width="20%"><strong>FILE #: </strong></td><td>{{ ($shipment_entry->shipment_id > 0 ? $shipment_entry->shipment->code : "") }}</td></tr>
-                                <tr><td width="20%"><strong>REFERENCE: </strong></td></tr>
+                                <tr><td width="20%"><strong>FILE #: </strong></td><td>{{ ($shipment_entry->code) }}</td></tr>
+                                <tr><td width="20%"><strong>REFERENCE: </strong></td><td>{{ ($shipment_entry->reference) }}</td></tr>
                             </table>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                             <tr><td width="20%"><strong>VESSEL: </strong></td><td>{{ strtoupper($shipment_entry->vessel_name )}}</td></tr>
                             <tr><td width="20%"><strong>VOYAGE: </strong></td><td>{{ strtoupper($shipment_entry-> voyage_name) }}</td></tr>
                             <tr><td width="20%"><strong>ETD: </strong></td><td>{{ $shipment_entry->departure_date }}</td></tr>
-                            <tr><td width="20%"><strong>CUT OFF: </strong></td><td>{{ $shipment_entry->cut_off_date }}</td></tr>
+                            <tr><td width="20%"><strong>CUT OFF: </strong></td><td>{{ $shipment_entry->equipment_cut_off_date }}</td></tr>
                             <tr><td width="20%"><strong>ETA: </strong></td><td>{{ $shipment_entry->arrival_date }}</td></tr>
                             <tr><td width="20%"><strong>CARRIER: </strong></td><td>{{ strtoupper(($shipment_entry->carrier_id >0 ? $shipment_entry->carrier->name : ""))}}</td></tr>
                         </table>
@@ -162,22 +162,24 @@
         <div class="col-xs-12">
             <table class="table table-condensed">
                 <thead>
-                <th width="15%"></th>
-                <th width="10%">QUANTITY</th>
-                <th width="10%">UNIT</th>
-                <th width="15%">TOTAL WEIGHT</th>
-                <th width="10%">TOTAL CUBIC</th>
-                <th width="20%">CARGO TYPE</th>
-                <th width="20%">COMMODITY</th>
+                <tr>
+                    <th width="15%"></th>
+                    <th width="10%">QUANTITY</th>
+                    <th width="10%">UNIT</th>
+                    <th width="15%">TOTAL WEIGHT</th>
+                    <th width="10%">TOTAL CUBIC</th>
+                    <th width="20%">CARGO TYPE</th>
+                    <th width="20%">COMMODITY</th>
+                </tr>
                 </thead>
                 <tbody>
 
                 <tr>
                     <td><strong>TOTALS: </strong></td>
-                    <td>0</td>
-                    <td>Kgs</td>
-                    <td>0.00 Kgs</td>
-                    <td>0.00 Kgs</td>
+                    <td>{{ $shipment_entry->total_quantity }}</td>
+                    <td>{{ ($shipment_entry->total_unit_weight == "L") ? "LBS" : "KGS" }}</td>
+                    <td>{{ ($shipment_entry->total_unit_weight == 'K' ? round($shipment_entry->total_weight  , 3) : round($shipment_entry->total_weight * 0.453592, 3) ) }} Kgs</td>
+                    <td>{{ ($shipment_entry->total_unit_weight == 'K' ? round($shipment_entry->total_cubic , 3) : round($shipment_entry->total_cubic * 0.453592, 3) ) }} CBM</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -185,8 +187,8 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>0.00 LBS</td>
-                    <td>0.00 CFT</td>
+                    <td>{{ ($shipment_entry->total_unit_weight == 'K' ? round($shipment_entry->total_weight * 2.2, 3) : round($shipment_entry->total_weight, 3) ) }} Lbs</td>
+                    <td>{{ ($shipment_entry->total_unit_weight == 'K' ? round($shipment_entry->total_cubic * 2.2, 3) : round($shipment_entry->total_cubic, 3) ) }} CFT</td>
                     <td></td>
                     <td></td>
                 </tr>

@@ -18,7 +18,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        {!! Form::bsComplete('col-md-3', 'col-md-4', 'Service', 'service_id', 'service_name', Request::get('term'), ((isset($quotes) and $quotes->service_id > 0) ? $quotes->service->name : null), 'Services') !!}
+        {!! Form::bsSelect('col-md-3', 'col-md-4', 'Service', 'service_id', Sass\Service::all()->lists('name', 'id'), 'SERVICES') !!}
 
         {!! Form::bsSelect('col-md-2', 'col-md-3', ' Incoterm', 'incoterm_type', Sass\Incoterm::all()->lists('code', 'id'), "TYPE") !!}
     </div>

@@ -82,7 +82,7 @@
                     <td><p><strong>VOYAGE: </strong></p></td>
                     <td><p> {{ strtoupper($cargo_loader->voyage_name) }}</p></td>
                     <td><p><strong>CUT OFF: </strong></p></td>
-                    <td><p> {{ $cargo_loader->cut_off_date }}</p></td>
+                    <td><p> {{ $cargo_loader->equipment_cut_off_date }}</p></td>
                 </tr>
             </table>
 
