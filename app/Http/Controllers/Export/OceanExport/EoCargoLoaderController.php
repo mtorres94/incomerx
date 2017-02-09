@@ -76,13 +76,14 @@ class EoCargoLoaderController extends Controller
             $cargo_loader['foreign_port'] = $cargo_loader['port_unloading_name'];
             $cargo_loader['port_loading'] = $cargo_loader['port_loading_name'];
             ReceiptEntry::saveDetail($cl->id,$cargo_loader);
-            $id_shipper = array_distinct($cargo_loader['hidden_shipper_id']);
+            $id_consignee = array_distinct($cargo_loader['hidden_consignee_id']);
+
             $cargo_loader['bill_of_lading_id']=0;
             $cargo_loader['flag']=0;
             EoCargoLoaderContainer::saveDetail($cl->id, $cargo_loader);
             EoCargoLoaderReceiptEntry::saveDetail($cl->id, $cargo_loader);
             if(isset($cargo_loader['create_hbl'] ) and ($cargo_loader['create_hbl'] == "1"))
-                EoBillOfLading::saveDetail($cl->id, $cargo_loader, $id_shipper);
+            { EoBillOfLading::saveDetail($cl->id, $cargo_loader, $id_consignee);}
 
             $id= $cl->id;
             DB::commit();

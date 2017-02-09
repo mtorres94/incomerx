@@ -68,6 +68,18 @@
                 $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")}
         }
 
+        $("#equipment_type_id").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ route('cargo_types.get') }}",
+                data: { id: id },
+                type: 'GET',
+                success: function (e) {
+                    $("#equipment_type_code").val(e[0].code);
+
+                }
+            });
+        });
 
         $("#pick_cargo_save").click(function () {
             var whr_select = new Array(), c=0, d=0, x=0;

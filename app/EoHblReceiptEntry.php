@@ -17,6 +17,7 @@ class EoHblReceiptEntry extends Model
         $a = 0;
     if($data["flag"] == 0){
         DB::table('eo_hbl_receipt_entries')->where('cargo_loader_id', '=', $id)->delete();
+        ReceiptEntry::where('cargo_loader_id', '=', $id)->update(['status' => "O", 'cargo_loader_id' => '0']);
     }else{
         DB::table('eo_hbl_receipt_entries')->where('bill_of_lading_id', $id)->delete();
     }
@@ -46,7 +47,7 @@ class EoHblReceiptEntry extends Model
                         $obj->receipt_entry_id = $data['cargo_hbl_id'][$i];
                         $obj->cargo_loader_id = $data['cargo_loader_id'];
                         $obj->save();
-                        ReceiptEntry::where('id', '=', $data['cargo_hbl_id'][$i])->update(['status' => "C", 'cargo_loader_id' => $id]);
+                        ReceiptEntry::where('id', '=', $data['cargo_hbl_id'][$i])->update(['status' => "C", 'cargo_loader_id'=> $data['cargo_loader_id']]);
 
                     $a++;
                 }

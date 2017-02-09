@@ -152,6 +152,7 @@ class EoBillOfLadingController extends Controller
             }else{
                 EoHblReceiptEntry::saveDetail($id, $bill_of_lading);
             }
+
             EoBillOfLadingCargo::saveDetail($id, $bill_of_lading);
             EoBillOfLadingContainer::saveDetail($id, $bill_of_lading);
             EoBillOfLadingCharge::saveDetail($id, $bill_of_lading);

@@ -26,6 +26,19 @@ removeEmptyNodes('hzd_details');
         $("#total_weight_unit").val("L").change();
         $("#bl_status").val("O").change();
 
+        $("#equipment_type_id").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ route('cargo_types.get') }}",
+                data: { id: id },
+                type: 'GET',
+                success: function (e) {
+                    $("#equipment_type_code").val(e[0].code);
+
+                }
+            });
+        });
+
         $("#quote_code").change(function () {
 
             var id = $("#quote_id").val(), x = 0;

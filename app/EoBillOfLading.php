@@ -13,7 +13,7 @@ class EoBillOfLading extends Model
     protected $table = "eo_bills_of_lading";
 
     protected $fillable = [
-        'id', 'user_create_id', 'user_update_id', 'created_at', 'updated_at', 'code', 'bl_class', 'bl_type', 'division_id', 'bl_date', 'rate_class', 'bl_status', 'quote_number_id', 'ship_inst', 'project_number', 'shipment_number', 'booking_code', 'manifest_type', 'dbl_mbl_code', 'hbl_code', 'currency_type', 'declared_value', 'insured_value', 'exchange_rate', 'collect_free', 'insurance', 'stand_by', 'partial', 'spot_rate', 'confirmed', 'POD_info', 'amount',
+        'id', 'user_create_id', 'user_update_id', 'created_at', 'updated_at', 'code', 'bl_class', 'bl_type', 'division_id', 'bl_date', 'rate_class', 'bl_status', 'quote_number_id', 'ship_inst', 'project_number', 'shipment_number', 'booking_code', 'manifest_type', 'mbl_code', 'hbl_code', 'currency_type', 'declared_value', 'insured_value', 'exchange_rate', 'collect_free', 'insurance', 'stand_by', 'partial', 'spot_rate', 'confirmed', 'POD_info', 'amount',
         'shipper_id', 'shipper_address', 'shipper_city', 'shipper_state_id', 'shipper_country_id', 'shipper_zip_code_id', 'shipper_phone',
         'consignee_id', 'consignee_address', 'consignee_city', 'consignee_state_id', 'consignee_country_id', 'consignee_zip_code_id', 'consignee_phone',
         'notify_id', 'notify_address', 'notify_city', 'notify_state_id', 'notify_country_id', 'notify_zip_code_id', 'notify_phone', 'notify_contact', 'notify_contact_phone', 'notify_email',
@@ -24,25 +24,27 @@ class EoBillOfLading extends Model
     {
         $i = 0;
         $a = 0;
-        EoBillOfLading::where('bill_of_lading_id', $id)->update(['bl_status' => "O",'bill_of_lading_id' => "0"]);
-            while ($a < count($data['cargo_hbl_id'])) {
-                if (isset($data['cargo_hbl_id'][$i])) {
-                        EoBillOfLading::where('id', $data['cargo_hbl_id'][$i])->update(['bl_status' => "C",'bill_of_lading_id' => $id]);
-                    $a++;
-                }
-                $i++;
-            }
+        EoBillOfLading::where('bill_of_lading_id', $id)->update(['bl_status' => "O",'bill_of_lading_id' => "0", 'mbl_code' => " "]);
+           if (isset($data['cargo_hbl_id'])){
+               while ($a < count($data['cargo_hbl_id'])) {
+                   if (isset($data['cargo_hbl_id'][$i])) {
+                       EoBillOfLading::where('id', $data['cargo_hbl_id'][$i])->update(['bl_status' => "C",'bill_of_lading_id' => $id, 'mbl_code' => $data['code']]);
+                       $a++;
+                   }
+                   $i++;
+               }
+           }
     }
 
-    public static function saveDetail($id, $data, $id_shipper)
+    public static function saveDetail($id, $data, $id_consignee)
     {
         $a=0; $i= -1;
         DB::table('eo_bills_of_lading')->where('cargo_loader_id', '=',$id)->delete();
         if (isset($data['hidden_warehouse_line'])) {
 
-                while ($a < count($id_shipper)) {
+                while ($a < count($id_consignee)) {
                     $i++;
-                    if (isset($data['hidden_warehouse_line'][$i])) {
+                    //if (isset($data['hidden_warehouse_line'][$i])) {
 
                         $type =  'HBL';
                         $last = EoBillOfLading::orderBy('code','desc')->where('code', 'LIKE', $type.'%') ->first();
@@ -93,10 +95,11 @@ class EoBillOfLading extends Model
                         //$data['inserted_id'] = Common::replaceId($id_hbl, $data['resume_line'][$i], $data['resume_line'], $data['inserted_id']);
                         //$data['hbl_line_id'] = Common::replaceId($id_hbl, $data['resume_line'][$i], $data['hidden_flag'], $data['hbl_line_id']);
 
-                        $data['hbl_line_id'] = Common::replaceId($id_hbl, $id_shipper[$a], $data['hidden_shipper_id'], $data['hbl_line_id']);
+                        $data['hbl_line_id'] = Common::replaceId($id_hbl, $id_consignee[$a], $data['hidden_consignee_id'], $data['hbl_line_id']);
 
-                        $a++;
-                    }
+
+                    //}
+                    $a++;
                 }
 
                 EoBillOfLadingCargo::saveDetailHBL($data);

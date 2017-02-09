@@ -11,16 +11,7 @@
     <div class="col-md-6">{!! Form::bsText('col-md-6', 'col-md-6', 'IT Number', 'it_number', null, '') !!}</div>
     <div class="col-md-6">{!! Form::bsSelect('col-md-6', 'col-md-6', ' Incoterm', 'incoterm_type', Sass\Incoterm::all()->lists('code', 'id'), null) !!}</div>
 </div>
-<div class="row">
-    <div class="col-md-6">{!! Form::bsText('col-md-6', 'col-md-6', 'Vessel', 'vessel_name', null, null) !!}</div>
-    <div class="col-md-6">{!! Form::bsText('col-md-6', 'col-md-6', 'Voyage', 'voyage_name', null, null) !!}</div>
-</div>
-<div class="row">
-    <div class="col-md-12">{!! Form::bsDate('col-md-3', 'col-md-4', 'Departure', 'departure_date', null, '') !!}</div>
-</div>
-<div class="row">
-    <div class="col-md-12">{!! Form::bsDate('col-md-3', 'col-md-4', 'Arrival', 'arrival_date', null, '') !!}</div>
-</div>
+
 <div class="row">
     <div class="col-md-12">{!! Form::bsMemo('col-md-3', 'col-md-9', 'Export References', 'export_reference', null,2, '') !!}</div>
 </div>

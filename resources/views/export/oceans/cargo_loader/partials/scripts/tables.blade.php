@@ -2,6 +2,7 @@
     $("#btn_container_details").click(function() {
         $("#container_spotting_date").val($("#loading_date").val());
         $("#pd_status").val("1").change();
+        $("#equipment_type_id").val("").change();
         $("#container_pickup_type").val("02").change();
         $("#container_delivery_type").val("02").change();
         $("#container_drop_type").val("02").change();
@@ -556,7 +557,7 @@ $("#CreateHouse").modal("hide");
 
     $("#container-save").click(function(){
         if ($("#equipment_type_id").val() == "" || $("#container_number").val() == ""){
-            $("#equipment_type_code").focus();
+            $("#container_number").focus();
         }else {
             var r = $("#container_details tbody tr").length + 1,
                 _ = ($("#container_details tbody tr").length == 0 ? 1 : parseInt($("#container_details tbody tr")[$("#container_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
@@ -818,7 +819,8 @@ $("#CreateHouse").modal("hide");
                 t.append(p_1);
                 d += 1;
             }
-            cleanModalFields("Container_Details"), clearTable("cargo_details"), $("#ContainerModal").formValidation('resetForm', true), $("#equipment_type_code").focus();
+            cleanModalFields("Container_Details"), clearTable("cargo_details"), $("#ContainerModal").formValidation('resetForm', true),    $("#container_spotting_date").val($("#loading_date").val()), $("#pd_status").val("1").change(), $("#equipment_type_id").val("").change(), $("#container_pickup_type").val("02").change(), $("#container_delivery_type").val("02").change(), $("#container_drop_type").val("02").change(),
+            $("#total_weight_unit").val("L").change(), $("#equipment_type_code").focus();
         }
         //======================================
     }),
@@ -914,7 +916,7 @@ $("#CreateHouse").modal("hide");
                 c80 = t[0].childNodes[79].textContent;
 
                 $("#container_id").val(c1),
-                $("#equipment_type_id").val(c2),
+                $("#equipment_type_id").val(c2).change(),
                 $("#equipment_type_code").val(c3),
                 $("#container_number").val(c4),
                 $("#container_seal_number1").val(c5),
@@ -934,8 +936,8 @@ $("#CreateHouse").modal("hide");
 
                 $("#container_commodity_id").val(c18),
                 $("#container_commodity_name").val(c19),
-                $("#pd_status").val(c20),
-                $("#container_spotting_date").val(c21),
+                $("#pd_status").val(c20).change(),
+                (c21 == '0000-00-00' ? $("#container_spotting_date").val($("#departure_date").val()) :$("#container_spotting_date").val(c21)),
                 $("#container_pull_date").val(c22),
 
                 $("#container_pickup_id").val(c23),

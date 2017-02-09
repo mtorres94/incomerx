@@ -2,6 +2,7 @@
     $("#btn_container_details").click(function() {
         $("#container_spotting_date").val( $("#departure_date").val());
         $("#pd_status").val("1").change();
+        $("#equipment_type_id").val("").change();
         $("#container_pickup_type").val("02").change();
         $("#container_delivery_type").val("02").change();
         $("#container_drop_type").val("02").change();
@@ -183,11 +184,7 @@
 
                     .append(createTableContent('container_comments', g_74, true, d))
                     .append(createTableBtns()),
-                    0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#pd_status").val("1").change();
-            $("#container_pickup_type").val("02").change(),
-            $("#container_delivery_type").val("02").change(),
-            $("#container_drop_type").val("02").change(),
-            $("#total_weight_unit").val("L").change(),cleanModalFields('Container_Details'), $("#Container_Details").modal("show"),$('#ContainerModal').formValidation('resetForm', true),  $("#equipment_type_code").focus();
+                    0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), cleanModalFields('Container_Details'), $("#pd_status").val("1").change(),$("#container_pickup_type").val("02").change(), $("#container_delivery_type").val("02").change(), $("#container_drop_type").val("02").change(), $("#total_weight_unit").val("L").change(), $("#container_spotting_date").val( $("#departure_date").val()), $("#equipment_type_id").val("").change(),  $("#Container_Details").modal("show"),$('#ContainerModal').formValidation('resetForm', true),  $("#equipment_type_code").focus();
 
             //===================
             var id_row = (0 == container_id ? _ : container_id);
@@ -207,7 +204,7 @@
                         .append(createTableContent('hzd_uns_code', tr[a].childNodes[2].textContent, true, d))
                         .append(createTableContent('hzd_uns_desc', tr[a].childNodes[3].textContent, true, d))
                         .append(createTableContent('hzd_uns_note', tr[a].childNodes[4].textContent, true, d))
-                        ,t_.append(p_1);
+                        t_.append(p_1);
                 d =d + 1 ;
 
             }
@@ -303,7 +300,7 @@
                 $("#container_commodity_id").val(g8).change(),
                 $("#container_commodity_name").val(g9),
                 $("#pd_status").val(g10).change(),
-                $("#container_spotting_date").val(g11),
+                (g11 == '' ? $("#container_spotting_date").val($("#departure_date").val()) :$("#container_spotting_date").val(g11)),
                 $("#container_pull_date").val(g12),
                 $("#container_carrier_id").val(g13).change(),
                 $("#container_carrier_name").val(g14),

@@ -78,7 +78,7 @@
                 $(a2).removeAttr("style"), n2 >= 0 && $(a2).attr("style", "display: block;"), o2 >= 0 && $(a2).attr("style", "display: none;")}
         }
 
-        for (var t2 = $("#container-tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
+        for (var t2 = $("#container_tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
             var a2 = t2[l2];
             var e2 = $(a2).attr("style");
             if (e2 === undefined) {
@@ -120,6 +120,7 @@
         weight_totals();
         //===================================================================
 
+        $("#code").attr("readonly", true);
         $("#group_by").attr("disabled", true);
         if($("#bl_date").val() == ''){initDate($("#bl_date"), 0);}
         $("#bl_type").val("C").change();
@@ -151,6 +152,18 @@
                 success: function (e) {
                     $("#cost_unit_name").val(e[0].code);
 
+                }
+            });
+        });
+
+        $("#equipment_type_id").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ route('cargo_types.get') }}",
+                data: {id: id},
+                type: 'GET',
+                success: function (e) {
+                    $("#equipment_type_code").val(e[0].code);
                 }
             });
         });
@@ -447,9 +460,9 @@
                             .append(createTableContent('container_id', e[x].container_id, true, x))
                             .append(createTableContent('cargo_loader_id', e[x].cargo_loader_id, true, x))
                             .append(createTableContent('inserted_id', e[x].id, true, x))
-                            .append(createTableContent('total_weight_k', (e[x].sum_weight * 2.2), true, x))
-                            .append(createTableContent('total_cubic_k', (e[x].sum_cubic * 2.2), true, x))
-                            .append(createTableContent('total_charge_weight_k', (e[x].volume_weight * 2.2), true, x))
+                            .append(createTableContent('total_weight_k', (e[x].sum_weight * 0.453592), true, x))
+                            .append(createTableContent('total_cubic_k', (e[x].sum_cubic * 0.453592), true, x))
+                            .append(createTableContent('total_charge_weight_k', (e[x].volume_weight * 0.453592), true, x))
                             .append(createTableContent('shipper_id', e[x].shipper_id, true, x))
                             .append(createTableContent('consignee_id', e[x].consignee, true, x))
                         t.append(p);
