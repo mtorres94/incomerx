@@ -573,7 +573,8 @@ table tbody td {
     padding: 0;
     margin: 0;
 }
-.panel-body ul.dropdown-menu li a {
+.panel-body ul.dropdown-menu li a,
+.bs-container ul.dropdown-menu li a {
     font-size: 11px;
     padding: 3px 12px;
 }

@@ -42,7 +42,7 @@
 
         for (var a=0; a < tr.length; a++) {
             var unit = tr[a].childNodes[6].textContent,
-                pieces = parseInt(tr[a].childNodes[5].textContent),
+                pieces = parseInt(tr[a].childNodes[2].textContent),
                 weight = parseFloat(tr[a].childNodes[12].textContent),
                 volume_weight = parseFloat(tr[a].childNodes[14].textContent),
                 cubic = parseFloat(tr[a].childNodes[13].textContent);

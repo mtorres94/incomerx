@@ -89,7 +89,7 @@ class ReceiptEntryController extends Controller
         }
         DB::commit();
 
-        $this->mail($whr->id);
+        # $this->mail($whr->id);
 
         return redirect()->route('warehouse.receipts.receipts_entries.edit', [$whr->id]);
     }
@@ -154,7 +154,7 @@ class ReceiptEntryController extends Controller
         }
         DB::commit();
 
-        $this->mail($id);
+        # $this->mail($id);
 
         return redirect()->route('warehouse.receipts.receipts_entries.edit', [$id]);
     }
