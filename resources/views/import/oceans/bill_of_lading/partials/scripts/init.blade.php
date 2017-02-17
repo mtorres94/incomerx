@@ -114,7 +114,20 @@
             if($("#bl_date").val() == ''){
                 initDate($("#bl_date"), 0);
             }
-$("#box_quantity").change(function(){ calculate_box() });
+        $("#tmp_cargo_type_id").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ route('cargo_types.get') }}",
+                data: { id: id },
+                type: 'GET',
+                success: function (e) {
+                    $("#tmp_cargo_type_code").val(e[0].code);
+
+                }
+            });
+        });
+
+        $("#box_quantity").change(function(){ calculate_box() });
 $("#box_length").change(function(){ calculate_box() });
 $("#box_width").change(function(){ calculate_box() });
 $("#box_height").change(function(){ calculate_box() });
@@ -169,6 +182,43 @@ $("#box_dim_fact").change(function(){ calculate_box() });
 
     });
 
+    $("#origin_bill_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#origin_bill_unit_name").val(e[0].code);
+
+            }
+        });
+    });
+
+    $("#origin_cost_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#origin_cost_unit_name").val(e[0].code);
+
+            }
+        });
+    });
+    $("#tmp_equipment_type_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('cargo_types.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#tmp_equipment_type_code").val(e[0].code);
+
+            }
+        });
+    });
 
 $("#total_weight_unit").val("L").change();
 $("#tmp_weight_unit").val("L").change();

@@ -64,7 +64,7 @@
             </tbody>
         </table>
         <div class="pull-right">
-            <div class="col-md-3">{!! Form::bsSelect(null, null, 'Freight Payable at', 'payable_at', array('D' => 'Destination', 'O' => 'Origin'), null) !!}</div>
+            <div class="col-md-3">{!! Form::bsSelect(null, null, 'Freight Payable at', 'payable_at', array('D' => 'Destination', 'O' => 'Origin'), null, 'body') !!}</div>
             <div class="col-md-2">{!! Form::bsText(null,null, 'Bill', 'charges_bill', null, '0.00') !!}</div>
             <div class="col-md-2">{!! Form::bsText(null,null, 'Cost', 'charges_cost', null, '0.00') !!}</div>
             <div class="col-md-2">{!! Form::bsText(null,null, 'Profit', 'charges_profit', null, '0.00') !!}</div>

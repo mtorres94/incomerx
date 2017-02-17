@@ -4,7 +4,7 @@
         if ($("#date_today").val() == ''){ initDate($("#date_today"), 0);}
         openTab($("#data"));
         renameTab();
-        updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('io_routing_order.close') }}');
+        updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('ia_routing_order.close') }}');
 
         if ($("#open_status").val() == "1") {
             disableFields('data');
@@ -41,33 +41,33 @@
 
 
 
-        $("#billing_unit_id").change(function () {
-            var id = $(this).val();
-            $.ajax({
-                url: "{{ route('units.get') }}",
-                data: { id: id },
-                type: 'GET',
-                success: function (e) {
-                    $("#billing_unit_name").val(e[0].code);
 
-                }
-            });
-        });
+    });
+    $("#billing_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#billing_unit_name").val(e[0].code);
 
-        $("#cost_unit_id").change(function () {
-            var id = $(this).val();
-            $.ajax({
-                url: "{{ route('units.get') }}",
-                data: { id: id },
-                type: 'GET',
-                success: function (e) {
-                    $("#cost_unit_name").val(e[0].code);
-
-                }
-            });
+            }
         });
     });
 
+    $("#cost_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#cost_unit_name").val(e[0].code);
+
+            }
+        });
+    });
     $("#billing_bill_party").change(function () {
         var a= $("#billing_bill_party").val();
         switch(a){

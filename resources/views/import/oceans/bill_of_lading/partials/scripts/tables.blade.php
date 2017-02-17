@@ -13,6 +13,7 @@
 $("#btn_container_details").click(function(){
    $("#spotting_date").val($("#departure_date").val());
     $("#tmp_pd_status").val("1").change();
+    $("#tmp_equipment_type_id").val("").change();
     $("#ContainerModal").formValidation("resetForm", true);
 });
     $("#btn_box_details").click(function(){
@@ -23,6 +24,7 @@ $("#btn_container_details").click(function(){
     });
     $("#btn_cargo_details").click(function(){
         $("#tmp_weight_unit").val("L").change();
+        $("#tmp_cargo_type_id").val("").change();
         $("#CargoModal").formValidation("resetForm", true);
     });
 $("#container-save").click(function() {
@@ -164,7 +166,7 @@ $("#container-save").click(function() {
         .append(createTableContent('container_comments', g_74, true, d))
         .append(createTableBtns()),
 
-        0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#Container_Details").modal("show"), $("#ContainerModal").formValidation("resetFomr", true),$("#tmp_equipment_type_code").focus();
+        0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#Container_Details").modal("show"), $("#tmp_equipment_type_id").val("").change(), $("#ContainerModal").formValidation("resetFomr", true),$("#tmp_equipment_type_code").focus();
 
 
         }
@@ -239,7 +241,7 @@ $("#container-save").click(function() {
 
 
         $("#container_id").val(g1),
-        $("#tmp_equipment_type_id").val(g2),
+        $("#tmp_equipment_type_id").val(g2).change(),
         $("#tmp_equipment_type_code").val(g3),
         $("#tmp_number").val(g4),
         $("#tmp_seal_number").val(g5),
@@ -914,8 +916,8 @@ $("#cargo-save").click(function() {
             $("#tmp_pieces").val(g3),
             $("#tmp_description").val(g4),
             $("#tmp_container").val(g5),
-            $("#tmp_cargo_type_id").val(g6),
-            $("#tmp_cargo_type_code").val(g7).change(),
+            $("#tmp_cargo_type_id").val(g6).change(),
+            $("#tmp_cargo_type_code").val(g7),
 
             $("#tmp_weight_unit").val(g8),
             $("#tmp_grossw").val(g9),

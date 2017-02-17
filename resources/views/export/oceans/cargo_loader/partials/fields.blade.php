@@ -1,5 +1,10 @@
 <div id="errorBlock" class="help-block"></div>
 {!! Form::hidden('open_status', (isset($user_open_id) ? ($user_open_id == Auth::user()->id ? "0" : "1") : "0"), ['id' => 'open_status', 'class' => 'form-control input-sm']) !!}
+@if(isset($cargo_loader))
+    <div class="pull-right">
+        <button type="button" class="btn btn-primary btn-sm" id="btn_create_hbl" ><span>Create Houses</span></button>
+    </div>
+@endif
 @include('export.oceans.cargo_loader.partials.sections.general')
 <div class="row">
     <div class="col-md-6">
@@ -12,9 +17,8 @@
         @include('export.oceans.cargo_loader.partials.sections.container_details')
         @include('export.oceans.cargo_loader.partials.sections.inland_carrier')
     </div>
-    <!--<div class="col-md-12">
-        @include('export.oceans.cargo_loader.partials.sections.hbl_details')
-    </div>-->
+
+
 </div>
 
 

@@ -80,8 +80,11 @@
                     <div class="col-md-2">{!! Form::bsText(null,null, 'Weight', 'pick_weight', null, '') !!} </div>
                     <div class="col-md-2">{!! Form::bsText(null,null, 'Cubic', 'pick_cubic', null, '') !!} </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-2">{!! Form::bsCheck('Autocheck', 'autocheck') !!}</div>
+                    <div class="col-md-3">{!! Form::bsCheck('Select / Deselect All', 'select_all') !!}</div>
 
-
+                </div>
             </div>
             <div class="modal-footer">
                 <a class="btn btn-default btn-footer" data-dismiss="modal">

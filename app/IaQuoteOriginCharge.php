@@ -83,4 +83,8 @@ class IaQuoteOriginCharge extends Model
     {
         return $this->belongsTo('Sass\Unit', 'cost_unit_id');
     }
+    public function billing_vendor()
+    {
+        return $this->belongsTo('Sass\Vendor', 'billing_vendor_code');
+    }
 }

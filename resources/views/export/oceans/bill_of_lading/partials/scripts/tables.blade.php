@@ -622,7 +622,7 @@
                 $("#cargo_rate").val(g12),
                 $("#cargo_amount").val(g13),
                 $("#cargo_container").val(g14),
-                $("#cargo_type_id").val(g15),
+                $("#cargo_type_id").val(g15).change(),
                 $("#cargo_type_code").val(g16),
                 $("#cargo_commodity_id").val(g17),
                 $("#cargo_commodity_name").val(g18),
@@ -1996,6 +1996,11 @@
     $("#createHouse_save").click(function(){
         var hbl_select = new Array(),
             i=0,  r=0,  x=0;
+        var description= '',
+            pieces = 0,
+            weight = 0,
+            cubic = 0,
+            charge = 0;
         $("input[name='hbl_select[]']:checked").each(function() {
             hbl_select.push($(this).val());
         });
@@ -2006,24 +2011,28 @@
 
         for (x=0 ; x < hbl.length; x++){
                 if( hbl[x].childNodes[11].textContent == hbl_select[r]) {
-
+                    description = hbl[x].childNodes[2].textContent ;
+                    pieces = hbl[x].childNodes[7].textContent;
+                    weight =parseFloat(hbl[x].childNodes[8].textContent);
+                    cubic = cubic + parseFloat(hbl[x].childNodes[9].textContent);
+                    charge = charge + parseFloat(hbl[x].childNodes[10].textContent);
                     var p = $("<tr id=" + (d + 1) + ">");
                     p.append(createTableContent('cargo_line',(d+1), true, d))
-                        .append(createTableContent('cargo_marks', hbl[x].childNodes[2].textContent , false, d))
-                        .append(createTableContent('cargo_pieces', hbl[x].childNodes[7].textContent, false, d))
-                        .append(createTableContent('cargo_description',  hbl[x].childNodes[3].textContent , false, d))
+                        .append(createTableContent('cargo_marks',"" , false, d))
+                        .append(createTableContent('cargo_pieces',  hbl[x].childNodes[7].textContent, false, d))
+                        .append(createTableContent('cargo_description',  hbl[x].childNodes[2].textContent, false, d))
                         .append(createTableContent('cargo_weight_unit', 'L', false, d))
-                        .append(createTableContent('cargo_weight_k', hbl[x].childNodes[15].textContent, true, d))
-                        .append(createTableContent('cargo_cubic_k', hbl[x].childNodes[16].textContent, true, d))
-                        .append(createTableContent('cargo_charge_weight_k', hbl[x].childNodes[17].textContent, true, d))
-                        .append(createTableContent('cargo_weight_l', hbl[x].childNodes[8].textContent , false, d))
-                        .append(createTableContent('cargo_cubic_l', hbl[x].childNodes[9].textContent , false, d))
-                        .append(createTableContent('cargo_charge_weight_l', hbl[x].childNodes[10].textContent, false, d))
+                        .append(createTableContent('cargo_weight_k', weight * 0.453592, true, d))
+                        .append(createTableContent('cargo_cubic_k', cubic * 0.453592, true, d))
+                        .append(createTableContent('cargo_charge_weight_k', charge * 0.453592, true, d))
+                        .append(createTableContent('cargo_weight_l', weight , false, d))
+                        .append(createTableContent('cargo_cubic_l',cubic , false, d))
+                        .append(createTableContent('cargo_charge_weight_l', charge, false, d))
                         .append(createTableContent('cargo_rate', "", true, d))
                         .append(createTableContent('cargo_amount', "", true, d))
                         .append(createTableContent('cargo_container', "", true, d))
-                        .append(createTableContent('cargo_type_id', hbl[x].childNodes[4].textContent, true, d))
-                        .append(createTableContent('cargo_type_code', hbl[x].childNodes[5].textContent, true, d))
+                        .append(createTableContent('cargo_type_id', "", true, d))
+                        .append(createTableContent('cargo_type_code', "", true, d))
                         .append(createTableContent('cargo_commodity_id', "", true, d))
                         .append(createTableContent('cargo_commodity_name', "", true, d))
                         .append(createTableContent('cargo_comments', "", true, d))
@@ -2033,10 +2042,12 @@
                     d++;
                     r++;
                 }
-
         }
         weight_totals();
         $("#CreateHouse").modal("hide");
+        for (x=0 ; x < hbl_select.length; x++) {
+
+        }
     });
 
 </script>

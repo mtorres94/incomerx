@@ -30,8 +30,8 @@
                 {!! Form::bsRowTd($detail->line, 'equipment_type_id', $detail->equipment_type_id, true) !!}
                 {!! Form::bsRowTd($detail->line, 'equipment_type_code', strtoupper($detail->equipment_type_id > 0 ? $detail->equipment_type->code : ""), false) !!}
                 {!! Form::bsRowTd($detail->line, 'container_number', strtoupper($detail->container_number), false) !!}
-                {!! Form::bsRowTd($detail->line, 'container_seal_number', $detail->container_seal_numer, false) !!}
-                {!! Form::bsRowTd($detail->line, 'container_seal_number2', $detail->container_seal_number2, true) !!}
+                {!! Form::bsRowTd($detail->line, 'container_seal_number', $detail->container_seal_number, false) !!}
+                {!! Form::bsRowTd($detail->line, 'container_seal_number2', $detail->container_seal_number_2, true) !!}
                 {!! Form::bsRowTd($detail->line, 'container_order_number', $detail->container_order_number, false) !!}
 
                 {!! Form::bsRowTd($detail->line, 'container_comments', strtoupper($detail->container_comments), true) !!}

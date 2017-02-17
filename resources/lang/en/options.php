@@ -115,17 +115,19 @@ return [
     'export' => [
         'oceans'  => [
             'booking_entries'      => 'Booking Entry',
-            'bill_of_lading'      => 'Bill of Lading',
-            'shipment_entries'      => 'Shipment Entry',
-            'cargo_loader'      => 'Cargo Loader',
-            'step_by_step'      => 'Step by Step',
             'quotes'      => 'Quotes Entry',
+            'shipment_entries'      => 'Shipment Entry',
+            'cargo_loader'      => 'Loading Guide',
+            'step_by_step'      => 'Step by Step',
+            'bill_of_lading'      => 'Bill of Lading',
+            'manifest'      => 'Ocean Manifest'
         ],
         'air' => [
             'booking_entries'   => 'Booking Entry',
             'airwaybills'       => 'Airwaybills',
             'shipment_entries'  => 'Shipment Entry',
-            'step_by_step'      => 'Step by Step'
+            'step_by_step'      => 'Step by Step',
+
         ],
     ],
     'import' => [

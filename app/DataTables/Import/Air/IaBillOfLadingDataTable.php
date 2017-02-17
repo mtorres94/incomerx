@@ -44,9 +44,10 @@ class IaBillOfLadingDataTable extends CustomDataTable
             ->leftJoin('mst_customers AS c1', 'ia_bill_of_lading.shipper_id', '=', 'c1.id')
             ->leftJoin('mst_customers AS c2', 'ia_bill_of_lading.consignee_id', '=', 'c2.id')
             ->leftJoin('mst_customers AS c3', 'ia_bill_of_lading.agent_id', '=', 'c3.id')
-            ->leftJoin('mst_customers AS c4', 'ia_bill_of_lading.forwarding_agent_id', '=', 'c4.id')
-            ->leftJoin('mst_customers AS c5', 'ia_bill_of_lading.notify_id', '=', 'c5.id')
-            ->select(['ia_bill_of_lading.id','ia_bill_of_lading.code','ia_bill_of_lading.bl_status', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS forwarding_agent_name', 'c5.name AS notify_name']);
+            ->leftJoin('mst_airports AS p1', 'ia_bill_of_lading.port_loading_id', '=', 'p1.id')
+            ->leftJoin('mst_airports AS p2', 'ia_bill_of_lading.port_unloading_id', '=', 'p2.id')
+            ->leftJoin('ia_routing_order AS r', 'ia_bill_of_lading.routing_order_id', '=', 'r.id')
+            ->select(['ia_bill_of_lading.id','ia_bill_of_lading.code','ia_bill_of_lading.bl_status','ia_bill_of_lading.bl_type','ia_bill_of_lading.date_today', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'p1.name as loading_port_name', 'p2.name as unloading_port_name', 'r.code as routing_code']);
         return $this->applyScopes($query);
     }
 
@@ -60,7 +61,7 @@ class IaBillOfLadingDataTable extends CustomDataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->ajax('')
-                    ->addAction(['width' => 'auto'])
+                    ->addAction(['width' => '130px'])
                     ->parameters($this->getBuilderParameters());
     }
 
@@ -72,11 +73,14 @@ class IaBillOfLadingDataTable extends CustomDataTable
     protected function getColumns()
     {
         return [
-            ['data' => 'code',   'name' => 'ia_bill_of_lading.code', 'title' => 'Code'],
-            ['data' => 'bl_status',          'name' => 'ia_bill_of_lading.bl_status', 'title' => 'Status'],
-            ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
-            ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
-            ['data' => 'agent_name',   'name' => 'c3.name', 'title' => 'Agent'],
+            ['data' => 'code',              'name' => 'ia_bill_of_lading.code', 'title' => 'Code'],
+            ['data' => 'bl_status',         'name' => 'ia_bill_of_lading.bl_status', 'title' => 'Status', 'width' => '35px'],
+            ['data' => 'bl_type',           'name' => 'ia_bill_of_lading.bl_type', 'title' => 'Type', 'width' => '35px'],
+            ['data' => 'date_today',        'name' => 'ia_bill_of_lading.date_today', 'title' => 'Date', 'width' => '40px'],
+            ['data' => 'routing_code',      'name' => 'r.code', 'title' => 'Routing #', 'width' => '55px'],
+            ['data' => 'shipper_name',      'name' => 'c1.name', 'title' => 'Shipper'],
+            ['data' => 'consignee_name',    'name' => 'c2.name', 'title' => 'Consignee'],
+            ['data' => 'agent_name',        'name' => 'c3.name', 'title' => 'Agent'],
         ];
     }
 

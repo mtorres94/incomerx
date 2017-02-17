@@ -24,6 +24,7 @@ class ShipmentEntryDataTable extends CustomDataTable
                     'export.oceans.shipment_entries',[
                     ['route' => 'shipment_entries.pdf',   'icon' => 'icon-file-pdf', 'name' => 'Booking Confirmation'],
                     ['route' => 'shipment_entries.container_release',   'icon' => 'icon-file-pdf', 'name' => 'Container Release'],
+                    ['route' => 'shipment_entries.manifest',   'icon' => 'icon-file-pdf', 'name' => 'Manifest'],
                 ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
@@ -43,7 +44,7 @@ class ShipmentEntryDataTable extends CustomDataTable
             ->leftJoin('mst_customers AS c3', 'eo_shipment_entries.agent_id', '=', 'c3.id')
             ->leftJoin('mst_ocean_ports AS c4', 'eo_shipment_entries.port_loading_id', '=', 'c4.id')
             ->leftJoin('mst_ocean_ports AS c5', 'eo_shipment_entries.port_unloading_id', '=', 'c5.id')
-            ->select(['eo_shipment_entries.id','eo_shipment_entries.code','eo_shipment_entries.date_today', 'eo_shipment_entries.booking_code','mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS port_loading_name', 'c5.name AS port_unloading_name']);
+            ->select(['eo_shipment_entries.id','eo_shipment_entries.code','eo_shipment_entries.shipment_type','eo_shipment_entries.date_today', 'eo_shipment_entries.bl_status', 'eo_shipment_entries.booking_code','mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS port_loading_name', 'c5.name AS port_unloading_name']);
         return $this->applyScopes($query);
     }
 
@@ -57,7 +58,7 @@ class ShipmentEntryDataTable extends CustomDataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->ajax('')
-                    ->addAction(['width' => 'auto']);
+                    ->addAction(['width' => '130px']);
 
     }
 
@@ -69,13 +70,14 @@ class ShipmentEntryDataTable extends CustomDataTable
     protected function getColumns()
     {
         return [
-            ['data' => 'code',   'name' => 'eo_shipment_entries.code', 'title' => 'Code'],
-            ['data' => 'date_today',   'name' => 'eo_shipment_entries.date_today', 'title' => 'Date'],
-            ['data' => 'booking_code',   'name' => 'eo_shipment_entries.booking_code', 'title' => 'Booking'],
-            ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
-            ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
-
-            ['data' => 'port_loading_name',   'name' => 'c4.name', 'title' => 'Loading Port'],
+            ['data' => 'code',                  'name' => 'eo_shipment_entries.code', 'title' => 'Code', 'width' => '45px'],
+            ['data' => 'date_today',            'name' => 'eo_shipment_entries.date_today', 'title' => 'Date', 'width' => '45px'],
+            ['data' => 'bl_status',             'name' => 'eo_shipment_entries.bl_status', 'title' => 'Status', 'width' => '35px'],
+            ['data' => 'shipment_type',         'name' => 'eo_shipment_entries.shipment_type', 'title' => 'Type', 'width' => '35px'],
+            ['data' => 'booking_code',          'name' => 'eo_shipment_entries.booking_code', 'title' => 'Booking'],
+            ['data' => 'shipper_name',          'name' => 'c1.name', 'title' => 'Shipper'],
+            ['data' => 'consignee_name',        'name' => 'c2.name', 'title' => 'Consignee'],
+            ['data' => 'port_loading_name',     'name' => 'c4.name', 'title' => 'Loading Port'],
             ['data' => 'port_unloading_name',   'name' => 'c5.name', 'title' => 'Unloading Port'],
 
         ];

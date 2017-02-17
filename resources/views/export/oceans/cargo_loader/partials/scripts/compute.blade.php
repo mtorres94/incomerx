@@ -8,9 +8,11 @@
             whr_select.push($(this).val());
         });
         for (var a=0; a< r ; a++) {
-            quantity = parseFloat(tr[a].childNodes[26].textContent) + quantity;
-            weight = parseFloat(tr[a].childNodes[27].textContent) + weight;
-            cubic = parseFloat(tr[a].childNodes[28].textContent) + cubic;
+            if(tr[a].childNodes[1].textContent == whr_select[a]){
+                quantity = parseFloat(tr[a].childNodes[26].textContent) + quantity;
+                weight = parseFloat(tr[a].childNodes[27].textContent) + weight;
+                cubic = parseFloat(tr[a].childNodes[28].textContent) + cubic;
+            }
         }
         var unlinked= r- whr_select.length;
         $("#pick_linked").val(whr_select.length);
@@ -64,4 +66,6 @@
                 $("#sum_cubic").val(cubic_k),
                 $("#sum_volume_weight").val(volume_weight_k)
     }
+
+
 </script>

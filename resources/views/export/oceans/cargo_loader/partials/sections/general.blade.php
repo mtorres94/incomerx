@@ -1,4 +1,4 @@
-<fieldset>
+
     <legend>Cargo Loader </legend>
 
     <div class="row">
@@ -25,4 +25,3 @@
         ), 'Status'),null !!}</div>
     </div>
 
-</fieldset>

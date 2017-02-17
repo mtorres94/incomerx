@@ -30,7 +30,7 @@
             '5' => '5 - CONTAINER',
             '6' => '6 - 50 LB/ 1CFT',
             '7' => '7 - OTHER',
-        ), null) !!}</div>
+        ), null, 'body') !!}</div>
 
         <div class="col-md-2">{!! Form::bsText(null, null, 'User', 'user_id', ((isset($bill_of_lading) and $bill_of_lading->user_create_id > 0) ? $bill_of_lading->user_create->username :  Auth::user()->username), '') !!}</div>
     </div>

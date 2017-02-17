@@ -15,7 +15,6 @@ use Sass\EoCargoLoaderReceiptEntry;
 use Sass\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
 use Sass\Http\Requests;
 use Sass\ReceiptEntry;
 use Sass\ReceiptEntryCargoDetail;
@@ -26,6 +25,7 @@ class EoCargoLoaderController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param CargoLoaderDataTable $dataTable
      * @return \Illuminate\Http\Response
      */
     public function index(CargoLoaderDataTable $dataTable)
@@ -52,6 +52,36 @@ class EoCargoLoaderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function storeHbl (Request $request){
+        DB::beginTransaction();
+        $cargo_loader = $request->all(); $hbl_codes = null;
+
+        $cargo_loader['flag']=0;
+        try {
+            if(isset($cargo_loader['group_by']) and ($cargo_loader['group_by'] != '')){
+                if($cargo_loader['group_by'] == "1") {
+                    $id_group = array_distinct($cargo_loader['shipper_id']);
+                }elseif ($cargo_loader['group_by'] == "2"){
+                    $id_group = array_distinct($cargo_loader['consignee_id']);
+                }else{
+                    $id_group = $cargo_loader['warehouse_select'];
+                }
+                $hbl_codes = EoBillOfLading::saveDetail($cargo_loader['tmp_cargo_loader_id'], $cargo_loader, $id_group);
+
+            }
+            DB::commit();
+
+
+        } catch (\PDOException $e) {
+            DB::rollback();
+        }
+
+        //Alert::message('Robots are working!');
+        //alert()->info(implode(', ', $hbl_codes), 'HBL created');
+        return redirect()->route('export.oceans.cargo_loader.edit', [$cargo_loader['tmp_cargo_loader_id']]);
+
+    }
+
     public function store(Request $request)
     {
         DB::beginTransaction();
@@ -61,6 +91,7 @@ class EoCargoLoaderController extends Controller
             $frmt = $last == null ? 1 : intval(substr($last->code, 4)) + 1;
             $code = str_pad($frmt, 6, '0', 0);
             $cargo_loader = $request->all();
+
             $cargo_loader['code'] = "EOG-".$code;
             $cargo_loader['user_create_id'] = Auth::user()->id;
             $cargo_loader['user_update_id'] = Auth::user()->id;
@@ -76,15 +107,23 @@ class EoCargoLoaderController extends Controller
             $cargo_loader['foreign_port'] = $cargo_loader['port_unloading_name'];
             $cargo_loader['port_loading'] = $cargo_loader['port_loading_name'];
             ReceiptEntry::saveDetail($cl->id,$cargo_loader);
-            $id_consignee = array_distinct($cargo_loader['hidden_consignee_id']);
+
+
 
             $cargo_loader['bill_of_lading_id']=0;
             $cargo_loader['flag']=0;
             EoCargoLoaderContainer::saveDetail($cl->id, $cargo_loader);
             EoCargoLoaderReceiptEntry::saveDetail($cl->id, $cargo_loader);
-            if(isset($cargo_loader['create_hbl'] ) and ($cargo_loader['create_hbl'] == "1"))
-            { EoBillOfLading::saveDetail($cl->id, $cargo_loader, $id_consignee);}
-
+           /* if(isset($cargo_loader['create_hbl']) and ($cargo_loader['create_hbl'] != '')){
+                if($cargo_loader['create_hbl'] == "1") {
+                    $id_group = array_distinct($cargo_loader['hidden_consignee_id']);
+                }elseif ($cargo_loader['create_hbl'] == "2"){
+                    $id_group = array_distinct($cargo_loader['hidden_shipper_id']);
+                }else{
+                    $id_group = array_distinct($cargo_loader['hidden_warehouse_id']);
+                }
+                EoBillOfLading::saveDetail($cl->id, $cargo_loader, $id_group);
+            }*/
             $id= $cl->id;
             DB::commit();
 
@@ -121,7 +160,12 @@ class EoCargoLoaderController extends Controller
         $user_open_id =  ($cargo_loader->user_open_id == 0) ? Auth::user()->id : $cargo_loader->user_open_id;
         $cargo_loader = self::updateOpenStatus($cargo_loader);
         $cargo_loader->save();
-        return view('export.oceans.cargo_loader.edit', compact('cargo_loader', 'user_open_id'));
+        //==========================================
+        $x = 0;
+        $x = DB::table('eo_bills_of_lading')->where('cargo_loader_id', '=',$id)->count();
+        //==========================================
+
+        return view('export.oceans.cargo_loader.edit', compact('cargo_loader', 'user_open_id', 'x'));
     }
 
     /**
@@ -150,7 +194,17 @@ class EoCargoLoaderController extends Controller
             $cargo_loader['flag']=0;
             EoCargoLoaderContainer::saveDetail($id, $cargo_loader);
             EoCargoLoaderReceiptEntry::saveDetail($id, $cargo_loader);
+            /*if(isset($cargo_loader['group']) and ($cargo_loader['group'] != '')){
+                if($cargo_loader['group'] == "1") {
+                    $id_group = array_distinct($cargo_loader['hidden_consignee_id']);
+                }elseif ($cargo_loader['group'] == "2"){
+                    $id_group = array_distinct($cargo_loader['hidden_shipper_id']);
+                }else{
+                    $id_group = array_distinct($cargo_loader['hidden_warehouse_line']);
+                }
 
+                EoBillOfLading::saveDetail($id, $cargo_loader, $id_group);
+            }*/
             //CargoLoaderHazardous::saveDetail($cl->id, $cargo_loader);
             //EoBillOfLading::saveDetail($id, $cargo_loader);
 
@@ -248,8 +302,8 @@ class EoCargoLoaderController extends Controller
                     'bl_status'         => $cargo_loader->shipment->bl_status,
                     'vessel'               => $cargo_loader->shipment->vessel_name,
                     'voyage'         => $cargo_loader->shipment->voyage_name,
-                    'carrier_id'         => $cargo_loader->shipment->carrier_id,
-                    'carrier_name'         => strtoupper($cargo_loader->shipment->carrier_id > 0 ? $cargo_loader->shipment->carrier->name : ""),
+                    'carrier_id'         => $cargo_loader->shipment->inland_carrier_id,
+                    'carrier_name'         => strtoupper($cargo_loader->shipment->inland_carrier_id > 0 ? $cargo_loader->shipment->inland_carrier->name : ""),
                     'departure'    => $cargo_loader->shipment->departure_date,
                     'arrival'    => $cargo_loader->shipment->arrival_date,
 
@@ -283,22 +337,24 @@ class EoCargoLoaderController extends Controller
 
             $results = [];
                 foreach ($cargo_loaders as $data) {
-                    $results[] = [
-                        'id' => $data->receipt_entry->id,
-                        'value' => strtoupper($data->receipt_entry->code),
-                        'date_in' => strtoupper($data->receipt_entry->date_in),
-                        'status' => strtoupper($data->receipt_entry->status),
-                        'shipper_name' => strtoupper($data->receipt_entry->shipper_id > 0 ? $data->receipt_entry->shipper->name: ""),
-                        'shipper_id' => strtoupper($data->receipt_entry->shipper_id),
-                        'consignee_name' => strtoupper($data->receipt_entry->consignee_id > 0 ? $data->receipt_entry->consignee->name: ""),
-                        'consignee_id' => strtoupper($data->receipt_entry->consignee_id),
-                        'quantity' => strtoupper($data->receipt_entry->sum_pieces),
-                        'sum_weight' => strtoupper($data->receipt_entry->sum_weight),
-                        'sum_cubic' => strtoupper($data->receipt_entry->sum_cubic),
-                        'volume_weight' => $data->receipt_entry->sum_volume_weight,
-                        'container_id' => $data->container_id,
-                        'cargo_loader_id' => $data->cargo_loader_id,
-                    ];
+                    if($data->receipt_entry->status == 'O'){
+                        $results[] = [
+                            'id' => $data->receipt_entry->id,
+                            'value' => strtoupper($data->receipt_entry->code),
+                            'date_in' => strtoupper($data->receipt_entry->date_in),
+                            'status' => strtoupper($data->receipt_entry->status),
+                            'shipper_name' => strtoupper($data->receipt_entry->shipper_id > 0 ? $data->receipt_entry->shipper->name: ""),
+                            'shipper_id' => strtoupper($data->receipt_entry->shipper_id),
+                            'consignee_name' => strtoupper($data->receipt_entry->consignee_id > 0 ? $data->receipt_entry->consignee->name: ""),
+                            'consignee_id' => strtoupper($data->receipt_entry->consignee_id),
+                            'quantity' => strtoupper($data->receipt_entry->sum_pieces),
+                            'sum_weight' => strtoupper($data->receipt_entry->sum_weight),
+                            'sum_cubic' => strtoupper($data->receipt_entry->sum_cubic),
+                            'volume_weight' => $data->receipt_entry->sum_volume_weight,
+                            'container_id' => $data->container_id,
+                            'cargo_loader_id' => $data->cargo_loader_id,
+                        ];
+                    }
 
             }
 

@@ -11,5 +11,8 @@
         <div class="col-md-6">{!! Form::bsText('col-md-4', 'col-md-6', 'Phone', 'broker_phone', null, '') !!}</div>
 
     </div>
+    <div class="row">
+        <div class="col-md-12"> {!! Form::bsText('col-md-2', 'col-md-9', 'B. agent', 'booking_agent', null, 'BOOKING AGENT') !!}</div>
+    </div>
 
 </fieldset>

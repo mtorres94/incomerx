@@ -41,7 +41,7 @@ class IoRoutingOrderDataTable extends CustomDataTable
             ->leftJoin('mst_customers AS c2', 'io_routing_order.consignee_id', '=', 'c2.id')
             ->leftJoin('mst_ocean_ports AS p1', 'io_routing_order.port_loading_id', '=', 'p1.id')
             ->leftJoin('mst_ocean_ports AS p2', 'io_routing_order.port_unloading_id', '=', 'p2.id')
-            ->select(['io_routing_order.id','io_routing_order.code','io_routing_order.status',  'c1.name AS shipper_name', 'c2.name AS consignee_name', 'p1.name as port_loading_name', 'p2.name as port_unloading_name' ]);
+            ->select(['io_routing_order.id','io_routing_order.code','io_routing_order.status', 'io_routing_order.type','io_routing_order.date_today',  'c1.name AS shipper_name', 'c2.name AS consignee_name', 'p1.name as port_loading_name', 'p2.name as port_unloading_name' ]);
         return $this->applyScopes($query);
     }
 
@@ -55,7 +55,7 @@ class IoRoutingOrderDataTable extends CustomDataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->ajax('')
-                    ->addAction(['width' => 'auto'])
+                    ->addAction(['width' => '130px'])
                     ->parameters($this->getBuilderParameters());
     }
 
@@ -67,11 +67,13 @@ class IoRoutingOrderDataTable extends CustomDataTable
     protected function getColumns()
     {
         return [
-            ['data' => 'code',   'name' => 'io_routing_order.code', 'title' => 'Code'],
-            ['data' => 'status',          'name' => 'io_routing_order.status', 'title' => 'Status'],
-            ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
-            ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
-            ['data' => 'port_loading_name',   'name' => 'p1.name', 'title' => 'Loading Port'],
+            ['data' => 'code',                  'name' => 'io_routing_order.code', 'title' => 'Code', 'width' => '45px'],
+            ['data' => 'status',                'name' => 'io_routing_order.status', 'title' => 'Status', 'width' => '35px'],
+            ['data' => 'type',                  'name' => 'io_routing_order.type', 'title' => 'Type', 'width' => '35px'],
+            ['data' => 'date_today',            'name' => 'io_routing_order.date_today', 'title' => 'Date', 'width' => '40px'],
+            ['data' => 'shipper_name',          'name' => 'c1.name', 'title' => 'Shipper'],
+            ['data' => 'consignee_name',        'name' => 'c2.name', 'title' => 'Consignee'],
+            ['data' => 'port_loading_name',     'name' => 'p1.name', 'title' => 'Loading Port'],
             ['data' => 'port_unloading_name',   'name' => 'p2.name', 'title' => 'Unloading Port'],
         ];
     }

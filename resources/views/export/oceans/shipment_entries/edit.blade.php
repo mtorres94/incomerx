@@ -5,6 +5,7 @@
     {!! Form::bsGroup([
           ['class' => 'fa fa-file-pdf-o', 'value' => 'BOOKING CONFIRMATION', 'route' => 'shipment_entries.pdf'],
           ['class' => 'fa fa-file-pdf-o', 'value' => 'CONTAINER RELEASE', 'route' => 'shipment_entries.container_release'],
+          ['class' => 'fa fa-file-pdf-o', 'value' => 'OCEAN MANIFEST', 'route' => 'shipment_entries.manifest'],
       ], $shipment_entry) !!}
     @include('export.oceans.shipment_entries.partials.fields')
     {!! Form::bsSubmit() !!}

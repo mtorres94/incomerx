@@ -1,10 +1,10 @@
 
 <legend>HBL Details</legend>
 <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
-
-    <button type="button" id="btn_create_hbl" class="btn btn-default" data-toggle="modal" data-target="#CreateHouse" onclick="cleanModalFields('CreateHouse')">
+    <button type="button" class="btn btn-primary btn-sm" id="btn_create_hbl" onclick="validateRequiredField(), clearTable('load_warehouses')"><span>Link Houses</span></button>
+   <!-- <button type="button" id="btn_create_hbl" class="btn btn-default" data-toggle="modal" data-target="#CreateHouse" onclick="cleanModalFields('CreateHouse')">
         <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-    </button>
+    </button>-->
     <button type="button"  class="btn btn-danger" onclick="clearTable('hbl_details')">
         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
     </button>

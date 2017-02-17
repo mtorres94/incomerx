@@ -9,6 +9,7 @@
                 </div>
                 <div class="modal-body" >
                     {!! Form::hidden('cargo_line', null, ['id' => 'cargo_line', 'class' => 'form-control input-sm']) !!}
+                    {!! Form::hidden('tmp_cargo_type_code', null, ['id' => 'tmp_cargo_type_code', 'class' => 'form-control input-sm']) !!}
 
                     <div id="cargo-tabs" class="easyui-tabs">
                         <div title="Mark & Descriptions">
@@ -22,7 +23,7 @@
 
                     <div class="row">
                         <div class="col-md-3">{!! Form::bsText(null,null, 'Loaded on Container', 'tmp_container', null, '') !!}</div>
-                        <div class="col-md-4">{!! Form::bsComplete(null, null, 'Cargo Type', 'tmp_cargo_type_id', 'tmp_cargo_type_code', Request::get('term'), null, 'Type') !!}</div>
+                        <div class="col-md-4">{!! Form::bsSelect(null, null, 'Cargo Type', 'tmp_cargo_type_id', Sass\CargoType::all()->lists('code', 'id'),'Type', 'body', false) !!}</div>
                      <!--   <div class="col-md-3">{!! Form::bsComplete(null, null, 'Commodity', 'tmp_commodity_id', 'tmp_commodity_name', Request::get('term'), null, 'Search Commodity...') !!}</div>-->
 
 

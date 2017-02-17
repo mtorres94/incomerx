@@ -5,9 +5,7 @@
         $('#date_today').on('change', function(e) { $('#data').formValidation('revalidateField', 'date_today'); });
         $('#starting_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'starting_date'); });
         $('#starting_process_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'starting_process_date'); });
-        $('#ending_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'ending_date'); });
         $('#approved_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'approved_date'); });
-        $('#closed_date').on('changeDate', function(e) { $('#data').formValidation('revalidateField', 'closed_date'); });
 
         $("#consignee_name").blur(function(e){
             $('#data').formValidation('revalidateField', 'consignee_address');
@@ -47,26 +45,6 @@
                             format: "YYYY-MM-DD",
                             min: 'starting_process_date',
                             message: "Approved date is invalid"
-                        }
-                    }
-                },
-                closed_date: {
-                    validators: {
-                        notEmpty: { message: "Closed date is invalid" },
-                        date: {
-                            format: "YYYY-MM-DD",
-                            min: 'approved_date',
-                            message: "Closed date is invalid"
-                        }
-                    }
-                },
-                ending_date: {
-                    validators: {
-                        notEmpty: { message: "Ending date is invalid" },
-                        date: {
-                            format: "YYYY-MM-DD",
-                            min: 'closed_date',
-                            message: "Ending date is invalid"
                         }
                     }
                 },
@@ -113,11 +91,6 @@
                 consignee_city: {
                     validators: {
                         notEmpty: { message: "The consignee city is required" },
-                    }
-                },
-                place_receipt_name: {
-                    validators: {
-                        notEmpty: { message: "Place of receipt name is required" },
                     }
                 },
                 port_loading_name: {

@@ -37,36 +37,32 @@
             $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
         }
 
+    });
+    $("#billing_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#billing_unit_name").val(e[0].code);
 
-
-
-        $("#billing_unit_id").change(function () {
-            var id = $(this).val();
-            $.ajax({
-                url: "{{ route('units.get') }}",
-                data: { id: id },
-                type: 'GET',
-                success: function (e) {
-                    $("#billing_unit_name").val(e[0].code);
-
-                }
-            });
-        });
-
-        $("#cost_unit_id").change(function () {
-            var id = $(this).val();
-            $.ajax({
-                url: "{{ route('units.get') }}",
-                data: { id: id },
-                type: 'GET',
-                success: function (e) {
-                    $("#cost_unit_name").val(e[0].code);
-
-                }
-            });
+            }
         });
     });
 
+    $("#cost_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#cost_unit_name").val(e[0].code);
+
+            }
+        });
+    });
     //=========================================
     $("#quote_code").change(function () {
         var id = $("#quote_id").val();

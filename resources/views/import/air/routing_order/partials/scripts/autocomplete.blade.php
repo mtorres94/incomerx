@@ -107,7 +107,7 @@
         0 == e && ($(this).val(""), $("#destination_country_id").val(""), $("#destination_country_name").val("") )
     });
 
-    $("#origin_port_name").marcoPolo({url:"{{ route('ocean_ports.autocomplete') }}",formatItem:function(e,o){return e.name},selected:{
+    $("#origin_port_name").marcoPolo({url:"{{ route('airports.autocomplete') }}",formatItem:function(e,o){return e.name},selected:{
         id: '{{  (isset($routing_order) ? $routing_order->origin_port_id : "") }}',
         name: '{{  ((isset($routing_order) and ($routing_order->origin_port_id > 0)) ? $routing_order->origin_port->name : "") }}'
 
@@ -120,7 +120,7 @@
         0 == e && ($(this).val(""))
     });
 
-    $("#destination_port_name").marcoPolo({url:"{{ route('ocean_ports.autocomplete') }}",formatItem:function(e,o){return e.name},selected:{
+    $("#destination_port_name").marcoPolo({url:"{{ route('airports.autocomplete') }}",formatItem:function(e,o){return e.name},selected:{
         id: '{{  (isset($routing_order) ? $routing_order->destination_port_id : "") }}',
         name: '{{  ((isset($routing_order) and ($routing_order->destination_port_id > 0)) ? $routing_order->destination_port->name : "") }}'
 

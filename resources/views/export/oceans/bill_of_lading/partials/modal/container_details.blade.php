@@ -15,7 +15,7 @@
                 {!! Form::hidden('equipment_type_code', null, ['id' => 'equipment_type_code', 'class' => 'form-control input-sm']) !!}
 
                 <div class="row">
-                    <div class="col-md-3">{!! Form::bsSelect(null, null, 'Equip. Type', 'equipment_type_id', Sass\CargoType::all()->lists('code', 'id') , 'Type') !!}</div>
+                    <div class="col-md-3">{!! Form::bsSelect(null, null, 'Equip. Type', 'equipment_type_id', Sass\CargoType::all()->lists('code', 'id') , 'Type', 'body') !!}</div>
                     <div class="col-md-3">{!! Form::bsText(null, null, 'Equip./Container #', 'container_number', null, '') !!}</div>
                     <div class="col-md-3">{!! Form::bsText(null, null, 'Seal #1', 'container_seal_number', null, '') !!}</div>
                     <div class="col-md-3">{!! Form::bsText(null, null, 'Seal #2', 'container_seal_number2', null, '') !!}</div>

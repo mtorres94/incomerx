@@ -27,7 +27,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">{!! Form::bsSelect('col-md-2', 'col-md-3', 'Origin', 'box_origin', array('D' => 'D = DOMESTICS', 'F' => 'F = FOREIGN'), ' ') !!}</div>
+    <div class="col-md-12">{!! Form::bsSelect('col-md-2', 'col-md-3', 'Origin', 'box_origin', array('D' => 'D = DOMESTICS', 'F' => 'F = FOREIGN'), ' ', 'body') !!}</div>
 </div>
 
 

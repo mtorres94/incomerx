@@ -32,7 +32,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             @include('export.oceans.shipment_entries.partials.sections.broker')
-                            @include('export.oceans.shipment_entries.partials.sections.booking_agent')
+
                         </div>
                         <div class="col-md-6">
                             @include('export.oceans.shipment_entries.partials.sections.agent')
@@ -58,6 +58,10 @@
 </div>
 <div class="row">
     <div class="col-md-12">@include('export.oceans.shipment_entries.partials.sections.weight_totals')</div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">@include('export.oceans.shipment_entries.partials.sections.details_hbl')</div>
 </div>
 <div class="row">
     <div class="col-md-12">@include('export.oceans.shipment_entries.partials.sections.container_details')</div>

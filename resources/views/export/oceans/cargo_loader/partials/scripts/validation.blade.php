@@ -121,16 +121,6 @@
                         notEmpty: { message: "The consignee city is required" },
                     }
                 },
-                place_receipt_name: {
-                    validators: {
-                        notEmpty: { message: "Place of receipt name is required" },
-                    }
-                },
-                place_delivery_name: {
-                    validators: {
-                        notEmpty: { message: "Place of delivery name is required" },
-                    }
-                },
                 port_loading_name: {
                     validators: {
                         notEmpty: { message: "A loading port is required" },

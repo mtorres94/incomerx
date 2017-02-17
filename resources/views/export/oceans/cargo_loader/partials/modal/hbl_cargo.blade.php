@@ -8,17 +8,18 @@
             </div>
             <div class="modal-body" >
                 {!! Form::hidden('cargo_line', null, ['id' => 'cargo_line', 'class' => 'form-control input-sm']) !!}
+                {!! Form::hidden('cargo_type_code', null, ['id' => 'cargo_type_code', 'class' => 'form-control input-sm']) !!}
 
                 <div id="resume_tabs" class="easyui-tabs">
                     <div title="Mark & Descriptions">
-                        @include('export.oceans.step_by_step.partials.modal.sections.cargo.mark_description')
+                        @include('export.oceans.cargo_loader.partials.modal.sections.HBL.mark_description')
                     </div>
 
                 </div>
                 <div class="row row-panel">
 
                     <div class="col-md-4">{!! Form::bsText(null,null, 'Loaded on Container', 'cargo_container', null, '') !!}</div>
-                    <div class="col-md-4">{!! Form::bsComplete(null, null, 'Cargo Type', 'cargo_type_id',  'cargo_type_code', Request::get('term'), null, 'Type') !!}</div>
+                    <div class="col-md-4">{!! Form::bsSelect(null, null, 'Cargo Type', 'cargo_type_id',  Sass\CargoType::all()->lists('code', 'id'), 'Type', 'body') !!}</div>
                     <div class="col-md-4">{!! Form::bsComplete(null, null, 'Commodity', 'cargo_commodity_id', 'cargo_commodity_name', Request::get('term'), null, 'Search Commodity...') !!}</div>
                     <div class="col-md-2">{!! Form::bsSelect(null, null, 'Kgs/Lbs', 'cargo_weight_unit', array('K' => 'KGS','L' => 'LBS'),null) !!}</div>
                     <div class="col-md-2">{!! Form::bsText(null,null, 'Weight(Kgs)', 'cargo_weight_k', null, '0.000') !!}</div>

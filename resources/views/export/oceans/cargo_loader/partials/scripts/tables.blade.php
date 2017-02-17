@@ -1,6 +1,13 @@
 <script type="text/javascript">
+    function validateRequiredField(){
+        if($("#hidden_warehouse tbody tr").length <= 0){
+            swal({   title: "Error!",   text: "There are not Warehouse linked.",   type: "warning",   confirmButtonText: "Ok" });
+        }else{
+            $("#CreateHouse").modal("show");
+        }
+    }
     $("#btn_container_details").click(function() {
-        $("#container_spotting_date").val($("#loading_date").val());
+        $("#container_spotting_date").val($("#departure_date").val());
         $("#pd_status").val("1").change();
         $("#equipment_type_id").val("").change();
         $("#container_pickup_type").val("02").change();
@@ -38,7 +45,7 @@
         }
     });
 
-    $("#btn_create_hbl").click(function() {
+    $("#btn_create_hbl_1").click(function() {
         clearTable('load_warehouses');
 
         var t = $("#hidden_warehouse tbody tr"),
@@ -61,7 +68,7 @@
         }
     });
 
-    $("#createHouse_save").click(function() {
+    $("#createHouse_save_1").click(function() {
         var t = $("#hidden_warehouse tbody tr"),
                 container= $("#container_details tbody tr"),description="",warehouses="",
                 _ = ($("#hbl_details tbody tr").length == 0 ? 1 : parseInt($("#hbl_details tbody tr")[$("#hbl_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
@@ -76,11 +83,11 @@
             while(c < whr_select.length){
                 if(t[a].childNodes[35].textContent == whr_select[c] ){
                     description= t[a].childNodes[37].textContent + "\n";
-                    warehouses= warehouses + "  "+t[a].childNodes[2].textContent ;
+                    warehouses= warehouses + "\n"+ t[a].childNodes[2].textContent ;
                     pieces= parseInt( t[a].childNodes[28].textContent) + pieces;
                     g_weight= parseFloat(t[a].childNodes[29].textContent) + g_weight;
                     cubic= parseFloat(t[a].childNodes[30].textContent) + cubic;
-                    marks= t[a].childNodes[38].textContent + " -  " + t[a].childNodes[39].textContent;
+                    marks= t[a].childNodes[38].textContent + "\n" + t[a].childNodes[39].textContent + "\n" + t[a].childNodes[40].textContent;
                   //  marks= marks + "Seal #: " + t[a].childNodes[39].textContent + "\n";
                     container_id= t[a].childNodes[0].textContent;
                     $("#hidden_warehouse tbody tr td").find("input[id='hidden_flag["+ (a + 1) +"]']").val(_);
@@ -795,7 +802,8 @@ $("#CreateHouse").modal("hide");
                     .append(createTableContent('hbl_line_id', '0', true, d))
                     .append(createTableContent('equipment_type_code', c3, true, d))
                     .append(createTableContent('container_number', c4, true, d))
-                    .append(createTableContent('container_seal_number', c5, true, d))
+                    .append(createTableContent('container_seal_number1', c5, true, d))
+                    .append(createTableContent('container_seal_number2', c6, true, d))
                 t.append(p_1);
                 d += 1;
             }
@@ -937,7 +945,7 @@ $("#CreateHouse").modal("hide");
                 $("#container_commodity_id").val(c18),
                 $("#container_commodity_name").val(c19),
                 $("#pd_status").val(c20).change(),
-                (c21 == '0000-00-00' ? $("#container_spotting_date").val($("#departure_date").val()) :$("#container_spotting_date").val(c21)),
+                (c21 == '' ? $("#container_spotting_date").val($("#departure_date").val()) :$("#container_spotting_date").val(c21)),
                 $("#container_pull_date").val(c22),
 
                 $("#container_pickup_id").val(c23),

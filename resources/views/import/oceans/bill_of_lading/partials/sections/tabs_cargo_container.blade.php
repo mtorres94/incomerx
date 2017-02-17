@@ -6,7 +6,7 @@
                     <button type="button" id="btn_cargo_details" class="btn btn-default" data-toggle="modal" data-target="#Cargo_Details" onclick="cleanModalFields('Cargo_Details')">
                         <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-danger"  onclick="clearTable('cargo_details')">
+                    <button type="button" class="btn btn-danger"  onclick="clearTable('cargo_details'), values_box_vehicle()">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -241,8 +241,10 @@
 <div class="row row-panel">
     <div class="col-md-2">{!! Form::bsText(null,null, 'Value Declared', 'total_value_declared', null, '0') !!}</div>
     <div class="col-md-1">{!! Form::bsText(null,null, 'Pcs', 'total_pieces', null, '0') !!}</div>
-    <div class="col-md-2">{!! Form::bsComplete(null, null,'Cargo Type', 'total_cargo_type_id', 'total_cargo_type_name', Request::get('term'), ((isset($bill_of_lading) and $bill_of_lading->total_cargo_type_id > 0) ? $bill_of_lading->total_cargo_type->code : null), '') !!}</div>
-    <div class="col-md-2">{!! Form::bsComplete(null, null,'Commodity', 'total_commodity_id', 'total_commodity_name', Request::get('term'), ((isset($bill_of_lading) and $bill_of_lading->total_commodity_id > 0) ? $bill_of_lading->total_commodity->code : null), '', 'options.maintenance.items.commodities', 'options.maintenance.items.commodities', 'maintenance.items.commodities.index') !!}</div>
+    <div class="col-md-2">{!! Form::bsSelect(null, null,'Cargo Type', 'total_cargo_type_id', Sass\CargoType::all()->lists('code', 'id'), '', 'body') !!}</div>
+    <!--<div class="col-md-2">{!! Form::bsComplete(null, null,'Commodity', 'total_commodity_id', 'total_commodity_name', Request::get('term'), ((isset($bill_of_lading) and $bill_of_lading->total_commodity_id > 0) ? $bill_of_lading->total_commodity->code : null), '', 'options.maintenance.items.commodities', 'options.maintenance.items.commodities', 'maintenance.items.commodities.index') !!}</div>-->
+    <div class="col-md-2">{!! Form::bsText(null,null, 'Commodity', 'total_commodity_name', null) !!}</div>
+
     <div class="col-md-1">{!! Form::bsSelect(null, null, 'Kgs/Lbs', 'total_weight_unit',  array('K' => 'KGS','L' => 'LBS' ), null)!!}</div>
 
     <div class="col-md-1">{!! Form::bsText(null,null, 'Gross W.', 'total_gross_weight', null, '0.000') !!}</div>

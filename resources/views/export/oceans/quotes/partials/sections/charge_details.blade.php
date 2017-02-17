@@ -31,7 +31,7 @@
                     {!! Form::bsRowTd($detail->line, 'billing_billing_id', $detail->billing_id, true) !!}
                     {!! Form::bsRowTd($detail->line, 'billing_billing_code', strtoupper($detail->billing_id > 0 ? $detail->billing->code : ""), false) !!}
                     {!! Form::bsRowTd($detail->line, 'billing_billing_description', $detail->billing_description, false) !!}
-                    {!! Form::bsRowTd($detail->line, 'billing_vendor_name', ($detail->vendor_id >0 ? $detail->vendor->name : ""), true) !!}
+                    {!! Form::bsRowTd($detail->line, 'billing_vendor_name', ($detail->vendor_id >0 ? $detail->billing_vendor->name : ""), true) !!}
                     {!! Form::bsRowTd($detail->line, 'billing_unit_name', strtoupper($detail->unit_id >0 ? $detail->unit->code : ""), true) !!}
                     {!! Form::bsRowTd($detail->line, 'billing_bill_type', $detail->bill_type, false) !!}
                     {!! Form::bsRowTd($detail->line, 'billing_bill_party', $detail->bill_party, false) !!}

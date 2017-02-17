@@ -84,12 +84,22 @@
                     <td><p><strong>CUT OFF: </strong></p></td>
                     <td><p> {{ $cargo_loader->equipment_cut_off_date }}</p></td>
                 </tr>
+                @foreach( $cargo_loader->container_details as $detail)
+                    <tr>
+                        <td><p><strong>EQUIPMENT TYPE: </strong></p></td>
+                        <td>{{ ($detail->equipment_type_id > 0 ? $detail->equipment_type->code : "") }}</td>
+                        <td><p><strong>EQUIPMENT NUMBER: </strong></p></td>
+                        <td>{{ $detail->container_number }}</td>
+                        <td><p><strong>SEAL NUMBER: </strong></p></td>
+                        <td>{{ $detail->container_seal_number }}</td>
+                    </tr>
+                @endforeach
             </table>
-
 
                @foreach($cargo_loader->pivote as $pivot)
                 <table class="table table-condensed">
                     <thead>
+                    <tr>
                         <th width="5%" valign="bottom"><strong>WR#</strong></th>
                         <td width="10%" valign="bottom">{{ $pivot->receipt_entry->code }}</td>
                         <th width="10%" valign="bottom"><strong> WR LOC</strong></th>
@@ -98,64 +108,68 @@
                         <td width="20%" valign="bottom"> {{ strtoupper($pivot->receipt_entry->shipper_id >0 ? $pivot->receipt_entry->shipper->name : "")}}</td>
                         <th width="10%" valign="bottom"><strong>CONSIGNEE: </strong></th>
                         <td width="20%" valign="bottom"> {{ strtoupper($pivot->receipt_entry->consignee_id >0 ? $pivot->receipt_entry->consignee->name : "")}}</td>
+                    </tr>
                     </thead>
-                   <tbody>
-                   <table class="table table-condensed">
-                       <thead>
-                       <th width="10%">PCS/ TYPE</th>
-                       <th width="10%">DIMS</th>
-                       <th width="10%">WEIGHT</th>
-                       <th width="10%">CUBIC</th>
-                       <th width="15%">LOCATION</th>
-                       <th width="15%">BIN</th>
-                       <th width="10%">PICKED</th>
-                       <th width="10%">LOADED</th>
-                       <th width="10%">POSITION</th>
-                       <th width="5%">HZ</th>
-                       </thead>
-                       <tbody>
-                       @foreach( $pivot->receipt_entry->cargo_details as $cargo_detail)
-                           <tr>
-                               <td width="10%">{{ $cargo_detail->pieces  }}/ {{ strtoupper($cargo_detail->cargo_type_id >0 ? $cargo_detail->cargo_type->code : "") }}</td>
-                               <td width="10%">{{ round($cargo_detail->length)  }}x {{ round($cargo_detail->width)  }}x {{ round($cargo_detail->height)  }}</td>
-                               <td width="10%">{{ $cargo_detail->total_weight  }}</td>
-                               <td width="10%">{{ $cargo_detail->cubic  }}</td>
-                               <td width="15%">{{ strtoupper($cargo_detail->location_id >0 ? $cargo_detail->location->name : "") }}</td>
-                               <td width="15%">{{ strtoupper($cargo_detail->location_bin_id >0 ? $cargo_detail->bin->name : "") }}</td>
-                               <td width="10%"></td>
-                               <td width="10%"></td>
-                               <td width="10%"></td>
-                               <td width="5%"></td>
+                </table>
+                <table class="table table-condensed">
+                    <thead>
+                         <tr>
+                                   <th width="10%">PCS</th>
+                                   <th width="10%">TYPE</th>
+                                   <th width="10%">DIMS</th>
+                                   <th width="10%">WEIGHT</th>
+                                   <th width="10%">CUBIC</th>
+                                   <th width="15%">LOCATION</th>
+                                   <th width="15%">BIN</th>
+                                   <th width="10%">PICKED</th>
+                                   <th width="10%">LOADED</th>
+                                   <th width="10%">POSITION</th>
+                                   <th width="5%">HZ</th>
+                               </tr>
+                    </thead>
+                    <tbody>
+                               @foreach( $pivot->receipt_entry->cargo_details as $cargo_detail)
+                                   <tr>
+                                       <td width="10%">{{ $cargo_detail->quantity  }}</td>
+                                       <td width="10%">{{ strtoupper($cargo_detail->cargo_type_id >0 ? $cargo_detail->cargo_type->code : "") }}</td>
+                                       <td width="10%">{{ round($cargo_detail->length)  }}x {{ round($cargo_detail->width)  }}x {{ round($cargo_detail->height)  }}</td>
+                                       <td width="10%">{{ $cargo_detail->total_weight  }}</td>
+                                       <td width="10%">{{ $cargo_detail->cubic  }}</td>
+                                       <td width="15%">{{ strtoupper($cargo_detail->location_id >0 ? $cargo_detail->location->name : "") }}</td>
+                                       <td width="15%">{{ strtoupper($cargo_detail->location_bin_id ) }}</td>
+                                       <td width="10%"></td>
+                                       <td width="10%"></td>
+                                       <td width="10%"></td>
+                                       <td width="5%"></td>
 
-                           </tr>
-                       @endforeach
-                       </tbody>
-                   </table>
+                                   </tr>
+                               @endforeach
+                          </tbody>
+                    </table>
 
-                   </tbody>
+
+                <table class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th width="10%">{{ $pivot->receipt_entry->sum_pieces }}</th>
+                        <th width="10%"></th>
+                        <th width="10%"></th>
+                        <th width="10%">{{ $pivot->receipt_entry->sum_weight}}</th>
+                        <th width="10%">{{ $pivot->receipt_entry->sum_cubic}}</th>
+                        <td width="15%"></td>
+                        <td width="15%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="5%"></td>
+                    </tr>
+                    </thead>
 
                 </table>
-                   <table class="table table-condensed">
-                       <thead>
-                           <th width="10%">{{ $pivot->receipt_entry->sum_pieces }}</th>
-                           <th width="10%"></th>
-                           <th width="10%">{{ $pivot->receipt_entry->sum_weight}}</th>
-                           <th width="10%">{{ $pivot->receipt_entry->sum_cubic}}</th>
-                           <td width="15%"></td>
-                           <td width="15%"></td>
-                           <td width="10%"></td>
-                           <td width="10%"></td>
-                           <td width="10%"></td>
-                           <td width="5%"></td>
-
-                       </thead>
-                   </table>
-                @endforeach
-
-
-
+            @endforeach
         </div>
     </div>
+
 
 </div>
 </body>

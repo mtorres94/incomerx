@@ -16,22 +16,23 @@ class EoHblReceiptEntry extends Model
         $i = 0;
         $a = 0;
     if($data["flag"] == 0){
-        DB::table('eo_hbl_receipt_entries')->where('cargo_loader_id', '=', $id)->delete();
-        ReceiptEntry::where('cargo_loader_id', '=', $id)->update(['status' => "O", 'cargo_loader_id' => '0']);
+        //DB::table('eo_hbl_receipt_entries')->where('cargo_loader_id', '=', $id)->delete();
     }else{
-        DB::table('eo_hbl_receipt_entries')->where('bill_of_lading_id', $id)->delete();
+       // DB::table('eo_hbl_receipt_entries')->where('bill_of_lading_id', $id)->delete();
     }
-        if (isset($data['hidden_warehouse_line'])) {
-            while ($a < count($data['hidden_warehouse_line'])) {
-                if (isset($data['hidden_warehouse_line'][$i])) {
+        if (isset($data['warehouse_id'])) {
+        //from EoCargoLoaderController      $id = cargo_loader_id
+            //hidden_warehouse_line == code
+            while ($a < count($data['warehouse_select'])) {
+                if (isset($data['warehouse_code'][$i]) and ($data['warehouse_id'][$i] == $data['warehouse_select'][$a])) {
 
                     $obj = new EoHblReceiptEntry();
                     $obj->line = $a + 1;
                     $obj->bill_of_lading_id =  $data['hbl_line_id'][$i];
-                    $obj->receipt_entry_id = $data['hidden_warehouse_line'][$i];
+                    $obj->receipt_entry_id = $data['warehouse_id'][$i];
                     $obj->cargo_loader_id = $id;
                     $obj->save();
-                    ReceiptEntry::where('id', '=', $data['hidden_warehouse_line'][$i])->update(['status' => "C", 'cargo_loader_id' => $id]);
+                    ReceiptEntry::where('id', '=', $data['warehouse_id'][$i])->update(['status' => "C", 'cargo_loader_id' => $id]);
                     $a++;
                 }
                 $i++;

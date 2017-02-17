@@ -575,8 +575,9 @@ table tbody td {
 }
 .panel-body ul.dropdown-menu li a,
 .bs-container ul.dropdown-menu li a {
-    font-size: 11px;
-    padding: 3px 12px;
+    font-size: 11px !important;
+    padding: 3px 12px !important;
+    text-transform: uppercase;
 }
 .bs-searchbox .form-control {
     height: 25px;

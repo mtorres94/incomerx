@@ -59,26 +59,6 @@
                         }
                     }
                 },
-                closed_date: {
-                    validators: {
-                        notEmpty: { message: "Closed date is invalid" },
-                        date: {
-                            format: "YYYY-MM-DD",
-                            min: 'approved_date',
-                            message: "Closed date is invalid"
-                        }
-                    }
-                },
-                ending_date: {
-                    validators: {
-                        notEmpty: { message: "Ending date is invalid" },
-                        date: {
-                            format: "YYYY-MM-DD",
-                            min: 'closed_date',
-                            message: "Ending date is invalid"
-                        }
-                    }
-                },
                 shipper_name: {
                     validators: {
                         notEmpty: { message: "The shipper name is required" },

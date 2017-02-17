@@ -70,8 +70,10 @@
         <div class="col-md-1">{!! Form::bsSelect(null, null, 'Kgs/Lbs', 'total_unit_weight', array('K' => 'Kgs','L' => 'Lbs'), null) !!}</div>
         <div class="col-md-1">{{ Form::bsText(null, null, 'T Weight', 'total_weight', null) }}</div>
         <div class="col-md-1">{{ Form::bsText(null, null, 'Cubic', 'total_cubic', null) }}</div>
-        <div class="col-md-2">{!! Form::bsComplete(null, null, 'Cargo Type', 'total_cargo_type_id', 'total_cargo_type_code', Request::get('term'), ((isset($quotes) and $quotes->total_cargo_type_id > 0) ? $quotes->total_cargo_type->name : null), null) !!}</div>
-        <div class="col-md-2">{!! Form::bsComplete(null, null, 'Commodity', 'total_commodity_id', 'total_commodity_code', Request::get('term'), ((isset($quotes) and $quotes->total_commodity_id > 0) ? $quotes->total_commodity->code : null), null, 'options.maintenance.items.commodities', 'options.maintenance.items.commodities', 'maintenance.items.commodities.index') !!}</div>
+        <div class="col-md-3">{!! Form::bsSelect(null, null, 'Cargo Type', 'total_cargo_type_id', Sass\CargoType::all()->lists('code', 'id'), null, 'body') !!}</div>
+        <!--<div class="col-md-2">{!! Form::bsComplete(null, null, 'Commodity', 'total_commodity_id', 'total_commodity_code', Request::get('term'), ((isset($quotes) and $quotes->total_commodity_id > 0) ? $quotes->total_commodity->code : null), null, 'options.maintenance.items.commodities', 'options.maintenance.items.commodities', 'maintenance.items.commodities.index') !!}</div>-->
+        <div class="col-md-3">{{ Form::bsText(null, null, 'Commodity', 'total_commodity_name', null) }}</div>
+
 
 
 

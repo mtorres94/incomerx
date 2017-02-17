@@ -64,6 +64,10 @@ class EoBillOfLadingCharge extends Model
     {
         return $this->belongsTo('Sass\Customer', 'billing_customer_id');
     }
+    public function billing_vendor()
+    {
+        return $this->belongsTo('Sass\Vendor', 'billing_vendor_code');
+    }
     public function billing_unit()
     {
         return $this->belongsTo('Sass\Unit', 'billing_unit_id');

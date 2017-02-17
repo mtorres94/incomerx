@@ -226,9 +226,7 @@ class EoShipmentEntryController extends Controller
                     'agent_contact'   => $shipmentEntry->agent_contact,
                     'agent_amount'   => $shipmentEntry->agent_amount,
 
-                    'inland_carrier_id'   => $shipmentEntry->inland_carrier_id,
                     'inland_driver_id'   => $shipmentEntry->inland_driver_id,
-                    'inland_carrier_name'   => strtoupper($shipmentEntry->inland_carrier_id > 0 ? $shipmentEntry->inland_carrier->name : ""),
                     'inland_driver_name'   => strtoupper($shipmentEntry->inland_driver_id > 0 ? $shipmentEntry->inland_driver->name : ""),
                     'inland_lic_number'   => strtoupper($shipmentEntry->inland_lic_number),
 
@@ -355,6 +353,22 @@ class EoShipmentEntryController extends Controller
             try {
                 $shipment_entry= EoShipmentEntry::findOrFail($id);
                 return \PDF::loadView('export.oceans.shipment_entries.container_release', compact('shipment_entry'))->stream($shipment_entry->booking_code.'.pdf');
+            } catch (ModelNotFoundException $e) {
+                abort(404);
+            }
+        } else {
+            abort(403);
+        }
+    }
+    public function manifest($token, $id)
+    {
+        if (strlen($token) == 60) {
+            try {
+                $shipment_entry= EoShipmentEntry::findOrFail($id);
+
+                return \PDF::loadView('export.oceans.shipment_entries.ocean_manifest', compact('shipment_entry'))
+                    ->setOrientation('landscape')
+                    ->stream($shipment_entry->code.'.pdf');
             } catch (ModelNotFoundException $e) {
                 abort(404);
             }

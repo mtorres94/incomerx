@@ -22,6 +22,7 @@
         @include('layouts.partials.content')
     </div>
 
+    @include('sweet::alert')
     @include('layouts.libs.script')
 </body>
 <div class="se-pre-con"></div>

@@ -28,6 +28,7 @@ class EoCargoLoaderContainer extends Model
                     $obj-> equipment_type_id = $data['equipment_type_id'][$i];
                     $obj-> container_number = $data['container_number'][$i];
                     $obj-> container_seal_number = $data['container_seal_number'][$i];
+                    $obj-> container_seal_number_2 = $data['container_seal_number2'][$i];
                     $obj-> container_order_number = $data['container_order_number'][$i];
                     $obj-> container_hazardous_contact = $data['container_hazardous_contact'][$i];
                     $obj-> container_hazardous_phone = $data['container_hazardous_phone'][$i];

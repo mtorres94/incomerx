@@ -8,13 +8,13 @@
             value: '{{ ((isset($bill_of_lading) and ($bill_of_lading->forwarding_agent_id > 0 ) ) ? $bill_of_lading->forwarding_agent->name : "")}}'
         },onSelect:function(e,o){$("#forwarding_agent_id").val(e.id),$(this).val(e.value)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#forwarding_agent_name_img").removeClass("img-none").addClass("img-display"),$("#forwarding_agent_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#forwarding_agent_name_img").removeClass("img-display").addClass("img-none"),$("#forwarding_agent_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#forwarding_agent_id").val(0)}).blur(function(){var e=$("#forwarding_agent_id").val();0==e&&($(this).val(""))});
 
-        $("#port_loading_name").marcoPolo({url:"{{ route('ocean_ports.autocomplete') }}",formatItem:function(e,o){return e.name},selected:{
+        $("#port_loading_name").marcoPolo({url:"{{ route('airports.autocomplete') }}",formatItem:function(e,o){return e.name},selected:{
             id: '{{ (isset($bill_of_lading) ? $bill_of_lading->port_loading_id : "") }}',
             name: '{{ ((isset($bill_of_lading) and ($bill_of_lading->port_loading_id > 0 ))? $bill_of_lading->port_loading_name->name : "") }}',
         },onSelect:function(e,o){$("#port_loading_id").val(e.id),$(this).val(e.name), $("#port_loading").val(e.name)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#port_loading_name_img").removeClass("img-none").addClass("img-display"),$("#port_loading_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#port_loading_name_img").removeClass("img-display").addClass("img-none"),$("#port_loading_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#port_loading_id").val(0)}).blur(function(){var e=$("#port_loading_id").val();0==e&&($(this).val(""))});
 
 
-        $("#port_unloading_name").marcoPolo({url:"{{ route('ocean_ports.autocomplete') }}",formatItem:function(e,o){return e.name},selected:{
+        $("#port_unloading_name").marcoPolo({url:"{{ route('airports.autocomplete') }}",formatItem:function(e,o){return e.name},selected:{
             id: '{{ (isset($bill_of_lading) ? $bill_of_lading->port_unloading_id : "") }}',
             name: '{{ ((isset($bill_of_lading) and ($bill_of_lading->port_unloading_id > 0 ))? $bill_of_lading->port_unloading_name->name : "") }}',
             code: '{{ ((isset($bill_of_lading) and ($bill_of_lading->port_unloading_id > 0 ))? $bill_of_lading->port_unloading_name->code : "") }}',

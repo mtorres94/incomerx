@@ -1,7 +1,5 @@
 <fieldset>
-    <div class="row">
-        <div class="col-md-12">{!! Form::bsComplete('col-md-3', 'col-md-9','Carrier ', 'carrier_id', 'carrier_name', Request::get('term'),((isset($cargo_loader) and $cargo_loader->carrier_id > 0) ? $cargo_loader->carrier->name: null), '') !!}</div>
-        </div>
+
     <div class="row">
         <div class="col-md-12">{!! Form::bsComplete('col-md-3', 'col-md-9','Place receipt ', 'place_receipt_id', 'place_receipt_name', Request::get('term'),((isset($cargo_loader) and $cargo_loader->place_receipt_id > 0) ? $cargo_loader->receipt->name: null), '') !!}</div>
     </div>

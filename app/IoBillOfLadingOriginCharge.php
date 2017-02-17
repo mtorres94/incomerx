@@ -75,7 +75,7 @@ class IoBillOfLadingOriginCharge extends Model
     }
     public function billing_vendor()
     {
-        return $this->belongsTo('Sass\Vendor', 'vendor_code');
+        return $this->belongsTo('Sass\Vendor', 'billing_vendor_code');
     }
     public function billing_currency()
     {

@@ -38,7 +38,7 @@
              'S' => 'SEND TO CUSTOMER',
              'T' => 'TRANSFERRED TO SHIPMENT',
              'V' => 'VOID',
-         ), null) !!}
+         ), null, 'body') !!}
         {!! Form::bsSelect('col-md-3', 'col-md-3', 'Quote Type', 'quote_type', array(
               'S' => 'SINGLE CARRIER',
               'M' => 'MULTIPLE CARRIERS',

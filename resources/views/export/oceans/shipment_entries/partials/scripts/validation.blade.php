@@ -117,16 +117,6 @@
                         notEmpty: { message: "The consignee city is required" },
                     }
                 },
-                place_receipt_name: {
-                    validators: {
-                        notEmpty: { message: "Place of receipt name is required" },
-                    }
-                },
-                place_delivery_name: {
-                    validators: {
-                        notEmpty: { message: "Place of delivery name is required" },
-                    }
-                },
                 port_loading_name: {
                     validators: {
                         notEmpty: { message: "A loading port is required" },
@@ -135,11 +125,6 @@
                 port_unloading_name: {
                     validators: {
                         notEmpty: { message: "An unloading port is required" },
-                    }
-                },
-                carrier_name: {
-                    validators: {
-                        notEmpty: { message: "Carrier name is required" },
                     }
                 },
                 bl_status: {
@@ -151,17 +136,7 @@
                     validators: {
                         notEmpty: { message: "Booking Code is required" },
                     }
-                },
-                agent_commission_p: {
-                    validators: {
-                        notEmpty: { message: "Booking Code is required" },
-                    }
-                },
-                agent_commission_amount: {
-                    validators: {
-                        notEmpty: { message: "Booking Code is required" },
-                    }
-                },
+                }
             }
         }).on('success.field.fv', function(e, data) {
             // $(e.target)  --> The field element

@@ -1,5 +1,101 @@
 <script type="text/javascript">
+    function container_detail () {
+        var r=$("#load_warehouse_details tbody tr").length + 1,
+            n = $("#load_warehouse_details"),
+            type_for = $("#pick_search_type").val(),
+            t = n.find("tbody"),
+            x = 0,
+            id = $("#pick_search_for_id").val();
+        $.ajax({
+            url: "{{ route('receipts_entries.autocomplete') }}",
+            data: { term: id, type_for: type_for },
+            type: 'GET',
+            success: function (e) {
+                while(e[x] !=''){
+                    var p = $("<tr id=" + r + " data-toggle = collapse data-target= ."+ r +">");
+                    p.append(createTableContent('pick_details_line', r, true, r))
+                        .append(createTableContent('pick_wr_id', e[x].id, true, r))
+                        .append("<td><input type='checkbox' name='pick_select[]' id='pick_select' value='" + e[x].id + "'></td>")
+                        .append(createTableContent('pick_wr_number', e[x].value , false,r ))
+                        .append(createTableContent('pick_date_in', e[x].date_in , false, r))
+                        .append(createTableContent('pick_shipper_id', e[x].shipper_id, true, r))
+                        .append(createTableContent('pick_shipper_name', e[x].shipper_name , false, r))
+                        .append(createTableContent('pick_shipper_address', e[x].shipper_address , true, r))
+                        .append(createTableContent('pick_shipper_city', e[x].shipper_city, true, r))
+                        .append(createTableContent('pick_shipper_state_id', e[x].shipper_state_id, true, r))
+                        .append(createTableContent('pick_shipper_state_name', e[x].shipper_state_name , true, r))
+                        .append(createTableContent('pick_shipper_zip_code_id', e[x].shipper_zip_code_id, true, r))
+                        .append(createTableContent('pick_shipper_zip_code_code', e[x].shipper_zip_code_code, true, r))
+                        .append(createTableContent('pick_shipper_phone', e[x].shipper_phone, true, r))
+                        .append(createTableContent('pick_shipper_fax', e[x].shipper_fax, true, r))
+                        .append(createTableContent('pick_consignee_id', e[x].consignee_id, true, r))
+                        .append(createTableContent('pick_consignee_name', e[x].consignee_name , false, r))
+                        .append(createTableContent('pick_consignee_address', e[x].consignee_address, true, r))
+                        .append(createTableContent('pick_consignee_city', e[x].consignee_city, true, r))
+                        .append(createTableContent('pick_consignee_state_id', e[x].consignee_state_id, true, r))
+                        .append(createTableContent('pick_consignee_state_name', e[x].consignee_state_name , true, r))
+                        .append(createTableContent('pick_consignee_zip_code_id', e[x].consignee_zip_code_id, true, r))
+                        .append(createTableContent('pick_consignee_zip_code_code', e[x].consignee_zip_code_code, true, r))
+                        .append(createTableContent('pick_consignee_phone', e[x].consignee_phone, true, r))
+                        .append(createTableContent('pick_consignee_fax', e[x].consignee_fax, true, r))
+                        .append(createTableContent('pick_destination_name', e[x].destination_name , true, r))
+                        .append(createTableContent('pick_quantity',e[x].quantity , false, r))
+                        .append(createTableContent('pick_weight', e[x].sum_weight , false, r))
+                        .append(createTableContent('pick_cubic', e[x].sum_cubic, false, r))
+                        .append(createTableContent('pick_unit', '' , true, r))
+                        .append(createTableContent('pick_status', e[x].status, true, r))
+                        .append(createTableContent('pick_service_name', e[x].service_name , true, r))
+                        .append(createTableContent('pick_service_id', e[x].service_id , true, r))
+                        .append(createTableContent('pick_volume_weight', e[x].volume_weight, true, r))
+                        .append(createTableContent('pick_warehouse_id', e[x].warehouse_id, true, r))
+                        .append(createTableContent('pick_warehouse_name', e[x].warehouse_name, true, r))
+                    t.append(p);
+                    r++;
+                    x++;
+                }
+            }
+        });
 
+
+
+    }
+   $("#pick_search_type").change( function(){
+       var x = $("#pick_search_type").val();
+       var url = x === '1' ? "{{ route('receipts_entries.autocomplete') }}" :
+                    x === '2' ? "{{ route('divisions.autocomplete') }}" :
+                        x === '3' || x === '4' || x === '5' || x === '6' ? "{{ route('customers.autocomplete') }}" :
+                                "{{ route('receipts_entries.autocomplete') }}";
+
+       $("#pick_search_for_name").marcoPolo({
+           url: url,
+           formatItem: function(e, o) {
+               return e.value
+           },
+           onSelect: function(e, o) {
+               $("#pick_search_for_id").val(e.id);
+               $(this).val(e.value);
+               container_detail();
+               autochecked();
+               warehouse_details();
+           },
+           minChars: 3,
+           data: {
+               "type": x
+           },
+           param: "term"
+       }).on("marcopolorequestbefore", function() {
+           $("#pick_search_for_name_img").removeClass("img-none").addClass("img-display"), $("#pick_search_for_name_spn").removeClass("img-display").addClass("img-none")
+       }).on("marcopolorequestafter", function() {
+           $("#pick_search_for_name_img").removeClass("img-display").addClass("img-none"), $("#pick_search_for_name_spn").removeClass("img-none").addClass("img-display")
+       }).keydown(function(e) {
+           var o = e.keyCode ? e.keyCode : e.which;
+           (8 == o || 46 == o) && $("#pick_search_for_id").val(0)
+       }).blur(function() {
+           var e = $("#pick_search_for_id").val();
+           0 == e && $(this).val("")
+       })
+   });
+/*
 $("#pick_search_for_name").focus(function () {
 var  type= $("#pick_search_type").val();  $("#pick_search_for_name").marcoPolo({url:"{{ route('receipts_entries.autocomplete') }}",formatItem:function(e,o){return e.value +'|'+ e.date_in + '|' + e.shipper_name + '|' + e.consignee_name},
 onSelect:function(e,o)
@@ -53,7 +149,7 @@ onSelect:function(e,o)
     "type_for": type,
     },param:"term",required:!0}).on("marcopolorequestbefore",function(){$("#pick_search_for_name_img").removeClass("img-none").addClass("img-display"),$("#pick_search_for_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#pick_search_for_name_img").removeClass("img-display").addClass("img-none"),$("#pick_search_for_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#pick_search_for_id").val(0)}).blur(function(){var e=$("#pick_search_for_id").val(); 0 == e && ($(this).val(""))});
     });
-
+*/
 
     $("#hazardous_uns_code").marcoPolo({url:"{{ route('uns_codes.autocomplete') }}",formatItem:function(e,o){return e.code+' | '+e.name},onSelect:function(e,o){$("#hazardous_uns_id").val(e.id),$(this).val(e.code),$('#hazardous_uns_desc').val(e.name)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#hazardous_uns_code_img").removeClass("img-none").addClass("img-display"),$("#hazardous_uns_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#hazardous_uns_code_img").removeClass("img-display").addClass("img-none"),$("#hazardous_uns_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#hazardous_uns_id").val(0)}).blur(function(){var e=$("#hazardous_uns_id").val(); 0 == e && ($(this).val(""))});
 
@@ -141,16 +237,14 @@ state_of_origin_id: '{{ (isset($cargo_loader) ? $cargo_loader->state_of_origin_i
 state_of_origin_name: '{{ ((isset($cargo_loader) and ($cargo_loader->state_of_origin_id > 0)) ? $cargo_loader->state_of_origin->name : "") }}',
             id: '{{ (isset($cargo_loader) ? $cargo_loader->shipment_id : "") }}',
             code: '{{ ((isset($cargo_loader) and ($cargo_loader->shipment_id > 0))? $cargo_loader->shipment->code : "" )  }}',
-            inland_carrier_id: '{{ (isset($cargo_loader) ? $cargo_loader->inland_carrier_id : "") }}',
             inland_driver_id: '{{ (isset($cargo_loader) ? $cargo_loader->inland_driver_id : "") }}',
             inland_lic_number: '{{ (isset($cargo_loader) ? $cargo_loader->inland_lic_number: "") }}',
-            inland_carrier_name: '{{ strtoupper((isset($cargo_loader) and ($cargo_loader->inland_carrier_id > 0))? $cargo_loader->inland_carrier->name : "") }}',
             inland_driver_name: '{{ strtoupper((isset($cargo_loader) and ($cargo_loader->inland_driver_id > 0))? $cargo_loader->inland_driver->name : "") }}'
         }, onSelect: function (e, o) {
             $("#shipment_id").val(e.id),
                     $(this).val(e.code).change(),
                     $("#shipment_type").val(e.type).change(), $("#bl_status").val(e.bl_status).change(), $("#vessel_name").val(e.vessel), $("#voyage_name").val(e.voyage), $("#carrier_id").val(e.carrier_id).change(), $("#carrier_name").val(e.carrier_name), $("#departure_date").val(e.departure), $("#arrival_date").val(e.arrival).change(), $("#port_loading_id").val(e.loading_port_id).change(), $("#port_loading_name").val(e.loading_port_name), $("#port_unloading_id").val(e.unloading_port_id).change(), $("#port_unloading_name").val(e.unloading_port_name), $("#place_receipt_id").val(e.location_origin_id).change(), $("#place_receipt_name").val(e.location_origin_name), $("#place_delivery_id").val(e.location_destination_id).change(), $("#place_delivery_name").val(e.location_destination_name), $("#place_receipt").val(e.location_origin_name), $("#place_delivery").val(e.location_destination_name), $("#port_loading").val(e.loading_port_name), $("#foreign_port").val(e.unloading_port_name), $("#shipper_id").val(e.shipper_id).change(), $("#shipper_name").val(e.shipper_name), $("#shipper_address").val(e.shipper_address), $("#shipper_city").val(e.shipper_city), $("#shipper_phone").val(e.shipper_phone), $("#shipper_state_id").val(e.shipper_state_id).change(), $("#shipper_state_name").val(e.shipper_state_name), $("#shipper_zip_code_id").val(e.shipper_zip_code_id).change(), $("#shipper_zip_code_code").val(e.shipper_zip_code),$("#consignee_id").val(e.consignee_id).change(), $("#consignee_name").val(e.consignee_name), $("#consignee_address").val(e.consignee_address), $("#consignee_city").val(e.consignee_city), $("#consignee_phone").val(e.consignee_phone), $("#consignee_state_id").val(e.consignee_state_id).change(), $("#consignee_state_name").val(e.consignee_state_name), $("#consignee_zip_code_id").val(e.consignee_zip_code_id).change(), $("#consignee_zip_code_code").val(e.consignee_zip_code), $("#notify_id").val(e.notify_id).change(), $("#notify_name").val(e.notify_name), $("#notify_address").val(e.notify_address), $("#notify_city").val(e.notify_city), $("#notify_phone").val(e.notify_phone), $("#notify_state_id").val(e.notify_state_id).change(), $("#notify_state_name").val(e.notify_state_name), $("#notify_zip_code_id").val(e.notify_zip_code_id).change(), $("#notify_zip_code_code").val(e.notify_zip_code), $("#forwarding_agent_name").val(e.forwarding_agent_name), $("#forwarding_agent_id").val(e.forwarding_agent_id).change(), $("#domestic_routing").val(e.domestic_routing), $("#booking_code").val(e.booking_code),
- $("#agent_name").val(e.agent_name), $("#agent_id").val(e.agent_id).change(), $("#agent_phone").val(e.agent_phone), $("#agent_fax").val(e.agent_fax), $("#agent_contact").val(e.agent_contact), $("#agent_commission").val(e.agent_commission), $("#spotting_amount").val(e.agent_amount), $("#state_of_origin_id").val(e.state_of_origin_id).change(), $("#state_of_origin_name").val(e.state_of_origin_name), $("#inland_carrier_name").val(e.inland_carrier_name), $("#inland_driver_name").val(e.inland_driver_name), $("#inland_carrier_id").val(e.inland_carrier_id),$("#inland_driver_id").val(e.inland_driver_id), $("#inland_lic_number").val(e.inland_lic_number), $("#booked_date").val(e.booked_date), $("#loading_date").val(e.loading_date), $("#equipment_cut_off_date").val(e.equipment_cut_off_date), $("#documents_cut_off_date").val(e.documents_cut_off_date)
+ $("#agent_name").val(e.agent_name), $("#agent_id").val(e.agent_id).change(), $("#agent_phone").val(e.agent_phone), $("#agent_fax").val(e.agent_fax), $("#agent_contact").val(e.agent_contact), $("#agent_commission").val(e.agent_commission), $("#spotting_amount").val(e.agent_amount), $("#state_of_origin_id").val(e.state_of_origin_id).change(), $("#state_of_origin_name").val(e.state_of_origin_name),  $("#inland_driver_name").val(e.inland_driver_name), $("#inland_driver_id").val(e.inland_driver_id), $("#inland_lic_number").val(e.inland_lic_number), $("#booked_date").val(e.booked_date), $("#loading_date").val(e.loading_date), $("#equipment_cut_off_date").val(e.equipment_cut_off_date), $("#documents_cut_off_date").val(e.documents_cut_off_date)
         },
         minChars: 2, param: "term"
     }).on("marcopolorequestbefore", function () {
@@ -166,7 +260,7 @@ state_of_origin_name: '{{ ((isset($cargo_loader) and ($cargo_loader->state_of_or
                 $("#bl_status").val("").change(),$("#vessel_name").val(""),$("#voyage_name").val(""),$("#carrier_id").val(""),$("#carrier_name").val(""),$("#departure_date").val(""),$("#arrival_date").val(""),$("#booking_code").val(""),
 $("#port_loading_id").val(""),$("#port_loading_name").val(""),$("#port_unloading_id").val(""),$("#port_unloading_name").val(""),$("#place_receipt_id").val(""),$("#place_receipt_name").val(""),$("#place_delivery_id").val(""),$("#place_delivery_name").val(""),$("#place_receipt").val(""),$("#place_delivery").val(""),$("#port_loading").val(""),$("#port_unloading").val(""),
 $("#shipper_id").val(""),$("#shipper_name").val(""),$("#shipper_address").val(""),$("#shipper_city").val(""),$("#shipper_phone").val(""),$("#shipper_state_id").val(""),$("#shipper_state_name").val(""),$("#shipper_zip_code_id").val(""),$("#shipper_zip_code_code").val(""),
-$("#consignee_id").val(""),$("#consignee_name").val(""),$("#consignee_address").val(""),$("#consignee_city").val(""),$("#consignee_phone").val(""),$("#consignee_state_id").val(""),$("#consignee_state_name").val(""),$("#consignee_zip_code_id").val(""),$("#consignee_zip_code_code").val(""), $("#notify_id").val(""),$("#notify_name").val(""),$("#notify_address").val(""),$("#notify_city").val(""),$("#notify_phone").val(""),$("#notify_state_id").val(""),$("#notify_state_name").val(""),$("#notify_zip_code_id").val(""),$("#notify_zip_code_code").val(""),$("#forwarding_agent_name").val(""),$("#forwarding_agent_id").val(""),$("#domestic_routing").val(""), $("#agent_name").val(""),$("#agent_id").val(""),$("#agent_phone").val(""),$("#agent_fax").val(""),$("#agent_contact").val(""),$("#agent_commission").val(""),$("#spotting_amount").val(""),$("#state_of_origin_id").val(""), $("#state_of_origin_name").val(""), $("#inland_carrier_id").val(""), $("#inland_carrier_name").val(""), $("#inland_driver_id").val(""), $("#inland_driver_name").val(""), $("#inland_lic_number").val("") , $("#booked_date").val(""), $("#loading_date").val(""), $("#equipment_cut_off_date").val(""), $("#documents_cut_off_date").val(""))
+$("#consignee_id").val(""),$("#consignee_name").val(""),$("#consignee_address").val(""),$("#consignee_city").val(""),$("#consignee_phone").val(""),$("#consignee_state_id").val(""),$("#consignee_state_name").val(""),$("#consignee_zip_code_id").val(""),$("#consignee_zip_code_code").val(""), $("#notify_id").val(""),$("#notify_name").val(""),$("#notify_address").val(""),$("#notify_city").val(""),$("#notify_phone").val(""),$("#notify_state_id").val(""),$("#notify_state_name").val(""),$("#notify_zip_code_id").val(""),$("#notify_zip_code_code").val(""),$("#forwarding_agent_name").val(""),$("#forwarding_agent_id").val(""),$("#domestic_routing").val(""), $("#agent_name").val(""),$("#agent_id").val(""),$("#agent_phone").val(""),$("#agent_fax").val(""),$("#agent_contact").val(""),$("#agent_commission").val(""),$("#spotting_amount").val(""),$("#state_of_origin_id").val(""), $("#state_of_origin_name").val(""), $("#inland_driver_id").val(""), $("#inland_driver_name").val(""), $("#inland_lic_number").val("") , $("#booked_date").val(""), $("#loading_date").val(""), $("#equipment_cut_off_date").val(""), $("#documents_cut_off_date").val(""))
     });
 
 
@@ -274,14 +368,14 @@ $("#carrier_name").marcoPolo({url: "{{ route('carriers.autocomplete') }}",format
 $("#inland_carrier_name").marcoPolo({url: "{{ route('carriers.autocomplete') }}",formatItem: function(e, o) {return  e.name},selected:{
     id:'{{ (isset($cargo_loader) ? $cargo_loader->inland_carrier_id : "") }}',
     name:'{{ ((isset($cargo_loader) and ($cargo_loader->inland_carrier_id > 0)) ? $cargo_loader->inland_carrier->name : "") }}',
-},onSelect: function(e, o) {$("#inland_carrier_id").val(e.id), $(this).val(e.name)},minChars: 3,param: "term",required: !0}).on("marcopolorequestbefore", function() {$("#inland_carrier_name_img").removeClass("img-none").addClass("img-display"), $("#inland_carrier_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter", function() {$("#inland_carrier_name_img").removeClass("img-display").addClass("img-none"), $("#inland_carrier_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#inland_carrier_id").val(0)}).blur(function(){var e=$("#inland_carrier_id").val();0==e&&($(this).val(""))});
+},onSelect: function(e, o) {$("#inland_carrier_id").val(e.id), $(this).val(e.name)},minChars: 3,param: "term"}).on("marcopolorequestbefore", function() {$("#inland_carrier_name_img").removeClass("img-none").addClass("img-display"), $("#inland_carrier_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter", function() {$("#inland_carrier_name_img").removeClass("img-display").addClass("img-none"), $("#inland_carrier_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#inland_carrier_id").val(0)}).blur(function(){var e=$("#inland_carrier_id").val();0==e&&($(this).val(""))});
 
 
 $("#inland_driver_name").marcoPolo({url: "{{ route('drivers.autocomplete') }}",formatItem: function(e, o) {return  e.name},selected: {
         id:'{{ (isset($cargo_loader) ? $cargo_loader->inland_driver_id : "") }}',
         name:'{{ ((isset($cargo_loader) and ($cargo_loader->inland_driver_id )) ? $cargo_loader->inland_driver->name : "") }}',
         license:'{{ ((isset($cargo_loader) and ($cargo_loader->inland_driver_id )) ? $cargo_loader->inland_driver->driver_license : "") }}',
-},onSelect: function(e, o) {$("#inland_driver_id").val(e.id), $(this).val(e.name), $("#inland_lic_number").val(e.license)},minChars: 3,param: "term",required: !0}).on("marcopolorequestbefore", function() {$("#inland_driver_name_img").removeClass("img-none").addClass("img-display"), $("#inland_driver_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter", function() {$("#inland_driver_name_img").removeClass("img-display").addClass("img-none"), $("#inland_driver_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#inland_driver_id").val(0)}).blur(function(){var e=$("#inland_driver_id").val();0==e&&($(this).val(""), $("#inland_lic_number").val(""))});
+},onSelect: function(e, o) {$("#inland_driver_id").val(e.id), $(this).val(e.name), $("#inland_lic_number").val(e.license)},minChars: 3,param: "term"}).on("marcopolorequestbefore", function() {$("#inland_driver_name_img").removeClass("img-none").addClass("img-display"), $("#inland_driver_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter", function() {$("#inland_driver_name_img").removeClass("img-display").addClass("img-none"), $("#inland_driver_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#inland_driver_id").val(0)}).blur(function(){var e=$("#inland_driver_id").val();0==e&&($(this).val(""), $("#inland_lic_number").val(""))});
 
 
     $("#agent_name").marcoPolo({url:"{{ route('customers.autocomplete') }}",formatItem:function(e,o){return e.value},selected:{

@@ -275,35 +275,30 @@ class ReceiptEntryController extends Controller
                     if ($term = $request->get('term')) {
                         switch ($type) {
                             case 1:
-                                $query->orWhere('whr_receipts_entries.code', 'LIKE', $term . '%');
+                                $query->where('whr_receipts_entries.id', $term);
                                 break;
                             case 2:
-                                $query->orWhere('mst_divisions.code', 'LIKE', $term . '%');
-                                $query->orWhere('mst_divisions.name', 'LIKE', $term . '%');
+                                $query->where('whr_receipts_entries.division_id', $term);
                                 break;
                             case 3:
-                                $query->orWhere('c1.code', 'LIKE', $term . '%');
-                                $query->orWhere('c1.name', 'LIKE', $term . '%');
+                                $query->where('whr_receipts_entries.shipper_id', $term);
                                 break;
                             case 4:
-                                $query->orWhere('c2.code', 'LIKE', $term . '%');
-                                $query->orWhere('c2.name', 'LIKE', $term . '%');
+                                $query->where('whr_receipts_entries.consignee_id',$term);
                                 break;
                             case 5:
-                                $query->orWhere('c4.code', 'LIKE', $term . '%');
-                                $query->orWhere('c4.name', 'LIKE', $term . '%');
+                                $query->where('whr_receipts_entries.agent_id',$term);
                                 break;
                             case 6:
-                                $query->orWhere('c3.code', 'LIKE', $term . '%');
-                                $query->orWhere('c3.name', 'LIKE', $term . '%');
+                                $query->where('whr_receipts_entries.third_party_id',$term);
                                 break;
                             case 7:
-                                $query->orWhere('date_in', 'LIKE', $term . '%');
+                                $query->Where('whr_receipts_entries.date_in', $term);
                                 break;
                         }
                     }
 
-                        $query->Where('whr_receipts_entries.cargo_loader_id', '=', 0);
+                        $query->where('whr_receipts_entries.cargo_loader_id', '=', 0);
 
                 })->take(10)->get();
 

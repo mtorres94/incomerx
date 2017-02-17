@@ -67,5 +67,17 @@ class Customer extends Model
     {
         return $this->belongsTo('Sass\User');
     }
+
+    public function warehouse_consignee()
+    {
+        return $this->hasMany('Sass\ReceiptEntry', 'consignee_id');
+    }
+
+    public function warehouse_shipper()
+    {
+        return $this->hasMany('Sass\ReceiptEntry', 'shipper_id');
+    }
+
+
     //</editor-fold>
 }

@@ -227,7 +227,31 @@ $("#tmp_weight_unit").val("L").change();
     });
 
 
+    $("#origin_bill_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#origin_bill_unit_name").val(e[0].code);
 
+            }
+        });
+    });
+
+    $("#origin_cost_unit_id").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('units.get') }}",
+            data: { id: id },
+            type: 'GET',
+            success: function (e) {
+                $("#origin_cost_unit_name").val(e[0].code);
+
+            }
+        });
+    });
 
     //================================================
 

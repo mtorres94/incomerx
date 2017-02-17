@@ -79,6 +79,10 @@ public $timestamps= false;
     {
         return $this->belongsTo('Sass\Currency', 'billing_currency_type');
     }
+    public function billing_vendor()
+    {
+        return $this->belongsTo('Sass\Vendor', 'billing_vendor_code');
+    }
     public function cost_currency()
     {
         return $this->belongsTo('Sass\Currency', 'cost_currency_type');

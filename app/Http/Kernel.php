@@ -31,6 +31,7 @@ class Kernel extends HttpKernel
             \Sass\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Sass\Http\Middleware\Language::class,
+            \UxWeb\SweetAlert\ConvertMessagesIntoSweatAlert::class,
         ],
 
         'api' => [

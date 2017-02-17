@@ -168,6 +168,18 @@
             });
         });
 
+        $("#cargo_type_id").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ route('cargo_types.get') }}",
+                data: {id: id},
+                type: 'GET',
+                success: function (e) {
+                    $("#cargo_type_code").val(e[0].code);
+                }
+            });
+        });
+
         $("#box_cargo_type_id").change(function () {
             var id = $(this).val();
             $.ajax({
@@ -510,7 +522,6 @@
     $("#incoterm_type").val("0").change();
     $("#container_inner_quantity").number(true, 2);
     $("#container_net_weight").number(true, 2);
-    $("#container_number_equipment").number(true, 2);
     $("#container_outer_quantity").number(true, 2);
     $("#container_tare_weight").number(true, 2);
 

@@ -15,6 +15,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['namespace' => 'Maintenance'], function () {
         Route::group(['namespace' => 'Customers'], function () {
             Route::get('payment_terms/autocomplete', ['as' => 'payment_terms.autocomplete', 'uses' => 'PaymentTermController@autocomplete']);
+
             Route::get('customers/autocomplete', ['as' => 'customers.autocomplete', 'uses' => 'CustomerController@autocomplete']);
         });
         Route::group(['namespace' => 'VendorsSuppliers'], function() {

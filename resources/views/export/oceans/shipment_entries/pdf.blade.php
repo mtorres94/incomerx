@@ -137,11 +137,13 @@
         <div class="col-xs-12">
             <table class="table table-condensed">
                 <thead>
-                <th width="15%">TYPE</th>
-                <th width="25%">EQUIPMENT NUMBER</th>
-                <th width="15%">SEAL # 1</th>
-                <th width="15%">SEAL # 2</th>
-                <th width="30%">DRAYAGE BY</th>
+                <tr>
+                    <th width="15%">TYPE</th>
+                    <th width="25%">EQUIPMENT NUMBER</th>
+                    <th width="15%">SEAL # 1</th>
+                    <th width="15%">SEAL # 2</th>
+                    <th width="30%">DRAYAGE BY</th>
+                </tr>
                 </thead>
                 <tbody>
                 @foreach($shipment_entry->container as $detail)

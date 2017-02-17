@@ -23,6 +23,7 @@
 </head>
 
 <body>
+@for ($key = 1 ; $key <= $bill_of_lading->total_pieces ; $key++)
 @foreach($bill_of_lading->cargo as $detail)
     <div class="row row-padding">
         <div class="col-xs-4">
@@ -64,17 +65,18 @@
             </div>
             <div class="col-xs-3 unit-metrics">
                 <p class="label-units"><strong>PIECES</strong></p>
-                <p class="p-units">{{ $detail->line }} of {{ $bill_of_lading->cargo->count() }}</p>
+                <p class="p-units">{{ $key }} of {{ $bill_of_lading->total_pieces }}</p>
             </div>
             <div class="col-xs-12 ">
                 <p class="label-units"><strong>BARCODE:</strong></p>
-                <p class="code-bar">{{ $bill_of_lading->code }}</p>
-                <p class="legend-barcode">{{ $bill_of_lading->code }}</p>
+                <p class="code-bar">{{ $bill_of_lading->code }}-{{ str_pad($key, 2, '0', 0) }}-{{ str_pad($bill_of_lading->total_pieces, 3, '0', 0) }}</p>
+                <p class="legend-barcode">{{ $bill_of_lading->code }}-{{ str_pad($key, 2, '0', 0) }}-{{ str_pad($bill_of_lading->total_pieces, 3, '0', 0) }}</p>
             </div>
         </div>
     </div>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 @endforeach
+@endfor
 </body>
 
 </html>

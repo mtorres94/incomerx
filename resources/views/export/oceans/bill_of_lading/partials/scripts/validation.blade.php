@@ -32,7 +32,6 @@
                         notEmpty: { message: "Departure date is required" },
                         date: {
                             format: "YYYY-MM-DD",
-                            min: 'bl_date',
                             max: 'arrival_date',
                             message: "The departure date is invalid"
                         }
@@ -80,16 +79,6 @@
                         notEmpty: { message: "The consignee city is required" },
                     }
                 },
-                place_receipt_name: {
-                    validators: {
-                        notEmpty: { message: "Place of receipt name is required" },
-                    }
-                },
-                place_delivery_name: {
-                    validators: {
-                        notEmpty: { message: "Place of delivery name is required" },
-                    }
-                },
                 port_loading_name: {
                     validators: {
                         notEmpty: { message: "A loading port is required" },
@@ -99,13 +88,7 @@
                     validators: {
                         notEmpty: { message: "An unloading port is required" },
                     }
-                },
-                carrier_name: {
-                    validators: {
-                        notEmpty: { message: "Carrier name is required" },
-                    }
-                },
-
+                }
             }
         }).on('success.field.fv', function(e, data) {
             // $(e.target)  --> The field element

@@ -36,13 +36,26 @@ class EoBillOfLading extends Model
            }
     }
 
-    public static function saveDetail($id, $data, $id_consignee)
+    /**
+     * @param $id
+     * @param $data
+     * @param $id_group
+     */
+    public static function saveDetail($id, $data, $id_group)
     {
-        $a=0; $i= -1;
+        $a=0; $i= -1; $codes = [];
         DB::table('eo_bills_of_lading')->where('cargo_loader_id', '=',$id)->delete();
-        if (isset($data['hidden_warehouse_line'])) {
-
-                while ($a < count($id_consignee)) {
+        if (isset($data['group_by'])) {
+            $count_group_id = count($id_group);
+            if($data['group_by'] == "1") {
+                $group  = $data['shipper_id'];
+            }elseif ($data['group_by'] == "2"){
+                $group = $data['consignee_id'];
+            }else{
+                $group  =$data['warehouse_id'];
+                $count_group_id = 1;
+            }
+                while ($a < $count_group_id) {
                     $i++;
                     //if (isset($data['hidden_warehouse_line'][$i])) {
 
@@ -52,35 +65,33 @@ class EoBillOfLading extends Model
                         $code = str_pad($frmt, 6, '0', 0);
                         $data['code'] = $type."-".$code;
 
-                        if($data['code'])
+
                         $obj = [
-                            'bill_of_lading_id' => $data['bill_of_lading_id'],
+                            'bill_of_lading_id' => 0,
                             'cargo_loader_id' => $id,
                             'bl_status' => "O",
-                            'bl_date' => $data['date_today'],
+                            'bl_type' => "C",
+                            'bl_date' => $data['tmp_date_today'],
                             'user_create_id' => Auth::user()->id,
                             'user_open_id' => 0,
-                            'user_update_id' => $data['user_update_id'],
-                            'shipment_id' => $data['shipment_id'],
+                            'user_update_id' => Auth::user()->id,
+                            'shipment_id' => $data['tmp_shipment_id'],
                             'code' => $data['code'],
                             'hbl_code' => $data['code'],
                             'bl_class' => "2",
+                            'carrier_id' => $data['tmp_carrier_id'],
+                            'departure_date' => $data['tmp_departure_date'],
+                            'arrival_date' => $data['tmp_arrival_date'],
+                            'booking_code' => $data['tmp_booking_code'],
                             'bl_number' => $data['code'],
-                            'place_receipt' => $data['place_receipt'],
-                            'place_delivery' => $data['place_delivery'],
-                            'foreign_port' => $data['port_unloading'],
-                            'port_loading' => $data['port_loading'],
-                            'vessel_name' => $data['vessel_name'],
-                            'voyage_name' => $data['voyage_name'],
-                            'carrier_id' => $data['carrier_id'],
 
-                            'departure_date' => $data['departure_date'],
-                            'arrival_date' => $data['arrival_date'],
+                            'place_receipt' => $data['tmp_place_receipt_id'],
+                            'place_delivery' => $data['tmp_place_delivery_id'],
+                            'vessel_name' => $data['tmp_vessel_name'],
+                            'voyage_name' => $data['tmp_voyage_name'],
+                            'port_loading_id' => $data['tmp_port_loading_id'],
+                            'port_unloading_id' => $data['tmp_port_unloading_id'],
 
-                            'booking_code' => $data['booking_code'],
-                            'port_loading_id' => $data['port_loading_id'],
-                            'port_unloading_id' => $data['port_unloading_id'],
-                            'inland_carrier_id' => $data['inland_carrier_id'],
                             /*'domestic_instruction' => $data['domestic_instruction']
                             'total_pieces'=> $data['resume_pieces'][$i],
                             'total_weight_unit_measurement'=> $data['resume_weight_unit'][$i],
@@ -90,22 +101,35 @@ class EoBillOfLading extends Model
                         ];
 
                         $id_hbl = EoBillOfLading::create($obj)->id;
+                        $codes[] = $id_hbl['code'];
                         //EoHblReceiptEntry::saveDetail($id, $data);
-                        EoBillOfLadingContainer::saveDetail($id_hbl, $data);
+                    //========================================================
+                    //EoBillOfLadingContainer::saveDetail($id_hbl, $data);
+                    //========================================================
                         //$data['inserted_id'] = Common::replaceId($id_hbl, $data['resume_line'][$i], $data['resume_line'], $data['inserted_id']);
                         //$data['hbl_line_id'] = Common::replaceId($id_hbl, $data['resume_line'][$i], $data['hidden_flag'], $data['hbl_line_id']);
+                            if($data['group_by'] == '3'){
+                                $x=0;
+                                for($y=0; $y < count($data['warehouse_id']); $y ++){
+                                    if(isset($data["warehouse_select"][$x]) and ($data['warehouse_id'][$y] == $data["warehouse_select"][$x])){
+                                        $data['hbl_line_id'][$y] = $id_hbl;
+                                        $x++;
+                                    }
+                                }
 
-                        $data['hbl_line_id'] = Common::replaceId($id_hbl, $id_consignee[$a], $data['hidden_consignee_id'], $data['hbl_line_id']);
+                            }else {
+                                $data['hbl_line_id'] = Common::replaceId($id_hbl, $id_group[$a], $group, $data['hbl_line_id']);
+                            }
 
 
                     //}
                     $a++;
                 }
-
-                EoBillOfLadingCargo::saveDetailHBL($data);
-                EoHblReceiptEntry::saveDetail($id, $data);
+            EoHblReceiptEntry::saveDetail($id, $data);
+            EoBillOfLadingCargo::saveDetailHBL($data);
 
         }
+        return $codes;
     }
 
 

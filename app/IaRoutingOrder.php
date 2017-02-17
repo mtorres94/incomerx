@@ -54,11 +54,11 @@ class IaRoutingOrder extends Model
     }
     public function port_loading()
     {
-        return $this->belongsTo('Sass\OceanPort', 'port_loading_id');
+        return $this->belongsTo('Sass\Airport', 'port_loading_id');
     }
     public function port_unloading()
     {
-        return $this->belongsTo('Sass\OceanPort', 'port_unloading_id');
+        return $this->belongsTo('Sass\Airport', 'port_unloading_id');
     }
     public function place_delivery()
     {

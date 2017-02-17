@@ -4,7 +4,7 @@
             <button type="button" id="btn-charges-origin" class="btn btn-default" data-toggle="modal" data-target="#Origin_Charges" onclick="cleanModalFields('Origin_Charges')">
                 <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
             </button>
-            <button type="button" class="btn btn-danger" onclick="clearTable('origin_charge')">
+            <button type="button" class="btn btn-danger" onclick="clearTable('origin_charge'), values_charges()">
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
             </button>
         </div>
@@ -54,7 +54,7 @@
                         {!! Form::bsRowTd($detail->line, 'cost_cost_center', $detail->cost_center, true) !!}
                         {!! Form::bsRowTd($detail->line, 'cost_exchange_rate', $detail->cost_exchange_rate, true) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_vendor_code', $detail->billing_vendor_code, true) !!}
-                        {!! Form::bsRowTd($detail->line, 'billing_vendor_name', ($detail->billing_vendor_code >0 ? $detail->vendor->name : ""), true) !!}
+                        {!! Form::bsRowTd($detail->line, 'billing_vendor_name', ($detail->billing_vendor_code >0 ? $detail->billing_vendor->name : ""), true) !!}
                         {!! Form::bsRowTd($detail->line, 'cost_date', $detail->cost_date, true) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_increase', $detail->bill_increase, true) !!}
 

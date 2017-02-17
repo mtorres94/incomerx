@@ -18,7 +18,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        {!! Form::bsSelect('col-md-3', 'col-md-4', 'Service', 'service_id', Sass\Service::all()->lists('name', 'id'), 'SERVICES') !!}
+        {!! Form::bsSelect('col-md-3', 'col-md-4', 'Service', 'service_id', Sass\Service::all()->lists('name', 'id'), 'SERVICES', 'body') !!}
 
         {!! Form::bsSelect('col-md-2', 'col-md-3', ' Incoterm', 'incoterm_type', Sass\Incoterm::all()->lists('code', 'id'), "TYPE") !!}
     </div>

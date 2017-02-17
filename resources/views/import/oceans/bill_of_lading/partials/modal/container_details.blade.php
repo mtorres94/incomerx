@@ -10,9 +10,10 @@
             </div>
             <div class="modal-body">
                 {!! Form::hidden('container_id', null, ['id' => 'container_id', 'class' => 'form-control input-sm']) !!}
+                {!! Form::hidden('tmp_equipment_type_code', null, ['id' => 'tmp_equipment_type_code', 'class' => 'form-control input-sm']) !!}
 
                 <div class="row">
-                    <div class="col-md-3">{!! Form::bsComplete(null, null, 'Equip. Type', 'tmp_equipment_type_id', 'tmp_equipment_type_code', Request::get('term'), null, 'Type') !!}</div>
+                    <div class="col-md-3">{!! Form::bsSelect(null, null, 'Equip. Type', 'tmp_equipment_type_id', Sass\CargoType::all()->lists('code', 'id'), 'Type', 'body') !!}</div>
                     <div class="col-md-3">{!! Form::bsText(null, null, 'Equip./Container #', 'tmp_number', null, '') !!}</div>
                     <div class="col-md-3">{!! Form::bsText(null, null, 'Seal #1', 'tmp_seal_number', null, '') !!}</div>
                     <div class="col-md-3">{!! Form::bsText(null, null, 'Seal #2', 'tmp_seal_number2', null, '') !!}</div>

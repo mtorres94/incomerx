@@ -10,7 +10,7 @@
                         'C' => 'C - 75%',
                         'D' => 'D - CLOSED',
                         'E' => 'E - 10%',
-                    ), null) !!}</div>
+                    ), null, 'body') !!}</div>
     <div class="col-md-4">{!! Form::bsSelect(null, null, 'Degrees', 'container_degrees', array(
                         'F' => 'Fahrenheit',
                         'C' => 'Celsius',

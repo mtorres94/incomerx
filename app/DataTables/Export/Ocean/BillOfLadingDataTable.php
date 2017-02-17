@@ -72,10 +72,10 @@ class BillOfLadingDataTable extends CustomDataTable
     protected function getColumns()
     {
         return [
-            ['data' => 'code',   'name' => 'eo_bills_of_lading.code', 'title' => 'Code', 'width' => '45px'],
+            ['data' => 'code',             'name' => 'eo_bills_of_lading.code', 'title' => 'Code', 'width' => '45px'],
             ['data' => 'shipment_code',    'name' => 'f.code', 'title' => 'File#', 'width' => '45px'],
             ['data' => 'bl_status',        'name' => 'eo_bills_of_lading.bl_status', 'title' => 'Status', 'width' => '35px'],
-            ['data' => 'bl_type',        'name' => 'eo_bills_of_lading.bl_type', 'title' => 'Type', 'width' => '35px'],
+            ['data' => 'bl_type',          'name' => 'eo_bills_of_lading.bl_type', 'title' => 'Type', 'width' => '35px'],
             ['data' => 'bl_date',          'name' => 'eo_bills_of_lading.bl_date', 'title' => 'Date', 'width' => '45px'],
             ['data' => 'booking_code',     'name' => 'eo_bills_of_lading.booking_code', 'title' => 'Booking#'],
             ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],

@@ -25,8 +25,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">{!! Form::bsSelect('col-md-3', 'col-md-6', 'Contract Basis', 'contract_basis', array( '1' => 'WEIGHT MEASURE (LCL)', '2' => 'PER CONTAINER (FCL)',
-        ), null) !!}
+    <div class="col-md-12">{!! Form::bsSelect('col-md-3', 'col-md-6', 'Contract Basis', 'contract_basis', array( '1' => 'WEIGHT MEASURE (LCL)', '2' => 'PER CONTAINER (FCL)'), null, 'body') !!}
     </div>
 </div>
 <div class="row">

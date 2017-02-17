@@ -42,7 +42,7 @@ class EoQuotesDataTable extends CustomDataTable
             ->leftJoin('mst_customers AS c3', 'eo_quotes.agent_id', '=', 'c3.id')
             ->leftJoin('mst_ocean_ports AS c4', 'eo_quotes.port_loading_id', '=', 'c4.id')
             ->leftJoin('mst_ocean_ports AS c5', 'eo_quotes.port_unloading_id', '=', 'c5.id')
-            ->select(['eo_quotes.id','eo_quotes.code','mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS port_loading_name', 'c5.name AS port_unloading_name']);
+            ->select(['eo_quotes.id','eo_quotes.code','eo_quotes.quote_date','eo_quotes.type','eo_quotes.quote_status','mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS port_loading_name', 'c5.name AS port_unloading_name']);
         return $this->applyScopes($query);
     }
 
@@ -56,7 +56,7 @@ class EoQuotesDataTable extends CustomDataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->ajax('')
-                    ->addAction(['width' => 'auto']);
+                    ->addAction(['width' => '130px']);
     }
 
     /**
@@ -67,14 +67,15 @@ class EoQuotesDataTable extends CustomDataTable
     protected function getColumns()
     {
         return [
-            ['data' => 'code',   'name' => 'eo_quotes.code', 'title' => 'Code'],
-
-            ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
-            ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],
-            ['data' => 'agent_name',   'name' => 'c3.name', 'title' => 'Agent'],
-
-            ['data' => 'port_loading_name',   'name' => 'c4.name', 'title' => 'Port Loading'],
-            ['data' => 'port_unloading_name',   'name' => 'c5.name', 'title' => 'Port Unloading'],
+            ['data' => 'code',                  'name' => 'eo_quotes.code', 'title' => 'Code', 'width' => '45px'],
+            ['data' => 'quote_status',          'name' => 'eo_quotes.quote_status', 'title' => 'Status', 'width' => '35px'],
+            ['data' => 'type',                  'name' => 'eo_quotes.type', 'title' => 'Type', 'width' => '35px'],
+            ['data' => 'quote_date',            'name' => 'eo_quotes.quote_date', 'title' => 'Date', 'width' => '40px'],
+            ['data' => 'shipper_name',          'name' => 'c1.name', 'title' => 'Shipper'],
+            ['data' => 'consignee_name',        'name' => 'c2.name', 'title' => 'Consignee'],
+            ['data' => 'agent_name',            'name' => 'c3.name', 'title' => 'Agent'],
+            ['data' => 'port_loading_name',     'name' => 'c4.name', 'title' => 'Loading Port'],
+            ['data' => 'port_unloading_name',   'name' => 'c5.name', 'title' => 'Unloading Port'],
         ];
     }
 
