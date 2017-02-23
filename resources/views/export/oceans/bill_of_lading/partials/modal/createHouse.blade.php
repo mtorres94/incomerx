@@ -13,13 +13,13 @@
                 <table class="table table-bordered table-condensed" id="load_warehouses">
                     <thead>
                     <tr>
-                        <th data-override="hbl_line" hidden></th>
-                        <th width="5%" data-override="hbl_check"></th>
-                        <th width="10%" data-override="hbl_wr_number">WHR /HBL #</th>
-                        <th width="25%" data-override="hbl_date_in">Description</th>
-                        <th width="10%" data-override="hbl_consignee_name">Pieces</th>
-                        <th width="10%" data-override="hbl_consignee_name">Weight</th>
-                        <th width="10%" data-override="hbl_consignee_name">Cubic</th>
+
+                        <th width="3%" >{!! Form::bsCheck('', 'select_all') !!}</th>
+                        <th width="10%" >WHR /HBL #</th>
+                        <th width="25%" >Description</th>
+                        <th width="10%" >Pieces</th>
+                        <th width="10%">Weight</th>
+                        <th width="10%" >Cubic</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -32,7 +32,7 @@
                     <i class="fa fa-times"></i> Close
                 </a>
                 <a id="createHouse_save" class="btn btn-primary btn-footer" href="javascript:void(0)">
-                    <i class="icon ion-android-done-all"></i> Create B/L
+                    <i class="icon ion-android-done-all"></i> Link selected
                 </a>
             </div>
         </div>

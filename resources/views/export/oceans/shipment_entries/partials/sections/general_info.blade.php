@@ -19,7 +19,7 @@
             '6' => '6 - 50 LB/ 1CFT',
             '7' => '7 - OTHER',
         ), null) !!}</div>
-        <div class="col-md-2">{!! Form::bsSelect(null, null, ' Status', 'bl_status', array(
+        <div class="col-md-2">{!! Form::bsSelect(null, null, ' Status', 'status', array(
             'O' => 'OPEN',
             'P' => 'POSTED',
             'C' => 'CLOSED',

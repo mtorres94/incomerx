@@ -12,46 +12,36 @@ class EoBillOfLadingCargo extends Model
         'id', 'bill_of_lading_id','created_at', 'updated_at','line','cargo_marks', 'cargo_pieces', 'cargo_description', 'cargo_weight_unit', 'cargo_weight_k', 'cargo_cubic_k', 'cargo_charge_weight_k', 'cargo_weight_l', 'cargo_cubic_l', 'cargo_charge_weight_l', 'cargo_rate', 'cargo_amount', 'cargo_container', 'cargo_type_id', 'cargo_commodity_id', 'cargo_comments', 'id_line' ];
 
     public static function saveDetail($id, $data) {
-        $i=0; $a=0; $pieces=0; $weight =0; $cubic = 0; $charge= 0; $marks= ""; $description = ""; $rate =0; $amount=0;
+        $i=0; $a=0;
         DB::table('eo_bill_of_lading_cargo')->where('bill_of_lading_id', '=', $id)->delete();
-        if (isset($data['cargo_marks'])){
-
+        if (isset($data['cargo_line'])){
             while($a < count($data['cargo_line'])) {
-
                 if (isset($data['cargo_line'][$i])) {
-                    $pieces = array_sum( $data['cargo_pieces']);
-                    $weight = array_sum($data['cargo_weight_l']);
-                    $cubic = array_sum($data['cargo_cubic_l']);
-                    $charge = array_sum($data['cargo_charge_weight_l']);
-                    $marks = implode(', ', $data['cargo_marks']);
-                    $description = implode(', ', $data['cargo_description']);
-                    $rate = array_sum($data['cargo_rate']);
-                    $amount = array_sum($data['cargo_amount']);
+                    $obj = new EoBillOfLadingCargo();
+                    $obj->bill_of_lading_id = $id;
+                    $obj->line= $a + 1;
+                    $obj-> cargo_marks = $data['cargo_marks'][$i];
+                    $obj->cargo_pieces = $data['cargo_pieces'][$i];
+                    $obj->cargo_description = $data['cargo_description'][$i];
+                    $obj->cargo_weight_unit = $data['cargo_weight_unit'][$i];
+                    $obj->cargo_weight_k = $data['cargo_weight_k'][$i];
+                    $obj->cargo_cubic_k = $data['cargo_cubic_k'][$i];
+                    $obj->cargo_charge_weight_k = $data['cargo_charge_weight_k'][$i];
+                    $obj->cargo_weight_l = $data['cargo_weight_l'][$i];
+                    $obj->cargo_cubic_l = $data['cargo_cubic_l'][$i];
+                    $obj->cargo_charge_weight_l = $data['cargo_charge_weight_l'][$i];
+                    $obj->cargo_rate = $data['cargo_rate'][$i];
+                    $obj->cargo_amount = $data['cargo_amount'][$i];
+                    $obj->cargo_container = $data['cargo_container'][$i];
+                    $obj->cargo_type_id = $data['cargo_type_id'][$i];
+                    $obj->cargo_commodity_id = $data['cargo_commodity_id'][$i];
+                    $obj->cargo_comments = $data['cargo_comments'][$i];
+                    $obj->save();
                     $a++;
                 }
                 $i++;
             }
-            $obj = new EoBillOfLadingCargo();
-                    $obj->bill_of_lading_id = $id;
-                    $obj->line= 1;
-                    $obj-> cargo_marks = $marks;
-                    $obj->cargo_pieces = $pieces;
-                    $obj->cargo_description = $description;
-                    $obj->cargo_weight_unit = 'L';
-                    $obj->cargo_weight_k = $weight * 0.453592;
-                    $obj->cargo_cubic_k = $cubic * 0.453592;
-                    $obj->cargo_charge_weight_k = $charge * 0.453592;
-                    $obj->cargo_weight_l = $weight;
-                    $obj->cargo_cubic_l = $cubic;
-                    $obj->cargo_charge_weight_l = $charge;
-                    $obj->cargo_rate = $rate;
-                    $obj->cargo_amount = $amount;
-                    $obj->cargo_container = $data['cargo_container'][0];
-                    $obj->cargo_type_id = $data['cargo_type_id'][0];
-                    $obj->cargo_commodity_id = $data['cargo_commodity_id'][0];
-                    $obj->cargo_comments = $data['cargo_comments'][0];
-                    $obj->id_line = 0;
-                    $obj->save();
+
 
         }
 
@@ -98,9 +88,9 @@ class EoBillOfLadingCargo extends Model
                 $obj->cargo_pieces = $quantity;
                 $obj->cargo_description = $description;
                 $obj->cargo_weight_unit = "L";
-                $obj->cargo_weight_k = $weight * 0.453592;
-                $obj->cargo_cubic_k = $cubic * 0.453592;
-                $obj->cargo_charge_weight_k = $weight * 0.453592;
+                $obj->cargo_weight_k = round(($weight * 0.453592), 3);
+                $obj->cargo_cubic_k = round(($cubic * 0.453592), 3);
+                $obj->cargo_charge_weight_k = round(($weight * 0.453592), 3);
                 $obj->cargo_weight_l = $weight;
                 $obj->cargo_cubic_l = $cubic;
                 $obj->cargo_charge_weight_l = $weight;

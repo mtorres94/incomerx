@@ -6,7 +6,7 @@
         renameTab();
         updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('io_quotes.close') }}')
 
-        if ($("#open_status").val() == "1") {
+        if ($("#open_status").val() == "1" || $("#status").val() == "C") {
             disableFields('data');
         }
         //=========================
@@ -27,7 +27,7 @@
             }
         }
         $("#total_unit_weight").val( "{{ (isset($quotes) ? $quotes->total_unit_weight : "L") }}").change();
-        $("#quote_status").val("O").change();
+        $("#status").val("{{ (isset($quotes) ? $quotes->status : "O") }}").change();
         //============
        for (var t = $("#quotes_tabs").find("div"), l = 0; l < t.length; l++) {
             var a = t[l];

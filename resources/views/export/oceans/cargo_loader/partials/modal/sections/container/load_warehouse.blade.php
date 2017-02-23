@@ -47,7 +47,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div title="Vehicle">
+                    <!--<div title="Vehicle">
                         <table class="table table-bordered table-condensed" id="pick_vehicle_details">
                             <thead>
                             <tr>
@@ -67,7 +67,7 @@
                             <tbody>
                             </tbody>
                         </table>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="row">
                     <div class="col-md-6"> <h4>Total (Cargo + Vehicles)</h4></div>

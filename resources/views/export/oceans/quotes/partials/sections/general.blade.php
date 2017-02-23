@@ -18,7 +18,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        {!! Form::bsSelect('col-md-3', 'col-md-3', 'Status', 'quote_status', array( 'A' => 'APPROVED', 'C' => 'CLOSED', 'I' => 'IN PROCESS', 'L' => 'LOST', 'O' => 'OPEN', 'S' => 'SEND TO CUSTOMER', 'T' => 'TRANSFERRED TO SHIPMENT', 'V' => 'VOID',
+        {!! Form::bsSelect('col-md-3', 'col-md-3', 'Status', 'status', array( 'A' => 'APPROVED', 'C' => 'CLOSED', 'I' => 'IN PROCESS', 'L' => 'LOST', 'O' => 'OPEN', 'S' => 'SEND TO CUSTOMER', 'T' => 'TRANSFERRED TO SHIPMENT', 'V' => 'VOID',
         ), null) !!}
         {!! Form::bsSelect('col-md-3', 'col-md-3', 'Quote Type', 'quote_type', array( 'S' => 'SINGLE CARRIER', 'M' => 'MULTIPLE CARRIERS',
         ), null) !!}

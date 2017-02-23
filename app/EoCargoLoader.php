@@ -91,7 +91,7 @@ class EoCargoLoader extends Model
     }
     public function inland_driver()
     {
-        return $this->belongsTo('Sass\Carrier', 'inland_driver_id');
+        return $this->belongsTo('Sass\Driver', 'inland_driver_id');
     }
     public function shipment()
     {

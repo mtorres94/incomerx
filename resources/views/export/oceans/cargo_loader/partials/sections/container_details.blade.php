@@ -165,11 +165,6 @@
                    {!! Form::bsRowTd($pivot->line, 'hidden_warehouse_code', ($pivot->receipt_entry->warehouse_id >0 ?$pivot->receipt_entry->warehouse->name : null ), true) !!}
                    {!! Form::bsRowTd($pivot->line, 'hidden_flag', $pivot->group_by, true) !!}
                    {!! Form::bsRowTd($pivot->line, 'hidden_receipt_entry', $pivot->receipt_entry->id, true) !!}
-                   {!! Form::bsRowTd($pivot->line, 'hbl_line_id', '0' , true) !!}
-                   {!! Form::bsRowTd($pivot->line, 'equipment_type_code', "", true) !!}
-                   {!! Form::bsRowTd($pivot->line, 'container_number',"", true) !!}
-                   {!! Form::bsRowTd($pivot->line, 'container_seal_number', "", true) !!}
-
                </tr>
             @endforeach
 

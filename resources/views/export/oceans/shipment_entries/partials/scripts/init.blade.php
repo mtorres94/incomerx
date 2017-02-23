@@ -4,7 +4,7 @@
         openTab($("#data"));
         updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('eo_shipment_entries.close') }}')
 
-        if ($("#open_status").val() == "1") {
+        if ($("#open_status").val() == "1" || $("#status").val() == 'C') {
             disableFields('data');
         }
 
@@ -25,7 +25,7 @@ removeEmptyNodes('hbl_details');
         $("#shipment_type").val("C").change();
         $("#rate_class").val("1").change();
         $("#total_weight_unit").val("L").change();
-        $("#bl_status").val("O").change();
+        $("#status").val("{{ (isset($shipment_entry) ? $shipment_entry->status : "O") }}").change();
 
         $("#equipment_type_id").change(function () {
             var id = $(this).val();

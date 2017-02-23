@@ -109,7 +109,6 @@ class EoQuotesController extends Controller
             $quotes = $request->all();
             $quotes['user_update_id'] = Auth::user()->id;
             $sent = EoQuotes::findorfail($id);
-
             $sent->update($quotes);
 
             EoQuotesContainer::saveDetail($id, $quotes);

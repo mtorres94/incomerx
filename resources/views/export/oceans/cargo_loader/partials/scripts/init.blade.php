@@ -3,7 +3,7 @@
         renameTab();
         updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('cargo_loader.close') }}')
         openTab($("#data"));
-        if ($("#open_status").val() == "1") {
+        if ($("#open_status").val() == "1" || $("#cargo_loader_status").val() == "C") {
             disableFields('data');
         }
         function renameTab() {
@@ -30,11 +30,9 @@
 
         $("#select_all").change(function () {
             if ($(this).is(':checked')) {
-                //$("input[type=checkbox]").prop('checked', true); //todos los check
-                $("#load_warehouse_details input[type=checkbox]").prop('checked', true); //solo los del objeto #diasHabilitados
+                $("#load_warehouse_details input[type=checkbox]").prop('checked', true);
             } else {
-                //$("input[type=checkbox]").prop('checked', false);//todos los check
-                $("#load_warehouse_details input[type=checkbox]").prop('checked', false);//solo los del objeto #diasHabilitados
+                $("#load_warehouse_details input[type=checkbox]").prop('checked', false);
             }
             warehouse_details();
         });
@@ -52,7 +50,7 @@
 
 
         if($("#date_today").val() == ''){ initDate($("#date_today"), 0); }
-        $("#cargo_loader_status").val("O").change();
+        $("#cargo_loader_status").val("{{ (isset($cargo_loader) ? $cargo_loader->cargo_loader_status : "O") }}").change();
         $("#total_weight_unit").val("L").change();
 
         for (var t = $("#container_tabs").find("div"), l = 0; l < t.length  ; l++) {
@@ -279,7 +277,7 @@ $("#btn_create_hbl").click(function(){
                 x= x+1;
                 $("#CreateHouse").modal("show");
             }
-        },
+        }
     });
 
     $("#tmp_cargo_loader_id").val(id);
@@ -290,8 +288,8 @@ $("#btn_create_hbl").click(function(){
     $('#tmp_shipment_id').val($("#shipment_id").val());
     $('#tmp_date_today').val($("#date_today").val());
 
-    $('#tmp_place_receipt_id').val($("#place_receipt_id").val());
-    $('#tmp_place_delivery_id').val($("#place_delivery_id").val());
+    $('#tmp_place_receipt').val($("#place_receipt_name").val());
+    $('#tmp_place_delivery').val($("#place_delivery_name").val());
     $('#tmp_port_loading_id').val($("#port_loading_id").val());
     $('#tmp_port_unloading_id').val($("#port_unloading_id").val());
     $('#tmp_vessel_name').val($("#vessel_name").val());

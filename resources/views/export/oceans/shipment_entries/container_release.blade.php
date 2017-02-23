@@ -207,7 +207,7 @@
         <div class="col-xs-6">
             <table class="table header-table">
             <tr>
-                <td width="15%"><strong>INSTRUCTIONS</strong></td>
+                <td width="15%"><strong>INSTRUCTIONS:</strong></td>
                 <td width="35%"> {{ strtoupper($shipment_entry->shipment_comments) }}</td>
 
             </tr>

@@ -12,12 +12,11 @@ class EoQuotesContainer extends Model
         'id' , 'created_at', 'updated_at','line', 'quotes_id', 'equipment_type_id' , 'container_number', 'seal_number', 'seal_number2', 'pieces', 'gross_weight', 'cubic' , 'pd_status', 'carrier_id' , 'ventilation', 'degrees' , 'temperature', 'temperature_max', 'temperature_min' , 'pickup_id' , 'pickup_type', 'pickup_address' , 'pickup_city' , 'pickup_state_id' , 'pickup_zip_code_id','pickup_phone' ,'pickup_date','pickup_number' ,'delivery_id' ,'delivery_address','delivery_type','delivery_city','delivery_state_id' ,'delivery_zip_code_id' ,'delivery_phone' ,'delivery_date','delivery_number' ,'drop_id' ,'drop_type' ,'drop_address','drop_city','drop_state_id' ,'drop_zip_code_id' ,'drop_phone' ,'drop_date','total_weight_unit'];
 
     public static function saveDetail($id, $data) {
-        $i=-1; $a=0;
+        $i=0; $a=0;
         DB::table('eo_quotes_container')->where('quotes_id', '=', $id)->delete();
         if (isset($data['container_line'])){
 
             while($a < count($data['container_line'])){
-                $i++;
                 if (isset($data['container_line'][$i])){
                     $obj = new EoQuotesContainer();
 
@@ -67,7 +66,7 @@ class EoQuotesContainer extends Model
                     $obj->save();
                     $a++;
                 }
-
+                $i++;
             }
         }
 

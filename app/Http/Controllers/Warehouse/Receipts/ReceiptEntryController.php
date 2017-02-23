@@ -299,6 +299,7 @@ class ReceiptEntryController extends Controller
                     }
 
                         $query->where('whr_receipts_entries.cargo_loader_id', '=', 0);
+                        $query->where('whr_receipts_entries.status', 'O');
 
                 })->take(10)->get();
 

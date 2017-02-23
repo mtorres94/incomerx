@@ -29,7 +29,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        {!! Form::bsSelect('col-md-3', 'col-md-3', 'Status', 'quote_status', array(
+        {!! Form::bsSelect('col-md-3', 'col-md-3', 'Status', 'status', array(
              'A' => 'APPROVED',
              'C' => 'CLOSED',
              'I' => 'IN PROCESS',

@@ -1,7 +1,9 @@
 <div id="errorBlock" class="help-block"></div>
+<!--{!! Form::bsFile('Select files', 'file') !!}-->
 {!! Form::hidden('open_status', (isset($user_open_id) ? ($user_open_id == Auth::user()->id ? "0" : "1") : "0"), ['id' => 'open_status', 'class' => 'form-control input-sm']) !!}
 
     <div class="col-md-12">
+      <!--  {!! Form::hidden('unique_str', $unique_str, ['id' => 'unique_str', 'class' => 'form-control input-sm']) !!}-->
         @include('export.oceans.bill_of_lading.partials.sections.general_info')
     </div>
 

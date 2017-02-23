@@ -31,7 +31,9 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('shipment_entries/manifest/{token}/{id}', ['as' => 'shipment_entries.manifest', 'uses' => 'EoShipmentEntryController@manifest']);
             Route::get('bill_of_lading/pdf/{token}/{id}', ['as' => 'bill_of_lading.pdf', 'uses' => 'EoBillOfLadingController@pdf']);
             Route::get('bill_of_lading/delivery_order/{token}/{id}', ['as' => 'bill_of_lading.delivery_order', 'uses' => 'EoBillOfLadingController@delivery_order']);
+            Route::get('bill_of_lading/manifest/{token}/{id}', ['as' => 'bill_of_lading.manifest', 'uses' => 'EoBillOfLadingController@manifest']);
             Route::get('bill_of_lading/label/{token}/{id}', ['as' => 'bill_of_lading.label', 'uses' => 'EoBillOfLadingController@label']);
+            Route::get('bill_of_lading/pre_alert/{token}/{id}', ['as' => 'bill_of_lading.pre_alert', 'uses' => 'EoBillOfLadingController@pre_alert']);
             Route::get('cargo_loader/pdf/{token}/{id}', ['as' => 'cargo_loader.pdf', 'uses' => 'EoCargoLoaderController@pdf']);
         });
     });

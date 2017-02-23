@@ -4,7 +4,7 @@
             <div class="form-horizontal">
                 <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
                     <a type="button" class="btn btn-primary btn-sm" id="btn-load-houses" onclick="validateRequiredField(), clearTable('load_warehouses')"><span>Link Houses</span></a>
-                    <button type="button" class="btn btn-danger"  onclick="clearTable('cargo_details'), clearTable('container_details'), weight_totals()">
+                    <button type="button" class="btn btn-danger"  onclick="clearTable('cargo_details'), weight_totals()">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -28,30 +28,48 @@
                         @foreach($bill_of_lading->cargo as $detail)
                             <tr id="{{ $detail->line }}">
                                 {!! Form::bsRowTd($detail->line, 'cargo_line', $detail->line, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_marks', strtoupper($detail->cargo_marks), false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_pieces', $detail->cargo_pieces, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_description', strtoupper($detail->cargo_description), false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_weight_unit', $detail->cargo_weight_unit, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_weight_k', $detail->cargo_weight_k, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_cubic_k', $detail->cargo_cubic_k, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_charge_weight_k', $detail->cargo_charge_weight_k, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_weight_l', $detail->cargo_weight_l, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_cubic_l', $detail->cargo_cubic_l, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_charge_weight_l', $detail->cargo_charge_weight_l, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_rate', $detail->cargo_rate, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_amount', $detail->cargo_amount, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_container', $detail->cargo_container, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_type_id', $detail->cargo_type_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_type_code', strtoupper(($detail->cargo_type_id >0) ? $detail->cargo_type->code: null), true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_commodity_id', $detail->cargo_commodity_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_commodity_name', strtoupper($detail->cargo_commodity_id >0 ? $detail->cargo_commodity->code: null), true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_comments', $detail->cargo_comments, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_hbl_id', $detail->id_line, true) !!}
-                                {!! Form::bsRowBtns() !!}
-                        </tr>
+                            {!! Form::bsRowTd($detail->line, 'cargo_marks', $detail->cargo_marks, false) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_pieces', $detail->cargo_pieces, false) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_description', strtoupper($detail->cargo_description), false) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_weight_unit', $detail->cargo_weight_unit, false) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_weight_k', $detail->cargo_weight_k, true) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_cubic_k', $detail->cargo_cubic_k, true) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_charge_weight_k', $detail->cargo_charge_weight_k, true) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_weight_l', $detail->cargo_weight_l, false) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_cubic_l', $detail->cargo_cubic_l, false) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_charge_weight_l', $detail->cargo_charge_weight_l, false) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_rate', $detail->cargo_rate, true) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_amount', $detail->cargo_amount, true) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_container', $detail->cargo_container, true) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_type_id', $detail->cargo_type_id, true) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_type_code', strtoupper(($detail->cargo_type_id >0) ? $detail->cargo_type->code: null), true) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_commodity_id', $detail->cargo_commodity_id, true) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_commodity_name', strtoupper($detail->cargo_commodity_id >0 ? $detail->cargo_commodity->code: null), true) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_comments', $detail->cargo_comments, true) !!}
+                            {!! Form::bsRowBtns() !!}
+                                    </tr>
                         @endforeach
+                    @endif
+                    </tbody>
+                </table>
+                <table id="hidden_id" class="table hidden">
+                    <tbody>
+                    @if(isset($bill_of_lading))
+                        @if ($bill_of_lading->bl_class == '3')
+                            @foreach($bill_of_lading->hbl_node as $key=>$detail)
+                                <tr id="{{ $key + 1 }}">
+                                    {!! Form::bsRowTd($key + 1, 'cargo_hbl_id', $detail->id, true) !!}
+                                </tr>
+                            @endforeach
+                        @else
+                            @foreach($bill_of_lading->pivot as $key=>$detail)
+                                <tr id="{{ $key + 1 }}">
+                                    {!! Form::bsRowTd($key, 'cargo_hbl_id', $detail->receipt_entry->id, true) !!}
+                                </tr>
+                            @endforeach
                         @endif
 
+                    @endif
 
                     </tbody>
                 </table>
@@ -154,8 +172,8 @@
         </div>
         <div title="BL Comments">
             <div class="row">
-                <div class="col-md-3">{!! Form::bsText('col-md-5', 'col-md-7', 'BL Comments', 'bl_comments', null, ' ') !!}</div>
-                <div class="col-md-3">{!! Form::bsSelect('col-md-4', 'col-md-8', 'Doc Type', 'bl_doc_type', array(
+                <div class="col-md-4">{!!Form::bsSelect(null, null, 'BL Comments', 'bl_comments_id',  Sass\BlComment::all()->lists('comment', 'id'), null,'body')!!}</div>
+                <div class="col-md-4">{!! Form::bsSelect('col-md-4', 'col-md-8', 'Doc Type', 'bl_doc_type', array(
             'C' => 'ORIGINAL',
             'P' => 'EXPRESS RELEASE',
         ), 'Type') !!}</div>

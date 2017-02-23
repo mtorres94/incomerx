@@ -104,7 +104,7 @@
                                 <p><strong>ORIGIN: </strong>{{ ($quotes->port_loading_id ? strtoupper($quotes->port_loading->name) : "") }}</p>
                                 <p><strong>DESTINATION: </strong> {{ ($quotes->port_unloading_id > 0 ? strtoupper($quotes->port_unloading->name) : "") }}</p>
                                 <p><strong>SERVICE:</strong> {{ $quotes->service_id > 0 ?  strtoupper($quotes->service->name) : ""}} </p>
-                                <p><strong>COMMODITY: </strong>{{ ($quotes->total_commodity_id > 0 ? $quotes->total_commodity->name : "") }} </p>
+                                <p><strong>COMMODITY: </strong>{{ strtoupper($quotes->total_commodity_name ) }} </p>
                             </div>
                         </div>
                     </div>
@@ -127,17 +127,18 @@
         <div class="col-xs-12">
             <table class="table table-condensed">
                 <thead>
-                <th>Qty</th>
-                <th>Type</th>
-                <th>Length</th>
-                <th>Width</th>
-                <th>Height</th>
-                <th>Cubic</th>
-                <th>Weight</th>
-                <th>Unit</th>
-                <th>Bin</th>
-                <th>Reference</th>
-
+                <tr>
+                    <th>Qty</th>
+                    <th>Type</th>
+                    <th>Length</th>
+                    <th>Width</th>
+                    <th>Height</th>
+                    <th>Cubic</th>
+                    <th>Weight</th>
+                    <th>Unit</th>
+                    <th>Bin</th>
+                    <th>Reference</th>
+                </tr>
                 </thead>
                 <tbody>
                 @foreach($quotes->cargo as $detail)
@@ -214,8 +215,9 @@
     </div>
     <div class="row row-padding">
         <div class="col-xs-12 footer">
-            <p><strong>INSTRUCTIONS:</strong> {{ $quotes->quote_instruction }}</p>
             <p><strong>COMMENTS:</strong> {{ $quotes->quotes_comments }}</p>
+            <hr/>
+            <p><strong>INSTRUCTIONS:</strong> {{ $quotes->quote_instruction }}</p>
         </div>
     </div>
 </div>

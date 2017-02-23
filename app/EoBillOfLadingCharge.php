@@ -14,7 +14,7 @@ class EoBillOfLadingCharge extends Model
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
         if (isset($data['charge_id'])){
-            $details= DB::table('eo_bill_of_lading_charge')->where('bill_of_lading_id', '=', $id)->delete();
+            DB::table('eo_bill_of_lading_charge')->where('bill_of_lading_id', '=', $id)->delete();
             while($a < count($data['charge_id'])){
                 $i++;
                 if (isset($data['charge_id'][$i])){
@@ -50,6 +50,42 @@ class EoBillOfLadingCharge extends Model
             }
         }
 
+    }
+
+    public static function saveDetailHBL($id, $data) {
+        $a=0; $i=0;
+        while(isset($data['warehouse_select'][$i]) ) {
+            $receipts = ReceiptEntryChargeDetail::select('whr_receipts_entries_charges_details.*')->where('receipt_entry_id', '=', $data['warehouse_select'][$i])->get();
+            foreach ($receipts as $whr) {
+                $obj = [
+                    'bill_of_lading_id' => $id,
+                    'line' => ($a + 1),
+                    'billing_id' => $whr->billing_id,
+                    'bill_type' => $whr->bill_type,
+                    'bill_party' => $whr->bill_party,
+                    'billing_quantity' => $whr->billing_quantity,
+                    'billing_rate' => $whr->billing_rate,
+                    'billing_amount' => $whr->billing_amount,
+                    'billing_currency_type' => $whr->billing_currency_type,
+                    'billing_customer_id' => $whr->billing_customer_id,
+                    'cost_amount' => $whr->cost_amount,
+                    'cost_currency_type' => $whr->cost_currency_type,
+                    'cost_invoice' => $whr->cost_invoice,
+                    'cost_reference' => $whr->const_reference,
+                    'billing_notes' => $whr->billing_notes,
+                    'billing_unit_id' => $whr->billing_unit_id,
+                    'cost_quantity' => $whr->cost_quantity,
+                    'cost_unit_id' => $whr->cost_unit_id,
+                    'cost_rate' => $whr->cost_rate,
+                    'cost_center' => $whr->cost_center,
+                    'billing_vendor_code' => $whr->vendor_id,
+                    'billing_increase' => $whr->billing_increase,
+                ];
+                EoBillOfLadingCharge::create($obj);
+                $a++;
+            }
+            $i++;
+        }
     }
 
 

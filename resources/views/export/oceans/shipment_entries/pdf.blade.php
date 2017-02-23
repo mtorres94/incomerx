@@ -42,7 +42,7 @@
                 <div class="document-info pull-right">
                     <h5><strong>BOOKING CONFIRMATION</strong></h5>
                     <p class="code-bar">{{ $shipment_entry->booking_code }}</p>
-                    <p class="document_number"><strong>BOOKING # {{ strtoupper($shipment_entry->booking_code) }}</strong></p>
+                    <p class="document_number"><strong> {{ strtoupper($shipment_entry->booking_code) }}</strong></p>
                 </div>
             </div>
         </div>

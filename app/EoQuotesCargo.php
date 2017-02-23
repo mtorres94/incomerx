@@ -12,12 +12,11 @@ class EoQuotesCargo extends Model
         'id', 'line' , 'created_at', 'updated_at', 'quotes_id', 'cargo_type_id', 'quantity' , 'weight_unit' , 'length' , 'width', 'height' , 'unit_weight', 'total_weight',  'total_cubic', 'charge_weight' , 'rate' , 'cargo_total', 'metric_unit', 'material' , 'pieces' , 'dim_fact', 'vol_weight', 'serial_number', 'barcode', 'model' , 'commodity_id', 'pro_number' , 'project', 'po_number', 'inv_number', 'lot_number', 'sku_number' , 'destination_point', 'attention' , 'sheduleb_id' , 'schedule_description', 'hts_id' , 'hts_description', 'value', 'eccn', 'export_id', 'license_type_id' , 'origin', 'uns_id' , 'uns_description', 'class_id', 'class_description', 'special_instructions', 'material_page', 'hazardous_level', 'emergency_contact', 'emergency_contact_phone', 'comments', 'marks' , 'container', 'gross_weight' ];
 
     public static function saveDetail($id, $data) {
-        $i=-1; $a=0;
-        $details= DB::table('eo_quotes_cargo')->where('quotes_id', '=', $id)->delete();
+        $i=0; $a=0;
+        DB::table('eo_quotes_cargo')->where('quotes_id', '=', $id)->delete();
         if (isset($data['cargo_line'])){
 
             while($a < count($data['cargo_line'])){
-                $i++;
                 if(isset($data['cargo_line'][$i])){
                     $obj = new EoQuotesCargo();
                     $obj->quotes_id = $id;
@@ -76,6 +75,7 @@ class EoQuotesCargo extends Model
                     $obj->save();
                     $a++;
                 }
+                $i++;
             }
         }
     }

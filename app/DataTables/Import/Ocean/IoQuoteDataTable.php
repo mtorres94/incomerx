@@ -42,7 +42,7 @@ class IoQuoteDataTable extends CustomDataTable
             ->leftJoin('mst_customers AS c3', 'io_quotes.agent_id', '=', 'c3.id')
             ->leftJoin('mst_ocean_ports AS p1', 'io_quotes.port_loading_id', '=', 'p1.id')
             ->leftJoin('mst_ocean_ports AS p2', 'io_quotes.port_unloading_id', '=', 'p2.id')
-            ->select(['io_quotes.id','io_quotes.code','io_quotes.quote_status', 'io_quotes.type','io_quotes.date_today', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'p1.name as loading_port_name', 'p2.name as unloading_port_name' ]);
+            ->select(['io_quotes.id','io_quotes.code','io_quotes.status', 'io_quotes.type','io_quotes.date_today', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'p1.name as loading_port_name', 'p2.name as unloading_port_name' ]);
         return $this->applyScopes($query);
 
     }
@@ -70,7 +70,7 @@ class IoQuoteDataTable extends CustomDataTable
     {
         return [
             ['data' => 'code',                  'name' => 'io_quotes.code', 'title' => 'Code', 'width' =>'45px'],
-            ['data' => 'quote_status',          'name' => 'io_quotes.quote_status', 'title' => 'Status', 'width' =>'35px'],
+            ['data' => 'status',                'name' => 'io_quotes.status', 'title' => 'Status', 'width' =>'35px'],
             ['data' => 'type',                  'name' => 'io_quotes.type', 'title' => 'Type', 'width' =>'35px'],
             ['data' => 'date_today',            'name' => 'io_quotes.date_today', 'title' => 'Date', 'width' =>'40px'],
             ['data' => 'shipper_name',          'name' => 'c1.name', 'title' => 'Shipper'],

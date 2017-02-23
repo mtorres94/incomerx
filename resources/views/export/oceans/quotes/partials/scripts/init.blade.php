@@ -6,7 +6,7 @@
         renameTab();
         updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('eo_quotes.close') }}');
 
-        if ($("#open_status").val() == "1") {
+        if ($("#open_status").val() == "1" || $("#status").val() == 'C') {
             disableFields('data');
         }
         //=========================
@@ -85,7 +85,7 @@
         $("#total_unit_weight").val("L").change();
 
 
-        $("#quote_status").val("O").change();
+        $("#status").val("{{ (isset($quotes) ? $quotes->status : "O" )}}").change();
         $("#quote_type").val("S").change();
         $("#billing_bill_party").val("S").change();
         $("#billing_bill_type").val("P").change();

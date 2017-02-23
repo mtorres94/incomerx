@@ -35,12 +35,11 @@ class EoQuotesCharges extends Model
 
 
     public static function saveDetail($id, $data) {
-        $i=-1; $a=0;
-        $details= DB::table('eo_quotes_charges')->where('quotes_id', '=', $id)->delete();
+        $i = 0; $a = 0;
+        DB::table('eo_quotes_charges')->where('quotes_id', '=', $id)->delete();
         if (isset($data['charge_id'])){
 
             while($a < count($data['charge_id'])){
-                $i++;
                 if(isset($data['charge_id'][$i])){
                     $obj = new EoQuotesCharges();
                     $obj->quotes_id = $id;
@@ -72,6 +71,7 @@ class EoQuotesCharges extends Model
                     $obj->save();
                     $a++;
                 }
+                $i++;
             }
         }
     }

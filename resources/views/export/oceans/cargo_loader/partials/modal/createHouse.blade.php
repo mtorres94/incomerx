@@ -20,8 +20,8 @@
                     {!! Form::hidden('tmp_carrier_id', null, ['id' => 'tmp_carrier_id', 'class' => 'form-control input-sm']) !!}
                     {!! Form::hidden('tmp_shipment_id', null, ['id' => 'tmp_shipment_id', 'class' => 'form-control input-sm']) !!}
                     {!! Form::hidden('tmp_date_today', null, ['id' => 'tmp_date_today', 'class' => 'form-control input-sm']) !!}
-                    {!! Form::hidden('tmp_place_receipt_id', null, ['id' => 'tmp_place_receipt_id', 'class' => 'form-control input-sm']) !!}
-                    {!! Form::hidden('tmp_place_delivery_id', null, ['id' => 'tmp_place_delivery_id', 'class' => 'form-control input-sm']) !!}
+                    {!! Form::hidden('tmp_place_receipt', null, ['id' => 'tmp_place_receipt', 'class' => 'form-control input-sm']) !!}
+                    {!! Form::hidden('tmp_place_delivery', null, ['id' => 'tmp_place_delivery', 'class' => 'form-control input-sm']) !!}
                     {!! Form::hidden('tmp_port_loading_id', null, ['id' => 'tmp_port_loading_id', 'class' => 'form-control input-sm']) !!}
                     {!! Form::hidden('tmp_port_unloading_id', null, ['id' => 'tmp_port_unloading_id', 'class' => 'form-control input-sm']) !!}
                     {!! Form::hidden('tmp_vessel_name', null, ['id' => 'tmp_vessel_name', 'class' => 'form-control input-sm']) !!}
@@ -50,7 +50,7 @@
                 <a class="btn btn-default btn-footer" data-dismiss="modal">
                     <i class="fa fa-times"></i> Close
                 </a>
-                <button id="createHouse_save" class="btn btn-primary btn-sm" type="submit">
+                <button id="createHouse_save" class="btn btn-primary" type="submit">
                     <span>Create B/L</span>
                 </button>
             </div>

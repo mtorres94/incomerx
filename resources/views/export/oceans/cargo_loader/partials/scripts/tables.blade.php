@@ -563,7 +563,7 @@ $("#CreateHouse").modal("hide");
     });
 
     $("#container-save").click(function(){
-        if ($("#equipment_type_id").val() == "" || $("#container_number").val() == ""){
+        if ( $("#container_number").val() == ""){
             $("#container_number").focus();
         }else {
             var r = $("#container_details tbody tr").length + 1,
@@ -799,11 +799,6 @@ $("#CreateHouse").modal("hide");
                     .append(createTableContent('hidden_warehouse_code', tr[a].childNodes[32].textContent, true, d))
                     .append(createTableContent('hidden_flag', '0', true, d))
                     .append(createTableContent('hidden_receipt_entry', tr[a].childNodes[34].textContent, true, d))
-                    .append(createTableContent('hbl_line_id', '0', true, d))
-                    .append(createTableContent('equipment_type_code', c3, true, d))
-                    .append(createTableContent('container_number', c4, true, d))
-                    .append(createTableContent('container_seal_number1', c5, true, d))
-                    .append(createTableContent('container_seal_number2', c6, true, d))
                 t.append(p_1);
                 d += 1;
             }
@@ -828,7 +823,7 @@ $("#CreateHouse").modal("hide");
                 d += 1;
             }
             cleanModalFields("Container_Details"), clearTable("cargo_details"), $("#ContainerModal").formValidation('resetForm', true),    $("#container_spotting_date").val($("#loading_date").val()), $("#pd_status").val("1").change(), $("#equipment_type_id").val("").change(), $("#container_pickup_type").val("02").change(), $("#container_delivery_type").val("02").change(), $("#container_drop_type").val("02").change(),
-            $("#total_weight_unit").val("L").change(), $("#equipment_type_code").focus();
+            $("#total_weight_unit").val("L").change(), $("#container_degrees").val("F").change(), $("#container_ventilation").val("A").change(),$("#equipment_type_code").focus();
         }
         //======================================
     }),
@@ -945,7 +940,7 @@ $("#CreateHouse").modal("hide");
                 $("#container_commodity_id").val(c18),
                 $("#container_commodity_name").val(c19),
                 $("#pd_status").val(c20).change(),
-                (c21 == '' ? $("#container_spotting_date").val($("#departure_date").val()) :$("#container_spotting_date").val(c21)),
+                ((c21 == ''  || c21 == "0000-00-00") ? $("#container_spotting_date").val($("#departure_date").val()) :$("#container_spotting_date").val(c21)),
                 $("#container_pull_date").val(c22),
 
                 $("#container_pickup_id").val(c23),

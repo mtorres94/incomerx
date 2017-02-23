@@ -1994,8 +1994,8 @@
     });
 
     $("#createHouse_save").click(function(){
-        var hbl_select = new Array(),
-            i=0,  r=0,  x=0;
+        var hbl_select = new Array(), i=0,  r=0;
+        clearTable("hidden_id");
         var description= '',
             pieces = 0,
             weight = 0,
@@ -2004,50 +2004,53 @@
         $("input[name='hbl_select[]']:checked").each(function() {
             hbl_select.push($(this).val());
         });
+        clearTable("cargo_details");
         var d = $("#cargo_details tbody tr").length ,
                 n = $("#cargo_details"),
                 t = n.find("tbody"),
-                hbl= $("#load_warehouses tbody tr");
+                hbl= $("#load_warehouses tbody tr"),
+                hidden = $("#hidden_id"),
+                hidden_id = hidden.find("tbody");
 
-        for (x=0 ; x < hbl.length; x++){
-                if( hbl[x].childNodes[11].textContent == hbl_select[r]) {
-                    description = hbl[x].childNodes[2].textContent ;
-                    pieces = hbl[x].childNodes[7].textContent;
-                    weight =parseFloat(hbl[x].childNodes[8].textContent);
-                    cubic = cubic + parseFloat(hbl[x].childNodes[9].textContent);
-                    charge = charge + parseFloat(hbl[x].childNodes[10].textContent);
-                    var p = $("<tr id=" + (d + 1) + ">");
-                    p.append(createTableContent('cargo_line',(d+1), true, d))
-                        .append(createTableContent('cargo_marks',"" , false, d))
-                        .append(createTableContent('cargo_pieces',  hbl[x].childNodes[7].textContent, false, d))
-                        .append(createTableContent('cargo_description',  hbl[x].childNodes[2].textContent, false, d))
-                        .append(createTableContent('cargo_weight_unit', 'L', false, d))
-                        .append(createTableContent('cargo_weight_k', weight * 0.453592, true, d))
-                        .append(createTableContent('cargo_cubic_k', cubic * 0.453592, true, d))
-                        .append(createTableContent('cargo_charge_weight_k', charge * 0.453592, true, d))
-                        .append(createTableContent('cargo_weight_l', weight , false, d))
-                        .append(createTableContent('cargo_cubic_l',cubic , false, d))
-                        .append(createTableContent('cargo_charge_weight_l', charge, false, d))
-                        .append(createTableContent('cargo_rate', "", true, d))
-                        .append(createTableContent('cargo_amount', "", true, d))
-                        .append(createTableContent('cargo_container', "", true, d))
-                        .append(createTableContent('cargo_type_id', "", true, d))
-                        .append(createTableContent('cargo_type_code', "", true, d))
-                        .append(createTableContent('cargo_commodity_id', "", true, d))
-                        .append(createTableContent('cargo_commodity_name', "", true, d))
-                        .append(createTableContent('cargo_comments', "", true, d))
-                        .append(createTableContent('cargo_hbl_id', hbl_select[r], true, d))
-                        .append(createTableBtns())
-                    t.append(p);
-                    d++;
-                    r++;
-                }
+        for (var x=0 ; x < hbl.length; x++) {
+            if (hbl[x].childNodes[11].textContent == hbl_select[r]) {
+                description = description + "\n" + hbl[x].childNodes[2].textContent;
+                pieces = pieces + parseFloat(hbl[x].childNodes[7].textContent);
+                weight = weight + parseFloat(hbl[x].childNodes[8].textContent);
+                cubic = cubic + parseFloat(hbl[x].childNodes[9].textContent);
+                charge = charge + parseFloat(hbl[x].childNodes[10].textContent);
+
+                var row = $("<tr id=" + (r + 1) + ">");
+                row.append(createTableContent('cargo_hbl_id',hbl_select[r], true, r))
+                hidden_id.append(row);
+                r++;
+            }
         }
+        var p = $("<tr id=" + (d + 1) + ">");
+            p.append(createTableContent('cargo_line',(d+1), true, d))
+            .append(createTableContent('cargo_marks',"" , false, d))
+            .append(createTableContent('cargo_pieces',  pieces, false, d))
+            .append(createTableContent('cargo_description',  description, false, d))
+            .append(createTableContent('cargo_weight_unit', 'L', false, d))
+            .append(createTableContent('cargo_weight_k', (weight * 0.453592).toFixed(3) , true, d))
+            .append(createTableContent('cargo_cubic_k', (cubic * 0.453592).toFixed(3) , true, d))
+            .append(createTableContent('cargo_charge_weight_k', (charge * 0.453592).toFixed(3) , true, d))
+            .append(createTableContent('cargo_weight_l', weight.toFixed(3) , false, d))
+            .append(createTableContent('cargo_cubic_l',cubic.toFixed(3) , false, d))
+            .append(createTableContent('cargo_charge_weight_l', charge.toFixed(3), false, d))
+            .append(createTableContent('cargo_rate', "", true, d))
+            .append(createTableContent('cargo_amount', "", true, d))
+            .append(createTableContent('cargo_container', "", true, d))
+            .append(createTableContent('cargo_type_id', "", true, d))
+            .append(createTableContent('cargo_type_code', "", true, d))
+            .append(createTableContent('cargo_commodity_id', "", true, d))
+            .append(createTableContent('cargo_commodity_name', "", true, d))
+            .append(createTableContent('cargo_comments', "", true, d))
+            .append(createTableBtns())
+            t.append(p);
         weight_totals();
         $("#CreateHouse").modal("hide");
-        for (x=0 ; x < hbl_select.length; x++) {
 
-        }
     });
 
 </script>

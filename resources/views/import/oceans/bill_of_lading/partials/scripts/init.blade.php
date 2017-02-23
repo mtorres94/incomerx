@@ -12,7 +12,7 @@
         //=========================
         updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('io_bill_of_lading.close') }}')
 
-        if ($("#open_status").val() == "1") {
+        if ($("#open_status").val() == "1" || $("#bl_status").val() == 'C' ) {
             disableFields('data');
         }
         for (var t = $("#cargo-tabs").find("div"), l = 0; l < t.length; l++) {
@@ -152,7 +152,7 @@ $("#box_dim_fact").change(function(){ calculate_box() });
             $("#origin_from_type").val("01").change();
             $("#origin_to_type").val("01").change();
             $("#pd_status").val("1").change();
-            $("#bl_status").val("O").change();
+            $("#bl_status").val("{{ (isset($bill_of_lading) ? $bill_of_lading->bl_status : "O") }}").change();
             $("#origin_customer_name").attr('disabled', true);
         $("#billing_bill_party").change(function () {
             var a= $("#billing_bill_party").val();

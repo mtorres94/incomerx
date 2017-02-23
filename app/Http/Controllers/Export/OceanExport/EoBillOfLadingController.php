@@ -5,15 +5,19 @@ namespace Sass\Http\Controllers\Export\OceanExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 use Sass\EoBillOfLading;
+use Sass\EoBillOfLadingAttachment;
 use Sass\EoBillOfLadingCargo;
-use Sass\EoBillOfLadingCargoDetail;
 use Sass\EoBillOfLadingCharge;
 
 use Sass\DataTables\Export\Ocean\BillOfLadingDataTable;
 use Sass\EoBillOfLadingContainer;
 use Sass\EoHblReceiptEntry;
 use Sass\Http\Controllers\Controller;
+use Sass\Logic\File\FileRepository;
 
 
 class EoBillOfLadingController extends Controller
@@ -35,8 +39,9 @@ class EoBillOfLadingController extends Controller
      */
     public function create()
     {
+        $unique_str = str_random(25);
         $user_open_id = Auth::user()->id;
-        return view('export.oceans.bill_of_lading.create', compact('user_open_id'));
+        return view('export.oceans.bill_of_lading.create', compact('unique_str','user_open_id'));
     }
 
     /**
@@ -112,11 +117,68 @@ class EoBillOfLadingController extends Controller
     public function edit($id)
     {
         $bill_of_lading = EoBillOfLading::findOrFail($id);
+        $unique_str = $bill_of_lading->unique_str;
         $user_open_id =  ($bill_of_lading->user_open_id == 0) ? Auth::user()->id : $bill_of_lading->user_open_id;
 
         $bill_of_lading = self::updateOpenStatus($bill_of_lading);
         $bill_of_lading->save();
-        return view('export.oceans.bill_of_lading.edit', compact('bill_of_lading', 'user_open_id'));
+        return view('export.oceans.bill_of_lading.edit', compact('unique_str','bill_of_lading', 'user_open_id'));
+    }
+
+    public function upload(Request $request)
+    {
+        $upload = $request->all();
+        $unique_str = $upload['unique_str'];
+        try {
+            $path = public_path().'/storage/';
+            $file = $request->file('file')[0];
+
+            $tmp = FileRepository::generate($file);
+            $file->move($path, $tmp['temp_name']);
+            EoBillOfLadingAttachment::saveAttachment($unique_str, $tmp);
+        } catch (ValidationException $e) {
+            return response()->json(['error' => 'The file could not be uploaded']);
+        }
+        return response()->json();
+    }
+
+    public function delete()
+    {
+        $key = Input::get('key');
+        if (!$key) return response()->json(['error' => 'The file could not be deleted']);
+
+        $sessionFile = EoBillOfLadingAttachment::findOrFail($key);
+        $path_file = public_path().'/storage/'.$sessionFile->temp_name;
+
+        try {
+            if (!empty($sessionFile)) { $sessionFile->delete(); }
+            if (File::exists($path_file)) { File::delete($path_file); }
+        } catch (FileException $e) {
+            return response()->json(['error' => 'The file could not be deleted']);
+        }
+        return response()->json();
+    }
+
+    public function get($id)
+    {
+        $files = EoBillOfLadingAttachment::where('unique_str', $id)->get();
+        $path = public_path()."/storage/";
+
+        $rtn = [];
+        foreach ($files as $file) {
+            if (File::exists($path.$file->temp_name))
+            {
+                $rtn[] = [
+                    'original_name' => $file->original_name,
+                    'temp_name' => $file->temp_name,
+                    'type' => strtolower(File::extension($file->original_name)),
+                    'route' => asset(Storage::disk('storage')->url($file->temp_name)),
+                    'key' => $file->id,
+                    'size' => File::size($path.$file->temp_name),
+                ];
+            }
+        }
+        return response()->json(['files' => $rtn]);
     }
 
     /**
@@ -185,13 +247,17 @@ class EoBillOfLadingController extends Controller
 
 
     }
-    public function pdf($token, $id)
+    public function pdf($token, $id, Request $request)
     {
+        $type= $request->input("type");
+
         if (strlen($token) == 60) {
             try {
                 $bill_of_lading= EoBillOfLading::findOrFail($id);
-                return \PDF::loadView('export.oceans.bill_of_lading.pdf', compact('bill_of_lading'))->stream('B/L-'.$bill_of_lading->code.'.pdf');
-               // return view('export.oceans.bill_of_lading.pdf', compact('bill_of_lading'));
+               /*return \PDF::loadView('export.oceans.bill_of_lading.pdf', compact('bill_of_lading'))
+                    ->setOption('margin-right', 2)
+                    ->stream($bill_of_lading->code.'.pdf');*/
+               return view('export.oceans.bill_of_lading.pdf', compact('bill_of_lading', 'type'));
             } catch (ModelNotFoundException $e) {
                 abort(404);
             }
@@ -214,6 +280,40 @@ class EoBillOfLadingController extends Controller
             abort(403);
         }
     }
+
+    public function pre_alert($token, $id)
+    {
+        if (strlen($token) == 60) {
+            try {
+                $bill_of_lading= EoBillOfLading::findOrFail($id);
+                return \PDF::loadView('export.oceans.bill_of_lading.pre_alert', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
+                //return view('export.oceans.bill_of_lading.delivery_order', compact('bill_of_lading'));
+            } catch (ModelNotFoundException $e) {
+                abort(404);
+            }
+        } else {
+            abort(403);
+        }
+    }
+
+
+    public function manifest($token, $id)
+    {
+        if (strlen($token) == 60) {
+            try {
+                $bill_of_lading= EoBillOfLading::findOrFail($id);
+                return \PDF::loadView('export.oceans.bill_of_lading.manifest', compact('bill_of_lading'))
+                    ->setOrientation('landscape')
+                    ->stream($bill_of_lading->code.'.pdf');
+                //return view('export.oceans.bill_of_lading.delivery_order', compact('bill_of_lading'));
+            } catch (ModelNotFoundException $e) {
+                abort(404);
+            }
+        } else {
+            abort(403);
+        }
+    }
+
 
     public function label($token, $id)
     {
@@ -241,9 +341,12 @@ class EoBillOfLadingController extends Controller
             $bill_of_lading = EoBillOfLading::select('eo_bills_of_lading.*')
                 ->where(function ($query) use ($request) {
                     $shipment_id = $request->get('id');
+                    $status = $request->get('status');
                     $query->where('eo_bills_of_lading.shipment_id', '=', $shipment_id);
-                    $query->where('eo_bills_of_lading.bl_class', '<=','2');
-                    $query->where('eo_bills_of_lading.bl_status', '=','O');
+                    $query->where('eo_bills_of_lading.bl_class', '=','2');
+                    if($status == 'N') {
+                        $query->where('eo_bills_of_lading.bl_status', '=','O');
+                    }
                     $query->where('eo_bills_of_lading.shipper_id', '>','0');
                     $query->where('eo_bills_of_lading.consignee_id', '>','0');
 
@@ -254,6 +357,7 @@ class EoBillOfLadingController extends Controller
                     $results[] = [
                         'id' => $bl->id,
                         'hbl_code' => $bl->code,
+                        'status' => $bl->bl_status,
                         'marks' => "SHIPPER ".strtoupper($bl->shipper_id > 0 ? $bl->shipper->name : "")." CONSIGNEE: ".strtoupper($bl->consignee_id > 0 ? $bl->consignee->name : ""),
                         'cargo_type_id' => $bl->cargo_type_id,
                         'cargo_type_code' => ($bl->cargo_type_id >0 ? $bl->cargo_type->code: ""),

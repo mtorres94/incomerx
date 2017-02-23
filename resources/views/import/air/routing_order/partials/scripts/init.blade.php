@@ -6,7 +6,7 @@
         renameTab();
         updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('ia_routing_order.close') }}');
 
-        if ($("#open_status").val() == "1") {
+        if ($("#open_status").val() == "1" || $("#status").val() == 'C') {
             disableFields('data');
         }
         function renameTab() {
@@ -152,6 +152,7 @@
 //================================================
     $("#code").attr("readonly", true);
       $("#unit_weight").val("L").change();
+      $("#status").val("{{ (isset($routing_order) ? $routing_order->status : "O" }}").change();
     $("#billing_quantity").change(function() { charges_details() });
     $("#cost_quantity").change(function() { charges_details() });
     $("#billing_rate").change(function() { charges_details() });

@@ -5,9 +5,9 @@
         var tr = $("#hbl_details tbody tr");
         var r = tr.length;
         for (var a = 0; a < r; a++) {
-            var pieces = parseFloat(tr[a].childNodes[3].textContent);
-            var weight = parseFloat(tr[a].childNodes[4].textContent);
-            var cubic = parseFloat(tr[a].childNodes[6].textContent);
+            var pieces = parseFloat(tr[a].childNodes[4].textContent);
+            var weight = parseFloat(tr[a].childNodes[5].textContent);
+            var cubic = parseFloat(tr[a].childNodes[7].textContent);
             s_pieces = s_pieces + pieces;
             s_weight= s_weight + weight;
             s_cubic= s_cubic + cubic;
