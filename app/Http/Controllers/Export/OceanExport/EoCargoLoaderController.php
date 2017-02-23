@@ -224,6 +224,24 @@ class EoCargoLoaderController extends Controller
         //
     }
 
+    public function get_pdf(Request $request, $type, $token) {
+        $response = [];
+        $cargo_loader = $request->all();
+        $cargo_id = $cargo_loader->id;
+        switch ($type) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                $response = [''];
+        }
+
+        return response()->json($response);
+    }
+
     public function pdf($token, $id)
     {
         if (strlen($token) == 60) {

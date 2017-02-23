@@ -146,6 +146,24 @@ class IaBillOfLadingController extends Controller
         //
     }
 
+    public function get_pdf(Request $request, $type, $token) {
+        $response = [];
+        $bill_of_lading = $request->all();
+        $bl_id = $bill_of_lading->id;
+        switch ($type) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                $response = [''];
+        }
+
+        return response()->json($response);
+    }
+
     public function arrival_notice($token, $id)
     {
         if (strlen($token) == 60) {

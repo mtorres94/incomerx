@@ -220,6 +220,23 @@ class OrderEntryController extends Controller
             'name' => $order_entry->user_open_id > 0 ? $order_entry->user_open->name : '',
         ];
     }
+    public function get_pdf(Request $request, $type, $token) {
+        $response = [];
+        $order_entry = $request->all();
+        $or_id = $order_entry->id;
+        switch ($type) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                $response = [''];
+        }
+
+        return response()->json($response);
+    }
 
     public function pdf($token, $id)
     {

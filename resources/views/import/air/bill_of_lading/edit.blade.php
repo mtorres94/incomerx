@@ -2,14 +2,14 @@
 
 @section('content')
     {!! Form::bsGroup([
-         ['class' => 'fa fa-file-pdf-o', 'value' => 'PRE ALERT', 'route' => 'ia_bill_of_lading.pre_alert'],
-         ['class' => 'fa fa-file-pdf-o', 'value' => 'DELIVERY ORDER', 'route' => 'ia_bill_of_lading.delivery_order'],
-         ['class' => 'fa fa-file-pdf-o', 'value' => 'B/L', 'route' => 'ia_bill_of_lading.bill_of_lading'],
-         ['class' => 'fa fa-file-pdf-o', 'value' => 'ARRIVAL NOTICE', 'route' => 'ia_bill_of_lading.arrival_notice'],
-     ], $bill_of_lading) !!}
+         ['class' => 'fa fa-file-pdf-o', 'value' => 'Pre Alert', 'index' => 1],
+         ['class' => 'fa fa-file-pdf-o', 'value' => 'Delivery Order', 'index' => 2],
+         ['class' => 'fa fa-file-pdf-o', 'value' => 'B/L', 'index' => 3],
+         ['class' => 'fa fa-file-pdf-o', 'value' => 'Arrival Notice', 'index' => 4],
+     ], $bill_of_lading, 'ia_bill_of_lading.get_pdf') !!}
     {!! Form::model($bill_of_lading, ['id' => 'data', 'route' => ['import.air.bill_of_lading.update', $bill_of_lading], 'method' => 'PUT']) !!}
+    {!! Form::bsFooter(1, $bill_of_lading) !!}
     @include('import.air.bill_of_lading.partials.fields')
-    {!! Form::bsSubmit() !!}
-    {!! Form::bsClose(isset($bill_of_lading) ? $bill_of_lading->id : 0) !!}
+    {!! Form::bsFooter(2, $bill_of_lading) !!}
     {!! Form::close() !!}
 @endsection

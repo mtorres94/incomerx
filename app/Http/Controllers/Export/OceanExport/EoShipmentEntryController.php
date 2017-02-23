@@ -333,6 +333,23 @@ class EoShipmentEntryController extends Controller
         }
     }
 
+    public function get_pdf(Request $request, $type, $token) {
+        $response = [];
+        $shipment_entry = $request->all();
+        $shipment_id = $shipment_entry->id;
+        switch ($type) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                $response = [''];
+        }
+
+        return response()->json($response);
+    }
     public function pdf($token, $id)
     {
         if (strlen($token) == 60) {

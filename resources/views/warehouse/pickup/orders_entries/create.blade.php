@@ -6,7 +6,6 @@
     <div class="row">
         <div class="col-md-3">{!! Form::bsCheck('Create Warehouse Receipt', 'create_warehouse_receipt') !!}</div>
     </div>
-    {!! Form::bsSubmit() !!}
-    {!! Form::bsClose(isset($order_entry) ? $order_entry->id : 0) !!}
+    {!! Form::bsFooter(2, null) !!}
     {!! Form::close() !!}
 @endsection

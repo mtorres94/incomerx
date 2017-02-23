@@ -3,13 +3,12 @@
 @section('content')
     {!! Form::model($bill_of_lading, ['id' => 'data', 'route' => ['export.oceans.bill_of_lading.update', $bill_of_lading], 'method' => 'PUT']) !!}
     {!! Form::bsGroup([
-          ['class' => 'fa fa-file-pdf-o', 'value' => 'B/L', 'route' => 'bill_of_lading.pdf'],
-          ['class' => 'fa fa-file-pdf-o', 'value' => 'Delivery Order', 'route' => 'bill_of_lading.delivery_order'],
-          ['class' => 'fa fa-barcode', 'value' => 'Label', 'route' => 'bill_of_lading.label'],
-      ], $bill_of_lading) !!}
-    {!! Form::bsSelect(null, null, 'Print B/L as', 'type', array( '1' => 'ORIGINAL', '2' => 'CARRIER'), null, 'body') !!}
+          ['class' => 'fa fa-file-pdf-o', 'value' => 'B/L', 'index' => 1],
+          ['class' => 'fa fa-file-pdf-o', 'value' => 'Delivery Order', 'index' => 2],
+          ['class' => 'fa fa-barcode', 'value' => 'Label', 'index' => 3],
+      ], $bill_of_lading, 'bill_of_lading.get_pdf') !!}
+    {!! Form::bsFooter(1, $bill_of_lading) !!}
     @include('export.oceans.bill_of_lading.partials.fields')
-    {!! Form::bsSubmit() !!}
-    {!! Form::bsClose(isset($bill_of_lading) ? $bill_of_lading->id : 0) !!}
+    {!! Form::bsFooter(2, $bill_of_lading) !!}
     {!! Form::close() !!}
 @endsection

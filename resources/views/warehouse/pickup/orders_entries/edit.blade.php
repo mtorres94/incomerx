@@ -2,8 +2,11 @@
 
 @section('content')
     {!! Form::model($order_entry, ['id' => 'data', 'route' => ['warehouse.pickup.orders_entries.update', $order_entry], 'method' => 'PUT']) !!}
+    {!! Form::bsGroup([
+       ['class' => 'fa fa-file-pdf-o', 'value' => 'Pick Up', 'index' => 1],
+   ], $quotes, 'orders_entries.get_pdf') !!}
+    {!! Form::bsFooter(1, null) !!}
     @include('warehouse.pickup.orders_entries.partials.fields')
-    {!! Form::bsSubmit() !!}
-    {!! Form::bsClose(isset($order_entry) ? $order_entry->id : 0) !!}
+    {!! Form::bsFooter(2, null) !!}
     {!! Form::close() !!}
 @endsection
