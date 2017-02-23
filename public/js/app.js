@@ -19,9 +19,6 @@ $('.selectpicker').selectpicker();
 
 $('.collapse').collapse();
 
-// Automatically trigger the loading animation on click
-Ladda.bind('button[type=submit]');
-
 function getSelectedTab() {
     var gtab = window.parent.$('#tt');
     var htab = gtab.find('.tabs-header');
@@ -185,7 +182,7 @@ function ajaxDelete(f) {
             text: "You'll permanently delete this information",
             type: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
+            confirmButtonColor: "#dd362f",
             confirmButtonText: "¡Yes, I want to delete!",
             cancelButtonText: "No!!!",
             closeOnConfirm: false
@@ -202,6 +199,23 @@ function ajaxDelete(f) {
             }
         });
     })
+}
+
+function preventDelete(o) {
+    swal({
+        title: "Are you sure?",
+        text: "You'll permanently delete this record",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#dd362f",
+        confirmButtonText: "¡Yes, I want to delete!",
+        cancelButtonText: "No!!!",
+        closeOnConfirm: false
+    }).then(function (isConfirm) {
+        if (isConfirm) {
+            o.closest('tr').remove();
+        }
+    });
 }
 
 function preventOpen(f, _url, actual_user) {
@@ -247,13 +261,13 @@ function preventOpen(f, _url, actual_user) {
 }
 
 function updateAccess(m, f, _url) {
-    f.on('click', '.btn-close[data-size]', function (e) {
+    f.on('click', '.btn-close[data-id]', function (e) {
         var _id = $(this).data('id');
         $.ajax({
             url: _url,
             type: 'POST',
             dataType: 'json',
-            data: {_method: 'POST', _token: $('meta[name="csrf-token"]').attr('content'), id: _id },
+            data: { _method: 'POST', _token: $('meta[name="csrf-token"]').attr('content'), id: _id },
             success: function (rtn) {
                 var main = getSelectedTab();
                 var name = getSelectedTabName(main);
@@ -263,6 +277,17 @@ function updateAccess(m, f, _url) {
         }).always(function (data) {
             m.DataTable().draw(false);
         });
+    });
+}
+
+function print(_url, _id) {
+    $.ajax({
+        url: _url,
+        type: 'GET',
+        data: { id: _id },
+        success: function (rtn) {
+
+        }
     });
 }
 
@@ -349,6 +374,19 @@ function disableFields(form) {
 }
 
 function clearTable(table) {
-    var _table = '#' + table + ' tbody';
-    $(_table).html("");
+    swal({
+        title: "Are you sure?",
+        text: "You'll permanently delete all the records",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#dd362f",
+        confirmButtonText: "¡Yes, I want to delete!",
+        cancelButtonText: "No!!!",
+        closeOnConfirm: false
+    }).then(function (isConfirm) {
+        if (isConfirm) {
+            var _table = '#' + table + ' tbody';
+            $(_table).html("");
+        }
+    });
 }

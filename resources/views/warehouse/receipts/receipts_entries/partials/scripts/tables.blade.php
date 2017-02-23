@@ -4,7 +4,7 @@
     $("#btn-cargo").click(function() {
         $("#tmp_cargo_quantity").val("");
 
-        $("#tmp_cargo_pieces").val(1);
+        $("#tmp_cargo_pieces").val(0);
         $("#tmp_cargo_metric_unit_measurement_id").val("I").change();
         $("#tmp_cargo_weight_unit_measurement_id").val("L").change();
         $("#tmp_cargo_dim_fact").val("I").change();
@@ -24,7 +24,7 @@
     }), $("#btn-cargo-multiline").click(function() {
         $("#multiline_cargo_quantity").val("");
 
-        $("#multiline_cargo_pieces").val(1);
+        $("#multiline_cargo_pieces").val(0);
         $("#multiline_cargo_metric_unit_measurement_id").val("I").change();
         $("#multiline_cargo_weight_unit_measurement_id").val("L").change();
         $("#multiline_cargo_dim_fact").val("I").change();
@@ -82,7 +82,7 @@
                 .append(createTableContent('hazardous_uns_note', e, false, c))
                 .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p), cleanModalFields('UNs'), $("#tmp_hazardous_uns_code").focus()
     }), $('#hazardous-details').on('click', 'a.btn-danger', function() {
-        $(this).closest('tr').remove()
+        preventDelete($(this))
     }), $("#hazardous-details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
                 o = t[0].childNodes[0].textContent,
@@ -109,7 +109,7 @@
                 .append(createTableContent('receiving_remarks', s, true, c))
                 .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p), cleanModalFields('PRO-Numbers'), $("#tmp_receiving_pro_number").focus()
     }), $('#receiving-details').on('click', 'a.btn-danger', function() {
-        $(this).closest('tr').remove()
+        preventDelete($(this))
     }), $("#receiving-details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
                 o = t[0].childNodes[0].textContent,
@@ -142,7 +142,7 @@
                 .append(createTableContent('references_note', m, true, c))
                 .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p), cleanModalFields('References'), $("#tmp_references_po_number").focus()
     }), $('#references-details').on('click', 'a.btn-danger', function() {
-        $(this).closest('tr').remove()
+        preventDelete($(this))
     }), $("#references-details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
                 r = t[0].childNodes[0].textContent,
@@ -212,8 +212,7 @@
                     .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), calculate_warehouse_details(), cleanModalFields('cargo-warehouse'),$("#CargoModal").formValidation("resetForm", true), $("#tmp_cargo_type_id").val(0).change(), $("#tmp_cargo_quantity").val(""), $("#tmp_cargo_pieces").val(1), $("#tmp_cargo_location_id").val(0).change(), $("#tmp_cargo_location_bin_id").val(0).change(), $("#tmp_cargo_weight_unit_measurement_id").val("L").change(),$("#tmp_cargo_metric_unit_measurement_id").val("I").change(),$("#tmp_cargo_dim_fact").val("I").change(), $("#tmp_cargo_quantity").focus()
         }
     }), $("#warehouse-details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove(),
-            calculate_warehouse_details()
+        preventDelete($(this)), calculate_warehouse_details()
     }), $("#warehouse-details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
                 a = t[0].childNodes[0].textContent,
@@ -374,8 +373,7 @@
                 .append(createTableBtns()), 0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields('charge-warehouse'), $("#ChargeModal").formValidation("resetForm", true), $("#tmp_billing_unit_id").val(0).change(), $("#tmp_cost_unit_id").val(0).change(), $("#tmp_billing_bill_party").val("C").change(), $("#tmp_billing_bill_type").val("C").change(), $("#tmp_billing_currency_type").val("1").change(), $("#tmp_cost_currency_type").val("1").change(),calculate_charges(),   $("#tmp_billing_billing_code").focus()
         }
     }), $("#charge-details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove(),
-        calculate_charges()
+        preventDelete($(this)), calculate_charges()
     }), $("#charge-details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
             g1  = t[0].childNodes[0].textContent,

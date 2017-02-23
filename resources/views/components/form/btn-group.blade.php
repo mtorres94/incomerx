@@ -1,5 +1,6 @@
-<div class="btn-group" role="group" style="padding-bottom: 15px;">
+<select name="printer" id="printer" class="selectpicker select-header" title="Choose..." data-width="auto">
     @foreach($array as $item)
-        <a href="{{ route($item['route'], [str_random(60), $obj]) }}" target="_blank" type="button" class="btn btn-lg btn-default"><i class="{{ $item['class'] }}" aria-hidden="true"></i>{{ $item['value'] }}</a>
+        <option data-icon="{{ $item['class'] }}" data-index="{{ $item['index'] }}">{{ $item['value'] }}</option>
     @endforeach
-</div>
+</select>
+<a href="javascript:void(0)" class="btn btn-default btn-lg btn-print" data-id="{{ $obj->id }}" data-route="{{ route($route, [0, str_random(60)]) }}"><span class="fa fa-print fa-lg" aria-hidden="true"></span></a>

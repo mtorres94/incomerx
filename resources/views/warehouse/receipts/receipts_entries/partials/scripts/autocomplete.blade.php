@@ -102,7 +102,7 @@ $receipt_entry->country->name : null)}}'
                 id: '{{ (isset($receipt_entry) ? $receipt_entry->shipper_id : "")}}',
                 value: '{{ ((isset($receipt_entry) and $receipt_entry->shipper_id > 0) ? $receipt_entry->shipper->name : null)}}',
                 address: '{{ (isset($receipt_entry) ? $receipt_entry->shipper_address : null)}}',
-                city: '{{ (isset($receipt_entry) ? $receipt_entry->shipper_city: null)}}',
+                city: '{{ (isset($receipt_entry) ? $receipt_entry->shipper_city: null) }}',
                 state_id: '{{ (isset($receipt_entry) ? $receipt_entry->shipper_state_id: null)}}',
                 state_name: '{{ ((isset($receipt_entry) and $receipt_entry->shipper_state_id > 0) ? $receipt_entry->shipper_state->name : null)}}',
                 zip_code_id: '{{ (isset($receipt_entry) ? $receipt_entry->shipper_zip_code_id: null)}}',

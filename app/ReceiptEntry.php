@@ -25,6 +25,14 @@ class ReceiptEntry extends Model
         'sum_pieces', 'sum_weight', 'sum_volume_weight', 'sum_cubic', 'user_create_id', 'user_update_id','cargo_loader_id', 'user_open_id', 'sum_bill', 'sum_profit', 'sum_cost', 'sum_profit_percent', 'bill_of_lading_id'
     ];
 
+    public function getShipperAddressAttribute($value) {
+        return format_text($value);
+    }
+
+    public function getConsigneeAddressAttribute($value) {
+        return format_text($value);
+    }
+
     //=========================================================
     public static function saveDetail($id, $data)
     {

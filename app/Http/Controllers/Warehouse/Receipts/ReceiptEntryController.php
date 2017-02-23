@@ -121,8 +121,6 @@ class ReceiptEntryController extends Controller
         $receipt_entry = self::updateOpenStatus($receipt_entry);
         $receipt_entry->save();
 
-
-
         return view('warehouse.receipts.receipts_entries.edit', compact('receipt_entry', 'unique_str', 'user_open_id'));
     }
 
@@ -354,6 +352,23 @@ class ReceiptEntryController extends Controller
         }
     }
 
+    public function get_pdf(Request $request, $type, $token) {
+        $response = [];
+        $receipt_entry = $request->all();
+        $whr_id = $receipt_entry->id;
+        switch ($type) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                $response = [''];
+        }
+
+        return response()->json($response);
+    }
 
     public function pdf($token, $id)
     {

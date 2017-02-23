@@ -5,14 +5,24 @@
         renameTab();
         updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('receipts_entries.close') }}')
 
-        if ($("#open_status").val() == "1") {
+        $('.btn-print[data-id]').click(function () {
+            var _type = $('.select-header .dropdown-menu .selected').data('original-index');
+            var _url = $(this).data('route');
+            var _id = $(this).data('id');
+            print(_url, _id);
+        });
+
+        if ($("#open_status").val() == "1" || $("#status").val() == "C") {
             disableFields('data');
+        }
+
+        if ('edit' == '{{ \Request::segment(5) }}' && $("#status").val() == "H" && '{{ auth()->user()->role }}' == 'User') {
+            $("#status").attr('disabled', true);
         }
 
         var unique_str = $("#unique_str").val();
         openTab($("#data"));
-
-
+        
         for (var t = $("#cargo-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style");

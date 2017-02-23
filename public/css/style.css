@@ -482,30 +482,6 @@ textarea + i {
     margin-top: -4px;
     height: 15px;
 }
-.ladda-button {
-    font-size: 15px;
-    border-radius: 0;
-    padding-bottom: 7px !important;
-    margin-top: 10px;
-    position: initial;
-}
-.ladda-button[data-color="blue"] {
-    background: #235f83;
-}
-.ladda-button[data-color="blue"]:hover {
-    background: #386f8f;
-}
-.ladda-button[data-style="expand-left"][data-size="xs"] .ladda-spinner {
-    left: 18px;
-}
-.ladda-button[data-color="white"] {
-    background: #fff;
-    color: #000;
-    border-color: #ccc;
-}
-.ladda-button[data-color="white"]:hover {
-    background: #e5e5e5;
-}
 .panel-body .row.no-padding-top {
     padding-top: 0px;
 }
@@ -578,6 +554,11 @@ table tbody td {
     font-size: 11px !important;
     padding: 3px 12px !important;
     text-transform: uppercase;
+}
+.panel-body ul.dropdown-menu li a span.fa,
+.bs-container ul.dropdown-menu li a span.fa {
+    font-size: 13px;
+    padding-right: 0;
 }
 .bs-searchbox .form-control {
     height: 25px;
@@ -679,6 +660,26 @@ button.dropdown-toggle {
     white-space: pre-wrap;
     word-wrap: break-word;
     width: 190px;
+}
+.btn-primary {
+    background-color: #1e5475;
+    border-color: #1e5475;
+}
+.btn-primary:hover {
+    background-color: #2e5a75;
+    border-color: #2e5a75;
+}
+.select-header .btn-default {
+    padding: 10px;
+    height: 36.63px;
+    font-size: 12px;
+}
+.select-header .btn-default span {
+    margin-top: -1px;
+}
+.select-header .btn-default span i {
+    font-size: 14px;
+    padding-right: 3px;
 }
 
 /** Footable */
