@@ -11,6 +11,14 @@
         if ($("#open_status").val() == "1" || $("#bl_status").val() == "C") {
             disableFields('data');
         }
+        $('#printer').change(function () {
+            var _type = $('.select-header .dropdown-menu .selected').data('original-index');
+            var _id = $('.btn-print[data-id]').data('id');
+            var _token = '{{ str_random(120) }}';
+
+            var url = $('.btn-print[data-id]').data('route');
+            $('.btn-print[data-id]').attr('href', url + '?_token=' + _token + '&_type=' + _type + '&_id=' + _id);
+        });
 
         function renameTab() {
             if ('edit' == '{{ \Request::segment(5) }}') {
@@ -321,7 +329,7 @@
             type: 'GET',
 
             success: function (e) {
-                clearTable("container_details");
+                clearTableCondition("container_details");
                 var f = $("#container_details tbody tr").length,
                     n1 = $("#container_details"),
                     t1 = n1.find("tbody")
@@ -400,7 +408,7 @@
     });
     //===================================================
     $("#btn-load-houses").click(function () {
-        clearTable("load_warehouses");
+        clearTableCondition("load_warehouses");
         if( $("#bl_class").val() == '3'){
             var id= $("#shipment_id").val() , x=0,  status= "{{ (isset($bill_of_lading)? 'E': 'N') }}";
             $("#group_by").attr("disabled", true);

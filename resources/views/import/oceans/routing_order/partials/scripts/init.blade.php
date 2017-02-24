@@ -9,6 +9,16 @@
         if ($("#open_status").val() == "1" || $("#status").val() == 'C') {
             disableFields('data');
         }
+
+        $('#printer').change(function () {
+            var _type = $('.select-header .dropdown-menu .selected').data('original-index');
+            var _id = $('.btn-print[data-id]').data('id');
+            var _token = '{{ str_random(120) }}';
+
+            var url = $('.btn-print[data-id]').data('route');
+            $('.btn-print[data-id]').attr('href', url + '?_token=' + _token + '&_type=' + _type + '&_id=' + _id);
+        });
+
         function renameTab() {
             if ('edit' == '{{ \Request::segment(5) }}') {
                 var gtab = window.parent.$('#tt');
@@ -73,7 +83,7 @@
             type: 'GET',
 
             success: function (e) {
-                clearTable('chargeDetails');
+                clearTableCondition('chargeDetails');
                 var d = $("#chargeDetails tbody tr").length,
                     n = $("#chargeDetails"),
                     t = n.find("tbody"),

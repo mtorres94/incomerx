@@ -189,16 +189,29 @@ class IoBillOfLadingController extends Controller
         ];
     }
 
-    public function get_pdf(Request $request, $type, $token) {
-        $response = [];
-        $bill_of_lading = $request->all();
-        $bl_id = $bill_of_lading->id;
+    public function report(Request $request ) {
+        $id = $request->get('_id');
+        $type = $request->get('_type');
+        $bill_of_lading = null;
+
+        try {
+            $bill_of_lading = IoBillOfLading::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
+
         switch ($type) {
             case 1:
+                return \PDF::loadView('import.oceans.bill_of_lading.pre_alert', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
                 break;
             case 2:
+                return \PDF::loadView('import.oceans.bill_of_lading.delivery_order', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
                 break;
             case 3:
+                return \PDF::loadView('import.oceans.bill_of_lading.bill_of_lading', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
+                break;
+            case 4:
+                return \PDF::loadView('import.oceans.bill_of_lading.arrival_notice', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
                 break;
             default:
                 $response = [''];
@@ -212,7 +225,7 @@ class IoBillOfLadingController extends Controller
         if (strlen($token) == 60) {
             try {
                 $bill_of_lading = IoBillOfLading::findOrFail($id);
-                return \PDF::loadView('import.oceans.bill_of_lading.pre_alert', compact('bill_of_lading','type'))->stream($bill_of_lading->code.'.pdf');
+                return \PDF::loadView('import.oceans.io_bill_of_lading.pre_alert', compact('bill_of_lading','type'))->stream($bill_of_lading->code.'.pdf');
             } catch (ModelNotFoundException $e) {
                 abort(404);
             }
@@ -225,7 +238,7 @@ class IoBillOfLadingController extends Controller
         if (strlen($token) == 60) {
             try {
                 $bill_of_lading = IoBillOfLading::findOrFail($id);
-                return \PDF::loadView('import.oceans.bill_of_lading.delivery_order', compact('bill_of_lading','type'))->stream($bill_of_lading->code.'.pdf');
+                return \PDF::loadView('import.oceans.io_bill_of_lading.delivery_order', compact('bill_of_lading','type'))->stream($bill_of_lading->code.'.pdf');
             } catch (ModelNotFoundException $e) {
                 abort(404);
             }
@@ -239,7 +252,7 @@ class IoBillOfLadingController extends Controller
         if (strlen($token) == 60) {
             try {
                 $bill_of_lading = IoBillOfLading::findOrFail($id);
-                return \PDF::loadView('import.oceans.bill_of_lading.bill_of_lading', compact('bill_of_lading','type'))->stream($bill_of_lading->code.'.pdf');
+                return \PDF::loadView('import.oceans.io_ill_of_lading.bill_of_lading', compact('bill_of_lading','type'))->stream($bill_of_lading->code.'.pdf');
             } catch (ModelNotFoundException $e) {
                 abort(404);
             }
@@ -253,7 +266,7 @@ class IoBillOfLadingController extends Controller
         if (strlen($token) == 60) {
             try {
                 $bill_of_lading = IoBillOfLading::findOrFail($id);
-                return \PDF::loadView('import.oceans.bill_of_lading.arrival_notice', compact('bill_of_lading','type'))->stream($bill_of_lading->code.'.pdf');
+                return \PDF::loadView('import.oceans.io_bill_of_lading.arrival_notice', compact('bill_of_lading','type'))->stream($bill_of_lading->code.'.pdf');
             } catch (ModelNotFoundException $e) {
                 abort(404);
             }

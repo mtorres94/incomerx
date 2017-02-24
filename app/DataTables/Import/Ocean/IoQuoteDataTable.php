@@ -23,7 +23,7 @@ class IoQuoteDataTable extends CustomDataTable
                     $quotes,
                     'import.oceans.quotes',
                     [
-                        ['route' => 'io_quotes.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF'],
+                        ['route' => report_route('io_quotes.report', 1, $quotes->id), 'icon' => 'icon-file-pdf', 'name' => 'PDF'],
                     ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])

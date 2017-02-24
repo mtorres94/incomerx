@@ -23,10 +23,10 @@ class IoBillOfLadingDataTable extends CustomDataTable
                     $bill_lading,
                     'import.oceans.bill_of_lading',
                     [
-                        ['route' => 'io_bill_of_lading.pre_alert',   'icon' => 'icon-file-pdf', 'name' => 'Pre Alert'],
-                        ['route' => 'io_bill_of_lading.delivery_order',   'icon' => 'icon-file-pdf', 'name' => 'Delivery Order'],
-                        ['route' => 'io_bill_of_lading.bill_of_lading',   'icon' => 'icon-file-pdf', 'name' => 'Bill of Lading'],
-                        ['route' => 'io_bill_of_lading.arrival_notice',   'icon' => 'icon-file-pdf', 'name' => 'Arrival Notice'],
+                        ['route' => report_route('io_bill_of_lading.report', 1, $bill_lading->id), 'icon' => 'icon-file-pdf', 'name' => 'Pre Alert'],
+                        ['route' => report_route('io_bill_of_lading.report', 2, $bill_lading->id), 'icon' => 'icon-file-pdf', 'name' => 'Delivery Order'],
+                        ['route' => report_route('io_bill_of_lading.report', 3, $bill_lading->id), 'icon' => 'icon-file-pdf', 'name' => 'Bill of Lading'],
+                        ['route' => report_route('io_bill_of_lading.report', 4, $bill_lading->id), 'icon' => 'icon-file-pdf', 'name' => 'Arrival Notice']
                     ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])

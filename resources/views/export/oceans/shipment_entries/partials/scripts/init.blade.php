@@ -7,6 +7,15 @@
         if ($("#open_status").val() == "1" || $("#status").val() == 'C') {
             disableFields('data');
         }
+        $('#printer').change(function () {
+            var _type = $('.select-header .dropdown-menu .selected').data('original-index');
+            var _id = $('.btn-print[data-id]').data('id');
+            var _token = '{{ str_random(120) }}';
+
+            var url = $('.btn-print[data-id]').data('route');
+            $('.btn-print[data-id]').attr('href', url + '?_token=' + _token + '&_type=' + _type + '&_id=' + _id);
+        });
+
 
         removeEmptyNodes('container_details');
         removeEmptyNodes('hzd_details');
@@ -50,7 +59,7 @@
                     success: function (e) {
                         //=============================================
                         x = 0;
-                        clearTable("container_details");
+                        clearTableCondition("container_details");
                         while (e[x].id != "") {
                             var r= $("#container_details tbody tr").length ,
                                 n = $("#container_details"),

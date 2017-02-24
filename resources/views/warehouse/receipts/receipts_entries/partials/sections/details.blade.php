@@ -80,5 +80,19 @@
             {!! Form::hidden('sum_volume_weight', null, ['id' => 'sum_volume_weight', 'class' => 'form-control input-sm']) !!}
             {!! Form::hidden('sum_cubic', null, ['id' => 'sum_cubic', 'class' => 'form-control input-sm']) !!}
         </tfoot>
+    </table >
+    <table class="hidden" id="shipping_references">
+        @if(isset($receipt_entry))
+            @foreach($receipt_entry->shipping_references as $key => $detail)
+                <tr id="{{ $key + 1 }}">
+                    {!! Form::bsRowTd($key+ 1 , 'shipping_type', $detail->type, true) !!}
+                    {!! Form::bsRowTd($key+ 1 , 'shipping_date_in', $detail->date_in, true) !!}
+                    {!! Form::bsRowTd($key+ 1 , 'shipping_date_out', $detail->date_out, true) !!}
+                    {!! Form::bsRowTd($key+ 1 , 'shipping_user', ($detail->user_id > 0 ? $detail->user_name->name : ""), true) !!}
+                    {!! Form::bsRowTd($key+ 1 , 'shipping_reference_number', $detail->reference_number, true) !!}
+                    {!! Form::bsRowTd($key+ 1 , 'shipping_shipment_number', $detail->shipment_number, true) !!}
+                </tr>
+            @endforeach
+        @endif
     </table>
 </fieldset>

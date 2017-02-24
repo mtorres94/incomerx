@@ -459,18 +459,19 @@
                 d =d + 1 ;
 
             }weight_totals(),
-                    clearTable('cargo_vehicle_details');
+                    clearTableCondition('cargo_vehicle_details');
 
             //===================
 
 
 
     }), $("#cargo_details").on("click", "a.btn-danger", function() {
-        var id_row = $(this).closest('tr').attr('id');
-        $("#details_hidden tbody [data-id='" + id_row + "']").remove();
-        preventDelete($(this)),
-                weight_totals()
-
+        if (preventDeleteCondition()) {
+            var id_row = $(this).closest('tr').attr('id');
+            $("#details_hidden tbody [data-id='" + id_row + "']").remove();
+            $(this).closest("tr").remove(),
+            weight_totals()
+        }
     }), $("#cargo_details").on("click", "a.btn-default", function() {
 
         var t = $(this).closest("tr"),
@@ -498,7 +499,7 @@
 
 
         //charge
-        clearTable("cargo_vehicle_details");
+        clearTableCondition("cargo_vehicle_details");
         var n = $("#cargo_vehicle_details");
         t = n.find("tbody");
         var tr=  $("#details_hidden tbody tr");
@@ -1409,13 +1410,15 @@
                 d =d + 1 ;
 
             }
-            clearTable('hazardous-details');
+            clearTableCondition('hazardous-details');
         }
 
     }), $("#container_details").on("click", "a.btn-danger", function() {
-        var id_row = $(this).closest('tr').attr('id');
-        $("#hzd_details tbody [data-id='" + id_row + "']").remove();
-        preventDelete($(this))
+        if(preventDeleteCondition()){
+            var id_row = $(this).closest('tr').attr('id');
+            $("#hzd_details tbody [data-id='" + id_row + "']").remove();
+            $(this).closest("tr").remove();
+        }
 
     }), $("#container_details").on("click", "a.btn-default", function() {
         removeEmptyNodes('container_details');
@@ -1552,7 +1555,7 @@
                 $("#Container_Details").modal("show"), $("#equipment_type_code").focus()
 
         //charge
-        clearTable("hazardous-details");
+        clearTableCondition("hazardous-details");
         var n = $("#hazardous-details");
         t = n.find("tbody");
         var tr=  $("#hzd_details tbody tr");
@@ -1994,7 +1997,7 @@
 
     $("#createHouse_save").click(function(){
         var hbl_select = new Array(), i=0,  r=0;
-        clearTable("hidden_id");
+        clearTableCondition("hidden_id");
         var description= '',
             pieces = 0,
             weight = 0,
@@ -2003,7 +2006,7 @@
         $("input[name='hbl_select[]']:checked").each(function() {
             hbl_select.push($(this).val());
         });
-        clearTable("cargo_details");
+        clearTableCondition("cargo_details");
         var d = $("#cargo_details tbody tr").length ,
                 n = $("#cargo_details"),
                 t = n.find("tbody"),

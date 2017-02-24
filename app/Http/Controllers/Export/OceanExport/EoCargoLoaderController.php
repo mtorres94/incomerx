@@ -224,16 +224,20 @@ class EoCargoLoaderController extends Controller
         //
     }
 
-    public function get_pdf(Request $request, $type, $token) {
-        $response = [];
-        $cargo_loader = $request->all();
-        $cargo_id = $cargo_loader->id;
+    public function report(Request $request) {
+        $id = $request->get('_id');
+        $type = $request->get('_type');
+        $cargo_loader = null;
+
+        try {
+            $cargo_loader = EoCargoLoader::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
+
         switch ($type) {
             case 1:
-                break;
-            case 2:
-                break;
-            case 3:
+                return \PDF::loadView('export.oceans.cargo_loader.pdf', compact('cargo_loader'))->stream($cargo_loader->code.'.pdf');
                 break;
             default:
                 $response = [''];

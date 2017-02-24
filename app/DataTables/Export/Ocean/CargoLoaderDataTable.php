@@ -22,8 +22,7 @@ class CargoLoaderDataTable extends CustomDataTable
                 return $this->groupButton(
                     $cargo_loader,
                     'export.oceans.cargo_loader',[
-                        ['route' => 'cargo_loader.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF'],
-
+                    ['route' => report_route('cargo_loader.report', 1, $cargo_loader->id), 'icon' => 'icon-file-pdf', 'name' => 'PDF'],
                 ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])

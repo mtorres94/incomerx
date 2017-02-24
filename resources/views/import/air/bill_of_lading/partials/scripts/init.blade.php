@@ -15,6 +15,15 @@
         if ($("#open_status").val() == "1" || $("#bl_status").val() == 'C') {
             disableFields('data');
         }
+        $('#printer').change(function () {
+            var _type = $('.select-header .dropdown-menu .selected').data('original-index');
+            var _id = $('.btn-print[data-id]').data('id');
+            var _token = '{{ str_random(120) }}';
+
+            var url = $('.btn-print[data-id]').data('route');
+            $('.btn-print[data-id]').attr('href', url + '?_token=' + _token + '&_type=' + _type + '&_id=' + _id);
+        });
+
         for (var t = $("#cargo-tabs").find("div"), l = 0; l < t.length; l++) {
             var a = t[l];
             var e = $(a).attr("style");
@@ -180,7 +189,7 @@ $("#tmp_weight_unit").val("L").change();
             type: 'GET',
 
             success: function (e) {
-                clearTable('origin_charge');
+                clearTableCondition('origin_charge');
                 var d = $("#origin_charge tbody tr").length,
                     n = $("#origin_charge"),
                     t = n.find("tbody"),

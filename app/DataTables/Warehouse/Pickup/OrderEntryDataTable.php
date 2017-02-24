@@ -22,7 +22,7 @@ class OrderEntryDataTable extends CustomDataTable
                 return $this->groupButton(
                     $order_entry,
                     'warehouse.pickup.orders_entries', [
-                    ['route' => 'orders_entries.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF']
+                    ['route' => report_route('orders_entries.report', 1, $order_entry->id), 'icon' => 'icon-file-pdf', 'name' => 'PDF'],
                 ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])

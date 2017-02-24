@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{{ $quote->code }}</title>
+    <title>{{ $quotes->code }}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,8 +41,8 @@
             <div class="row">
                 <div class="document-info pull-right">
                     <h5><strong>QUOTE</strong></h5>
-                    <p class="code-bar">{{ $quote->code }}</p>
-                    <p class="document_number">{{ $quote->code }}</p>
+                    <p class="code-bar">{{ $quotes->code }}</p>
+                    <p class="document_number">{{ $quotes->code }}</p>
                 </div>
             </div>
             <div class="row">
@@ -50,7 +50,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">EFFECTIVE DATE</div>
                         <div class="panel-body">
-                            <p>{{ strtoupper($quote->date_today) }}</p>
+                            <p>{{ strtoupper($quotes->date_today) }}</p>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">EXPIRATION DATE</div>
                         <div class="panel-body">
-                            <p>{{ strtoupper($quote->valid_date) }}</p>
+                            <p>{{ strtoupper($quotes->valid_date) }}</p>
                         </div>
                     </div>
                 </div>
@@ -72,10 +72,10 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">CUSTOMER</div>
                         <div class="panel-body">
-                            <p>{{ strtoupper($quote->customer->name) }}</p>
-                            <p>{{ strtoupper($quote->customer->address) }}</p>
-                            <p>{{ strtoupper($quote->customer->city) }} {{ ($quote->customer_state_id > 0) ? ', '.strtoupper($quote->customer->state->name) : "" }}</p>
-                            <p>Phone: {{ $quote->customer->phone }} / Fax: {{ $quote->customer->fax }}</p>
+                            <p>{{ strtoupper($quotes->customer->name) }}</p>
+                            <p>{{ strtoupper($quotes->customer->address) }}</p>
+                            <p>{{ strtoupper($quotes->customer->city) }} {{ ($quotes->customer_state_id > 0) ? ', '.strtoupper($quotes->customer->state->name) : "" }}</p>
+                            <p>Phone: {{ $quotes->customer->phone }} / Fax: {{ $quotes->customer->fax }}</p>
                         </div>
                     </div>
                 </div>
@@ -83,10 +83,10 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">SHIPPER</div>
                         <div class="panel-body">
-                            <p>{{ strtoupper($quote->shipper->name) }}</p>
-                            <p>{{ strtoupper($quote->shipper->address) }}</p>
-                            <p>{{ strtoupper($quote->shipper->city) }} {{ ($quote->shipper_state_id > 0) ? ', '.strtoupper($quote->shipper->state->name) : "" }}</p>
-                            <p>Phone: {{ $quote->shipper->phone }} / Fax: {{ $quote->shipper->fax }}</p>
+                            <p>{{ strtoupper($quotes->shipper->name) }}</p>
+                            <p>{{ strtoupper($quotes->shipper->address) }}</p>
+                            <p>{{ strtoupper($quotes->shipper->city) }} {{ ($quotes->shipper_state_id > 0) ? ', '.strtoupper($quotes->shipper->state->name) : "" }}</p>
+                            <p>Phone: {{ $quotes->shipper->phone }} / Fax: {{ $quotes->shipper->fax }}</p>
                         </div>
                     </div>
                 </div>
@@ -101,10 +101,10 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">ADDITIONAL INFORMATION</div>
                             <div class="panel-body">
-                                <p><strong>ORIGIN: </strong>{{ ($quote->port_loading_id ? strtoupper($quote->port_loading->name) : "") }}</p>
-                                <p><strong>DESTINATION: </strong> {{ ($quote->port_unloading_id > 0 ? strtoupper($quote->port_unloading->name) : "") }}</p>
-                                <p><strong>SERVICE:</strong> {{ $quote->service_id > 0 ?  strtoupper($quote->service->name) : ""}} </p>
-                                <p><strong>COMMODITY: </strong>{{ ($quote->total_commodity_id > 0 ? $quote->total_commodity->name : "") }} </p>
+                                <p><strong>ORIGIN: </strong>{{ ($quotes->port_loading_id ? strtoupper($quotes->port_loading->name) : "") }}</p>
+                                <p><strong>DESTINATION: </strong> {{ ($quotes->port_unloading_id > 0 ? strtoupper($quotes->port_unloading->name) : "") }}</p>
+                                <p><strong>SERVICE:</strong> {{ $quotes->service_id > 0 ?  strtoupper($quotes->service->name) : ""}} </p>
+                                <p><strong>COMMODITY: </strong>{{ ($quotes->total_commodity_id > 0 ? $quotes->total_commodity->name : "") }} </p>
                             </div>
                         </div>
                     </div>
@@ -112,10 +112,10 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">CONSIGNEE</div>
                             <div class="panel-body">
-                                <p>{{ strtoupper($quote->consignee->name) }}</p>
-                                <p>{{ strtoupper($quote->consignee->address) }}</p>
-                                <p>{{ strtoupper($quote->consignee->city) }} {{ ($quote->consignee_state_id > 0) ? ', '.strtoupper($quote->consignee->state->name) : "" }}</p>
-                                <p>Phone: {{ $quote->consignee->phone }} / Fax: {{ $quote->consignee->fax }}</p>
+                                <p>{{ strtoupper($quotes->consignee->name) }}</p>
+                                <p>{{ strtoupper($quotes->consignee->address) }}</p>
+                                <p>{{ strtoupper($quotes->consignee->city) }} {{ ($quotes->consignee_state_id > 0) ? ', '.strtoupper($quotes->consignee->state->name) : "" }}</p>
+                                <p>Phone: {{ $quotes->consignee->phone }} / Fax: {{ $quotes->consignee->fax }}</p>
                             </div>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
 
                     </thead>
                     <tbody>
-                    @foreach($quote->cargo as $detail)
+                    @foreach($quotes->cargo as $detail)
                         <tr>
                             <td>{{ $detail->quantity }}</td>
                             <td>{{ $detail->cargo_type->code }}</td>
@@ -158,18 +158,18 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td colspan="2"><strong>TOTAL PIECES:</strong> {{ $quote->total_quantity}}</td>
+                        <td colspan="2"><strong>TOTAL PIECES:</strong> {{ $quotes->total_quantity}}</td>
                         <td colspan="2" style="text-align: right"><strong>WEIGHT:</strong></td>
-                        <td>{{ $quote->total_weight }} Lbs</td>
+                        <td>{{ $quotes->total_weight }} Lbs</td>
                         <td colspan="3" style="text-align: right;"><strong>CUBIC:</strong></td>
-                        <td>{{ $quote->total_cubic }} Cft</td>
+                        <td>{{ $quotes->total_cubic }} Cft</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td colspan="4"></td>
-                        <td>{{ round($quote->total_weight * 0.453592, 3) }} Kgs</td>
+                        <td>{{ round($quotes->total_weight * 0.453592, 3) }} Kgs</td>
                         <td colspan="3"></td>
-                        <td>{{ round($quote->total_cubic * 0.02831685, 3) }} Cbm</td>
+                        <td>{{ round($quotes->total_cubic * 0.02831685, 3) }} Cbm</td>
                         <td></td>
                     </tr>
                     </tfoot>
@@ -196,7 +196,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($quote->origin_charge as $detail)
+                    @foreach($quotes->origin_charge as $detail)
                         <tr>
                             <td>{{ strtoupper($detail->billing_id > 0 ? $detail->billing->code : "")}}</td>
                             <td>{{ strtoupper($detail->billing_id > 0 ? $detail->billing->name : "")}}</td>
@@ -213,7 +213,7 @@
                         <td></td>
                         <td></td>
                         <td colspan="2" style="text-align: right"><strong>TOT. AMOUNT</strong></td>
-                        <td><strong>{{ $quote->sum_bill }} </strong></td>
+                        <td><strong>{{ $quotes->sum_bill }} </strong></td>
                     </tr>
                     </tfoot>
                 </table>
@@ -237,7 +237,7 @@
                     <th  width="10%">Amount</th>
                     </thead>
                     <tbody>
-                    @foreach($quote->destination_charge as $detail)
+                    @foreach($quotes->destination_charge as $detail)
                         <tr>
                             <td>{{ strtoupper($detail->billing_id > 0 ? $detail->billing->code : "")}}</td>
                             <td>{{ strtoupper($detail->billing_id > 0 ? $detail->billing->name : "")}}</td>
@@ -254,7 +254,7 @@
                         <td></td>
                         <td></td>
                         <td colspan="2" style="text-align: right"><strong>TOT. AMOUNT</strong></td>
-                        <td><strong>{{ $quote->dest_sum_bill }} </strong></td>
+                        <td><strong>{{ $quotes->dest_sum_bill }} </strong></td>
                     </tr>
                     </tfoot>
                 </table>
@@ -262,8 +262,8 @@
         </div>
         <div class="row row-padding">
             <div class="col-xs-12 footer">
-                <p><strong>COMMENTS:</strong> {{ $quote->quotes_comments }}</p>
-                <p><strong>INSTRUCTIONS:</strong> {{ $quote->quote_instruction }}</p>
+                <p><strong>COMMENTS:</strong> {{ $quotes->quotes_comments }}</p>
+                <p><strong>INSTRUCTIONS:</strong> {{ $quotes->quote_instruction }}</p>
             </div>
         </div>
     </div>

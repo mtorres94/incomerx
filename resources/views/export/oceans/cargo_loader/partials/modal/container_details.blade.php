@@ -12,7 +12,7 @@
                         <h5 class="modal-title">Container Details</h5></div>
                     <div class="col-md-6">
                         <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
-                            <a type="button" class="btn btn-default btn-sm" id="btn-load-warehouse" onclick="cleanModalFields('LoadWarehouse'), clearTable('load_warehouse_details')" data-toggle="modal" data-target="#LoadWarehouse"><i class="fa fa-search" aria-hidden="true"></i><span>Load Warehouse Receipts</span></a>
+                            <a type="button" class="btn btn-default btn-sm" id="btn-load-warehouse" onclick="cleanModalFields('LoadWarehouse'), clearTableCondition('load_warehouse_details')" data-toggle="modal" data-target="#LoadWarehouse"><i class="fa fa-search" aria-hidden="true"></i><span>Load Warehouse Receipts</span></a>
 
                         </div>
                     </div>

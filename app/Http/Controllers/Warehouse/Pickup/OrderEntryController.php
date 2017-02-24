@@ -220,22 +220,19 @@ class OrderEntryController extends Controller
             'name' => $order_entry->user_open_id > 0 ? $order_entry->user_open->name : '',
         ];
     }
-    public function get_pdf(Request $request, $type, $token) {
-        $response = [];
-        $order_entry = $request->all();
-        $or_id = $order_entry->id;
-        switch ($type) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            default:
-                $response = [''];
+    public function report(Request $request) {
+        $id = $request->get('_id');
+        $type = $request->get('_type');
+        $order_entry = null;
+
+        try {
+            $order_entry = OrderEntry::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            abort(404);
         }
 
-        return response()->json($response);
+        return \PDF::loadView('warehouse.pickup.orders_entries.pdf', compact('order_entry'))->stream($order_entry->code.'.pdf');
+
     }
 
     public function pdf($token, $id)

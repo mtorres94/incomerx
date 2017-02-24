@@ -46,7 +46,7 @@
     });
 
     $("#btn_create_hbl_1").click(function() {
-        clearTable('load_warehouses');
+        clearTableCondition('load_warehouses');
 
         var t = $("#hidden_warehouse tbody tr"),
                 _ =  ($("#load_warehouses tbody tr").length == 0 ? 1 : parseInt($("#load_warehouses tbody tr")[$("#load_warehouses tbody tr").length - 1].childNodes[0].textContent) + 1 ),
@@ -327,17 +327,20 @@ $("#CreateHouse").modal("hide");
                     t.append(p_1);
                     d++;
                 }
-                cleanModalFields("Cargo_Details"), clearTable("warehouse_cargo_details"), $("#warehouse_number").focus();
+                cleanModalFields("Cargo_Details"), clearTableCondition("warehouse_cargo_details"), $("#warehouse_number").focus();
     }),
     $("#cargo_details").on("click", "a.btn-danger", function() {
-        var whr_number = $(this).closest('tr');
-        $("#hidden_cargo_details tbody [data-id='"+ whr_number[0].childNodes[1].textContent +"']").remove(),
-        preventDelete($(this)),
-        $("#hidden_warehouse").closest("tr").remove(),
-        cubic_weight_loaded();
+        if(preventDeleteCondition()){
+            var whr_number = $(this).closest('tr');
+            $("#hidden_cargo_details tbody [data-id='"+ whr_number[0].childNodes[1].textContent +"']").remove(),
+            $("#hidden_warehouse").closest("tr").remove(),
+            $("#cargo_details").closest("tr").remove(),
+            cubic_weight_loaded();
+        }
+
 
     }), $("#cargo_details").on("click", "a.btn-default", function() {
-        clearTable("warehouse_cargo_details");
+        clearTableCondition("warehouse_cargo_details");
         var t = $(this).closest("tr"),
                 c1 = t[0].childNodes[0].textContent,
                 c2 = t[0].childNodes[1].textContent,
@@ -821,19 +824,21 @@ $("#CreateHouse").modal("hide");
                 t.append(p_1);
                 d += 1;
             }
-            cleanModalFields("Container_Details"), clearTable("cargo_details"), $("#ContainerModal").formValidation('resetForm', true),    $("#container_spotting_date").val($("#loading_date").val()), $("#pd_status").val("1").change(), $("#equipment_type_id").val("").change(), $("#container_pickup_type").val("02").change(), $("#container_delivery_type").val("02").change(), $("#container_drop_type").val("02").change(),
+            cleanModalFields("Container_Details"), clearTableCondition("cargo_details"), $("#ContainerModal").formValidation('resetForm', true),    $("#container_spotting_date").val($("#loading_date").val()), $("#pd_status").val("1").change(), $("#equipment_type_id").val("").change(), $("#container_pickup_type").val("02").change(), $("#container_delivery_type").val("02").change(), $("#container_drop_type").val("02").change(),
             $("#total_weight_unit").val("L").change(), $("#container_degrees").val("F").change(), $("#container_ventilation").val("A").change(),$("#equipment_type_code").focus();
         }
         //======================================
     }),
             $("#container_details").on("click", "a.btn-danger", function() {
-                var id_row = $(this).closest('tr').attr('id');
-                var x = $("#hidden_warehouse tbody [data-id= '"+ id_row +"']")[0].childNodes[2].textContent;
-                $("#hidden_cargo_details tbody [data-id='" + x + "']").remove();
-               $("#hidden_warehouse tbody [data-id='" + id_row + "']").remove();
-                preventDelete($(this))
+                if(preventDeleteCondition()){
+                    var id_row = $(this).closest('tr').attr('id');
+                    var x = $("#hidden_warehouse tbody [data-id= '"+ id_row +"']")[0].childNodes[2].textContent;
+                    $("#hidden_cargo_details tbody [data-id='" + x + "']").remove();
+                    $("#hidden_warehouse tbody [data-id='" + id_row + "']").remove();
+                    $(this).closest('tr').remove();
+                }
             }), $("#container_details").on("click", "a.btn-default", function() {
-        clearTable("cargo_details");
+        clearTableCondition("cargo_details");
         cubic_weight_loaded();
         var t = $(this).closest("tr"),
                 c1 = t[0].childNodes[0].textContent,

@@ -211,4 +211,8 @@ class ReceiptEntry extends Model
     {
         return $this->belongsTo('Sass\User', 'user_open_id');
     }
+    public function shipping_references()
+    {
+        return $this->hasMany('Sass\ReceiptEntryShippingReference', 'receipt_entry_id');
+    }
 }

@@ -22,7 +22,7 @@ class EoQuotesDataTable extends CustomDataTable
                 return $this->groupButton(
                     $quotes,
                     'export.oceans.quotes',[
-                        ['route' => 'eo_quotes.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF']
+                    ['route' => report_route('eo_quotes.report', 1, $quotes->id), 'icon' => 'icon-file-pdf', 'name' => 'PDF'],
                 ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])

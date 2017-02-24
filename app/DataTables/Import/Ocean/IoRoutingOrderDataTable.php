@@ -23,7 +23,7 @@ class IoRoutingOrderDataTable extends CustomDataTable
                     $routing_order,
                     'import.oceans.routing_order',
                     [
-                        ['route' => 'io_routing_order.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF'],
+                        ['route' => report_route('io_routing_order.report', 1, $routing_order->id), 'icon' => 'icon-file-pdf', 'name' => 'PDF'],
                     ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])

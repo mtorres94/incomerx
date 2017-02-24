@@ -333,16 +333,26 @@ class EoShipmentEntryController extends Controller
         }
     }
 
-    public function get_pdf(Request $request, $type, $token) {
-        $response = [];
-        $shipment_entry = $request->all();
-        $shipment_id = $shipment_entry->id;
+    public function report(Request $request) {
+        $id = $request->get('_id');
+        $type = $request->get('_type');
+        $shipment_entry = null;
+
+        try {
+            $shipment_entry = EoShipmentEntry::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
+
         switch ($type) {
             case 1:
+                return \PDF::loadView('export.oceans.shipment_entries.pdf', compact('shipment_entry'))->stream($shipment_entry->code.'.pdf');
                 break;
             case 2:
+                return \PDF::loadView('export.oceans.shipment_entries.container_release', compact('shipment_entry'))->stream($shipment_entry->code.'.pdf');
                 break;
             case 3:
+                return \PDF::loadView('export.oceans.shipment_entries.ocean_manifest', compact('shipment_entry'))->stream($shipment_entry->code.'.pdf');
                 break;
             default:
                 $response = [''];

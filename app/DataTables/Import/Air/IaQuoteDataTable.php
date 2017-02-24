@@ -23,7 +23,7 @@ class IaQuoteDataTable extends CustomDataTable
                     $quotes,
                     'import.air.quotes',
                     [
-                        ['route' => 'ia_quotes.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF'],
+                        ['route' => report_route('ia_quotes.report', 1, $quotes->id), 'icon' => 'icon-file-pdf', 'name' => 'PDF'],
                     ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])

@@ -248,16 +248,62 @@ class EoBillOfLadingController extends Controller
 
     }
 
-    public function get_pdf(Request $request, $type, $token) {
-        $response = [];
-        $bill_of_lading = $request->all();
-        $bl_id = $bill_of_lading->id;
+    public function report(Request $request) {
+        $id = $request->get('_id');
+        $type = $request->get('_type');
+        $bill_of_lading = null;
+
+        try {
+            $bill_of_lading = EoBillOflading::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
+
         switch ($type) {
+            //ORIGINAL
             case 1:
+                return \PDF::loadView('export.oceans.bill_of_lading.pdf', compact('bill_of_lading', 'type'))->stream($bill_of_lading->code.'.pdf');
                 break;
+            //CARRIER
             case 2:
+                return \PDF::loadView('export.oceans.bill_of_lading.pdf', compact('bill_of_lading', 'type'))->stream($bill_of_lading->code.'.pdf');
                 break;
+            //DOCK RECEIPT
             case 3:
+                return \PDF::loadView('export.oceans.bill_of_lading.dock_receipt', compact('bill_of_lading', 'type'))->stream($bill_of_lading->code.'.pdf');
+                break;
+            //NON NEGOTIABLE
+            case 4:
+                return \PDF::loadView('export.oceans.bill_of_lading.pdf', compact('bill_of_lading', 'type'))->stream($bill_of_lading->code.'.pdf');
+            break;
+            //NON NEGOTIABLE FREIGHT ONLY
+            case 5:
+                return \PDF::loadView('export.oceans.bill_of_lading.pdf', compact('bill_of_lading', 'type'))->stream($bill_of_lading->code.'.pdf');
+                break;
+            //ORIGINAL FREIGHT ONLY
+            case 6:
+                return \PDF::loadView('export.oceans.bill_of_lading.pdf', compact('bill_of_lading', 'type'))->stream($bill_of_lading->code.'.pdf');
+                break;
+            //ORIGINAL NOT RATE
+            case 7:
+                return \PDF::loadView('export.oceans.bill_of_lading.pdf', compact('bill_of_lading', 'type'))->stream($bill_of_lading->code.'.pdf');
+                break;
+
+            case 8:
+                return \PDF::loadView('export.oceans.bill_of_lading.delivery_order', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
+                break;
+            case 9:
+                return \PDF::loadView('export.oceans.bill_of_lading.label', compact('bill_of_lading'))
+                    ->setOrientation('landscape')
+                    ->setOption('margin-top', 3)
+                    ->setOption('margin-left', 2)
+                    ->stream($bill_of_lading->code.'.pdf');
+                break;
+            case 10:
+                return \PDF::loadView('export.oceans.bill_of_lading.manifest', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
+                break;
+            case 11:
+                return \PDF::loadView('export.oceans.bill_of_lading.pre_alert', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
                 break;
             default:
                 $response = [''];

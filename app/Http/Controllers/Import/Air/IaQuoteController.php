@@ -136,22 +136,19 @@ class IaQuoteController extends Controller
         //
     }
 
-    public function get_pdf(Request $request, $type, $token) {
-        $response = [];
-        $quotes = $request->all();
-        $quote_id = $quotes->id;
-        switch ($type) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            default:
-                $response = [''];
+    public function report(Request $request) {
+        $id = $request->get('_id');
+        $type = $request->get('_type');
+        $quotes = null;
+
+        try {
+            $quotes = IaQuote::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            abort(404);
         }
 
-        return response()->json($response);
+        return \PDF::loadView('import.air.quotes.pdf', compact('quotes'))->stream($quotes->code.'.pdf');
+
     }
 
     public function pdf($token, $id)

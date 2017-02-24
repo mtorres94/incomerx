@@ -29,6 +29,7 @@ class EoBillOfLading extends Model
                while ($a < count($data['cargo_hbl_id'])) {
                    if (isset($data['cargo_hbl_id'][$i])) {
                        EoBillOfLading::where('id', $data['cargo_hbl_id'][$i])->update(['bl_status' => "C",'bill_of_lading_id' => $id, 'mbl_code' => $data['code']]);
+
                        $a++;
                    }
                    $i++;

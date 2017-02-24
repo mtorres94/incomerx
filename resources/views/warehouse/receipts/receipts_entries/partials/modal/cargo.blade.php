@@ -13,6 +13,9 @@
                         <div title="General">
                             @include('warehouse.receipts.receipts_entries.partials.modal.sections.cargo.general')
                         </div>
+                        <div title="Shipping References">
+                            @include('warehouse.receipts.receipts_entries.partials.modal.sections.cargo.shipping_references')
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

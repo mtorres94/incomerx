@@ -7,6 +7,15 @@
         if ($("#open_status").val() == "1" || $("#cargo_loader_status").val() == "C") {
             disableFields('data');
         }
+        $('#printer').change(function () {
+            var _type = $('.select-header .dropdown-menu .selected').data('original-index');
+            var _id = $('.btn-print[data-id]').data('id');
+            var _token = '{{ str_random(120) }}';
+
+            var url = $('.btn-print[data-id]').data('route');
+            $('.btn-print[data-id]').attr('href', url + '?_token=' + _token + '&_type=' + _type + '&_id=' + _id);
+        });
+
 
         if ('edit' == '{{ \Request::segment(5) }}' && $("#status").val() == "H" && '{{ auth()->user()->role }}' == 'User') {
             $("#status").attr('disabled', true);
@@ -252,56 +261,6 @@
         });
 
 //=====================================================================
-$("#btn_create_hbl").click(function(){
-    clearTable('load_warehouses');
-    $("#group_by").val("3").change();
-    var id= '{{ (isset($cargo_loader)? $cargo_loader->id : "") }}';
-    $.ajax({
-        url: "{{ route('eo_cargo_loader.get_warehouses') }}",
-        data: {id: id},
-        type: 'GET',
-        success: function (e) {
-            var x = 0;
-            while (e[x].id != "") {
-                var r = $("#load_warehouses tbody tr").length + 1,
-                    n = $("#load_warehouses"),
-                    t = n.find("tbody"),
-                    p = $("<tr id=" + r + ">");
-                p.append(createTableContent('warehouse_id', e[x].id, true, x))
-                    .append("<td><input type='checkbox' name='warehouse_select[]' id='warehouse_select' value='" + e[x].id + "'></td>")
-                    .append(createTableContent('warehouse_code', e[x].value, false, x))
-                    .append(createTableContent('shipper_id', e[x].shipper_id, true, x))
-                    .append(createTableContent('shipper_name', e[x].shipper_name, false, x))
-                    .append(createTableContent('consignee_id', e[x].consignee_id, true, x))
-                    .append(createTableContent('consignee_name', e[x].consignee_name, false, x))
-                    .append(createTableContent('status', e[x].status, false, x))
-                    .append(createTableContent('quantity', e[x].quantity, false, x))
-                    .append(createTableContent('sum_weight', e[x].sum_weight, false, x))
-                    .append(createTableContent('sum_cubic', e[x].sum_cubic, false, x))
-                    .append(createTableContent('hbl_line_id', '0', true, x))
-                t.append(p);
-                x= x+1;
-                $("#CreateHouse").modal("show");
-            }
-        }
-    });
-
-    $("#tmp_cargo_loader_id").val(id);
-    $('#tmp_departure_date').val($("#departure_date").val());
-    $('#tmp_arrival_date').val($("#arrival_date").val());
-    $('#tmp_booking_code').val($("#booking_code").val());
-    $('#tmp_carrier_id').val($("#carrier_id").val());
-    $('#tmp_shipment_id').val($("#shipment_id").val());
-    $('#tmp_date_today').val($("#date_today").val());
-
-    $('#tmp_place_receipt').val($("#place_receipt_name").val());
-    $('#tmp_place_delivery').val($("#place_delivery_name").val());
-    $('#tmp_port_loading_id').val($("#port_loading_id").val());
-    $('#tmp_port_unloading_id').val($("#port_unloading_id").val());
-    $('#tmp_vessel_name').val($("#vessel_name").val());
-    $('#tmp_voyage_name').val($("#voyage_name").val());
-
-});
 
 $("#group_by").change(function(){
     if($("#group_by").val() != '3'){
@@ -323,7 +282,7 @@ $("#group_by").change(function(){
                 type: 'GET',
 
                 success: function (e) {
-                clearTable('container_details');
+                clearTableCondition('container_details');
                     var d= $("#container_details tbody tr").length ,
                             n= $("#container_details"),
                             t= n.find("tbody");
@@ -486,6 +445,56 @@ $("#group_by").change(function(){
             $("#load_warehouse_details input[type=checkbox]").prop('checked', false);//solo los del objeto #diasHabilitados
         }
     }
+    $("#btn_create_hbl").click(function(){
+        clearTableCondition('load_warehouses');
+        $("#group_by").val("3").change();
+        var id= '{{ (isset($cargo_loader)? $cargo_loader->id : "") }}';
+        $.ajax({
+            url: "{{ route('eo_cargo_loader.get_warehouses') }}",
+            data: {id: id},
+            type: 'GET',
+            success: function (e) {
+                var x = 0;
+                while (e[x].id != "") {
+                    var r = $("#load_warehouses tbody tr").length + 1,
+                        n = $("#load_warehouses"),
+                        t = n.find("tbody"),
+                        p = $("<tr id=" + r + ">");
+                    p.append(createTableContent('warehouse_id', e[x].id, true, x))
+                        .append("<td><input type='checkbox' name='warehouse_select[]' id='warehouse_select' value='" + e[x].id + "'></td>")
+                        .append(createTableContent('warehouse_code', e[x].value, false, x))
+                        .append(createTableContent('shipper_id', e[x].shipper_id, true, x))
+                        .append(createTableContent('shipper_name', e[x].shipper_name, false, x))
+                        .append(createTableContent('consignee_id', e[x].consignee_id, true, x))
+                        .append(createTableContent('consignee_name', e[x].consignee_name, false, x))
+                        .append(createTableContent('status', e[x].status, false, x))
+                        .append(createTableContent('quantity', e[x].quantity, false, x))
+                        .append(createTableContent('sum_weight', e[x].sum_weight, false, x))
+                        .append(createTableContent('sum_cubic', e[x].sum_cubic, false, x))
+                        .append(createTableContent('hbl_line_id', '0', true, x))
+                    t.append(p);
+                    x= x+1;
+                    $("#CreateHouse").modal("show");
+                }
+            }
+        });
+
+        $("#tmp_cargo_loader_id").val(id);
+        $('#tmp_departure_date').val($("#departure_date").val());
+        $('#tmp_arrival_date').val($("#arrival_date").val());
+        $('#tmp_booking_code').val($("#booking_code").val());
+        $('#tmp_carrier_id').val($("#carrier_id").val());
+        $('#tmp_shipment_id').val($("#shipment_id").val());
+        $('#tmp_date_today').val($("#date_today").val());
+
+        $('#tmp_place_receipt').val($("#place_receipt_name").val());
+        $('#tmp_place_delivery').val($("#place_delivery_name").val());
+        $('#tmp_port_loading_id').val($("#port_loading_id").val());
+        $('#tmp_port_unloading_id').val($("#port_unloading_id").val());
+        $('#tmp_vessel_name').val($("#vessel_name").val());
+        $('#tmp_voyage_name').val($("#voyage_name").val());
+
+    });
 
 
 

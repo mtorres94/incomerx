@@ -218,6 +218,21 @@ function preventDelete(o) {
     });
 }
 
+function preventDeleteCondition() {
+    swal({
+        title: "Are you sure?",
+        text: "You'll permanently delete this record",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#dd362f",
+        confirmButtonText: "¡Yes, I want to delete!",
+        cancelButtonText: "No!!!",
+        closeOnConfirm: false
+    }).then(function (isConfirm) {
+        return isConfirm;
+    });
+}
+
 function preventOpen(f, _url, actual_user) {
     f.on('click', '.btn-edit[data-remote]', function (e) {
         var _id = $(this).data('id');
@@ -389,4 +404,10 @@ function clearTable(table) {
             $(_table).html("");
         }
     });
-}
+
+    function clearTableCondition(table) {
+           var _table = '#' + table + ' tbody';
+           $(_table).html("");
+        };
+
+    }

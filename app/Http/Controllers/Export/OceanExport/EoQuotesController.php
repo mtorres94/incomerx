@@ -135,22 +135,19 @@ class EoQuotesController extends Controller
         DB::table('eo_quotes_container')->where('quotes_id', '=', $id)->delete();
         DB::table('eo_quotes_charges')->where('quotes_id', '=', $id)->delete();
     }
-    public function get_pdf(Request $request, $type, $token) {
-        $response = [];
-        $quotes = $request->all();
-        $quote_id = $quotes->id;
-        switch ($type) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            default:
-                $response = [''];
+
+    public function report(Request $request) {
+        $id = $request->get('_id');
+        $type = $request->get('_type');
+        $quotes = null;
+
+        try {
+            $quotes = EoQuotes::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            abort(404);
         }
 
-        return response()->json($response);
+        return \PDF::loadView('export.oceans.quotes.pdf', compact('quotes'))->stream($quotes->code.'.pdf');
     }
 
     public function pdf($token, $id)

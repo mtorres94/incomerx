@@ -7,6 +7,17 @@
         if ($("#open_status").val() == "1") {
             disableFields('data');
         }
+
+        $('#printer').change(function () {
+            var _type = $('.select-header .dropdown-menu .selected').data('original-index');
+            var _id = $('.btn-print[data-id]').data('id');
+            var _token = '{{ str_random(120) }}';
+
+            var url = $('.btn-print[data-id]').data('route');
+            $('.btn-print[data-id]').attr('href', url + '?_token=' + _token + '&_type=' + _type + '&_id=' + _id);
+        });
+
+
         $('#create_warehouse_receipt').change(function() {
             ((this.checked)? $(this).val("1"): $(this).val("0"))
         });

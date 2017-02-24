@@ -1,7 +1,7 @@
 
 <legend>Container Details</legend>
 <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
-    <button type="button" id="btn_container_details" class="btn btn-default" data-toggle="modal" data-target="#Container_Details" onclick="cleanModalFields('Container_Details'), clearTable('cargo_details')">
+    <button type="button" id="btn_container_details" class="btn btn-default" data-toggle="modal" data-target="#Container_Details" onclick="cleanModalFields('Container_Details'), clearTableCondition('cargo_details')">
         <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
     </button>
     <button type="button"  class="btn btn-danger" onclick="clearTable('container_details'), clearTable('hidden_warehouse'), clearTable('hidden_cargo_details'), clearTable('hidden_hazardous')">

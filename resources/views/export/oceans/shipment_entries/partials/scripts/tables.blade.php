@@ -208,15 +208,17 @@
                 d =d + 1 ;
 
             }
-            clearTable('hazardous-details');
+            clearTableCondition('hazardous-details');
         }
 
     }),$("#container_details").on("click", "a.btn-danger", function() {
-        var id_row = $(this).closest('tr').attr('id');
-        $("#hzd_details tbody [data-id='" + id_row + "']").remove();
-        preventDelete($(this))
+        if(preventDeleteCondition()){
+            var id_row = $(this).closest('tr').attr('id');
+            $("#hzd_details tbody [data-id='" + id_row + "']").remove();
+            $(this).closest("tr").remove();
+        }
     }), $("#container_details").on("click", "a.btn-default", function() {
-        clearTable('hazardous-details');
+        clearTableCondition('hazardous-details');
 
         var t = $(this).closest("tr"),
                 g1 = t[0].childNodes[0].textContent,
@@ -370,7 +372,7 @@
                 $("#Container_Details").modal("show"), $("#equipment_type_code").focus()
 
         //charge
-        clearTable("hazardous_details");
+        clearTableCondition("hazardous_details");
 
         var n = $("#hazardous_details");
         t = n.find("tbody");

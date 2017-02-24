@@ -3,8 +3,8 @@
         <div title="Cargo Details">
             <div class="form-horizontal">
                 <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
-                    <a type="button" class="btn btn-primary btn-sm" id="btn-load-houses" onclick="validateRequiredField(), clearTable('load_warehouses')"><span>Link Houses</span></a>
-                    <button type="button" class="btn btn-danger"  onclick="clearTable('cargo_details'), weight_totals()">
+                    <a type="button" class="btn btn-primary btn-sm" id="btn-load-houses" onclick="validateRequiredField(), clearTableCondition('load_warehouses')"><span>Link Houses</span></a>
+                    <button type="button" class="btn btn-danger"  onclick="clearTable('cargo_details'),  clearTable('hidden_id'), weight_totals()">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -64,7 +64,7 @@
                         @else
                             @foreach($bill_of_lading->pivot as $key=>$detail)
                                 <tr id="{{ $key + 1 }}">
-                                    {!! Form::bsRowTd($key, 'cargo_hbl_id', $detail->receipt_entry->id, true) !!}
+                                    {!! Form::bsRowTd($key + 1, 'cargo_hbl_id', $detail->receipt_entry->id, true) !!}
                                 </tr>
                             @endforeach
                         @endif
@@ -188,7 +188,7 @@
         <div title="Container Details">
             <div class="form-horizontal">
                 <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
-                    <button type="button" id="btn_container_details" class="btn btn-default" data-toggle="modal" data-target="#Container_Details" onclick="cleanModalFields('Container_Details'), clearTable('hazardous-details')">
+                    <button type="button" id="btn_container_details" class="btn btn-default" data-toggle="modal" data-target="#Container_Details" onclick="cleanModalFields('Container_Details'), clearTableCondition('hazardous-details')">
                         <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
                     </button>
                     <button type="button"  class="btn btn-danger" onclick="clearTable('container_details'), clearTable('hazardous-details')">

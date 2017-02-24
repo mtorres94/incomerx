@@ -130,22 +130,19 @@ class IaRoutingOrderController extends Controller
     {
         //
     }
-    public function get_pdf(Request $request, $type, $token) {
-        $response = [];
-        $routing_order = $request->all();
-        $ro_id = $routing_order->id;
-        switch ($type) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            default:
-                $response = [''];
+    public function report(Request $request) {
+        $id = $request->get('_id');
+        $type = $request->get('_type');
+        $routing_order = null;
+
+        try {
+            $routing_order = IaRoutingOrder::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            abort(404);
         }
 
-        return response()->json($response);
+        return \PDF::loadView('import.air.routing_order.pdf', compact('routing_order'))->stream($routing_order->code.'.pdf');
+
     }
 
     public function pdf($token, $id)
