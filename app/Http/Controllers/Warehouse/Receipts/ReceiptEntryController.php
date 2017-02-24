@@ -379,6 +379,47 @@ class ReceiptEntryController extends Controller
         return view('warehouse.receipts.reports.cargo.index');
     }
 
+    public function cargo_report_view(Request $request)
+    {
+        $date = !empty($request->get('date_from')) ? 'Date: '.$request->get('date_from') : '';
+        $date .= (!empty($request->get('date_to')) && !empty($date)) ? ' to '.$request->get('date_to') : '';
+
+        $report = ReceiptEntry::where(function ($query) use ($request) {
+            if (!empty($request->get('shipper_id'))) {
+                $query->where('shipper_id', $request->get('shipper_id'));
+            }
+            if (!empty($request->get('consignee_id'))) {
+                $query->where('consignee_id', $request->get('consignee_id'));
+            }
+            if (!empty($request->get('third_party_id'))) {
+                $query->where('third_party_id', $request->get('third_party_id'));
+            }
+            if (!empty($request->get('agent_id'))) {
+                $query->where('agent_id', $request->get('agent_id'));
+            }
+            if (!empty($request->get('location_origin_id'))) {
+                $query->where('location_origin_id', $request->get('location_origin_id'));
+            }
+            if (!empty($request->get('location_country_id'))) {
+                $query->where('location_country_id', $request->get('location_country_id'));
+            }
+            if (!empty($request->get('location_service_id'))) {
+                $query->where('location_service_id', $request->get('location_service_id'));
+            }
+            if (!empty($request->get('date_from'))) {
+                $query->where('date_in', '>=', $request->get('date_from'));
+            }
+            if (!empty($request->get('date_to'))) {
+                $query->where('date_in', '<=', $request->get('date_to'));
+            }
+        })->get();
+
+        return \PDF::loadView('warehouse.receipts.reports.cargo.report', compact('report', 'date'))
+            ->stream('Cargo Received Report.pdf');
+
+        #return view('warehouse.receipts.reports.cargo.report', compact('report'));
+    }
+
     public function mail($id)
     {
         $data = ReceiptEntry::findOrFail($id);

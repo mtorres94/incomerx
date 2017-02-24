@@ -23,3 +23,9 @@ if (!function_exists('report_route')) {
         return route($route, ['_token' => str_random(120), '_type' => $type, '_id' => $id]);
     }
 }
+
+if (!function_exists('check_text')) {
+    function check_text($var, $text) {
+        return $var > 0 ? strtoupper($text) : '';
+    }
+}

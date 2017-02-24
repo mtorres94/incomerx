@@ -1,0 +1,71 @@
+@font-face { font-family: Courier; src: url('../fonts/CourierNew.ttf'); }
+h5 {
+    margin-bottom: 2px;
+    font-size: 15px;
+}
+.row-padding {
+    padding-bottom: 10px;
+}
+.company-info p {
+    font-size: 10px;
+    margin-bottom: 0;
+}
+.document-info {
+    text-align: right;
+}
+.document_number {
+    font-size: 10px;
+}
+.table-report,
+.resume-report,
+.grant-total {
+    font-family: Courier, serif;
+    font-size: 11px;
+    width: 100%;
+}
+.table-report thead tr,
+.grant-total thead tr {
+    background-color: #ccc;
+    font-weight: 400;
+}
+.table-report thead tr th,
+.resume-report tbody tr td,
+.grant-total thead tr th {
+    padding: 2px 0;
+}
+.table-report thead tr th,
+.table-report tbody tr td,
+.grant-total thead tr th,
+.grant-total tbody tr td {
+    padding-left: 5px;
+}
+.table-report tbody tr td.has-child {
+    padding-bottom: 5px;
+}
+.table-report thead tr th,
+.table-report tbody tr td,
+.grant-total thead tr th,
+.grant-total tbody tr td {
+    padding-right: 10px;
+    white-space: nowrap;
+}
+.child {
+    width: 100%;
+}
+.has-child {
+    padding-right: 0 !important;
+}
+.number {
+    text-align: right;
+}
+.break {
+    padding-top: 10px;
+}
+.resume-report .header {
+    background-color: #ccc;
+    padding-left: 10px;
+    font-weight: 300;
+}
+.resume-report tbody tr td {
+    white-space: nowrap;
+}
