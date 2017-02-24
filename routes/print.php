@@ -16,11 +16,11 @@ Route::group(['middleware' => ['web']], function () {
         Route::group(['namespace' => 'Receipts'], function () {
             Route::get('receipts_entries/report', ['as' => 'receipts_entries.report', 'uses' => 'ReceiptEntryController@report']);
             Route::get('receipts_entries/cargo_report', ['as' => 'receipts_entries.cargo_report', 'uses' => 'ReceiptEntryController@cargo_report']);
+            Route::post('receipts_entries/cargo_report_view', ['as' => 'receipts_entries.cargo_report_view', 'uses' => 'ReceiptEntryController@cargo_report_view']);
         });
         Route::group(['namespace' => 'Pickup'], function () {
             Route::get('orders_entries/report', ['as' => 'orders_entries.report', 'uses' => 'OrderEntryController@report']);
             Route::get('orders_entries/pdf/{token}/{id}', ['as' => 'orders_entries.pdf', 'uses' => 'OrderEntryController@pdf']);
-
         });
     });
 
