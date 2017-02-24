@@ -404,10 +404,9 @@ function clearTable(table) {
             $(_table).html("");
         }
     });
+}
 
-    function clearTableCondition(table) {
-           var _table = '#' + table + ' tbody';
-           $(_table).html("");
-        };
-
-    }
+function clearTableCondition(table) {
+    var _table = '#' + table + ' tbody';
+    $(_table).html("");
+}
