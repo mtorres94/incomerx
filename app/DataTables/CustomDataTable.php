@@ -20,10 +20,10 @@ abstract class CustomDataTable extends DataTable
                 $btn_options .= '<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
                 $btn_options .= '<i class="icon-print"></i>  <span class="caret"></span>';
                 $btn_options .= '</button>';
-                $btn_options .= '<ul class="dropdown-menu">';
+                $btn_options .= '<ul class="dropdown-menu print-menu">';
                 foreach ($prints as $print)
                 {
-                    $btn_options .= '<li><a href="'.route($print['route'], [str_random(60), $obj]).'" target="_blank"><i class="'.$print['icon'].'"></i><span>'.$print['name'].'</span></a></li>';
+                    $btn_options .= '<li><a href="'.$print['route'].'" target="_blank"><i class="'.$print['icon'].'"></i><span>'.$print['name'].'</span></a></li>';
                 }
                 $btn_options .= '</ul>';
                 $btn_options .= '</div>';

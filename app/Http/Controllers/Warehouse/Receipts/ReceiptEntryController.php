@@ -352,7 +352,7 @@ class ReceiptEntryController extends Controller
         }
     }
 
-    public function get_pdf(Request $request) {
+    public function report(Request $request) {
         $id = $request->get('_id');
         $type = $request->get('_type');
         $receipt_entry = null;
@@ -363,57 +363,20 @@ class ReceiptEntryController extends Controller
             abort(404);
         }
 
-        switch ($type) {
-            case 1:
-                return \PDF::loadView('warehouse.receipts.receipts_entries.pdf', compact('receipt_entry','type'))->stream('WH '.$receipt_entry->code.'.pdf');
-                break;
-            case 2:
-                return \PDF::loadView('warehouse.receipts.receipts_entries.pdf', compact('receipt_entry','type'))->stream('WH '.$receipt_entry->code.'.pdf');
-                break;
-            case 3:
-                return \PDF::loadView('warehouse.receipts.receipts_entries.label', compact('receipt_entry'))
-                    ->setOrientation('landscape')
-                    ->setOption('margin-top', 3)
-                    ->setOption('margin-left', 2)
-                    ->stream('WH '.$receipt_entry->code.'.pdf');
-                break;
-            default:
-                $response = [''];
-        }
-
-        return response()->json($response);
-    }
-
-    public function pdf($token, $id)
-    {
-        if (strlen($token) == 60) {
-            try {
-                $receipt_entry = ReceiptEntry::findOrFail($id);
-                return \PDF::loadView('warehouse.receipts.receipts_entries.pdf', compact('receipt_entry','type'))->stream('WH '.$receipt_entry->code.'.pdf');
-            } catch (ModelNotFoundException $e) {
-                abort(404);
-            }
+        if ($type == 3) {
+            return \PDF::loadView('warehouse.receipts.receipts_entries.label', compact('receipt_entry'))
+                ->setOrientation('landscape')
+                ->setOption('margin-top', 3)
+                ->setOption('margin-left', 2)
+                ->stream('WH '.$receipt_entry->code.'.pdf');
         } else {
-            abort(403);
+            return \PDF::loadView('warehouse.receipts.receipts_entries.pdf', compact('receipt_entry','type'))->stream('WH '.$receipt_entry->code.'.pdf');
         }
     }
 
-    public function label($token, $id)
+    public function cargo_report()
     {
-        if (strlen($token) == 60) {
-            try {
-                $receipt_entry = ReceiptEntry::findOrFail($id);
-                return \PDF::loadView('warehouse.receipts.receipts_entries.label', compact('receipt_entry'))
-                    ->setOrientation('landscape')
-                    ->setOption('margin-top', 3)
-                    ->setOption('margin-left', 2)
-                    ->stream('WH '.$receipt_entry->code.'.pdf');
-            } catch (ModelNotFoundException $e) {
-                abort(404);
-            }
-        } else {
-            abort(403);
-        }
+        return view('warehouse.receipts.reports.cargo.index');
     }
 
     public function mail($id)

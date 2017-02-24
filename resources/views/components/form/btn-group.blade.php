@@ -1,4 +1,4 @@
-<select name="printer" id="printer" class="selectpicker select-header" title="Choose..." data-width="auto">
+<select name="printer" id="printer" class="selectpicker select-header" title="Choose..." data-width="fit">
     @foreach($array as $item)
         <option data-icon="{{ $item['class'] }}">{{ $item['value'] }}</option>
     @endforeach

@@ -19,8 +19,8 @@ class ReceiptEntryDataTable extends CustomDataTable
             ->addColumn('action', function ($receipt_entry) {
                 return $this->groupButton($receipt_entry, 'warehouse.receipts.receipts_entries',
                     [
-                        ['route' => 'receipts_entries.pdf',   'icon' => 'icon-file-pdf', 'name' => 'PDF'],
-                        ['route' => 'receipts_entries.label', 'icon' => 'fa fa-barcode', 'name' => 'Label']
+                        ['route' => report_route('receipts_entries.report', 1, $receipt_entry->id), 'icon' => 'icon-file-pdf', 'name' => 'PDF'],
+                        ['route' => report_route('receipts_entries.report', 3, $receipt_entry->id), 'icon' => 'fa fa-barcode', 'name' => 'Label']
                     ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])

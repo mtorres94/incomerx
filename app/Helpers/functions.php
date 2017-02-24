@@ -17,3 +17,9 @@ if (!function_exists('format_text')) {
         return trim(preg_replace(array('/\s{2,}/', '/[\t\n]/'), ' ', $text));
     }
 }
+
+if (!function_exists('report_route')) {
+    function report_route($route, $type, $id) {
+        return route($route, ['_token' => str_random(120), '_type' => $type, '_id' => $id]);
+    }
+}
