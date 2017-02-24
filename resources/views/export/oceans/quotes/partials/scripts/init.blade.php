@@ -9,6 +9,7 @@
         if ($("#open_status").val() == "1" || $("#status").val() == 'C') {
             disableFields('data');
         }
+
         //=========================
         ($("#container_details tbody tr").length > 0 ? $("#contract_basis").val("2").change() : $("#contract_basis").val("1").change());
 

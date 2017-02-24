@@ -243,41 +243,43 @@
             </div>
         </div>
         <br>
-        <div class="row row padding">
-            <div class="col-xs-12">
-                <table class="table table-condensed">
-                    <thead>
+        @if($type == 2)
+            <div class="row row padding">
+                <div class="col-xs-12">
+                    <table class="table table-condensed">
+                        <thead>
                         <th  width="15%">Code</th>
                         <th  width="45%">Description</th>
                         <th  width="10%">Qty</th>
                         <th  width="10%">Unit</th>
                         <th  width="10%">Rate</th>
                         <th  width="10%">Amount</th>
-                    </thead>
-                    <tbody>
-                    @foreach($receipt_entry->charge_details as $detail)
+                        </thead>
+                        <tbody>
+                        @foreach($receipt_entry->charge_details as $detail)
+                            <tr>
+                                <td>{{ strtoupper($detail->billing_id > 0 ? $detail->billing_billing->code : "")}}</td>
+                                <td>{{ strtoupper($detail->billing_id > 0 ? $detail->billing_billing->name : "")}}</td>
+                                <td>{{ $detail->billing_quantity }}</td>
+                                <td>{{ strtoupper($detail->billing_unit_id >0 ? $detail->billing_unit->code : "") }}</td>
+                                <td>{{ $detail->billing_rate }}</td>
+                                <td>{{ $detail->billing_amount }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                        <tfoot>
                         <tr>
-                            <td>{{ strtoupper($detail->billing_id > 0 ? $detail->billing_billing->code : "")}}</td>
-                            <td>{{ strtoupper($detail->billing_id > 0 ? $detail->billing_billing->name : "")}}</td>
-                            <td>{{ $detail->billing_quantity }}</td>
-                            <td>{{ strtoupper($detail->billing_unit_id >0 ? $detail->billing_unit->code : "") }}</td>
-                            <td>{{ $detail->billing_rate }}</td>
-                            <td>{{ $detail->billing_amount }}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td colspan="2" style="text-align: right"><strong>TOT. AMOUNT</strong></td>
+                            <td><strong>{{ $receipt_entry->sum_bill }} </strong></td>
                         </tr>
-                    @endforeach
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td colspan="2" style="text-align: right"><strong>TOT. AMOUNT</strong></td>
-                        <td><strong>{{ $receipt_entry->sum_bill }} </strong></td>
-                    </tr>
-                    </tfoot>
-                </table>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
-        </div>
+        @endif
         <div class="row row-padding">
             <div class="col-xs-12 footer">
                 <p><strong>MARKS:</strong> {{ $receipt_entry->marks }}</p>

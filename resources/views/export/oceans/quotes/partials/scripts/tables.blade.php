@@ -166,7 +166,7 @@ $("#btn_charge_details").click(function(){
 
         }
     }), $("#container_details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove()
+        preventDelete($(this))
         ($("#container_details tbody tr").length > 0 ? $("#contract_basis").val("2").change() : $("#contract_basis").val("1").change());
 
     }), $("#container_details").on("click", "a.btn-default", function() {
@@ -433,7 +433,7 @@ if ($("#box_quantity").val() == "" || $("#box_cargo_type_code").val() == ""){
         0 == box_id ? x.append(C) : x.find("tr#" + box_id).replaceWith(C), calculate_warehouse_details(), cleanModalFields("Cargo_Details"), $("#box_quantity").val(""), $("#box_pieces").val(""), $("#box_metric_unit").val("I").change(), $("#box_weight_unit").val("L").change(), $("#box_weight_unit").val("L").change(), $("#box_dim_fact").val("I").change(), $("#box_cargo_type_id").val(0).change(), $("#Cargo_Details").modal("show"), resetModal('CargoModal') , $("#box_quantity").focus()
 }
     }), $("#cargo_details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove(),
+        preventDelete($(this)),
             calculate_warehouse_details()
 
     }), $("#cargo_details").on("click", "a.btn-default", function() {
@@ -648,8 +648,8 @@ if ($("#box_quantity").val() == "" || $("#box_cargo_type_code").val() == ""){
         }
 
     }), $("#charge_details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove(),
-                values_charges()
+            preventDelete($(this)),
+            values_charges()
     }), $("#charge_details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
                 g1 = t[0].childNodes[0].textContent,

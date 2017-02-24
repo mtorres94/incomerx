@@ -173,7 +173,7 @@ $("#container-save").click(function() {
 
         }), $("#container_details").on("click", "a.btn-danger", function() {
 
-        $(this).closest("tr").remove()
+            preventDelete($(this))
 
         }), $("#container_details").on("click", "a.btn-default", function() {
         removeEmptyNodes('container_details');
@@ -388,7 +388,7 @@ $("#container-save").click(function() {
     }
 
     }), $("#destination_charge").on("click", "a.btn-danger", function() {
-    $(this).closest("tr").remove();
+        preventDelete($(this));
         destination_charges()
     }), $("#destination_charge").on("click", "a.btn-default", function() {
     removeEmptyNodes('destination_charge');
@@ -539,7 +539,7 @@ $("#container-save").click(function() {
                 }
 
             }), $("#origin_charge").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove();
+        preventDelete($(this));
         values_charges()
     }), $("#origin_charge").on("click", "a.btn-default", function() {
         removeEmptyNodes('destination_charge');
@@ -727,9 +727,8 @@ $("#container-save").click(function() {
     }
 
     }), $("#transportation_details").on("click", "a.btn-danger", function() {
-    $(this).closest("tr").remove(),
-            transportation_plan()
-
+        preventDelete($(this)),
+        transportation_plan()
     }), $("#transportation_details").on("click", "a.btn-default", function() {
     removeEmptyNodes('transportation_details');
     var t = $(this).closest("tr"),
@@ -892,7 +891,7 @@ $("#cargo-save").click(function() {
     }
 
 }), $("#cargo_details").on("click", "a.btn-danger", function() {
-    $(this).closest("tr").remove(), values_box_vehicle()
+    preventDelete($(this)), values_box_vehicle()
 }), $("#cargo_details").on("click", "a.btn-default", function() {
 
     var t = $(this).closest("tr"),
@@ -1077,9 +1076,7 @@ $("#box-save").click(function() {
     }
 
 }), $("#cargo_vehicle_details").on("click", "a.btn-danger", function() {
-    $(this).closest("tr").remove(), values_box_vehicle()
-
-
+    preventDelete($(this)), values_box_vehicle()
 }), $("#cargo_vehicle_details").on("click", "a.btn-default", function() {
     removeEmptyNodes('cargo_vehicle_details');
     var t = $(this).closest("tr"),

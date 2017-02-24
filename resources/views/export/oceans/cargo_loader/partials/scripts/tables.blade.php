@@ -137,8 +137,7 @@ $("#CreateHouse").modal("hide");
             .append(createTableBtns()), 0 == c1 ? t.append(p) : t.find("tr#" + c1).replaceWith(p), cleanModalFields('HBL_Cargo'), $("#cargo_marks").focus()
     });
     $("#hbl_details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove()
-
+        preventDelete($(this))
     }), $("#hbl_details").on("click", "a.btn-default", function() {
         removeEmptyNodes("hbl_details");
         var t = $(this).closest("tr"),
@@ -191,7 +190,7 @@ $("#CreateHouse").modal("hide");
                     .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p), cleanModalFields('UNsModal'), $("#hazardous_uns_code").focus()
         }
     }),  $("#hazardous_details").on("click", "a.btn-danger", function() {
-                        $(this).closest("tr").remove()
+        preventDelete($(this))
     }), $("#hazardous_details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
                 c1 = t[0].childNodes[0].textContent,
@@ -333,8 +332,8 @@ $("#CreateHouse").modal("hide");
     $("#cargo_details").on("click", "a.btn-danger", function() {
         var whr_number = $(this).closest('tr');
         $("#hidden_cargo_details tbody [data-id='"+ whr_number[0].childNodes[1].textContent +"']").remove(),
-        $(this).closest("tr").remove(),
-                $("#hidden_warehouse").closest("tr").remove(),
+        preventDelete($(this)),
+        $("#hidden_warehouse").closest("tr").remove(),
         cubic_weight_loaded();
 
     }), $("#cargo_details").on("click", "a.btn-default", function() {
@@ -509,7 +508,7 @@ $("#CreateHouse").modal("hide");
                 .append(createTableContent('cargo_net_weight', c23, true, z))
                 .append(createTableBtns()), 0 == c1 ? x.append(C) : x.find("tr#" + c1).replaceWith(C), calculate_warehouse(), total_warehouse_cargo(),cleanModalFields('Warehouse_Details'), $("#cargo_quantity").val(1), $("#cargo_quantity").focus()
     }), $("#warehouse_cargo_details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove()
+        preventDelete($(this))
     }), $("#warehouse_cargo_details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
                 c1 = t[0].childNodes[0].textContent,
@@ -832,7 +831,7 @@ $("#CreateHouse").modal("hide");
                 var x = $("#hidden_warehouse tbody [data-id= '"+ id_row +"']")[0].childNodes[2].textContent;
                 $("#hidden_cargo_details tbody [data-id='" + x + "']").remove();
                $("#hidden_warehouse tbody [data-id='" + id_row + "']").remove();
-               $(this).closest("tr").remove()
+                preventDelete($(this))
             }), $("#container_details").on("click", "a.btn-default", function() {
         clearTable("cargo_details");
         cubic_weight_loaded();

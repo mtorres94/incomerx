@@ -5,11 +5,13 @@
         renameTab();
         updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('receipts_entries.close') }}')
 
-        $('.btn-print[data-id]').click(function () {
+        $('#printer').change(function () {
             var _type = $('.select-header .dropdown-menu .selected').data('original-index');
-            var _url = $(this).data('route');
-            var _id = $(this).data('id');
-            print(_url, _id);
+            var _id = $('.btn-print[data-id]').data('id');
+            var _token = '{{ str_random(120) }}';
+
+            var url = $('.btn-print[data-id]').data('route');
+            $('.btn-print[data-id]').attr('href', url + '?_token=' + _token + '&_type=' + _type + '&_id=' + _id);
         });
 
         if ($("#open_status").val() == "1" || $("#status").val() == "C") {
@@ -461,11 +463,6 @@
     $("#tmp_cost_rate").number(true, 3);
     $("#tmp_cost_amount").number(true, 3);
     $("#tmp_cost_exchange_rate").number(true, 3);
-
-   /* $("#charges_bill").number(true, 2);
-    $("#charges_cost").number(true, 2);
-    $("#charges_profit").number(true, 2);
-    $("#charges_profit_percent").number(true, 3);*/
 
     $("#ippc_number").attr("readonly", !0), $("#ippc").change(function() {
         $("#ippc_number").attr("readonly", !this.checked), $("#ippc_number").val("")

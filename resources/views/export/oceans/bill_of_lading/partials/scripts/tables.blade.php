@@ -9,7 +9,6 @@
         }
     });
 
-
     $("#btn-container").click(function() {
         for (var t = $("#container_tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
@@ -191,7 +190,7 @@
         }
     }),
             $('#PRO_details').on('click', 'a.btn-danger', function() {
-                $(this).closest('tr').remove()
+                preventDelete($(this))
             }),
 
             $("#PRO_details").on("click", "a.btn-default", function() {
@@ -230,7 +229,7 @@
         }
     }),
             $('#customer_details').on('click', 'a.btn-danger', function() {
-                $(this).closest('tr').remove()
+                preventDelete($(this))
             }),
 
             $("#customer_details").on("click", "a.btn-default", function() {
@@ -280,7 +279,7 @@
         }
     }),
             $('#items_details').on('click', 'a.btn-danger', function() {
-                $(this).closest('tr').remove()
+                preventDelete($(this))
             }),
 
             $("#items_details").on("click", "a.btn-default", function() {
@@ -469,7 +468,7 @@
     }), $("#cargo_details").on("click", "a.btn-danger", function() {
         var id_row = $(this).closest('tr').attr('id');
         $("#details_hidden tbody [data-id='" + id_row + "']").remove();
-        $(this).closest("tr").remove(),
+        preventDelete($(this)),
                 weight_totals()
 
     }), $("#cargo_details").on("click", "a.btn-default", function() {
@@ -805,7 +804,7 @@
         }
 
     }), $("#cargo_vehicle_details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove(),
+        preventDelete($(this)),
                 values_box_vehicle()
 
     }), $("#cargo_vehicle_details").on("click", "a.btn-default", function() {
@@ -1113,8 +1112,8 @@
         }
 
     }), $("#cargo_vehicle_details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove(),
-                values_box_vehicle()
+            preventDelete($(this)),
+            values_box_vehicle()
 
     }), $("#cargo_vehicle_details").on("click", "a.btn-default", function() {
         removeEmptyNodes('cargo_vehicle_details');
@@ -1416,7 +1415,7 @@
     }), $("#container_details").on("click", "a.btn-danger", function() {
         var id_row = $(this).closest('tr').attr('id');
         $("#hzd_details tbody [data-id='" + id_row + "']").remove();
-        $(this).closest("tr").remove()
+        preventDelete($(this))
 
     }), $("#container_details").on("click", "a.btn-default", function() {
         removeEmptyNodes('container_details');
@@ -1659,8 +1658,8 @@
         }
 
     }), $("#chargeDetails").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove(),
-                values_charges()
+            preventDelete($(this)),
+            values_charges()
     }), $("#chargeDetails").on("click", "a.btn-default", function() {
         removeEmptyNodes('chargeDetails');
         var t = $(this).closest("tr"),
@@ -1846,7 +1845,7 @@
                 }
 
             }), $("#transportation_details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove(),
+                preventDelete($(this)),
                 transportation_plan()
     }), $("#transportation_details").on("click", "a.btn-default", function() {
         removeEmptyNodes('transportation_details');
@@ -1981,7 +1980,7 @@
 
     }),
             $('#hazardous-details').on('click', 'a.btn-danger', function() {
-                $(this).closest('tr').remove()
+                preventDelete($(this))
             }), $("#hazardous-details").on("click", "a.btn-default", function() {
         removeEmptyNodes('hazardous-details');
         var t = $(this).closest("tr"),

@@ -35,8 +35,6 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('cargo_loader/storeHbl', ['as' => 'cargo_loader.storeHbl', 'uses' => 'EoCargoLoaderController@storeHbl']);
             Route::post('eo_bill_of_lading/verify_open',  ['as' => 'eo_bill_of_lading.open',  'uses' => 'EoBillOfLadingController@getOpenStatus']);
             Route::post('eo_bill_of_lading/update_close', ['as' => 'eo_bill_of_lading.close', 'uses' => 'EoBillOfLadingController@updateClose']);
-            Route::post('eo_manifest/verify_open',  ['as' => 'eo_manifest.open',  'uses' => 'EoManifestController@getOpenStatus']);
-            Route::post('eo_manifest/update_close', ['as' => 'eo_manifest.close', 'uses' => 'EoManifestController@updateClose']);
         });
 
     });

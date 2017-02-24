@@ -153,8 +153,7 @@ $("#equipment_type_code").focus();
             0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#Container_Details").modal("hide"), $("#equipment_type_code").focus();
 }
     }), $("#container_details").on("click", "a.btn-danger", function() {
-    $(this).closest("tr").remove()
-
+        preventDelete($(this))
     }), $("#container_details").on("click", "a.btn-default", function() {
     var t = $(this).closest("tr"),
     g1 = t[0].childNodes[0].textContent,

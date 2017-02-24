@@ -3,9 +3,15 @@
         renameTab();
         updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('cargo_loader.close') }}')
         openTab($("#data"));
+
         if ($("#open_status").val() == "1" || $("#cargo_loader_status").val() == "C") {
             disableFields('data');
         }
+
+        if ('edit' == '{{ \Request::segment(5) }}' && $("#status").val() == "H" && '{{ auth()->user()->role }}' == 'User') {
+            $("#status").attr('disabled', true);
+        }
+
         function renameTab() {
             if ('edit' == '{{ \Request::segment(5) }}') {
                 var gtab = window.parent.$('#tt');

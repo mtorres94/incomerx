@@ -14,7 +14,7 @@
 Route::group(['middleware' => ['web']], function () {
     Route::group(['namespace' => 'Warehouse'], function () {
         Route::group(['namespace' => 'Receipts'], function () {
-            Route::get('receipts_entries/wr_report/{type}/{token}', ['as' => 'receipts_entries.get_pdf', 'uses' => 'ReceiptEntryController@get_pdf']);
+            Route::get('receipts_entries/wr_report', ['as' => 'receipts_entries.get_pdf', 'uses' => 'ReceiptEntryController@get_pdf']);
 
             Route::get('receipts_entries/pdf/{token}/{id}', ['as' => 'receipts_entries.pdf', 'uses' => 'ReceiptEntryController@pdf']);
             Route::get('receipts_entries/label/{token}/{id}', ['as' => 'receipts_entries.label', 'uses' => 'ReceiptEntryController@label']);

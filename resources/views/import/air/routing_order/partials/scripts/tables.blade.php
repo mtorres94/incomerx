@@ -100,7 +100,7 @@
         }
 
     }), $("#chargeDetails").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove(),
+        preventDelete($(this)),
         values_charges()
     }), $("#chargeDetails").on("click", "a.btn-default", function() {
         removeEmptyNodes('chargeDetails');

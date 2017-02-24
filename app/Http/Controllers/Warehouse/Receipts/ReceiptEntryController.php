@@ -352,16 +352,30 @@ class ReceiptEntryController extends Controller
         }
     }
 
-    public function get_pdf(Request $request, $type, $token) {
-        $response = [];
-        $receipt_entry = $request->all();
-        $whr_id = $receipt_entry->id;
+    public function get_pdf(Request $request) {
+        $id = $request->get('_id');
+        $type = $request->get('_type');
+        $receipt_entry = null;
+
+        try {
+            $receipt_entry = ReceiptEntry::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
+
         switch ($type) {
             case 1:
+                return \PDF::loadView('warehouse.receipts.receipts_entries.pdf', compact('receipt_entry','type'))->stream('WH '.$receipt_entry->code.'.pdf');
                 break;
             case 2:
+                return \PDF::loadView('warehouse.receipts.receipts_entries.pdf', compact('receipt_entry','type'))->stream('WH '.$receipt_entry->code.'.pdf');
                 break;
             case 3:
+                return \PDF::loadView('warehouse.receipts.receipts_entries.label', compact('receipt_entry'))
+                    ->setOrientation('landscape')
+                    ->setOption('margin-top', 3)
+                    ->setOption('margin-left', 2)
+                    ->stream('WH '.$receipt_entry->code.'.pdf');
                 break;
             default:
                 $response = [''];

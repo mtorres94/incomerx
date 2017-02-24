@@ -11,6 +11,7 @@
         if ($("#open_status").val() == "1" || $("#bl_status").val() == "C") {
             disableFields('data');
         }
+
         function renameTab() {
             if ('edit' == '{{ \Request::segment(5) }}') {
                 var gtab = window.parent.$('#tt');

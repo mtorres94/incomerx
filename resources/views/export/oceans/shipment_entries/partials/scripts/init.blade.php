@@ -8,9 +8,9 @@
             disableFields('data');
         }
 
-removeEmptyNodes('container_details');
-removeEmptyNodes('hzd_details');
-removeEmptyNodes('hbl_details');
+        removeEmptyNodes('container_details');
+        removeEmptyNodes('hzd_details');
+        removeEmptyNodes('hbl_details');
 
 
         for (var t2 = $("#container_tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {

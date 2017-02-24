@@ -149,8 +149,8 @@
 
     }),
         $('#PO_details').on('click', 'a.btn-danger', function() {
-                $(this).closest('tr').remove()
-            }),
+            preventDelete($(this))
+        }),
 
         $("#PO_details").on("click", "a.btn-default", function() {
             removeEmptyNodes('PO_details');
@@ -184,7 +184,7 @@
 
     }),
             $('#SO_details').on('click', 'a.btn-danger', function() {
-                $(this).closest('tr').remove()
+                preventDelete($(this))
             }),
 
             $("#SO_details").on("click", "a.btn-default", function() {
@@ -261,7 +261,7 @@
                 cleanModalFields('Stop_Details'),$("#stop_type").focus()
     }),
             $('#stop-details').on('click', 'a.btn-danger', function() {
-                $(this).closest('tr').remove()
+                preventDelete($(this))
             }),
 
             $("#stop-details").on("click", "a.btn-default", function() {
@@ -345,7 +345,7 @@
 
             }),
             $('#PRO_details').on('click', 'a.btn-danger', function() {
-                $(this).closest('tr').remove()
+                preventDelete($(this))
             }),
 
             $("#PRO_details").on("click", "a.btn-default", function() {
@@ -380,7 +380,7 @@
 
             }),
             $('#hazardous-details').on('click', 'a.btn-danger', function() {
-        $(this).closest('tr').remove()
+                preventDelete($(this))
     }), $("#hazardous-details").on("click", "a.btn-default", function() {
         removeEmptyNodes('hazardous-details');
         var t = $(this).closest("tr"),
@@ -419,7 +419,7 @@
                         }
             }),
             $('#container_details').on('click', 'a.btn-danger', function() {
-                $(this).closest('tr').remove()
+                preventDelete($(this))
             }),
 
             $("#container_details").on("click", "a.btn-default", function() {
@@ -477,7 +477,7 @@
                 }
             }),
             $('#dr_details').on('click', 'a.btn-danger', function() {
-                $(this).closest('tr').remove()
+                preventDelete($(this))
             }),
 
             $("#dr_details").on("click", "a.btn-default", function() {
@@ -547,7 +547,7 @@
                 cleanModalFields('ItemModal'),$("#item_pieces").focus()
     }),
             $('#items_details').on('click', 'a.btn-danger', function() {
-                $(this).closest('tr').remove()
+                preventDelete($(this))
             }),
 
             $("#items_details").on("click", "a.btn-default", function() {
@@ -658,8 +658,8 @@
                 }
 
     }), $("#charge_details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove(),
-                calculate_charges()
+        preventDelete($(this)),
+        calculate_charges()
     }), $("#charge_details").on("click", "a.btn-default", function() {
         removeEmptyNodes('charge_details');
         var t = $(this).closest("tr"),
@@ -842,7 +842,7 @@
 
 
             }), $("#transportation_details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove(),
+        preventDelete($(this)),
         transportation_plan()
     }), $("#transportation_details").on("click", "a.btn-default", function() {
         removeEmptyNodes('transportation_details');
@@ -1219,7 +1219,7 @@
                 //==========================
                 var id_row = $(this).closest('tr').attr('id');
                 $("#items_warehouse_details tbody [data-id='" + id_row + "']").remove();
-                $(this).closest('tr').remove();
+                preventDelete($(this));
                 calculate_warehouse_details();
 
             }),
@@ -1657,8 +1657,8 @@
 
             }),
             $('#warehouse_details').on('click', 'a.btn-danger', function() {
-                $(this).closest('tr').remove(),
-                    calculate_warehouse_details()
+                preventDelete($(this)),
+                calculate_warehouse_details()
             }),
 
             $("#warehouse_details").on("click", "a.btn-default", function() {

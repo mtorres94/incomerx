@@ -108,8 +108,8 @@ $("#btn-destination-charges").click(function(){
         }
 
     }), $("#cargo_details").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove(),
-            calculate_warehouse_details()
+        preventDelete($(this)),
+        calculate_warehouse_details()
 
     }), $("#cargo_details").on("click", "a.btn-default", function() {
         removeEmptyNodes('cargo_details');
@@ -249,8 +249,8 @@ $("#btn-destination-charges").click(function(){
         }
 
     }), $("#originChargeDetails").on("click", "a.btn-danger", function() {
-        $(this).closest("tr").remove();
-                origin_values_charges()
+        preventDelete($(this));
+        origin_values_charges()
     }), $("#originChargeDetails").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
                 g1 = t[0].childNodes[0].textContent,
@@ -400,8 +400,8 @@ $("#destination-charge-save").click(function() {
     }
 
 }), $("#destinationChargeDetails").on("click", "a.btn-danger", function() {
-    $(this).closest("tr").remove(),
-        destination_values_charges()
+    preventDelete($(this)),
+    destination_values_charges()
 }), $("#destinationChargeDetails").on("click", "a.btn-default", function() {
     var t = $(this).closest("tr"),
         g1 = t[0].childNodes[0].textContent,

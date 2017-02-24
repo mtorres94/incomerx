@@ -214,7 +214,7 @@
     }),$("#container_details").on("click", "a.btn-danger", function() {
         var id_row = $(this).closest('tr').attr('id');
         $("#hzd_details tbody [data-id='" + id_row + "']").remove();
-        $(this).closest("tr").remove()
+        preventDelete($(this))
     }), $("#container_details").on("click", "a.btn-default", function() {
         clearTable('hazardous-details');
 
@@ -420,7 +420,7 @@
 
     }),
             $('#hazardous_details').on('click', 'a.btn-danger', function() {
-                $(this).closest('tr').remove()
+                preventDelete($(this))
             }), $("#hazardous_details").on("click", "a.btn-default", function() {
         removeEmptyNodes('hazardous_details');
         var t = $(this).closest("tr"),
