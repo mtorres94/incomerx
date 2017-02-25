@@ -110,6 +110,9 @@ return [
         ],
         'pickup'  => [
             'orders_entries'   => 'Orders Entry'
+        ],
+        'report' => [
+            'cargo' => 'Cargo Report'
         ]
     ],
     'export' => [

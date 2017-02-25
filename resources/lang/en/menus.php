@@ -31,7 +31,8 @@ return [
     ],
     'warehouse' => [
         'receipts'  => 'Receipts',
-        'pickup'    => 'Pick Up & Delivery'
+        'pickup'    => 'Pick Up & Delivery',
+        'report'    => 'Reports',
     ],
 
     'export' => [
