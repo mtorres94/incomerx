@@ -1,5 +1,13 @@
 <div class="">
     <div class="row">
+        <div class="col-md-12">
+            {!! Form::bsSelect(null, null, 'Type', 'type', array(
+                1 => 'CARGO RECEIVED REPORT',
+                2 => 'CARGO ON HAND REPORT',
+                3 => 'CARGO SHIPPED REPORT'), null) !!}
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-4">
             {!! Form::bsComplete(null, null, 'Shipper', 'shipper_id', 'shipper_name', Request::get('term'), null, 'Customers...') !!}
         </div>
@@ -16,11 +24,7 @@
         </div>
         <div class="col-md-4">
             {!! Form::bsSelect(null, null, 'Mode', 'mode', array(
-                'A' => 'AIR',
-                'O' => 'OCEAN',
-                'W' => 'WAREHOUSE',
-                'R' => 'TRUCK',
-                'T' => 'TBA'), 'Mode...') !!}
+                'O' => 'OCEAN'), null) !!}
         </div>
         <div class="col-md-4">
             {!! Form::bsSelect(null, null, 'Hold status', 'hold_status', array(

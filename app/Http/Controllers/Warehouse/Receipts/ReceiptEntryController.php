@@ -384,7 +384,20 @@ class ReceiptEntryController extends Controller
         $date = !empty($request->get('date_from')) ? 'Date: '.$request->get('date_from') : '';
         $date .= (!empty($request->get('date_to')) && !empty($date)) ? ' to '.$request->get('date_to') : '';
 
-        $report = ReceiptEntry::where(function ($query) use ($request) {
+        $type = $request->get('type');
+
+        $report = ReceiptEntry::where(function ($query) use ($request, $type) {
+            switch ($type) {
+                case 1:
+                    $query->where('status', '<>', '');
+                    break;
+                case 2:
+                    $query->where('status', '<>', 'C');
+                    break;
+                case 3:
+                    $query->where('status', '=', 'C');
+                    break;
+            }
             if (!empty($request->get('shipper_id'))) {
                 $query->where('shipper_id', $request->get('shipper_id'));
             }
@@ -397,8 +410,24 @@ class ReceiptEntryController extends Controller
             if (!empty($request->get('agent_id'))) {
                 $query->where('agent_id', $request->get('agent_id'));
             }
+            if (!empty($request->get('mode'))) {
+                $query->where('mode', $request->get('mode'));
+            }
+            if (!empty($request->get('hold_status'))) {
+                switch ($request->get('hold_status')) {
+                    case 'E':
+                        $query->where('status', '<>', 'H');
+                        break;
+                    case 'O':
+                        $query->where('status', '=', 'H');
+                        break;
+                }
+            }
             if (!empty($request->get('location_origin_id'))) {
                 $query->where('location_origin_id', $request->get('location_origin_id'));
+            }
+            if (!empty($request->get('location_destination_id'))) {
+                $query->where('location_destination_id', $request->get('location_destination_id'));
             }
             if (!empty($request->get('location_country_id'))) {
                 $query->where('location_country_id', $request->get('location_country_id'));
@@ -414,7 +443,7 @@ class ReceiptEntryController extends Controller
             }
         })->get();
 
-        return \PDF::loadView('warehouse.receipts.reports.cargo.report', compact('report', 'date'))
+        return \PDF::loadView('warehouse.receipts.reports.cargo.report', compact('report', 'type', 'date'))
             ->stream('Cargo Received Report.pdf');
 
         #return view('warehouse.receipts.reports.cargo.report', compact('report'));
