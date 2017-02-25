@@ -4,7 +4,7 @@
             <div class="form-horizontal">
                 <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
                     <a type="button" class="btn btn-primary btn-sm" id="btn-load-houses" onclick="validateRequiredField(), clearTableCondition('load_warehouses')"><span>Link Houses</span></a>
-                    <button type="button" class="btn btn-danger"  onclick="clearTable('cargo_details'),  clearTable('hidden_id'), weight_totals()">
+                    <button type="button" class="btn btn-danger"  onclick="clearTable('cargo_details'),  clearTableCondition('hidden_id'), weight_totals()">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -64,7 +64,7 @@
                         @else
                             @foreach($bill_of_lading->pivot as $key=>$detail)
                                 <tr id="{{ $key + 1 }}">
-                                    {!! Form::bsRowTd($key + 1, 'cargo_hbl_id', $detail->receipt_entry->id, true) !!}
+                                    {!! Form::bsRowTd($key + 1, 'cargo_hbl_id', (count($detail->receipt_entry) > 0 ? $detail->receipt_entry->id  : "" ), true) !!}
                                 </tr>
                             @endforeach
                         @endif
