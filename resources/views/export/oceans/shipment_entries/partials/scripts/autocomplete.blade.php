@@ -243,6 +243,7 @@
                 total_cubic: '{{ (isset($shipment_entry) ? $shipment_entry->total_cubic: "") }}',
                 freight_charges: '{{ (isset($shipment_entry) ? $shipment_entry->freight_charges: "") }}',
                 other_charges: '{{ (isset($shipment_entry) ? $shipment_entry->other_charges: "") }}'
+
             },onSelect:function(e,o){
                     $("#quote_id").val(e.id),
                     $(this).val(e.code).change(),

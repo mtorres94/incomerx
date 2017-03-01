@@ -35,7 +35,7 @@
             }
         }
 
-
+        $("#bl_status").val("{{ (isset($bill_of_lading) ? $bill_of_lading->bl_status : "O" )}}").change();
         $("#billing_bill_party").change(function () {
             var a= $("#billing_bill_party").val();
             switch(a){
@@ -134,7 +134,6 @@
         if($("#bl_date").val() == ''){initDate($("#bl_date"), 0);}
         $("#bl_type").val("C").change();
         $("#total_weight_unit_measurement").val("L").change();
-        $("#bl_status").val("{{ (isset($bill_of_lading) ? $bill_of_lading->bl_status : "O") }}").change();
         $("#rate_class").val("1").change();
 
         $("#currency_type").val("1").change();
@@ -602,5 +601,8 @@
             $("#load_warehouses input[type=checkbox]").prop('checked', false);
         }
     });
+
+
+
 
 </script>

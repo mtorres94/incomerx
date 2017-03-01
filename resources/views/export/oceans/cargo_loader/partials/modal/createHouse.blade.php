@@ -19,6 +19,7 @@
                     {!! Form::hidden('tmp_booking_code', null, ['id' => 'tmp_booking_code', 'class' => 'form-control input-sm']) !!}
                     {!! Form::hidden('tmp_carrier_id', null, ['id' => 'tmp_carrier_id', 'class' => 'form-control input-sm']) !!}
                     {!! Form::hidden('tmp_shipment_id', null, ['id' => 'tmp_shipment_id', 'class' => 'form-control input-sm']) !!}
+                    {!! Form::hidden('tmp_shipment_code', null, ['id' => 'tmp_shipment_code', 'class' => 'form-control input-sm']) !!}
                     {!! Form::hidden('tmp_date_today', null, ['id' => 'tmp_date_today', 'class' => 'form-control input-sm']) !!}
                     {!! Form::hidden('tmp_place_receipt', null, ['id' => 'tmp_place_receipt', 'class' => 'form-control input-sm']) !!}
                     {!! Form::hidden('tmp_place_delivery', null, ['id' => 'tmp_place_delivery', 'class' => 'form-control input-sm']) !!}

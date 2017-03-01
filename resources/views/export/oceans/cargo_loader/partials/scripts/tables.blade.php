@@ -168,7 +168,6 @@ $("#CreateHouse").modal("hide");
 
     $("#uns-save").click(function() {
         if($("#hazardous_uns_code").val()== ''){
-
             $("#hazardous_uns_code").focus()
         }else{
             var r = ($('#hazardous_details tbody tr').length + 1),
@@ -190,7 +189,7 @@ $("#CreateHouse").modal("hide");
                     .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p), cleanModalFields('UNsModal'), $("#hazardous_uns_code").focus()
         }
     }),  $("#hazardous_details").on("click", "a.btn-danger", function() {
-        preventDelete($(this))
+        preventDelete($(this));
     }), $("#hazardous_details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
                 c1 = t[0].childNodes[0].textContent,
@@ -330,14 +329,16 @@ $("#CreateHouse").modal("hide");
                 cleanModalFields("Cargo_Details"), clearTableCondition("warehouse_cargo_details"), $("#warehouse_number").focus();
     }),
     $("#cargo_details").on("click", "a.btn-danger", function() {
-        if(preventDeleteCondition()){
-            var whr_number = $(this).closest('tr');
-            $("#hidden_cargo_details tbody [data-id='"+ whr_number[0].childNodes[1].textContent +"']").remove(),
-            $("#hidden_warehouse").closest("tr").remove(),
-            $("#cargo_details").closest("tr").remove(),
-            cubic_weight_loaded();
-        }
-
+        var td = $(this);
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                var whr = td.closest('tr');
+                $("#hidden_cargo_details tbody [data-id='"+ whr[0].childNodes[1].textContent +"']").remove();
+                $("#hidden_warehouse").closest("tr").remove();
+                td.closest("tr").remove();
+                cubic_weight_loaded();
+            }
+        });
 
     }), $("#cargo_details").on("click", "a.btn-default", function() {
         clearTableCondition("warehouse_cargo_details");
@@ -511,7 +512,7 @@ $("#CreateHouse").modal("hide");
                 .append(createTableContent('cargo_net_weight', c23, true, z))
                 .append(createTableBtns()), 0 == c1 ? x.append(C) : x.find("tr#" + c1).replaceWith(C), calculate_warehouse(), total_warehouse_cargo(),cleanModalFields('Warehouse_Details'), $("#cargo_quantity").val(1), $("#cargo_quantity").focus()
     }), $("#warehouse_cargo_details").on("click", "a.btn-danger", function() {
-        preventDelete($(this))
+        preventDelete($(this));
     }), $("#warehouse_cargo_details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
                 c1 = t[0].childNodes[0].textContent,
@@ -830,13 +831,16 @@ $("#CreateHouse").modal("hide");
         //======================================
     }),
             $("#container_details").on("click", "a.btn-danger", function() {
-                if(preventDeleteCondition()){
-                    var id_row = $(this).closest('tr').attr('id');
-                    var x = $("#hidden_warehouse tbody [data-id= '"+ id_row +"']")[0].childNodes[2].textContent;
-                    $("#hidden_cargo_details tbody [data-id='" + x + "']").remove();
-                    $("#hidden_warehouse tbody [data-id='" + id_row + "']").remove();
-                    $(this).closest('tr').remove();
-                }
+                var td = $(this);
+                preventDeleteCondition(td, function (td, eval) {
+                    if (eval) {
+                        var id_row = td.closest('tr').attr('id');
+                        var x = $("#hidden_warehouse tbody [data-id= '"+ id_row +"']")[0].childNodes[2].textContent;
+                        $("#hidden_cargo_details tbody [data-id='" + x + "']").remove();
+                        $("#hidden_warehouse tbody [data-id='" + id_row + "']").remove();
+                        td.closest('tr').remove();
+                    }
+                });
             }), $("#container_details").on("click", "a.btn-default", function() {
         clearTableCondition("cargo_details");
         cubic_weight_loaded();
@@ -1081,7 +1085,30 @@ $("#CreateHouse").modal("hide");
          //=======================================================
     });
 
+    $("#delete_container").click(function(){
+        var td = $("#container_details");
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                clearTableCondition("container_details");
+                clearTableCondition("hidden_warehouse");
+                clearTableCondition("hidden_cargo_details");
+                clearTableCondition("hidden_hazardous");
+            }
+        });
+    });
 
+    $("#delete_cargo").click(function(){
+        var td = $("#cargo_details");
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                clearTableCondition("cargo_details");
+                clearTableCondition("hidden_warehouse");
+                clearTableCondition("hbl_details");
+                clearTableCondition("hidden_cargo_details");
+                cubic_weight_loaded();
+            }
+        });
+    });
 
 
 </script>

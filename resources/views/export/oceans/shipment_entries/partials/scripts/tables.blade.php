@@ -212,11 +212,14 @@
         }
 
     }),$("#container_details").on("click", "a.btn-danger", function() {
-        if(preventDeleteCondition()){
-            var id_row = $(this).closest('tr').attr('id');
-            $("#hzd_details tbody [data-id='" + id_row + "']").remove();
-            $(this).closest("tr").remove();
-        }
+        var td = $(this);
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                var id_row = td.closest('tr').attr('id');
+                $("#hzd_details tbody [data-id='" + id_row + "']").remove();
+                td.closest("tr").remove();
+            }
+        });
     }), $("#container_details").on("click", "a.btn-default", function() {
         clearTableCondition('hazardous-details');
 
@@ -422,7 +425,7 @@
 
     }),
             $('#hazardous_details').on('click', 'a.btn-danger', function() {
-                preventDelete($(this))
+                preventDelete($(this));
             }), $("#hazardous_details").on("click", "a.btn-default", function() {
         removeEmptyNodes('hazardous_details');
         var t = $(this).closest("tr"),
@@ -433,5 +436,16 @@
                 d = t[0].childNodes[4].textContent;
         $('#hazardous_uns_line').val(r), $("#hazardous_uns_id").val(o), $("#hazardous_uns_code").val(s), $("#hazardous_uns_desc").val(a), $("#hazardous_uns_note").val(d), $("#UNsModal").modal("show"), $("#hazardous_uns_code").focus()
     });
+
+    $("#delete_container").click(function(){
+        var td = $("#container_details");
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                clearTableCondition("container_details");
+                clearTableCondition("hzd_details");
+            }
+        });
+    });
+
 
 </script>

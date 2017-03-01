@@ -39,14 +39,16 @@ class ReceiptEntry extends Model
         $i = 0;
         $a = 0;
         ReceiptEntry::where('cargo_loader_id', '=', $id)->update(['cargo_loader_id' => "0"]);
-        while ($a < count($data['hidden_receipt_entry'])) {
-            if (isset($data['hidden_receipt_entry'][$i])) {
-                if ($data['hidden_receipt_entry'][$i] > 0) {
-                    ReceiptEntry::where('id', '=', $data['hidden_receipt_entry'][$i])->update(['cargo_loader_id' => $id]);
-                    $a++;
+        if(isset($data['hidden_receipt_entry'])){
+            while ($a < count($data['hidden_receipt_entry'])) {
+                if (isset($data['hidden_receipt_entry'][$i])) {
+                    if ($data['hidden_receipt_entry'][$i] > 0) {
+                        ReceiptEntry::where('id', '=', $data['hidden_receipt_entry'][$i])->update(['cargo_loader_id' => $id]);
+                        $a++;
+                    }
                 }
+                $i++;
             }
-            $i++;
         }
     }
     //===========================================================

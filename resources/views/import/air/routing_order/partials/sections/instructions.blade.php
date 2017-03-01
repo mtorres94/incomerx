@@ -15,7 +15,7 @@
         {!! Form::bsComplete('col-md-3', 'col-md-9', 'Port Unloading', 'port_unloading_id', 'port_unloading_name', Request::get('term'), ((isset($routing_order) and $routing_order->port_unloading_id > 0) ? $routing_order->port_unloading->name : null), 'Port') !!}
     </div></div>
     <div class="row"><div class="col-md-12">
-        {!! Form::bsComplete('col-md-3', 'col-md-9', 'Type of Service', 'service_id', Sass\Service::all()->lists('code', 'id'), 'Service') !!}
+        {!! Form::bsSelect('col-md-3', 'col-md-9', 'Type of Service', 'service_id', Sass\Service::all()->lists('name', 'id'), 'Service') !!}
     </div></div>
     <div class="row">
         <div class="col-md-12">

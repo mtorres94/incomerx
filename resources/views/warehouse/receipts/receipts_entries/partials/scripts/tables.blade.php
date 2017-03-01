@@ -212,7 +212,13 @@
                     .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), calculate_warehouse_details(), cleanModalFields('cargo-warehouse'),$("#CargoModal").formValidation("resetForm", true), $("#tmp_cargo_type_id").val(0).change(), $("#tmp_cargo_quantity").val(""), $("#tmp_cargo_pieces").val(1), $("#tmp_cargo_location_id").val(0).change(), $("#tmp_cargo_location_bin_id").val(0).change(), $("#tmp_cargo_weight_unit_measurement_id").val("L").change(),$("#tmp_cargo_metric_unit_measurement_id").val("I").change(),$("#tmp_cargo_dim_fact").val("I").change(), $("#tmp_cargo_quantity").focus()
         }
     }), $("#warehouse-details").on("click", "a.btn-danger", function() {
-        preventDelete($(this)), calculate_warehouse_details()
+        var td = $(this);
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                td.closest("tr").remove();
+                calculate_warehouse_details();
+            }
+        });
     }), $("#warehouse-details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
                 a = t[0].childNodes[0].textContent,
@@ -236,23 +242,24 @@
                 m = t[0].childNodes[19].textContent,
                 k = t[0].childNodes[20].textContent,
                 j = t[0].childNodes[21].textContent;
-        $("#tmp_cargo_line").val(a), $("#tmp_cargo_quantity").val(e), $("#tmp_cargo_type_id").val(d).change(), $("#tmp_cargo_type_code").val(o), $("#tmp_cargo_pieces").val(n), $("#tmp_cargo_weight_unit_measurement_id").val(i).change(), $("#tmp_cargo_metric_unit_measurement_id").val(c).change(), $("#tmp_cargo_dim_fact").val(f).change(), $("#tmp_cargo_length").val(l), $("#tmp_cargo_width").val(r), $("#tmp_cargo_height").val(_), $("#tmp_cargo_total_weight").val(p), $("#tmp_cargo_cubic").val(s), $("#tmp_cargo_volume_weight").val(g), $("#tmp_cargo_location_id").val(b).change(), $("#tmp_cargo_location_name").val(h), $("#tmp_cargo_location_bin_id").val(v).change(), $("#tmp_cargo_location_bin_name").val(u), $("#tmp_cargo_material_description").val(k), $("#tmp_cargo_unit_weight").val(j), calculate(),
+        $("#tmp_cargo_line").val(a), $("#tmp_cargo_quantity").val(e), $("#tmp_cargo_type_id").val(d).change(), $("#tmp_cargo_type_code").val(o), $("#tmp_cargo_pieces").val(n), $("#tmp_cargo_weight_unit_measurement_id").val(i).change(), $("#tmp_cargo_metric_unit_measurement_id").val(c).change(), $("#tmp_cargo_dim_fact").val(f).change(), $("#tmp_cargo_length").val(l), $("#tmp_cargo_width").val(r), $("#tmp_cargo_height").val(_), $("#tmp_cargo_total_weight").val(p), $("#tmp_cargo_cubic").val(s), $("#tmp_cargo_volume_weight").val(g), $("#tmp_cargo_location_id").val(b).change(), $("#tmp_cargo_location_name").val(h), $("#tmp_cargo_location_bin_id").val(v).change(), $("#tmp_cargo_location_bin_name").val(u), $("#tmp_cargo_material_description").val(k), $("#tmp_cargo_unit_weight").val(j), calculate();
 
-    var tr = $("#shipping_references tbody tr"),
-        s1 = tr[0].childNodes[0].textContent,
-        s2 = tr[0].childNodes[1].textContent,
-        s3 = tr[0].childNodes[2].textContent,
-        s4 = tr[0].childNodes[3].textContent,
-        s5 = tr[0].childNodes[4].textContent,
-        s6 = tr[0].childNodes[5].textContent;
+        if($("#shipping_references tbody tr").length > 0){
+            var tr = $("#shipping_references tbody tr"),
+                s1 = tr[0].childNodes[0].textContent,
+                s2 = tr[0].childNodes[1].textContent,
+                s3 = tr[0].childNodes[2].textContent,
+                s4 = tr[0].childNodes[3].textContent,
+                s5 = tr[0].childNodes[4].textContent,
+                s6 = tr[0].childNodes[5].textContent;
 
-        $("#tmp_shipping_type").val(s1);
-        $("#tmp_shipping_date").val(s2);
-        $("#tmp_shipping_date_out").val(s3);
-        $("#tmp_shipping_user").val(s4);
-        $("#tmp_shipping_reference_number").val(s5);
-        $("#tmp_shipping_shipment_number").val(s6);
-
+            $("#tmp_shipping_type").val(s1);
+            $("#tmp_shipping_date").val(s2);
+            $("#tmp_shipping_date_out").val(s3);
+            $("#tmp_shipping_user").val(s4);
+            $("#tmp_shipping_reference_number").val(s5);
+            $("#tmp_shipping_shipment_number").val(s6);
+        }
 
             $("#cargo-warehouse").modal("show")
     }), $("#cargo-multiline-warehouse-save").click(function() {
@@ -391,7 +398,14 @@
                 .append(createTableBtns()), 0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields('charge-warehouse'), $("#ChargeModal").formValidation("resetForm", true), $("#tmp_billing_unit_id").val(0).change(), $("#tmp_cost_unit_id").val(0).change(), $("#tmp_billing_bill_party").val("C").change(), $("#tmp_billing_bill_type").val("C").change(), $("#tmp_billing_currency_type").val("1").change(), $("#tmp_cost_currency_type").val("1").change(),calculate_charges(),   $("#tmp_billing_billing_code").focus()
         }
     }), $("#charge-details").on("click", "a.btn-danger", function() {
-        preventDelete($(this)), calculate_charges()
+        var td = $(this);
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                td.closest("tr").remove();
+                calculate_charges();
+            }
+        });
+
     }), $("#charge-details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
             g1  = t[0].childNodes[0].textContent,

@@ -166,7 +166,7 @@ $("#btn_charge_details").click(function(){
 
         }
     }), $("#container_details").on("click", "a.btn-danger", function() {
-        preventDelete($(this))
+        preventDelete($(this));
         ($("#container_details tbody tr").length > 0 ? $("#contract_basis").val("2").change() : $("#contract_basis").val("1").change());
 
     }), $("#container_details").on("click", "a.btn-default", function() {
@@ -433,9 +433,14 @@ if ($("#box_quantity").val() == "" || $("#box_cargo_type_code").val() == ""){
         0 == box_id ? x.append(C) : x.find("tr#" + box_id).replaceWith(C), calculate_warehouse_details(), cleanModalFields("Cargo_Details"), $("#box_quantity").val(""), $("#box_pieces").val(""), $("#box_metric_unit").val("I").change(), $("#box_weight_unit").val("L").change(), $("#box_weight_unit").val("L").change(), $("#box_dim_fact").val("I").change(), $("#box_cargo_type_id").val(0).change(), $("#Cargo_Details").modal("show"), resetModal('CargoModal') , $("#box_quantity").focus()
 }
     }), $("#cargo_details").on("click", "a.btn-danger", function() {
-        preventDelete($(this)),
-            calculate_warehouse_details()
+        var td = $(this);
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                td.closest("tr").remove();
+                calculate_warehouse_details();
 
+            }
+        });
     }), $("#cargo_details").on("click", "a.btn-default", function() {
         removeEmptyNodes('cargo_details');
         var t = $(this).closest("tr"),
@@ -570,8 +575,8 @@ if ($("#box_quantity").val() == "" || $("#box_cargo_type_code").val() == ""){
     });
 
     $("#charges-save").click(function() {
-        if($("#billing_billing_code").val()=='' || $("#billing_quantity").val() == ""){
-            $("#billing_billing_code").focus();
+        if($("#billing_quantity").val() == ""){
+            $("#billing_quantity").focus();
         }else{
             var t = $("#charge_details tbody tr").length + 1,
                     _ =  ($("#charge_details tbody tr").length == 0 ? 1 : parseInt($("#charge_details tbody tr")[$("#charge_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
@@ -648,8 +653,13 @@ if ($("#box_quantity").val() == "" || $("#box_cargo_type_code").val() == ""){
         }
 
     }), $("#charge_details").on("click", "a.btn-danger", function() {
-            preventDelete($(this)),
-            values_charges()
+        var td = $(this);
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                td.closest("tr").remove();
+                values_charges();
+            }
+        });
     }), $("#charge_details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
                 g1 = t[0].childNodes[0].textContent,
@@ -717,8 +727,26 @@ if ($("#box_quantity").val() == "" || $("#box_cargo_type_code").val() == ""){
                 $("#cost_date").val(g29),
                 $("#billing_increase").val(g30),
 
-                $("#Charge_Details").modal("show"), $("#billing_billing_code").focus()
+                $("#Charge_Details").modal("show"); $("#billing_billing_code").focus();
     });
 
+$("#delete_cargo").click(function(){
+    var td = $("#cargo_details");
+    preventDeleteCondition(td, function (td, eval) {
+        if (eval) {
+            clearTableCondition("cargo_details");
+            calculate_warehouse_details();
+        }
+    });
+});
+$("#delete_charge").click(function(){
+    var td = $("#charge_details");
+    preventDeleteCondition(td, function (td, eval) {
+        if (eval) {
+            clearTableCondition("charge_details");
+            values_charges();
+        }
+    });
+});
 
 </script>

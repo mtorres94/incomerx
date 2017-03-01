@@ -658,8 +658,13 @@
                 }
 
     }), $("#charge_details").on("click", "a.btn-danger", function() {
-        preventDelete($(this)),
-        calculate_charges()
+        var td = $(this);
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                td.closest("tr").remove();
+                calculate_charges()
+            }
+        });
     }), $("#charge_details").on("click", "a.btn-default", function() {
         removeEmptyNodes('charge_details');
         var t = $(this).closest("tr"),
@@ -842,8 +847,13 @@
 
 
             }), $("#transportation_details").on("click", "a.btn-danger", function() {
-        preventDelete($(this)),
-        transportation_plan()
+        var td = $(this);
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                td.closest("tr").remove();
+                transportation_plan()
+            }
+        });
     }), $("#transportation_details").on("click", "a.btn-default", function() {
         removeEmptyNodes('transportation_details');
         var t = $(this).closest("tr"),
@@ -1216,12 +1226,15 @@
                 //===================
             }),
             $('#warehouse_details').on('click', 'a.btn-danger', function() {
-                //==========================
-                var id_row = $(this).closest('tr').attr('id');
-                $("#items_warehouse_details tbody [data-id='" + id_row + "']").remove();
-                preventDelete($(this));
-                calculate_warehouse_details();
-
+                var td = $(this);
+                preventDeleteCondition(td, function (td, eval) {
+                    if (eval) {
+                        var id_row = td.closest('tr').attr('id');
+                        $("#items_warehouse_details tbody [data-id='" + id_row + "']").remove();
+                        td.closest("tr").remove();
+                        calculate_warehouse_details();
+                    }
+                });
             }),
 
             $("#warehouse_details").on("click", "a.btn-default", function() {
@@ -1657,10 +1670,14 @@
 
             }),
             $('#warehouse_details').on('click', 'a.btn-danger', function() {
-                preventDelete($(this)),
-                calculate_warehouse_details()
+                var td = $(this);
+                preventDeleteCondition(td, function (td, eval) {
+                    if (eval) {
+                        td.closest("tr").remove();
+                        calculate_warehouse_details()
+                    }
+                });
             }),
-
             $("#warehouse_details").on("click", "a.btn-default", function() {
                 cleanModalFields('vehicle-warehouse');
 
@@ -1804,7 +1821,35 @@
                         , $("#vehicle_quantity").focus()
             });
 
+    $("#delete_cargo").click(function(){
+        var td = $("#warehouse_details");
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                clearTableCondition('warehouse_details');
+                clearTableCondition('warehouse_receipts_id');
+                calculate_warehouse_details();
+            }
+        });
+    });
 
+    $("#delete_charge").click(function(){
+        var td = $("#charge_details");
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                clearTableCondition('charge_details');
+                calculate_charges();
+            }
+        });
+    });
 
+    $("#delete_transportation").click(function(){
+        var td = $("#transportation_details");
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                clearTableCondition('transportation_details');
+                transportation_plan();
+            }
+        });
+    });
 
 </script>

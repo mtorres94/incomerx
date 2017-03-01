@@ -388,8 +388,13 @@ $("#container-save").click(function() {
     }
 
     }), $("#destination_charge").on("click", "a.btn-danger", function() {
-        preventDelete($(this));
-        destination_charges()
+        var td = $(this);
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                td.closest("tr").remove();
+                destination_charges();
+            }
+        });
     }), $("#destination_charge").on("click", "a.btn-default", function() {
     removeEmptyNodes('destination_charge');
     var t = $(this).closest("tr"),
@@ -539,8 +544,13 @@ $("#container-save").click(function() {
                 }
 
             }), $("#origin_charge").on("click", "a.btn-danger", function() {
-        preventDelete($(this));
-        values_charges()
+        var td = $(this);
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                td.closest("tr").remove();
+                values_charges();
+            }
+        });
     }), $("#origin_charge").on("click", "a.btn-default", function() {
         removeEmptyNodes('destination_charge');
         var t = $(this).closest("tr"),
@@ -727,8 +737,13 @@ $("#container-save").click(function() {
     }
 
     }), $("#transportation_details").on("click", "a.btn-danger", function() {
-        preventDelete($(this)),
-        transportation_plan()
+        var td = $(this);
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                td.closest("tr").remove();
+                transportation_plan();
+            }
+        });
     }), $("#transportation_details").on("click", "a.btn-default", function() {
     removeEmptyNodes('transportation_details');
     var t = $(this).closest("tr"),
@@ -891,7 +906,13 @@ $("#cargo-save").click(function() {
     }
 
 }), $("#cargo_details").on("click", "a.btn-danger", function() {
-    preventDelete($(this)), values_box_vehicle()
+    var td = $(this);
+    preventDeleteCondition(td, function (td, eval) {
+        if (eval) {
+            td.closest("tr").remove();
+            values_box_vehicle();
+        }
+    });
 }), $("#cargo_details").on("click", "a.btn-default", function() {
 
     var t = $(this).closest("tr"),
@@ -1076,7 +1097,13 @@ $("#box-save").click(function() {
     }
 
 }), $("#cargo_vehicle_details").on("click", "a.btn-danger", function() {
-    preventDelete($(this)), values_box_vehicle()
+    var td = $(this);
+    preventDeleteCondition(td, function (td, eval) {
+        if (eval) {
+            td.closest("tr").remove();
+            values_box_vehicle();
+        }
+    });
 }), $("#cargo_vehicle_details").on("click", "a.btn-default", function() {
     removeEmptyNodes('cargo_vehicle_details');
     var t = $(this).closest("tr"),
@@ -1209,4 +1236,26 @@ $("#box-save").click(function() {
             $("#box_comments").val(g59),
             $("#Box_Details").modal("show") , $("#box_quantity").focus()
 });
+
+    $("#delete_cargo").click(function(){
+        var td = $("#cargo_details");
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                clearTableCondition('cargo_details');
+                clearTableCondition('details_hidden');
+                values_box_vehicle();
+            }
+        });
+    });
+
+    $("#delete_charge").click(function(){
+        var td = $("#origin_charge");
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                clearTableCondition('origin_charge');
+                values_charges();
+            }
+        });
+    });
+
 </script>

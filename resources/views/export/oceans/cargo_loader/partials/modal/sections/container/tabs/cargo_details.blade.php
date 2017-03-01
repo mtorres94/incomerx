@@ -1,6 +1,6 @@
 <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
 
-    <button type="button"  class="btn btn-danger" onclick="clearTable('cargo_details'), clearTable('hidden_warehouse'),clearTable('hbl_details'), clearTable('hidden_cargo_details')">
+    <button type="button"  class="btn btn-danger" id="delete_cargo">
         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
     </button>
 </div>

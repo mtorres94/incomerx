@@ -218,7 +218,7 @@ function preventDelete(o) {
     });
 }
 
-function preventDeleteCondition() {
+function preventDeleteCondition (row, _callback) {
     swal({
         title: "Are you sure?",
         text: "You'll permanently delete this record",
@@ -229,7 +229,7 @@ function preventDeleteCondition() {
         cancelButtonText: "No!!!",
         closeOnConfirm: false
     }).then(function (isConfirm) {
-        return isConfirm;
+        _callback(row, isConfirm);
     });
 }
 

@@ -98,8 +98,13 @@
         }
 
     }), $("#chargeDetails").on("click", "a.btn-danger", function() {
-        preventDelete($(this)),
-        values_charges()
+        var td = $(this);
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                td.closest("tr").remove();
+                values_charges();
+            }
+        });
     }), $("#chargeDetails").on("click", "a.btn-default", function() {
         removeEmptyNodes('chargeDetails');
         var t = $(this).closest("tr"),
@@ -168,5 +173,17 @@
 
             $("#Charge_Details").modal("show"), $("#billing_billing_code").focus()
     });
+
+    $("#delete_charge").click(function(){
+        var td = $("#chargeDetails");
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                clearTableCondition('chargeDetails');
+                values_charges();
+            }
+        });
+    });
+
+
 
 </script>

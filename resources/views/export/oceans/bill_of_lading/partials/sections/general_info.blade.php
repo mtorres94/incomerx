@@ -20,7 +20,7 @@
             'P' => 'IN PROCESS',
             'C' => 'CLOSED',
             'V' => 'VOID',
-        ), 'Status') !!}</div>
+        ), 'STATUS') !!}</div>
         <div class="col-md-2">{!! Form::bsDate(null, null,'Date', 'bl_date', null, '') !!}</div>
         <div class="col-md-3">{!! Form::bsSelect(null, null, 'Rate Class', 'rate_class', array(
             '1' => '1 - 100 LB/ 1CFT',

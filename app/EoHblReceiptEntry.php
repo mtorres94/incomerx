@@ -37,7 +37,7 @@ class EoHblReceiptEntry extends Model
                     $obj->cargo_loader_id = $id;
                     $obj->save();
                     ReceiptEntry::where('id', '=', $data['warehouse_id'][$i])->update(['status' => "C", 'cargo_loader_id' => $id, 'bill_of_lading_id' => $data['hbl_line_id'][$i]]);
-                    ReceiptEntryShippingReference::create(['receipt_entry_id'=> $data['warehouse_id'][$i], 'reference_number' => $data['code'], 'shipment_number' => $data['shipment_code'], 'user_id' => Auth::user()->id, 'type' => 'EO', 'reference_id' => $data['hbl_line_id'][$i]]);
+                    ReceiptEntryShippingReference::create(['receipt_entry_id'=> $data['warehouse_id'][$i], 'reference_number' => $data['code'], 'shipment_number' => $data['tmp_shipment_code'], 'user_id' => Auth::user()->id, 'type' => 'EO', 'reference_id' => $data['hbl_line_id'][$i]]);
                     $a++;
                 }
                 $i++;

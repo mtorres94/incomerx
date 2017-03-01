@@ -5,7 +5,7 @@
         <button type="button" id="btn-charges" class="btn btn-default" data-toggle="modal" data-target="#Charge_Details" onclick="cleanModalFields('Charge_Details')">
             <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
         </button>
-        <button type="button" class="btn btn-danger" onclick="clearTable('chargeDetails'), values_charges()">
+        <button type="button" class="btn btn-danger" id="delete_charge">
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
         </button>
     </div>

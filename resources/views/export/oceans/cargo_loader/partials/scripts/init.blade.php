@@ -451,7 +451,7 @@ $("#group_by").change(function(){
         var id= '{{ (isset($cargo_loader)? $cargo_loader->id : "") }}';
         $.ajax({
             url: "{{ route('eo_cargo_loader.get_warehouses') }}",
-            data: {id: id},
+            data: {id: id, status: 'N'},
             type: 'GET',
             success: function (e) {
                 var x = 0;
@@ -485,6 +485,7 @@ $("#group_by").change(function(){
         $('#tmp_booking_code').val($("#booking_code").val());
         $('#tmp_carrier_id').val($("#carrier_id").val());
         $('#tmp_shipment_id').val($("#shipment_id").val());
+        $('#tmp_shipment_code').val($("#shipment_code").val());
         $('#tmp_date_today').val($("#date_today").val());
 
         $('#tmp_place_receipt').val($("#place_receipt_name").val());
