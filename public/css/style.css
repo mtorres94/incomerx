@@ -189,7 +189,7 @@ div.tab-content .panel-heading h5 {
 }
 div.tab-content .panel-body ul {
     list-style-type: none;
-    padding: 0 10px;
+    padding: 0 5px;
     margin-bottom: 0;
 }
 div.tab {
@@ -507,6 +507,17 @@ textarea + i {
     left: auto;
     width: 114px;
 }
+.radio, .checkbox {
+    margin-top: 0;
+}
+.checkbox label::after {
+    padding-top: 0;
+    margin-top: -10px;
+}
+.checkbox label::before {
+    border-radius: 0;
+    margin-top: -10px;
+}
 label.checkbok span {
     margin-top: -2px;
     margin-left: 2px;
@@ -626,6 +637,9 @@ button.dropdown-toggle {
 #bootstrap-panel .panel-body {
     padding: 10px 15px;
     font-size: 11px;
+}
+#bootstrap-panel .panel-body ul {
+    font-size: 12px;
 }
 #bootstrap-panel .panel-body table .btn-primary {
     padding: 1px 8px;

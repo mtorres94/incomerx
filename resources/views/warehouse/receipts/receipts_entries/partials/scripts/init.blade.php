@@ -360,67 +360,6 @@
 
     $("#warehouse_name").attr("readonly", true);
 
-    $('#commercial_inv').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#extra_length').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#pallets').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#packing_list').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#extra_width').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#improper_document').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#heat_treated').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#extra_height').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#inbond').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#hazardous').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#extra_heavy').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#glass').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#haz_documents').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#driver_licenses').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#pieces_discrepancy').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#hazardous_labels').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#fragile').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#weight_discrepancy').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#cargo_screened').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#ippc').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-
     $("#code").attr("readonly", true);
     $("#tmp_billing_exchange_rate").attr("readonly", true);
     $("#tmp_cost_exchange_rate").attr("readonly", true);
@@ -435,8 +374,6 @@
     $("#sum_cost").attr("readonly", true).number(true, 2);
     $("#sum_profit").attr("readonly", true).number(true, 2);
     $("#sum_profit_percent").attr("readonly", true).number(true, 3);
-
-
 
     $("#references_invoice_amount").number(true, 2);
 

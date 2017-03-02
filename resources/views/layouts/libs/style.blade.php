@@ -23,6 +23,9 @@
 <!-- Form Validation Files -->
 {!! Html::style('css/plugins/formvalidation/formvalidation.css') !!}
 
+<!-- Bootstrap Checkbox -->
+{!! Html::style('css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css') !!}
+
 <!-- Datepicker Files -->
 {!! Html::style('css/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css') !!}
 {!! Html::style('css/plugins/bootstrap-datepicker/bootstrap-datepicker3.standalone.min.css') !!}

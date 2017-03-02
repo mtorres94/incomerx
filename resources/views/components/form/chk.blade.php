@@ -1,1 +1,1 @@
-<i class="ion {{ ($value == 1) ? "ion-android-checkbox-outline" : "ion-android-checkbox-outline-blank" }}" aria-hidden="true"></i><span>{{ $label }}</span>
+<i class="ion {{ ($value == 'on') ? "ion-android-checkbox-outline" : "ion-android-checkbox-outline-blank" }}" aria-hidden="true"></i><span>{{ $label }}</span>

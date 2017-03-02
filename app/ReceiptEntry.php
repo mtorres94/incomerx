@@ -33,6 +33,196 @@ class ReceiptEntry extends Model
         return format_text($value);
     }
 
+    public function setCommercialInvAttribute($value)
+    {
+        $this->attributes['commercial_inv'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setExtraLengthAttribute($value)
+    {
+        $this->attributes['extra_length'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setPalletsAttribute($value)
+    {
+        $this->attributes['pallets'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setPackingListAttribute($value)
+    {
+        $this->attributes['packing_list'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setExtraWidthAttribute($value)
+    {
+        $this->attributes['extra_width'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setImproperDocumentAttribute($value)
+    {
+        $this->attributes['improper_document'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setHeatTreatedAttribute($value)
+    {
+        $this->attributes['heat_treated'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setInbondAttribute($value)
+    {
+        $this->attributes['inbond'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setHazardousAttribute($value)
+    {
+        $this->attributes['hazardous'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setExtraHeavyAttribute($value)
+    {
+        $this->attributes['extra_heavy'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setGlassAttribute($value)
+    {
+        $this->attributes['glass'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setHazDocumentsAttribute($value)
+    {
+        $this->attributes['haz_documents'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setDriverLicensesAttribute($value)
+    {
+        $this->attributes['driver_licenses'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setPiecesDiscrepancyAttribute($value)
+    {
+        $this->attributes['pieces_discrepancy'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setHazardousLabelsAttribute($value)
+    {
+        $this->attributes['hazardous_labels'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setFragileAttribute($value)
+    {
+        $this->attributes['fragile'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setWeightDiscrepancyAttribute($value)
+    {
+        $this->attributes['weight_discrepancy'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setCargoScreenedAttribute($value)
+    {
+        $this->attributes['cargo_screened'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setIppcAttribute($value)
+    {
+        $this->attributes['ippc'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function getCommercialInvAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getExtraLengthAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getPalletsAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getPackingListAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getExtraWidthAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getImproperDocumentAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getHeatTreatedAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getInbondAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getHazardousAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getExtraHeavyAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getGlassAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getHazDocumentsAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getDriverLicensesAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getPiecesDiscrepancyAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getHazardousLabelsAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getFragileAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getWeightDiscrepancyAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getCargoScreenedAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getIppcAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
     //=========================================================
     public static function saveDetail($id, $data)
     {
