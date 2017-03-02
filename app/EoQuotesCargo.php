@@ -9,7 +9,7 @@ class EoQuotesCargo extends Model
     protected $table = 'eo_quotes_cargo';
 
     protected $fillable = [
-        'id', 'line' , 'created_at', 'updated_at', 'quotes_id', 'cargo_type_id', 'quantity' , 'weight_unit' , 'length' , 'width', 'height' , 'unit_weight', 'total_weight',  'total_cubic', 'charge_weight' , 'rate' , 'cargo_total', 'metric_unit', 'material' , 'pieces' , 'dim_fact', 'vol_weight', 'serial_number', 'barcode', 'model' , 'commodity_id', 'pro_number' , 'project', 'po_number', 'inv_number', 'lot_number', 'sku_number' , 'destination_point', 'attention' , 'sheduleb_id' , 'schedule_description', 'hts_id' , 'hts_description', 'value', 'eccn', 'export_id', 'license_type_id' , 'origin', 'uns_id' , 'uns_description', 'class_id', 'class_description', 'special_instructions', 'material_page', 'hazardous_level', 'emergency_contact', 'emergency_contact_phone', 'comments', 'marks' , 'container', 'gross_weight' ];
+        'id', 'line' , 'created_at', 'updated_at', 'quotes_id', 'cargo_type_id', 'quantity' , 'weight_unit' , 'length' , 'width', 'height' , 'unit_weight', 'total_weight',  'total_cubic', 'charge_weight' , 'rate' , 'cargo_total', 'metric_unit', 'material' , 'pieces' , 'dim_fact', 'vol_weight', 'serial_number', 'barcode', 'model' , 'commodity', 'pro_number' , 'project', 'po_number', 'inv_number', 'lot_number', 'sku_number' , 'destination_point', 'attention' , 'scheduleb_id' , 'schedule_description', 'hts_id' , 'hts_description', 'value', 'eccn', 'export_id', 'license_type_id' , 'origin', 'uns_id' , 'uns_description', 'class_id', 'class_description', 'special_instructions', 'material_page', 'hazardous_level', 'emergency_contact', 'emergency_contact_phone', 'comments', 'marks' , 'container', 'gross_weight' ];
 
     public static function saveDetail($id, $data) {
         $i=0; $a=0;
@@ -41,7 +41,7 @@ class EoQuotesCargo extends Model
                     $obj-> serial_number = $data['cargo_serial_number'][$i];
                     $obj-> barcode = $data['cargo_barcode'][$i];
                     $obj-> model = $data['cargo_Model'][$i];
-                    $obj-> commodity_id = $data['cargo_commodity_id'][$i];
+                    $obj-> commodity = $data['cargo_commodity_name'][$i];
                     $obj-> pro_number = $data['cargo_pro_number'][$i];
                     $obj-> project = $data['cargo_project'][$i];
                     $obj-> po_number = $data['cargo_po_number'][$i];
@@ -50,7 +50,7 @@ class EoQuotesCargo extends Model
                     $obj-> sku_number = $data['cargo_sku_number'][$i];
                     $obj-> destination_point = $data['cargo_destination_point'][$i];
                     $obj-> attention = $data['cargo_attention'][$i];
-                    $obj-> sheduleb_id = $data['cargo_scheduleb_id'][$i];
+                    $obj-> scheduleb_id = $data['cargo_scheduleb_id'][$i];
                     $obj-> schedule_description = $data['cargo_scheduleb_description'][$i];
                     $obj-> hts_id = $data['cargo_hts_id'][$i];
                     $obj-> hts_description = $data['cargo_hts_description'][$i];

@@ -20,7 +20,7 @@
     });
 
     $("#btn_container_details").click(function() {
-        $("#container_spotting_date").val($("#departure_date").val());
+        $("#container_spotting_date").val($("#loading_date").val());
         $("#pd_status").val("1").change();
         $("#equipment_type_id").val("").change();
         $("#container_pickup_type").val("02").change();
@@ -308,7 +308,6 @@
                     g_1 = $("#cargo_container").val(),
                     g_2 = $("#cargo_type_id").val(),
                     g_3 = $("#cargo_type_code").val(),
-                    g_4 = $("#cargo_commodity_id").val(),
                     g_5 = $("#cargo_commodity_name").val(),
                     g_6 = $("#cargo_weight_unit").val(),
                     g_7 = $("#cargo_weight_k").val(),
@@ -333,25 +332,27 @@
                     .append(createTableContent('cargo_pieces', g_18, false, d))
                     .append(createTableContent('cargo_description', g_16, false, d))
                     .append(createTableContent('cargo_weight_unit', g_6, false, d))
-                    .append(createTableContent('cargo_weight_k', g_7, false, d))
-                    .append(createTableContent('cargo_cubic_k', g_8, false, d))
-                    .append(createTableContent('cargo_charge_weight_k', g_9, false, d))
-                    .append(createTableContent('cargo_weight_l', g_10, true, d))
-                    .append(createTableContent('cargo_cubic_l', g_11, true, d))
-                    .append(createTableContent('cargo_charge_weight_l', g_12, true, d))
+                    .append(createTableContent('cargo_weight_k', g_7, true, d))
+                    .append(createTableContent('cargo_cubic_k', g_8, true, d))
+                    .append(createTableContent('cargo_charge_weight_k', g_9, true, d))
+                    .append(createTableContent('cargo_weight_l', g_10, false, d))
+                    .append(createTableContent('cargo_cubic_l', g_11, false, d))
+                    .append(createTableContent('cargo_charge_weight_l', g_12, false, d))
                     .append(createTableContent('cargo_rate', g_13, true, d))
                     .append(createTableContent('cargo_amount', g_14, true, d))
                     .append(createTableContent('cargo_container', g_1, true, d))
                     .append(createTableContent('cargo_type_id', g_2, true, d))
                     .append(createTableContent('cargo_type_code', g_3, true, d))
-                    .append(createTableContent('cargo_commodity_id', g_4, true, d))
+                    .append(createTableContent('cargo_commodity_id', g_5, true, d))
                     .append(createTableContent('cargo_commodity_name', g_5, true, d))
                     .append(createTableContent('cargo_comments', g_15, true, d))
                     .append(createTableContent('cargo_hbl_id', g_19, true, d))
                     .append(createTableBtns()),
-                    0 == cargo_id ? x.append(C) : x.find("tr#" + cargo_id).replaceWith(C), cleanModalFields("Cargo_Details"), $("#Cargo_Details").modal("show"), $("#cargo_container").focus()
-
-
+                    0 == cargo_id ? x.append(C) : x.find("tr#" + cargo_id).replaceWith(C);
+            cleanModalFields("Cargo_Details");
+            $("#cargo_type_id").val("").change();
+            $("#Cargo_Details").modal("show");
+            $("#cargo_pieces").focus();
 
             //===================
             var id_row = (0 == cargo_id ? _ : cargo_id);
@@ -457,8 +458,7 @@
                         .append(createTableContent('detail_type',  tr[a].childNodes[84].textContent, true, d))
                         ,t.append(p_1);
                 d =d + 1 ;
-
-            }weight_totals(),
+            }weight_totals();
                     clearTableCondition('cargo_vehicle_details');
 
             //===================
@@ -627,11 +627,11 @@
                 $("#cargo_container").val(g14),
                 $("#cargo_type_id").val(g15).change(),
                 $("#cargo_type_code").val(g16),
-                $("#cargo_commodity_id").val(g17),
+
                 $("#cargo_commodity_name").val(g18),
                 $("#cargo_comments").val(g19),
                 $("#cargo_hbl_id").val(g20),
-                $("#Cargo_Details").modal("show"), $("#cargo_container").focus()
+                $("#Cargo_Details").modal("show"); $("#cargo_container").focus();
     });
 
 
@@ -1269,7 +1269,6 @@
                     g_3 = $("#container_number").val(),
                     g_4 = $("#container_seal_number").val(),
                     g_5 = $("#container_seal_number2").val(),
-                    g_6 = $("#container_commodity_id").val(),
                     g_7 = $("#container_commodity_name").val().toUpperCase(),
                     g_8 = $("#pd_status").val(),
                     g_9 = $("#container_spotting_date").val(),
@@ -1338,7 +1337,7 @@
                     .append(createTableContent('container_number', g_3, false, d))
                     .append(createTableContent('container_seal_number', g_4, false, d))
                     .append(createTableContent('container_seal_number2', g_5, true, d))
-                    .append(createTableContent('container_commodity_id', g_6, true, d))
+                    .append(createTableContent('container_commodity_id', g_7, true, d))
                     .append(createTableContent('container_commodity_name', g_7, true, d))
                     .append(createTableContent('pd_status', g_8, true, d))
                     .append(createTableContent('container_spotting_date', g_9, true, d))
@@ -1507,10 +1506,9 @@
                 $("#container_number").val(g4),
                 $("#container_seal_number").val(g5),
                 $("#container_seal_number2").val(g6),
-                $("#container_commodity_id").val(g7),
                 $("#container_commodity_name").val(g8),
                 $("#pd_status").val(g9).change(),
-                (g10 == '0000-00-00' ? $("#container_spotting_date").val($("#departure_date").val()) : $("#container_spotting_date").val(g10)),
+                (g10 == '0000-00-00' ? $("#container_spotting_date").val($("#loading_date").val()) : $("#container_spotting_date").val(g10)),
                 $("#container_pull_date").val(g11),
                 $("#container_carrier_id").val(g12),
                 $("#container_carrier_name").val(g13),
@@ -1520,9 +1518,9 @@
                 $("#container_max").val(g17),
                 $("#container_min").val(g18),
 
+                $("#container_pickup_type").val(g21).change(),
                 $("#container_pickup_id").val(g19),
                 $("#container_pickup_name").val(g20),
-                $("#container_pickup_type").val(g21).change()
                 $("#container_pickup_address").val(g22),
                 $("#container_pickup_city").val(g23),
                 $("#container_pickup_state_id").val(g24),
@@ -1534,9 +1532,9 @@
                 $("#container_pickup_date").val(g30),
                 $("#container_pickup_number").val(g31),
 
+                $("#container_delivery_type").val(g34).change(),
                 $("#container_delivery_id").val(g32),
                 $("#container_delivery_name").val(g33),
-                $("#container_delivery_type").val(g34).change(),
                 $("#container_delivery_address").val(g35),
                 $("#container_delivery_city").val(g36),
                 $("#container_delivery_state_id").val(g37),
@@ -1548,9 +1546,9 @@
                 $("#container_delivery_date").val(g43),
                 $("#container_delivery_number").val(g44),
 
+                $("#container_drop_type").val(g47).change(),
                 $("#container_drop_id").val(g45),
                 $("#container_drop_name").val(g46),
-                $("#container_drop_type").val(g47).change(),
                 $("#container_drop_address").val(g48),
                 $("#container_drop_city").val(g49),
                 $("#container_drop_state_id").val(g50),

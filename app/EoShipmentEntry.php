@@ -9,13 +9,10 @@ class EoShipmentEntry extends Model
     protected $table = "eo_shipment_entries";
 
     protected $fillable = [
-        'id', 'user_create_id', 'user_update_id', 'created_at', 'updated_at', 'code', 'shipment_type', 'date_today', 'division_id', 'user_id', 'rate_class', 'status', 'booking_code', 'bl_type', 'bl_number', 'place_receipt_id' ,'port_loading_id', 'place_delivery_id', 'port_unloading_id', 'shipper_id', 'shipper_address', 'shipper_city', 'shipper_state_id', 'shipper_zip_code_id', 'shipper_phone',  'consignee_id', 'consignee_address', 'consignee_city', 'consignee_state_id', 'consignee_zip_code_id', 'consignee_phone',  'broker_id', 'broker_phone', 'broker_contact', 'broker_fax', 'booking_agent', 'carrier_id', 'vessel_name', 'voyage_name', 'departure_date', 'arrival_date', 'agent_id', 'agent_contact', 'agent_phone', 'agent_fax', 'agent_commission_p', 'agent_commission_amount', 'confirmed', 'spot_rate', 'agent_amount', 'service_id', 'total_quantity', 'total_unit_weight', 'total_weight', 'total_cubic', 'total_dim_fact', 'total_volume_weight', 'total_cargo_type_id', 'total_commodity_id', 'freight_charges', 'other_charges','notify_id', 'notify_phone', 'notify_address', 'notify_city', 'notify_zip_code_id', 'notify_state_id', 'notify_email', 'notify_country_id', 'notify_contact', 'notify_contact_phone', 'forwarding_agent_id', 'domestic_routing', 'state_of_origin_id', 'shipment_comments', 'user_open_id', 'quote_id', 'booked_date', 'loading_date', 'equipment_cut_off_date', 'documents_cut_off_date', 'reference', 'inland_driver_id', 'inland_carrier_id', 'inland_lic_number', 'hbl_pieces', 'hbl_actual_weight', 'hbl_charge_weight'];
+        'id', 'user_create_id', 'user_update_id', 'created_at', 'updated_at', 'code', 'shipment_type', 'date_today', 'division_id', 'user_id', 'rate_class', 'status', 'booking_code', 'bl_type', 'bl_number', 'place_receipt_id' ,'port_loading_id', 'place_delivery_id', 'port_unloading_id', 'shipper_id', 'shipper_address', 'shipper_city', 'shipper_state_id', 'shipper_zip_code_id', 'shipper_phone',  'consignee_id', 'consignee_address', 'consignee_city', 'consignee_state_id', 'consignee_zip_code_id', 'consignee_phone',  'broker_id', 'broker_phone', 'broker_contact', 'broker_fax', 'booking_agent', 'carrier_id', 'vessel_name', 'voyage_name', 'departure_date', 'arrival_date', 'agent_id', 'agent_contact', 'agent_phone', 'agent_fax', 'agent_commission_p', 'agent_commission_amount', 'confirmed', 'spot_rate', 'agent_amount', 'service_id', 'total_quantity', 'total_unit_weight', 'total_weight', 'total_cubic', 'total_dim_fact', 'total_volume_weight', 'total_cargo_type_id', 'total_commodity_name', 'freight_charges', 'other_charges','notify_id', 'notify_phone', 'notify_address', 'notify_city', 'notify_zip_code_id', 'notify_state_id', 'notify_email', 'notify_country_id', 'notify_contact', 'notify_contact_phone', 'forwarding_agent_id', 'domestic_routing', 'state_of_origin_id', 'shipment_comments', 'user_open_id', 'quote_id', 'booked_date', 'loading_date', 'equipment_cut_off_date', 'documents_cut_off_date', 'reference', 'inland_driver_id', 'inland_carrier_id', 'inland_lic_number', 'hbl_pieces', 'hbl_actual_weight', 'hbl_charge_weight'];
 
 
-    public function total_commodity()
-    {
-        return $this->belongsTo('Sass\Commodity', 'total_commodity_id');
-    }
+
     public function total_cargo_type()
     {
         return $this->belongsTo('Sass\CargoType', 'total_cargo_type_id');
@@ -96,7 +93,7 @@ class EoShipmentEntry extends Model
 
     public function notify_country()
     {
-        return $this->belongsTo('Sass\State', 'notify_country_id');
+        return $this->belongsTo('Sass\Country', 'notify_country_id');
     }
     public function carrier()
     {

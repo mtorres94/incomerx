@@ -36,6 +36,7 @@
         }
 
         $("#bl_status").val("{{ (isset($bill_of_lading) ? $bill_of_lading->bl_status : "O" )}}").change();
+
         $("#billing_bill_party").change(function () {
             var a= $("#billing_bill_party").val();
             switch(a){
@@ -405,6 +406,15 @@
             }
         });
     });
+
+    function arrayEmpty(){
+        swal({
+            title: "Wait!",
+            text: "There are not elements to Link. All the elements have already been taken.",
+            type: "warning",
+            confirmButtonText: "Ok"
+        });
+    }
     //===================================================
     $("#btn-load-houses").click(function () {
         clearTableCondition("load_warehouses");
@@ -418,39 +428,43 @@
 
                 success: function (e) {
                     x = 0;
+                    if(e.length == 0){
+                        arrayEmpty();
+                    }else{
+                        while (e[x].hbl_code != "") {
+                            var r = $("#load_warehouses tbody tr").length + 1,
+                                n = $("#load_warehouses"),
+                                t = n.find("tbody"),
+                                p = $("<tr id=" + r + ">"),
+                                checked = (e[x].status == 'C' ? "checked" : "");
+                            p.append(createTableContent('resume_line', r, true, x))
 
-                    while (e[x].hbl_code != "") {
-                        var r = $("#load_warehouses tbody tr").length + 1,
-                            n = $("#load_warehouses"),
-                            t = n.find("tbody"),
-                            p = $("<tr id=" + r + ">"),
-                            checked = (e[x].status == 'C' ? "checked" : "");
-                        p.append(createTableContent('resume_line', r, true, x))
-
-                            .append("<td><input type='checkbox' name='hbl_select[]' id='hbl_select' value='" + e[x].id + "'" + checked + "></td>")
-                            .append(createTableContent('hbl_code', e[x].hbl_code, false, x))
-                            .append(createTableContent('hbl_marks', e[x].marks, false, x))
-                            .append(createTableContent('hbl_cargo_type_id', e[x].cargo_type_id, true, x))
-                            .append(createTableContent('hbl_cargo_type_code', e[x].cargo_type_code, true, x))
-                            .append(createTableContent('hbl_weight_unit', 'L', true, x))
-                            .append(createTableContent('total_pieces', e[x].total_pieces, false, x))
-                            .append(createTableContent('total_weight_l', e[x].total_weight_l, false, x))
-                            .append(createTableContent('total_cubic_l', e[x].total_cubic_l, false, x))
-                            .append(createTableContent('total_charge_weight_l', e[x].total_charge_weight_l, true, x))
-                            .append(createTableContent('hbl_id', e[x].id, true, x))
-                            .append(createTableContent('container_id', e[x].container_id, true, x))
-                            .append(createTableContent('cargo_loader_id', e[x].cargo_loader_id, true, x))
-                            .append(createTableContent('inserted_id', e[x].id, true, x))
-                            .append(createTableContent('total_weight_k', e[x].total_weight_k, true, x))
-                            .append(createTableContent('total_cubic_k', e[x].total_cubic_k, true, x))
-                            .append(createTableContent('total_charge_weight_k', e[x].total_charge_weight_k, true, x))
-                            .append(createTableContent('shipper_id', "", true, x))
-                            .append(createTableContent('consignee_id', "", true, x))
-                        t.append(p);
-                        $("#cargo_loader_id").val(e[x].cargo_loader_id);
-                        x= x+1;
-                        $("#CreateHouse").modal("show");
+                                .append("<td><input type='checkbox' name='hbl_select[]' id='hbl_select' value='" + e[x].id + "'" + checked + "></td>")
+                                .append(createTableContent('hbl_code', e[x].hbl_code, false, x))
+                                .append(createTableContent('hbl_marks', e[x].marks, false, x))
+                                .append(createTableContent('hbl_cargo_type_id', e[x].cargo_type_id, true, x))
+                                .append(createTableContent('hbl_cargo_type_code', e[x].cargo_type_code, true, x))
+                                .append(createTableContent('hbl_weight_unit', 'L', true, x))
+                                .append(createTableContent('total_pieces', e[x].total_pieces, false, x))
+                                .append(createTableContent('total_weight_l', e[x].total_weight_l, false, x))
+                                .append(createTableContent('total_cubic_l', e[x].total_cubic_l, false, x))
+                                .append(createTableContent('total_charge_weight_l', e[x].total_charge_weight_l, true, x))
+                                .append(createTableContent('hbl_id', e[x].id, true, x))
+                                .append(createTableContent('container_id', e[x].container_id, true, x))
+                                .append(createTableContent('cargo_loader_id', e[x].cargo_loader_id, true, x))
+                                .append(createTableContent('inserted_id', e[x].id, true, x))
+                                .append(createTableContent('total_weight_k', e[x].total_weight_k, true, x))
+                                .append(createTableContent('total_cubic_k', e[x].total_cubic_k, true, x))
+                                .append(createTableContent('total_charge_weight_k', e[x].total_charge_weight_k, true, x))
+                                .append(createTableContent('shipper_id', "", true, x))
+                                .append(createTableContent('consignee_id', "", true, x))
+                            t.append(p);
+                            $("#cargo_loader_id").val(e[x].cargo_loader_id);
+                            x= x+1;
+                            $("#CreateHouse").modal("show");
+                        }
                     }
+
                 }
             });
         }else{
@@ -464,38 +478,42 @@
 
                 success: function (e) {
                     x = 0;
-
-                    while (e[x].hbl_code != "") {
-                        var r = $("#load_warehouses tbody tr").length + 1,
-                            n = $("#load_warehouses"),
-                            t = n.find("tbody"),
-                            checked = (e[x].status == 'C' ? "checked" : "");
+                    if(e.length == 0){
+                        arrayEmpty();
+                    }else{
+                        while (e[x].hbl_code != "") {
+                            var r = $("#load_warehouses tbody tr").length + 1,
+                                n = $("#load_warehouses"),
+                                t = n.find("tbody"),
+                                checked = (e[x].status == 'C' ? "checked" : "");
                             p = $("<tr id=" + r + ">"),
-                            description= "Shipper: "+ e[x].shipper_name + "  /  Consignee: " + e[x].consignee_name;
-                        p.append(createTableContent('resume_line', r, true, x))
-                            .append("<td><input type='checkbox' name='hbl_select[]' id='hbl_select' value='" + e[x].id + "' "+ checked + "></td>")
-                            .append(createTableContent('hbl_code', e[x].value, false, x))
-                            .append(createTableContent('hbl_marks', description, false, x))
-                            .append(createTableContent('hbl_cargo_type_id', 0, true, x))
-                            .append(createTableContent('hbl_cargo_type_code',"", true, x))
-                            .append(createTableContent('hbl_weight_unit', 'L', true, x))
-                            .append(createTableContent('total_pieces', e[x].quantity, false, x))
-                            .append(createTableContent('total_weight_l', e[x].sum_weight, false, x))
-                            .append(createTableContent('total_cubic_l', e[x].sum_cubic, false, x))
-                            .append(createTableContent('total_charge_weight_l', e[x].volume_weight, true, x))
-                            .append(createTableContent('hbl_id', e[x].id, true, x))
-                            .append(createTableContent('container_id', e[x].container_id, true, x))
-                            .append(createTableContent('cargo_loader_id', e[x].cargo_loader_id, true, x))
-                            .append(createTableContent('inserted_id', e[x].id, true, x))
-                            .append(createTableContent('total_weight_k', (e[x].sum_weight * 0.453592), true, x))
-                            .append(createTableContent('total_cubic_k', (e[x].sum_cubic * 0.453592), true, x))
-                            .append(createTableContent('total_charge_weight_k', (e[x].volume_weight * 0.453592), true, x))
-                            .append(createTableContent('shipper_id', e[x].shipper_id, true, x))
-                            .append(createTableContent('consignee_id', e[x].consignee, true, x))
-                        t.append(p);
-                        x= x+1;
-                        $("#CreateHouse").modal("show");
+                                description= "Shipper: "+ e[x].shipper_name + "  /  Consignee: " + e[x].consignee_name;
+                            p.append(createTableContent('resume_line', r, true, x))
+                                .append("<td><input type='checkbox' name='hbl_select[]' id='hbl_select' value='" + e[x].id + "' "+ checked + "></td>")
+                                .append(createTableContent('hbl_code', e[x].value, false, x))
+                                .append(createTableContent('hbl_marks', description, false, x))
+                                .append(createTableContent('hbl_cargo_type_id', 0, true, x))
+                                .append(createTableContent('hbl_cargo_type_code',"", true, x))
+                                .append(createTableContent('hbl_weight_unit', 'L', true, x))
+                                .append(createTableContent('total_pieces', e[x].quantity, false, x))
+                                .append(createTableContent('total_weight_l', e[x].sum_weight, false, x))
+                                .append(createTableContent('total_cubic_l', e[x].sum_cubic, false, x))
+                                .append(createTableContent('total_charge_weight_l', e[x].volume_weight, true, x))
+                                .append(createTableContent('hbl_id', e[x].id, true, x))
+                                .append(createTableContent('container_id', e[x].container_id, true, x))
+                                .append(createTableContent('cargo_loader_id', e[x].cargo_loader_id, true, x))
+                                .append(createTableContent('inserted_id', e[x].id, true, x))
+                                .append(createTableContent('total_weight_k', (e[x].sum_weight * 0.453592), true, x))
+                                .append(createTableContent('total_cubic_k', (e[x].sum_cubic * 0.453592), true, x))
+                                .append(createTableContent('total_charge_weight_k', (e[x].volume_weight * 0.453592), true, x))
+                                .append(createTableContent('shipper_id', e[x].shipper_id, true, x))
+                                .append(createTableContent('consignee_id', e[x].consignee, true, x))
+                            t.append(p);
+                            x= x+1;
+                            $("#CreateHouse").modal("show");
+                        }
                     }
+
                 }
             });
         }

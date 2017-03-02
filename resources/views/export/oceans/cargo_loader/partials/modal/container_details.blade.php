@@ -31,7 +31,7 @@
                     <div class="col-md-2">{!! Form::bsText(null, null, 'Order Number', 'container_order_number', null, '') !!}</div>
                     </div>
                 <div class="row">
-                    <div class="col-md-3">{!! Form::bsComplete(null, null, 'Commodity', 'container_commodity_id', 'container_commodity_name', Request::get('term'), null, 'Commodity') !!}</div>
+                    <div class="col-md-3">{!! Form::bsText(null, null, 'Commodity',  'container_commodity_name',null) !!}</div>
                     <div class="col-md-3">{!! Form::bsDate(null, null, 'Spotting date', 'container_spotting_date', null, '') !!}</div>
                     <div class="col-md-3">{!! Form::bsDate(null, null, 'Pull Date', 'container_pull_date', null, '') !!}</div>
                     <div class="col-md-3">{!! Form::bsSelect(null, null, 'Status', 'pd_status', array(

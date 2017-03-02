@@ -53,8 +53,8 @@
                     {!! Form::bsRowTd($detail->line, 'cargo_serial_number', $detail->serial_number, true) !!}
                     {!! Form::bsRowTd($detail->line, 'cargo_barcode', $detail->barcode, true) !!}
                     {!! Form::bsRowTd($detail->line, 'cargo_Model', $detail->model, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'cargo_commodity_id', $detail->commodity_id, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'cargo_commodity_name', ($detail->commodity_id >0 ? $detail->commodity->code : ""), true) !!}
+                    {!! Form::bsRowTd($detail->line, 'cargo_commodity_id', strtoupper($detail->commodity), true) !!}
+                    {!! Form::bsRowTd($detail->line, 'cargo_commodity_name', strtoupper($detail->commodity), true) !!}
                     {!! Form::bsRowTd($detail->line, 'cargo_pro_number', $detail->pro_number, true) !!}
                     {!! Form::bsRowTd($detail->line, 'cargo_project', $detail->project, true) !!}
                     {!! Form::bsRowTd($detail->line, 'cargo_po_number', $detail->po_number, true) !!}
@@ -65,7 +65,7 @@
                     {!! Form::bsRowTd($detail->line, 'cargo_attention', $detail->attention, true) !!}
 
                     {!! Form::bsRowTd($detail->line, 'cargo_scheduleb_id', $detail->scheduleb_id, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'cargo_scheduleb_code', ($detail->scheduleb_id >0 ? $detail->scheduleb->code : ""), true) !!}
+                    {!! Form::bsRowTd($detail->line, 'cargo_scheduleb_code', ($detail->scheduleb_id > 0 ? $detail->scheduleb->code : ""), true) !!}
                     {!! Form::bsRowTd($detail->line, 'cargo_scheduleb_description', $detail->schedule_description, true) !!}
                     {!! Form::bsRowTd($detail->line, 'cargo_hts_id', $detail->hts_id, true) !!}
                     {!! Form::bsRowTd($detail->line, 'cargo_hts_code',($detail->hts_id >0 ? $detail->hts->code :""), true) !!}

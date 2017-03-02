@@ -9,7 +9,7 @@ class EoBillOfLadingContainer extends Model
     protected $table = "eo_bill_of_lading_container";
 
     protected $fillable = [
-        'id', 'bill_of_lading_id','created_at', 'updated_at','line','equipment_type_id', 'container_number', 'container_seal_number', 'container_seal_number2','container_commodity_id', 'pd_status', 'container_spotting_date', 'container_pull_date', 'container_carrier_id', 'container_ventilation', 'container_degrees', 'container_temperature', 'container_max', 'container_min', 'container_pickup_id', 'container_pickup_type', 'container_pickup_address', 'container_pickup_city', 'container_pickup_state_id', 'container_pickup_zip_code_id', 'container_pickup_phone', 'container_pickup_contact', 'container_pickup_date', 'container_pickup_number','container_delivery_id', 'container_delivery_type', 'container_delivery_address', 'container_delivery_city', 'container_delivery_state_id', 'container_delivery_zip_code_id', 'container_delivery_phone', 'container_delivery_contact', 'container_delivery_date', 'container_delivery_number', 'container_drop_id', 'container_drop_type', 'container_drop_city', 'container_drop_state_id', 'container_drop_zip_code_id', 'container_drop_phone', 'container_drop_contact', 'container_drop_date', 'container_drop_number', 'container_hazardous_contact', 'container_hazardous_phone', 'container_comments'  ];
+        'id', 'bill_of_lading_id','created_at', 'updated_at','line','equipment_type_id', 'container_number', 'container_seal_number', 'container_seal_number2','container_commodity', 'pd_status', 'container_spotting_date', 'container_pull_date', 'container_carrier_id', 'container_ventilation', 'container_degrees', 'container_temperature', 'container_max', 'container_min', 'container_pickup_id', 'container_pickup_type', 'container_pickup_address', 'container_pickup_city', 'container_pickup_state_id', 'container_pickup_zip_code_id', 'container_pickup_phone', 'container_pickup_contact', 'container_pickup_date', 'container_pickup_number','container_delivery_id', 'container_delivery_type', 'container_delivery_address', 'container_delivery_city', 'container_delivery_state_id', 'container_delivery_zip_code_id', 'container_delivery_phone', 'container_delivery_contact', 'container_delivery_date', 'container_delivery_number', 'container_drop_id', 'container_drop_type', 'container_drop_city', 'container_drop_state_id', 'container_drop_zip_code_id', 'container_drop_phone', 'container_drop_contact', 'container_drop_date', 'container_drop_number', 'container_hazardous_contact', 'container_hazardous_phone', 'container_comments'  ];
 
     public static function saveDetail($id, $data) {
         $i=0; $a=0;
@@ -27,7 +27,7 @@ class EoBillOfLadingContainer extends Model
                     $obj-> container_number = $data['container_number'][$i];
                     $obj-> container_seal_number = $data['container_seal_number'][$i];
                     $obj-> container_seal_number2 = $data['container_seal_number2'][$i];
-                    $obj-> container_commodity_id = $data['container_commodity_id'][$i];
+                    $obj-> container_commodity= $data['container_commodity_name'][$i];
                     $obj-> pd_status = $data['pd_status'][$i];
                     $obj-> container_spotting_date = $data['container_spotting_date'][$i];
                     $obj-> container_pull_date = $data['container_pull_date'][$i];
@@ -101,10 +101,7 @@ class EoBillOfLadingContainer extends Model
     {
         return $this->belongsTo('Sass\CargoType', 'equipment_type_id');
     }
-    public function container_commodity()
-    {
-        return $this->belongsTo('Sass\Commodity', 'container_commodity_id');
-    }
+
     public function bill_of_lading()
     {
         return $this->belongsTo('Sass\EoBillOfLading', 'bill_of_lading_id');

@@ -43,8 +43,8 @@
                             {!! Form::bsRowTd($detail->line, 'cargo_container', $detail->cargo_container, true) !!}
                             {!! Form::bsRowTd($detail->line, 'cargo_type_id', $detail->cargo_type_id, true) !!}
                             {!! Form::bsRowTd($detail->line, 'cargo_type_code', strtoupper(($detail->cargo_type_id >0) ? $detail->cargo_type->code: null), true) !!}
-                            {!! Form::bsRowTd($detail->line, 'cargo_commodity_id', $detail->cargo_commodity_id, true) !!}
-                            {!! Form::bsRowTd($detail->line, 'cargo_commodity_name', strtoupper($detail->cargo_commodity_id >0 ? $detail->cargo_commodity->code: null), true) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_commodity_id', strtoupper($detail->cargo_commodity), true) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_commodity_name', strtoupper($detail->cargo_commodity), true) !!}
                             {!! Form::bsRowTd($detail->line, 'cargo_comments', $detail->cargo_comments, true) !!}
                             {!! Form::bsRowBtns() !!}
                                     </tr>
@@ -220,8 +220,8 @@
                                 {!! Form::bsRowTd($detail->line, 'container_number', strtoupper($detail->container_number), false) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_seal_number', $detail->container_seal_number, false) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_seal_number2', $detail->container_seal_number2, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_commodity_id', $detail->container_commodity_id, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_commodity_name',  strtoupper(($detail->container_commodity_id >0) ? $detail->container_commodity->code: null), true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_commodity_id', strtoupper($detail->container_commodity), true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_commodity_name',  strtoupper($detail->container_commodity), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'pd_status', $detail->pd_status, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_spotting_date', $detail->spotting_date, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pull_date', $detail->pull_date, true) !!}

@@ -36,9 +36,7 @@ $("#btn_charge_details").click(function(){
 });
 
     $("#container-save").click(function() {
-        if($("#equipment_type_code").val()==''){
-            $("#equipment_type_code").focus();
-        }else{
+
             var t = $("#container_details tbody tr").length + 1,
                     _ =  ($("#container_details tbody tr").length == 0 ? 1 : parseInt($("#container_details tbody tr")[$("#container_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
 
@@ -99,6 +97,7 @@ $("#btn_charge_details").click(function(){
                     g_50 = $("#container_drop_phone").val(),
                     g_51 = $("#container_drop_date").val(),
                     g_52 = $("#container_total_weight_unit").val(),
+                    g_53 = $("#container_comments").val(),
 
                     b = $("#container_details"),
                     x = b.find("tbody"),
@@ -159,12 +158,13 @@ $("#btn_charge_details").click(function(){
                     .append(createTableContent('container_drop_phone', g_50, true, d))
                     .append(createTableContent('container_drop_date', g_51, true, d))
                     .append(createTableContent('container_total_weight_unit', g_52, true, d))
+                    .append(createTableContent('container_comments', g_53, true, d))
                     .append(createTableBtns()),
                     0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#Container_Details").modal("show"), cleanModalFields("Container_Details"), $("#pd_status").val("1").change(),$("#equipment_type_id").val("0").change() ,resetModal('ContainerModal'),$("#equipment_type_code").focus();
 
             ($("#container_details tbody tr").length > 0 ? $("#contract_basis").val("2").change() : $("#contract_basis").val("1").change());
 
-        }
+
     }), $("#container_details").on("click", "a.btn-danger", function() {
         preventDelete($(this));
         ($("#container_details tbody tr").length > 0 ? $("#contract_basis").val("2").change() : $("#contract_basis").val("1").change());
@@ -223,7 +223,8 @@ $("#btn_charge_details").click(function(){
                 g50 = t[0].childNodes[49].textContent,
                 g51 = t[0].childNodes[50].textContent,
                 g52 = t[0].childNodes[51].textContent,
-                g53 = t[0].childNodes[52].textContent;
+                g53 = t[0].childNodes[52].textContent,
+                g54 = t[0].childNodes[53].textContent;
 
             $("#container_line").val(g1),
             $("#equipment_type_id").val(g2).change(),
@@ -284,11 +285,14 @@ $("#btn_charge_details").click(function(){
             $("#container_drop_phone").val(g51),
             $("#container_drop_date").val(g52),
             $("#container_total_weight_unit").val(g53).change(),
-                $("#Container_Details").modal("show"), $("#equipment_type_code").focus()
+            $("#container_comments").val(g54);
+            $("#Container_Details").modal("show");
+            $("#equipment_type_code").focus()
     });
 
     $("#cargo-save").click(function() {
-if ($("#box_quantity").val() == "" || $("#box_cargo_type_code").val() == ""){
+if ($("#box_quantity").val() == ""){
+    $("#box_quantity").focus();
 }else {
     var t = $("#cargo_details tbody tr").length + 1,
         _ = ($("#cargo_details tbody tr").length == 0 ? 1 : parseInt($("#cargo_details tbody tr")[$("#cargo_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
@@ -313,8 +317,7 @@ if ($("#box_quantity").val() == "" || $("#box_cargo_type_code").val() == ""){
         g_16 = $("#box_serial_number").val(),
         g_17 = $("#box_barcode").val(),
         g_18 = $("#box_Model").val(),
-        g_19 = $("#box_commodity_id").val(),
-        g_20 = $("#box_commodity_name").val(),
+        g_19 = $("#box_commodity_name").val(),
         g_21 = $("#box_pro_number").val(),
         g_22 = $("#box_project").val(),
         g_23 = $("#box_po_number").val(),
@@ -388,7 +391,7 @@ if ($("#box_quantity").val() == "" || $("#box_cargo_type_code").val() == ""){
         .append(createTableContent('cargo_barcode', g_17, true, d))
         .append(createTableContent('cargo_Model', g_18, true, d))
         .append(createTableContent('cargo_commodity_id', g_19, true, d))
-        .append(createTableContent('cargo_commodity_name', g_20, true, d))
+        .append(createTableContent('cargo_commodity_name', g_19, true, d))
         .append(createTableContent('cargo_pro_number', g_21, true, d))
         .append(createTableContent('cargo_project', g_22, true, d))
         .append(createTableContent('cargo_po_number', g_23, true, d))
@@ -430,7 +433,7 @@ if ($("#box_quantity").val() == "" || $("#box_cargo_type_code").val() == ""){
 
         .append(createTableBtns()),
 
-        0 == box_id ? x.append(C) : x.find("tr#" + box_id).replaceWith(C), calculate_warehouse_details(), cleanModalFields("Cargo_Details"), $("#box_quantity").val(""), $("#box_pieces").val(""), $("#box_metric_unit").val("I").change(), $("#box_weight_unit").val("L").change(), $("#box_weight_unit").val("L").change(), $("#box_dim_fact").val("I").change(), $("#box_cargo_type_id").val(0).change(), $("#Cargo_Details").modal("show"), resetModal('CargoModal') , $("#box_quantity").focus()
+        0 == box_id ? x.append(C) : x.find("tr#" + box_id).replaceWith(C), calculate_warehouse_details(), cleanModalFields("Cargo_Details"), $("#box_quantity").val("0"), $("#box_pieces").val("0"), $("#box_metric_unit").val("I").change(), $("#box_weight_unit").val("L").change(), $("#box_weight_unit").val("L").change(), $("#box_dim_fact").val("I").change(), $("#box_cargo_type_id").val(0).change(), $("#Cargo_Details").modal("show"), resetModal('CargoModal') , $("#box_quantity").focus()
 }
     }), $("#cargo_details").on("click", "a.btn-danger", function() {
         var td = $(this);
@@ -523,7 +526,7 @@ if ($("#box_quantity").val() == "" || $("#box_cargo_type_code").val() == ""){
                 $('#cargo_total').val(g14),
 
                 $('#box_metric_unit').val(g15).change(),
-                $('#box_material').val(g16),
+                $('#box_materials').val(g16),
                 $('#box_pieces').val(g17),
                 $('#box_dim_fact').val(g18).change(),
                 $('#box_vol_weight').val(g19),
@@ -531,7 +534,6 @@ if ($("#box_quantity").val() == "" || $("#box_cargo_type_code").val() == ""){
                 $('#box_serial_number').val(g20),
                 $('#box_barcode').val(g21),
                 $('#box_Model').val(g22),
-                $('#box_commodity_id').val(g23),
                 $('#box_commodity_name').val(g24),
                 $('#box_pro_number').val(g25),
                 $('#box_project').val(g26),
@@ -566,7 +568,7 @@ if ($("#box_quantity").val() == "" || $("#box_cargo_type_code").val() == ""){
                 $('#cargo_hazardous_levels').val(g53),
                 $('#box_emergency_contact').val(g54),
                 $('#box_emergency_contact_phone').val(g55),
-                $('#box_comments').val(g56),
+                $('#cargo_comments').val(g56),
 
                 $('#cargo_marks').val(g57),
                 $('#cargo_container').val(g58),
@@ -693,40 +695,39 @@ if ($("#box_quantity").val() == "" || $("#box_cargo_type_code").val() == ""){
                 g29 = t[0].childNodes[28].textContent,
                 g30 = t[0].childNodes[29].textContent;
 
-        $("#charge_line").val(g1),
-                $("#billing_billing_id").val(g2),
-                $("#billing_billing_code").val(g3),
-                $("#billing_billing_description").val(g4),
-                $("#billing_vendor_name").val(g5),
-                $("#billing_unit_name").val(g6),
+        $("#charge_line").val(g1);
+                $("#billing_billing_id").val(g2);
+                $("#billing_billing_code").val(g3);
+                $("#billing_billing_description").val(g4);
+                $("#billing_vendor_name").val(g5);
+                $("#billing_unit_name").val(g6);
 
-                $("#billing_bill_type").val(g7).change(),
-                $("#billing_bill_party").val(g8).change(),
-                $("#billing_quantity").val(g9),
-                $("#billing_rate").val(g10),
-                $("#billing_amount").val(g11),
-                $("#billing_currency_type").val(g12).change(),
-                $("#billing_customer_name").val(g13),
-                $("#cost_amount").val(g14),
-                $("#cost_currency_type").val(g15).change(),
-                $("#cost_invoice").val(g16),
-                $("#cost_reference").val(g17),
+                $("#billing_bill_type").val(g7).change();
+                $("#billing_bill_party").val(g8).change();
+                $("#billing_quantity").val(g9);
+                $("#billing_rate").val(g10);
+                $("#billing_amount").val(g11);
+                $("#billing_currency_type").val(g12).change();
+                $("#billing_customer_name").val(g13);
+                $("#cost_amount").val(g14);
+                $("#cost_currency_type").val(g15).change();
+                $("#cost_invoice").val(g16);
+                $("#cost_reference").val(g17);
 
-                $("#billing_notes").val(g18),
-                $("#billing_unit_id").val(g19).change(),
-                $("#billing_exchange_rate").val(g20),
-                $("#billing_customer_id").val(g21).change(),
-                $("#cost_quantity").val(g22),
-                $("#cost_unit_id").val(g23).change(),
-                $("#cost_unit_name").val(g24),
+                $("#billing_notes").val(g18);
+                $("#billing_unit_id").val(g19).change();
+                $("#billing_exchange_rate").val(g20);
+                $("#billing_customer_id").val(g21).change();
+                $("#cost_quantity").val(g22);
+                $("#cost_unit_id").val(g23).change();
+                $("#cost_unit_name").val(g24);
 
-                $("#cost_rate").val(g25),
-                $("#cost_cost_center").val(g26),
-                $("#cost_exchange_rate").val(g27),
-                $("#billing_vendor_code").val(g28),
-                $("#cost_date").val(g29),
-                $("#billing_increase").val(g30),
-
+                $("#cost_rate").val(g25);
+                $("#cost_cost_center").val(g26);
+                $("#cost_exchange_rate").val(g27);
+                $("#billing_vendor_code").val(g28);
+                $("#cost_date").val(g29);
+                $("#billing_increase").val(g30);
                 $("#Charge_Details").modal("show"); $("#billing_billing_code").focus();
     });
 

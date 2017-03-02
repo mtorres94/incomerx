@@ -51,7 +51,7 @@
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_id', $detail->pickup_id, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_name', ($detail->pickup_id >0 ? $detail->pickup->name : ""), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_type', $detail->pickup_type, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_pickup_address', $detail->pickup_address, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_pickup_address', trim(preg_replace(array('/\s{2,}/', '/[\t\n]/'),  ' ',($detail->pickup_address))), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_city', $detail->pickup_city, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_state_id', $detail->pickup_state_id, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_pickup_state_name', ($detail->pickup_state_id >0 ? $detail->pickup_state->name : ""), true) !!}
@@ -64,7 +64,7 @@
                                 {!! Form::bsRowTd($detail->line, 'container_delivery_id', $detail->delivery_id, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_delivery_name', ($detail->delivery_id > 0 ? $detail->delivery->name : ""), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_delivery_type', $detail->delivery_type, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_delivery_address', $detail->delivery_address, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_delivery_address', trim(preg_replace(array('/\s{2,}/', '/[\t\n]/'),  ' ',($detail->delivery_address))), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_delivery_city', $detail->delivery_city, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_delivery_state_id', $detail->delivery_state_id, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_delivery_state_name', ($detail->delivery_state_id >0 ? $detail->delivery_state->name : ""), true) !!}
@@ -77,7 +77,7 @@
                                 {!! Form::bsRowTd($detail->line, 'container_drop_id', $detail->drop_id, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_drop_name', ($detail->drop_id >0 ? $detail->drop->name : ""), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_drop_type', $detail->drop_type, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'container_drop_address', $detail->drop_address, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_drop_address',trim(preg_replace(array('/\s{2,}/', '/[\t\n]/'),  ' ',( $detail->drop_address))), true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_drop_city', $detail->drop_city, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_drop_state_id', $detail->drop_state_id, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_drop_state_name', ($detail->drop_state_id > 0 ? $detail->drop_state->name : ""), true) !!}
@@ -86,6 +86,7 @@
                                 {!! Form::bsRowTd($detail->line, 'container_drop_phone', $detail->drop_phone, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_drop_date', $detail->drop_date, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_total_weight_unit', $detail->total_weight_unit, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'container_comments', $detail->container_comments, true) !!}
                                 {!! Form::bsRowBtns() !!}
                             </tr>
                         @endforeach

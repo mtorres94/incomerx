@@ -179,6 +179,11 @@ class ReceiptEntry extends Model
         return $this->belongsTo('Sass\Carrier', 'receiving_carrier_id');
     }
 
+    public function driver()
+    {
+        return $this->belongsTo('Sass\Driver', 'receiving_driver_id');
+    }
+
     public function reference_details()
     {
         return $this->hasMany('Sass\ReceiptEntryReferenceDetail', 'receipt_entry_id');

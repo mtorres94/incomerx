@@ -2,8 +2,8 @@
 
 
 $("#btn_cargo_details").click(function(){
-    $("#box_quantity").val(0);
-    $("#box_pieces").val(0);
+    $("#box_quantity").val("0");
+    $("#box_pieces").val("0");
     $("#box_metric_unit").val("I").change();
     $("#box_weight_unit").val("L").change();
     $("#box_dim_fact").val("I").change();

@@ -24,7 +24,7 @@
 
                     <div class="col-md-4">{!! Form::bsText(null,null, 'Loaded on Container', 'cargo_container', null, '') !!}</div>
                     <div class="col-md-4">{!! Form::bsSelect(null, null, 'Cargo Type', 'cargo_type_id',  Sass\CargoType::all()->lists('code', 'id'), 'Type', 'body', false) !!}</div>
-                    <div class="col-md-4">{!! Form::bsComplete(null, null, 'Commodity', 'cargo_commodity_id', 'cargo_commodity_name', Request::get('term'), null, 'Search Commodity...') !!}</div>
+                    <div class="col-md-4">{!! Form::bsText(null, null, 'Commodity','cargo_commodity_name', null) !!}</div>
                 </div>
                 <div class="row">
                     <div class="col-md-2">{!! Form::bsSelect(null, null, 'Kgs/Lbs', 'cargo_weight_unit', array('K' => 'KGS','L' => 'LBS'),null) !!}</div>

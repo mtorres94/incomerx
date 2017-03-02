@@ -229,6 +229,7 @@ class EoQuotesController extends Controller
                 'drop_phone' =>$container->drop_phone ,
                 'drop_date' =>$container->drop_date ,
                 'total_weight_unit' =>$container->total_weight_unit,
+                'container_comments' =>$container->container_comments,
                 ];
             }
             return response()->json($results);
@@ -312,8 +313,7 @@ class EoQuotesController extends Controller
                     'total_cubic'   => strtoupper($quote->total_cubic),
                     'total_cargo_type_id'   => $quote->total_cargo_type_id,
                     'total_cargo_type_code'   => strtoupper($quote->total_cargo_type_id > 0 ?  $quote->total_cargo_type->code : ""),
-                    'total_commodity_id'   => $quote->total_commodity_id,
-                    'total_commodity_code'   => strtoupper($quote->total_commodity_id > 0 ?  $quote->total_commodity->code : ""),
+                    'total_commodity'   => strtoupper($quote->total_commodity),
                     'freight_charges'   => $quote->freight_charges,
                     'other_charges'   => $quote->other_charges,
                 ];

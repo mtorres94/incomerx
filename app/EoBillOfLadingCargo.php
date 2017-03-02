@@ -9,7 +9,7 @@ class EoBillOfLadingCargo extends Model
     protected $table = "eo_bill_of_lading_cargo";
 
     protected $fillable = [
-        'id', 'bill_of_lading_id','created_at', 'updated_at','line','cargo_marks', 'cargo_pieces', 'cargo_description', 'cargo_weight_unit', 'cargo_weight_k', 'cargo_cubic_k', 'cargo_charge_weight_k', 'cargo_weight_l', 'cargo_cubic_l', 'cargo_charge_weight_l', 'cargo_rate', 'cargo_amount', 'cargo_container', 'cargo_type_id', 'cargo_commodity_id', 'cargo_comments', 'id_line' ];
+        'id', 'bill_of_lading_id','created_at', 'updated_at','line','cargo_marks', 'cargo_pieces', 'cargo_description', 'cargo_weight_unit', 'cargo_weight_k', 'cargo_cubic_k', 'cargo_charge_weight_k', 'cargo_weight_l', 'cargo_cubic_l', 'cargo_charge_weight_l', 'cargo_rate', 'cargo_amount', 'cargo_container', 'cargo_type_id', 'cargo_commodity', 'cargo_comments', 'id_line' ];
 
     public static function saveDetail($id, $data) {
         $i=0; $a=0;
@@ -34,7 +34,7 @@ class EoBillOfLadingCargo extends Model
                     $obj->cargo_amount = $data['cargo_amount'][$i];
                     $obj->cargo_container = $data['cargo_container'][$i];
                     $obj->cargo_type_id = $data['cargo_type_id'][$i];
-                    $obj->cargo_commodity_id = $data['cargo_commodity_id'][$i];
+                    $obj->cargo_commodity= $data['cargo_commodity_name'][$i];
                     $obj->cargo_comments = $data['cargo_comments'][$i];
                     $obj->save();
                     $a++;
@@ -152,10 +152,7 @@ class EoBillOfLadingCargo extends Model
     {
         return $this->belongsTo('Sass\CargoType', 'cargo_type_id');
     }
-    public function cargo_commodity()
-    {
-        return $this->belongsTo('Sass\Commodity', 'cargo_commodity_id');
-    }
+
     public function bill_of_lading()
     {
         return $this->belongsTo('Sass\EoBillOfLading', 'bill_of_lading_id');

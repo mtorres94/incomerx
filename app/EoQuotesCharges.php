@@ -68,6 +68,7 @@ class EoQuotesCharges extends Model
                     $obj->cost_invoice = $data['cost_invoice'][$i];
                     $obj->cost_center = $data['cost_cost_center'][$i];
                     $obj->cost_reference = $data['cost_reference'][$i];
+                    $obj->cost_date= $data['cost_date'][$i];
                     $obj->save();
                     $a++;
                 }

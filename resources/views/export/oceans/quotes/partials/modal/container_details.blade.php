@@ -47,9 +47,7 @@
                         @include('export.oceans.quotes.partials.modal.sections.container.drop')
                     </div>
                     <div title="Comments">
-                        <div class="row">
-                            <div class="col-md-3 no-padding-top">{!! Form::bsCheck('Show $ Amount in Manifest', 'show_amount') !!}</div>
-                        </div>
+
                         <div class="row">
                            {!! Form::bsMemo(null, null, '', 'container_comments', null) !!}
                         </div>

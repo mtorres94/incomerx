@@ -33,7 +33,6 @@
                     g_3 = $("#container_number").val(),
                     g_4 = $("#container_seal_number").val(),
                     g_5 = $("#container_seal_number2").val(),
-                    g_6 = $("#container_commodity_id").val(),
                     g_7 = $("#container_commodity_name").val().toUpperCase(),
                     g_8 = $("#pd_status").val(),
                     g_9 = $("#container_spotting_date").val(),
@@ -115,7 +114,7 @@
                     .append(createTableContent('container_seal_number', g_4, false, d))
                     .append(createTableContent('total_weight_unit', g_75, false, d))
                     .append(createTableContent('container_seal_number2', g_5, true, d))
-                    .append(createTableContent('container_commodity_id', g_6, true, d))
+                    .append(createTableContent('container_commodity_id', g_7, true, d))
                     .append(createTableContent('container_commodity_name', g_7, true, d))
                     .append(createTableContent('pd_status', g_8, false, d))
                     .append(createTableContent('container_spotting_date', g_9, true, d))
@@ -182,7 +181,7 @@
                     .append(createTableContent('container_requested_equipment', g_66, true, d))
                     .append(createTableContent('container_tare_weight', g_67, true, d))
 
-                    .append(createTableContent('container_comments', g_74, true, d))
+                    .append(createTableContent('comments', g_74, true, d))
                     .append(createTableBtns()),
                     0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), cleanModalFields('Container_Details'), $("#pd_status").val("1").change(),$("#container_pickup_type").val("02").change(), $("#container_delivery_type").val("02").change(), $("#container_drop_type").val("02").change(), $("#total_weight_unit").val("L").change(), $("#container_spotting_date").val( $("#departure_date").val()), $("#equipment_type_id").val("").change(),  $("#Container_Details").modal("show"),$('#ContainerModal').formValidation('resetForm', true),  $("#equipment_type_code").focus();
 
@@ -301,8 +300,7 @@
                 $("#container_number").val(g4),
                 $("#container_seal_number").val(g5),
                 $("#total_weight_unit").val(g6).change(),
-                $("#shipper_owned").val(g7),
-                $("#container_commodity_id").val(g8).change(),
+                $("#container_seal_number2").val(g7),
                 $("#container_commodity_name").val(g9),
                 $("#pd_status").val(g10).change(),
                 (g11 == '' ? $("#container_spotting_date").val($("#departure_date").val()) :$("#container_spotting_date").val(g11)),
@@ -369,10 +367,9 @@
                 $("#container_release_number").val(g67),
                 $("#container_requested_equipment").val(g68),
                 $("#container_tare_weight").val(g69),
-
-
-                $("#container_comments").val(g70),
-                $("#Container_Details").modal("show"), $("#equipment_type_code").focus()
+                $("#container_comments").val(g70);
+                $("#Container_Details").modal("show");
+                $("#equipment_type_code").focus();
 
         //charge
         clearTableCondition("hazardous_details");
@@ -392,8 +389,8 @@
                         .append(createTableContent('hazardous_uns_code',tr[a].childNodes[3].textContent, false, d))
                         .append(createTableContent('hazardous_uns_desc',tr[a].childNodes[4].textContent, false, d))
                         .append(createTableContent('hazardous_uns_note',tr[a].childNodes[5].textContent, true, d))
-                        .append(createTableBtns())
-                        ,t.append(p_1);
+                        .append(createTableBtns());
+                        t.append(p_1);
 
                 d = d+1;
             }

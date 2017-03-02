@@ -445,6 +445,15 @@ $("#group_by").change(function(){
             $("#load_warehouse_details input[type=checkbox]").prop('checked', false);//solo los del objeto #diasHabilitados
         }
     }
+
+    function arrayEmpty(){
+        swal({
+            title: "Wait!",
+            text: "There are not elements to Link. All the elements have already been taken.",
+            type: "warning",
+            confirmButtonText: "Ok"
+        });
+    }
     $("#btn_create_hbl").click(function(){
         clearTableCondition('load_warehouses');
         $("#group_by").val("3").change();
@@ -455,26 +464,31 @@ $("#group_by").change(function(){
             type: 'GET',
             success: function (e) {
                 var x = 0;
-                while (e[x].id != "") {
-                    var r = $("#load_warehouses tbody tr").length + 1,
-                        n = $("#load_warehouses"),
-                        t = n.find("tbody"),
-                        p = $("<tr id=" + r + ">");
-                    p.append(createTableContent('warehouse_id', e[x].id, true, x))
-                        .append("<td><input type='checkbox' name='warehouse_select[]' id='warehouse_select' value='" + e[x].id + "'></td>")
-                        .append(createTableContent('warehouse_code', e[x].value, false, x))
-                        .append(createTableContent('shipper_id', e[x].shipper_id, true, x))
-                        .append(createTableContent('shipper_name', e[x].shipper_name, false, x))
-                        .append(createTableContent('consignee_id', e[x].consignee_id, true, x))
-                        .append(createTableContent('consignee_name', e[x].consignee_name, false, x))
-                        .append(createTableContent('status', e[x].status, false, x))
-                        .append(createTableContent('quantity', e[x].quantity, false, x))
-                        .append(createTableContent('sum_weight', e[x].sum_weight, false, x))
-                        .append(createTableContent('sum_cubic', e[x].sum_cubic, false, x))
-                        .append(createTableContent('hbl_line_id', '0', true, x))
-                    t.append(p);
-                    x= x+1;
-                    $("#CreateHouse").modal("show");
+                if (e.length == 0) {
+                    arrayEmpty();
+                }
+                else {
+                    while (e[x].id != "") {
+                        var r = $("#load_warehouses tbody tr").length + 1,
+                            n = $("#load_warehouses"),
+                            t = n.find("tbody"),
+                            p = $("<tr id=" + r + ">");
+                        p.append(createTableContent('warehouse_id', e[x].id, true, x))
+                            .append("<td><input type='checkbox' name='warehouse_select[]' id='warehouse_select' value='" + e[x].id + "'></td>")
+                            .append(createTableContent('warehouse_code', e[x].value, false, x))
+                            .append(createTableContent('shipper_id', e[x].shipper_id, true, x))
+                            .append(createTableContent('shipper_name', e[x].shipper_name, false, x))
+                            .append(createTableContent('consignee_id', e[x].consignee_id, true, x))
+                            .append(createTableContent('consignee_name', e[x].consignee_name, false, x))
+                            .append(createTableContent('status', e[x].status, false, x))
+                            .append(createTableContent('quantity', e[x].quantity, false, x))
+                            .append(createTableContent('sum_weight', e[x].sum_weight, false, x))
+                            .append(createTableContent('sum_cubic', e[x].sum_cubic, false, x))
+                            .append(createTableContent('hbl_line_id', '0', true, x));
+                        t.append(p);
+                        x = x + 1;
+                        $("#CreateHouse").modal("show");
+                    }
                 }
             }
         });

@@ -26,16 +26,7 @@
                 validating: 'fa fa-refresh'
             },
             fields: {
-                booked_date: {
-                    validators: {
-                        notEmpty: { message: "Booked on date is required" },
-                        date: {
-                            format: "YYYY-MM-DD",
-                            max: "loading_date",
-                            message: "Booked on date is invalid"
-                        }
-                    }
-                },
+
                 loading_date: {
                     validators: {
                         notEmpty: { message: "Loading date is required" },

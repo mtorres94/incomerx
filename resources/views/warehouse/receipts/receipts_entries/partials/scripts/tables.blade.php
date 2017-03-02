@@ -473,4 +473,14 @@
         $("#charge-warehouse").modal("show")
 
     });
+
+    $("#delete_charge").click(function(){
+        var td = $("#charge-details");
+        preventDeleteCondition(td, function (td, eval) {
+            if (eval) {
+                clearTableCondition("charge-details");
+                calculate_charges();
+            }
+        });
+    });
 </script>

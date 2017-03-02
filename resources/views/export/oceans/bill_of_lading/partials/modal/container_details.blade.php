@@ -21,7 +21,7 @@
                     <div class="col-md-3">{!! Form::bsText(null, null, 'Seal #2', 'container_seal_number2', null, '') !!}</div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">{!! Form::bsComplete(null, null, 'Commodity', 'container_commodity_id', 'container_commodity_name', Request::get('term'), null, 'Commodity') !!}</div>
+                    <div class="col-md-3">{!! Form::bsText(null, null, 'Commodity', 'container_commodity_name',null) !!}</div>
                     <div class="col-md-3">{!! Form::bsSelect(null, null, 'Status', 'pd_status', array(
                         '1' => '1 - LOAD ORDER',
                         '2' => '2 - PICKED',

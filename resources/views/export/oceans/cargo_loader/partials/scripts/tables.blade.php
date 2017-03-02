@@ -7,7 +7,7 @@
         }
     }
     $("#btn_container_details").click(function() {
-        $("#container_spotting_date").val($("#departure_date").val());
+        $("#container_spotting_date").val($("#loading_date").val());
         $("#pd_status").val("1").change();
         $("#equipment_type_id").val("").change();
         $("#container_pickup_type").val("02").change();
@@ -591,7 +591,6 @@ $("#CreateHouse").modal("hide");
                 c16 = $("#weight_load_p").val(),
                 c17 = $("#weight_excess").val(),
 
-                c18 = $("#container_commodity_id").val(),
                 c19 = $("#container_commodity_name").val().toUpperCase(),
                 c20 = $("#pd_status").val(),
                 c21 = $("#container_spotting_date").val(),
@@ -682,7 +681,7 @@ $("#CreateHouse").modal("hide");
                 .append(createTableContent('weight_load_p', c16, true, d))
                 .append(createTableContent('weight_excess', c17, true, d))
 
-                .append(createTableContent('container_commodity_id', c18, true, d))
+                .append(createTableContent('container_commodity_id', c19, true, d))
                 .append(createTableContent('container_commodity_name', c19, true, d))
                 .append(createTableContent('pd_status', c20, true, d))
                 .append(createTableContent('container_spotting_date', c21, true, d))
@@ -945,15 +944,15 @@ $("#CreateHouse").modal("hide");
                 $("#weight_load_p").val(c16),
                 $("#weight_excess").val(c17),
 
-                $("#container_commodity_id").val(c18),
+                $("#container_commodity_id").val(c19),
                 $("#container_commodity_name").val(c19),
                 $("#pd_status").val(c20).change(),
-                ((c21 == ''  || c21 == "0000-00-00") ? $("#container_spotting_date").val($("#departure_date").val()) :$("#container_spotting_date").val(c21)),
+                ((c21 == ''  || c21 == "0000-00-00") ? $("#container_spotting_date").val($("#loading_date").val()) :$("#container_spotting_date").val(c21)),
                 $("#container_pull_date").val(c22),
-
+                $("#container_pickup_type").val(c25).change(),
                 $("#container_pickup_id").val(c23),
                 $("#container_pickup_name").val(c24),
-                $("#container_pickup_type").val(c25),
+
                 $("#container_pickup_address").val(c26),
                 $("#container_pickup_city").val(c27),
                 $("#container_pickup_state_id").val(c28),
@@ -965,9 +964,10 @@ $("#CreateHouse").modal("hide");
                 $("#container_pickup_date").val(c34),
                 $("#container_pickup_number").val(c35),
 
+                $("#container_delivery_type").val(c38).change(),
                 $("#container_delivery_id").val(c36),
                 $("#container_delivery_name").val(c37),
-                $("#container_delivery_type").val(c38),
+
                 $("#container_delivery_address").val(c39),
                 $("#container_delivery_city").val(c40),
                 $("#container_delivery_state_id").val(c41),
@@ -979,9 +979,10 @@ $("#CreateHouse").modal("hide");
                 $("#container_delivery_date").val(c47),
                 $("#container_delivery_number").val(c48),
 
+                $("#container_drop_type").val(c51).change(),
                 $("#container_drop_id").val(c49),
                 $("#container_drop_name").val(c50),
-                $("#container_drop_type").val(c51),
+
                 $("#container_drop_address").val(c52),
                 $("#container_drop_city").val(c53),
                 $("#container_drop_state_id").val(c54),
@@ -1012,7 +1013,9 @@ $("#CreateHouse").modal("hide");
                 $("#container_tare_weight").val(c77),
                 $("#total_weight_unit").val(c78),
                 $("#container_carrier_id").val(c79),
-                $("#container_carrier_name").val(c80), calculate_warehouse(), $("#Container_Details").modal("show")
+                $("#container_carrier_name").val(c80);
+                calculate_warehouse();
+                $("#Container_Details").modal("show");
 
         //WAREHOUSE CARGO DETAILS
         //======================================================

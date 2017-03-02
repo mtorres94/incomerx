@@ -46,8 +46,8 @@
                 {!! Form::bsRowTd($detail->line, 'weight_load_p', $detail->weight_load_p, true) !!}
                 {!! Form::bsRowTd($detail->line, 'weight_excess', $detail->weight_excess, true) !!}
 
-                {!! Form::bsRowTd($detail->line, 'container_commodity_id', $detail->container_commodity_id, true) !!}
-                {!! Form::bsRowTd($detail->line, 'container_commodity_name', strtoupper($detail->container_commodity_id >0 ? $detail->container_commodity->name : ""), true) !!}
+                {!! Form::bsRowTd($detail->line, 'container_commodity_id', $detail->container_commodity, true) !!}
+                {!! Form::bsRowTd($detail->line, 'container_commodity_name', strtoupper($detail->container_commodity), true) !!}
                 {!! Form::bsRowTd($detail->line, 'pd_status', $detail->pd_status, true) !!}
                 {!! Form::bsRowTd($detail->line, 'container_spotting_date', $detail->spoting_date, true) !!}
                 {!! Form::bsRowTd($detail->line, 'container_pull_date', $detail->pull_date, true) !!}

@@ -142,7 +142,7 @@
                                 .append(createTableContent('container_tare_weight', "", true, r))
 
                                 .append(createTableContent('container_comments', "", true, r))
-                                .append (createTableBtns())
+                                .append (createTableBtns());
                             t.append(p);
                             x= x+1;
                         }

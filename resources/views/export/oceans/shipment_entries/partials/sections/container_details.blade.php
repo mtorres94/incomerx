@@ -33,8 +33,8 @@
             {!! Form::bsRowTd($detail->line, 'container_seal_number', $detail->container_seal_number, false) !!}
             {!! Form::bsRowTd($detail->line, 'total_weight_unit', $detail->total_weight_unit, false) !!}
             {!! Form::bsRowTd($detail->line, 'container_seal_number2', $detail->container_seal_number2, true) !!}
-            {!! Form::bsRowTd($detail->line, 'container_commodity_id', $detail->container_commodity_id, true) !!}
-            {!! Form::bsRowTd($detail->line, 'container_commodity_name', ($detail->container_commodity_id >0 ? $detail->container_commodity->name : "") , true) !!}
+            {!! Form::bsRowTd($detail->line, 'container_commodity_id', strtoupper($detail->container_commodity), true) !!}
+            {!! Form::bsRowTd($detail->line, 'container_commodity_name', strtoupper($detail->container_commodity) , true) !!}
             {!! Form::bsRowTd($detail->line, 'pd_status', $detail->pd_status, false) !!}
             {!! Form::bsRowTd($detail->line, 'container_spotting_date', $detail->spotting_date, true) !!}
             {!! Form::bsRowTd($detail->line, 'container_pull_date', $detail->pull_date, true) !!}
@@ -99,7 +99,7 @@
             {!! Form::bsRowTd($detail->line, 'container_release_number', $detail->release_number, true) !!}
             {!! Form::bsRowTd($detail->line, 'container_requested_equipment', $detail->requested_equipment, true) !!}
             {!! Form::bsRowTd($detail->line, 'container_tare_weight', $detail->tare_weight, true) !!}
-            {!! Form::bsRowTd($detail->line, 'container_comments', $detail->container_comments, true) !!}
+            {!! Form::bsRowTd($detail->line, 'comments', $detail->container_comments, true) !!}
             {!! Form::bsRowBtns() !!}
             </tr>
         @endforeach
@@ -116,9 +116,9 @@
                 {!! Form::bsRowTd($detail->line, 'hzd_container_id', $detail->container_id, true) !!}
                 {!! Form::bsRowTd($detail->line, 'hzd_line', $detail->line, true) !!}
                 {!! Form::bsRowTd($detail->line, 'hzd_uns_id', $detail->hzd_uns_id, true) !!}
-                {!! Form::bsRowTd($detail->line, 'hzd_uns_code',(($detail->hzd_uns_id >0) ? $detail->hzd_uns->name: null), true) !!}
-                {!! Form::bsRowTd($detail->line, 'hzd_uns_desc', $detail->hzd_uns_desc, true) !!}
-                {!! Form::bsRowTd($detail->line, 'hzd_uns_note', $detail->hzd_uns_note, true) !!}
+                {!! Form::bsRowTd($detail->line, 'hzd_uns_code',strtoupper(($detail->hzd_uns_id >0) ? $detail->hzd_uns->name: null), true) !!}
+                {!! Form::bsRowTd($detail->line, 'hzd_uns_desc', strtoupper($detail->hzd_uns_desc), true) !!}
+                {!! Form::bsRowTd($detail->line, 'hzd_uns_note', strtoupper($detail->hzd_uns_note), true) !!}
             </tr>
         @endforeach
     @endif

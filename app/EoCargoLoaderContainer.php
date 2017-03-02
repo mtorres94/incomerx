@@ -10,7 +10,7 @@ class EoCargoLoaderContainer extends Model
 
     protected $fillable = ['id', 'cargo_loader_id','created_at', 'updated_at','line','equipment_type_id', 'container_number', 'container_seal_number', 'container_seal_number_2','container_order_number','container_hazardous_contact', 'container_hazardous_phone', 'container_comments', 'container_degrees', 'container_temperature', 'container_max', 'container_min', 'cubic_max', 'cubic_load', 'cubic_load_p','cubic_excess', 'pieces_loaded', 'total_weight_unit', 'max_weight', 'container_net_weight', 'weight_load_p', 'weight_excess',
         'spotting_date','pull_date','pd_status','carrier_id','ventilation','inner_code','inner_quantity','equipment_number','pickup_id', 'pickup_type', 'pickup_address', 'pickup_city', 'pickup_state_id', 'pickup_zip_code_id', 'pickup_phone', 'pickup_contact', 'pickup_date', 'pickup_number', 'delivery_id', 'delivery_type', 'delivery_address', 'delivery_city', 'delivery_state_id', 'delivery_zip_code_id', 'delivery_phone', 'delivery_contact', 'delivery_date', 'drop_id',
-'drop_type', 'drop_address', 'drop_city', 'drop_zip_code_id', 'drop_phone', 'drop_contact', 'drop_date', 'drop_number', 'outer_code', 'outer_quantity', 'release_number', 'requested_number', 'drop_state_id','container_commodity_id', 'tare_weight'
+'drop_type', 'drop_address', 'drop_city', 'drop_zip_code_id', 'drop_phone', 'drop_contact', 'drop_date', 'drop_number', 'outer_code', 'outer_quantity', 'release_number', 'requested_number', 'drop_state_id','container_commodity', 'tare_weight'
     ];
 
 
@@ -29,6 +29,7 @@ class EoCargoLoaderContainer extends Model
                     $obj-> container_number = $data['container_number'][$i];
                     $obj-> container_seal_number = $data['container_seal_number'][$i];
                     $obj-> container_seal_number_2 = $data['container_seal_number2'][$i];
+                    $obj-> container_commodity= $data['container_commodity_name'][$i];
                     $obj-> container_order_number = $data['container_order_number'][$i];
                     $obj-> container_hazardous_contact = $data['container_hazardous_contact'][$i];
                     $obj-> container_hazardous_phone = $data['container_hazardous_phone'][$i];
@@ -121,10 +122,7 @@ class EoCargoLoaderContainer extends Model
     {
         return $this->belongsTo('Sass\ZipCode', 'drop_zip_code_id');
     }
-    public function container_commodity()
-    {
-        return $this->belongsTo('Sass\Commodity', 'container_commodity_id');
-    }
+
     public function pickup()
     {
         $mode = $this->attributes['pickup_type'];

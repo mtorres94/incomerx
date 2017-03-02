@@ -102,7 +102,7 @@
 
         $("#consignee_state_name").marcoPolo({url:"{{ route('states.autocomplete') }}",formatItem:function(e,o){return e.value}, selected: {
             id: ' {{ (isset($shipment_entry) ? $shipment_entry->consignee_state_id : "") }}',
-            valur: ' {{ ((isset($shipment_entry) and ($shipment_entry->consignee_state_id > 0)) ? $shipment_entry->consignee_state->name : "") }}',
+            value: ' {{ ((isset($shipment_entry) and ($shipment_entry->consignee_state_id > 0)) ? $shipment_entry->consignee_state->name : "") }}',
         },onSelect:function(e,o){$("#consignee_state_id").val(e.id),$(this).val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#consignee_state_name_img").removeClass("img-none").addClass("img-display"),$("#consignee_state_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#consignee_state_name_img").removeClass("img-display").addClass("img-none"),$("#consignee_state_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#consignee_state_id").val(0)}).blur(function(){var e=$("#consignee_state_id").val();0==e&&$(this).val("")});
 
 
@@ -110,8 +110,8 @@
             id: '{{ (isset($shipment_entry) ? $shipment_entry->shipper_zip_code_id : "") }}',
             code: '{{ ((isset($shipment_entry) and ($shipment_entry->shipper_zip_code_id > 0)) ? $shipment_entry->shipper_zip_code->code : "") }}',
             name: '{{ ((isset($shipment_entry) and ($shipment_entry->shipper_id > 0)) ? $shipment_entry->shipper_city : "") }}',
-            state_id: '{{ ((isset($shipment_entry) and ($shipment_entry->shipper_zip_code_id > 0)) ? $shipment_entry->shipper_zip_code->state_id : "") }}',
-            state_name: '{{ ((isset($shipment_entry) and ($shipment_entry->shipper_zip_code_id > 0)) ? $shipment_entry->shipper_zip_code->state->name : "") }}'
+            state_id: '{{ (isset($shipment_entry) ? $shipment_entry->shipper_state_id : "") }}',
+            state_name: '{{ ((isset($shipment_entry) and ($shipment_entry->shipper_state_id > 0)) ? $shipment_entry->shipper_state->name : "") }}'
         },onSelect:function(e,o){$("#shipper_zip_code_id").val(e.id),$(this).val(e.code),$("#shipper_city").val(e.name),$("#shipper_state_id").val(e.state_id),$("#shipper_state_name").val(e.state_name)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#shipper_zip_code_code_img").removeClass("img-none").addClass("img-display"),$("#shipper_zip_code_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#shipper_zip_code_code_img").removeClass("img-display").addClass("img-none"),$("#shipper_zip_code_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#shipper_zip_code_id").val(0)}).blur(function(){var e=$("#shipper_zip_code_id").val();0==e&&($(this).val(""))});
 
 
@@ -128,8 +128,8 @@
             id: '{{ (isset($shipment_entry) ? $shipment_entry->consignee_zip_code_id : "") }}',
             code: '{{ ((isset($shipment_entry) and ($shipment_entry->consignee_zip_code_id > 0)) ? $shipment_entry->consignee_zip_code->code : "") }}',
             name: '{{ ((isset($shipment_entry) and ($shipment_entry->consignee_id > 0)) ? $shipment_entry->consignee_city : "") }}',
-            state_id: '{{ ((isset($shipment_entry) and ($shipment_entry->consignee_zip_code_id > 0)) ? $shipment_entry->consignee_zip_code->state_id : "") }}',
-            state_name: '{{ ((isset($shipment_entry) and ($shipment_entry->consignee_zip_code_id > 0)) ? $shipment_entry->consignee_zip_code->state->name : "") }}'
+            state_id: '{{ (isset($shipment_entry)  ? $shipment_entry->consignee_state_id : "") }}',
+            state_name: '{{ ((isset($shipment_entry) and ($shipment_entry->consignee_state_id > 0)) ? $shipment_entry->consignee_state->name : "") }}'
         },onSelect:function(e,o){$("#consignee_zip_code_id").val(e.id),$(this).val(e.code),$("#consignee_city").val(e.name),$("#consignee_state_id").val(e.state_id),$("#consignee_state_name").val(e.state_name)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#consignee_zip_code_code_img").removeClass("img-none").addClass("img-display"),$("#consignee_zip_code_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#consignee_zip_code_code_img").removeClass("img-display").addClass("img-none"),$("#consignee_zip_code_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#consignee_zip_code_id").val(0)}).blur(function(){var e=$("#consignee_zip_code_id").val();0==e&&($(this).val(""))});
 
     $("#carrier_name").marcoPolo({url: "{{ route('carriers.autocomplete') }}",formatItem: function(e, o) {return e.name}, selected:{
@@ -140,13 +140,19 @@
     $("#broker_name").marcoPolo({url: "{{ route('customers.autocomplete') }}",formatItem: function(e, o) {return  e.value}, selected:{
         id: '{{ (isset($shipment_entry) ? $shipment_entry->broker_id : "") }}',
         value: '{{ ((isset($shipment_entry) and ($shipment_entry->broker_id > 0 )) ? $shipment_entry->broker->name : "") }}',
-    },onSelect: function(e, o) {$("#broker_id").val(e.id), $(this).val(e.value)},minChars: 3,param: "term"}).on("marcopolorequestbefore", function() {$("#broker_name_img").removeClass("img-none").addClass("img-display"), $("#broker_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter", function() {$("#broker_name_img").removeClass("img-display").addClass("img-none"), $("#broker_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#broker_id").val(0)}).blur(function(){var e=$("#broker_id").val();0==e&&($(this).val(""))});
+        fax: '{{ (isset($shipment_entry) ? $shipment_entry->broker_fax : "") }}',
+        phone: '{{ (isset($shipment_entry) ? $shipment_entry->broker_phone : "") }}',
+        contact: '{{ (isset($shipment_entry) ? $shipment_entry->broker_contact : "") }}'
+    },onSelect: function(e, o) {$("#broker_id").val(e.id), $(this).val(e.value), $("#broker_fax").val(e.fax), $("#broker_contact").val(e.contact), $("#broker_phone").val(e.phone) },minChars: 3,param: "term"}).on("marcopolorequestbefore", function() {$("#broker_name_img").removeClass("img-none").addClass("img-display"), $("#broker_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter", function() {$("#broker_name_img").removeClass("img-display").addClass("img-none"), $("#broker_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#broker_id").val(0)}).blur(function(){var e=$("#broker_id").val();0==e&&($(this).val(""))});
 
 
         $("#agent_name").marcoPolo({url:"{{ route('customers.autocomplete') }}",formatItem:function(e,o){return e.value}, selected: {
             id: '{{ (isset($shipment_entry) ? $shipment_entry->agent_id : "") }}',
             value: '{{ ((isset($shipment_entry) and ($shipment_entry->agent_id > 0 )) ? $shipment_entry->agent->name : "") }}',
-        },onSelect:function(e,o){$("#agent_id").val(e.id),$(this).val(e.value),$("#agent_phone").val(e.phone),$("#agent_fax").val(e.fax)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#agent_name_img").removeClass("img-none").addClass("img-display"),$("#agent_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#agent_name_img").removeClass("img-display").addClass("img-none"),$("#agent_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#agent_id").val(0)}).blur(function(){var e=$("#agent_id").val();0==e&&($(this).val(""))});
+            fax: '{{ (isset($shipment_entry) ? $shipment_entry->agent_fax : "") }}',
+            phone: '{{ (isset($shipment_entry) ? $shipment_entry->agent_phone : "") }}',
+            contact: '{{ (isset($shipment_entry) ? $shipment_entry->agent_contact: "") }}'
+        },onSelect:function(e,o){$("#agent_id").val(e.id),$(this).val(e.value),$("#agent_phone").val(e.phone),$("#agent_fax").val(e.fax), $("#agent_contact").val(e.contact)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#agent_name_img").removeClass("img-none").addClass("img-display"),$("#agent_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#agent_name_img").removeClass("img-display").addClass("img-none"),$("#agent_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#agent_id").val(0)}).blur(function(){var e=$("#agent_id").val();0==e&&($(this).val(""))});
 
 
         $("#forwarding_agent_name").marcoPolo({url:"{{ route('customers.autocomplete') }}",formatItem:function(e,o){return e.value},selected: {
@@ -185,13 +191,6 @@
             id: '{{ (isset($shipment_entry) ? $shipment_entry->total_cargo_type_id : "") }}',
             code: '{{ ((isset($shipment_entry) and ($shipment_entry->total_cargo_type_id > 0 )) ? $shipment_entry->total_cargo_type_id : "") }}',
         },onSelect:function(e,o){$("#total_cargo_type_id").val(e.id),$(this).val(e.code)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#total_cargo_type_code_img").removeClass("img-none").addClass("img-display"),$("#total_cargo_type_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#total_cargo_type_code_img").removeClass("img-display").addClass("img-none"),$("#total_cargo_type_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#total_cargo_type_id").val(0)}).blur(function(){var e=$("#total_cargo_type_id").val();0==e&&($(this).val(""))});
-
-
-        $("#total_commodity_name").marcoPolo({url:"{{ route('commodities.autocomplete') }}",formatItem:function(e,o){return e.value}, selected:{
-            id: '{{ (isset($shipment_entry) ? $shipment_entry->total_commodity_id : "") }}',
-            value: '{{ ((isset($shipment_entry) and ($shipment_entry->total_commodity_id > 0)) ? $shipment_entry->total_commodity->name : "") }}',
-        },onSelect:function(e,o){$("#total_commodity_id").val(e.id),$(this).val(e.value)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#total_commodity_name_img").removeClass("img-none").addClass("img-display"),$("#total_commodity_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#total_commodity_name_img").removeClass("img-display").addClass("img-none"),$("#total_commodity_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#total_commodity_id").val(0)}).blur(function(){var e=$("#total_commodity_id").val();0==e&&($(this).val(""))});
-
 
         $("#quote_code").marcoPolo({url:"{{ route('quotes.autocomplete') }}",formatItem:function(e,o){return e.code},
             selected:{
@@ -236,10 +235,10 @@
                 place_delivery_name: '{{ ((isset($shipment_entry) and ($shipment_entry->place_delivery_id > 0 )) ? $shipment_entry->place_delivery->name : "") }}',
                 total_cargo_type_id: '{{ (isset($shipment_entry) ? $shipment_entry->total_cargo_type_id : "") }}',
                 total_cargo_type_code: '{{ ((isset($shipment_entry) and ($shipment_entry->total_cargo_type_id > 0 )) ? $shipment_entry->total_cargo_type->code : "") }}',
-                total_commodity_id: '{{ (isset($shipment_entry) ? $shipment_entry->total_commodity_id : "") }}',
-                total_commodity_code: '{{ ((isset($shipment_entry) and ($shipment_entry->total_commodity_id > 0 )) ? $shipment_entry->total_commodity->code : "") }}',
+                total_commodity: '{{ strtoupper(isset($shipment_entry) ? $shipment_entry->total_commodity_name : "") }}',
                 total_quantity: '{{ (isset($shipment_entry) ? $shipment_entry->total_quantity : "") }}',
                 total_unit_weight: '{{ (isset($shipment_entry) ? $shipment_entry->total_unit_weight: "") }}',
+                total_weight: '{{ (isset($shipment_entry) ? $shipment_entry->total_weight: "") }}',
                 total_cubic: '{{ (isset($shipment_entry) ? $shipment_entry->total_cubic: "") }}',
                 freight_charges: '{{ (isset($shipment_entry) ? $shipment_entry->freight_charges: "") }}',
                 other_charges: '{{ (isset($shipment_entry) ? $shipment_entry->other_charges: "") }}'
@@ -286,10 +285,9 @@
                     $("#service_name").val(e.service_name),
 
                     $("#total_quantity").val(e.total_quantity),
-                    $("#total_cargo_type_id").val(e.total_cargo_type_id),
+                    $("#total_cargo_type_id").val(e.total_cargo_type_id).change(),
                     $("#total_cargo_type_code").val(e.total_cargo_type_code),
-                    $("#total_commodity_id").val(e.total_commodity_id),
-                    $("#total_commodity_code").val(e.total_commodity_code),
+                    $("#total_commodity_name").val(e.total_commodity),
                     $("#total_unit_weight").val(e.total_unit_weight).change(),
                     $("#total_weight").val(e.total_weight),
                     $("#total_cubic").val(e.total_cubic),
@@ -412,7 +410,6 @@
         },onSelect:function(e,o){$("#equipment_type_id").val(e.id),$(this).val(e.code)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#equipment_type_code_img").removeClass("img-none").addClass("img-display"),$("#equipment_type_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#equipment_type_code_img").removeClass("img-display").addClass("img-none"),$("#equipment_type_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#equipment_type_id").val(0)}).blur(function(){var e=$("#equipment_type_id").val();0==e&&($(this).val(""))});
 
 
-        $("#container_commodity_name").marcoPolo({url:"{{ route('commodities.autocomplete') }}",formatItem:function(e,o){return e.name},onSelect:function(e,o){$("#container_commodity_id").val(e.id),$(this).val(e.name)},minChars:2,param:"term"}).on("marcopolorequestbefore",function(){$("#container_commodity_name_img").removeClass("img-none").addClass("img-display"),$("#container_commodity_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#container_commodity_name_img").removeClass("img-display").addClass("img-none"),$("#container_commodity_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#container_commodity_id").val(0)}).blur(function(){var e=$("#container_commodity_id").val();0==e&&($(this).val(""))});
 
 
         $("#hazardous_uns_code").marcoPolo({url:"{{ route('uns_codes.autocomplete') }}",formatItem:function(e,o){return e.code+' | '+e.name},onSelect:function(e,o){$("#hazardous_uns_id").val(e.id),$(this).val(e.code),$('#hazardous_uns_desc').val(e.name)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#hazardous_uns_code_img").removeClass("img-none").addClass("img-display"),$("#hazardous_uns_code_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#hazardous_uns_code_img").removeClass("img-display").addClass("img-none"),$("#hazardous_uns_code_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e){var o=e.keyCode?e.keyCode:e.which;(8==o||46==o)&&$("#hazardous_uns_id").val(0)}).blur(function(){var e=$("#hazardous_uns_id").val();0==e&&($(this).val(""))});

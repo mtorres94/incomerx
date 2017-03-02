@@ -100,7 +100,8 @@ class ExportCodeController extends Controller
             $results = [];
             foreach ($export_codes as $export_code) {
                 $results[] = [
-                    'id' => strtoupper($export_code->code),
+                    'id' => strtoupper($export_code->id),
+                    'code' => strtoupper($export_code->code),
                     'value' => strtoupper($export_code->name),
                 ];
             }

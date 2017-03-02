@@ -10,7 +10,7 @@ class EoShipmentEntryContainer extends Model
     protected $table = "eo_shipment_entries_container";
 
     protected $fillable = [
-        'id', 'line', 'created_at', 'updated_at', 'equipment_type_id', 'container_number', 'container_seal_number', 'container_seal_number2', 'total_weight_unit', 'container_commodity_id', 'pd_status', 'spotting_date', 'pull_date', 'carrier_id', 'ventilation', 'temperature', 'degrees', 'temperature_max', 'temperature_min',
+        'id', 'line', 'created_at', 'updated_at', 'equipment_type_id', 'container_number', 'container_seal_number', 'container_seal_number2', 'total_weight_unit', 'container_commodity', 'pd_status', 'spotting_date', 'pull_date', 'carrier_id', 'ventilation', 'temperature', 'degrees', 'temperature_max', 'temperature_min',
         'pickup_id', 'pickup_type', 'pickup_address', 'pickup_city', 'pickup_state_id', 'pickup_zip_code_id', 'pickup_phone', 'pickup_contact', 'pickup_date', 'pickup_number',
         'delivery_id', 'delivery_type', 'delivery_address', 'delivery_city', 'delivery_state_id', 'delivery_zip_code_id', 'delivery_phone', 'delivery_contact', 'delivery_date', 'delivery_number',
         'drop_id', 'drop_type', 'drop_address', 'drop_city', 'drop_state_id', 'drop_zip_code_id', 'drop_phone', 'drop_contact', 'drop_date', 'drop_number', 'hazardous_contact', 'hazardous_phone', 'inner_code', 'inner_quantity', 'net_weight', 'number_equipment', 'outer_code', 'outer_quantity', 'release_number', 'requested_equipment', 'tare_weight',  'container_comments', 'shipment_id'
@@ -36,7 +36,7 @@ class EoShipmentEntryContainer extends Model
                     $obj->container_seal_number = $data['container_seal_number'][$i];
                     $obj->container_seal_number2 = $data['container_seal_number2'][$i];
                     $obj->total_weight_unit = $data['total_weight_unit'][$i];
-                    $obj->container_commodity_id = $data['container_commodity_id'][$i];
+                    $obj->container_commodity= $data['container_commodity_name'][$i];
                     $obj->pd_status = $data['pd_status'][$i];
                     $obj->pull_date = $data['container_pull_date'][$i];
                     $obj->spotting_date = $data['container_spotting_date'][$i];
@@ -86,7 +86,7 @@ class EoShipmentEntryContainer extends Model
                     $obj->release_number = $data['container_release_number'][$i];
                     $obj->requested_equipment = $data['container_requested_equipment'][$i];
                     $obj->tare_weight = $data['container_tare_weight'][$i];
-                    $obj->container_comments = $data['container_comments'][$i];
+                    $obj->container_comments = $data['comments'][$i];
 
                     $obj->save();
                     $a++;
@@ -123,10 +123,7 @@ class EoShipmentEntryContainer extends Model
     {
         return $this->belongsTo('Sass\CargoType', 'equipment_type_id');
     }
-    public function container_commodity()
-    {
-        return $this->belongsTo('Sass\Commodity', 'container_commodity_id');
-    }
+
 
     public function pickup()
     {

@@ -98,7 +98,8 @@ class HarmonizedCodeController extends Controller
             $results = [];
             foreach ($harmonized_codes as $harmonized_code) {
                 $results[] = [
-                    'id'                => $harmonized_code->code,
+                    'id'                => $harmonized_code->id,
+                    'code'                => strtoupper($harmonized_code->code),
                     'value'             => strtoupper($harmonized_code->name),
                 ];
             }

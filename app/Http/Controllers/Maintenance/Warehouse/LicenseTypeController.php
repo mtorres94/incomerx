@@ -101,7 +101,8 @@ class LicenseTypeController extends Controller
             $results = [];
             foreach ($license_types as $license_type) {
                 $results[] = [
-                    'id' => strtoupper($license_type->code),
+                    'id' => strtoupper($license_type->id),
+                    'code' => strtoupper($license_type->code),
                     'value' => strtoupper($license_type->name),
                 ];
             }
