@@ -1,4 +1,4 @@
-<div class="form-group{{ $errors->has($name) ? ' has-error' : '' }}">
+<div class="form-group checkbox-label{{ $errors->has($name) ? ' has-error' : '' }}">
     <div class="{{ $col }}">
         <div class="checkbox checkbox-primary">
             <input type="hidden" name="{{ $name }}" value="off">

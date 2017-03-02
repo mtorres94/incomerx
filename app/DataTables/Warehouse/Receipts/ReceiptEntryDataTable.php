@@ -40,7 +40,14 @@ class ReceiptEntryDataTable extends CustomDataTable
             ->leftJoin('mst_customers AS c3', 'whr_receipts_entries.third_party_id', '=', 'c3.id')
             ->leftJoin('mst_customers AS c4', 'whr_receipts_entries.agent_id', '=', 'c4.id')
             ->leftJoin('mst_customers AS c5', 'whr_receipts_entries.coloader_id', '=', 'c5.id')
-            ->select(['whr_receipts_entries.id', 'whr_receipts_entries.code', 'whr_receipts_entries.date_in', 'whr_receipts_entries.status', 'whr_receipts_entries.mode', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS third_party_name', 'c4.name AS agent_name', 'c5.name AS coloader_name'])
+            ->leftJoin('whr_receipts_entries_receiving_details', function ($join) {
+                $join->on('whr_receipts_entries.id', '=', 'whr_receipts_entries_receiving_details.receipt_entry_id')
+                    ->where('whr_receipts_entries_receiving_details.line', '=', 1);
+            })
+            ->select(['whr_receipts_entries.id', 'whr_receipts_entries.code', 'whr_receipts_entries.date_in',
+                'whr_receipts_entries.status', 'is_hazardous', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name',
+                'c2.name AS consignee_name', 'c3.name AS third_party_name', 'c4.name AS agent_name', 'c5.name AS coloader_name',
+                'whr_receipts_entries_receiving_details.pro_number'])
             ->orderBy('whr_receipts_entries.code', 'desc');
 
         return $this->applyScopes($query);
@@ -79,8 +86,8 @@ class ReceiptEntryDataTable extends CustomDataTable
             ['data' => 'status',         'name' => 'whr_receipts_entries.status', 'title' => 'Status'],
             ['data' => 'code',           'name' => 'whr_receipts_entries.code', 'title' => 'Code'],
             ['data' => 'date_in',        'name' => 'whr_receipts_entries.date_in', 'title' => 'Date in'],
-            ['data' => 'mode',           'name' => 'whr_receipts_entries.mode', 'title' => 'Mode'],
-            ['data' => 'division_name',  'name' => 'mst_divisions.name', 'title' => 'Division'],
+            ['data' => 'is_hazardous',   'name' => 'whr_receipts_entries.is_hazardous', 'title' => 'Is hazardous?'],
+            ['data' => 'pro_number',     'name' => 'whr_receipts_entries_receiving_details.pro_number', 'title' => 'Pro #'],
             ['data' => 'shipper_name',   'name' => 'c1.name', 'title' => 'Shipper'],
             ['data' => 'consignee_name', 'name' => 'c2.name', 'title' => 'Consignee'],
         ];

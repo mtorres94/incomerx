@@ -56,7 +56,7 @@
                             <div class="panel-body">
                                 <p>{{ strtoupper($receipt_entry->shipper->name) }}</p>
                                 <p>{{ strtoupper($receipt_entry->shipper->address) }}</p>
-                                <p>{{ strtoupper($receipt_entry->shipper->city) }} {{ ($receipt_entry->shipper_state_id > 0) ? ', '.strtoupper($receipt_entry->shipper->state->name) : "" }}</p>
+                                <p>{{ strtoupper($receipt_entry->shipper->city) }} {{ ($receipt_entry->shipper_state_id > 0) ? ', '.strtoupper($receipt_entry->shipper_state->name) : "" }}</p>
                                 <p>Phone: {{ $receipt_entry->shipper->phone }} / Fax: {{ $receipt_entry->shipper->fax }}</p>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                             <div class="panel-body">
                                 <p>{{ strtoupper($receipt_entry->consignee->name) }}</p>
                                 <p>{{ strtoupper($receipt_entry->consignee->address) }}</p>
-                                <p>{{ strtoupper($receipt_entry->consignee->city) }} {{ ($receipt_entry->consignee_state_id > 0) ? ', '.strtoupper($receipt_entry->consignee->state->name) : "" }}</p>
+                                <p>{{ strtoupper($receipt_entry->consignee->city) }} {{ ($receipt_entry->consignee_state_id > 0) ? ', '.strtoupper($receipt_entry->consignee_state->name) : "" }}</p>
                                 <p>Phone: {{ $receipt_entry->consignee->phone }} / Fax: {{ $receipt_entry->consignee->fax }}</p>
                             </div>
                         </div>
@@ -76,8 +76,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">THIRD PARTY</div>
                             <div class="panel-body">
-                                <p>{{ $receipt_entry->third_party_id > 0 ? strtoupper($receipt_entry->third_party->name) 
-: '' }}</p>
+                                <p>{{ $receipt_entry->third_party_id > 0 ? strtoupper($receipt_entry->third_party->name) : '' }}</p>
                             </div>
                         </div>
                     </div>

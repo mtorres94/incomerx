@@ -518,6 +518,27 @@ textarea + i {
     border-radius: 0;
     margin-top: -10px;
 }
+.checkbox-label .col-md-3,
+.checkbox-label .col-md-4, 
+.checkbox-label .col-md-5,
+.checkbox-label .col-md-6,
+.checkbox-label .col-md-7,
+.checkbox-label .col-md-8,
+.checkbox-label .col-md-9,
+.checkbox-label .col-md-10,
+.checkbox-label .col-md-11 {
+    padding-left: 0;
+}
+.checkbox-container {
+    padding-top: 20px;
+}
+.checkbox-container .checkbox-primary {
+    margin-bottom: 0;
+}
+.checkbox-container .col-md-1 {
+    width: auto;
+    padding-right: 0;
+}
 label.checkbok span {
     margin-top: -2px;
     margin-left: 2px;
