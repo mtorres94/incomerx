@@ -151,15 +151,15 @@
                 <table class="table table-condensed">
                     <thead>
                     <tr>
+                        <th width="10%"><strong>TOTAL PIECES: </strong></th>
                         <th width="10%">{{ $pivot->receipt_entry->sum_pieces }}</th>
                         <th width="10%"></th>
                         <th width="10%"></th>
-                        <th width="10%">{{ $pivot->receipt_entry->sum_weight}}</th>
-                        <th width="10%">{{ $pivot->receipt_entry->sum_cubic}}</th>
+                        <th width="10%"><strong>TOTAL WEIGHT: </strong></th>
+                        <td width="15%">{{ $pivot->receipt_entry->sum_weight}}</td>
                         <td width="15%"></td>
-                        <td width="15%"></td>
-                        <td width="10%"></td>
-                        <td width="10%"></td>
+                        <td width="10%"><strong>TOTAL CUBIC: </strong></td>
+                        <td width="10%">{{ $pivot->receipt_entry->sum_cubic}}</td>
                         <td width="10%"></td>
                         <td width="5%"></td>
                     </tr>

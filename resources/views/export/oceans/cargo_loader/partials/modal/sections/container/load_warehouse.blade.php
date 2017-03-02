@@ -81,8 +81,8 @@
                     <div class="col-md-2">{!! Form::bsText(null,null, 'Cubic', 'pick_cubic', null, '') !!} </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-2">{!! Form::bsCheck('Autocheck', 'autocheck') !!}</div>
-                    <div class="col-md-3">{!! Form::bsCheck('Select / Deselect All', 'select_all') !!}</div>
+                    <div class="col-md-3">{!! Form::bsCheck('col-md-1', 'col-md-4','Autocheck', 'autocheck') !!}</div>
+                    <div class="col-md-3">{!! Form::bsCheck('col-md-1', 'col-md-7', 'Select / Deselect All', 'select_all') !!}</div>
 
                 </div>
             </div>

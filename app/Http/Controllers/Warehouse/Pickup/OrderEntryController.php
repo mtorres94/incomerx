@@ -68,7 +68,6 @@ class OrderEntryController extends Controller
             $order_entry['code'] = "PD-".$pd_number;
             $order_entry['user_create_id'] = Auth::user()->id;
             $order_entry['user_update_id'] = Auth::user()->id;
-
             $whr=OrderEntry::create($order_entry);
             OrderEntryPO::saveDetail($whr->id, $order_entry);
             OrderEntrySO::saveDetail($whr->id, $order_entry);

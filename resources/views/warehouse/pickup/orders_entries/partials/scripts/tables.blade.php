@@ -1221,7 +1221,7 @@
                     count = count + 1;
 
                 }
-                clearTable('items_details');
+                clearTableCondition('items_details');
             }
                 //===================
             }),
@@ -1339,7 +1339,7 @@
 
 
                 //Items
-                clearTable("items_details");
+                clearTableCondition("items_details");
                 var n = $("#items_details");
                         t = n.find("tbody");
                 var tr=  $("#items_warehouse_details tbody tr");

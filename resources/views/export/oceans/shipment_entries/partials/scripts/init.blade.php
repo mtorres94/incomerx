@@ -156,13 +156,6 @@
     });
 
 
-    $('#confirmed').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#spot_rate').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-
 
     if($("#date_today").val() == ''){
         initDate($("#date_today"), 0);

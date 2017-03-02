@@ -519,36 +519,7 @@
         }
     });
 
-    //===================================================
-    $('#vessel_yes').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
 
-    $('#vessel_no').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-
-    $('#collect_free').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#insurance').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#stand_by').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#partial').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#spot_rate').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#confirmed').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
-    $('#POD_info').change(function() {
-        ((this.checked)? $(this).val("1"): $(this).val("0"))
-    });
     $("#agent_commission").number(true);
     $("#container_temperature").number(true, 2);
     $("#container_max").number(true, 3);

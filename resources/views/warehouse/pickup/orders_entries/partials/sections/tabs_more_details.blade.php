@@ -6,7 +6,7 @@
                 <div class="form-horizontal">
                     <div class="pull-left" style="padding-bottom: 15px;">
                         <div class="btn-group" role="group" aria-label="...">
-                            <a type="button" class="btn btn-default btn-sm" id="btn-cargo" onclick="clearTable('items_details'),cleanModalFields('cargo-warehouse')" data-toggle="modal" data-target="#cargo-warehouse"><i class="fa fa-cube" aria-hidden="true"></i><span>Cargo</span></a>
+                            <a type="button" class="btn btn-default btn-sm" id="btn-cargo" onclick="clearTableCondition('items_details'),cleanModalFields('cargo-warehouse')" data-toggle="modal" data-target="#cargo-warehouse"><i class="fa fa-cube" aria-hidden="true"></i><span>Cargo</span></a>
                             <a type="button" class="btn btn-default btn-sm" id="btn-vehicle" onclick="cleanModalFields('vehicle-warehouse')" data-toggle="modal" data-target="#"><i class="fa fa-car" aria-hidden="true"></i><span>Vehicle</span></a>
                         </div>
                     </div>

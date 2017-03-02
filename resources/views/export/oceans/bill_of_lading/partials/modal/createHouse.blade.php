@@ -14,7 +14,7 @@
                     <thead>
                     <tr>
 
-                        <th width="3%" >{!! Form::bsCheck('', 'select_all') !!}</th>
+                        <th width="3%" ></th>
                         <th width="10%" >WHR /HBL #</th>
                         <th width="25%" >Description</th>
                         <th width="10%" >Pieces</th>
@@ -25,6 +25,9 @@
                     <tbody>
                     </tbody>
                 </table>
+                <div class="row">
+                    <div class="col-md-6">{!! Form::bsCheck('col-md-1', 'col-md-7', 'Select/ Deselect all', 'select_all') !!}</div>
+                </div>
 
             </div>
             <div class="modal-footer">

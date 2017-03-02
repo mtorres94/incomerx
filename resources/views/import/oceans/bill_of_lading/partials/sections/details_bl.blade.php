@@ -25,8 +25,8 @@
             <div class="col-md-6">{!! Form::bsText(null, null,'Type of Move', 'type_move', null, '') !!}</div>
 
                 <div class="col-md-6"><p><b> Containerized (Vessel Only)</b></p>
-                    <div class="col-md-4">{!! Form::bsCheck('Yes', 'vessel_yes') !!}</div>
-                    <div class="col-md-4">{!! Form::bsCheck('No', 'vessel_no') !!}</div>
+                    <div class="col-md-4">{!! Form::bsCheck('col-md-1', 'col-md-3','Yes', 'vessel_yes', (isset($bill_of_lading)? $bill_of_lading->vessel_yes : 'off')) !!}</div>
+                    <div class="col-md-4">{!! Form::bsCheck('col-md-1', 'col-md-3','No', 'vessel_no', (isset($bill_of_lading)? $bill_of_lading->vessel_no : 'off')) !!}</div>
                 </div>
         </div>
 </div>
