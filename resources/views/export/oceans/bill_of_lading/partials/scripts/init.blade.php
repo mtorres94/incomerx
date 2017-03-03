@@ -419,7 +419,7 @@
     $("#btn-load-houses").click(function () {
         clearTableCondition("load_warehouses");
         if( $("#bl_class").val() == '3'){
-            var id= $("#shipment_id").val() , x=0,  status= "{{ (isset($bill_of_lading)? 'E': 'N') }}";
+            var id = $("#shipment_id").val() , x=0,  status= "{{ (isset($bill_of_lading)? 'E': 'N') }}";
             $("#group_by").attr("disabled", true);
             $.ajax({
                 url:  "{{ route('bill_of_lading.get_details') }}",
@@ -429,7 +429,9 @@
                 success: function (e) {
                     x = 0;
                     if(e.length == 0){
-                        arrayEmpty();
+                        if (id != 0) {
+                            arrayEmpty();
+                        }
                     }else{
                         while (e[x].hbl_code != "") {
                             var r = $("#load_warehouses tbody tr").length + 1,
@@ -479,7 +481,9 @@
                 success: function (e) {
                     x = 0;
                     if(e.length == 0){
-                        arrayEmpty();
+                        if(id != 0){
+                            arrayEmpty();
+                        }
                     }else{
                         while (e[x].hbl_code != "") {
                             var r = $("#load_warehouses tbody tr").length + 1,
