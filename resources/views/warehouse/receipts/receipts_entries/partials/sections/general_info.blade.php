@@ -21,5 +21,6 @@
     <div class="row">
         <div class="col-md-3">{!! Form::bsComplete(null, null, 'PD Order #', 'pd_order_id', 'pd_order', null, null, 'P/D Orders...') !!}</div>
         <div class="col-md-3">{!! Form::bsComplete(null, null, 'PO #', 'po_number_id', 'po_number', null, null, 'PO Orders...') !!}</div>
+        <div class="checkbox-container">{!! Form::bsCheck('col-md-1', 'col-md-3', 'Is Hazardous?', 'is_hazardous', (isset($receipt_entry) ? $receipt_entry->is_hazardous : 'off')) !!}</div>
     </div>
 </fieldset>

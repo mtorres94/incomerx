@@ -22,7 +22,8 @@ class ReceiptEntry extends Model
         'hazardous_contact', 'hazardous_phone', 'commercial_inv', 'extra_length', 'pallets', 'packing_list', 'extra_width', 'improper_document',
         'heat_treated', 'extra_height', 'inbond', 'hazardous', 'extra_heavy', 'glass', 'haz_documents', 'driver_licenses', 'pieces_discrepancy',
         'hazardous_labels', 'fragile', 'weight_discrepancy', 'cargo_screened', 'ippc', 'ippc_number', 'marks', 'comments', 'unique_str',
-        'sum_pieces', 'sum_weight', 'sum_volume_weight', 'sum_cubic', 'user_create_id', 'user_update_id','cargo_loader_id', 'user_open_id', 'sum_bill', 'sum_profit', 'sum_cost', 'sum_profit_percent', 'bill_of_lading_id'
+        'sum_pieces', 'sum_weight', 'sum_volume_weight', 'sum_cubic', 'user_create_id', 'user_update_id','cargo_loader_id', 'user_open_id',
+        'sum_bill', 'sum_profit', 'sum_cost', 'sum_profit_percent', 'bill_of_lading_id', 'is_hazardous',
     ];
 
     public function getShipperAddressAttribute($value) {
@@ -31,6 +32,11 @@ class ReceiptEntry extends Model
 
     public function getConsigneeAddressAttribute($value) {
         return format_text($value);
+    }
+
+    public function setIsHazardousAttribute($value)
+    {
+        $this->attributes['is_hazardous'] = ($value == 'on') ? 1 : 0;
     }
 
     public function setCommercialInvAttribute($value)
@@ -126,6 +132,11 @@ class ReceiptEntry extends Model
     public function setIppcAttribute($value)
     {
         $this->attributes['ippc'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function getIsHazardousAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
     }
 
     public function getCommercialInvAttribute($value)
