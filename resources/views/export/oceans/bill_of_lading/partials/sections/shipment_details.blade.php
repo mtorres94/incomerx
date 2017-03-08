@@ -11,12 +11,12 @@
     </div>
     <div class="row">
             <div class="col-md-12">
-                {!! Form::bsComplete('col-md-3', 'col-md-9','Shipment # ', 'shipment_id', 'shipment_code', Request::get('term'),((isset($bill_of_lading) and $bill_of_lading->shipment_id> 0) ? $bill_of_lading->shipment->code : null), 'Shipment #') !!}
+                {!! Form::bsSelect('col-md-3', 'col-md-9','Shipment # ', 'shipment_id', Sass\EoShipmentEntry::all()->sortByDesc('id')->where('status', 'O')->lists('code', 'id')->take(10), 'FILE#', 'body', 'false') !!}
             </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            {!! Form::bsComplete('col-md-3', 'col-md-9','Cargo Loader # ', 'cargo_loader_id', 'cargo_loader_code', Request::get('term'),((isset($bill_of_lading) and $bill_of_lading->cargo_loader_id> 0) ? $bill_of_lading->cargo_loader->code : null), 'Cargo loader #') !!}
+            {!! Form::bsSelect('col-md-3', 'col-md-9','Cargo Loader # ', 'cargo_loader_id', Sass\EoCargoLoader::all()->sortByDesc('id')->where('cargo_loader_status', 'O')->lists('code', 'id')->take(10), 'CARGO LOADER#', 'body', 'false') !!}
         </div>
     </div>
     <div class="row">

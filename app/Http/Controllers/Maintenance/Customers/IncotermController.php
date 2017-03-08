@@ -1,7 +1,7 @@
 <?php
 
 namespace Sass\Http\Controllers\Maintenance\Customers;
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Sass\DataTables\Maintenance\Customers\IncotermDataTable;
 use Sass\Http\Controllers\Controller;
@@ -28,7 +28,8 @@ class IncotermController extends Controller
      */
     public function create()
     {
-        return view('maintenance.customers.incoterms.create');
+        $user_open_id = Auth::user()->id;
+        return view('maintenance.customers.incoterms.create', compact('user_open_id'));
     }
 
     /**
@@ -42,8 +43,9 @@ class IncotermController extends Controller
         $incoterm = $request->all();
         $incoterm['user_create_id'] = Auth::user()->id;
         $incoterm['user_update_id'] = Auth::user()->id;
-        Incoterm::create($incoterm);
-        return redirect()->route('maintenance.customers.incoterms.index');
+        $incoterm = Incoterm::create($incoterm);
+        $id= $incoterm->id;
+        return redirect()->route('maintenance.customers.incoterms.edit', [$id]);
     }
 
     /**
@@ -67,7 +69,8 @@ class IncotermController extends Controller
     public function edit($id)
     {
         $incoterm = Incoterm::findOrFail($id);
-        return view('maintenance.customers.incoterms.edit', compact('incoterm'));
+        $user_open_id =  ($incoterm->user_open_id == 0) ? Auth::user()->id : $incoterm->user_open_id;
+        return view('maintenance.customers.incoterms.edit', compact('incoterm', 'user_open_id'));
     }
 
     /**
@@ -83,7 +86,7 @@ class IncotermController extends Controller
         $incoterm['user_update_id'] = Auth::user()->id;
         $incoterm->fill($request->all());
         $incoterm->save();
-        return redirect()->route('maintenance.customers.incoterms.index');
+        return redirect()->route('maintenance.customers.incoterms.edit', [$id]);
     }
 
     /**
@@ -96,5 +99,33 @@ class IncotermController extends Controller
     {
         $incoterm = Incoterm::find($id);
         $incoterm->delete();
+    }
+
+
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+        if($id > 0){
+            $type = Incoterm::findOrFail($id);
+            if (Auth::user()->id == $type->user_open_id)
+            {
+
+                $type = self::updateCloseStatus($type);
+                $type->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $type = Incoterm::findOrFail($data['id']);
+        return [
+            'id'   => $type->user_open_id,
+            'name' => $type->user_open_id > 0 ? $type->user_open->name : '',
+        ];
     }
 }

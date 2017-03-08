@@ -49,6 +49,8 @@ class BillOfLadingDataTable extends CustomDataTable
             ->leftJoin('mst_customers AS c3', 'eo_bills_of_lading.agent_id', '=', 'c3.id')
             ->leftJoin('mst_customers AS c4', 'eo_bills_of_lading.third_id', '=', 'c4.id')
             ->leftJoin('eo_shipment_entries AS f', 'eo_bills_of_lading.shipment_id', '=', 'f.id')
+            ->orderBy('eo_bills_of_lading.bl_date', 'desc')
+            ->orderBy('eo_bills_of_lading.code', 'desc')
             ->select(['eo_bills_of_lading.id','eo_bills_of_lading.code','eo_bills_of_lading.bl_class', 'eo_bills_of_lading.bl_type','eo_bills_of_lading.booking_code','eo_bills_of_lading.bl_date','eo_bills_of_lading.bl_status', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS third_party_name', 'f.code AS shipment_code']);
         return $this->applyScopes($query);
     }

@@ -123,7 +123,7 @@
             </div>
         </div>
 
-    <div class="row row padding">
+    <div class="row">
         <div class="col-xs-12">
             <table class="table table-condensed">
                 <thead>
@@ -182,12 +182,15 @@
         <div class="col-xs-12">
             <table class="table table-condensed">
                 <thead>
-                <th  width="15%">Code</th>
-                <th  width="45%">Description</th>
-                <th  width="10%">Qty</th>
-                <th  width="10%">Unit</th>
-                <th  width="10%">Rate</th>
-                <th  width="10%">Amount</th>
+                <tr>
+                    <th  width="15%">Code</th>
+                    <th  width="45%">Description</th>
+                    <th  width="10%">Qty</th>
+                    <th  width="10%">Unit</th>
+                    <th  width="10%">Rate</th>
+                    <th  width="10%">Amount</th>
+                </tr>
+
                 </thead>
                 <tbody>
                 @foreach($quotes->charge as $detail)

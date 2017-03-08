@@ -10,6 +10,7 @@
 @section('scripts')
     {!! $dataTable->scripts() !!}
     <script>
+        preventOpen($('#dataTableBuilder'), '{{ route('payment_term.open') }}', '{{ \Auth::user()->id }}');
         ajaxDelete($('#dataTableBuilder'));
     </script>
 @stop

@@ -18,6 +18,7 @@
                 <div class="col-md-4">
                     {!! Form::bsCheck('col-md-1', 'col-md-7', 'Spot Rate', 'spot_rate', (isset($shipment_entry)? $shipment_entry->spot_rate : 'off')) !!}</div>
     </div>
+
     <div class="row"> <div class="col-md-12">{!! Form::bsSelect('col-md-3', 'col-md-9', 'Service', 'service_id', Sass\Service::all()->lists('name', 'id'), 'Services', 'body') !!} </div></div>
     <div class="row"> <div class="col-md-12">{!! Form::bsComplete('col-md-3', 'col-md-9', 'State of Origin', 'state_of_origin_id', 'state_of_origin_name', Request::get('term'), ((isset($shipment_entry) and $shipment_entry->state_of_origin_id > 0) ? $shipment_entry->state_of_origin->name : null), 'State') !!} </div></div>
     <div class="row"><div class="col-md-12">{!! Form::bsComplete('col-md-3', 'col-md-9', 'Forwarding Agent', 'forwarding_agent_id', 'forwarding_agent_name', Request::get('term'), ((isset($shipment_entry) and $shipment_entry->forwarding_agent_id > 0) ? $shipment_entry->forwarding_agent->name : null), 'Customers') !!} </div></div>

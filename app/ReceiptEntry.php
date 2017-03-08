@@ -89,6 +89,11 @@ class ReceiptEntry extends Model
         $this->attributes['extra_heavy'] = ($value == 'on') ? 1 : 0;
     }
 
+    public function setExtraHeightAttribute($value)
+    {
+        $this->attributes['extra_height'] = ($value == 'on') ? 1 : 0;
+    }
+
     public function setGlassAttribute($value)
     {
         $this->attributes['glass'] = ($value == 'on') ? 1 : 0;
@@ -189,6 +194,11 @@ class ReceiptEntry extends Model
         return ($value == 1) ? 'on' : 'off';
     }
 
+    public function getExtraHeightAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
     public function getGlassAttribute($value)
     {
         return ($value == 1) ? 'on' : 'off';
@@ -239,12 +249,12 @@ class ReceiptEntry extends Model
     {
         $i = 0;
         $a = 0;
-        ReceiptEntry::where('cargo_loader_id', '=', $id)->update(['cargo_loader_id' => "0"]);
+        ReceiptEntry::where('cargo_loader_id', '=', $id)->update(['cargo_loader_id' => "0", 'status' => 'O']);
         if(isset($data['hidden_receipt_entry'])){
             while ($a < count($data['hidden_receipt_entry'])) {
                 if (isset($data['hidden_receipt_entry'][$i])) {
                     if ($data['hidden_receipt_entry'][$i] > 0) {
-                        ReceiptEntry::where('id', '=', $data['hidden_receipt_entry'][$i])->update(['cargo_loader_id' => $id]);
+                        ReceiptEntry::where('id', '=', $data['hidden_receipt_entry'][$i])->update(['cargo_loader_id' => $id, 'status' =>'P']);
                         $a++;
                     }
                 }

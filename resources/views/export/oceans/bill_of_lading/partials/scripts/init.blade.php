@@ -306,22 +306,138 @@
     $("#bl_class").change(function(){
        if ($("#bl_class").val() == '3'){
            $("#shipment_id").attr("readonly", false);
-           $("#shipment_code").attr("readonly", false);
            $("#cargo_loader_id").val(0).attr("readonly", true);
-           $("#cargo_loader_code").val("").attr("readonly", true);
 
        }else{
-           $("#shipment_id").val(0).attr("readonly", true);
-           $("#shipment_code").val("").attr("readonly", true);
+           $("#shipment_id").val("").attr("readonly", true);
            $("#cargo_loader_id").attr("readonly", false);
-           $("#cargo_loader_code").attr("readonly", false);
        }
     });
     $("#bl_class").val({{ (isset($bill_of_lading) ? $bill_of_lading->bl_class:  "3" ) }}).change();
 
     //===================================================
+    //DEAILS FROM SHIPMENT ENTRY (search by $id)
+    function autocompleteShipment() {
+        var id = $("#shipment_id").val(), x = 0;
+        $("#shipment_code").val($("#shipment_id option:selected").text());
+        $.ajax({
+            url: "{{ route('shipment_entries.autocomplete') }}",
+            data: {id: id},
+            type: 'GET',
+
+            success: function (e) {
+                $("#shipment_type").val(e[0].type).change(),
+                    $("#bl_status").val(e[0].bl_status).change(),
+                    $("#vessel_name").val(e[0].vessel),
+                    $("#voyage_name").val(e[0].voyage),
+                    $("#carrier_id").val(e[0].carrier_id),
+                    $("#carrier_name").val(e[0].carrier_name),
+                    $("#departure_date").val(e[0].departure),
+                    $("#arrival_date").val(e[0].arrival),
+                    $("#booking_code").val(e[0].booking_code),
+
+                    $("#port_loading_id").val(e[0].loading_port_id),
+                    $("#port_loading_name").val(e[0].loading_port_name),
+                    $("#port_unloading_id").val(e[0].unloading_port_id),
+                    $("#port_unloading_name").val(e[0].unloading_port_name),
+                    $("#place_receipt_id").val(e[0].location_origin_id),
+                    $("#place_receipt_name").val(e[0].location_origin_name),
+                    $("#place_delivery_id").val(e[0].location_destination_id),
+                    $("#place_delivery_name").val(e[0].location_destination_name),
+                    $("#place_receipt").val(e[0].location_origin_name),
+                    $("#place_delivery").val(e[0].location_destination_name),
+                    $("#port_loading").val(e[0].loading_port_name),
+                    $("#foreign_port").val(e[0].unloading_port_name),
+
+                    $("#shipper_id").val(e[0].shipper_id),
+                    $("#shipper_name").val(e[0].shipper_name),
+                    $("#shipper_address").val(e[0].shipper_address),
+                    $("#shipper_city").val(e[0].shipper_city),
+                    $("#shipper_phone").val(e[0].shipper_phone),
+                    $("#shipper_state_id").val(e[0].shipper_state_id),
+                    $("#shipper_state_name").val(e[0].shipper_state_name),
+                    $("#shipper_zip_code_id").val(e[0].shipper_zip_code_id),
+                    $("#shipper_zip_code_code").val(e[0].shipper_zip_code),
+
+                    $("#consignee_id").val(e[0].consignee_id),
+                    $("#consignee_name").val(e[0].consignee_name),
+                    $("#consignee_address").val(e[0].consignee_address),
+                    $("#consignee_city").val(e[0].consignee_city),
+                    $("#consignee_phone").val(e[0].consignee_phone),
+                    $("#consignee_state_id").val(e[0].consignee_state_id),
+                    $("#consignee_state_name").val(e[0].consignee_state_name),
+                    $("#consignee_zip_code_id").val(e[0].consignee_zip_code_id),
+                    $("#consignee_zip_code_code").val(e[0].consignee_zip_code),
+
+                    $("#notify_id").val(e[0].notify_id),
+                    $("#notify_name").val(e[0].notify_name),
+                    $("#notify_address").val(e[0].notify_address),
+                    $("#notify_city").val(e[0].notify_city),
+                    $("#notify_phone").val(e[0].notify_phone),
+                    $("#notify_state_id").val(e[0].notify_state_id),
+                    $("#notify_state_name").val(e[0].notify_state_name),
+                    $("#notify_zip_code_id").val(e[0].notify_zip_code_id),
+                    $("#notify_zip_code_code").val(e[0].notify_zip_code),
+
+                    $("#agent_name").val(e[0].agent_name),
+                    $("#agent_id").val(e[0].agent_id),
+                    $("#agent_state_id").val(e[0].agent_state_id),
+                    $("#agent_zip_code_id").val(e[0].agent_zip_code_id),
+                    $("#agent_country_id").val(e[0].agent_country_id),
+                    $("#agent_country_name").val(e[0].agent_country),
+                    $("#agent_state_name").val(e[0].agent_state_name),
+                    $("#agent_zip_code").val(e[0].agent_zip_code),
+                    $("#agent_phone").val(e[0].agent_phone),
+                    $("#agent_fax").val(e[0].agent_fax),
+                    $("#agent_contact").val(e[0].agent_contact),
+                    $("#agent_commission").val(e[0].agent_commission),
+                    $("#spotting_amount").val(e[0].agent_amount),
+                    $("#forwarding_agent_id").val(e[0].forwarding_agent_id),
+                    $("#forwarding_agent_name").val(e[0].forwarding_agent_name)
+            }
+        });
+    };
+    //===================================================
+//DETAILS FROM CARGO LOADER search by $id
     //CONTAINER DETAILS
-    $("#shipment_code").change(function(){
+    $("#cargo_loader_id").change(function() {
+        var id = $("#cargo_loader_id").val(), x = 0;
+        $.ajax({
+            url: "{{ route('eo_cargo_loader.autocomplete') }}",
+            data: {id: id},
+            type: 'GET',
+            success: function (e) {
+                $("#shipment_id").val(e[0].shipment_id).change();
+
+                $("#bl_status").val(e[0].bl_status).change();
+                    $("#vessel_name").val(e[0].vessel);
+                    $("#voyage_name").val(e[0].voyage);
+                    $("#carrier_id").val(e[0].carrier_id);
+                    $("#carrier_name").val(e[0].carrier_name);
+                    $("#departure_date").val(e[0].departure);
+                    $("#arrival_date").val(e[0].arrival);
+                    $("#booking_code").val(e[0].booking_code);
+
+                    $("#port_loading_id").val(e[0].loading_port_id);
+                    $("#port_loading_name").val(e[0].loading_port_name);
+                    $("#port_unloading_id").val(e[0].unloading_port_id);
+                    $("#port_unloading_name").val(e[0].unloading_port_name);
+                    $("#place_receipt_id").val(e[0].location_origin_id);
+                    $("#place_receipt_name").val(e[0].location_origin_name);
+                    $("#place_delivery_id").val(e[0].location_destination_id);
+                    $("#place_delivery_name").val(e[0].location_destination_name);
+                    $("#place_receipt").val(e[0].location_origin_name);
+                    $("#place_delivery").val(e[0].location_destination_name);
+                    $("#port_loading").val(e[0].loading_port_name);
+                    $("#foreign_port").val(e[0].unloading_port_name);
+                $("#shipment_code").val($("#shipment_id option:selected").text());
+            }
+        });
+    });
+
+
+    //CONTAINER DETAILS
+    $("#shipment_id").change(function(){
         var id = $("#shipment_id").val(), x = 0;
         $.ajax({
             url: "{{ route('shipment_entries.get') }}",
@@ -405,6 +521,7 @@
 
             }
         });
+        autocompleteShipment();
     });
 
     function arrayEmpty(){
@@ -470,12 +587,11 @@
                 }
             });
         }else{
-            var id= $("#cargo_loader_id").val(),  status= "{{ (isset($bill_of_lading)? 'E': 'N') }}", x=0;
-
+            var id= $("#cargo_loader_id").val(), bl_id = '{{ isset($bill_of_lading) ? $bill_of_lading->id : 0 }}', status= "{{ (isset($bill_of_lading)? 'E': 'N') }}", x=0;
             $("#group_by").attr("disabled", false);
             $.ajax({
                 url:  "{{ route('eo_cargo_loader.get_warehouses') }}",
-                data: {id: id, status: status},
+                data: {bl_id: bl_id, id: id, status: status},
                 type: 'GET',
 
                 success: function (e) {

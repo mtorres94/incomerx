@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>EOB- {{ strtoupper($shipment_entry->booking_code) }}</title>
+    <title>FILE- {{ strtoupper($shipment_entry->code) }}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +24,9 @@
 </head>
 
 <body>
+@foreach($shipment_entry->booking as $booking)
+
+
 <div class="container-fluid">
     <div class="row row-padding">
         <div class="col-xs-12">
@@ -67,7 +70,7 @@
     </div>
     <div class="row" align="center">
         <div class="col-xs-12">
-            <h5>BOOKING # {{ strtoupper($shipment_entry->booking_code) }}</h5>
+            <h5>BOOKING # {{ strtoupper($booking->code) }}</h5>
         </div>
 
     </div>
@@ -146,7 +149,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($shipment_entry->container as $detail)
+                @foreach($booking->container as $detail)
                     <tr>
                         <td>{{ ($detail->equipment_type_id >0 ? $detail->equipment_type->code : "") }}</td>
                         <td>{{ strtoupper($detail->container_number) }}</td>
@@ -183,8 +186,8 @@
                     <td>{{ ($shipment_entry->total_unit_weight == "L") ? "LBS" : "KGS" }}</td>
                     <td>{{ ($shipment_entry->total_unit_weight == 'K' ? round($shipment_entry->total_weight  , 3) : round($shipment_entry->total_weight * 0.453592, 3) ) }} Kgs</td>
                     <td>{{ ($shipment_entry->total_unit_weight == 'K' ? round($shipment_entry->total_cubic , 3) : round($shipment_entry->total_cubic * 0.453592, 3) ) }} CBM</td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ $shipment_entry->total_cargo_type_id > 0 ?  $shipment_entry->total_cargo_type->code : "" }}</td>
+                    <td>{{ $shipment_entry->total_commodity_name }}</td>
                 </tr>
                 <tr>
                     <td></td>
@@ -195,9 +198,29 @@
                     <td></td>
                     <td></td>
                 </tr>
-
-
-
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <td><strong>HAZARDOUS</strong></td>
+                        <td><strong>DESCRIPTION</strong></td>
+                        <td><strong>NOTES</strong></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($booking->hazardous as $detail)
+                        <tr>
+                            <td>{{ strtoupper($detail->hzd_uns_id > 0 ?  $detail->hzd_uns->code : "")}}</td>
+                            <td>{{ strtoupper($detail->hzd_uns_desc ) }}</td>
+                            <td>{{ strtoupper($detail->hzd_uns_note ) }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -226,8 +249,25 @@
             </table>
         </div>
     </div>
-
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table header-table">
+                <tr>
+                    <td colspan="5"><strong>Received in Good Order</strong></td>
+                </tr>
+                <tr>
+                    <td width="5%"><strong>By: </strong></td>
+                    <td width="30%" style="border-bottom: 1px solid #000"></td>
+                    <td width="10%" align="right"><strong>Date: </strong></td>
+                    <td width="15%" style="border-bottom: 1px solid #000"></td>
+                    <td align="right" width="40%"><strong>DELIVERY CLERK: DELIVER TO CARRIER SHOWN ABOVE</strong></td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
+@endforeach
 </body>
 
 </html>

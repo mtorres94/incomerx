@@ -30,7 +30,8 @@ class IdentificationTypeController extends Controller
      */
     public function create()
     {
-        return view('maintenance.customers.identification_types.create');
+        $user_open_id = Auth::user()->id;
+        return view('maintenance.customers.identification_types.create', compact('user_open_id'));
     }
 
     /**
@@ -44,8 +45,9 @@ class IdentificationTypeController extends Controller
         $identification_type = $request->all();
         $identification_type['user_create_id'] = Auth::user()->id;
         $identification_type['user_update_id'] = Auth::user()->id;
-        IdentificationType::create($identification_type);
-        return redirect()->route('maintenance.customers.identification_types.index');
+        $type= IdentificationType::create($identification_type);
+        $id= $type->id;
+        return redirect()->route('maintenance.customers.identification_types.edit', [$id]);
     }
 
     /**
@@ -69,7 +71,12 @@ class IdentificationTypeController extends Controller
     public function edit($id)
     {
         $identification_type = IdentificationType::findOrFail($id);
-        return view('maintenance.customers.identification_types.edit', compact('identification_type'));
+        $user_open_id =  ($identification_type->user_open_id == 0) ? Auth::user()->id : $identification_type->user_open_id;
+
+        $identification_type = self::updateOpenStatus($identification_type);
+        $identification_type->save();
+
+        return view('maintenance.customers.identification_types.edit', compact('identification_type', 'user_open_id'));
     }
 
     /**
@@ -85,7 +92,7 @@ class IdentificationTypeController extends Controller
         $identification_type['user_update_id'] = Auth::user()->id;
         $identification_type->fill($request->all());
         $identification_type->save();
-        return redirect()->route('maintenance.customers.identification_types.index');
+        return redirect()->route('maintenance.customers.identification_types.edit', [$id]);
     }
 
     /**
@@ -98,5 +105,32 @@ class IdentificationTypeController extends Controller
     {
         $identification_type = IdentificationType::find($id);
         $identification_type->delete();
+    }
+
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+        if($id > 0){
+            $type = IdentificationType::findOrFail($id);
+            if (Auth::user()->id == $type->user_open_id)
+            {
+
+                $type = self::updateCloseStatus($type);
+                $type->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $type = IdentificationType::findOrFail($data['id']);
+        return [
+            'id'   => $type->user_open_id,
+            'name' => $type->user_open_id > 0 ? $type->user_open->name : '',
+        ];
     }
 }

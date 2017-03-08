@@ -20,9 +20,7 @@
 
 
     $("#container-save").click(function() {
-        if($("#equipment_type_code").val()==''){
-            $("#equipment_type_code").focus();
-        }else {
+
             var t = $("#container_details tbody tr").length + 1,
                     _ = ($("#container_details tbody tr").length == 0 ? 1 : parseInt($("#container_details tbody tr")[$("#container_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
 
@@ -208,7 +206,7 @@
 
             }
             clearTableCondition('hazardous-details');
-        }
+
 
     }),$("#container_details").on("click", "a.btn-danger", function() {
         var td = $(this);
@@ -398,9 +396,7 @@
     });
 
     $("#uns-save").click(function() {
-        if($("#hazardous_uns_code").val()== ''){
-            $("#hazardous_uns_code").focus()
-        }else{
+
             var r = ($('#hazardous_details tbody tr').length + 1),
                     _ =  ($("#hazardous_details tbody tr").length == 0 ? 1 : parseInt($("#hazardous_details tbody tr")[$("#hazardous_details tbody tr").length - 1].childNodes[1].textContent) + 1 ),
                     l = $("#hazardous_uns_line").val(),
@@ -418,7 +414,7 @@
                     .append(createTableContent('hazardous_uns_desc', s, false, c))
                     .append(createTableContent('hazardous_uns_note', e, true, c))
                     .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p), cleanModalFields('UNsModal'), $("#hazardous_uns_code").focus()
-        }
+
 
     }),
             $('#hazardous_details').on('click', 'a.btn-danger', function() {
@@ -444,5 +440,68 @@
         });
     });
 
+    //===================
+    $("#booking_save").click(function() {
+        var r = ($('#booking_details tbody tr').length + 1),
+            _ =  ($("#booking_details tbody tr").length == 0 ? 1 : parseInt($("#booking_details tbody tr")[$("#booking_details tbody tr").length - 1].childNodes[1].textContent) + 1 ),
+            l = $("#booking_line").val(),
+            c = (0 == l ? _ : l)-1,
+            b1= $("#tmp_booking_code").val(),
+            b2 = '{{(isset($shipment_entry)? $shipment_entry->id : "") }}',
+            b3 = '{{ isset($shipment_entry) ? $shipment_entry->code : ""}}',
+            n = $("#booking_details"),
+            t = n.find("tbody"),
+            p = $("<tr id=" + (0==l? _ : l) + ">");
+        p.append(createTableContent('line', (0==l? _ : l), true, c))
+            .append(createTableContent('booking_code', b1, false, c))
+            .append(createTableContent('shipment_id', b2, true, c))
+            .append(createTableContent('shipment_code', b3, false, c))
+            .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p); cleanModalFields('BookingModal');   $("#tmp_shipment_id").val('{{ (isset($shipment_entry)? $shipment_entry->id : "") }}'); $("#tmp_shipment_code").val('{{ isset($shipment_entry) ? $shipment_entry->code : "" }}'); $("#tmp_booking_code").focus()
+    }),
+        $('#booking_details').on('click', 'a.btn-danger', function() {
+            preventDelete($(this));
+        }), $("#booking_details").on("click", "a.btn-default", function() {
+        removeEmptyNodes('booking_details');
+        var t = $(this).closest("tr"),
+            b1 = t[0].childNodes[0].textContent,
+            b2 = t[0].childNodes[1].textContent,
+            b3 = t[0].childNodes[2].textContent,
+            b4 = t[0].childNodes[3].textContent;
+        $('#booking_line').val(b1), $("#tmp_booking_code").val(b2),  $("#tmp_shipment_id").val(b3), $("#tmp_shipment_code").val(b4); $("#BookingModal").modal("show"); $("#tmp_booking_code").focus()
+    });
 
+
+    $("#btn_booking_details").click( function(){
+        $("#tmp_shipment_id").val('{{ (isset($shipment_entry)? $shipment_entry->id : "") }}');
+        $("#tmp_shipment_code").val('{{ isset($shipment_entry) ? $shipment_entry->code : "" }}').attr("readonly", true);
+    });
+
+    $("#btn_booking").click(function() {
+        var tr = $("#booking_details tbody"),
+            t = $("#shipment_booking tbody tr");
+        for (var x =0; x < t.length; x++){
+                var p = $("<tr id=" + (x +1) + ">");
+                p.append(createTableContent('line', (x +1), true, x))
+                    .append(createTableContent('booking_code', t[x].childNodes[1].textContent, false, x))
+                    .append(createTableContent('shipment_id', t[x].childNodes[2].textContent, true, x))
+                    .append(createTableContent('shipment_code', t[x].childNodes[3].textContent, false, x))
+                    .append(createTableBtns());  tr.append(p);
+
+        }
+    });
+
+    $("#booking_details_save").click(function() {
+        clearTableCondition("shipment_booking");
+        var tr = $('#shipment_booking tbody'),
+            t = $("#booking_details tbody tr");
+        for (var x =0; x < t.length; x++){
+            var p = $("<tr id=" + (x +1) + ">");
+            p.append(createTableContent('line', (x +1), true, x))
+                .append(createTableContent('booking_code', t[x].childNodes[1].textContent, false, x))
+                .append(createTableContent('shipment_id', t[x].childNodes[2].textContent, true, x))
+                .append(createTableContent('shipment_code', t[x].childNodes[3].textContent, false, x))
+                .append(createTableBtns());  tr.append(p);
+        }
+        $("#BookingDetails").modal("hide");
+    });
 </script>

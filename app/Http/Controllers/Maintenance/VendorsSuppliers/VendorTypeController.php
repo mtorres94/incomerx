@@ -29,7 +29,8 @@ class VendorTypeController extends Controller
      */
     public function create()
     {
-        return view('maintenance.vendors_suppliers.vendor_types.create');
+        $user_open_id = Auth::user()->id;
+        return view('maintenance.vendors_suppliers.vendor_types.create', 'user_open_id');
     }
 
     /**
@@ -43,8 +44,9 @@ class VendorTypeController extends Controller
         $vendor_type = $request->all();
         $vendor_type['user_create_id'] = Auth::user()->id;
         $vendor_type['user_update_id'] = Auth::user()->id;
-        VendorType::create($vendor_type);
-        return redirect()->route('maintenance.vendors_suppliers.vendor_types.index');
+        $vendor= VendorType::create($vendor_type);
+        $id= $vendor->id;
+        return redirect()->route('maintenance.vendors_suppliers.vendor_types.edit', compact('id'));
     }
 
     /**
@@ -68,7 +70,8 @@ class VendorTypeController extends Controller
     public function edit($id)
     {
         $vendor_type = VendorType::findOrFail($id);
-        return view('maintenance.vendors_suppliers.vendor_types.edit', compact('vendor_type'));
+        $user_open_id =  ($vendor_type->user_open_id == 0) ? Auth::user()->id : $vendor_type->user_open_id;
+        return view('maintenance.vendors_suppliers.vendor_types.edit', compact('vendor_type', 'user_open_id'));
     }
 
     /**
@@ -84,7 +87,7 @@ class VendorTypeController extends Controller
         $vendor_type['user_update_id'] = Auth::user()->id;
         $vendor_type->fill($request->all());
         $vendor_type->save();
-        return redirect()->route('maintenance.vendors_suppliers.vendor_types.index');
+        return redirect()->route('maintenance.vendors_suppliers.vendor_types.edit', [$id]);
     }
 
     /**
@@ -97,5 +100,30 @@ class VendorTypeController extends Controller
     {
         $vendor_type = VendorType::find($id);
         $vendor_type->delete();
+    }
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+        if($id > 0){
+            $type = VendorType::findOrFail($id);
+            if (Auth::user()->id == $type->user_open_id)
+            {
+                $type = self::updateCloseStatus($type);
+                $type->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $type = VendorType::findOrFail($data['id']);
+        return [
+            'id'   => $type->user_open_id,
+            'name' => $type->user_open_id > 0 ? $type->user_open->name : '',
+        ];
     }
 }

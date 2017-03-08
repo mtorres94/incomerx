@@ -131,11 +131,13 @@
         <div class="col-xs-12">
             <table class="table table-condensed">
                 <thead>
-                <th width="30%">MARKS / NUMBERS</th>
-                <th width="10%">PCS</th>
-                <th width="30%">DESCRIPTION OF COMMODITIES</th>
-                <th width="15%">WEIGHT</th>
-                <th width="15%">CUBIC</th>
+                <tr>
+                    <th width="30%">MARKS / NUMBERS</th>
+                    <th width="10%">PCS</th>
+                    <th width="30%">DESCRIPTION OF COMMODITIES</th>
+                    <th width="15%">WEIGHT</th>
+                    <th width="15%">CUBIC</th>
+                </tr>
                 </thead>
                 <tbody>
                 @foreach($bill_of_lading->cargo as $detail)
@@ -156,9 +158,7 @@
     <div class="row">
         <div class="col-xs-12">
             <table class="table table-condensed">
-
                 <tbody>
-
                 <tr>
                     <td width="30%"><strong>TOTALS: </strong></td>
                     <td width="10%">{{ $bill_of_lading->total_pieces }}</td>
@@ -173,7 +173,6 @@
                     <td width="15%">{{ $bill_of_lading->total_weight_lbs}} Lbs</td>
                     <td width="15%">{{ $bill_of_lading->total_cubic_cft}} Cft</td>
                 </tr>
-
                 </tbody>
             </table>
         </div>

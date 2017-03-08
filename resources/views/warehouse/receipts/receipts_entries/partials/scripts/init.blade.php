@@ -410,6 +410,7 @@
     removeEmptyNodes('hazardous-details');
     removeEmptyNodes('warehouse-details');
     removeEmptyNodes('charge-details');
+    removeEmptyNodes('shipping_references');
 
     calculate_warehouse_details();
 

@@ -3,7 +3,7 @@
         <legend>General info</legend>
 
     </div>
-
+    {!! Form::hidden('shipment_code', ((isset($bill_of_lading) and ($bill_of_lading->shipment_id > 0))? $bill_of_lading->shipment->id : ""), ['id' => 'shipment_code', 'class' => 'form-control input-sm']) !!}
 
     <div class="row">
         <div class="col-md-1">{!! Form::bsSelect(null, null, ' BL Class', 'bl_class', array(

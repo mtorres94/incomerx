@@ -12,7 +12,7 @@
         0 == e && $(this).val("")
     });
 
-
+/*
 
     $("#shipment_code").marcoPolo({url:"{{ route('shipment_entries.autocomplete') }}",formatItem:function(e,o){return e.code},
         selected:{
@@ -166,7 +166,7 @@
         $("#shipper_id").val(""),$("#shipper_name").val(""),$("#shipper_address").val(""),$("#shipper_city").val(""),$("#shipper_phone").val(""),$("#shipper_state_id").val(""),$("#shipper_state_name").val(""),$("#shipper_zip_code_id").val(""),$("#shipper_zip_code_code").val(""),
         $("#consignee_id").val(""),$("#consignee_name").val(""),$("#consignee_address").val(""),$("#consignee_city").val(""),$("#consignee_phone").val(""),$("#consignee_state_id").val(""),$("#consignee_state_name").val(""),$("#consignee_zip_code_id").val(""),$("#consignee_zip_code_code").val(""), $("#notify_id").val(""),$("#notify_name").val(""),$("#notify_address").val(""),$("#notify_city").val(""),$("#notify_phone").val(""),$("#notify_state_id").val(""),$("#notify_state_name").val(""),$("#notify_zip_code_id").val(""),$("#notify_zip_code_code").val(""),
         $("#agent_name").val(""),$("#agent_id").val(""),$("#agent_state_id").val(""),$("#agent_zip_code_id").val(""),$("#agent_country_id").val(""),$("#agent_country_name").val(""),$("#agent_state_name").val(""),$("#agent_zip_code").val(""),$("#agent_phone").val(""),$("#agent_fax").val(""),$("#agent_contact").val(""),$("#agent_commission").val(""),$("#spotting_amount").val(""),$("#forwarding_agent_id").val(""),$("#forwarding_agent_name").val(""))
-    });
+    });*//
 
         $("#port_loading_name").marcoPolo({url:"{{ route('ocean_ports.autocomplete') }}",formatItem:function(e,o){return e.name}, selected:{
             id:'{{ (isset($bill_of_lading)? $bill_of_lading->port_loading_id : "") }}',

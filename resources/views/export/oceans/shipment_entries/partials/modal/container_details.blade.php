@@ -14,7 +14,7 @@
                 {!! Form::hidden('container_line', null, ['id' => 'container_line', 'class' => 'form-control input-sm']) !!}
                 {!! Form::hidden('equipment_type_code', null, ['id' => 'equipment_type_code', 'class' => 'form-control input-sm']) !!}
 
-                <div class="row">
+                <!--<div class="row">
                     <div class="col-md-3">{!! Form::bsSelect(null, null, 'Equip. Type', 'equipment_type_id', Sass\CargoType::all()->lists('code', 'id'), 'TYPE') !!}</div>
                     <div class="col-md-3">{!! Form::bsText(null, null, 'Equip./Container #', 'container_number', null, '') !!}</div>
                     <div class="col-md-3">{!! Form::bsText(null, null, 'Seal #1', 'container_seal_number', null, '') !!}</div>
@@ -31,7 +31,7 @@
 
                     <div class="col-md-3">{!! Form::bsDate(null, null, 'Spotting date', 'container_spotting_date', null, '') !!}</div>
                     <div class="col-md-3">{!! Form::bsDate(null, null, 'Pull Date', 'container_pull_date', null, '') !!}</div>
-                </div>
+                </div>-->
 
                 <div class="easyui-tabs" id="container_tabs">
                     <div title="Drayage/ Reefer">

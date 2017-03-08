@@ -97,6 +97,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::resource('step_by_step', 'EoStepByStepController');
             Route::resource('quotes', 'EoQuotesController');
 
+
         });
     });
 

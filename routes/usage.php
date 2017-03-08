@@ -12,6 +12,17 @@
 */
 
 Route::group(['middleware' => ['web']], function () {
+    Route::group(['namespace' => 'Maintenance'], function () {
+        Route::group(['namespace' => 'Customers'], function () {
+            Route::post('identification_type/verify_open',  ['as' => 'identification_type.open',  'uses' => 'IdentificationTypeController@getOpenStatus']);
+            Route::post('identification_type/update_close', ['as' => 'identification_type.close', 'uses' => 'IdentificationTypeController@updateClose']);
+            Route::post('payment_term/verify_open',  ['as' => 'payment_term.open',  'uses' => 'PaymentTermController@getOpenStatus']);
+            Route::post('payment_term/update_close', ['as' => 'payment_term.close', 'uses' => 'PaymentTermController@updateClose']);
+            Route::post('incoterm/verify_open',  ['as' => 'incoterms.open',  'uses' => 'IncotermController@getOpenStatus']);
+            Route::post('incoterm/update_close', ['as' => 'incoterms.close', 'uses' => 'IncotermController@updateClose']);
+        });
+    });
+
     Route::group(['namespace' => 'Warehouse'], function () {
         Route::group(['namespace' => 'Receipts'], function () {
             Route::post('receipts_entries/verify_open',  ['as' => 'receipts_entries.open',  'uses' => 'ReceiptEntryController@getOpenStatus']);

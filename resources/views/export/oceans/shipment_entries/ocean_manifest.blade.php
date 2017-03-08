@@ -24,6 +24,9 @@
 </head>
 
 <body>
+@foreach($shipment_entry->booking as $booking)
+
+
 <div class="container-fluid">
     <div class="row row-padding">
         <div class="col-xs-6">
@@ -177,6 +180,7 @@
         </div>
     </div>
 </div>
+@endforeach
 </body>
 
 </html>

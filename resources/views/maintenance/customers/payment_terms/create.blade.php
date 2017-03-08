@@ -4,8 +4,8 @@
 @section('table-title', 'Create new payment term')
 
 @section('content')
-{!! Form::open(['route' => 'maintenance.customers.payment_terms.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
+{!! Form::open(['id'=> 'data','route' => 'maintenance.customers.payment_terms.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
     @include('maintenance.customers.payment_terms.partials.fields')
-    {!! Form::bsSubmit() !!}
+{!! Form::bsFooter(2, null) !!}
 {!! Form::close() !!}
 @endsection

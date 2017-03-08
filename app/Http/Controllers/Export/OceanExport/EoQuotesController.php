@@ -255,18 +255,17 @@ class EoQuotesController extends Controller
 
                 ->select(['eo_quotes.*','op1.id AS port_loading_id','op2.id AS port_unloading_id','op1.name AS port_loading_name','op2.name AS port_unloading_name','wl1.id AS place_receipt_id','wl2.id AS place_delivery_id','wl1.name AS place_receipt_name','wl2.name AS place_delivery_name', 'mst_carriers.id as carrier_id', 'mst_carriers.name as carrier_name','C1.id as shipper_id','C1.name as shipper_name','C2.id as consignee_id','C2.name as consignee_name', 'C3.id as agent_id','C3.name as agent_name', 'S1.id as shipper_state_id', 'S2.id as consignee_state_id', 'S1.name as shipper_state_name', 'S2.name as consignee_state_name', 'Z1.id as shipper_zip_code_id', 'Z2.id as consignee_zip_code_id', 'Z1.code as shipper_zip_code', 'Z2.code as consignee_zip_code', 'C3.address as agent_address', 'C3.city as agent_city', 'C3.state_id as agent_state_id', 'C3.zip_code_id as agent_zip_code_id', 'C3.country_id as agent_country_id', 'SV.name as service_name'])
                 ->where(function ($query) use ($request) {
-                    if ($term = $request->get('term')) {
-                        $query->orWhere('eo_quotes.code', 'LIKE', $term . '%');
+                    if ($term = $request->get('id')) {
+                        $query->where('eo_quotes.id', $term );
+                        $query->where('eo_quotes.status', 'O');
                     }
-
-                })->take(10)->get();
+                })->get();
 
             $results = [];
-            foreach ($quotes as $quote) {
+            foreach($quotes as $quote){
                 $results[] = [
                     'id'                => $quote->id,
                     'code'              => strtoupper($quote->code),
-
                     'port_loading_id'   => $quote->port_loading_id,
                     'port_unloading_id'   => $quote->port_unloading_id,
                     'port_loading_name'   => strtoupper($quote->port_loading_name),

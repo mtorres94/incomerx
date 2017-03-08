@@ -43,6 +43,15 @@
         removeEmptyNodes('hidden_warehouse');
         removeEmptyNodes('hidden_hazardous');
 
+        $("#booking_save").click( function(){
+            $("input[name='booking_select[]']:checked").each(function () {
+               $("#booking_code").val($(this).val());
+               $("#booking_id").val($(this).attr("data-id"));
+            });
+            $("#BookingDetails").modal("hide");
+        });
+
+
         $("#select_all").change(function () {
             if ($(this).is(':checked')) {
                 $("#load_warehouse_details input[type=checkbox]").prop('checked', true);
@@ -216,7 +225,7 @@
                                 .append(createTableContent('hidden_flag','0', true, d))
                                 .append(createTableContent('hidden_receipt_entry', whr_select[c], true, d))
 
-                                .append(createTableBtns())
+                                .append(createTableBtns());
                         t.append(p_1);
 
                     }
@@ -272,7 +281,44 @@ $("#group_by").change(function(){
     }
 });
 
+        $("#shipment_id").change(function () {
+            var id = $("#shipment_id").val();
+            $("#shipment_code").val($("#shipment_id option:selected").text());
+            $.ajax({
+                url: "{{ route('shipment_entries.autocomplete') }}",
+                data: {id: id},
+                type: 'GET',
+
+                success: function (e) {
+                    $("#shipment_type").val(e[0].type).change();
+                        $("#bl_status").val(e[0].bl_status).change();
+                        $("#vessel_name").val(e[0].vessel);
+                        $("#voyage_name").val(e[0].voyage);
+                        $("#carrier_id").val(e[0].carrier_id).change();
+                        $("#carrier_name").val(e[0].carrier_name);
+                        $("#departure_date").val(e[0].departure);
+                        $("#arrival_date").val(e[0].arrival).change();
+                        $("#port_loading_id").val(e[0].loading_port_id).change();
+                        $("#port_loading_name").val(e[0].loading_port_name);
+                        $("#port_unloading_id").val(e[0].unloading_port_id).change();
+                        $("#port_unloading_name").val(e[0].unloading_port_name);
+                    $("#place_receipt_id").val(e[0].location_origin_id).change();
+                    $("#place_receipt_name").val(e[0].location_origin_name);
+                    $("#place_delivery_id").val(e[0].location_destination_id).change();
+                    $("#place_delivery_name").val(e[0].location_destination_name);
+                    $("#place_receipt").val(e[0].location_origin_name);
+                    $("#place_delivery").val(e[0].location_destination_name);
+                    $("#port_loading").val(e[0].loading_port_name);
+                    $("#foreign_port").val(e[0].unloading_port_name);
+                    $("#shipper_id").val(e[0].shipper_id).change(); $("#shipper_name").val(e[0].shipper_name); $("#shipper_address").val(e[0].shipper_address); $("#shipper_city").val(e[0].shipper_city); $("#shipper_phone").val(e[0].shipper_phone); $("#shipper_state_id").val(e[0].shipper_state_id).change(); $("#shipper_state_name").val(e[0].shipper_state_name); $("#shipper_zip_code_id").val(e[0].shipper_zip_code_id).change(); $("#shipper_zip_code_code").val(e[0].shipper_zip_code);$("#consignee_id").val(e[0].consignee_id).change(); $("#consignee_name").val(e[0].consignee_name); $("#consignee_address").val(e[0].consignee_address); $("#consignee_city").val(e[0].consignee_city); $("#consignee_phone").val(e[0].consignee_phone); $("#consignee_state_id").val(e[0].consignee_state_id).change(); $("#consignee_state_name").val(e[0].consignee_state_name); $("#consignee_zip_code_id").val(e[0].consignee_zip_code_id).change(); $("#consignee_zip_code_code").val(e[0].consignee_zip_code); $("#notify_id").val(e[0].notify_id).change(); $("#notify_name").val(e[0].notify_name); $("#notify_address").val(e[0].notify_address); $("#notify_city").val(e[0].notify_city); $("#notify_phone").val(e[0].notify_phone); $("#notify_state_id").val(e[0].notify_state_id).change(); $("#notify_state_name").val(e[0].notify_state_name); $("#notify_zip_code_id").val(e[0].notify_zip_code_id).change(); $("#notify_zip_code_code").val(e[0].notify_zip_code); $("#forwarding_agent_name").val(e[0].forwarding_agent_name); $("#forwarding_agent_id").val(e[0].forwarding_agent_id).change(); $("#domestic_routing").val(e[0].domestic_routing); $("#booking_code").val(e[0].booking_code);
+                        $("#agent_name").val(e[0].agent_name); $("#agent_id").val(e[0].agent_id).change(); $("#agent_phone").val(e[0].agent_phone); $("#agent_fax").val(e[0].agent_fax); $("#agent_contact").val(e[0].agent_contact); $("#agent_commission").val(e[0].agent_commission); $("#spotting_amount").val(e[0].agent_amount); $("#state_of_origin_id").val(e[0].state_of_origin_id).change(); $("#state_of_origin_name").val(e[0].state_of_origin_name);  $("#inland_driver_name").val(e[0].inland_driver_name); $("#inland_driver_id").val(e[0].inland_driver_id); $("#inland_lic_number").val(e[0].inland_lic_number); $("#booked_date").val(e[0].booked_date); $("#loading_date").val(e[0].loading_date); $("#equipment_cut_off_date").val(e[0].equipment_cut_off_date); $("#documents_cut_off_date").val(e[0].documents_cut_off_date)
+
+                }
+            });
+        });
+
 //=====================================================================
+        /*
         $("#shipment_code").change(function (){
             var id = $("#shipment_id").val();
 
@@ -375,7 +421,7 @@ $("#group_by").change(function(){
                                     .append(createTableContent('total_weight_unit',e[0].total_weight_unit, true, d))
                                     .append(createTableContent('container_carrier_id', e[0].carrier_id, true, d))
                                     .append(createTableContent('container_carrier_name', e[0].carrier_name, true, d))
-                                    .append(createTableBtns())
+                                    .append(createTableBtns());
                             t.append(p);
 
                      }
@@ -383,7 +429,7 @@ $("#group_by").change(function(){
             removeEmptyNodes("container_details");
         });
 
-
+*/
 //=====================================================================
 
         $('#create_hbl').change(function() {
@@ -399,6 +445,8 @@ $("#group_by").change(function(){
         $("#cargo_metric_unit_measurement_id").change(function () { calculate_warehouse() });
         $("#cargo_weight_unit_measurement_id").change(function () { calculate_warehouse() });
         $("#cargo_dim_fact").change(function () { calculate_warehouse() });
+
+        $("#booking_code").attr("readonly", true);
     });
 
     $('#vessel_yes').change(function() {
@@ -436,36 +484,32 @@ $("#group_by").change(function(){
     $("#weight_load_p").number(true, 3);
     $("#weight_excess").number(true, 3);
 
-    function autochecked() {
-        if ($("#autocheck").is(':checked')) {
-            //$("input[type=checkbox]").prop('checked', true); //todos los check
-            $("#load_warehouse_details input[type=checkbox]").prop('checked', true); //solo los del objeto #diasHabilitados
-        } else {
-            //$("input[type=checkbox]").prop('checked', false);//todos los check
-            $("#load_warehouse_details input[type=checkbox]").prop('checked', false);//solo los del objeto #diasHabilitados
-        }
-    }
 
-    function arrayEmpty(){
+
+
+
+
+    function arrayEmpty(message){
         swal({
             title: "Wait!",
-            text: "There are not elements to Link. All the elements have already been taken.",
+            text: message,
             type: "warning",
             confirmButtonText: "Ok"
         });
     }
-    $("#btn_create_hbl").click(function(){
+    $("#btn_create_hbl").click(function() {
         clearTableCondition('load_warehouses');
         $("#group_by").val("3").change();
-        var id= '{{ (isset($cargo_loader)? $cargo_loader->id : "") }}';
+        var id = '{{ (isset($cargo_loader) ? $cargo_loader->id : "") }}';
+        var bl_id = 0;
         $.ajax({
             url: "{{ route('eo_cargo_loader.get_warehouses') }}",
-            data: {id: id, status: 'N'},
+            data: {id: id, bl_id: bl_id, status: 'N'},
             type: 'GET',
             success: function (e) {
                 var x = 0;
                 if (e.length == 0) {
-                    arrayEmpty();
+                    arrayEmpty("There are not elements to link.");
                 }
                 else {
                     while (e[x].id != "") {
@@ -492,14 +536,13 @@ $("#group_by").change(function(){
                 }
             }
         });
-
         $("#tmp_cargo_loader_id").val(id);
         $('#tmp_departure_date').val($("#departure_date").val());
         $('#tmp_arrival_date').val($("#arrival_date").val());
         $('#tmp_booking_code').val($("#booking_code").val());
         $('#tmp_carrier_id').val($("#carrier_id").val());
         $('#tmp_shipment_id').val($("#shipment_id").val());
-        $('#tmp_shipment_code').val($("#shipment_code").val());
+        $('#tmp_shipment_code').val($("#shipment_id option:selected").text());
         $('#tmp_date_today').val($("#date_today").val());
 
         $('#tmp_place_receipt').val($("#place_receipt_name").val());
@@ -508,9 +551,39 @@ $("#group_by").change(function(){
         $('#tmp_port_unloading_id').val($("#port_unloading_id").val());
         $('#tmp_vessel_name').val($("#vessel_name").val());
         $('#tmp_voyage_name').val($("#voyage_name").val());
-
     });
 
+    $("#btn_booking").click(function() {
+        clearTableCondition('booking_details');
+
+        var id = $("#shipment_id").val();
+        $.ajax({
+            url: "{{ route('shipment_entries.get_booking') }}",
+            data: {id: id},
+            type: 'GET',
+            success: function (e) {
+                var x = 0;
+                if (e.length == 0) {
+                    arrayEmpty("There are not booking numbers to be linked. Add booking at FILE# " + $("#shipment_id option:selected").text() );
+                }
+                else {
+                    while (e[x].id != "") {
+                        var r = $("#booking_details tbody tr").length + 1,
+                            n = $("#booking_details"),
+                            t = n.find("tbody"),
+                            p = $("<tr id=" + r + ">");
+                        p.append(createTableContent('line', e[x].id, true, x))
+                            .append("<td><input type='radio' name='booking_select[]' data-id = '"+ e[x].id +"' id='booking_select["+ x +"]' value='" + e[x].code + "' /></td>")
+                            .append(createTableContent('booking_code', e[x].code, false, x));
+                        t.append(p);
+                        x = x + 1;
+                        $("#BookingDetails").modal("show");
+                    }
+
+                }
+            }
+        });
+    });
 
 
 

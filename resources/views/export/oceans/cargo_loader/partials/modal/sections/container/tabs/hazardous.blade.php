@@ -5,7 +5,7 @@
     {!! Form::bsText("col-md-3","col-md-4", 'Phone', 'container_hazardous_phone', null, '') !!}
 </div>
 <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
-    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#UNsModal" onclick="cleanModalFields('UNsModal')">
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#UNs_Details" onclick="cleanModalFields('UNs_Details')">
         <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
     </button>
     <button type="button" class="btn btn-danger" onclick="clearTable('hazardous_details')">

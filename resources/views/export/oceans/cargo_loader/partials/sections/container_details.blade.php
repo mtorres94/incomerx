@@ -215,7 +215,7 @@
     <tbody>
     @if(isset($cargo_loader))
         @foreach ($cargo_loader->hazardous_details as $detail)
-            <tr id="{{ $detail->line }}">
+            <tr data-id="{{ $detail->line }}">
             {!! Form::bsRowTd($detail->line, 'hzd_container_id', $detail->container_id, true) !!}
             {!! Form::bsRowTd($detail->line, 'hzd_uns_id', $detail->hzd_uns_id, true) !!}
             {!! Form::bsRowTd($detail->line, 'hzd_line', $detail->line, true) !!}

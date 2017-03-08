@@ -39,4 +39,19 @@
         <div class="col-md-3">{!! Form::bsText(null,null, 'Charge Weight', 'hbl_charge_weight', null, '0.000') !!}</div>
     </div>
 
+
 </div>
+<table class="table hidden" id="shipment_booking">
+    <tbody>
+    @if(isset($shipment_entry))
+        @foreach($shipment_entry->booking as $key => $detail)
+            <tr id="{{ $key+1 }}">
+                {!! Form::bsRowTd($key + 1, 'line', $key + 1 , true) !!}
+                {!! Form::bsRowTd($key + 1, 'booking_code', $detail->code, true) !!}
+                {!! Form::bsRowTd($key + 1, 'shipment_id', $shipment_entry->id, true) !!}
+                {!! Form::bsRowTd($key + 1, 'shipment_code',$shipment_entry->code, true) !!}
+            </tr>
+        @endforeach
+    @endif
+    </tbody>
+</table>

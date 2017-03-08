@@ -4,8 +4,8 @@
 @section('table-title', 'Edit incoterm')
 
 @section('content')
-{!! Form::model($incoterm, ['route' => ['maintenance.customers.incoterms.update', $incoterm], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
+{!! Form::model($incoterm, ['id'=> 'data', 'route' => ['maintenance.customers.incoterms.update', $incoterm], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
     @include('maintenance.customers.incoterms.partials.fields')
-    {!! Form::bsSubmit() !!}
+{!! Form::bsFooter(2, $incoterm) !!}
 {!! Form::close() !!}
 @endsection

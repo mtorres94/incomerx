@@ -111,7 +111,7 @@
         $("#box_dim_fact").change( function(){ calculate_cargo()});
         $("#box_metric_unit").change( function(){ calculate_cargo()});
         $("#box_weight_unit").change( function(){ calculate_cargo()});
-        $("#box_length").change( function(){ calculate_cargo()});
+        $("#box_length").change( function(){ calculate_cargo();});
         $("#box_width").change( function(){ calculate_cargo()});
         $("#box_height").change( function(){ calculate_cargo()});
         $("#box_unit_weight").change( function(){ calculate_cargo()});

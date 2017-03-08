@@ -31,7 +31,8 @@ class PaymentTermController extends Controller
      */
     public function create()
     {
-        return view('maintenance.customers.payment_terms.create');
+        $user_open_id = Auth::user()->id;
+        return view('maintenance.customers.payment_terms.create', compact('user_open_id'));
     }
 
     /**
@@ -42,11 +43,13 @@ class PaymentTermController extends Controller
      */
     public function store(PaymentTermRequest $request)
     {
+        dd($request->all());
         $payment_term = $request->all();
         $payment_term['user_create_id'] = Auth::user()->id;
         $payment_term['user_update_id'] = Auth::user()->id;
-        PaymentTerm::create($payment_term);
-        return redirect()->route('maintenance.customers.payment_terms.index');
+        $term= PaymentTerm::create($payment_term);
+        $id = $term->id;
+        return redirect()->route('maintenance.customers.payment_terms.edit', [$id]);
     }
 
     /**
@@ -70,7 +73,11 @@ class PaymentTermController extends Controller
     public function edit($id)
     {
         $payment_term = PaymentTerm::findOrFail($id);
-        return view('maintenance.customers.payment_terms.edit', compact('payment_term'));
+        $user_open_id =  ($payment_term->user_open_id == 0) ? Auth::user()->id : $payment_term->user_open_id;
+
+        $payment_term = self::updateOpenStatus($payment_term);
+        $payment_term->save();
+        return view('maintenance.customers.payment_terms.edit', compact('payment_term', 'user_open_id'));
     }
 
     /**
@@ -86,7 +93,7 @@ class PaymentTermController extends Controller
         $payment_term['user_update_id'] = Auth::user()->id;
         $payment_term->fill($request->all());
         $payment_term->save();
-        return redirect()->route('maintenance.customers.payment_terms.index');
+        return redirect()->route('maintenance.customers.payment_terms.edit', [$id]);
     }
 
     /**
@@ -124,5 +131,32 @@ class PaymentTermController extends Controller
 
             return response()->json($results);
         }
+    }
+
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+        if($id > 0){
+            $type = PaymentTerm::findOrFail($id);
+            if (Auth::user()->id == $type->user_open_id)
+            {
+
+                $type = self::updateCloseStatus($type);
+                $type->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $type = PaymentTerm::findOrFail($data['id']);
+        return [
+            'id'   => $type->user_open_id,
+            'name' => $type->user_open_id > 0 ? $type->user_open->name : '',
+        ];
     }
 }

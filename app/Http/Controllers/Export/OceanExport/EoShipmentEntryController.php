@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Sass\EoBillOfLading;
 use Sass\EoBillOfLadingCargo;
 use Sass\DataTables\Export\Ocean\ShipmentEntryDataTable;
+use Sass\EoBookingContainer;
+use Sass\EoBookingEntry;
 use Sass\EoShipmentEntry;
-use Sass\EoShipmentEntryContainer;
+
 use Sass\EoShipmentEntryHazardous;
 use Sass\Http\Controllers\Controller;
 use Sass\Http\Requests;
@@ -52,18 +54,21 @@ class EoShipmentEntryController extends Controller
             // ---- SHIPMENT ENTRY ----
             /*$count = EoShipmentEntry::count() + 1;
             $code= str_pad($count, 6, '0', STR_PAD_LEFT);*/
-            $last = EoShipmentEntry::orderBy('code','desc')->first();
-            $frmt = $last == null ? 1 : intval(substr($last->code, 4)) + 1;
-            $code = str_pad($frmt, 6, '0', 0);
+
+            $last = EoShipmentEntry::orderBy('id','desc')->first();
+            $frmt=  $last == null ? 1 : intval(substr($last->code,0,-3)) + 1 ;
+            $code = $frmt."/". substr(date('Y'), 2);
+
             $shipment_entry = $request->all();
 
-            $shipment_entry['code']="EOF-".$code;
+            $shipment_entry['code']= $code;
             $shipment_entry['user_create_id'] = Auth::user()->id;
             $shipment_entry['user_update_id'] = Auth::user()->id;
             $shipment_entry['user_open_id'] = Auth::user()->id;
             $exp=EoShipmentEntry::create($shipment_entry);
-            EoShipmentEntryContainer::saveDetail($exp->id, $shipment_entry);
+            //EoShipmentEntryContainer::saveDetail($exp->id, $shipment_entry);
             $id= $exp->id;
+
 
         } catch (ValidationException $e) {
             DB::rollback();
@@ -101,14 +106,14 @@ class EoShipmentEntryController extends Controller
 
     public function update(Request $request, $id)
     {
+        //dd($request->all());
         DB::beginTransaction();
         try {
             $shipment_entry = $request->all();
-
             $sent = EoShipmentEntry::findorfail($id);
-            $exp = $sent->update($shipment_entry);
-            EoShipmentEntryContainer::saveDetail($id, $shipment_entry);
-            EoShipmentEntryHazardous::saveDetail($id, $shipment_entry);
+            $sent->update($shipment_entry);
+
+            EoBookingEntry::saveDetail($id, $shipment_entry);
             $shipment['user_update_id'] = Auth::user()->id;
         } catch (ValidationException $e) {
             DB::rollback();
@@ -147,11 +152,12 @@ class EoShipmentEntryController extends Controller
 
                 ->select(['eo_shipment_entries.*', 'op1.id AS loading_port_id','op2.id AS unloading_port_id','op1.name AS loading_port_name','op2.name AS unloading_port_name','wl1.id AS location_origin_id','wl2.id AS location_destination_id','wl1.name AS location_origin_name','wl2.name AS location_destination_name', 'mst_carriers.id as carrier_id', 'mst_carriers.name as carrier_name','C1.id as shipper_id','C1.name as shipper_name','C2.id as consignee_id','C2.name as consignee_name', 'C3.id as agent_id','C3.name as agent_name', 'C4.id as forwarding_agent_id','C4.name as forwarding_agent_name', 'S1.id as shipper_state_id', 'S2.id as consignee_state_id', 'S1.name as shipper_state_name', 'S2.name as consignee_state_name', 'S3.name as notify_state_name', 'S4.id as state_of_origin_id', 'S4.name as state_of_origin_name', 'Z1.id as shipper_zip_code_id', 'Z2.id as consignee_zip_code_id','Z3.id as notify_zip_code_id', 'Z1.code as shipper_zip_code', 'Z2.code as consignee_zip_code', 'Z3.code as notify_zip_code', 'C3.address as agent_address', 'C3.city as agent_city','C5.city as notify_agent_city', 'C3.state_id as agent_state_id', 'C5.state_id as notify_state_id', 'C5.name as notify_name',  'C3.zip_code_id as agent_zip_code_id', 'C3.country_id as agent_country_id'])
                 ->where(function ($query) use ($request) {
-                    if ($term = $request->get('term')) {
-                        $query->orWhere('eo_shipment_entries.code', 'LIKE', $term . '%');
+                    if ($id = $request->get('id')) {
+                        $query->where('eo_shipment_entries.id',  $id );
+                        $query->where('eo_shipment_entries.status', 'O');
                     }
 
-                })->take(10)->get();
+                })->get();
 
             $results = [];
             foreach ($shipmentEntries as $shipmentEntry) {
@@ -240,13 +246,33 @@ class EoShipmentEntryController extends Controller
             return response()->json($results);
         }
     }
+
+    public function get_booking(Request $request)
+    {
+        if ($request->ajax()) {
+            $booking_numbers = EoBookingEntry::select(['eo_booking_entries.*'])->where(function ($query) use ($request) {
+                $shipment_id = $request->get('id');
+                $query->where('eo_booking_entries.shipment_id', '=', $shipment_id);
+                $query->where('eo_booking_entries.status', '0');
+            })->get();
+            $results = [];
+            foreach ($booking_numbers as $booking) {
+                $results[] = [
+                    'id' => $booking->id,
+                    'code' => $booking->code,
+                ];
+            }
+            return response()->json($results);
+        }
+    }
+
     public function get(Request $request)
     {
         if ($request->ajax()) {
-            $containers = EoShipmentEntryContainer::select(['eo_shipment_entries_container.*'])
+            $containers = EoBookingContainer::select(['eo_booking_container.*'])
                 ->where(function ($query) use ($request) {
-                    $shipment_id = $request->get('id');
-                    $query->orWhere('eo_shipment_entries_container.shipment_id', '=', $shipment_id );
+                    $id = $request->get('id');
+                    $query->where('eo_booking_container.shipment_id', '=', $id );
                 })->get();
 
             $results = [];
@@ -351,9 +377,6 @@ class EoShipmentEntryController extends Controller
             case 2:
                 return \PDF::loadView('export.oceans.shipment_entries.container_release', compact('shipment_entry'))->stream($shipment_entry->code.'.pdf');
                 break;
-            case 3:
-                return \PDF::loadView('export.oceans.shipment_entries.ocean_manifest', compact('shipment_entry'))->stream($shipment_entry->code.'.pdf');
-                break;
             default:
                 $response = [''];
         }
@@ -430,4 +453,6 @@ class EoShipmentEntryController extends Controller
             'name' => $shipment_entry->user_open_id > 0 ? $shipment_entry->user_open->name : '',
         ];
     }
+
+
 }

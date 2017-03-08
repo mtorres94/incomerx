@@ -7,6 +7,7 @@
         }
     }
     $("#btn_container_details").click(function() {
+        clearTableCondition("hazardous_details");
         $("#container_spotting_date").val($("#loading_date").val());
         $("#pd_status").val("1").change();
         $("#equipment_type_id").val("").change();
@@ -35,6 +36,7 @@
     });
 
     $("#btn-load-warehouse").click(function() {
+        $("#autocheck").prop('checked', true);
         $("#pick_search_type").val("1").change();
         for (var t = $("#load-warehouse-tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
@@ -62,7 +64,7 @@
                         .append(createTableContent('hbl_date_in', t[a].childNodes[3].textContent, false, _))
                         .append(createTableContent('hbl_shipper', t[a].childNodes[5].textContent, false, _))
                         .append(createTableContent('hbl_consignee', t[a].childNodes[15].textContent, false, _))
-                        .append(createTableContent('hbl_container_number', t[a].childNodes[38].textContent, false, _))
+                        .append(createTableContent('hbl_container_number', t[a].childNodes[38].textContent, false, _));
                 x.append(C)
             }
         }
@@ -106,8 +108,8 @@
                 .append(createTableContent('resume_cubic', cubic , false, _ ))
                 .append(createTableContent('resume_charge_weight', g_weight, false, _ ))
                 .append(createTableContent('inserted_id', 0, true, _ ))
-                .append(createTableBtns())
-        x.append(C)
+                .append(createTableBtns());
+        x.append(C);
 $("#CreateHouse").modal("hide");
     });
     $("#cargo-save").click(function(){
@@ -181,12 +183,12 @@ $("#CreateHouse").modal("hide");
                     n = $("#hazardous_details"),
                     t = n.find("tbody"),
                     p = $("<tr id=" + (0==l? _ : l) + ">");
-            p.append(createTableContent('hazardous_uns_id', c, true, c))
+            p.append(createTableContent('hazardous_uns_id', a, true, c))
                     .append(createTableContent('hazardous_uns_line', (0 == l ? r : l), true, c))
                     .append(createTableContent('hazardous_uns_code', d, false, c))
                     .append(createTableContent('hazardous_uns_desc', s, false, c))
                     .append(createTableContent('hazardous_uns_note', e, true, c))
-                    .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p), cleanModalFields('UNsModal'), $("#hazardous_uns_code").focus()
+                    .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p), cleanModalFields('UNs_Details'), $("#hazardous_uns_code").focus()
         }
     }),  $("#hazardous_details").on("click", "a.btn-danger", function() {
         preventDelete($(this));
@@ -198,11 +200,11 @@ $("#CreateHouse").modal("hide");
                 c4 = t[0].childNodes[3].textContent,
                 c5 = t[0].childNodes[4].textContent;
 
-        $("#hazardous_uns_line").val(c2),
-        $("#hazardous_uns_id").val(c1),
-        $("#hazardous_uns_code").val(c3),
-        $("#hazardous_uns_desc").val(c4),
-        $("#hazardous_uns_note").val(c5), $("#UNsModal").modal("show")
+        $("#hazardous_uns_line").val(c2);
+        $("#hazardous_uns_id").val(c1);
+        $("#hazardous_uns_code").val(c3);
+        $("#hazardous_uns_desc").val(c4);
+        $("#hazardous_uns_note").val(c5); $("#UNs_Details").modal("show");
     });
 
 
@@ -566,9 +568,6 @@ $("#CreateHouse").modal("hide");
     });
 
     $("#container-save").click(function(){
-        if ( $("#container_number").val() == ""){
-            $("#container_number").focus();
-        }else {
             var r = $("#container_details tbody tr").length + 1,
                 _ = ($("#container_details tbody tr").length == 0 ? 1 : parseInt($("#container_details tbody tr")[$("#container_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                 c1 = $("#container_id").val(),
@@ -824,9 +823,9 @@ $("#CreateHouse").modal("hide");
                 t.append(p_1);
                 d += 1;
             }
-            cleanModalFields("Container_Details"), clearTableCondition("cargo_details"), $("#ContainerModal").formValidation('resetForm', true),    $("#container_spotting_date").val($("#loading_date").val()), $("#pd_status").val("1").change(), $("#equipment_type_id").val("").change(), $("#container_pickup_type").val("02").change(), $("#container_delivery_type").val("02").change(), $("#container_drop_type").val("02").change(),
+            cleanModalFields("Container_Details"), clearTableCondition("cargo_details"),clearTableCondition("hazardous_details"), $("#ContainerModal").formValidation('resetForm', true),    $("#container_spotting_date").val($("#loading_date").val()), $("#pd_status").val("1").change(), $("#equipment_type_id").val("").change(), $("#container_pickup_type").val("02").change(), $("#container_delivery_type").val("02").change(), $("#container_drop_type").val("02").change(),
             $("#total_weight_unit").val("L").change(), $("#container_degrees").val("F").change(), $("#container_ventilation").val("A").change(),$("#equipment_type_code").focus();
-        }
+
         //======================================
     }),
             $("#container_details").on("click", "a.btn-danger", function() {
@@ -842,6 +841,7 @@ $("#CreateHouse").modal("hide");
                 });
             }), $("#container_details").on("click", "a.btn-default", function() {
         clearTableCondition("cargo_details");
+        clearTableCondition("hazardous_details");
         cubic_weight_loaded();
         var t = $(this).closest("tr"),
                 c1 = t[0].childNodes[0].textContent,
@@ -1066,7 +1066,7 @@ $("#CreateHouse").modal("hide");
                             .append(createTableContent('flag', t_hidden[a].childNodes[34].textContent, true, d))
                             .append(createTableContent('receipt_entry_id', t_hidden[a].childNodes[35].textContent, true, d))
 
-                    .append(createTableBtns())
+                    .append(createTableBtns());
             t.append(p);
         }
          //=============== HAZARDOUS DETAILS ==================
@@ -1075,15 +1075,16 @@ $("#CreateHouse").modal("hide");
                 t1= $("#hazardous_details tbody tr");
                 n= $("#hazardous_details");
         t = n.find("tbody");
+        d = t1.length + 1;
         for (a=0; a< r; a++) {
-            d = t1.length + 1,
                     p = $("<tr id=" + c1 + " >");
             p.append(createTableContent('hazardous_uns_id', t_hidden[a].childNodes[1].textContent, true, d))
                     .append(createTableContent('hazardous_uns_line', d, true, d))
                     .append(createTableContent('hazardous_uns_code', t_hidden[a].childNodes[3].textContent, false, d))
                     .append(createTableContent('hazardous_uns_desc', t_hidden[a].childNodes[4].textContent, false, d))
-                    .append(createTableContent('hazardous_uns_note', t_hidden[a].childNodes[5].textContent, true, d))
+                    .append(createTableContent('hazardous_uns_note', t_hidden[a].childNodes[5].textContent, true, d));
             t.append(p);
+            d++;
         }
          //=======================================================
     });

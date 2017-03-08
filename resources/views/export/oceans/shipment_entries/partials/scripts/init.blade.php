@@ -2,7 +2,7 @@
 
     window.onload = (function () {
         openTab($("#data"));
-        updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('eo_shipment_entries.close') }}')
+        updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('eo_shipment_entries.close') }}');
 
         if ($("#open_status").val() == "1" || $("#status").val() == 'C') {
             disableFields('data');
@@ -20,6 +20,7 @@
         removeEmptyNodes('container_details');
         removeEmptyNodes('hzd_details');
         removeEmptyNodes('hbl_details');
+        removeEmptyNodes('shipment_booking');
 
 
         for (var t2 = $("#container_tabs").find("div"), l2 = 0; l2 < t2.length  ; l2++) {
@@ -49,16 +50,66 @@
             });
         });
 
-        $("#quote_code").change(function () {
+        $("#quote_id").change(function () {
 
             var id = $("#quote_id").val(), x = 0;
-                $.ajax({
-                    url: "{{ route('eo_quotes.get_details') }}",
-                    data: {id: id},
-                    type: 'GET',
-                    success: function (e) {
+            $.ajax({
+                url: "{{ route('quotes.autocomplete') }}",
+                data: {id: id},
+                type: 'GET',
+                success: function (e) {
+                    $("#shipper_id").val(e[0].shipper_id);
+                        $("#shipper_name").val(e[0].shipper_name);
+                        $("#shipper_address").val(e[0].shipper_address);
+                        $("#shipper_phone").val(e[0].shipper_phone);
+                        $("#shipper_city").val(e[0].shipper_city);
+                        $("#shipper_state_id").val(e[0].shipper_state_id);
+                        $("#shipper_state_name").val(e[0].shipper_state_name);
+                        $("#shipper_zip_code_id").val(e[0].shipper_zip_code_id);
+                        $("#shipper_zip_code_code").val(e[0].shipper_zip_code);
+
+                        $("#consignee_id").val(e[0].consignee_id);
+                        $("#consignee_name").val(e[0].consignee_name);
+                        $("#consignee_address").val(e[0].consignee_address);
+                        $("#consignee_phone").val(e[0].consignee_phone);
+                        $("#consignee_city").val(e[0].consignee_city);
+                        $("#consignee_state_id").val(e[0].consignee_state_id);
+                        $("#consignee_state_name").val(e[0].consignee_state_name);
+                        $("#consignee_zip_code_id").val(e[0].consignee_zip_code_id);
+                        $("#consignee_zip_code_code").val(e[0].consignee_zip_code);
+
+                        $("#agent_id").val(e[0].agent_id);
+                        $("#agent_name").val(e[0].agent_name);
+                        $("#agent_phone").val(e[0].agent_phone);
+
+                        $("#port_loading_id").val(e[0].port_loading_id);
+                        $("#port_loading_name").val(e[0].port_loading_name);
+                        $("#port_unloading_name").val(e[0].port_unloading_name);
+                        $("#port_unloading_id").val(e[0].port_unloading_id);
+
+                        $("#place_receipt_id").val(e[0].place_receipt_id);
+                        $("#place_delivery_id").val(e[0].place_delivery_id);
+                        $("#place_receipt_name").val(e[0].place_receipt_name);
+                        $("#place_delivery_name").val(e[0].place_delivery_name);
+                        $("#carrier_id").val(e[0].carrier_id);
+                        $("#carrier_name").val(e[0].carrier_name);
+                        $("#service_id").val(e[0].service_id);
+                        $("#service_name").val(e[0].service_name);
+
+                        $("#total_quantity").val(e[0].total_quantity);
+                        $("#total_cargo_type_id").val(e[0].total_cargo_type_id).change();
+                        $("#total_cargo_type_code").val(e[0].total_cargo_type_code);
+                        $("#total_commodity_name").val(e[0].total_commodity);
+                        $("#total_unit_weight").val(e[0].total_unit_weight).change();
+                        $("#total_weight").val(e[0].total_weight);
+                        $("#total_cubic").val(e[0].total_cubic);
+                        $("#freight_charges").val(e[0].freight_charges);
+                        $("#other_charges").val(e[0].other_charges);
+                }
+            });
+        });
                         //=============================================
-                        x = 0;
+                      /*  x = 0;
                         clearTableCondition("container_details");
                         while (e[x].id != "") {
                             var r= $("#container_details tbody tr").length ,
@@ -148,8 +199,8 @@
                         }
                     }
                 });
-            removeEmptyNodes('container_details');
-        });
+            removeEmptyNodes('container_details');*/
+
 
         sum_hbl();
 
@@ -167,5 +218,8 @@
     $("#total_actual_weight").number(true, 3);
     $("#total_charge_weight").number(true, 3);
     $("#agent_commission").number(true, 3);
+    $("#hbl_pieces").attr("readonly", true);
+    $("#hbl_actual_weight").attr("readonly", true);
+    $("#hbl_charge_weight").attr("readonly", true);
 
 </script>

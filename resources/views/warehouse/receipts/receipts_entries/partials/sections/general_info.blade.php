@@ -9,7 +9,8 @@
             'O' => 'OPEN',
             'C' => 'CLOSE',
             'V' => 'VOID',
-            'H' => 'HOLD'
+            'H' => 'HOLD',
+            'P' => 'IN PROCESS'
         ), 'Status...') !!}</div>
     </div>
     <div class="row">

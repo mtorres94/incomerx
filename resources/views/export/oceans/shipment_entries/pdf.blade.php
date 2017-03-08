@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>EOB- {{ strtoupper($shipment_entry->booking_code) }}</title>
+    <title>EOB- {{ strtoupper($shipment_entry->code) }}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +24,9 @@
 </head>
 
 <body>
+@foreach ($shipment_entry->booking as $booking )
+
+
 <div class="container-fluid">
     <div class="row row-padding">
         <div class="col-xs-6">
@@ -41,8 +44,8 @@
             <div class="row">
                 <div class="document-info pull-right">
                     <h5><strong>BOOKING CONFIRMATION</strong></h5>
-                    <p class="code-bar">{{ $shipment_entry->booking_code }}</p>
-                    <p class="document_number"><strong> {{ strtoupper($shipment_entry->booking_code) }}</strong></p>
+                    <p class="code-bar">{{ $booking->code }}</p>
+                    <p class="document_number"><strong> {{ strtoupper($booking->code) }}</strong></p>
                 </div>
             </div>
         </div>
@@ -53,7 +56,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">BOOKING # {{ strtoupper($shipment_entry->booking_code )}}</div>
+                        <div class="panel-heading">BOOKING # {{ strtoupper($booking->code )}}</div>
                         <div class="panel-body">
                             <table class="table resume-table">
                                 <tr><td width="20%"><strong>DATE: </strong></td><td>{{ $shipment_entry->date_today }}</td></tr>
@@ -146,7 +149,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($shipment_entry->container as $detail)
+                @foreach($booking->container as $detail)
                     <tr>
                         <td>{{ ($detail->equipment_type_id >0 ? $detail->equipment_type->code : "") }}</td>
                         <td>{{ strtoupper($detail->container_number) }}</td>
@@ -182,8 +185,8 @@
                     <td>{{ ($shipment_entry->total_unit_weight == "L") ? "LBS" : "KGS" }}</td>
                     <td>{{ ($shipment_entry->total_unit_weight == 'K' ? round($shipment_entry->total_weight  , 3) : round($shipment_entry->total_weight * 0.453592, 3) ) }} Kgs</td>
                     <td>{{ ($shipment_entry->total_unit_weight == 'K' ? round($shipment_entry->total_cubic , 3) : round($shipment_entry->total_cubic * 0.453592, 3) ) }} CBM</td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ $shipment_entry->total_cargo_type_id >0 ? $shipment_entry->total_cargo_type->code : "" }}</td>
+                    <td>{{ $shipment_entry->total_commodity_name }}</td>
                 </tr>
                 <tr>
                     <td></td>
@@ -200,6 +203,29 @@
             </table>
         </div>
     </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <td><strong>HAZARDOUS</strong></td>
+                    <td><strong>DESCRIPTION</strong></td>
+                    <td><strong>NOTES</strong></td>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ($booking->hazardous as $detail)
+                    <tr>
+                        <td>{{ strtoupper($detail->hzd_uns_id > 0 ?  $detail->hzd_uns->code : "")}}</td>
+                        <td>{{ strtoupper($detail->hzd_uns_desc ) }}</td>
+                        <td>{{ strtoupper($detail->hzd_uns_note ) }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
     <hr>
     <div class="row">
         <div class="col-xs-12">
@@ -209,7 +235,24 @@
             </div>
         </div>
     </div>
+    <br><br><br><br>
+    <br><br><br><br>
+    <br><br><br>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="company-info">
+                <p class=""><strong>NOTES:</strong></p>
+                <p>We must be advised in advance of you loading the container if there are any hazardous materials to be loaded into the container. The ocean carrier must be advised prior to spotting the container to your facilities.<p><br>
+                <p>Once the container has been loaded, we urgently require the following information to complete the export documentation:</p>
+                <p>*Container number and seal numbers</p>
+                <p>*Pieces, weight and cubic feet</p>
+                <p>*Completed Commercial Invoice to present to customs at destination, in order to avoid delays (demurrage charges)</p><br>
+                <p>VECO LOGISTICS MIAMI must be notified 48 hrs prior to the loading if hazardous materials are to be loaded into the container. Hazardous materials must be loaded at the tail of the container and must be declared on the Inland Truck Bill of Lading. The Class, UN number, Packaging group, Flash point and 24 hr Emergency response number must be included in on B/L. The container must also be placarded on all four outside walls with the correct hazardous materials labels corresponding to the hazardous materials loaded inside.</p>
+            </div>
+        </div>
+    </div>
 </div>
+@endforeach
 </body>
 
 </html>

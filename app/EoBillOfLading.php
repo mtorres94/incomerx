@@ -116,7 +116,7 @@ class EoBillOfLading extends Model
     public static function saveDetail($id, $data, $id_group)
     {
         $a=0; $i= -1; $group = []; $codes=[];
-        DB::table('eo_bills_of_lading')->where('cargo_loader_id', '=',$id)->delete();
+        //****DB::table('eo_bills_of_lading')->where('cargo_loader_id', '=',$id)->delete();
         if (isset($data['group_by'])) {
             $count_group_id = count($id_group);
             if($data['group_by'] == "1") {
@@ -162,10 +162,13 @@ class EoBillOfLading extends Model
                             'port_loading_id' => $data['tmp_port_loading_id'],
                             'port_unloading_id' => $data['tmp_port_unloading_id'],
 
+                            'shipper_id' => $data['shipper_id'][$a],
+                            'consignee_id' => $data['consignee_id'][$a],
                         ];
 
                         $id_hbl = EoBillOfLading::create($obj)->id;
-                        $codes[$a] = $obj['code'];
+                        $codes[$a] = $id_hbl;
+
                         //EoHblReceiptEntry::saveDetail($id, $data);
                     //========================================================
                     //EoBillOfLadingContainer::saveDetail($id_hbl, $data);
@@ -186,6 +189,7 @@ class EoBillOfLading extends Model
                     EoBillOfLadingCharge::saveDetailHBL($id_hbl, $data);
                     $a++;
                 }
+
             EoHblReceiptEntry::saveDetail($id, $data);
             EoBillOfLadingCargo::saveDetailHBL($data);
         }

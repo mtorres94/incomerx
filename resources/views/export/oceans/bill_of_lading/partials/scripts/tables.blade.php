@@ -2071,7 +2071,7 @@
             .append(createTableContent('cargo_commodity_id', "", true, d))
             .append(createTableContent('cargo_commodity_name', "", true, d))
             .append(createTableContent('cargo_comments', "", true, d))
-            .append(createTableBtns())
+            .append(createTableBtns());
             t.append(p);
         weight_totals();
         $("#CreateHouse").modal("hide");
@@ -2090,21 +2090,23 @@
 
     $("#delete_container").click(function(){
         var td = $("#container_details");
-        preventDeleteCondition(td, function (td, eval) {
-            if (eval) {
-                clearTableCondition('container_details');
-                clearTableCondition('hzd_details');
-            }
-        });
+            preventDeleteCondition(td, function (td, eval) {
+                if (eval) {
+                    clearTableCondition('container_details');
+                    clearTableCondition('hzd_details');
+                }
+            });
     });
 
     $("#delete_cargo").click(function(){
         var td = $("#cargo_details");
         preventDeleteCondition(td, function (td, eval) {
             if (eval) {
-                clearTableCondition('cargo_details');
-                clearTableCondition('hidden_id');
-                weight_totals();
+                if(td.length != 0){
+                    clearTableCondition('cargo_details');
+                    clearTableCondition('hidden_id');
+                    weight_totals();
+                }
             }
         });
     });

@@ -5,15 +5,15 @@ namespace Sass;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class EoShipmentEntryContainer extends Model
+class EoBookingContainer extends Model
 {
-    protected $table = "eo_shipment_entries_container";
+    protected $table = "eo_booking_container";
 
     protected $fillable = [
         'id', 'line', 'created_at', 'updated_at', 'equipment_type_id', 'container_number', 'container_seal_number', 'container_seal_number2', 'total_weight_unit', 'container_commodity', 'pd_status', 'spotting_date', 'pull_date', 'carrier_id', 'ventilation', 'temperature', 'degrees', 'temperature_max', 'temperature_min',
         'pickup_id', 'pickup_type', 'pickup_address', 'pickup_city', 'pickup_state_id', 'pickup_zip_code_id', 'pickup_phone', 'pickup_contact', 'pickup_date', 'pickup_number',
         'delivery_id', 'delivery_type', 'delivery_address', 'delivery_city', 'delivery_state_id', 'delivery_zip_code_id', 'delivery_phone', 'delivery_contact', 'delivery_date', 'delivery_number',
-        'drop_id', 'drop_type', 'drop_address', 'drop_city', 'drop_state_id', 'drop_zip_code_id', 'drop_phone', 'drop_contact', 'drop_date', 'drop_number', 'hazardous_contact', 'hazardous_phone', 'inner_code', 'inner_quantity', 'net_weight', 'number_equipment', 'outer_code', 'outer_quantity', 'release_number', 'requested_equipment', 'tare_weight',  'container_comments', 'shipment_id'
+        'drop_id', 'drop_type', 'drop_address', 'drop_city', 'drop_state_id', 'drop_zip_code_id', 'drop_phone', 'drop_contact', 'drop_date', 'drop_number', 'hazardous_contact', 'hazardous_phone', 'inner_code', 'inner_quantity', 'net_weight', 'number_equipment', 'outer_code', 'outer_quantity', 'release_number', 'requested_equipment', 'tare_weight',  'container_comments', 'shipment_id', 'booking_id'
     ];
 
 
@@ -21,15 +21,16 @@ class EoShipmentEntryContainer extends Model
     {
         $i = -1;
         $a = 0;
-        $details = DB::table('eo_shipment_entries_container')->where('shipment_id', '=', $id)->delete();
-        if (isset($data['container_line'])) {
+       DB::table('eo_booking_container')->where('booking_id', '=', $id)->delete();
+        if (isset($data['container_line']) and $id > 0) {
 
             while ($a < count($data['container_line'])) {
                 $i++;
                 if (isset($data['container_line'][$i])) {
-                    $obj = new EoShipmentEntryContainer();
+                    $obj = new EoBookingContainer();
 
-                    $obj->shipment_id = $id;
+                    $obj->booking_id = $id;
+                    $obj->shipment_id = $data['shipment_id'];
                     $obj->line = $data['container_line'][$i] ;
                     $obj->equipment_type_id = $data['equipment_type_id'][$i];
                     $obj->container_number = $data['container_number'][$i];
@@ -86,7 +87,7 @@ class EoShipmentEntryContainer extends Model
                     $obj->release_number = $data['container_release_number'][$i];
                     $obj->requested_equipment = $data['container_requested_equipment'][$i];
                     $obj->tare_weight = $data['container_tare_weight'][$i];
-                    $obj->container_comments = $data['comments'][$i];
+                    $obj->container_comments = $data['container_comments'][$i];
 
                     $obj->save();
                     $a++;

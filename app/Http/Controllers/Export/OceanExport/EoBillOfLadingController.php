@@ -197,6 +197,7 @@ class EoBillOfLadingController extends Controller
             $sum_prepaid =0;
             $sum_collect=0;
             $i=0;
+
             while (isset($bill_of_lading['billing_amount'][$i])){
                 if($bill_of_lading['billing_bill_type'][$i] == 'P' ){ $sum_prepaid += $bill_of_lading['billing_amount'][$i]; }
                 else{ $sum_collect+= $bill_of_lading['billing_amount'][$i]; };
@@ -469,5 +470,10 @@ class EoBillOfLadingController extends Controller
             'id'   => $bill_of_lading->user_open_id,
             'name' => $bill_of_lading->user_open_id > 0 ? $bill_of_lading->user_open->name : '',
         ];
+    }
+
+    public static function oceanManifest()
+    {
+        return view('export.oceans.manifest.index');
     }
 }

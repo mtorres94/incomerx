@@ -4,8 +4,8 @@
 @section('table-title', 'Create new identification type')
 
 @section('content')
-{!! Form::open(['route' => 'maintenance.customers.identification_types.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
+{!! Form::open(['id' =>'data', 'route' => 'maintenance.customers.identification_types.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
     @include('maintenance.customers.identification_types.partials.fields')
-    {!! Form::bsSubmit() !!}
+{!! Form::bsFooter(2, null) !!}
 {!! Form::close() !!}
 @endsection

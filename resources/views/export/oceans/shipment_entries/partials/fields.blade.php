@@ -1,7 +1,12 @@
 <div id="errorBlock" class="help-block"></div>
 {!! Form::hidden('open_status', ($user_open_id == Auth::user()->id ? "0" : "1"), ['id' => 'open_status', 'class' => 'form-control input-sm']) !!}
-@include('export.oceans.shipment_entries.partials.sections.general_info')
 
+@if(isset($shipment_entry))
+    <div class="pull-right">
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#BookingDetails" onclick="clearTableCondition('booking_details')" id="btn_booking" ><span>Add Booking</span></button>
+    </div>
+@endif
+@include('export.oceans.shipment_entries.partials.sections.general_info')
 <div class="row">
     @include('export.oceans.shipment_entries.partials.sections.origin_destination')
 </div>
@@ -63,9 +68,7 @@
 <div class="row">
     <div class="col-md-12">@include('export.oceans.shipment_entries.partials.sections.details_hbl')</div>
 </div>
-<div class="row">
-    <div class="col-md-12">@include('export.oceans.shipment_entries.partials.sections.container_details')</div>
-</div>
+
 @include('export.oceans.shipment_entries.partials.sections.inland_carrier')
 <div class="row">
     <div class="col-md-12">{!! Form::bsMemo(null, null, 'Comments', 'shipment_comments', null, 2, ' ') !!}</div>
@@ -77,6 +80,8 @@
 @section('modals')
     @include('export.oceans.shipment_entries.partials.modal.container_details')
     @include('export.oceans.shipment_entries.partials.modal.sections.container.details_uns')
+    @include('export.oceans.shipment_entries.partials.modal.add_booking')
+    @include('export.oceans.shipment_entries.partials.modal.sections.booking.booking')
 @stop
 
 <!-- Scripts sections -->
