@@ -39,12 +39,12 @@
                 <div class="panel-header">Account type</div>
                 <div class="panel-body">
                     <div class="row no-padding-top">
-                        <div class="col-md-6">{!! Form::bsCheck('col-md-1', 'col-md-10', 'Shipper', 'shipper', (isset($customer) ? $customer->shipper : 'off')) !!}</div>
-                        <div class="col-md-6">{!! Form::bsCheck('col-md-1', 'col-md-10', 'Consignee', 'consignee', (isset($customer) ? $customer->consignee : 'off')) !!}</div>
+                        <div class="col-md-6">{!! Form::bsCheck('col-md-1', 'col-md-5', 'Shipper', 'shipper', (isset($customer) ? $customer->shipper : 'off')) !!}</div>
+                        <div class="col-md-6">{!! Form::bsCheck('col-md-1', 'col-md-5', 'Consignee', 'consignee', (isset($customer) ? $customer->consignee : 'off')) !!}</div>
                     </div>
                     <div class="row no-padding-top">
-                        <div class="col-md-6">{!! Form::bsCheck('col-md-1', 'col-md-10', 'Third Party', 'third_party', (isset($customer) ? $customer->third_party : 'off')) !!}</div>
-                        <div class="col-md-6">{!! Form::bsCheck('col-md-1', 'col-md-10', 'Agent', 'agent', (isset($customer) ? $customer->agent : 'off')) !!}</div>
+                        <div class="col-md-6">{!! Form::bsCheck('col-md-1', 'col-md-5', 'Third Party', 'third_party', (isset($customer) ? $customer->third_party : 'off')) !!}</div>
+                        <div class="col-md-6">{!! Form::bsCheck('col-md-1', 'col-md-5', 'Agent', 'agent', (isset($customer) ? $customer->agent : 'off')) !!}</div>
                     </div>
                 </div>
             </div>
@@ -65,8 +65,40 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="easyui-tabs" id="tabs_details">
+            <div title="Contacts">
+                <div class="form-horizontal">
+                    @include('maintenance.customers.customers.partials.sections.tab_contacts')
+                </div>
+            </div>
+            <div title="Bill/Delivery Address">
+                <div class="form-horizontal">
+                    @include('maintenance.customers.customers.partials.sections.tab_address')
+                </div>
+            </div>
+            <div title="Notifications">
+                <div class="form-horizontal">
+                    @include('maintenance.customers.customers.partials.sections.tab_notifications')
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        {!! Form::bsMemo(null, null, 'Comments', 'comments', null, '') !!}
+    </div>
+</div>
 
 <!-- Scripts sections -->
 @section('scripts')
     @include('maintenance.customers.customers.partials.scripts.init')
+    @include('maintenance.customers.customers.partials.scripts.autocomplete')
+    @include('maintenance.customers.customers.partials.scripts.tables')
+@stop
+@section('modals')
+    @include('maintenance.customers.customers.partials.modal.contacts')
+    @include('maintenance.customers.customers.partials.modal.delivery')
 @stop

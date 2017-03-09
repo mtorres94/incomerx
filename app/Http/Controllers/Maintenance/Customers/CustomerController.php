@@ -42,6 +42,7 @@ class CustomerController extends Controller
     public function store(CustomerRequest $request)
     {
         $customer = $request->all();
+        $customer['code'] = generate_code('Sass\Customer', 'code', $customer['name']);
         $customer['user_create_id'] = auth()->user()->id;
         $customer['user_update_id'] = auth()->user()->id;
         $customer = Customer::create($customer);

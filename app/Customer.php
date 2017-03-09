@@ -11,9 +11,17 @@ class Customer extends Model
     protected $fillable = [
         'code', 'name', 'address', 'city', 'state_id', 'zip_id', 'country_id', 'phone', 'fax', 'duns_code', 'incoterm_id',
         'since', 'dps_check', 'status', 'shipper', 'consignee', 'third_party', 'agent', 'currency_id', 'agent_id', 'coloader_id',
-        'origin_id', 'destination_id', 'user_create_id', 'user_update_id', 'user_open_id',
+        'origin_id', 'destination_id', 'user_create_id', 'user_update_id', 'user_open_id', 'receipt',  'withdraw',  'shipment',  'ea_loading_guide',  'ea_airwaybill',  'ea_manifest',  'eo_loading_guide',  'eo_bill_of_lading',  'eo_manifest',  'w_sales_order',  'w_bill_of_lading',  'w_receiving_log',  'i_invoice',  'pd_orders',  'ia_airwaybill',  'io_bill_of_lading',  'c_shipping',  'po_orders',
     ];
+    public function setIppcAttribute($value)
+    {
+        $this->attributes['ippc'] = ($value == 'on') ? 1 : 0;
+    }
 
+    public function getIsHazardousAttribute($value)
+    {
+        return ($value == 1) ? 'yes' : 'no';
+    }
     //<editor-fold desc="Customer Eloquent Relationship">
     public function state()
     {
