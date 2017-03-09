@@ -30,7 +30,8 @@ class WarehouseFacilityController extends Controller
      */
     public function create()
     {
-        return view('maintenance.warehouse.warehouse_facilities.create');
+        $user_open_id = Auth::user()->id;
+        return view('maintenance.warehouse.warehouse_facilities.create', compact('user_open_id'));
     }
 
     /**
@@ -44,8 +45,9 @@ class WarehouseFacilityController extends Controller
         $warehouse_facility = $request->all();
         $warehouse_facility['user_create_id'] = Auth::user()->id;
         $warehouse_facility['user_update_id'] = Auth::user()->id;
-        WarehouseFacility::create($warehouse_facility);
-        return redirect()->route('maintenance.warehouse.warehouse_facilities.index');
+        $warehouse= WarehouseFacility::create($warehouse_facility);
+        $id= $warehouse->id;
+        return redirect()->route('maintenance.warehouse.warehouse_facilities.edit', [$id]);
     }
 
     /**
@@ -69,7 +71,10 @@ class WarehouseFacilityController extends Controller
     public function edit($id)
     {
         $warehouse_facility = WarehouseFacility::findOrFail($id);
-        return view('maintenance.warehouse.warehouse_facilities.edit', compact('warehouse_facility'));
+        $user_open_id =  ($warehouse_facility->user_open_id == 0) ? Auth::user()->id : $warehouse_facility->user_open_id;
+        $warehouse_facility = self::updateOpenStatus($warehouse_facility);
+        $warehouse_facility->save();
+        return view('maintenance.warehouse.warehouse_facilities.edit', compact('warehouse_facility', 'user_open_id'));
     }
 
     /**
@@ -85,7 +90,7 @@ class WarehouseFacilityController extends Controller
         $warehouse_facility['user_update_id'] = Auth::user()->id;
         $warehouse_facility->fill($request->all());
         $warehouse_facility->save();
-        return redirect()->route('maintenance.warehouse.warehouse_facilities.index');
+        return redirect()->route('maintenance.warehouse.warehouse_facilities.edit', [$id]);
     }
 
     /**
@@ -126,5 +131,32 @@ class WarehouseFacilityController extends Controller
 
             return response()->json($results);
         }
+    }
+
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+        if($id > 0){
+            $type = WarehouseFacility::findOrFail($id);
+            if (Auth::user()->id == $type->user_open_id)
+            {
+
+                $type = self::updateCloseStatus($type);
+                $type->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $type = WarehouseFacility::findOrFail($data['id']);
+        return [
+            'id'   => $type->user_open_id,
+            'name' => $type->user_open_id > 0 ? $type->user_open->name : '',
+        ];
     }
 }

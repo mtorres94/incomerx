@@ -4,8 +4,8 @@
 @section('table-title', 'Edit unit')
 
 @section('content')
-{!! Form::model($unit, ['route' => ['maintenance.items.units.update', $unit], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
+{!! Form::model($unit, ['id'=>'data', 'route' => ['maintenance.items.units.update', $unit], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
     @include('maintenance.items.units.partials.fields')
-    {!! Form::bsSubmit() !!}
+{!! Form::bsFooter(2, $unit) !!}
 {!! Form::close() !!}
 @endsection

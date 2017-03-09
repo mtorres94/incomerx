@@ -4,8 +4,8 @@
 @section('table-title', 'Create new item')
 
 @section('content')
-{!! Form::open(['route' => 'maintenance.items.items.store', 'method' => 'POST']) !!}
+{!! Form::open(['id'=>'data','route' => 'maintenance.items.items.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
     @include('maintenance.items.items.partials.fields')
-    {!! Form::bsSubmit() !!}
+{!! Form::bsFooter(2, null) !!}
 {!! Form::close() !!}
 @endsection

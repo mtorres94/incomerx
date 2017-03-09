@@ -9,7 +9,7 @@ class City extends Model
     protected $table = "mst_cities";
 
     protected $fillable = [
-        'code', 'name', 'country_id', 'comments', 'user_create_id', 'user_update_id',
+        'code', 'name', 'country_id', 'comments', 'user_create_id', 'user_update_id','user_open_id'
     ];
 
     public function country() {
@@ -19,5 +19,9 @@ class City extends Model
     public function user()
     {
         return $this->hasOne('Sass\User');
+    }
+    public function user_open()
+    {
+        return $this->hasOne('Sass\User', 'user_open_id');
     }
 }

@@ -1,3 +1,4 @@
+{!! Form::hidden('open_status', (isset($user_open_id) ? ($user_open_id == Auth::user()->id ? "0" : "1") : "0"), ['id' => 'open_status', 'class' => 'form-control input-sm']) !!}
 {!! Form::bsText('col-md-4', 'col-md-6', 'Code', 'code', null, 'Enter the code for the item') !!}
 {!! Form::bsText('col-md-4', 'col-md-6', 'Description', 'name', null, 'Enter the description for the item') !!}
 {!! Form::bsText('col-md-4', 'col-md-6', 'Package', 'package', null, 'Enter the package for the item') !!}
@@ -8,3 +9,8 @@
 {!! Form::bsSelect('col-md-4', 'col-md-6', 'Category', 'category_id', Sass\ItemCategory::all()->lists('name', 'id'), 'Choose one of the following categories...') !!}
 {!! Form::bsSelect('col-md-4', 'col-md-6', 'Subcategory', 'subcategory_id', Sass\ItemSubcategory::all()->lists('name', 'id'), 'Choose one of the following subcategories...') !!}
 {!! Form::bsText('col-md-4', 'col-md-4', 'Vendor SKU number', 'vendor_sku_number', null, 'Enter the vendor SKU number for the item') !!}
+@section('scripts')
+    <script>
+    </script>
+    @include('maintenance.items.items.partials.scripts.init')
+@stop

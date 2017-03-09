@@ -4,8 +4,8 @@
 @section('table-title', 'Create new world location')
 
 @section('content')
-{!! Form::open(['route' => 'maintenance.countries_destinations.world_locations.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
+{!! Form::open(['id'=>'data', 'route' => 'maintenance.countries_destinations.world_locations.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
     @include('maintenance.countries_destinations.world_locations.partials.fields')
-    {!! Form::bsSubmit() !!}
+{!! Form::bsFooter(2, null) !!}
 {!! Form::close() !!}
 @endsection

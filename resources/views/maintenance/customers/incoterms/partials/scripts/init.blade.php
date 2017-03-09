@@ -2,7 +2,7 @@
     window.onload = (function () {
         openTab($("#data"));
         renameTab();
-        updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('incoterm.close') }}');
+        updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('incoterms.close') }}');
 
         function renameTab() {
             if ('edit' == '{{ \Request::segment(5) }}') {

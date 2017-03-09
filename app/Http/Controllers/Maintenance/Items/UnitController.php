@@ -9,6 +9,7 @@ use Sass\Http\Controllers\Controller;
 use Sass\Http\Requests\Maintenance\Items\UnitRequest;
 use Sass\Unit;
 
+
 class UnitController extends Controller
 {
     /**
@@ -29,7 +30,8 @@ class UnitController extends Controller
      */
     public function create()
     {
-        return view('maintenance.items.units.create');
+        $user_open_id = Auth::user()->id;
+        return view('maintenance.items.units.create', compact('user_open_id'));
     }
 
     /**
@@ -38,13 +40,15 @@ class UnitController extends Controller
      * @param UnitRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UnitRequest $request)
+    public function store(Request $request)
     {
         $unit = $request->all();
+
         $unit['user_create_id'] = Auth::user()->id;
         $unit['user_update_id'] = Auth::user()->id;
-        Unit::create($unit);
-        return redirect()->route('maintenance.items.units.index');
+        $units =Unit::create($unit);
+        $id= $units->id;
+        return redirect()->route('maintenance.items.units.edit', [$id]);
     }
 
     /**
@@ -68,7 +72,11 @@ class UnitController extends Controller
     public function edit($id)
     {
         $unit = Unit::findOrFail($id);
-        return view('maintenance.items.units.edit', compact('unit'));
+        $user_open_id =  ($unit->user_open_id == 0) ? Auth::user()->id : $unit->user_open_id;
+
+        $unit = self::updateOpenStatus($unit);
+        $unit->save();
+        return view('maintenance.items.units.edit', compact('unit', 'user_open_id'));
     }
 
     /**
@@ -78,13 +86,13 @@ class UnitController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UnitRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $unit = Unit::findOrFail($id);
         $unit['user_update_id'] = Auth::user()->id;
         $unit->fill($request->all());
         $unit->save();
-        return redirect()->route('maintenance.items.units.index');
+        return redirect()->route('maintenance.items.units.edit', [$id]);
     }
 
     /**
@@ -131,5 +139,33 @@ class UnitController extends Controller
             ];
             return response()->json($results);
         }
+    }
+
+
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+        if($id > 0){
+            $type = Unit::findOrFail($id);
+            if (Auth::user()->id == $type->user_open_id)
+            {
+
+                $type = self::updateCloseStatus($type);
+                $type->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $type = Unit::findOrFail($data['id']);
+        return [
+            'id'   => $type->user_open_id,
+            'name' => $type->user_open_id > 0 ? $type->user_open->name : '',
+        ];
     }
 }

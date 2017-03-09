@@ -4,8 +4,8 @@
 @section('table-title', 'Create new warehouse facility')
 
 @section('content')
-{!! Form::open(['route' => 'maintenance.warehouse.warehouse_facilities.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
+{!! Form::open(['id'=>'data', 'route' => 'maintenance.warehouse.warehouse_facilities.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
     @include('maintenance.warehouse.warehouse_facilities.partials.fields')
-    {!! Form::bsSubmit() !!}
+{!! Form::bsFooter(2, null) !!}
 {!! Form::close() !!}
 @endsection

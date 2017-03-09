@@ -4,8 +4,8 @@
 @section('table-title', 'Edit city')
 
 @section('content')
-{!! Form::model($city, ['route' => ['maintenance.countries_destinations.cities.update', $city], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
+{!! Form::model($city, ['id'=>'data', 'route' => ['maintenance.countries_destinations.cities.update', $city], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
     @include('maintenance.countries_destinations.cities.partials.fields', $city)
-    {!! Form::bsSubmit() !!}
+{!! Form::bsFooter(2, $city) !!}
 {!! Form::close() !!}
 @endsection

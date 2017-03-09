@@ -4,8 +4,8 @@
 @section('table-title', 'Create new currency')
 
 @section('content')
-{!! Form::open(['route' => 'maintenance.countries_destinations.currencies.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
+{!! Form::open(['id'=>'data', 'route' => 'maintenance.countries_destinations.currencies.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
     @include('maintenance.countries_destinations.currencies.partials.fields')
-    {!! Form::bsSubmit() !!}
+{!! Form::bsFooter(2, null) !!}
 {!! Form::close() !!}
 @endsection

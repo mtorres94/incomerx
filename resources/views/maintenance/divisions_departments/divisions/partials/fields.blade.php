@@ -1,3 +1,4 @@
+{!! Form::hidden('open_status', (isset($user_open_id) ? ($user_open_id == Auth::user()->id ? "0" : "1") : "0"), ['id' => 'open_status', 'class' => 'form-control input-sm']) !!}
 <div class="container-fluid">
     <div class="col-md-5">
         {!! Form::bsText('col-md-4', 'col-md-8', 'Code', 'code', null, 'Enter the code for the division') !!}
@@ -17,4 +18,9 @@
         {!! Form::bsMemo('col-md-5', 'col-md-7', 'Comments', 'comments', null, 2, 'Enter some comments for this division') !!}
     </div>
 </div>
+@section('scripts')
+    <script>
+    </script>
+    @include('maintenance.divisions_departments.divisions.partials.scripts.init')
+@stop
 

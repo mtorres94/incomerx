@@ -3,7 +3,7 @@
 namespace Sass\Http\Controllers\Maintenance\Items;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use Sass\DataTables\Maintenance\Items\ServiceDataTable;
 use Sass\Http\Controllers\Controller;
 use Sass\Http\Requests;
@@ -29,7 +29,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        $user_open_id = Auth::user()->id;
+        return view('maintenance.items.services.create', compact('user_open_id'));
     }
 
     /**
@@ -40,7 +41,14 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $service = $request->all();
+        $service['user_create_id'] = Auth::user()->id;
+        $service['user_update_id'] = Auth::user()->id;
+        //$service['code'] = substr($service['name'], 0, 3);
+
+        $type= Service::create($service);
+        $id= $type->id;
+        return redirect()->route('maintenance.items.services.edit', [$id]);
     }
 
     /**
@@ -62,7 +70,13 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $service = Service::findOrFail($id);
+        $user_open_id =  ($service->user_open_id == 0) ? Auth::user()->id : $service->user_open_id;
+
+        $service = self::updateOpenStatus($service);
+        $service->save();
+
+        return view('maintenance.items.services.edit', compact('service', 'user_open_id'));
     }
 
     /**
@@ -74,7 +88,11 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $service = Service::findOrFail($id);
+        $service['user_update_id'] = Auth::user()->id;
+        $service->fill($request->all());
+        $service->save();
+        return redirect()->route('maintenance.items.services.edit', [$id]);
     }
 
     /**
@@ -85,7 +103,8 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $service = Service::find($id);
+        $service->delete();
     }
 
     /**
@@ -115,5 +134,33 @@ class ServiceController extends Controller
 
             return response()->json($results);
         }
+    }
+
+
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+        if($id > 0){
+            $type = Service::findOrFail($id);
+            if (Auth::user()->id == $type->user_open_id)
+            {
+
+                $type = self::updateCloseStatus($type);
+                $type->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $type = Service::findOrFail($data['id']);
+        return [
+            'id'   => $type->user_open_id,
+            'name' => $type->user_open_id > 0 ? $type->user_open->name : '',
+        ];
     }
 }

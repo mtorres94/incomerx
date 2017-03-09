@@ -9,7 +9,7 @@ class ItemSubcategory extends Model
     protected $table = "mst_item_subcategories";
 
     protected $fillable = [
-        'name', 'user_create_id', 'user_update_id',
+        'name', 'user_create_id', 'user_update_id','user_open_id'
     ];
 
     public function getNameAttribute()
@@ -21,5 +21,9 @@ class ItemSubcategory extends Model
     public function user()
     {
         return $this->hasOne('Sass\User');
+    }
+    public function user_open()
+    {
+        return $this->hasOne('Sass\User', 'user_open_id');
     }
 }

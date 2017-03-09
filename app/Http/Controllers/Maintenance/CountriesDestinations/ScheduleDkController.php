@@ -34,7 +34,8 @@ class ScheduleDkController extends Controller
      */
     public function create()
     {
-        return view('maintenance.countries_destinations.schedule_dks.create');
+        $user_open_id = Auth::user()->id;
+        return view('maintenance.countries_destinations.schedule_dks.create', compact('user_open_id'));
     }
 
     /**
@@ -48,8 +49,9 @@ class ScheduleDkController extends Controller
         $scheduled = $request->all();
         $scheduled['user_create_id'] = Auth::user()->id;
         $scheduled['user_update_id'] = Auth::user()->id;
-        ScheduleDk::create($scheduled);
-        return redirect()->route('maintenance.countries_destinations.schedule_dks.index');
+        $schedule = ScheduleDk::create($scheduled);
+        $id = $schedule->id;
+        return redirect()->route('maintenance.countries_destinations.schedule_dks.edit', [$id]);
     }
 
     /**
@@ -73,7 +75,10 @@ class ScheduleDkController extends Controller
     public function edit($id)
     {
         $scheduled = ScheduleDk::findOrFail($id);
-        return view('maintenance.countries_destinations.schedule_dks.edit', compact('scheduled'));
+        $user_open_id =  ($scheduled->user_open_id == 0) ? Auth::user()->id : $scheduled->user_open_id;
+        $scheduled = self::updateOpenStatus($scheduled);
+        $scheduled->save();
+        return view('maintenance.countries_destinations.schedule_dks.edit', compact('scheduled', 'user_open_id'));
     }
 
     /**
@@ -89,7 +94,7 @@ class ScheduleDkController extends Controller
         $scheduled['user_update_id'] = Auth::user()->id;
         $scheduled->fill($request->all());
         $scheduled->save();
-        return redirect()->route('maintenance.countries_destinations.schedule_dks.index');
+        return redirect()->route('maintenance.countries_destinations.schedule_dks.edit', [$id]);
     }
 
     /**
@@ -128,4 +133,31 @@ class ScheduleDkController extends Controller
             return response()->json($results);
         }
     }
+
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+        if($id > 0){
+            $type = ScheduleDk::findOrFail($id);
+            if (Auth::user()->id == $type->user_open_id)
+            {
+                $type = self::updateCloseStatus($type);
+                $type->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $type = ScheduleDk::findOrFail($data['id']);
+        return [
+            'id'   => $type->user_open_id,
+            'name' => $type->user_open_id > 0 ? $type->user_open->name : '',
+        ];
+    }
+
 }

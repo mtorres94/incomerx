@@ -30,7 +30,8 @@ class DivisionController extends Controller
      */
     public function create()
     {
-        return view('maintenance.divisions_departments.divisions.create');
+        $user_open_id = Auth::user()->id;
+        return view('maintenance.divisions_departments.divisions.create', compact('user_open_id'));
     }
 
     /**
@@ -44,8 +45,9 @@ class DivisionController extends Controller
         $division = $request->all();
         $division['user_create_id'] = Auth::user()->id;
         $division['user_update_id'] = Auth::user()->id;
-        Division::create($division);
-        return redirect()->route('maintenance.divisions_departments.divisions.index');
+        $divisions= Division::create($division);
+        $id = $divisions->id;
+        return redirect()->route('maintenance.divisions_departments.divisions.edit', [$id]);
     }
 
     /**
@@ -69,7 +71,10 @@ class DivisionController extends Controller
     public function edit($id)
     {
         $division = Division::findOrFail($id);
-        return view('maintenance.divisions_departments.divisions.edit', compact('division'));
+        $user_open_id =  ($division->user_open_id == 0) ? Auth::user()->id : $division->user_open_id;
+        $division = self::updateOpenStatus($division);
+        $division->save();
+        return view('maintenance.divisions_departments.divisions.edit', compact('division', 'user_open_id'));
     }
 
     /**
@@ -85,7 +90,7 @@ class DivisionController extends Controller
         $division['user_update_id'] = Auth::user()->id;
         $division->fill($request->all());
         $division->save();
-        return redirect()->route('maintenance.divisions_departments.divisions.index');
+        return redirect()->route('maintenance.divisions_departments.divisions.edit', [$id]);
     }
 
     /**
@@ -123,5 +128,31 @@ class DivisionController extends Controller
 
             return response()->json($results);
         }
+    }
+
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+        if($id > 0){
+            $type = Division::findOrFail($id);
+            if (Auth::user()->id == $type->user_open_id)
+            {
+                $type = self::updateCloseStatus($type);
+                $type->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $type = Division::findOrFail($data['id']);
+        return [
+            'id'   => $type->user_open_id,
+            'name' => $type->user_open_id > 0 ? $type->user_open->name : '',
+        ];
     }
 }

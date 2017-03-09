@@ -3,6 +3,7 @@
 namespace Sass\Http\Controllers\Maintenance\Items;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Sass\DataTables\Maintenance\Items\ItemSubcategoryDataTable;
 use Sass\Http\Controllers\Controller;
 use Sass\Http\Requests\Maintenance\Items\ItemSubcategoryRequest;
@@ -28,22 +29,24 @@ class ItemSubcategoryController extends Controller
      */
     public function create()
     {
-        return view('maintenance.items.item_subcategories.create');
+        $user_open_id = Auth::user()->id;
+        return view('maintenance.items.item_subcategories.create', compact('user_open_id'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param ItemSubcategoryRequest $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ItemSubcategoryRequest $request)
+    public function store(Request $request)
     {
         $item_subcategory = $request->all();
         $item_subcategory['user_create_id'] = Auth::user()->id;
         $item_subcategory['user_update_id'] = Auth::user()->id;
-        ItemSubcategory::create($item_subcategory);
-        return redirect()->route('maintenance.items.item_subcategories.index');
+        $subcategory = ItemSubcategory::create($item_subcategory);
+        $id = $subcategory->id;
+        return redirect()->route('maintenance.items.item_subcategories.edit', [$id]);
     }
 
     /**
@@ -66,24 +69,28 @@ class ItemSubcategoryController extends Controller
      */
     public function edit($id)
     {
+
         $item_subcategory = ItemSubcategory::findOrFail($id);
-        return view('maintenance.items.item_subcategories.edit', compact('item_subcategory'));
+        $user_open_id =  ($item_subcategory->user_open_id == 0) ? Auth::user()->id : $item_subcategory->user_open_id;
+        $item_subcategory = self::updateOpenStatus($item_subcategory);
+        $item_subcategory->save();
+        return view('maintenance.items.item_subcategories.edit', compact('item_subcategory', 'user_open_id'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param ItemSubcategoryRequest $request
+     * @param Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ItemSubcategoryRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $item_subcategory = ItemSubcategory::findOrFail($id);
         $item_subcategory['user_update_id'] = Auth::user()->id;
         $item_subcategory->fill($request->all());
         $item_subcategory->save();
-        return redirect()->route('maintenance.items.item_subcategories.index');
+        return redirect()->route('maintenance.items.item_subcategories.edit', [$id]);
     }
 
     /**
@@ -96,5 +103,32 @@ class ItemSubcategoryController extends Controller
     {
         $item_subcategory = ItemSubcategory::find($id);
         $item_subcategory->delete();
+    }
+
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+        if($id > 0){
+            $type = ItemSubcategory::findOrFail($id);
+            if (Auth::user()->id == $type->user_open_id)
+            {
+
+                $type = self::updateCloseStatus($type);
+                $type->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $type = ItemSubcategory::findOrFail($data['id']);
+        return [
+            'id'   => $type->user_open_id,
+            'name' => $type->user_open_id > 0 ? $type->user_open->name : '',
+        ];
     }
 }

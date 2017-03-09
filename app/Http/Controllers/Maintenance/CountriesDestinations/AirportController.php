@@ -30,22 +30,24 @@ class AirportController extends Controller
      */
     public function create()
     {
-        return view('maintenance.countries_destinations.airports.create');
+        $user_open_id = Auth::user()->id;
+        return view('maintenance.countries_destinations.airports.create', compact('user_open_id'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param AirportRequest $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AirportRequest $request)
+    public function store(Request $request)
     {
         $airport = $request->all();
         $airport['user_create_id'] = Auth::user()->id;
         $airport['user_update_id'] = Auth::user()->id;
-        Airport::create($airport);
-        return redirect()->route('maintenance.countries_destinations.airports.index');
+        $airport =Airport::create($airport);
+        $id = $airport->id;
+        return redirect()->route('maintenance.countries_destinations.airports.edit', [$id]);
     }
 
     /**
@@ -69,23 +71,26 @@ class AirportController extends Controller
     public function edit($id)
     {
         $airport = Airport::findOrFail($id);
-        return view('maintenance.countries_destinations.airports.edit', compact('airport'));
+        $user_open_id =  ($airport->user_open_id == 0) ? Auth::user()->id : $airport->user_open_id;
+        $airport = self::updateOpenStatus($airport);
+        $airport->save();
+        return view('maintenance.countries_destinations.airports.edit', compact('airport', 'user_open_id'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param AirportRequest $request
+     * @param Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AirportRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $airport = Airport::findOrFail($id);
         $airport['user_update_id'] = Auth::user()->id;
         $airport->fill($request->all());
         $airport->save();
-        return redirect()->route('maintenance.countries_destinations.airports.index');
+        return redirect()->route('maintenance.countries_destinations.airports.edit', [$id]);
     }
 
     /**
@@ -129,5 +134,33 @@ class AirportController extends Controller
 
             return response()->json($results);
         }
+    }
+
+
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+        if($id > 0){
+            $type = Airport::findOrFail($id);
+            if (Auth::user()->id == $type->user_open_id)
+            {
+
+                $type = self::updateCloseStatus($type);
+                $type->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $type = Airport::findOrFail($data['id']);
+        return [
+            'id'   => $type->user_open_id,
+            'name' => $type->user_open_id > 0 ? $type->user_open->name : '',
+        ];
     }
 }

@@ -30,7 +30,8 @@ class WorldLocationController extends Controller
      */
     public function create()
     {
-        return view('maintenance.countries_destinations.world_locations.create');
+        $user_open_id = Auth::user()->id;
+        return view('maintenance.countries_destinations.world_locations.create', compact('user_open_id'));
     }
 
     /**
@@ -44,8 +45,9 @@ class WorldLocationController extends Controller
         $world_location = $request->all();
         $world_location['user_create_id'] = Auth::user()->id;
         $world_location['user_update_id'] = Auth::user()->id;
-        WorldLocation::create($world_location);
-        return redirect()->route('maintenance.countries_destinations.world_locations.index');
+        $location = WorldLocation::create($world_location);
+        $id = $location->id;
+        return redirect()->route('maintenance.countries_destinations.world_locations.edit', [$id]);
     }
 
     /**
@@ -69,7 +71,10 @@ class WorldLocationController extends Controller
     public function edit($id)
     {
         $world_location = WorldLocation::findOrFail($id);
-        return view('maintenance.countries_destinations.world_locations.edit', compact('world_location'));
+        $user_open_id =  ($world_location->user_open_id == 0) ? Auth::user()->id : $world_location->user_open_id;
+        $world_location = self::updateOpenStatus($world_location);
+        $world_location->save();
+        return view('maintenance.countries_destinations.world_locations.edit', compact('world_location', 'user_open_id'));
     }
 
     /**
@@ -85,7 +90,7 @@ class WorldLocationController extends Controller
         $world_location['user_update_id'] = Auth::user()->id;
         $world_location->fill($request->all());
         $world_location->save();
-        return redirect()->route('maintenance.countries_destinations.world_locations.index');
+        return redirect()->route('maintenance.countries_destinations.world_locations.edit', [$id]);
     }
 
     /**
@@ -128,5 +133,31 @@ class WorldLocationController extends Controller
 
             return response()->json($results);
         }
+    }
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+        if($id > 0){
+            $type = WorldLocation::findOrFail($id);
+            if (Auth::user()->id == $type->user_open_id)
+            {
+
+                $type = self::updateCloseStatus($type);
+                $type->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $type = WorldLocation::findOrFail($data['id']);
+        return [
+            'id'   => $type->user_open_id,
+            'name' => $type->user_open_id > 0 ? $type->user_open->name : '',
+        ];
     }
 }

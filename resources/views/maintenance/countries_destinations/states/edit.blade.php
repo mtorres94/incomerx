@@ -4,8 +4,8 @@
 @section('table-title', 'Edit state')
 
 @section('content')
-{!! Form::model($state, ['route' => ['maintenance.countries_destinations.states.update', $state], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
+{!! Form::model($state, ['id'=>'data', 'route' => ['maintenance.countries_destinations.states.update', $state], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
     @include('maintenance.countries_destinations.states.partials.fields', $state)
-    {!! Form::bsSubmit() !!}
+{!! Form::bsFooter(2, $state) !!}
 {!! Form::close() !!}
 @endsection

@@ -4,8 +4,8 @@
 @section('table-title', 'Edit scheduled')
 
 @section('content')
-{!! Form::model($scheduled, ['route' => ['maintenance.countries_destinations.schedule_dks.update', $scheduled], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
+{!! Form::model($scheduled, ['id'=> 'data', 'route' => ['maintenance.countries_destinations.schedule_dks.update', $scheduled], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
     @include('maintenance.countries_destinations.schedule_dks.partials.fields')
-    {!! Form::bsSubmit() !!}
+{!! Form::bsFooter(2, $scheduled) !!}
 {!! Form::close() !!}
 @endsection

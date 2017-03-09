@@ -4,8 +4,8 @@
 @section('table-title', 'Edit subdepartment')
 
 @section('content')
-{!! Form::model($subdepartment, ['route' => ['maintenance.divisions_departments.subdepartments.update', $subdepartment], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
+{!! Form::model($subdepartment, ['id'=> 'data', 'route' => ['maintenance.divisions_departments.subdepartments.update', $subdepartment], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
     @include('maintenance.divisions_departments.subdepartments.partials.fields')
-    {!! Form::bsSubmit() !!}
+{!! Form::bsFooter(2, $subdepartment) !!}
 {!! Form::close() !!}
 @endsection

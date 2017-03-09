@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Sass\Country;
 use Sass\DataTables\Maintenance\CountriesDestinations\CountryDataTable;
 use Sass\Http\Controllers\Controller;
-use Sass\Http\Requests\Maintenance\CountriesDestinations\CountryRequest;
+
 
 class CountryController extends Controller
 {
@@ -30,22 +30,24 @@ class CountryController extends Controller
      */
     public function create()
     {
-        return view('maintenance.countries_destinations.countries.create');
+        $user_open_id = Auth::user()->id;
+        return view('maintenance.countries_destinations.countries.create', compact('user_open_id'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param CountryRequest $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CountryRequest $request)
+    public function store(Request $request)
     {
         $country = $request->all();
         $country['user_create_id'] = Auth::user()->id;
         $country['user_update_id'] = Auth::user()->id;
-        Country::create($country);
-        return redirect()->route('maintenance.countries_destinations.countries.index');
+        $countries= Country::create($country);
+        $id= $countries->id;
+        return redirect()->route('maintenance.countries_destinations.countries.edit', [$id]);
     }
 
     /**
@@ -69,23 +71,26 @@ class CountryController extends Controller
     public function edit($id)
     {
         $country = Country::findOrFail($id);
-        return view('maintenance.countries_destinations.countries.edit', compact('country'));
+        $user_open_id =  ($country->user_open_id == 0) ? Auth::user()->id : $country->user_open_id;
+        $country = self::updateOpenStatus($country);
+        $country->save();
+        return view('maintenance.countries_destinations.countries.edit', compact('country', 'user_open_id'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param CountryRequest $request
+     * @param Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CountryRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $country = Country::findOrFail($id);
         $country['user_update_id'] = Auth::user()->id;
         $country->fill($request->all());
         $country->save();
-        return redirect()->route('maintenance.countries_destinations.countries.index');
+        return redirect()->route('maintenance.countries_destinations.countries.edit', [$id]);
     }
 
     /**
@@ -123,5 +128,31 @@ class CountryController extends Controller
 
             return response()->json($results);
         }
+    }
+
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+        if($id > 0){
+            $type = Country::findOrFail($id);
+            if (Auth::user()->id == $type->user_open_id)
+            {
+                $type = self::updateCloseStatus($type);
+                $type->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $type = Country::findOrFail($data['id']);
+        return [
+            'id'   => $type->user_open_id,
+            'name' => $type->user_open_id > 0 ? $type->user_open->name : '',
+        ];
     }
 }

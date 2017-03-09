@@ -30,22 +30,24 @@ class ItemController extends Controller
      */
     public function create()
     {
-        return view('maintenance.items.items.create');
+        $user_open_id = Auth::user()->id;
+        return view('maintenance.items.items.create', compact('user_open_id'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param ItemRequest $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ItemRequest $request)
+    public function store(Request $request)
     {
         $item = $request->all();
         $item['user_create_id'] = Auth::user()->id;
         $item['user_update_id'] = Auth::user()->id;
-        Item::create($item);
-        return redirect()->route('maintenance.items.items.index');
+        $item= Item::create($item);
+        $id = $item->id;
+        return redirect()->route('maintenance.items.items.edit', [$id]);
     }
 
     /**
@@ -69,23 +71,26 @@ class ItemController extends Controller
     public function edit($id)
     {
         $item = Item::findOrFail($id);
-        return view('maintenance.items.items.edit', compact('item'));
+        $user_open_id =  ($item->user_open_id == 0) ? Auth::user()->id : $item->user_open_id;
+        $item = self::updateOpenStatus($item);
+        $item->save();
+        return view('maintenance.items.items.edit', compact('item', 'user_open_id'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param ItemRequest $request
+     * @param Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ItemRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $item = Item::findOrFail($id);
         $item['user_update_id'] = Auth::user()->id;
         $item->fill($request->all());
         $item->save();
-        return redirect()->route('maintenance.items.items.index');
+        return redirect()->route('maintenance.items.items.edit', [$id]);
     }
 
     /**
@@ -120,5 +125,31 @@ class ItemController extends Controller
 
             return response()->json($results);
         }
+    }
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+        if($id > 0){
+            $type = Item::findOrFail($id);
+            if (Auth::user()->id == $type->user_open_id)
+            {
+
+                $type = self::updateCloseStatus($type);
+                $type->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $type = Item::findOrFail($data['id']);
+        return [
+            'id'   => $type->user_open_id,
+            'name' => $type->user_open_id > 0 ? $type->user_open->name : '',
+        ];
     }
 }

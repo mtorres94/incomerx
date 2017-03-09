@@ -9,7 +9,7 @@ class Currency extends Model
     protected $table = 'mst_currencies';
 
     protected $fillable = [
-        'code', 'name', 'country_id', 'user_create_id', 'user_update_id',
+        'code', 'name', 'country_id', 'user_create_id', 'user_update_id','user_open_id'
     ];
 
     public function getCodeAttribute()
@@ -26,5 +26,9 @@ class Currency extends Model
     public function user()
     {
         return $this->belongsTo('Sass\User');
+    }
+    public function user_open()
+    {
+        return $this->belongsTo('Sass\User', 'user_open_id');
     }
 }

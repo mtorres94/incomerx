@@ -3,7 +3,8 @@
 namespace Sass\Http\Controllers\Maintenance\VendorsSuppliers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Sass\DataTables\Maintenance\VendorsSuppliers\VendorTypeDataTable;
 use Sass\Http\Controllers\Controller;
 use Sass\Http\Requests;
@@ -30,7 +31,7 @@ class VendorTypeController extends Controller
     public function create()
     {
         $user_open_id = Auth::user()->id;
-        return view('maintenance.vendors_suppliers.vendor_types.create', 'user_open_id');
+        return view('maintenance.vendors_suppliers.vendor_types.create', compact('user_open_id'));
     }
 
     /**
@@ -46,7 +47,7 @@ class VendorTypeController extends Controller
         $vendor_type['user_update_id'] = Auth::user()->id;
         $vendor= VendorType::create($vendor_type);
         $id= $vendor->id;
-        return redirect()->route('maintenance.vendors_suppliers.vendor_types.edit', compact('id'));
+        return redirect()->route('maintenance.vendors_suppliers.vendor_types.edit', [$id]);
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 
 namespace Sass\Http\Controllers\Maintenance\CountriesDestinations;
-
+use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use Sass\City;
@@ -29,7 +29,8 @@ class CityController extends Controller
      */
     public function create()
     {
-        return view('maintenance.countries_destinations.cities.create');
+        $user_open_id = Auth::user()->id;
+        return view('maintenance.countries_destinations.cities.create', compact('user_open_id'));
     }
 
     /**
@@ -43,8 +44,9 @@ class CityController extends Controller
         $city = $request->all();
         $city['user_create_id'] = Auth::user()->id;
         $city['user_update_id'] = Auth::user()->id;
-        City::create($city);
-        return redirect()->route('maintenance.countries_destinations.cities.index');
+        $city = City::create($city);
+        $id = $city->id;
+        return redirect()->route('maintenance.countries_destinations.cities.edit', [$id]);
     }
 
     /**
@@ -68,7 +70,10 @@ class CityController extends Controller
     public function edit($id)
     {
         $city = City::findOrFail($id);
-        return view('maintenance.countries_destinations.cities.edit', compact('city'));
+        $user_open_id =  ($city->user_open_id == 0) ? Auth::user()->id : $city->user_open_id;
+        $city = self::updateOpenStatus($city);
+        $city->save();
+        return view('maintenance.countries_destinations.cities.edit', compact('city', 'user_open_id'));
     }
 
     /**
@@ -84,7 +89,7 @@ class CityController extends Controller
         $city['user_update_id'] = Auth::user()->id;
         $city->fill($request->all());
         $city->save();
-        return redirect()->route('maintenance.countries_destinations.cities.index');
+        return redirect()->route('maintenance.countries_destinations.cities.edit', [$id]);
     }
 
     /**
@@ -97,5 +102,33 @@ class CityController extends Controller
     {
         $city = City::find($id);
         $city->delete();
+    }
+
+
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+        if($id > 0){
+            $type = City::findOrFail($id);
+            if (Auth::user()->id == $type->user_open_id)
+            {
+
+                $type = self::updateCloseStatus($type);
+                $type->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $type = City::findOrFail($data['id']);
+        return [
+            'id'   => $type->user_open_id,
+            'name' => $type->user_open_id > 0 ? $type->user_open->name : '',
+        ];
     }
 }

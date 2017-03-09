@@ -30,7 +30,8 @@ class StateController extends Controller
      */
     public function create()
     {
-        return view('maintenance.countries_destinations.states.create');
+        $user_open_id = Auth::user()->id;
+        return view('maintenance.countries_destinations.states.create', compact($user_open_id));
     }
 
     /**
@@ -39,13 +40,14 @@ class StateController extends Controller
      * @param StateRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StateRequest $request)
+    public function store(Request $request)
     {
         $state = $request->all();
         $state['user_create_id'] = Auth::user()->id;
         $state['user_update_id'] = Auth::user()->id;
-        State::create($state);
-        return redirect()->route('maintenance.countries_destinations.states.index');
+        $states = State::create($state);
+        $id = $states->id;
+        return redirect()->route('maintenance.countries_destinations.states.edit', [$id]);
     }
 
     /**
@@ -69,23 +71,26 @@ class StateController extends Controller
     public function edit($id)
     {
         $state = State::findOrFail($id);
-        return view('maintenance.countries_destinations.states.edit', compact('state'));
+        $user_open_id =  ($state->user_open_id == 0) ? Auth::user()->id : $state->user_open_id;
+        $state = self::updateOpenStatus($state);
+        $state->save();
+        return view('maintenance.countries_destinations.states.edit', compact('state' ,'user_open_id'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param StateRequest $request
+     * @param Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StateRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $state = State::findOrFail($id);
         $state['user_update_id'] = Auth::user()->id;
         $state->fill($request->all());
         $state->save();
-        return redirect()->route('maintenance.countries_destinations.states.index');
+        return redirect()->route('maintenance.countries_destinations.states.edit', [$id]);
     }
 
     /**
@@ -128,5 +133,32 @@ class StateController extends Controller
 
             return response()->json($results);
         }
+    }
+
+
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+        if($id > 0){
+            $type = State::findOrFail($id);
+            if (Auth::user()->id == $type->user_open_id)
+            {
+                $type = self::updateCloseStatus($type);
+                $type->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $type = State::findOrFail($data['id']);
+        return [
+            'id'   => $type->user_open_id,
+            'name' => $type->user_open_id > 0 ? $type->user_open->name : '',
+        ];
     }
 }

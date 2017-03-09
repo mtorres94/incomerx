@@ -209,7 +209,7 @@
                     .append(createTableContent('cargo_unit_weight', j, true, w))
                     .append($("<td></td>"))
 
-                    .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), calculate_warehouse_details(), cleanModalFields('cargo-warehouse'),$("#CargoModal").formValidation("resetForm", true), $("#tmp_cargo_type_id").val(0).change(), $("#tmp_cargo_quantity").val(""), $("#tmp_cargo_pieces").val(1), $("#tmp_cargo_location_id").val(0).change(), $("#tmp_cargo_location_bin_id").val(0).change(), $("#tmp_cargo_weight_unit_measurement_id").val("L").change(),$("#tmp_cargo_metric_unit_measurement_id").val("I").change(),$("#tmp_cargo_dim_fact").val("I").change(), $("#tmp_cargo_quantity").focus()
+                    .append(createTableBtns()), 0 == a ? x.append(C) : x.find("tr#" + a).replaceWith(C), calculate_warehouse_details(), cleanModalFields('cargo-warehouse'),$("#CargoModal").formValidation("resetForm", true), $("#tmp_cargo_type_id").val(0).change(), $("#tmp_cargo_quantity").val(""), $("#tmp_cargo_pieces").val(0), $("#tmp_cargo_location_id").val(0).change(), $("#tmp_cargo_location_bin_id").val(0).change(), $("#tmp_cargo_weight_unit_measurement_id").val("L").change(),$("#tmp_cargo_metric_unit_measurement_id").val("I").change(),$("#tmp_cargo_dim_fact").val("I").change(), $("#tmp_cargo_quantity").focus()
         }
     }), $("#warehouse-details").on("click", "a.btn-danger", function() {
         var td = $(this);
@@ -316,7 +316,7 @@
                     .append($("<td></td>"))
                     .append(createTableBtns()), x.append(C)
             }
-        calculate_warehouse_details(), cleanModalFields('cargo-multiline-warehouse'), $("#multiline_cargo_quantity").val(""),$("#multiline_cargo_pieces").val(1),$("#multiline_cargo_location_bin_id").val(0).change(),$("#multiline_cargo_location_id").val(0).change(), $("#multiline_cargo_weight_unit_measurement_code").val("L").change(), $("#multiline_cargo_metric_unit_measurement_code").val("I").change(), $("#multiline_cargo_dim_fact").val("I").change(), $("#multiline_cargo_quantity").focus()
+        calculate_warehouse_details(), cleanModalFields('cargo-multiline-warehouse'), $("#multiline_cargo_quantity").val(""),$("#multiline_cargo_pieces").val(0),$("#multiline_cargo_location_bin_id").val(0).change(),$("#multiline_cargo_location_id").val(0).change(), $("#multiline_cargo_weight_unit_measurement_code").val("L").change(), $("#multiline_cargo_metric_unit_measurement_code").val("I").change(), $("#multiline_cargo_dim_fact").val("I").change(), $("#multiline_cargo_quantity").focus()
     }), $("#charges-save").click(function() {
         /*var t = $("#charge-details tbody tr").length + 1,
                 d= t - 1,*/

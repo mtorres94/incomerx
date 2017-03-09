@@ -4,8 +4,8 @@
 @section('table-title', 'Create new subdepartment')
 
 @section('content')
-{!! Form::open(['route' => 'maintenance.divisions_departments.subdepartments.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
+{!! Form::open(['id'=>'data', 'route' => 'maintenance.divisions_departments.subdepartments.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
     @include('maintenance.divisions_departments.subdepartments.partials.fields')
-    {!! Form::bsSubmit() !!}
+{!! Form::bsFooter(2, null) !!}
 {!! Form::close() !!}
 @endsection

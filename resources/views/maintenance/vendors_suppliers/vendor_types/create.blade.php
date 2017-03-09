@@ -4,8 +4,8 @@
 @section('table-title', 'Create new customer type')
 
 @section('content')
-{!! Form::open(['route' => 'maintenance.vendors_suppliers.vendor_types.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
+{!! Form::open(['id'=>'data','route' => 'maintenance.vendors_suppliers.vendor_types.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
     @include('maintenance.vendors_suppliers.vendor_types.partials.fields')
-    {!! Form::bsSubmit() !!}
+{!! Form::bsFooter(2, null) !!}
 {!! Form::close() !!}
 @endsection

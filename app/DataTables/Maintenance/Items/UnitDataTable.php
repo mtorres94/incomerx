@@ -30,7 +30,7 @@ class UnitDataTable extends CustomDataTable
      */
     public function query()
     {
-        $query = Unit::select(['id','abbreviation as code','name']);
+        $query = Unit::select(['id','code','name']);
 
         return $this->applyScopes($query);
     }

@@ -4,8 +4,8 @@
 @section('table-title', 'Edit item_subcategory')
 
 @section('content')
-{!! Form::model($item_subcategory, ['route' => ['maintenance.items.item_subcategories.update', $item_subcategory], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
+{!! Form::model($item_subcategory, ['id'=> 'data','route' => ['maintenance.items.item_subcategories.update', $item_subcategory], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
     @include('maintenance.items.item_subcategories.partials.fields')
-    {!! Form::bsSubmit() !!}
+{!! Form::bsFooter(2, $item_subcategory) !!}
 {!! Form::close() !!}
 @endsection

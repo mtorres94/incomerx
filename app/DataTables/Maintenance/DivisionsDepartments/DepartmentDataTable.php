@@ -30,7 +30,7 @@ class DepartmentDataTable extends CustomDataTable
      */
     public function query()
     {
-        $query = Department::select(['id','name','contact']);
+        $query = Department::select(['id','name','contact', 'code']);
 
         return $this->applyScopes($query);
     }

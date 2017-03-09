@@ -1,3 +1,4 @@
+{!! Form::hidden('open_status', (isset($user_open_id) ? ($user_open_id == Auth::user()->id ? "0" : "1") : "0"), ['id' => 'open_status', 'class' => 'form-control input-sm']) !!}
 <div class="container-fluid">
     <div class="col-md-6">
         {!! Form::bsText('col-md-2', 'col-md-10', 'Code', 'code', null, 'Enter the code for the warehouse') !!}
@@ -15,3 +16,8 @@
         {!! Form::bsSelect('col-md-3', 'col-md-9', 'Location', 'location_id', Sass\WorldLocation::all()->lists('name', 'id'), 'Choose one of the following locations...') !!}
     </div>
 </div>
+@section('scripts')
+    <script>
+    </script>
+    @include('maintenance.warehouse.warehouse_facilities.partials.scripts.init')
+@stop

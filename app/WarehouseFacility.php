@@ -9,7 +9,7 @@ class WarehouseFacility extends Model
     protected $table = "mst_warehouse_facilities";
 
     protected $fillable = [
-        'code', 'division_id', 'name', 'address', 'city', 'state_id', 'zip', 'contact_name', 'phone', 'fax', 'location_id', 'user_create_id', 'user_update_id',
+        'code', 'division_id', 'name', 'address', 'city', 'state_id', 'zip', 'contact_name', 'phone', 'fax', 'location_id', 'user_create_id', 'user_update_id','user_open_id'
     ];
 
     public function getNameAttribute()
@@ -31,4 +31,14 @@ class WarehouseFacility extends Model
     public function location() {
         return $this->belongsTo('Sass\WorldLocation');
     }
+    public function user_open()
+    {
+        return $this->belongsTo('Sass\User', 'user_open_id');
+    }
+
+    public function user()
+    {
+        return $this->hasOne('Sass\User');
+    }
+
 }
