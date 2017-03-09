@@ -41,6 +41,7 @@ class IncotermController extends Controller
     public function store(IncotermRequest $request)
     {
         $incoterm = $request->all();
+        $incoterm['code'] = generate_code('Sass\Incoterm', 'code', $incoterm['name']);
         $incoterm['user_create_id'] = Auth::user()->id;
         $incoterm['user_update_id'] = Auth::user()->id;
         $incoterm = Incoterm::create($incoterm);

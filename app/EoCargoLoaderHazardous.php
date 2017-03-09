@@ -41,7 +41,7 @@ class EoCargoLoaderHazardous extends Model
 
     public function hzd_uns()
     {
-        return $this->belongsTo('Sass\UNsCode', 'hzd_uns_id');
+        return $this->belongsTo('Sass\UnsCode', 'hzd_uns_id');
     }
 
 }

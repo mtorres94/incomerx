@@ -43,8 +43,9 @@ class PaymentTermController extends Controller
      */
     public function store(PaymentTermRequest $request)
     {
-        dd($request->all());
+
         $payment_term = $request->all();
+
         $payment_term['user_create_id'] = Auth::user()->id;
         $payment_term['user_update_id'] = Auth::user()->id;
         $term= PaymentTerm::create($payment_term);

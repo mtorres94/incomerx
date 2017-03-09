@@ -65,7 +65,7 @@
                             {!! Form::bsRowTd($detail->line, 'billing_currency_type', $detail->billing_currency_type, true) !!}
                             {!! Form::bsRowTd($detail->line, 'billing_exchange_rate', ($detail->billing_currency_type > 0) ? $detail->billing_currency->exchange_rate: '', true) !!}
                             {!! Form::bsRowTd($detail->line, 'billing_customer_id', $detail->billing_customer_id, true) !!}
-                            {!! Form::bsRowTd($detail->line, 'billing_customer_name', ($detail->customer_id > 0) ? $detail->customer->name : '', true) !!}
+                            {!! Form::bsRowTd($detail->line, 'billing_customer_name', ($detail->billing_customer_id > 0) ? $detail->customer->name : '', true) !!}
                             {!! Form::bsRowTd($detail->line, 'cost_quantity', $detail->cost_quantity, true) !!}
                             {!! Form::bsRowTd($detail->line, 'cost_unit_id', $detail->cost_unit_id, true) !!}
                             {!! Form::bsRowTd($detail->line, 'cost_unit_name', ($detail->cost_unit_id > 0 ) ? $detail->cost_unit->name : '', true) !!}

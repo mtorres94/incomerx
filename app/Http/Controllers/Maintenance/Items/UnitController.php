@@ -43,7 +43,7 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         $unit = $request->all();
-
+        $unit['code'] = generate_code('Sass\Unit', 'code', $unit['name']);
         $unit['user_create_id'] = Auth::user()->id;
         $unit['user_update_id'] = Auth::user()->id;
         $units =Unit::create($unit);

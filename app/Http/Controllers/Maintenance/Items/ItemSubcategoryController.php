@@ -42,6 +42,8 @@ class ItemSubcategoryController extends Controller
     public function store(Request $request)
     {
         $item_subcategory = $request->all();
+        $item_subcategory['code'] = generate_code('Sass\ItemSubcategory', 'code', $item_subcategory['name']);
+
         $item_subcategory['user_create_id'] = Auth::user()->id;
         $item_subcategory['user_update_id'] = Auth::user()->id;
         $subcategory = ItemSubcategory::create($item_subcategory);

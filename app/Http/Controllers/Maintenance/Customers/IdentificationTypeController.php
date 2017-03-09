@@ -43,6 +43,7 @@ class IdentificationTypeController extends Controller
     public function store(IdentificationTypeRequest $request)
     {
         $identification_type = $request->all();
+
         $identification_type['user_create_id'] = Auth::user()->id;
         $identification_type['user_update_id'] = Auth::user()->id;
         $type= IdentificationType::create($identification_type);

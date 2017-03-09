@@ -42,6 +42,8 @@ class ItemCategoryController extends Controller
     public function store(ItemCategoryRequest $request)
     {
         $item_category = $request->all();
+        $item_category['code'] = generate_code('Sass\ItemCategory', 'code', $item_category['name']);
+
         $item_category['user_create_id'] = Auth::user()->id;
         $item_category['user_update_id'] = Auth::user()->id;
         $item = ItemCategory::create($item_category);

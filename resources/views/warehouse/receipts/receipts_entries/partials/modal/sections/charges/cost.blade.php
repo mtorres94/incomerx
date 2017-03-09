@@ -2,7 +2,7 @@
     {!! Form::hidden('tmp_charge_id', null, ['id' => 'tmp_charge_id', 'class' => 'form-control input-sm']) !!}
     {!! Form::hidden('tmp_cost_unit_name', null, ['id' => 'tmp_cost_unit_name', 'class' => 'form-control input-sm']) !!}
     <div class="col-md-1">{!! Form::bsText(null, null, 'Qty.', 'tmp_cost_quantity', null, '0') !!}</div>
-    <div class="col-md-2">{!! Form::bsSelect(null, null, 'Unit', 'tmp_cost_unit_id', Sass\Unit::all()->lists('code', 'id'), 'Units', false) !!}</div>
+    <div class="col-md-2">{!! Form::bsSelect(null, null, 'Unit', 'tmp_cost_unit_id', Sass\Unit::all()->lists('code', 'id'), 'Units', 'body', false) !!}</div>
     <div class="col-md-2">{!! Form::bsText(null, null, 'Rate', 'tmp_cost_rate', null, '0.000') !!}</div>
     <div class="col-md-2">{!! Form::bsText(null, null, 'Amount', 'tmp_cost_amount', null, '0.000') !!}</div>
     <div class="col-md-2">{!! Form::bsSelect(null, null, 'Currency', 'tmp_cost_currency_type', Sass\Currency::all()->lists('code', 'id'), null)

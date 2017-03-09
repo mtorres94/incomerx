@@ -42,6 +42,8 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $service = $request->all();
+        $service['code'] = generate_code('Sass\Service', 'code', $service['name']);
+
         $service['user_create_id'] = Auth::user()->id;
         $service['user_update_id'] = Auth::user()->id;
         //$service['code'] = substr($service['name'], 0, 3);

@@ -24,7 +24,7 @@
             .append(createTableBtns()); 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p); cleanModalFields('ContactDetails');
             $("#tmp_contact").focus();
     }), $('#contacts_details').on('click', 'a.btn-danger', function() {
-        preventDelete($(this))
+        preventDelete($(this));
     }), $("#contacts_details").on("click", "a.btn-default", function() {
         var t = $(this).closest("tr"),
             c1 = t[0].childNodes[0].textContent,
