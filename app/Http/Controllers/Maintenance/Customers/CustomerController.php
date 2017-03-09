@@ -36,10 +36,10 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CustomerRequest $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CustomerRequest $request)
+    public function store(Request $request)
     {
         $customer = $request->all();
         $customer['code'] = generate_code('Sass\Customer', 'code', $customer['name']);
@@ -77,11 +77,11 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CustomerRequest $request
+     * @param Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CustomerRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $customer = Customer::findOrFail($id);
         $customer['user_update_id'] = auth()->user()->id;

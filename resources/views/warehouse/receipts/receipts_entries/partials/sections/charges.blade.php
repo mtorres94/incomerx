@@ -86,8 +86,7 @@
             </tbody>
         </table>
         <div class="pull-left">
-            <button type="button" id="btn-calculate_rate"class="btn btn-default">Calculate Rate</button>
-            {!! Form::bsCheck('Do not bill from this transactions', 'charges_check') !!}
+            <button type="button" id="btn-calculate_rate" class="btn btn-default">Calculate Rate</button>
         </div>
         <div class="pull-right">
             <div class="row">

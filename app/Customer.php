@@ -11,17 +11,12 @@ class Customer extends Model
     protected $fillable = [
         'code', 'name', 'address', 'city', 'state_id', 'zip_id', 'country_id', 'phone', 'fax', 'duns_code', 'incoterm_id',
         'since', 'dps_check', 'status', 'shipper', 'consignee', 'third_party', 'agent', 'currency_id', 'agent_id', 'coloader_id',
-        'origin_id', 'destination_id', 'user_create_id', 'user_update_id', 'user_open_id', 'receipt',  'withdraw',  'shipment',  'ea_loading_guide',  'ea_airwaybill',  'ea_manifest',  'eo_loading_guide',  'eo_bill_of_lading',  'eo_manifest',  'w_sales_order',  'w_bill_of_lading',  'w_receiving_log',  'i_invoice',  'pd_orders',  'ia_airwaybill',  'io_bill_of_lading',  'c_shipping',  'po_orders',
+        'origin_id', 'destination_id', 'unknown_shipper', 'consent_letter_on_file', 'partner_id', 'receipt', 'withdraw', 'shipment',
+        'ea_loading_guide', 'ea_airwaybill', 'ea_manifest', 'eo_loading_guide', 'eo_bill_of_lading', 'eo_manifest', 'w_sales_order',
+        'w_bill_of_lading', 'w_receiving_log', 'i_invoice', 'pd_orders', 'ia_airwaybill', 'io_bill_of_lading', 'c_shipping', 'po_orders',
+        'user_create_id', 'user_update_id', 'user_open_id',
     ];
-    public function setIppcAttribute($value)
-    {
-        $this->attributes['ippc'] = ($value == 'on') ? 1 : 0;
-    }
 
-    public function getIsHazardousAttribute($value)
-    {
-        return ($value == 1) ? 'yes' : 'no';
-    }
     //<editor-fold desc="Customer Eloquent Relationship">
     public function state()
     {
@@ -87,7 +82,25 @@ class Customer extends Model
     {
         return $this->hasMany('Sass\ReceiptEntry', 'shipper_id');
     }
-
-
     //</editor-fold>
+
+    public function setUnknownShipperAttribute($value)
+    {
+        $this->attributes['unknown_shipper'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function setConsentLetterOnFileAttribute($value)
+    {
+        $this->attributes['consent_letter_on_file'] = ($value == 'on') ? 1 : 0;
+    }
+
+    public function getUnknownShipperAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+
+    public function getConsentLetterOnFileAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
 }

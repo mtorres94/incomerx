@@ -41,6 +41,9 @@
             </div>
         </div>
     </div>
+    <div class="col-md-12 gen-container">
+        @include('maintenance.vendors_suppliers.vendors.partials.sections.tabs')
+    </div>
 </div>
 
 <!-- Scripts sections -->
@@ -50,10 +53,60 @@
         $(window).load(function () {
             openTab($("#vendors"));
 
+            $("#customer_name").marcoPolo({url:"{{ route('customers.autocomplete') }}",formatItem:function(e,o){return e.value},
+                selected: {
+                    id: '{{ (isset($vendor) ? $vendor->customer_id : "")}}',
+                    value: '{{ ((isset($vendor) and $vendor->customer_id > 0) ? $vendor->customer->name : null)}}'
+                },
+                onSelect:function(e,o) {
+                    $("#customer_id").val(e.id), $(this).val(e.value)
+                },
+                minChars:3,
+                param:"term",
+                required:!0
+            }).on("marcopolorequestbefore",function () {
+                $("#customer_name_img").removeClass("img-none").addClass("img-display"),$("#customer_name_spn").removeClass("img-display").addClass("img-none")
+            }).on("marcopolorequestafter",function () {
+                $("#customer_name_img").removeClass("img-display").addClass("img-none"),$("#customer_name_spn").removeClass("img-none").addClass("img-display")
+            }).keydown(function(e) {
+                var o = e.keyCode ? e.keyCode : e.which;
+                (8 == o || 46 == o) && $("#customer_id").val(0)
+            }).blur(function() {
+                var e = $("#customer_id").val();
+                0 == e && ($(this).val(""))
+            });
+
+            $("#master_name").marcoPolo({url:"{{ route('vendors.autocomplete') }}",formatItem:function(e,o){return e.name},
+                selected: {
+                    id: '{{ (isset($vendor) ? $vendor->master_id : "")}}',
+                    name: '{{ ((isset($vendor) and $vendor->master_id > 0) ? $vendor->master->name : null)}}'
+                },
+                onSelect:function(e,o) {
+                    $("#master_id").val(e.id), $(this).val(e.name)
+                },
+                minChars:3,
+                param:"term",
+                required:!0
+            }).on("marcopolorequestbefore",function () {
+                $("#master_name_img").removeClass("img-none").addClass("img-display"),$("#master_name_spn").removeClass("img-display").addClass("img-none")
+            }).on("marcopolorequestafter",function () {
+                $("#master_name_img").removeClass("img-display").addClass("img-none"),$("#master_name_spn").removeClass("img-none").addClass("img-display")
+            }).keydown(function(e) {
+                var o = e.keyCode ? e.keyCode : e.which;
+                (8 == o || 46 == o) && $("#master_id").val(0)
+            }).blur(function() {
+                var e = $("#master_id").val();
+                0 == e && ($(this).val(""))
+            });
+
             $("#state_name").marcoPolo({
                 url: "{{ route('states.autocomplete') }}",
                 formatItem: function(e, o) {
                     return e.value
+                },
+                selected: {
+                    id: '{{ (isset($vendor) ? $vendor->state_id : "")}}',
+                    value: '{{ ((isset($vendor) and $vendor->state_id > 0) ? $vendor->state->name : null)}}'
                 },
                 onSelect: function(e, o) {
                     $("#state_id").val(e.id), $(this).val(e.value)

@@ -33,6 +33,16 @@
                     {!! Form::bsText('col-md-3', 'col-md-9', 'DPS Check', 'dps_check', null, 'Enter the DPS check for the customer') !!}
                     {!! Form::bsText('col-md-3', 'col-md-9', 'User ID', 'user_create_id', null, '') !!}
                     {!! Form::bsSelect('col-md-3', 'col-md-9', 'Account status', 'status', array('1' => 'PROSPECT', '2' => 'ACTIVE', '3' => 'NON ACTIVE', '4' => 'ON HOLD'), 'Choose one of the following status...') !!}
+                    {!! Form::bsText('col-md-3', 'col-md-9', 'Partner Code', 'partner_id', null, '') !!}
+                </div>
+            </div>
+            <div id="subpanel" class="panel panel-default">
+                <div class="panel-header">TSA (US Only)</div>
+                <div class="panel-body">
+                    <div class="row no-padding-top">
+                        <div class="col-md-6">{!! Form::bsCheck('col-md-1', 'col-md-6', 'Unknown Shipper', 'unknown_shipper', (isset($customer) ? $customer->unknown_shipper : 'off')) !!}</div>
+                        <div class="col-md-6">{!! Form::bsCheck('col-md-1', 'col-md-7', 'Consent Letter On File', 'consent_letter_on_file', (isset($customer) ? $customer->consent_letter_on_file : 'off')) !!}</div>
+                    </div>
                 </div>
             </div>
             <div id="subpanel" class="panel panel-default">
@@ -86,10 +96,8 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        {!! Form::bsMemo(null, null, 'Comments', 'comments', null, '') !!}
-    </div>
+<div class="col-md-12">
+    {!! Form::bsMemo(null, null, 'Comments', 'comments', null, '') !!}
 </div>
 
 <!-- Scripts sections -->

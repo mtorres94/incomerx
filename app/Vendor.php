@@ -9,14 +9,25 @@ class Vendor extends Model
     protected $table = "mst_vendors";
 
     protected $fillable = [
-        'code', 'name', 'address', 'city', 'state_id', 'zip_code_id', 'country_id', 'phone', 'fax', 'mobile',
-        'since', 'currency_id', 'airline', 'ocean_carrier', 'truck', 'agent', 'other', 'status', 'contact_name',
-        'email_contact', 'user_create_id', 'user_update_id', 'user_open_id',
+        'code', 'name', 'address', 'city', 'state_id', 'zip_code_id', 'country_id', 'phone', 'fax', 'mobile', 'since', 'currency_id', 'airline',
+        'ocean_carrier', 'truck', 'agent', 'other', 'status', 'contact_name', 'email_contact', 'vendor_type_id', 'account_number',
+        'master_id', 'customer_id', 'notification_email', 'identification_type_id', 'identification_number', 'payment_term_id', 'comments',
+        'user_create_id', 'user_update_id', 'user_open_id',
     ];
 
     public function user_open()
     {
         return $this->belongsTo('Sass\User', 'user_open_id');
+    }
+
+    public function master()
+    {
+        return $this->belongsTo('Sass\Vendor', 'master_id');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo('Sass\Customer', 'customer_id');
     }
 
     public function state()

@@ -238,13 +238,13 @@ function preventHighNumber (f, n) {
         var val = parseFloat(f.val());
         if (val >= n) {
             swal({
-                title: "Are you sure?",
-                text: "You'll permanently delete this information",
+                title: "Are you sure about this dimension?",
+                text: "",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#dd362f",
-                confirmButtonText: "¡Yes, I want to delete!",
-                cancelButtonText: "No!!!",
+                confirmButtonText: "¡Yes!",
+                cancelButtonText: "No!",
                 closeOnConfirm: false
             }).then(function (isConfirm) {
                 if (!isConfirm) {
