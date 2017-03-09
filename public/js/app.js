@@ -233,6 +233,28 @@ function preventDeleteCondition (row, _callback) {
     });
 }
 
+function preventHighNumber (f, n) {
+    f.change(function() {
+        var val = parseFloat(f.val());
+        if (val >= n) {
+            swal({
+                title: "Are you sure?",
+                text: "You'll permanently delete this information",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#dd362f",
+                confirmButtonText: "¡Yes, I want to delete!",
+                cancelButtonText: "No!!!",
+                closeOnConfirm: false
+            }).then(function (isConfirm) {
+                if (!isConfirm) {
+                    f.val(0); f.focus();
+                }
+            });
+        }
+    });
+}
+
 function preventOpen(f, _url, actual_user) {
     f.on('click', '.btn-edit[data-remote]', function (e) {
         var _id = $(this).data('id');
@@ -251,7 +273,7 @@ function preventOpen(f, _url, actual_user) {
                         text: "The user {{" + rtn.name + "}} is using this transaction, so it'll open in read-only mode!. Do you want to proceed?",
                         type: "warning",
                         showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
+                        confirmButtonColor: "#dd362f",
                         confirmButtonText: "Yes",
                         cancelButtonText: "No",
                         closeOnConfirm: false

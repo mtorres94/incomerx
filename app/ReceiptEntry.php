@@ -141,7 +141,7 @@ class ReceiptEntry extends Model
 
     public function getIsHazardousAttribute($value)
     {
-        return ($value == 1) ? 'on' : 'off';
+        return ($value == 1) ? 'yes' : 'no';
     }
 
     public function getCommercialInvAttribute($value)
@@ -355,18 +355,22 @@ class ReceiptEntry extends Model
 
     public function destination()
     {
-        $mode = $this->attributes['mode'];
-        switch ($mode) {
-            case "A":
-                return $this->belongsTo('Sass\Airport', 'location_destination_id');
-            case "O":
-                return $this->belongsTo('Sass\OceanPort', 'location_destination_id');
-            case "W":
-                return $this->belongsTo('Sass\Airport', 'location_destination_id');
-            case "R":
-                return $this->belongsTo('Sass\ZipCode', 'location_destination_id');
-            case "T":
-                return $this->belongsTo('Sass\ZipCode', 'location_destination_id');
+        try {
+            $mode = $this->attributes['mode'];
+            switch ($mode) {
+                case "A":
+                    return $this->belongsTo('Sass\Airport', 'location_destination_id');
+                case "O":
+                    return $this->belongsTo('Sass\OceanPort', 'location_destination_id');
+                case "W":
+                    return $this->belongsTo('Sass\Airport', 'location_destination_id');
+                case "R":
+                    return $this->belongsTo('Sass\ZipCode', 'location_destination_id');
+                case "T":
+                    return $this->belongsTo('Sass\ZipCode', 'location_destination_id');
+            }
+        } catch (\ErrorException $e) {
+            return '';
         }
     }
 
@@ -420,6 +424,11 @@ class ReceiptEntry extends Model
         return $this->hasMany('Sass\ReceiptEntryChargeDetail', 'receipt_entry_id');
     }
 
+    public function attachment_details()
+    {
+        return $this->hasMany('Sass\ReceiptEntryAttachment', 'receipt_entry_id');
+    }
+
     public function user_create()
     {
         return $this->belongsTo('Sass\User', 'user_create_id');
@@ -429,6 +438,7 @@ class ReceiptEntry extends Model
     {
         return $this->belongsTo('Sass\User', 'user_open_id');
     }
+
     public function shipping_references()
     {
         return $this->hasMany('Sass\ReceiptEntryShippingReference', 'receipt_entry_id');

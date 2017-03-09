@@ -1,11 +1,9 @@
 @extends('layouts._tab')
 
-@section('title', 'Edit customer')
-@section('table-title', 'Edit customer')
-
 @section('content')
-{!! Form::model($customer, ['route' => ['maintenance.customers.customers.update', $customer], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
+{!! Form::model($customer, ['route' => ['maintenance.customers.customers.update', $customer], 'id' => 'data', 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
+    {!! Form::bsFooter(1, $customer) !!}
     @include('maintenance.customers.customers.partials.fields')
-    {!! Form::bsSubmit() !!}
+    {!! Form::bsFooter(2, $customer) !!}
 {!! Form::close() !!}
 @endsection

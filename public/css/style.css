@@ -374,6 +374,12 @@ div.dataTables_wrapper div.dataTables_filter .input-group-addon {
 div.dataTables_length select {
     margin: 0 8px;
 }
+.dataTable tbody tr[data-status='C'] {
+    color: #aaa;
+}
+.dataTable tbody tr[data-status='H'] {
+    color: #dd362f;
+}
 td.details-control {
     background: url('../images/details_open.png') no-repeat center center;
     cursor: pointer;
@@ -679,6 +685,12 @@ button.dropdown-toggle {
     padding-top: 7px;
     text-align: right;
 }
+.panel-body .row .gen-container {
+    padding: 7px 0;
+}
+.panel-body .row .gen-container .form-group {
+    margin-bottom: 5px;
+}
 .panel.panel-default.col-md-6 {
     padding: 0;
 }
@@ -764,6 +776,20 @@ button.dropdown-toggle {
 }
 .pagination {
     margin: 7px 0;
+}
+@media (min-width:768px) {
+    .form-horizontal .checkbox-label .checkbox label::before {
+        border-radius: 0;
+        margin-top: -13px;
+    }
+    .form-horizontal .checkbox-label .checkbox label::after {
+        border-radius: 0;
+        margin-top: -13px;
+    }
+    .form-horizontal .checkbox-label .control-label {
+        text-align: left;
+        padding-left: 9px;
+    }
 }
 @media (max-width:767px) {
     .dropdown-menu > li > a {

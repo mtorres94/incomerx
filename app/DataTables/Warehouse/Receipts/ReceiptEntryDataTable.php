@@ -16,6 +16,19 @@ class ReceiptEntryDataTable extends CustomDataTable
     {
         return $this->datatables
             ->eloquent($this->query())
+            ->addColumn('status', function ($row) {
+                $status = null;
+                switch ($row->status) {
+                    case 'O': $status = 'fa fa-folder-open-o'; break;
+                    case 'P': $status = 'fa fa-check'; break;
+                    case 'H': $status = 'fa fa-flag'; break;
+                    case 'C': $status = 'fa fa-folder-o'; break;
+                }
+                return '<i class="'.$status.'" aria-hidden="true"></i>';
+            })
+            ->addColumn('attachment', function ($row) {
+                return $row->attachment_details->count() > 0 ? '<i class="fa fa-paperclip" aria-hidden="true"></i>' : '';
+            })
             ->addColumn('action', function ($receipt_entry) {
                 return $this->groupButton($receipt_entry, 'warehouse.receipts.receipts_entries',
                     [
@@ -24,6 +37,7 @@ class ReceiptEntryDataTable extends CustomDataTable
                     ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])
+            ->setRowAttr(['data-status' => '{{ $status }}'])
             ->make(true);
     }
 
@@ -44,7 +58,7 @@ class ReceiptEntryDataTable extends CustomDataTable
                 $join->on('whr_receipts_entries.id', '=', 'whr_receipts_entries_receiving_details.receipt_entry_id')
                     ->where('whr_receipts_entries_receiving_details.line', '=', 1);
             })
-            ->select(['whr_receipts_entries.id', 'whr_receipts_entries.code', 'whr_receipts_entries.date_in',
+            ->select(['whr_receipts_entries.id', 'whr_receipts_entries.code', 'whr_receipts_entries.date_in', 'whr_receipts_entries.mode',
                 'whr_receipts_entries.status', 'is_hazardous', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name',
                 'c2.name AS consignee_name', 'c3.name AS third_party_name', 'c4.name AS agent_name', 'c5.name AS coloader_name',
                 'whr_receipts_entries_receiving_details.pro_number'])
@@ -74,22 +88,15 @@ class ReceiptEntryDataTable extends CustomDataTable
     protected function getColumns()
     {
         return [
-            [
-                "className"  => 'details-control',
-                "orderable"  => false,
-                "searchable" => false,
-                "data"       => 'details',
-                "defaultContent" => '',
-                "title" => '',
-                "width" => '40px'
-            ],
-            ['data' => 'status',         'name' => 'whr_receipts_entries.status', 'title' => 'Status'],
+            ['data' => 'status',         'name' => 'whr_receipts_entries.status', 'title' => '<i class="fa fa-folder" aria-hidden="true"></i>', 'width' => '10px', 'orderable' => false],
+            ['data' => 'attachment',     'name' => '', 'title' => '<i class="fa fa-paperclip" aria-hidden="true"></i>', 'width' => '10px', 'orderable' => false],
             ['data' => 'code',           'name' => 'whr_receipts_entries.code', 'title' => 'Code'],
             ['data' => 'date_in',        'name' => 'whr_receipts_entries.date_in', 'title' => 'Date in'],
-            ['data' => 'is_hazardous',   'name' => 'whr_receipts_entries.is_hazardous', 'title' => 'Is hazardous?'],
-            ['data' => 'pro_number',     'name' => 'whr_receipts_entries_receiving_details.pro_number', 'title' => 'Pro #'],
             ['data' => 'shipper_name',   'name' => 'c1.name', 'title' => 'Shipper'],
             ['data' => 'consignee_name', 'name' => 'c2.name', 'title' => 'Consignee'],
+            ['data' => 'agent_name',     'name' => 'c4.name', 'title' => 'Agent'],
+            ['data' => 'is_hazardous',   'name' => 'whr_receipts_entries.is_hazardous', 'title' => 'Is hazardous?'],
+            ['data' => 'pro_number',     'name' => 'whr_receipts_entries_receiving_details.pro_number', 'title' => 'Pro #'],
         ];
     }
 

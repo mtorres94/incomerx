@@ -77,3 +77,20 @@ p.p-units {
 p.country {
     font-size: 48px;
 }
+.big-label {
+    padding-top: 10px;
+}
+p.big-label-code,
+p.big-label-pieces {
+    text-align: center;
+    font-size: 96px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+p.big-label-destination,
+p.big-label-consignee {
+    text-align: center;
+    font-size: 60px;
+    font-weight: 500;
+    text-transform: uppercase;
+}

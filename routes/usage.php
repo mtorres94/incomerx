@@ -20,10 +20,14 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('payment_term/update_close', ['as' => 'payment_term.close', 'uses' => 'PaymentTermController@updateClose']);
             Route::post('incoterm/verify_open', ['as' => 'incoterms.open', 'uses' => 'IncotermController@getOpenStatus']);
             Route::post('incoterm/update_close', ['as' => 'incoterms.close', 'uses' => 'IncotermController@updateClose']);
+            Route::post('customers/verify_open',  ['as' => 'customers.open',  'uses' => 'CustomerController@getOpenStatus']);
+            Route::post('customers/update_close', ['as' => 'customers.close', 'uses' => 'CustomerController@updateClose']);
         });
         Route::group(['namespace' => 'VendorsSuppliers'], function () {
             Route::post('vendor_type/verify_open',  ['as' => 'vendors_type.open',  'uses' => 'VendorTypeController@getOpenStatus']);
             Route::post('vendor_type/update_close', ['as' => 'vendors_type.close', 'uses' => 'VendorTypeController@updateClose']);
+            Route::post('vendors/verify_open',  ['as' => 'vendors.open',  'uses' => 'VendorController@getOpenStatus']);
+            Route::post('vendors/update_close', ['as' => 'vendors.close', 'uses' => 'VendorController@updateClose']);
         });
         Route::group(['namespace' => 'Items'], function () {
             Route::post('units/verify_open', ['as' => 'units.open', 'uses' => 'UnitController@getOpenStatus']);
@@ -69,6 +73,16 @@ Route::group(['middleware' => ['web']], function () {
         });
     });
 
+    Route::group(['namespace' => 'Maintenance'], function () {
+        Route::group(['namespace' => 'VendorsSuppliers'], function () {
+            Route::post('vendors/verify_open',  ['as' => 'vendors.open',  'uses' => 'VendorController@getOpenStatus']);
+            Route::post('vendors/update_close', ['as' => 'vendors.close', 'uses' => 'VendorController@updateClose']);
+        });
+        Route::group(['namespace' => 'Customers'], function () {
+            Route::post('customers/verify_open',  ['as' => 'customers.open',  'uses' => 'CustomerController@getOpenStatus']);
+            Route::post('customers/update_close', ['as' => 'customers.close', 'uses' => 'CustomerController@updateClose']);
+        });
+    });
     Route::group(['namespace' => 'Warehouse'], function () {
         Route::group(['namespace' => 'Receipts'], function () {
             Route::post('receipts_entries/verify_open',  ['as' => 'receipts_entries.open',  'uses' => 'ReceiptEntryController@getOpenStatus']);

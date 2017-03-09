@@ -5,7 +5,8 @@
     {!! Form::bsGroup([
         ['class' => 'fa fa-file-pdf-o', 'value' => 'Warehouse Receipt'],
         ['class' => 'fa fa-file-pdf-o', 'value' => 'Warehouse Receipt w/charges'],
-        ['class' => 'fa fa-barcode', 'value' => 'Label']
+        ['class' => 'fa fa-barcode', 'value' => 'Label'],
+        ['class' => 'fa fa-barcode', 'value' => 'Big Label']
     ], $receipt_entry, 'receipts_entries.report') !!}
     {!! Form::bsFooter(1, $receipt_entry) !!}
     @include('warehouse.receipts.receipts_entries.partials.fields')

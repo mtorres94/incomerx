@@ -9,7 +9,9 @@ class Customer extends Model
     protected $table = 'mst_customers';
 
     protected $fillable = [
-        'code', 'name', 'address', 'city', 'state_id', 'zip_id', 'country_id', 'phone', 'fax', 'duns_code', 'incoterm_id', 'since', 'dps_check', 'status', 'shipper', 'consignee', 'third_party', 'agent', 'currency_id', 'agent_id', 'coloader_id', 'origin_id', 'destination_id', 'user_create_id', 'user_update_id',
+        'code', 'name', 'address', 'city', 'state_id', 'zip_id', 'country_id', 'phone', 'fax', 'duns_code', 'incoterm_id',
+        'since', 'dps_check', 'status', 'shipper', 'consignee', 'third_party', 'agent', 'currency_id', 'agent_id', 'coloader_id',
+        'origin_id', 'destination_id', 'user_create_id', 'user_update_id', 'user_open_id',
     ];
 
     //<editor-fold desc="Customer Eloquent Relationship">

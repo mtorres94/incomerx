@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use Sass\Customer;
+use Sass\DataTables\Maintenance\Customers\CustomerDataTable;
 use Sass\Http\Controllers\Controller;
 use Sass\Http\Requests\Maintenance\Customers\CustomerRequest;
 
@@ -14,12 +15,12 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param CustomerDataTable $dataTable
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(CustomerDataTable $dataTable)
     {
-        $customers = Customer::paginate(env('APP_PAGINATE'));
-        return view('maintenance.customers.customers.index', compact('customers'));
+        return $dataTable->render('maintenance.customers.customers.index');
     }
 
     /**
@@ -41,10 +42,11 @@ class CustomerController extends Controller
     public function store(CustomerRequest $request)
     {
         $customer = $request->all();
-        $customer['user_create_id'] = Auth::user()->id;
-        $customer['user_update_id'] = Auth::user()->id;
-        Customer::create($customer);
-        return redirect()->route('maintenance.customers.customers.index');
+        $customer['user_create_id'] = auth()->user()->id;
+        $customer['user_update_id'] = auth()->user()->id;
+        $customer = Customer::create($customer);
+
+        return redirect()->route('maintenance.customers.customers.edit', [$customer->id]);
     }
 
     /**
@@ -81,10 +83,10 @@ class CustomerController extends Controller
     public function update(CustomerRequest $request, $id)
     {
         $customer = Customer::findOrFail($id);
-        $customer['user_update_id'] = Auth::user()->id;
+        $customer['user_update_id'] = auth()->user()->id;
         $customer->fill($request->all());
         $customer->save();
-        return redirect()->route('maintenance.customers.customers.index');
+        return redirect()->route('maintenance.customers.customers.edit', [$id]);
     }
 
     /**
@@ -143,5 +145,34 @@ class CustomerController extends Controller
 
             return response()->json($results);
         }
+    }
+
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+
+        if ($id > 0)
+        {
+            $customer = Customer::findOrFail($id);
+
+            if (auth()->user()->id == $customer->user_open_id)
+            {
+                $customer = self::updateCloseStatus($customer);
+                $customer->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $customer = Customer::findOrFail($data['id']);
+        return [
+            'id'   => $customer->user_open_id,
+            'name' => $customer->user_open_id > 0 ? $customer->user_open->name : '',
+        ];
     }
 }

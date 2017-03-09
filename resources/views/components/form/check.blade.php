@@ -2,7 +2,7 @@
     <div class="{{ $col }}">
         <div class="checkbox checkbox-primary">
             <input type="hidden" name="{{ $name }}" value="off">
-            <input type="checkbox" class="styled" id="{{ $name }}" name="{{ $name }}" {{ $value == 'on' ? 'checked' : '' }}>
+            <input type="checkbox" class="styled" id="{{ $name }}" name="{{ $name }}" {{ $value == 'on' || $value == 'yes' ? 'checked' : '' }}>
             <label for="{{ $name }}"></label>
         </div>
     </div>

@@ -29,7 +29,8 @@ class VendorController extends Controller
      */
     public function create()
     {
-        return view('maintenance.vendors_suppliers.vendors.create');
+        $user_open_id = auth()->user()->id;
+        return view('maintenance.vendors_suppliers.vendors.create', compact('user_open_id'));
     }
 
     /**
@@ -41,10 +42,11 @@ class VendorController extends Controller
     public function store(VendorRequest $request)
     {
         $vendor = $request->all();
-        $vendor['user_create_id'] = Auth::user()->id;
-        $vendor['user_update_id'] = Auth::user()->id;
-        Vendor::create($vendor);
-        return redirect()->route('maintenance.vendors_suppliers.vendors.index');
+        $vendor['user_create_id'] = auth()->user()->id;
+        $vendor['user_update_id'] = auth()->user()->id;
+        $vendor = Vendor::create($vendor);
+
+        return redirect()->route('maintenance.vendors_suppliers.vendors.edit', [$vendor->id]);
     }
 
     /**
@@ -68,7 +70,11 @@ class VendorController extends Controller
     public function edit($id)
     {
         $vendor = Vendor::findOrFail($id);
-        return view('maintenance.vendors_suppliers.vendors.edit', compact('vendor'));
+        $user_open_id =  ($vendor->user_open_id == 0) ? auth()->user()->id : $vendor->user_open_id;
+
+        $vendor = self::updateOpenStatus($vendor);
+        $vendor->save();
+        return view('maintenance.vendors_suppliers.vendors.edit', compact('vendor', 'user_open_id'));
     }
 
     /**
@@ -81,10 +87,10 @@ class VendorController extends Controller
     public function update(VendorRequest $request, $id)
     {
         $vendor = Vendor::findOrFail($id);
-        $vendor['user_update_id'] = Auth::user()->id;
+        $vendor['user_update_id'] = auth()->user()->id;
         $vendor->fill($request->all());
         $vendor->save();
-        return redirect()->route('maintenance.vendors_suppliers.vendors.index');
+        return redirect()->route('maintenance.vendors_suppliers.vendors.edit', [$id]);
     }
 
     /**
@@ -97,6 +103,35 @@ class VendorController extends Controller
     {
         $vendor = Vendor::find($id);
         $vendor->delete();
+    }
+
+    public function updateClose(Request $request)
+    {
+        $data = $request->all();
+        $id   = $data['id'];
+
+        if ($id > 0)
+        {
+            $vendor = Vendor::findOrFail($id);
+
+            if (auth()->user()->id == $vendor->user_open_id)
+            {
+                $vendor = self::updateCloseStatus($vendor);
+                $vendor->save();
+            }
+        }
+
+        return response()->json(['status' => 'close']);
+    }
+
+    public function getOpenStatus(Request $request)
+    {
+        $data = $request->all();
+        $vendor = Vendor::findOrFail($data['id']);
+        return [
+            'id'   => $vendor->user_open_id,
+            'name' => $vendor->user_open_id > 0 ? $vendor->user_open->name : '',
+        ];
     }
 
     public function autocomplete (Request $request)

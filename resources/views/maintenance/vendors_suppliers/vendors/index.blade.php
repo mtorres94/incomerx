@@ -7,6 +7,7 @@
 @section('scripts')
     {!! $dataTable->scripts() !!}
     <script>
+        preventOpen($('#dataTableBuilder'), '{{ route('vendors.open') }}', '{{ auth()->user()->id }}');
         ajaxDelete($('#dataTableBuilder'));
     </script>
 @stop

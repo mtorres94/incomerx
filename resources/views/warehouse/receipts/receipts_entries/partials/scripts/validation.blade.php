@@ -169,5 +169,12 @@
             data.element.data('fv.icon').hide();
         });
 
-    })
+    });
+
+    preventHighNumber($('#tmp_cargo_length'), 100);
+    preventHighNumber($('#tmp_cargo_width'), 100);
+    preventHighNumber($('#tmp_cargo_height'), 100);
+    preventHighNumber($('#tmp_multiline_cargo_length'), 100);
+    preventHighNumber($('#tmp_multiline_cargo_width'), 100);
+    preventHighNumber($('#tmp_multiline_cargo_height'), 100);
 </script>

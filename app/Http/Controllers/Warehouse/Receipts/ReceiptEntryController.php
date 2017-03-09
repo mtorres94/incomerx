@@ -34,7 +34,7 @@ class ReceiptEntryController extends Controller
      * Display a listing of the resource.
      *
      * @param ReceiptEntryDataTable $dataTable
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(ReceiptEntryDataTable $dataTable)
     {
@@ -363,12 +363,18 @@ class ReceiptEntryController extends Controller
             abort(404);
         }
 
-        if ($type == 3) {
-            return \PDF::loadView('warehouse.receipts.receipts_entries.label', compact('receipt_entry'))
-                ->setOrientation('landscape')
-                ->setOption('margin-top', 3)
-                ->setOption('margin-left', 2)
-                ->stream('WH '.$receipt_entry->code.'.pdf');
+        if ($type == 3 || $type == 4) {
+            if ($type == 3) {
+                return \PDF::loadView('warehouse.receipts.receipts_entries.label', compact('receipt_entry', 'type'))
+                    ->setOrientation('landscape')
+                    ->setOption('margin-top', 3)
+                    ->setOption('margin-left', 2)
+                    ->stream('WH '.$receipt_entry->code.'.pdf');
+            } else {
+                return \PDF::loadView('warehouse.receipts.receipts_entries.label', compact('receipt_entry', 'type'))
+                    ->setOrientation('landscape')
+                    ->stream('WH '.$receipt_entry->code.'.pdf');
+            }
         } else {
             return \PDF::loadView('warehouse.receipts.receipts_entries.pdf', compact('receipt_entry','type'))->stream('WH '.$receipt_entry->code.'.pdf');
         }
