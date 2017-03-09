@@ -404,6 +404,9 @@ tr.shown td.details-control {
 .dataTable .btn-options .btn-pdf .fa {
     padding-bottom: 3px !important; 
 }
+.dataTable i.orange {
+    color: #ffa500;
+}
 
 /** Bootstrap Select */
 .bootstrap-select .btn {

@@ -49,7 +49,7 @@ class ReceiptEntryController extends Controller
     public function create()
     {
         $unique_str = str_random(25);
-        $user_open_id = Auth::user()->id;
+        $user_open_id = auth()->user()->id;
 
         return view('warehouse.receipts.receipts_entries.create', compact('unique_str', 'user_open_id'));
     }
@@ -72,8 +72,8 @@ class ReceiptEntryController extends Controller
             $receipt_entry = $request->all();
 
             $receipt_entry['code'] = $code;
-            $receipt_entry['user_create_id'] = Auth::user()->id;
-            $receipt_entry['user_update_id'] = Auth::user()->id;
+            $receipt_entry['user_create_id'] = auth()->user()->id;
+            $receipt_entry['user_update_id'] = auth()->user()->id;
             $receipt_entry['cargo_loader_id'] = 0;
 
             $whr = ReceiptEntry::create($receipt_entry);
@@ -116,7 +116,7 @@ class ReceiptEntryController extends Controller
     {
         $receipt_entry = ReceiptEntry::findOrFail($id);
         $unique_str = $receipt_entry->unique_str;
-        $user_open_id =  ($receipt_entry->user_open_id == 0) ? Auth::user()->id : $receipt_entry->user_open_id;
+        $user_open_id =  ($receipt_entry->user_open_id == 0) ? auth()->user()->id : $receipt_entry->user_open_id;
 
         $receipt_entry = self::updateOpenStatus($receipt_entry);
         $receipt_entry->save();
@@ -137,7 +137,7 @@ class ReceiptEntryController extends Controller
         try {
             $details = $request->all();
             $receipt_entry = ReceiptEntry::findOrFail($id);
-            $receipt_entry['user_update_id'] = Auth::user()->id;
+            $receipt_entry['user_update_id'] = auth()->user()->id;
             $receipt_entry->fill($request->all());
             $receipt_entry->save();
 
@@ -177,7 +177,7 @@ class ReceiptEntryController extends Controller
         {
             $receipt_entry = ReceiptEntry::findOrFail($id);
 
-            if (Auth::user()->id == $receipt_entry->user_open_id)
+            if (auth()->user()->id == $receipt_entry->user_open_id)
             {
                 $receipt_entry = self::updateCloseStatus($receipt_entry);
                 $receipt_entry->save();

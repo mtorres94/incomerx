@@ -36,12 +36,13 @@ class VendorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param VendorRequest $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(VendorRequest $request)
+    public function store(Request $request)
     {
         $vendor = $request->all();
+        $vendor['code'] = generate_code('Sass\Vendor', 'code', $vendor['name']);
         $vendor['user_create_id'] = auth()->user()->id;
         $vendor['user_update_id'] = auth()->user()->id;
         $vendor = Vendor::create($vendor);
@@ -80,11 +81,11 @@ class VendorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param VendorRequest $request
+     * @param Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(VendorRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $vendor = Vendor::findOrFail($id);
         $vendor['user_update_id'] = auth()->user()->id;

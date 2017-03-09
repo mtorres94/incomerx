@@ -29,6 +29,13 @@ class ReceiptEntryDataTable extends CustomDataTable
             ->addColumn('attachment', function ($row) {
                 return $row->attachment_details->count() > 0 ? '<i class="fa fa-paperclip" aria-hidden="true"></i>' : '';
             })
+            ->addColumn('flag', function ($row) {
+                $length = $row->cargo_details()->where('length', '>', 99)->count();
+                $width  = $row->cargo_details()->where('width', '>', 99)->count();
+                $height = $row->cargo_details()->where('height', '>', 99)->count();
+                $weight = $row->cargo_details()->where('total_weight', '>', 8000)->count();
+                return ($length > 0 || $width > 0 || $height > 0 || $weight > 0) ? '<i class="fa fa-flag orange" aria-hidden="true"></i>' : '';
+            })
             ->addColumn('action', function ($receipt_entry) {
                 return $this->groupButton($receipt_entry, 'warehouse.receipts.receipts_entries',
                     [
@@ -90,6 +97,7 @@ class ReceiptEntryDataTable extends CustomDataTable
         return [
             ['data' => 'status',         'name' => 'whr_receipts_entries.status', 'title' => '<i class="fa fa-folder" aria-hidden="true"></i>', 'width' => '10px', 'orderable' => false],
             ['data' => 'attachment',     'name' => '', 'title' => '<i class="fa fa-paperclip" aria-hidden="true"></i>', 'width' => '10px', 'orderable' => false],
+            ['data' => 'flag',           'name' => '', 'title' => '<i class="fa fa fa-flag" aria-hidden="true"></i>', 'width' => '10px', 'orderable' => false],
             ['data' => 'code',           'name' => 'whr_receipts_entries.code', 'title' => 'Code'],
             ['data' => 'date_in',        'name' => 'whr_receipts_entries.date_in', 'title' => 'Date in'],
             ['data' => 'shipper_name',   'name' => 'c1.name', 'title' => 'Shipper'],
