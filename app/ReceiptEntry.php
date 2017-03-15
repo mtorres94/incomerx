@@ -23,7 +23,7 @@ class ReceiptEntry extends Model
         'heat_treated', 'extra_height', 'inbond', 'hazardous', 'extra_heavy', 'glass', 'haz_documents', 'driver_licenses', 'pieces_discrepancy',
         'hazardous_labels', 'fragile', 'weight_discrepancy', 'cargo_screened', 'ippc', 'ippc_number', 'marks', 'comments', 'unique_str',
         'sum_pieces', 'sum_weight', 'sum_volume_weight', 'sum_cubic', 'user_create_id', 'user_update_id','cargo_loader_id', 'user_open_id',
-        'sum_bill', 'sum_profit', 'sum_cost', 'sum_profit_percent', 'bill_of_lading_id', 'is_hazardous',
+        'sum_bill', 'sum_profit', 'sum_cost', 'sum_profit_percent', 'bill_of_lading_id', 'is_hazardous','location_destination_code'
     ];
 
     public function getShipperAddressAttribute($value) {

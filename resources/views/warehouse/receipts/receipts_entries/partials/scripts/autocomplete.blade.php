@@ -31,7 +31,7 @@
                 code: '{{ ((isset($receipt_entry) and $receipt_entry->location_origin_id > 0) ? $receipt_entry->origin->code : null)}}',
             },
             onSelect: function(e, o) {
-                $("#location_origin_id").val(e.id), $(this).val(e.name)
+                $("#location_origin_id").val(e.id), $(this).val(e.name), $("#location_destination_code").val(e.code)
             },
             minChars: 3,
             param: "term"

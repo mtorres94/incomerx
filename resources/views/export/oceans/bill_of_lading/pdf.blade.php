@@ -58,7 +58,7 @@
                     </td>
                     <td valign="top"  width="35%">
                         <p class="p-title">5. DOCUMENT NUMBER</p>
-                        {{ $bill_of_lading->shipment->booking_code }}
+                        {{ $bill_of_lading->booking_code }}
                     </td>
                     <td valign="top"  width="15%">
                             <p class="p-title">5a. BL NUMBER</p>
@@ -98,7 +98,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <p>{{ strtoupper($bill_of_lading->shipment->forwarding_agent_id >0 ? $bill_of_lading->shipment->forwarding_agent->name : "") }} <br>
+                                    <p>{{ strtoupper($bill_of_lading->shipment->forwarding_agent_id > 0 ? $bill_of_lading->shipment->forwarding_agent->name : "") }} <br>
                                         {{ strtoupper($bill_of_lading->shipment->forwarding_agent_id >0 ? $bill_of_lading->shipment->forwarding_agent->address: "") }} <br>
                                         {{ strtoupper($bill_of_lading->shipment->forwarding_agent_id >0 ? $bill_of_lading->shipment->forwarding_agent->phone : "") }}</p>
                                 </td>

@@ -146,6 +146,7 @@ class IoQuoteController extends Controller
             abort(404);
         }
         return \PDF::loadView('import.oceans.quotes.pdf', compact('quote'))->stream($quote->code.'.pdf');
+        //return view('import.oceans.quotes.pdf', compact('quote','type'));
     }
 
     public function pdf($token, $id)

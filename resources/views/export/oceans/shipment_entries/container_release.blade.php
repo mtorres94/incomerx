@@ -21,13 +21,19 @@
 
 <!-- Ionicons -->
     {!! Html::style('css/ionicons.min.css') !!}
+    <style type="text/css">
+        .page {
+            overflow: hidden;
+            page-break-after: always;
+        }
+    </style>
 </head>
 
 <body>
 @foreach($shipment_entry->booking as $booking)
 
 
-<div class="container-fluid">
+<div class="page">
     <div class="row row-padding">
         <div class="col-xs-12">
             <div align="center" class="company-info">
@@ -249,7 +255,7 @@
             </table>
         </div>
     </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br>
     <div class="row">
         <div class="col-xs-12">
             <table class="table header-table">

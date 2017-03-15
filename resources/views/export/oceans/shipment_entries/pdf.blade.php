@@ -21,13 +21,17 @@
 
 <!-- Ionicons -->
     {!! Html::style('css/ionicons.min.css') !!}
+    <style type="text/css">
+        .page {
+            overflow: hidden;
+            page-break-after: always;
+        }
+    </style>
 </head>
 
 <body>
 @foreach ($shipment_entry->booking as $booking )
-
-
-<div class="container-fluid">
+<div class="page">
     <div class="row row-padding">
         <div class="col-xs-6">
             <div class="company-info">
@@ -41,12 +45,10 @@
             </div>
         </div>
         <div class="col-xs-6">
-            <div class="row">
-                <div class="document-info pull-right">
-                    <h5><strong>BOOKING CONFIRMATION</strong></h5>
+            <div class="document-info pull-right">
+                <h5><strong>BOOKING CONFIRMATION</strong></h5>
                     <p class="code-bar">{{ $booking->code }}</p>
                     <p class="document_number"><strong> {{ strtoupper($booking->code) }}</strong></p>
-                </div>
             </div>
         </div>
     </div>
@@ -123,7 +125,7 @@
     <br>
     <div class="row">
         <div class="col-xs-12">
-            <table class="table resume-table" >
+            <table class="table header-table" >
                 <tr>
                     <td width="20%"><strong>PORT OF LOADING: </strong></td><td>{{ strtoupper(($shipment_entry->port_loading_id >0 ? $shipment_entry->port_loading->code ." - ".$shipment_entry->port_loading->name : "") )}}</td>
                     <td width="20%"><strong>PORT OF DISCHARGE: </strong></td><td>{{ strtoupper(($shipment_entry->port_unloading_id >0 ?  $shipment_entry->port_unloading->code ." - ".$shipment_entry->port_unloading->name : "")) }}</td>

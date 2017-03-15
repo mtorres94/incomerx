@@ -334,7 +334,7 @@
                     $("#carrier_name").val(e[0].carrier_name),
                     $("#departure_date").val(e[0].departure),
                     $("#arrival_date").val(e[0].arrival),
-                    $("#booking_code").val(e[0].booking_code),
+                    //$("#booking_code").val(e[0].booking_code),
 
                     $("#port_loading_id").val(e[0].loading_port_id),
                     $("#port_loading_name").val(e[0].loading_port_name),
@@ -434,7 +434,7 @@
             }
         });
     });
-
+ $("#shipment_id").val("{{ (isset($bill_of_lading)? $bill_of_lading->shipment_id : "") }}").change();
 
     //CONTAINER DETAILS
     $("#shipment_id").change(function(){
@@ -670,7 +670,7 @@
     $("#vehicle_vol_weight").number(true, 3).attr("readonly", true);
     $("#vehicle_total_cubic").number(true, 3).attr("readonly", true);
 
-    $("#total_quantity").attr("readonly", true);
+   /* $("#total_quantity").attr("readonly", true);
    // $("#booking_code").attr("readonly", true);
     $("#total_weight_kgs").attr("readonly", true);
     $("#total_cubic_cbm").attr("readonly", true);
@@ -684,7 +684,7 @@
             $("#cargo_charge_weight_k").attr("readonly", true);
             $("#cargo_weight_l").attr("readonly", true);
             $("#cargo_cubic_l").attr("readonly", true);
-            $("#cargo_charge_weight_l").attr("readonly", true);
+            $("#cargo_charge_weight_l").attr("readonly", true);*/
             $("#cargo_amount").attr("readonly", true);
     //$("#user_id").attr("readonly", true);
     $("#user_id").attr("readonly", true);

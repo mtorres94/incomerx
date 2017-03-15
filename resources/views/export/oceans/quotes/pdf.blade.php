@@ -68,7 +68,7 @@
     <div class="row row-padding">
         <div class="col-xs-6">
             <div class="row">
-                <div class="col-xs-12">
+
                     <div class="panel panel-default">
                         <div class="panel-heading">CUSTOMER</div>
                         <div class="panel-body">
@@ -78,8 +78,8 @@
                             <p>Phone: {{ $quotes->customer->phone }} / Fax: {{ $quotes->customer->fax }}</p>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-12">
+
+
                     <div class="panel panel-default">
                         <div class="panel-heading">SHIPPER</div>
                         <div class="panel-body">
@@ -89,7 +89,7 @@
                             <p>Phone: {{ $quotes->shipper->phone }} / Fax: {{ $quotes->shipper->fax }}</p>
                         </div>
                     </div>
-                </div>
+
 
             </div>
         </div>

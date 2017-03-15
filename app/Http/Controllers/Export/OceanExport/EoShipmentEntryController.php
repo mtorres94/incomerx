@@ -373,9 +373,13 @@ class EoShipmentEntryController extends Controller
         switch ($type) {
             case 1:
                 return \PDF::loadView('export.oceans.shipment_entries.pdf', compact('shipment_entry'))->stream($shipment_entry->code.'.pdf');
+
                 break;
             case 2:
                 return \PDF::loadView('export.oceans.shipment_entries.container_release', compact('shipment_entry'))->stream($shipment_entry->code.'.pdf');
+                break;
+            case 3:
+                return \PDF::loadView('export.oceans.shipment_entries.ocean_manifest', compact('shipment_entry'))->setOrientation('landscape')->stream($shipment_entry->code.'.pdf');
                 break;
             default:
                 $response = [''];
@@ -389,6 +393,7 @@ class EoShipmentEntryController extends Controller
             try {
                 $shipment_entry= EoShipmentEntry::findOrFail($id);
                 return \PDF::loadView('export.oceans.shipment_entries.pdf', compact('shipment_entry'))->stream('BC '.$shipment_entry->booking_code.'.pdf');
+
             } catch (ModelNotFoundException $e) {
                 abort(404);
             }

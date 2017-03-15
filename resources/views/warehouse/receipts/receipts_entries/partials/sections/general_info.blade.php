@@ -1,4 +1,6 @@
 <fieldset>
+    {!! Form::hidden('location_destination_code', null, ['id' => 'location_destination_code', 'class' => 'form-control input-sm']) !!}
+
     <legend>General info</legend>
     <div class="row">
         <div class="col-md-3">{!! Form::bsText(null, null, 'Whse #', 'code', null, '') !!}</div>

@@ -82,7 +82,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">{!! Form::bsCheck('col-md-1', 'col-md-2','Autocheck', 'autocheck') !!}</div>
-                    <div class="col-md-5">{!! Form::bsCheck('col-md-1', 'col-md-4', 'Select / Deselect All', 'select_all') !!}</div>
+                    <div class="col-md-7">{!! Form::bsCheck('col-md-1', 'col-md-6', 'Select / Deselect All', 'select_all') !!}</div>
 
                 </div>
             </div>

@@ -10,8 +10,8 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-7">{!! Form::bsSelect('col-md-5', 'col-md-7', 'GROUP HBL BY: ', 'group_by', array( '1' => 'SHIPPER', '2' => 'CONSIGNEE', '3' => 'SELECT WAREHOUSES'), null)!!}</div>
-                    <div class="col-md-5">{!! Form::bsCheck('col-md-1', 'col-md-7', 'Select / Deselect All', 'select_all_whr') !!}</div>
+                    <div class="col-md-5">{!! Form::bsSelect('col-md-5', 'col-md-7', 'GROUP HBL BY: ', 'group_by', array( '1' => 'SHIPPER', '2' => 'CONSIGNEE', '3' => 'SELECT WAREHOUSES'), null)!!}</div>
+                    <div class="col-md-7">{!! Form::bsCheck('col-md-1', 'col-md-6', 'Select / Deselect All', 'select_all_whr') !!}</div>
 
                     {!! Form::hidden('tmp_cargo_loader_id', null, ['id' => 'tmp_cargo_loader_id', 'class' => 'form-control input-sm']) !!}
                     {!! Form::hidden('tmp_departure_date', null, ['id' => 'tmp_departure_date', 'class' => 'form-control input-sm']) !!}

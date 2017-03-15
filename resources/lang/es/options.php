@@ -23,7 +23,8 @@ return [
         'vendors'    => [
             'types'         => 'Tipos de vendedores',
             'suppliers'     => 'Proveedores',
-            'vendors'       => 'Vendedores'
+            'vendors'       => 'Vendedores',
+            'carriers'      => 'Transportistas'
         ],
         'items'      => [
             'units'         => 'Unidades',
@@ -69,7 +70,7 @@ return [
             'general'       => 'Cuentas de libro mayor',
         ],
         'drivers'    => [
-            'carriers'      => 'Transportistas',
+
             'drivers'       => 'Conductores',
             'trucks'        => 'Camiones',
             'trailers'      => 'Remolques'
@@ -124,6 +125,10 @@ return [
             'cargo_loader' => 'Plan de Carga',
             'bill_of_lading' => 'B/L',
             'manifest' => 'Manifiesto',
+        ],
+        'air' => [
+            'booking_entries' => 'Booking ',
+
         ],
     ],
     'import' => [

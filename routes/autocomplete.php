@@ -20,6 +20,7 @@ Route::group(['middleware' => ['web']], function () {
         });
         Route::group(['namespace' => 'VendorsSuppliers'], function() {
             Route::get('vendors/autocomplete', ['as' => 'vendors.autocomplete', 'uses' => 'VendorController@autocomplete']);
+            Route::get('carriers/autocomplete', ['as'   => 'carriers.autocomplete', 'uses' => 'CarrierController@autocomplete']);
         });
         Route::group(['namespace' => 'Items'], function () {
             Route::get('services/autocomplete', ['as'   => 'services.autocomplete', 'uses' => 'ServiceController@autocomplete']);
@@ -36,7 +37,7 @@ Route::group(['middleware' => ['web']], function () {
         });
         Route::group(['namespace' => 'Drivers'], function () {
             Route::get('drivers/autocomplete', ['as'   => 'drivers.autocomplete', 'uses' => 'DriverController@autocomplete']);
-            Route::get('carriers/autocomplete', ['as'   => 'carriers.autocomplete', 'uses' => 'CarrierController@autocomplete']);
+
         });
         Route::group(['namespace' => 'CountriesDestinations'], function () {
             Route::get('world_locations/autocomplete', [

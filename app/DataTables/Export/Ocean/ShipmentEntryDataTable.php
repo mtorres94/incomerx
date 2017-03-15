@@ -24,6 +24,7 @@ class ShipmentEntryDataTable extends CustomDataTable
                     'export.oceans.shipment_entries',[
                     ['route' => report_route('shipment_entries.report', 1, $shipment_entries->id), 'icon' => 'icon-file-pdf', 'name' => 'Booking Confirmation'],
                     ['route' => report_route('shipment_entries.report', 2, $shipment_entries->id), 'icon' => 'icon-file-pdf', 'name' => 'Container Release'],
+                    ['route' => report_route('shipment_entries.report', 3, $shipment_entries->id), 'icon' => 'icon-file-pdf', 'name' => 'Ocean Manifest'],
                 ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])

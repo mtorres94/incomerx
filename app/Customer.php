@@ -14,10 +14,42 @@ class Customer extends Model
         'origin_id', 'destination_id', 'unknown_shipper', 'consent_letter_on_file', 'partner_id', 'receipt', 'withdraw', 'shipment',
         'ea_loading_guide', 'ea_airwaybill', 'ea_manifest', 'eo_loading_guide', 'eo_bill_of_lading', 'eo_manifest', 'w_sales_order',
         'w_bill_of_lading', 'w_receiving_log', 'i_invoice', 'pd_orders', 'ia_airwaybill', 'io_bill_of_lading', 'c_shipping', 'po_orders',
-        'user_create_id', 'user_update_id', 'user_open_id',
+        'user_create_id', 'user_update_id', 'user_open_id'
     ];
 
     //<editor-fold desc="Customer Eloquent Relationship">
+    public function setAgentAttribute($value)
+    {
+        $this->attributes['agent'] = ($value == 'on') ? 1 : 0;
+    }
+    public function getAgentAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+    public function setThirdPartyAttribute($value)
+    {
+        $this->attributes['third_party'] = ($value == 'on') ? 1 : 0;
+    }
+    public function getThirdPartyAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+    public function setConsigneeAttribute($value)
+    {
+        $this->attributes['consignee'] = ($value == 'on') ? 1 : 0;
+    }
+    public function getConsigneeAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
+    public function setShipperAttribute($value)
+    {
+        $this->attributes['shipper'] = ($value == 'on') ? 1 : 0;
+    }
+    public function getShipperAttribute($value)
+    {
+        return ($value == 1) ? 'on' : 'off';
+    }
     public function setReceiptAttribute($value)
     {
         $this->attributes['receipt'] = ($value == 'on') ? 1 : 0;

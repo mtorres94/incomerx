@@ -39,6 +39,6 @@
         </div>
     </div>
         <div class="row">
-            <div class="col-md-6">{!! Form::bsCheck('col-md-1', 'col-md-5','Collect free', 'collect_free', (isset($bill_of_lading) ? $bill_of_lading->collect_free : 'off')) !!}</div>
-            <div class="col-md-6"> {!! Form::bsCheck('col-md-1', 'col-md-7','Insurance Requested', 'insurance', (isset($bil_of_lading) ? $bill_of_lading->insurance : 'off')) !!}</div>
+            <div class="col-md-6">{!! Form::bsCheck('col-md-1', 'col-md-6','Collect free', 'collect_free', (isset($bill_of_lading) ? $bill_of_lading->collect_free : 'off')) !!}</div>
+            <div class="col-md-6"> {!! Form::bsCheck('col-md-1', 'col-md-6','Insurance Requested', 'insurance', (isset($bil_of_lading) ? $bill_of_lading->insurance : 'off')) !!}</div>
         </div>

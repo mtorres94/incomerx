@@ -28,6 +28,8 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('vendor_type/update_close', ['as' => 'vendors_type.close', 'uses' => 'VendorTypeController@updateClose']);
             Route::post('vendors/verify_open',  ['as' => 'vendors.open',  'uses' => 'VendorController@getOpenStatus']);
             Route::post('vendors/update_close', ['as' => 'vendors.close', 'uses' => 'VendorController@updateClose']);
+            Route::post('carriers/verify_open',  ['as' => 'carriers.open',  'uses' => 'CarrierController@getOpenStatus']);
+            Route::post('carriers/update_close', ['as' => 'carriers.close', 'uses' => 'CarrierController@updateClose']);
         });
         Route::group(['namespace' => 'Items'], function () {
             Route::post('units/verify_open', ['as' => 'units.open', 'uses' => 'UnitController@getOpenStatus']);
@@ -107,7 +109,10 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('eo_bill_of_lading/verify_open',  ['as' => 'eo_bill_of_lading.open',  'uses' => 'EoBillOfLadingController@getOpenStatus']);
             Route::post('eo_bill_of_lading/update_close', ['as' => 'eo_bill_of_lading.close', 'uses' => 'EoBillOfLadingController@updateClose']);
         });
-
+        Route::group(['namespace' => 'Air'], function () {
+            Route::post('ea_booking_entries/verify_open',  ['as' => 'ea_booking_entries.open',  'uses' => 'EaBookingEntryController@getOpenStatus']);
+            Route::post('ea_booking_entries/update_close', ['as' => 'ea_booking_entries.close', 'uses' => 'EaBookingEntryController@updateClose']);
+        });
     });
 
     Route::group(['namespace' => 'Import'], function () {

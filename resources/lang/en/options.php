@@ -24,6 +24,7 @@ return [
             'types'         => 'Vendors types',
             'vendors'       => 'Vendors',
             'suppliers'     => 'Suppliers',
+            'carriers'      => 'Carriers',
         ],
         'items'      => [
             'units'         => 'Units',
@@ -66,7 +67,7 @@ return [
             'general'       => 'General ledger accounts',
         ],
         'drivers'    => [
-            'carriers'      => 'Carriers',
+
             'drivers'       => 'Drivers',
             'trucks'        => 'Trucks',
             'trailers'      => 'Trailers'

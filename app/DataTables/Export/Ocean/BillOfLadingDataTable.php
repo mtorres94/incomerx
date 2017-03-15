@@ -24,10 +24,10 @@ class BillOfLadingDataTable extends CustomDataTable
                     'export.oceans.bill_of_lading',
                     [
                         ['route' => report_route('bill_of_lading.report', 1, $bill_lading->id), 'icon' => 'icon-file-pdf', 'name' => 'ORIGINAL B/L'],
-                        ['route' => report_route('bill_of_lading.report', 5, $bill_lading->id), 'icon' => 'icon-file-pdf', 'name' => 'Delivery Order'],
-                        ['route' => report_route('bill_of_lading.report', 6, $bill_lading->id), 'icon' => 'fa fa-barcode', 'name' => 'Label'],
-                        ['route' => report_route('bill_of_lading.report', 7, $bill_lading->id), 'icon' => 'icon-file-pdf', 'name' => 'Manifest'],
-                        ['route' => report_route('bill_of_lading.report', 8, $bill_lading->id), 'icon' => 'icon-file-pdf', 'name' => 'Pre Alert']
+                        ['route' => report_route('bill_of_lading.report', 8, $bill_lading->id), 'icon' => 'icon-file-pdf', 'name' => 'Delivery Order'],
+                        ['route' => report_route('bill_of_lading.report', 9, $bill_lading->id), 'icon' => 'fa fa-barcode', 'name' => 'Label'],
+                        ['route' => report_route('bill_of_lading.report', 10, $bill_lading->id), 'icon' => 'icon-file-pdf', 'name' => 'Manifest'],
+                        ['route' => report_route('bill_of_lading.report', 11, $bill_lading->id), 'icon' => 'icon-file-pdf', 'name' => 'Pre Alert']
                     ]
 
                 );

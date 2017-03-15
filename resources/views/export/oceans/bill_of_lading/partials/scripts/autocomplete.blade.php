@@ -166,7 +166,7 @@
         $("#shipper_id").val(""),$("#shipper_name").val(""),$("#shipper_address").val(""),$("#shipper_city").val(""),$("#shipper_phone").val(""),$("#shipper_state_id").val(""),$("#shipper_state_name").val(""),$("#shipper_zip_code_id").val(""),$("#shipper_zip_code_code").val(""),
         $("#consignee_id").val(""),$("#consignee_name").val(""),$("#consignee_address").val(""),$("#consignee_city").val(""),$("#consignee_phone").val(""),$("#consignee_state_id").val(""),$("#consignee_state_name").val(""),$("#consignee_zip_code_id").val(""),$("#consignee_zip_code_code").val(""), $("#notify_id").val(""),$("#notify_name").val(""),$("#notify_address").val(""),$("#notify_city").val(""),$("#notify_phone").val(""),$("#notify_state_id").val(""),$("#notify_state_name").val(""),$("#notify_zip_code_id").val(""),$("#notify_zip_code_code").val(""),
         $("#agent_name").val(""),$("#agent_id").val(""),$("#agent_state_id").val(""),$("#agent_zip_code_id").val(""),$("#agent_country_id").val(""),$("#agent_country_name").val(""),$("#agent_state_name").val(""),$("#agent_zip_code").val(""),$("#agent_phone").val(""),$("#agent_fax").val(""),$("#agent_contact").val(""),$("#agent_commission").val(""),$("#spotting_amount").val(""),$("#forwarding_agent_id").val(""),$("#forwarding_agent_name").val(""))
-    });*//
+    });*/
 
         $("#port_loading_name").marcoPolo({url:"{{ route('ocean_ports.autocomplete') }}",formatItem:function(e,o){return e.name}, selected:{
             id:'{{ (isset($bill_of_lading)? $bill_of_lading->port_loading_id : "") }}',
@@ -195,7 +195,8 @@
     $("#carrier_name").marcoPolo({url: "{{ route('carriers.autocomplete') }}",formatItem: function(e, o) {return e.id +' - '+ e.name}, selected:{
         id: '{{ (isset($bill_of_lading) ? $bill_of_lading->carrier_id : "") }}',
         name: '{{ ((isset($bill_of_lading) and ($bill_of_lading->carrier_id > 0)) ? $bill_of_lading->carrier->name: "") }}',
-    },onSelect: function(e, o) {$("#carrier_id").val(e.id), $(this).val(e.name)},minChars: 3,param: "term"}).on("marcopolorequestbefore", function() {$("#carrier_name_img").removeClass("img-none").addClass("img-display"), $("#carrier_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter", function() {$("#carrier_name_img").removeClass("img-display").addClass("img-none"), $("#carrier_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e) {
+
+    },onSelect: function(e, o) {$("#carrier_id").val(e.id), $(this).val(e.name), $("#exporting_carrier").val(e.name)},minChars: 3,param: "term"}).on("marcopolorequestbefore", function() {$("#carrier_name_img").removeClass("img-none").addClass("img-display"), $("#carrier_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter", function() {$("#carrier_name_img").removeClass("img-display").addClass("img-none"), $("#carrier_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e) {
         var o = e.keyCode ? e.keyCode : e.which;
         (8 == o || 46 == o) && $("#carrier_id").val(0)
     }).blur(function() {
@@ -245,7 +246,7 @@
         selected: {
             id: '{{ (isset($bill_of_lading) ? $bill_of_lading->shipper_id : "")}}',
             value: '{{ ((isset($bill_of_lading) and $bill_of_lading->shipper_id > 0) ? $bill_of_lading->shipper->name : "")}}',
-            address: '{{ trim(preg_replace(array('/\s{2,}/', '/[\t\n]/'), ' ',(isset($bill_of_lading) ? $bill_of_lading->shipper_address : ""))) }}',
+            address: '{{ trim(preg_replace(array('/\s{2,}/', '/[\t\n]/'), ' ',(isset($bill_of_lading) ? $bill_of_lading->shipper->address : ""))) }}',
             city: '{{ (isset($bill_of_lading) ? $bill_of_lading->shipper_city : null) }}',
             state_id: '{{ (isset($bill_of_lading) ? $bill_of_lading->shipper_state_id : "")}}',
             state_name: '{{ ((isset($bill_of_lading) and $bill_of_lading->shipper_state_id > 0) ? $bill_of_lading->shipper_state->name : null)}}',             zip_code_id: '{{ (isset($bill_of_lading) ? $bill_of_lading->shipper_zip_code_id : "")}}',

@@ -169,7 +169,18 @@
             @endforeach
         </div>
     </div>
-
+<div class="row">
+    <table class="table header-table">
+        <tr>
+            <td><p><strong>COMMENTS: </strong></p></td>
+            <td><p>{{ strtoupper($cargo_loader->inland_comments) }}</p></td>
+        </tr>
+        <tr>
+            <td><p><strong>MARKS: </strong></p></td>
+            <td><p>{{ strtoupper($cargo_loader->inland_mark )}}</p></td>
+        </tr>
+    </table>
+</div>
 
 </div>
 </body>

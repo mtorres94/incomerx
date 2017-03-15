@@ -43,6 +43,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::resource('vendor_types', 'VendorTypeController');
             Route::resource('vendors', 'VendorController');
             Route::resource('suppliers', 'SupplierController');
+            Route::resource('carriers', 'CarrierController');
         });
         Route::group(['prefix' => 'items', 'namespace' => 'Items'], function () {
             Route::resource('item_categories', 'ItemCategoryController');
@@ -96,8 +97,9 @@ Route::group(['middleware' => ['web']], function () {
             Route::resource('cargo_loader', 'EoCargoLoaderController');
             Route::resource('step_by_step', 'EoStepByStepController');
             Route::resource('quotes', 'EoQuotesController');
-
-
+        });
+        Route::group(['prefix' => 'air', 'namespace' => 'Air'], function () {
+            Route::resource('booking_entries', 'EaBookingEntryController');
         });
     });
 

@@ -24,7 +24,7 @@
 </head>
 
 <body>
-@foreach($shipment_entry->booking as $booking)
+
 
 
 <div class="container-fluid">
@@ -120,6 +120,7 @@
                          <td>{{ $detail->container->first()->container_seal_number }}</td>
                          <td>{{ $detail->container->first()->container_comments }}</td>
                      </tr>
+
                      @endforeach
                      <tr>
                          <td><p><strong>SHIPPER: </strong></p></td>
@@ -148,20 +149,22 @@
                          </td>
                      </tr>
                     @endif
+
                 @endforeach
                 </tbody>
+
                 <tfoot>
                     <tr>
                         <td><p><strong>TOTAL</strong></p></td>
                         <td>
-                            <strong>{{ $shipment_entry->hbl_pieces }} Lbs</strong>
+                            <strong></strong>
                         </td>
                         <td>
-                            <strong>{{ $shipment_entry->hbl_actual_weight }} Lbs</strong>
+                            <strong>{{ $shipment_entry->hbl_actual_weight }} Lbs</strong><br>
                             <strong>{{ round($shipment_entry->hbl_actual_weight *  0.453592, 3) }} Kgs</strong>
                         </td>
                         <td>
-                            <strong>{{ $shipment_entry->hbl_charge_weight }} Lbs</strong>
+                            <strong>{{ $shipment_entry->hbl_charge_weight }} Lbs</strong><br>
                             <strong>{{ round($shipment_entry->hbl_charge_weight * 0.453592, 3) }} Kgs</strong>
                         </td>
                     </tr>
@@ -173,14 +176,13 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <div class="panel-body">
-                <p><strong>COMMENTS: </strong></p>
-                <p> {{ strtoupper($shipment_entry->shipment_comments )}}</p>
+            <div class="panel-body" align="center">
+                <p><strong>WE CERTIFY THAT ALL INFORMATION IN THIS CARGO MANIFEST IS THE SAME EXACT COPY OF THE CORRESPONDING ORIGINALS.</strong></p>
             </div>
         </div>
     </div>
 </div>
-@endforeach
+
 </body>
 
 </html>

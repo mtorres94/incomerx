@@ -289,10 +289,11 @@ class EoBillOfLadingController extends Controller
             case 7:
                 return \PDF::loadView('export.oceans.bill_of_lading.pdf', compact('bill_of_lading', 'type'))->stream($bill_of_lading->code.'.pdf');
                 break;
-
+            //DELIVERY ORDER
             case 8:
                 return \PDF::loadView('export.oceans.bill_of_lading.delivery_order', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
                 break;
+            //LABEL
             case 9:
                 return \PDF::loadView('export.oceans.bill_of_lading.label', compact('bill_of_lading'))
                     ->setOrientation('landscape')
@@ -301,7 +302,9 @@ class EoBillOfLadingController extends Controller
                     ->stream($bill_of_lading->code.'.pdf');
                 break;
             case 10:
-                return \PDF::loadView('export.oceans.bill_of_lading.manifest', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
+                return \PDF::loadView('export.oceans.bill_of_lading.manifest', compact('bill_of_lading'))
+                    ->setOrientation('landscape')
+                    ->stream($bill_of_lading->code.'.pdf');
                 break;
             case 11:
                 return \PDF::loadView('export.oceans.bill_of_lading.pre_alert', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
@@ -472,8 +475,4 @@ class EoBillOfLadingController extends Controller
         ];
     }
 
-    public static function oceanManifest()
-    {
-        return view('export.oceans.manifest.index');
-    }
 }

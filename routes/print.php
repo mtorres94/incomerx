@@ -30,7 +30,9 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('shipment_entries/report', ['as' => 'shipment_entries.report', 'uses' => 'EoShipmentEntryController@report']);
             Route::get('bill_of_lading/report', ['as' => 'bill_of_lading.report', 'uses' => 'EoBillOfLadingController@report']);
             Route::get('cargo_loader/report', ['as' => 'cargo_loader.report', 'uses' => 'EoCargoLoaderController@report']);
-            Route::get('bill_of_lading/oceanManifest', ['as' => 'bill_of_lading.oceanManifest', 'uses' => 'EoBillOfLadingController@oceanManifest']);
+            Route::get('bill_of_lading/ocean_manifest', ['as' => 'bill_of_lading.ocean_manifest', 'uses' => 'EoBillOfLadingController@oceanManifest']);
+            Route::post('bill_of_lading/manifest_report', ['as' => 'bill_of_lading.manifest_report', 'uses' => 'EoBillOfLadingController@manifest_report']);
+
         });
     });
 

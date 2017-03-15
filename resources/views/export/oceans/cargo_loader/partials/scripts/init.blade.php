@@ -282,8 +282,11 @@ $("#group_by").change(function(){
 });
 
         $("#shipment_id").change(function () {
+            var cargo_loader_id = '{{ (isset($cargo_loader) ? $cargo_loader->id : "") }}';
             var id = $("#shipment_id").val();
-            $("#shipment_code").val($("#shipment_id option:selected").text());
+
+            $("#booking_id").val(0);
+            $("#booking_code").val("");
             $.ajax({
                 url: "{{ route('shipment_entries.autocomplete') }}",
                 data: {id: id},
@@ -312,6 +315,8 @@ $("#group_by").change(function(){
                     $("#foreign_port").val(e[0].unloading_port_name);
                     $("#shipper_id").val(e[0].shipper_id).change(); $("#shipper_name").val(e[0].shipper_name); $("#shipper_address").val(e[0].shipper_address); $("#shipper_city").val(e[0].shipper_city); $("#shipper_phone").val(e[0].shipper_phone); $("#shipper_state_id").val(e[0].shipper_state_id).change(); $("#shipper_state_name").val(e[0].shipper_state_name); $("#shipper_zip_code_id").val(e[0].shipper_zip_code_id).change(); $("#shipper_zip_code_code").val(e[0].shipper_zip_code);$("#consignee_id").val(e[0].consignee_id).change(); $("#consignee_name").val(e[0].consignee_name); $("#consignee_address").val(e[0].consignee_address); $("#consignee_city").val(e[0].consignee_city); $("#consignee_phone").val(e[0].consignee_phone); $("#consignee_state_id").val(e[0].consignee_state_id).change(); $("#consignee_state_name").val(e[0].consignee_state_name); $("#consignee_zip_code_id").val(e[0].consignee_zip_code_id).change(); $("#consignee_zip_code_code").val(e[0].consignee_zip_code); $("#notify_id").val(e[0].notify_id).change(); $("#notify_name").val(e[0].notify_name); $("#notify_address").val(e[0].notify_address); $("#notify_city").val(e[0].notify_city); $("#notify_phone").val(e[0].notify_phone); $("#notify_state_id").val(e[0].notify_state_id).change(); $("#notify_state_name").val(e[0].notify_state_name); $("#notify_zip_code_id").val(e[0].notify_zip_code_id).change(); $("#notify_zip_code_code").val(e[0].notify_zip_code); $("#forwarding_agent_name").val(e[0].forwarding_agent_name); $("#forwarding_agent_id").val(e[0].forwarding_agent_id).change(); $("#domestic_routing").val(e[0].domestic_routing); $("#booking_code").val(e[0].booking_code);
                         $("#agent_name").val(e[0].agent_name); $("#agent_id").val(e[0].agent_id).change(); $("#agent_phone").val(e[0].agent_phone); $("#agent_fax").val(e[0].agent_fax); $("#agent_contact").val(e[0].agent_contact); $("#agent_commission").val(e[0].agent_commission); $("#spotting_amount").val(e[0].agent_amount); $("#state_of_origin_id").val(e[0].state_of_origin_id).change(); $("#state_of_origin_name").val(e[0].state_of_origin_name);  $("#inland_driver_name").val(e[0].inland_driver_name); $("#inland_driver_id").val(e[0].inland_driver_id); $("#inland_lic_number").val(e[0].inland_lic_number); $("#booked_date").val(e[0].booked_date); $("#loading_date").val(e[0].loading_date); $("#equipment_cut_off_date").val(e[0].equipment_cut_off_date); $("#documents_cut_off_date").val(e[0].documents_cut_off_date)
+
+
 
                 }
             });
@@ -498,6 +503,23 @@ $("#group_by").change(function(){
         });
     }
     $("#btn_create_hbl").click(function() {
+        $("#tmp_cargo_loader_id").val('{{ (isset($cargo_loader) ? $cargo_loader->id : "") }}');
+        $('#tmp_departure_date').val($("#departure_date").val());
+        $('#tmp_arrival_date').val($("#arrival_date").val());
+        $('#tmp_booking_code').val($("#booking_code").val());
+        $('#tmp_carrier_id').val($("#carrier_id").val());
+        $('#tmp_shipment_id').val($("#shipment_id").val());
+        $('#tmp_shipment_code').val($("#shipment_id option:selected").text());
+        $('#tmp_date_today').val($("#date_today").val());
+
+        $('#tmp_place_receipt').val($("#place_receipt_name").val());
+        $('#tmp_place_delivery').val($("#place_delivery_name").val());
+        $('#tmp_port_loading_id').val($("#port_loading_id").val());
+        $('#tmp_port_unloading_id').val($("#port_unloading_id").val());
+        $('#tmp_vessel_name').val($("#vessel_name").val());
+        $('#tmp_voyage_name').val($("#voyage_name").val());
+        $("#shipment_code").val($("#shipment_id option:selected").text());
+
         clearTableCondition('load_warehouses');
         $("#group_by").val("3").change();
         var id = '{{ (isset($cargo_loader) ? $cargo_loader->id : "") }}';
@@ -536,22 +558,10 @@ $("#group_by").change(function(){
                 }
             }
         });
-        $("#tmp_cargo_loader_id").val(id);
-        $('#tmp_departure_date').val($("#departure_date").val());
-        $('#tmp_arrival_date').val($("#arrival_date").val());
-        $('#tmp_booking_code').val($("#booking_code").val());
-        $('#tmp_carrier_id').val($("#carrier_id").val());
-        $('#tmp_shipment_id').val($("#shipment_id").val());
-        $('#tmp_shipment_code').val($("#shipment_id option:selected").text());
-        $('#tmp_date_today').val($("#date_today").val());
 
-        $('#tmp_place_receipt').val($("#place_receipt_name").val());
-        $('#tmp_place_delivery').val($("#place_delivery_name").val());
-        $('#tmp_port_loading_id').val($("#port_loading_id").val());
-        $('#tmp_port_unloading_id').val($("#port_unloading_id").val());
-        $('#tmp_vessel_name').val($("#vessel_name").val());
-        $('#tmp_voyage_name').val($("#voyage_name").val());
     });
+
+
 
     $("#btn_booking").click(function() {
         clearTableCondition('booking_details');

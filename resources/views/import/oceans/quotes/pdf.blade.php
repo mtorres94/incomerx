@@ -123,21 +123,22 @@
             </div>
         </div>
 
-        <div class="row row padding">
+        <div class="row-padding">
             <div class="col-xs-12">
                 <table class="table table-condensed">
                     <thead>
-                    <th>Qty</th>
-                    <th>Type</th>
-                    <th>Length</th>
-                    <th>Width</th>
-                    <th>Height</th>
-                    <th>Cubic</th>
-                    <th>Weight</th>
-                    <th>Unit</th>
-                    <th>Bin</th>
-                    <th>Reference</th>
-
+                        <tr>
+                            <th>Qty</th>
+                            <th>Type</th>
+                            <th>Length</th>
+                            <th>Width</th>
+                            <th>Height</th>
+                            <th>Cubic</th>
+                            <th>Weight</th>
+                            <th>Unit</th>
+                            <th>Bin</th>
+                            <th>Reference</th>
+                        </tr>
                     </thead>
                     <tbody>
                     @foreach($quote->cargo as $detail)
@@ -151,7 +152,6 @@
                             <td>{{ $detail->total_weight }}</td>
                             <td>{{ ($detail->weight_unit_measurement_id == "L") ? "LBS" : "KGS" }}</td>
                             <td>{{ ($detail->location_id > 0) ? $detail->location->code . $detail->location_bin_id : "" }}</td>
-
                             <td></td>
                         </tr>
                     @endforeach
@@ -177,12 +177,12 @@
             </div>
         </div>
         <br>
-        <div class="row">
+        <div class="row-padding">
             <div class="col-md-4">
                 <p class="document_number"><strong>Origin Charges</strong></p>
             </div>
         </div>
-        <div class="row row padding">
+        <div class="row-padding">
             <div class="col-xs-12">
                 <table class="table table-condensed">
                     <thead>
@@ -221,12 +221,12 @@
         </div>
 
         <br>
-        <div class="row">
+        <div class="row-padding">
             <div class="col-md-4">
                 <p class="document_number"><strong>Destination Charges</strong></p>
             </div>
         </div>
-        <div class="row row padding">
+        <div class="row-padding">
             <div class="col-xs-12">
                 <table class="table table-condensed">
                     <thead>
@@ -263,7 +263,7 @@
                 </table>
             </div>
         </div>
-        <div class="row row-padding">
+        <div class="row-padding">
             <div class="col-xs-12 footer">
                 <p><strong>COMMENTS:</strong> {{ $quote->quotes_comments }}</p>
                 <p><strong>INSTRUCTIONS:</strong> {{ $quote->quote_instruction }}</p>

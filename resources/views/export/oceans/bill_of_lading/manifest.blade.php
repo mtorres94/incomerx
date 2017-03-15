@@ -74,7 +74,7 @@
                 <tr>
                     <td><p><strong>DEPARTURE DATE:</strong><br>{{ $bill_of_lading->departure_date }}</p></td>
                     <td>
-                        <table class="table resume-table">
+                        <table class="table header-table">
                             <tr>
                                 <td width="50%"><p><strong>FROM:</strong><br>{{ strtoupper($bill_of_lading->port_loading_id > 0 ? $bill_of_lading->loading->name : "") }}</p></td>
                                 <td width="50%"><p><strong>TO:</strong><br>{{ strtoupper($bill_of_lading->port_unloading_id > 0 ? $bill_of_lading->unloading->name : "") }}</p></td>
@@ -147,7 +147,7 @@
                 <tr>
                     <td><p><strong>TOTALS</strong></p></td>
                     <td>
-                        <strong>{{ $bill_of_lading->total_pieces }} Lbs</strong>
+                        <strong>{{ $bill_of_lading->total_pieces }} </strong>
                     </td>
                     <td>
                         <strong>{{ $bill_of_lading->total_weight_lbs }} Lbs</strong><br>
