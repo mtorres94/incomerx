@@ -47,3 +47,20 @@ if (!function_exists('generate_code')) {
         return is_null($tmp) ? $code : $tmp;
     }
 }
+if (!function_exists('fk')) {
+    function fk($array) {
+        return array_keys($array)[0];
+    }
+}
+if (!function_exists('format_array')) {
+    function format_array($array) {
+        $x = []; $elements = count($array[fk($array)]);
+        for ($i = 0; $i < $elements; $i++){
+            foreach ($array as $key => $value) {
+                $val = [$key => $value[$i]];
+                $x[$i] = isset($x[$i]) ? array_merge($x[$i], $val) : $val;
+            }
+        }
+        return $x;
+    }
+}

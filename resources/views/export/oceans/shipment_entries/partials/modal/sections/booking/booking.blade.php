@@ -10,6 +10,7 @@
                 <div class="form-horizontal">
                     {!! Form::hidden('booking_line', null, ['id' => 'booking_line', 'class' => 'form-control input-sm']) !!}
                     {!! Form::hidden('tmp_shipment_id', null, ['id' => 'tmp_shipment_id', 'class' => 'form-control input-sm']) !!}
+                    {!! Form::hidden('tmp_status', null, ['id' => 'tmp_status', 'class' => 'form-control input-sm']) !!}
                     <div class="row">
                         <div class="col-md-12">{!! Form::bsText('col-md-3', 'col-md-9', 'Booking#', 'tmp_booking_code', null, ' ') !!}</div>
                     </div>

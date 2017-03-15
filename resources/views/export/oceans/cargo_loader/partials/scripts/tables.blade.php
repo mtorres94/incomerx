@@ -10,7 +10,7 @@
         clearTableCondition("hazardous_details");
         $("#container_spotting_date").val($("#loading_date").val());
         $("#pd_status").val("1").change();
-        $("#equipment_type_id").val("").change();
+        $("#equipment_type_id").val($("#tmp_equipment_type_id").val()).change();
         $("#container_pickup_type").val("02").change();
         $("#container_delivery_type").val("02").change();
         $("#container_drop_type").val("02").change();
@@ -823,7 +823,7 @@ $("#CreateHouse").modal("hide");
                 t.append(p_1);
                 d += 1;
             }
-            cleanModalFields("Container_Details"), clearTableCondition("cargo_details"),clearTableCondition("hazardous_details"), $("#ContainerModal").formValidation('resetForm', true),    $("#container_spotting_date").val($("#loading_date").val()), $("#pd_status").val("1").change(), $("#equipment_type_id").val("").change(), $("#container_pickup_type").val("02").change(), $("#container_delivery_type").val("02").change(), $("#container_drop_type").val("02").change(),
+        calculate_totals(); cleanModalFields("Container_Details"), clearTableCondition("cargo_details"),clearTableCondition("hazardous_details"), $("#ContainerModal").formValidation('resetForm', true),    $("#container_spotting_date").val($("#loading_date").val()), $("#pd_status").val("1").change(), $("#equipment_type_id").val("").change(), $("#container_pickup_type").val("02").change(), $("#container_delivery_type").val("02").change(), $("#container_drop_type").val("02").change(),
             $("#total_weight_unit").val("L").change(), $("#container_degrees").val("F").change(), $("#container_ventilation").val("A").change(),$("#equipment_type_code").focus();
 
         //======================================

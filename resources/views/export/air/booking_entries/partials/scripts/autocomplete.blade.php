@@ -3,7 +3,7 @@
     $("#carrier_name").marcoPolo({url: "{{ route('carriers.autocomplete') }}",formatItem: function(e, o) {return e.name}, selected:{
         id: '{{ (isset($booking_entries) ? $booking_entries->carrier_id : "") }}',
         name: '{{ ((isset($booking_entries) and ($booking_entries->carrier_id > 0)) ? $booking_entries->carrier->name: "") }}',
-    },onSelect: function(e, o) {$("#carrier_id").val(e.id), $(this).val(e.name)},minChars: 3,param: "term"}).on("marcopolorequestbefore", function() {$("#carrier_name_img").removeClass("img-none").addClass("img-display"), $("#carrier_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter", function() {$("#carrier_name_img").removeClass("img-display").addClass("img-none"), $("#carrier_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e) {var o = e.keyCode ? e.keyCode : e.which;(8 == o || 46 == o) && $("#carrier_id").val(0)}).blur(function() {var e = $("#carrier_id").val();0 == e && $(this).val("")});
+    },onSelect: function(e, o) {$("#carrier_id").val(e.id).change(), $(this).val(e.name)},minChars: 3,param: "term"}).on("marcopolorequestbefore", function() {$("#carrier_name_img").removeClass("img-none").addClass("img-display"), $("#carrier_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter", function() {$("#carrier_name_img").removeClass("img-display").addClass("img-none"), $("#carrier_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e) {var o = e.keyCode ? e.keyCode : e.which;(8 == o || 46 == o) && $("#carrier_id").val(0)}).blur(function() {var e = $("#carrier_id").val();0 == e && $(this).val("")});
 
 
 
@@ -105,4 +105,33 @@
         var e = $("#destination_id").val();
         0 == e && $(this).val("")
     });
+
+    $("#carrier_id").change(function() {
+        var id = $("#carrier_id").val();
+        $.ajax({
+            url: "{{ route('carriers.get_awb_number') }}",
+            data: {id: id},
+            type: 'GET',
+            success: function (e) {
+                if(e.length == 0){
+                    arrayEmpty('Wait!', 'There are not awb numbers available for this carrier.');
+                }else{
+                    $("#awb_number").val(e[0].number);
+                    $("#code").val( $("#carrier_id").val() + "-" + e[0].number);
+                    $("#type").val(e[0].awb_type).change();
+                    $("#awb_number_id").val(e[0].id);
+                    arrayEmpty('', 'There are '+ (e.length - 1) +' awb numbers available for this carrier.');
+                }
+            }
+        });
+    });
+
+    function arrayEmpty(title, message){
+        swal({
+            title: title,
+            text: message,
+            type: "warning",
+            confirmButtonText: "Ok"
+        });
+    }
 </script>

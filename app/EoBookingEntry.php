@@ -15,22 +15,16 @@ class EoBookingEntry extends Model
 
     public static function saveDetail($id, $data)
     {
-        $i=0; $a=0;
-        DB::table('eo_booking_entries')->where('shipment_id', '=', $id)->delete();
-        if (isset($data['line'])) {
-            while ($a < count($data['line'])) {
-                if (isset($data['line'][$i])) {
-                    $obj = new EoBookingEntry();
-                    $obj->code = $data['booking_code'][$i];
-                    $obj->shipment_id = $id;
-                    $obj->status = 0;
-                    $obj->save();
-                    $a++;
-                }
-                $i++;
-            }
+        $array = [];
+        $data = collect(format_array($data))->where('exists', '');
+        foreach ($data as $value) {
+            $array[] = [
+                'code' => $value['booking_code'],
+                'shipment_id' => $id,
+                'status' => 0,
+            ];
         }
-
+        \DB::table('eo_booking_entries')->insert($array);
     }
     public static function updateBooking($id, $data)
     {

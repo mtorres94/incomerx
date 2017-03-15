@@ -14,7 +14,7 @@
             'C' => 'Consolidation shipment',
             'D' => 'Direct Shipment',
         ), 'Type'), null !!}</div>
-        <div class="col-md-3">{!! Form::bsSelect(null, null,'Shipment # ', 'shipment_id', Sass\EoShipmentEntry::all()->sortByDesc('id')->where('status', 'O')->lists('code', 'id')->take(10), 'FILE#', 'body', 'false') !!}</div>
+        <div class="col-md-3">{!! Form::bsSelect(null, null,'Shipment # ', 'shipment_id', Sass\EoShipmentEntry::all()->sortByDesc('id')->where('status', 'O')->lists('code', 'id'), 'FILE#', 'body', 'false') !!}</div>
 
         <div class="col-md-3">{!! Form::bsSelect(null, null, ' Status', 'cargo_loader_status', array(
             'O' => 'ORDERED',

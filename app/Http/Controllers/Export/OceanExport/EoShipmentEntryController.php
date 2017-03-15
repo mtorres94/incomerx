@@ -111,10 +111,11 @@ class EoShipmentEntryController extends Controller
         try {
             $shipment_entry = $request->all();
             $sent = EoShipmentEntry::findorfail($id);
+            $shipment['user_update_id'] = Auth::user()->id;
             $sent->update($shipment_entry);
 
-            EoBookingEntry::saveDetail($id, $shipment_entry);
-            $shipment['user_update_id'] = Auth::user()->id;
+            EoBookingEntry::saveDetail($id, $request->only(['booking_code', 'exists']));
+
         } catch (ValidationException $e) {
             DB::rollback();
         }
@@ -239,7 +240,8 @@ class EoShipmentEntryController extends Controller
                     'booked_date'   => strtoupper($shipmentEntry->booked_date),
                     'loading_date'   => strtoupper($shipmentEntry->loading_date),
                     'equipment_cut_off_date'   => strtoupper($shipmentEntry->equipment_cut_off_date),
-                    'documents_cut_off_date'   => strtoupper($shipmentEntry->documents_cut_off_date)
+                    'documents_cut_off_date'   => strtoupper($shipmentEntry->documents_cut_off_date),
+                    'total_cargo_type_id' => $shipmentEntry->total_cargo_type_id
                 ];
             }
 

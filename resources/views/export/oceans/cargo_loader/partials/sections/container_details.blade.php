@@ -1,5 +1,7 @@
 
 <legend>Container Details</legend>
+{!! Form::hidden('tmp_equipment_type_id', null, ['id' => 'tmp_equipment_type_id', 'class' => 'form-control input-sm']) !!}
+
 <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
     <button type="button" id="btn_container_details" class="btn btn-default" data-toggle="modal" data-target="#Container_Details" onclick="cleanModalFields('Container_Details'); clearTableCondition('cargo_details')">
         <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
@@ -122,6 +124,11 @@
 
     </tbody>
 </table>
+<div class="row pull-right">
+    <div class="col-md-3">{!! Form::bsText(null, null, 'Pieces', 'sum_total_pieces',  null, '') !!}    </div>
+    <div class="col-md-3">{!! Form::bsText(null, null, 'Weight', 'sum_total_weight',  null, '') !!}    </div>
+    <div class="col-md-3">{!! Form::bsText(null, null, 'Cubic', 'sum_total_cubic',  null, '') !!}    </div>
+</div>
 <!--  WAREHOUSE -->
 <table id="hidden_warehouse" class="hidden">
     <tbody>

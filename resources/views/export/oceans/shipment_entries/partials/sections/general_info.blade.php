@@ -37,7 +37,7 @@
         <div class="col-md-2">{!! Form::bsDate(null, null, 'Arrival (6)', 'arrival_date', null, '') !!}</div>
     </div>
     <div class="row">
-        <div class="col-md-2">{!! Form::bsSelect(null, null,'Quote#', 'quote_id', Sass\EoQuotes::all()->sortByDesc('id')->where('status','O')->lists('code','id')->take(10), 'Quote Number', 'body', 'false') !!}</div>
+        <div class="col-md-2">{!! Form::bsSelect(null, null,'Quote#', 'quote_id', Sass\EoQuotes::all()->sortByDesc('id')->where('status','O')->lists('code','id'), 'Quote Number', 'body', 'false') !!}</div>
         <div class="col-md-2">{!! Form::bsText(null, null, 'Vessel', 'vessel_name', null, '') !!}</div>
         <div class="col-md-2">{!! Form::bsText(null, null, 'Voyage', 'voyage_name', null, '') !!}</div>
         <div class="col-md-6">{!! Form::bsText(null, null, 'References', 'reference', null, '') !!}</div>

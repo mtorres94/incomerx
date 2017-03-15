@@ -11,7 +11,7 @@
     </div>
     <div class="row">
             <div class="col-md-12">
-                {!! Form::bsSelect('col-md-3', 'col-md-9','Shipment # ', 'shipment_id', Sass\EoShipmentEntry::all()->sortByDesc('id')->where('status', 'O')->lists('code', 'id')->take(10), 'FILE#', 'body', 'false') !!}
+                {!! Form::bsSelect('col-md-3', 'col-md-9','Shipment # ', 'shipment_id', Sass\EoShipmentEntry::all()->sortByDesc('id')->where('status', 'O')->lists('code', 'id'), 'FILE#', 'body', 'false') !!}
             </div>
     </div>
     <div class="row">

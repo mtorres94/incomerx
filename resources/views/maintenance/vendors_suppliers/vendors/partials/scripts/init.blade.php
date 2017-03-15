@@ -4,5 +4,9 @@
     window.onload = (function () {
         updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('vendors.close') }}');
         $("#code").attr('disabled', true);
+        initDate($("#since"), 0);
+
+        $("#currency_id").val(1).change();
     });
+
 </script>

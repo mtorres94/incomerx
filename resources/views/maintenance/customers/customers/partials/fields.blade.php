@@ -33,7 +33,8 @@
                     {!! Form::bsText('col-md-3', 'col-md-9', 'DPS Check', 'dps_check', null, 'Enter the DPS check for the customer') !!}
                     {!! Form::bsText('col-md-3', 'col-md-9', 'User ID', 'user_create_id', null, '') !!}
                     {!! Form::bsSelect('col-md-3', 'col-md-9', 'Account status', 'status', array('1' => 'PROSPECT', '2' => 'ACTIVE', '3' => 'NON ACTIVE', '4' => 'ON HOLD'), 'Choose one of the following status...') !!}
-                    {!! Form::bsText('col-md-3', 'col-md-9', 'Partner Code', 'partner_id', null, '') !!}
+                    {!! Form::bsComplete('col-md-3', 'col-md-9', 'Partner Code', 'partner_id', 'partner_name', Request::get('term'), null, '') !!}
+
                 </div>
             </div>
             <div id="subpanel" class="panel panel-default">

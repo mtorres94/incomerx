@@ -449,6 +449,7 @@
             b1= $("#tmp_booking_code").val(),
             b2 = '{{(isset($shipment_entry)? $shipment_entry->id : "") }}',
             b3 = '{{ isset($shipment_entry) ? $shipment_entry->code : ""}}',
+            b4=  $("#tmp_status").val();
             n = $("#booking_details"),
             t = n.find("tbody"),
             p = $("<tr id=" + (0==l? _ : l) + ">");
@@ -456,6 +457,7 @@
             .append(createTableContent('booking_code', b1, false, c))
             .append(createTableContent('shipment_id', b2, true, c))
             .append(createTableContent('shipment_code', b3, false, c))
+            .append(createTableContent('exists', b4, true, c))
             .append(createTableBtns()), 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p); cleanModalFields('BookingModal');   $("#tmp_shipment_id").val('{{ (isset($shipment_entry)? $shipment_entry->id : "") }}'); $("#tmp_shipment_code").val('{{ isset($shipment_entry) ? $shipment_entry->code : "" }}'); $("#tmp_booking_code").focus()
     }),
         $('#booking_details').on('click', 'a.btn-danger', function() {
@@ -466,8 +468,9 @@
             b1 = t[0].childNodes[0].textContent,
             b2 = t[0].childNodes[1].textContent,
             b3 = t[0].childNodes[2].textContent,
-            b4 = t[0].childNodes[3].textContent;
-        $('#booking_line').val(b1), $("#tmp_booking_code").val(b2),  $("#tmp_shipment_id").val(b3), $("#tmp_shipment_code").val(b4); $("#BookingModal").modal("show"); $("#tmp_booking_code").focus()
+            b4 = t[0].childNodes[3].textContent,
+            b5 = t[0].childNodes[4].textContent;
+        $('#booking_line').val(b1), $("#tmp_booking_code").val(b2),  $("#tmp_shipment_id").val(b3), $("#tmp_shipment_code").val(b4), $("#tmp_status").val(b5); $("#BookingModal").modal("show"); $("#tmp_booking_code").focus()
     });
 
 
@@ -485,6 +488,8 @@
                     .append(createTableContent('booking_code', t[x].childNodes[1].textContent, false, x))
                     .append(createTableContent('shipment_id', t[x].childNodes[2].textContent, true, x))
                     .append(createTableContent('shipment_code', t[x].childNodes[3].textContent, false, x))
+                    .append(createTableContent('exists', t[x].childNodes[4].textContent, false, x))
+
                     .append(createTableBtns());  tr.append(p);
 
         }
@@ -500,6 +505,7 @@
                 .append(createTableContent('booking_code', t[x].childNodes[1].textContent, false, x))
                 .append(createTableContent('shipment_id', t[x].childNodes[2].textContent, true, x))
                 .append(createTableContent('shipment_code', t[x].childNodes[3].textContent, false, x))
+                .append(createTableContent('exists', t[x].childNodes[4].textContent, true, x))
                 .append(createTableBtns());  tr.append(p);
         }
         $("#BookingDetails").modal("hide");
