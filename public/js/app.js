@@ -116,13 +116,11 @@ function addTab(main, id, title, url){
 function openTab(f) {
     f.on('click', 'a[data-route]', function () {
         var a = $(this);
-        var main  = a.data('main');
-        var id    = a.data('id');
         var title = a.data('title');
         var url   = a.data('route');
 
-        var _id = id.replace(/ /g, "_");
-        id = "st_" + _id.toLocaleLowerCase();
+        var _id = title.replace(/ /g, "_");
+        _id = "st_" + _id.toLocaleLowerCase();
 
         if (url.trim() !== '') {
             var tt = window.parent.$('#tt');
@@ -130,15 +128,15 @@ function openTab(f) {
                 tt.tabs('select', title);
             } else {
                 var content =
-                    '<div id="' + id + '" class="easyui-tabs" data-options="fit:true,plain:true">' +
-                    '<div title="' + main + '" id="_main">' +
+                    '<div id="' + _id + '" class="easyui-tabs" data-options="fit:true,plain:true">' +
+                    '<div title="Main" id="_main">' +
                     '<iframe id="_frame" scrolling="auto" frameborder="0" src="' + url + '" style="width:100%; height:100%;"></iframe>' +
                     '</div>' +
                     '</div>';
                 tt.tabs('add',{
                     title: title,
                     content: content,
-                    closable: true,
+                    closable: true
                 });
             }
         }

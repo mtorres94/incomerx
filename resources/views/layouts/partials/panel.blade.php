@@ -5,7 +5,7 @@
         <div class="col-md-2 tab-menu">
             <div class="list-group">
                 @foreach(Sass\Module::active()->get() as $module)
-                    <a href="javascript:void(0)" class="list-group-item {{ ((Auth::user()->module_id) == $module->id ? 'active': '') }} text-center">
+                    <a href="javascript:void(0)" class="list-group-item {{ ((auth()->user()->module_id) == $module->id ? 'active': '') }} text-center">
                         <h4 class="{{ $module->icon }} fa-2x"></h4><br/> {{ trans($module->name) }}
                     </a>
                 @endforeach
@@ -18,7 +18,7 @@
                     $cnt = 0;
                     $var = '';
                     $len = count($module->menus);
-                    $var = '<div class="tab-content'.((Auth::user()->module_id) == $module->id ? ' active': '').'">';
+                    $var = '<div class="tab-content'.((auth()->user()->module_id) == $module->id ? ' active': '').'">';
                     $flag = false;
 
                     foreach ($module->menus as $menu)
