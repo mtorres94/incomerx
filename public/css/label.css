@@ -1,4 +1,5 @@
 @font-face { font-family: Code39; src: url('../fonts/w39mc.ttf'); }
+@font-face { font-family: Courier; src: url('../fonts/CourierNew.ttf'); }
 .company-info {
     text-align: center;
     padding-bottom: 20px;
@@ -22,8 +23,8 @@
 .warehouse {
     font-weight: bold;
     text-align: center;
-    font-size: 38px;
-    padding: 15px 5px;
+    font-size: 28px;
+    padding: 5px;
     border-bottom: 2px solid #000;
 }
 .label-wh {
@@ -57,13 +58,14 @@
 .legend-barcode {
     text-align: center;
     font-size: 18px;
+    margin-top: -15px;
 }
 p.label-content {
     font-size: 11px;
     margin: 0 0 1px;
 }
 p.p-content {
-    font-size: 18px;
+    font-size: 16px;
     margin: 0 0 1px;
 }
 p.label-units {
@@ -71,12 +73,18 @@ p.label-units {
     font-size: 9px;
     margin: 0 0 1px;
 }
+p.label-units-code {
+    font-family: Courier, serif;
+    padding-top: 5px;
+    font-size: 14px;
+    margin: 0 0 1px;
+}
 p.p-units {
     font-size: 12px;
     margin: 0 0 1px;
 }
 p.country {
-    font-size: 48px;
+    font-size: 28px;
 }
 .big-label {
     padding-top: 10px;

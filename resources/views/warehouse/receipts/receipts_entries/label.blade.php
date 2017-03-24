@@ -36,7 +36,7 @@
             @for ($i = $last; $i < $last + $detail->quantity; $i++)
                 <div class="page">
                     <div class="row row-padding">
-                        <div class="col-xs-4">
+                        <div class="col-xs-12">
                             <div class="company-info">
                                 <h4><strong>VECO LOGISTICS MIAMI INC.</strong></h4>
                                 <p>7270 NW 35 TERRACE</p>
@@ -79,9 +79,8 @@
                                 <p class="label-units"><strong>PO #:</strong></p>
                             </div>
                             <div class="col-xs-12 barcode-label">
-                                <p class="label-units"><strong>BARCODE:</strong></p>
-                                <div style="text-align: center">{!! QrCode::size(150)->generate($receipt_entry->code.'-'.str_pad($detail->line, 2, '0', 0).'-'.str_pad($i, 3, '0', 0)) !!}</div>
-                                <p class="legend-barcode">{{ $receipt_entry->code }}-{{ str_pad($detail->line, 2, '0', 0) }}-{{ str_pad($i, 3, '0', 0) }}</p>
+                                <p class="label-units-code"><strong>{{ $receipt_entry->code }}-{{ str_pad($detail->line, 2, '0', 0) }}-{{ str_pad($i, 3, '0', 0) }}</strong></p>
+                                <div style="text-align: center; margin-top: -5px;">{!! QrCode::size(125)->margin(0)->generate($receipt_entry->code.'-'.str_pad($detail->line, 2, '0', 0).'-'.str_pad($i, 3, '0', 0)) !!}</div>
                             </div>
                         </div>
                     </div>
