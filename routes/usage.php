@@ -105,13 +105,18 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('eo_shipment_entries/update_close', ['as' => 'eo_shipment_entries.close', 'uses' => 'EoShipmentEntryController@updateClose']);
             Route::post('cargo_loader/verify_open',  ['as' => 'cargo_loader.open',  'uses' => 'EoCargoLoaderController@getOpenStatus']);
             Route::post('cargo_loader/update_close', ['as' => 'cargo_loader.close', 'uses' => 'EoCargoLoaderController@updateClose']);
-            Route::post('cargo_loader/storeHbl', ['as' => 'cargo_loader.storeHbl', 'uses' => 'EoCargoLoaderController@storeHbl']);
+
             Route::post('eo_bill_of_lading/verify_open',  ['as' => 'eo_bill_of_lading.open',  'uses' => 'EoBillOfLadingController@getOpenStatus']);
             Route::post('eo_bill_of_lading/update_close', ['as' => 'eo_bill_of_lading.close', 'uses' => 'EoBillOfLadingController@updateClose']);
         });
         Route::group(['namespace' => 'Air'], function () {
             Route::post('ea_booking_entries/verify_open',  ['as' => 'ea_booking_entries.open',  'uses' => 'EaBookingEntryController@getOpenStatus']);
             Route::post('ea_booking_entries/update_close', ['as' => 'ea_booking_entries.close', 'uses' => 'EaBookingEntryController@updateClose']);
+            Route::post('ea_loading_guides/verify_open',  ['as' => 'ea_loading_guides.open',  'uses' => 'EaLoadingGuideController@getOpenStatus']);
+            Route::post('ea_loading_guides/update_close', ['as' => 'ea_loading_guides.close', 'uses' => 'EaLoadingGuideController@updateClose']);
+            Route::post('ea_airwaybills/verify_open',  ['as' => 'ea_airwaybills.open',  'uses' => 'EaAirwayBillController@getOpenStatus']);
+            Route::post('ea_airwaybills/update_close', ['as' => 'ea_airwaybills.close', 'uses' => 'EaAirwayBillController@updateClose']);
+
         });
     });
 

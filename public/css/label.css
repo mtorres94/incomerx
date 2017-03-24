@@ -1,7 +1,7 @@
-@font-face { font-family: Code39; src: url('../fonts/Code39.ttf'); }
+@font-face { font-family: Code39; src: url('../fonts/w39mc.ttf'); }
 .company-info {
     text-align: center;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
     border-bottom: 2px solid #000;
 }
 .company-info h4 {
@@ -45,7 +45,8 @@
     border-right: 2px solid #000;
 }
 .code-bar {
-    font-family: Code39;
+    font-family: Code39, serif;
+    padding-top: 10px;
     font-size: 28px;
     margin: 0;
     text-align: center;

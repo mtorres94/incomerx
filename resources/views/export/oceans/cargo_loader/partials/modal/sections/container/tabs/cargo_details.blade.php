@@ -8,20 +8,23 @@
 <table class="table table-bordered table-condensed" id="cargo_details">
     <thead>
     <tr>
-        <th data-override="warehouse_line" hidden></th>
-        <th width="10%" data-override="warehouse_number"> WR#</th>
-        <th width="10%" data-override="warehouse_date"> Date</th>
-        <th width="30%" data-override="shipper_name" >Shipper</th>
-        <th width="30%" data-override="consignee_name" >Consignee</th>
-        <th width="10%" data-override="status">Status</th>
+        <th hidden></th>
+        <th width="12%" > WR#</th>
+        <th width="10%" > Date</th>
+        <th width="23%" >Shipper</th>
+        <th width="23%" >Consignee</th>
+        <th width="10%" >Status</th>
+        <th width="7%" >Pcs</th>
+        <th width="10%" >Weight</th>
+        <th width="10%" >Cubic</th>
+        <th width="12%"></th>
     </tr>
     </thead>
     <tbody></tbody>
 </table>
 
 <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4"> {!! Form::bsText(null, null, 'Reference', 'reference', '') !!}</div>
     <div class="col-md-2"> {!! Form::bsText(null, null, 'Cubic Max ', 'cubic_max', '') !!}</div>
     <div class="col-md-2"> {!! Form::bsText(null, null, 'C. Loaded', 'cubic_load', '') !!}</div>
     <div class="col-md-2"> {!! Form::bsText(null, null, 'C. Loaded %', 'cubic_load_p', '') !!}</div>

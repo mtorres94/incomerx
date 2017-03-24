@@ -488,7 +488,7 @@
                     .append(createTableContent('booking_code', t[x].childNodes[1].textContent, false, x))
                     .append(createTableContent('shipment_id', t[x].childNodes[2].textContent, true, x))
                     .append(createTableContent('shipment_code', t[x].childNodes[3].textContent, false, x))
-                    .append(createTableContent('exists', t[x].childNodes[4].textContent, false, x))
+                    .append(createTableContent('exists', t[x].childNodes[4].textContent, true, x))
 
                     .append(createTableBtns());  tr.append(p);
 

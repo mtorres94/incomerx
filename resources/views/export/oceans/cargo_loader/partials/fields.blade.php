@@ -6,7 +6,6 @@
             <button type="button" class="btn btn-primary btn-sm" id="btn_create_hbl" ><span>Create Houses</span></button>
             <button type="button" class="btn btn-primary btn-sm"  onclick="clearTableCondition('booking_details')" id="btn_booking" ><span>Select Booking</span></button>
         @endif
-
     </div>
 
 @include('export.oceans.cargo_loader.partials.sections.general')

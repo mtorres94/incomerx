@@ -34,6 +34,11 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('bill_of_lading/manifest_report', ['as' => 'bill_of_lading.manifest_report', 'uses' => 'EoBillOfLadingController@manifest_report']);
 
         });
+        Route::group(['namespace' => 'Air'], function () {
+            Route::get('ea_loading_guides/report', ['as' => 'ea_loading_guides.report', 'uses' => 'EaLoadingGuideController@report']);
+            Route::get('ea_booking_entries/report', ['as' => 'ea_booking_entries.report', 'uses' => 'EaBookingEntryController@report']);
+            Route::get('ea_airwaybills/report', ['as' => 'ea_airwaybills.report', 'uses' => 'EaAirwayBillController@report']);
+        });
     });
 
     Route::group(['namespace' => 'Import'], function () {

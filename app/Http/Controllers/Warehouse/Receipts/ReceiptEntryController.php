@@ -270,6 +270,10 @@ class ReceiptEntryController extends Controller
                 ->where(function ($query) use ($request) {
                     $type = $request->get('type_for');
 
+                    $query->where('whr_receipts_entries.cargo_loader_id', '=', 0);
+                    $query->where('whr_receipts_entries.status', 'O');
+
+
                     if ($term = $request->get('term')) {
                         switch ($type) {
                             case 1:
@@ -293,12 +297,11 @@ class ReceiptEntryController extends Controller
                             case 7:
                                 $query->Where('whr_receipts_entries.date_in', $term);
                                 break;
+                            default:
+                                $query->where('whr_receipts_entries.code','like', $term.'%');
+                                break;
                         }
                     }
-
-                        $query->where('whr_receipts_entries.cargo_loader_id', '=', 0);
-                        $query->where('whr_receipts_entries.status', 'O');
-
                 })->take(10)->get();
 
             $results = [];
@@ -343,7 +346,9 @@ class ReceiptEntryController extends Controller
                     'volume_weight' => $receipt_entry->sum_volume_weight,
                     'destination_name' => ($receipt_entry->destination_id > 0 ? $receipt_entry->destination->name : ""),
                     'warehouse_id' => $receipt_entry->warehouse_id,
+                    'hazardous' => $receipt_entry->is_hazardous,
                     'warehouse_name' => ($receipt_entry->warehouse_id > 0 ? $receipt_entry->warehouse->code : ""),
+                    'location_destination_code' => strtoupper($receipt_entry->location_destination_code),
 
                 ];
             }
@@ -366,9 +371,12 @@ class ReceiptEntryController extends Controller
         if ($type == 3 || $type == 4) {
             if ($type == 3) {
                 return \PDF::loadView('warehouse.receipts.receipts_entries.label', compact('receipt_entry', 'type'))
-                    ->setOrientation('landscape')
-                    ->setOption('margin-top', 3)
-                    ->setOption('margin-left', 2)
+                    ->setOption('margin-top', 5)
+                    ->setOption('margin-left', 3)
+                    ->setOption('margin-right', 3)
+                    ->setOption('margin-bottom', 5)
+                    ->setOption('page-height', 150)
+                    ->setOption('page-width', 100)
                     ->stream('WH '.$receipt_entry->code.'.pdf');
             } else {
                 return \PDF::loadView('warehouse.receipts.receipts_entries.label', compact('receipt_entry', 'type'))

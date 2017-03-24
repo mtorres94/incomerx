@@ -128,6 +128,8 @@ return [
         ],
         'air' => [
             'booking_entries' => 'Booking ',
+            'loading_guides' => 'Plan de Carga Aérea',
+            'airwaybills' => 'AWBL',
 
         ],
     ],

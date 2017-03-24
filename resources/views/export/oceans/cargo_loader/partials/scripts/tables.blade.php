@@ -18,8 +18,8 @@
         for (var t = $("#container_tabs").find("div"), l = 0; l < t.length  ; l++) {
             var a = t[l];
             var e = $(a).attr("style"),
-                    n = e.indexOf("display: block;"),
-                    o = e.indexOf("display: none;");
+                n = e.indexOf("display: block;"),
+                o = e.indexOf("display: none;");
             $(a).removeAttr("style"), n >= 0 && $(a).attr("style", "display: block;"), o >= 0 && $(a).attr("style", "display: none;")
         }
         $("#ContainerModal").formValidation('resetForm', true);
@@ -799,7 +799,7 @@ $("#CreateHouse").modal("hide");
                     .append(createTableContent('hidden_warehouse_id', tr[a].childNodes[31].textContent, true, d))
                     .append(createTableContent('hidden_warehouse_code', tr[a].childNodes[32].textContent, true, d))
                     .append(createTableContent('hidden_flag', '0', true, d))
-                    .append(createTableContent('hidden_receipt_entry', tr[a].childNodes[34].textContent, true, d))
+                    .append(createTableContent('hidden_receipt_entry', tr[a].childNodes[34].textContent, true, d));
                 t.append(p_1);
                 d += 1;
             }
@@ -1056,9 +1056,9 @@ $("#CreateHouse").modal("hide");
                     .append(createTableContent('status', t_hidden[a].childNodes[26].textContent, false, d))
                     .append(createTableContent('ship_inst_number', t_hidden[a].childNodes[27].textContent, true, d))
 
-                            .append(createTableContent('sum_pieces', t_hidden[a].childNodes[28].textContent, true, d))
-                            .append(createTableContent('sum_weight', t_hidden[a].childNodes[29].textContent, true, d))
-                            .append(createTableContent('sum_cubic', t_hidden[a].childNodes[30].textContent, true, d))
+                            .append(createTableContent('sum_pieces', t_hidden[a].childNodes[28].textContent, false, d))
+                            .append(createTableContent('sum_weight', t_hidden[a].childNodes[29].textContent, false, d))
+                            .append(createTableContent('sum_cubic', t_hidden[a].childNodes[30].textContent, false, d))
                             .append(createTableContent('sum_volume_weight', t_hidden[a].childNodes[31].textContent, true, d))
 
                             .append(createTableContent('warehouse_id', t_hidden[a].childNodes[32].textContent, true, d))

@@ -129,8 +129,8 @@ return [
         'air' => [
             'booking_entries'   => 'Booking Entry',
             'airwaybills'       => 'Airwaybills',
-            'shipment_entries'  => 'Shipment Entry',
-            'step_by_step'      => 'Step by Step',
+            'loading_guides'  => 'Loading Guides',
+
 
         ],
     ],

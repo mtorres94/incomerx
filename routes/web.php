@@ -97,9 +97,13 @@ Route::group(['middleware' => ['web']], function () {
             Route::resource('cargo_loader', 'EoCargoLoaderController');
             Route::resource('step_by_step', 'EoStepByStepController');
             Route::resource('quotes', 'EoQuotesController');
+            Route::post('cargo_loader/storeHbl', ['as' => 'cargo_loader.storeHbl', 'uses' => 'EoCargoLoaderController@storeHbl']);
         });
         Route::group(['prefix' => 'air', 'namespace' => 'Air'], function () {
             Route::resource('booking_entries', 'EaBookingEntryController');
+            Route::resource('loading_guides', 'EaLoadingGuideController');
+            Route::resource('airwaybills', 'EaAirwayBillController');
+            Route::post('ea_loading_guides/storeAwb', ['as' => 'ea_loading_guides.storeAwb', 'uses' => 'EaLoadingGuideController@storeAwb']);
         });
     });
 

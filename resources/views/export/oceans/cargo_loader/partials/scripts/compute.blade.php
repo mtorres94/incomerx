@@ -67,12 +67,12 @@
     }
 
     function calculate_totals(){
-        var tr = $("#cargo_details tbody tr");
+        var tr = $("#container_details tbody tr");
         var r = tr.length,  weight=0, cubic=0, pieces=0;
         for (var a=0; a< r ; a++){
-            pieces = parseInt(tr[a].childNodes[27].textContent) + pieces;
-            weight= parseFloat(tr[a].childNodes[28].textContent) + weight;
-            cubic= parseFloat(tr[a].childNodes[29].textContent) + cubic;
+            pieces = parseInt(tr[a].childNodes[12].textContent) + pieces;
+            weight= parseFloat(tr[a].childNodes[14].textContent) + weight;
+            cubic= parseFloat(tr[a].childNodes[9].textContent) + cubic;
         }
         $("#sum_total_pieces").val(pieces);
         $("#sum_total_weight").val(weight);

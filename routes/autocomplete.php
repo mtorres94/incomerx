@@ -89,6 +89,13 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('eo_cargo_loader/get_warehouses', ['as' => 'eo_cargo_loader.get_warehouses', 'uses' => 'EoCargoLoaderController@get_warehouses']);
 
         });
+
+        Route::group(['namespace' => 'Air'], function () {
+            Route::get('ea_booking_entries/autocomplete', ['as' => 'ea_booking_entries.autocomplete', 'uses' => 'EaBookingEntryController@autocomplete']);
+            Route::get('ea_airwaybills/get', ['as' => 'ea_airwaybills.get', 'uses' => 'EaAirwayBillController@get']);
+            Route::get('ea_airwaybills/get_details', ['as' => 'ea_airwaybills.get_details', 'uses' => 'EaAirwayBillController@get_details']);
+            Route::get('ea_loading_guides/get_warehouses', ['as' => 'ea_loading_guides.get_warehouses', 'uses' => 'EaLoadingGuideController@get_warehouses']);
+        });
     });
 
     Route::group(['namespace' => 'Import'], function () {

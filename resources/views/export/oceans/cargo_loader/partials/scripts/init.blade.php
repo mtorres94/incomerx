@@ -42,7 +42,7 @@
         removeEmptyNodes('hidden_cargo_details');
         removeEmptyNodes('hidden_warehouse');
         removeEmptyNodes('hidden_hazardous');
-
+        calculate_totals();
         $("#booking_save").click( function(){
             $("input[name='booking_select[]']:checked").each(function () {
                $("#booking_code").val($(this).val());
