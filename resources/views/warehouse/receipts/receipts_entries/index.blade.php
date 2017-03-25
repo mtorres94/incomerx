@@ -4,8 +4,22 @@
 @section('table-title', 'List of receipts entries')
 
 @section('content')
-{!! Form::bsIndex('warehouse.receipts.receipts_entries.create', 'warehouse.receipts.receipts_entries.index') !!}
-{!! $dataTable->table() !!}
+    <div class="col-md-12">
+        <div class="row">
+            <div class="pull-left">
+                {!! Form::bsSelect(null, null, 'Status', 'status', array(
+                    ''  => 'ALL',
+                    'O' => 'OPEN',
+                    'P' => 'IN PROCESS',
+                    'C' => 'CLOSE',
+                    'V' => 'VOID',
+                    'H' => 'HOLD'
+                ), null) !!}
+            </div>
+        </div>
+    </div>
+    {!! Form::bsIndex('warehouse.receipts.receipts_entries.create', 'warehouse.receipts.receipts_entries.index') !!}
+    {!! $dataTable->table() !!}
 @endsection
 
 @section('handlebars')
@@ -31,10 +45,11 @@
     {!! $dataTable->scripts() !!}
     <script>
         var template = Handlebars.compile($("#dataTableBuilder-template").html());
-        var table = $("#dataTableBuilder").DataTable();
+        var dt = $("#dataTableBuilder");
+        var table = dt.DataTable();
 
         // Add event listener for opening and closing details
-        $('#dataTableBuilder tbody').on('click', 'td.details-control', function () {
+        dt.find('tbody').on('click', 'td.details-control', function () {
             var tr = $(this).closest('tr');
             var row = table.row(tr);
 
@@ -48,7 +63,15 @@
                 tr.addClass('shown');
             }
         });
-        preventOpen($('#dataTableBuilder'), '{{ route('receipts_entries.open') }}', '{{ auth()->user()->id }}');
-        ajaxDelete($('#dataTableBuilder'));
+
+        dt.on('preXhr.dt', function (e, settings, data) {
+            data.status= $('#status').val();
+        });
+
+        $('#status').change(function () {
+            dt.DataTable().draw(false);
+        });
+        preventOpen(dt, '{{ route('receipts_entries.open') }}', '{{ auth()->user()->id }}');
+        ajaxDelete(dt);
     </script>
 @stop

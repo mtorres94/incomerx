@@ -1,4 +1,3 @@
-@font-face { font-family: Code39; src: url('../fonts/w39mc.ttf'); }
 @font-face { font-family: Courier; src: url('../fonts/CourierNew.ttf'); }
 .company-info {
     text-align: center;
@@ -75,6 +74,7 @@ p.label-units {
 }
 p.label-units-code {
     font-family: Courier, serif;
+    text-align: center;
     padding-top: 5px;
     font-size: 14px;
     margin: 0 0 1px;

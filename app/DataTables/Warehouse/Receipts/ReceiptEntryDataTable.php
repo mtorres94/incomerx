@@ -20,7 +20,7 @@ class ReceiptEntryDataTable extends CustomDataTable
                 $status = null;
                 switch ($row->status) {
                     case 'O': $status = 'fa fa-folder-open-o'; break;
-                    case 'P': $status = 'fa fa-check'; break;
+                    case 'P': $status = 'fa fa-files-o'; break;
                     case 'H': $status = 'fa fa-flag'; break;
                     case 'C': $status = 'fa fa-folder-o'; break;
                 }
@@ -71,6 +71,12 @@ class ReceiptEntryDataTable extends CustomDataTable
                 'whr_receipts_entries_receiving_details.pro_number'])
             ->orderBy('whr_receipts_entries.code', 'desc');
 
+        if ($this->request()->get('status')) {
+            if (!empty($this->request()->get('status'))) {
+                $query->where('whr_receipts_entries.status', $this->request()->get('status'));
+            }
+        }
+
         return $this->applyScopes($query);
     }
 
@@ -96,8 +102,8 @@ class ReceiptEntryDataTable extends CustomDataTable
     {
         return [
             ['data' => 'status',         'name' => 'whr_receipts_entries.status', 'title' => '<i class="fa fa-folder" aria-hidden="true"></i>', 'width' => '10px', 'orderable' => false],
-            ['data' => 'attachment',     'name' => '', 'title' => '<i class="fa fa-paperclip" aria-hidden="true"></i>', 'width' => '10px', 'orderable' => false],
-            ['data' => 'flag',           'name' => '', 'title' => '<i class="fa fa fa-flag" aria-hidden="true"></i>', 'width' => '10px', 'orderable' => false],
+            ['data' => 'attachment',     'name' => '', 'title' => '<i class="fa fa-paperclip" aria-hidden="true"></i>', 'width' => '10px', 'orderable' => false, 'bSearchable' => false],
+            ['data' => 'flag',           'name' => '', 'title' => '<i class="fa fa fa-flag" aria-hidden="true"></i>', 'width' => '10px', 'orderable' => false, 'bSearchable' => false],
             ['data' => 'code',           'name' => 'whr_receipts_entries.code', 'title' => 'Code'],
             ['data' => 'date_in',        'name' => 'whr_receipts_entries.date_in', 'title' => 'Date in'],
             ['data' => 'shipper_name',   'name' => 'c1.name', 'title' => 'Shipper'],
