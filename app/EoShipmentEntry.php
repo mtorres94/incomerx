@@ -164,4 +164,9 @@ class EoShipmentEntry extends Model
     {
         return $this->hasMany('Sass\EoBillOfLading', 'shipment_id');
     }
+
+    public function containers()
+    {
+        return $this->hasMany('Sass\EoBookingContainer', 'shipment_id');
+    }
 }

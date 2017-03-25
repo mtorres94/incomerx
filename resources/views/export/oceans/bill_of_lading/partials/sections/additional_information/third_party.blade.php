@@ -1,3 +1,4 @@
+<legend>Third Party</legend>
 <div class="row">
     {!! Form::bsComplete('col-md-3', 'col-md-9', 'Name', 'third_id', 'third_name', Request::get('term'), ((isset($bill_of_lading) and $bill_of_lading->third_id > 0) ? $bill_of_lading->third->name : null), 'Customers...') !!}
 </div>

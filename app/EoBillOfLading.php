@@ -129,13 +129,14 @@ class EoBillOfLading extends Model
             }
                 while ($a < $count_group_id) {
                     $i++;
-                        $type =  'HBL';
-                        $last = EoBillOfLading::orderBy('code','desc')->where('code', 'LIKE', $type.'%') ->first();
-                        $frmt = $last == null ? 1 : intval(substr($last->code, 4)) + 1;
-                        $code = str_pad($frmt, 6, '0', 0);
-                        $data['code'] = $type."-".$code;
-
-
+                    $shipper= Customer::findOrFail($data['shipper_id'][$a]);
+                    $consignee= Customer::findOrFail($data['consignee_id'][$a]);
+                    $shipment = EoShipmentEntry::findOrFail($data['tmp_shipment_id']);
+                    $type =  $shipment->shipment_type == 'C' ? 'HBL' : 'DBL';
+                    $last = EoBillOfLading::orderBy('code','desc')->where('code', 'LIKE', $type.'%') ->first();
+                    $frmt = $last == null ? 1 : intval(substr($last->code, 4)) + 1;
+                    $code = str_pad($frmt, 6, '0', 0);
+                    $data['code'] = $type."-".$code;
                         $obj = [
                             'bill_of_lading_id' => 0,
                             'cargo_loader_id' => $id,
@@ -145,25 +146,60 @@ class EoBillOfLading extends Model
                             'user_create_id' => Auth::user()->id,
                             'user_open_id' => 0,
                             'user_update_id' => Auth::user()->id,
-                            'shipment_id' => $data['tmp_shipment_id'],
-                            'code' => $data['code'],
-                            'hbl_code' => $data['code'],
-                            'bl_class' => "2",
-                            'carrier_id' => $data['tmp_carrier_id'],
-                            'departure_date' => $data['tmp_departure_date'],
-                            'arrival_date' => $data['tmp_arrival_date'],
                             'booking_code' => $data['tmp_booking_code'],
+                            'document_number' => $data['tmp_booking_code'],
                             'bl_number' => $data['code'],
 
-                            'place_receipt' => $data['tmp_place_receipt'],
-                            'place_delivery' => $data['tmp_place_delivery'],
-                            'vessel_name' => $data['tmp_vessel_name'],
-                            'voyage_name' => $data['tmp_voyage_name'],
-                            'port_loading_id' => $data['tmp_port_loading_id'],
-                            'port_unloading_id' => $data['tmp_port_unloading_id'],
+                            'shipment_id' => $shipment->id,
+                            'code' => $data['code'],
+                            'hbl_code' => $data['code'],
+                            'bl_class' =>($shipment->shipment_type == 'C'? '2' : '1'),
+                            'carrier_id' => $shipment->carrier_id,
+                            'departure_date' => $shipment->departure_date,
+                            'arrival_date' => $shipment->arrival_date,
 
-                            'shipper_id' => $data['shipper_id'][$a],
-                            'consignee_id' => $data['consignee_id'][$a],
+                            'place_receipt' => strtoupper($shipment->place_receipt_id > 0 ? $shipment->place_receipt->name : ""),
+                            'place_delivery' => strtoupper($shipment->place_delivery_id > 0 ? $shipment->place_delivery->name : ""),
+                            'foreign_port' => strtoupper($shipment->port_unloading_id > 0 ? $shipment->port_unloading->name : ""),
+                            'port_loading' => strtoupper($shipment->port_loading_id > 0 ? $shipment->port_loading->name : ""),
+                            'vessel_name' => $shipment->vessel_name,
+                            'voyage_name' => $shipment->voyage_name,
+                            'port_loading_id' => $shipment->port_loading_id,
+                            'port_unloading_id' => $shipment->port_unloading_id,
+                            'forwarding_agent_id' => $shipment->agent_id,
+                            'exporting_carrier' => strtoupper($shipment->carrier_id > 0 ? $shipment->carrier->name  : ""),
+                            'pre_carriage_by' => strtoupper($shipment->inland_carrier_id > 0 ? $shipment->inland_carrier->name : ""),
+
+                            'shipper_id' => $shipper->id,
+                            'shipper_address' => $shipper->address,
+                            'shipper_state_id'=> $shipper->state_id,
+                            'shipper_city' => $shipper->city,
+                            'shipper_country_id' => $shipper->country_id,
+                            'shipper_zip_code_id' => $shipper->zip_code_id,
+
+                            'consignee_id' => $consignee->id,
+                            'consignee_address' => $consignee->address,
+                            'consignee_state_id'=> $consignee->state_id,
+                            'consignee_city' => $consignee->city,
+                            'consignee_country_id' => $consignee->country_id,
+                            'consignee_zip_code_id' => $consignee->zip_code_id,
+
+                            'agent_id' => $shipment->agent_id >0 ? $shipment->agent->id : "",
+                            'agent_address' => $shipment->agent_id > 0 ? $shipment->agent->address : "",
+                            'agent_state_id'=> $shipment->agent_id > 0 ? $shipment->agent->state_id: "",
+                            'agent_city' => $shipment->agent_id > 0 ? $shipment->agent->city : "",
+                            'agent_country_id' => $shipment-> agent_id >0 ? $shipment->agent->country_id : "",
+                            'agent_zip_code_id' => $shipment->agent_id > 0 ? $shipment->agent->zip_code_id : "",
+
+                            'notify_id' => $shipment->notify_id >0 ? $shipment->notify->id : "",
+                            'notify_address' => $shipment->notify_id > 0 ? $shipment->notify->address : "",
+                            'notify_state_id'=> $shipment->notify_id > 0 ? $shipment->notify->state_id: "",
+                            'notify_city' => $shipment->notify_id > 0 ? $shipment->notify->city : "",
+                            'notify_country_id' => $shipment-> notify_id >0 ? $shipment->notify->country_id : "",
+                            'notify_zip_code_id' => $shipment->notify_id > 0 ? $shipment->notify->zip_code_id : "",
+
+                            'commission' => $shipment->agent_commission_p,
+                            'amount' => $shipment->agent_amount,
                         ];
 
                         $id_hbl = EoBillOfLading::create($obj)->id;

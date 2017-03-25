@@ -106,7 +106,7 @@ class EoShipmentEntryController extends Controller
 
     public function update(Request $request, $id)
     {
-        //dd($request->all());
+
         DB::beginTransaction();
         try {
             $shipment_entry = $request->all();
@@ -233,8 +233,8 @@ class EoShipmentEntryController extends Controller
                     'agent_contact'   => $shipmentEntry->agent_contact,
                     'agent_amount'   => $shipmentEntry->agent_amount,
 
-                    'inland_driver_id'   => $shipmentEntry->inland_driver_id,
-                    'inland_driver_name'   => strtoupper($shipmentEntry->inland_driver_id > 0 ? $shipmentEntry->inland_driver->name : ""),
+                    'inland_carrier_id'   => $shipmentEntry->inland_carrier_id,
+                    'inland_carrier_name'   => strtoupper($shipmentEntry->inland_carrier_id > 0 ? $shipmentEntry->inland_carrier->name : ""),
                     'inland_lic_number'   => strtoupper($shipmentEntry->inland_lic_number),
 
                     'booked_date'   => strtoupper($shipmentEntry->booked_date),

@@ -1,3 +1,4 @@
+<legend>Notify</legend>
 <div class="row">
     {!! Form::bsComplete('col-md-3', 'col-md-9', 'Name', 'notify_id', 'notify_name', Request::get('term'), ((isset($bill_of_lading) and $bill_of_lading->notify_id > 0) ? $bill_of_lading->notify->name : null), 'Customers...') !!}
 </div>

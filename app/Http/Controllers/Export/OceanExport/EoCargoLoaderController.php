@@ -78,8 +78,6 @@ class EoCargoLoaderController extends Controller
         } catch (\PDOException $e) {
             DB::rollback();
         }
-        //Alert::message('Robots are working!');
-        alert()->info(implode(', ', $hbl_codes), 'HBL created');
         for($x=0; $x < count($hbl_codes); $x++){
             return redirect()->route('export.oceans.bill_of_lading.edit', [$hbl_codes[$x]]);
         }
@@ -119,16 +117,7 @@ class EoCargoLoaderController extends Controller
 
             EoBookingContainer::saveDetail($cargo_loader['booking_id'], $cargo_loader);
             EoBookingHazardous::saveDetail($cargo_loader['booking_id'], $cargo_loader);
-           /* if(isset($cargo_loader['create_hbl']) and ($cargo_loader['create_hbl'] != '')){
-                if($cargo_loader['create_hbl'] == "1") {
-                    $id_group = array_distinct($cargo_loader['hidden_consignee_id']);
-                }elseif ($cargo_loader['create_hbl'] == "2"){
-                    $id_group = array_distinct($cargo_loader['hidden_shipper_id']);
-                }else{
-                    $id_group = array_distinct($cargo_loader['hidden_warehouse_id']);
-                }
-                EoBillOfLading::saveDetail($cl->id, $cargo_loader, $id_group);
-            }*/
+
 
             DB::commit();
 
@@ -203,19 +192,6 @@ class EoCargoLoaderController extends Controller
             EoBookingContainer::saveDetail($cargo_loader['booking_id'], $cargo_loader);
             EoBookingHazardous::saveDetail($cargo_loader['booking_id'], $cargo_loader);
             EoCargoLoaderHazardous::saveDetail($id, $cargo_loader);
-            /*if(isset($cargo_loader['group']) and ($cargo_loader['group'] != '')){
-                if($cargo_loader['group'] == "1") {
-                    $id_group = array_distinct($cargo_loader['hidden_consignee_id']);
-                }elseif ($cargo_loader['group'] == "2"){
-                    $id_group = array_distinct($cargo_loader['hidden_shipper_id']);
-                }else{
-                    $id_group = array_distinct($cargo_loader['hidden_warehouse_line']);
-                }
-
-                EoBillOfLading::saveDetail($id, $cargo_loader, $id_group);
-            }*/
-            //CargoLoaderHazardous::saveDetail($cl->id, $cargo_loader);
-            //EoBillOfLading::saveDetail($id, $cargo_loader);
 
         } catch (ValidationException $e) {
             DB::rollback();
@@ -335,6 +311,8 @@ class EoCargoLoaderController extends Controller
                     'voyage'         => $cargo_loader->shipment->voyage_name,
                     'carrier_id'         => $cargo_loader->shipment->carrier_id,
                     'carrier_name'         => strtoupper($cargo_loader->shipment->carrier_id > 0 ? $cargo_loader->shipment->carrier->name : ""),
+                    'inland_carrier_id'         => $cargo_loader->shipment->inland_carrier_id,
+                    'inland_carrier_name'         => strtoupper($cargo_loader->shipment->inland_carrier_id > 0 ? $cargo_loader->shipment->inland_carrier->name : ""),
                     'departure'    => $cargo_loader->shipment->departure_date,
                     'arrival'    => $cargo_loader->shipment->arrival_date,
 
@@ -426,56 +404,7 @@ class EoCargoLoaderController extends Controller
                     ];
                 }
             }
-            /*
-             * $cargo_loaders = EoCargoLoaderReceiptEntry::select(['eo_cargo_loader_receipt_entries.*'])
-                ->join('receipts_entries', 'eo_cargo_loader_receipt_entries.receipt_entry_id', '=', 'receipts_entries.id')
-                ->where(function ($query) use ($request) {
-                    $id = $request->get('id');
-                    $query->where('eo_cargo_loader_receipt_entries.cargo_loader_id', '=', $id);
-                    $query->where('receipts_entries.bill_of_lading', '=', $request->get('bl_id'));
-                })->get();
 
-            $results = [];
-                foreach ($cargo_loaders as $data) {
-                    if($status == 'N'){
-                        if($data->receipt_entry->status == 'O'){
-                            $results[] = [
-                                'id' => $data->receipt_entry->id,
-                                'value' => strtoupper($data->receipt_entry->code),
-                                'date_in' => strtoupper($data->receipt_entry->date_in),
-                                'status' => strtoupper($data->receipt_entry->status),
-                                'shipper_name' => strtoupper($data->receipt_entry->shipper_id > 0 ? $data->receipt_entry->shipper->name: ""),
-                                'shipper_id' => strtoupper($data->receipt_entry->shipper_id),
-                                'consignee_name' => strtoupper($data->receipt_entry->consignee_id > 0 ? $data->receipt_entry->consignee->name: ""),
-                                'consignee_id' => strtoupper($data->receipt_entry->consignee_id),
-                                'quantity' => strtoupper($data->receipt_entry->sum_pieces),
-                                'sum_weight' => strtoupper($data->receipt_entry->sum_weight),
-                                'sum_cubic' => strtoupper($data->receipt_entry->sum_cubic),
-                                'volume_weight' => $data->receipt_entry->sum_volume_weight,
-                                'container_id' => $data->container_id,
-                                'cargo_loader_id' => $data->cargo_loader_id,
-                            ];
-                        }
-                    }else{
-                        $results[] = [
-                            'id' => $data->receipt_entry->id,
-                            'value' => strtoupper($data->receipt_entry->code),
-                            'date_in' => strtoupper($data->receipt_entry->date_in),
-                            'status' => strtoupper($data->receipt_entry->status),
-                            'shipper_name' => strtoupper($data->receipt_entry->shipper_id > 0 ? $data->receipt_entry->shipper->name: ""),
-                            'shipper_id' => strtoupper($data->receipt_entry->shipper_id),
-                            'consignee_name' => strtoupper($data->receipt_entry->consignee_id > 0 ? $data->receipt_entry->consignee->name: ""),
-                            'consignee_id' => strtoupper($data->receipt_entry->consignee_id),
-                            'quantity' => strtoupper($data->receipt_entry->sum_pieces),
-                            'sum_weight' => strtoupper($data->receipt_entry->sum_weight),
-                            'sum_cubic' => strtoupper($data->receipt_entry->sum_cubic),
-                            'volume_weight' => $data->receipt_entry->sum_volume_weight,
-                            'container_id' => $data->container_id,
-                            'cargo_loader_id' => $data->cargo_loader_id,
-                        ];
-                    }
-            }
-             * */
 
             return response()->json($results);
         }

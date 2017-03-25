@@ -59,12 +59,12 @@
         <div class="col-md-3">{!! Form::bsText(null, null, 'Weight(L)', 'sum_total_weight',  null, '') !!}    </div>
         <div class="col-md-3">{!! Form::bsText(null, null, 'Cubic(Cbm)', 'sum_total_cubic',  null, '') !!}    </div>
     </div>
-    <div class="row">
+   <!-- <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-3">{!! Form::bsText(null, null, 'Volume Weight(K)', 'sum_total_volume_k',  null, '') !!}    </div>
         <div class="col-md-3">{!! Form::bsText(null, null, 'Weight(K)', 'sum_total_weight_k',  null, '') !!}    </div>
         <div class="col-md-3">{!! Form::bsText(null, null, 'Cubic(Cft)', 'sum_total_cubic_k',  null, '') !!}    </div>
-    </div>
+    </div>->
 </div>
 
 <!--  WAREHOUSE -->

@@ -657,9 +657,12 @@ $("#CreateHouse").modal("hide");
                 c78 = $("#total_weight_unit").val(),
                 c79 = $("#container_carrier_id").val(),
                 c80 = $("#container_carrier_name").val(),
+
                 n = $("#container_details"),
                 t = n.find("tbody"),
+                details= c3 + " - " + c4 +" - "+ c5 + " - "+ c6,
                 p = $("<tr id=" + (c1 == 0 ? _ : c1) + " >");
+            $("#hidden_container_details").val(details);
             p.append(createTableContent('container_line', (c1 == 0 ? _ : c1), true, d))
                 .append(createTableContent('equipment_type_id', c2, true, d))
                 .append(createTableContent('equipment_type_code', c3, false, d))

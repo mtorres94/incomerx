@@ -51,8 +51,6 @@ class EoBillOfLadingCargo extends Model
     public static function saveDetailHBL($data) {
         $a = 0;
         if (isset($data['warehouse_id'])) {
-            //DB::table('exp_bill_of_lading_cargo')->where('bill_of_lading_id', '=', $id)->delete();
-
             if ($data['group_by'] == "1") {
                 $group_by = array_distinct($data['shipper_id']);
                 $group = $data['shipper_id'];
@@ -84,7 +82,7 @@ class EoBillOfLadingCargo extends Model
 
                 $obj->bill_of_lading_id = $bill_of_lading;
                 $obj->line = $a + 1;
-                $obj->cargo_marks = "";
+                $obj->cargo_marks = $data['tmp_container_details'];
                 $obj->cargo_pieces = $quantity;
                 $obj->cargo_description = $description;
                 $obj->cargo_weight_unit = "L";
@@ -120,7 +118,7 @@ class EoBillOfLadingCargo extends Model
 
                 $obj->bill_of_lading_id = $bill_of_lading;
                 $obj->line = $a + 1;
-                $obj->cargo_marks = "";
+                $obj->cargo_marks = $data['tmp_container_details'];
                 $obj->cargo_pieces = $quantity;
                 $obj->cargo_description = $description;
                 $obj->cargo_weight_unit = "L";

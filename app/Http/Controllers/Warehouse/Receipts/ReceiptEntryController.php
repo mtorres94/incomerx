@@ -377,7 +377,8 @@ class ReceiptEntryController extends Controller
                     ->setOption('margin-bottom', 5)
                     ->setOption('page-height', 150)
                     ->setOption('page-width', 100)
-                    ->stream('WH '.$receipt_entry->code.'.pdf');
+                    ->stream($receipt_entry->code.'.pdf');
+                #return view('warehouse.receipts.receipts_entries.label', compact('receipt_entry', 'type'));
             } else {
                 return \PDF::loadView('warehouse.receipts.receipts_entries.label', compact('receipt_entry', 'type'))
                     ->setOrientation('landscape')

@@ -2,6 +2,7 @@
     <legend>Cargo Loader </legend>
     {!! Form::hidden('booking_id', (isset($cargo_loader) ? $cargo_loader->booking_id : 0), ['id' => 'booking_id', 'class' => 'form-control input-sm']) !!}
     {!! Form::hidden('shipment_code', null, ['id' => 'shipment_code', 'class' => 'form-control input-sm']) !!}
+    {!! Form::hidden('hidden_container_details',(isset($cargo_loader) ? $cargo_loader->hidden_container_details : ""), ['id' => 'hidden_container_details', 'class' => 'form-control input-sm']) !!}
     <div class="row">
         <div class="col-md-3">{!! Form::bsText(null, null,'Cargo Load #', 'code', null, '') !!}</div>
         <div class="col-md-3">{!! Form::bsText(null, null,'Booking # ','booking_code', null, '') !!}</div>

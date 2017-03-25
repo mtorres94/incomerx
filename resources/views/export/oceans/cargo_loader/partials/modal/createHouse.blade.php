@@ -25,6 +25,7 @@
                     {!! Form::hidden('tmp_place_delivery', null, ['id' => 'tmp_place_delivery', 'class' => 'form-control input-sm']) !!}
                     {!! Form::hidden('tmp_port_loading_id', null, ['id' => 'tmp_port_loading_id', 'class' => 'form-control input-sm']) !!}
                     {!! Form::hidden('tmp_port_unloading_id', null, ['id' => 'tmp_port_unloading_id', 'class' => 'form-control input-sm']) !!}
+                    {!! Form::hidden('tmp_container_details', null, ['id' => 'tmp_container_details', 'class' => 'form-control input-sm']) !!}
                     {!! Form::hidden('tmp_vessel_name', null, ['id' => 'tmp_vessel_name', 'class' => 'form-control input-sm']) !!}
                     {!! Form::hidden('tmp_voyage_name', null, ['id' => 'tmp_voyage_name', 'class' => 'form-control input-sm']) !!}
 

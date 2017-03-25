@@ -1,6 +1,6 @@
 
     <div class="row">
-        <legend>General info</legend>
+        <legend>Bill of Lading</legend>
 
     </div>
     {!! Form::hidden('shipment_code', ((isset($bill_of_lading) and ($bill_of_lading->shipment_id > 0))? $bill_of_lading->shipment->id : ""), ['id' => 'shipment_code', 'class' => 'form-control input-sm']) !!}

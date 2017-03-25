@@ -212,7 +212,7 @@
                     </thead>
                     <tbody>
                     @if(isset($bill_of_lading))
-                        @foreach($bill_of_lading->container as $detail)
+                        @foreach($bill_of_lading->shipment->containers as $detail)
                             <tr id="{{ $detail->line }}">
                             {!! Form::bsRowTd($detail->line, 'container_line', $detail->line, true) !!}
                             {!! Form::bsRowTd($detail->line, 'equipment_type_id', $detail->equipment_type_id, true) !!}
@@ -277,6 +277,7 @@
                                 {!! Form::bsRowTd($detail->line, 'container_hazardous_phone', $detail->container_hazardous_phone, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'container_comments', strtoupper($detail->container_comments), true) !!}
                                 {!! Form::bsRowBtns() !!}
+
                         @endforeach
                     @endif
                     </tbody>
@@ -304,18 +305,28 @@
 
     </div>
 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="col-md-2">{!! Form::bsText(null,null, 'Pieces', 'total_pieces', null, '0') !!}</div>
+            <div class="col-md-5">{!! Form::bsText(null,null, 'Commodity', 'total_commodity_name', null, '') !!}</div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-3">{!! Form::bsSelect(null, null, 'Kgs/Lbs.', 'total_weight_unit_measurement',  array('K' => 'KGS','L' => 'LBS' ), null)!!}</div>
+                <div class="col-md-3">{!! Form::bsText(null,null, 'Weight(K)', 'total_weight_kgs', null, '0.000') !!}</div>
+                <div class="col-md-3">{!! Form::bsText(null,null, 'Cubic(Cbm)', 'total_cubic_cbm', null, '0.000') !!}</div>
+                <div class="col-md-3">{!! Form::bsText(null,null, 'C Wght(K)', 'total_charge_weight_kgs', null, '0.000') !!}</div>
+            </div>
+        </div>
+    </div>
 
-<div class="row row-panel">
-    <div class="col-md-1">{!! Form::bsText(null,null, 'Pieces', 'total_pieces', null, '0') !!}</div>
-    <!--<div class="col-md-4">{!! Form::bsComplete(null, null,'Commodity', 'total_commodity_id', 'total_commodity_name', Request::get('term'), ((isset($bill_of_lading) and $bill_of_lading->total_commodity_id > 0) ? $bill_of_lading->total_commodity->code : null), 'Commodity', 'options.maintenance.items.commodities', 'options.maintenance.items.commodities', 'maintenance.items.commodities.index') !!}</div>-->
-    <div class="col-md-4">{!! Form::bsText(null,null, 'Commodity', 'total_commodity_name', null, '') !!}</div>
-
-    <div class="col-md-1">{!! Form::bsSelect(null, null, 'Kgs/Lbs.', 'total_weight_unit_measurement',  array('K' => 'KGS','L' => 'LBS' ), null)!!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'Weight(K)', 'total_weight_kgs', null, '0.000') !!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'Cubic(K)', 'total_cubic_cbm', null, '0.000') !!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'C Wght(K)', 'total_charge_weight_kgs', null, '0.000') !!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'Weight(L)', 'total_weight_lbs', null, '0.000') !!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'Cubic(L)', 'total_cubic_cft', null, '0.000') !!}</div>
-    <div class="col-md-1">{!! Form::bsText(null,null, 'C Wght(L)', 'total_charge_weight_lbs', null, '0.000') !!}</div>
-
-</div>
+    <div class="row">
+        <div class="col-md-offset-6 col-md-6">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">{!! Form::bsText(null,null, 'Weight(L)', 'total_weight_lbs', null, '0.000') !!}</div>
+                <div class="col-md-3">{!! Form::bsText(null,null, 'Cubic(cft)', 'total_cubic_cft', null, '0.000') !!}</div>
+                <div class="col-md-3">{!! Form::bsText(null,null, 'C Wght(L)', 'total_charge_weight_lbs', null, '0.000') !!}</div>
+            </div>
+        </div>
+    </div>
