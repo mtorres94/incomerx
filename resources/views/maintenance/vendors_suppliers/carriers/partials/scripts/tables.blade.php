@@ -1,4 +1,5 @@
 <script type="text/javascript">
+
     $("#btn_generate").click(function() {
         $("#carrier_type").val(1).change();
         $("#type").val(1).change();
@@ -25,7 +26,7 @@
             g10 = $("#file_number").val(),
             n = $("#details"),
             t = n.find("tbody");
-            //generate_codes();
+
             while($("#starting").val() <= $("#ending").val()){
                 code= $("#starting").val();
 
@@ -49,6 +50,7 @@
                 c++;
                 x= $("#starting").val().substring(7,8);
                 y = (x == 6 ? parseInt($("#starting").val()) + 4 : parseInt($("#starting").val()) + 11);
+                y= pad(y, 8);
                 $("#starting").val(y);
             }
 

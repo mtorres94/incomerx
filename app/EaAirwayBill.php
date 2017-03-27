@@ -22,6 +22,10 @@ class EaAirwayBill extends Model
     {
         return $this->belongsTo('Sass\EaShipmentEntry', 'shipment_id');
     }
+    public function booking()
+    {
+        return $this->belongsTo('Sass\EaBookingEntry', 'booking_id');
+    }
     public function currency()
     {
         return $this->belongsTo('Sass\Currency', 'currency_id');

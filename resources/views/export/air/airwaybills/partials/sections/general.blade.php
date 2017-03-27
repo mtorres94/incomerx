@@ -3,6 +3,7 @@
     <legend>Airway Bills</legend>
 </div>
 {!! Form::hidden('shipment_code', ((isset($airway_bill) and ($airway_bill->shipment_id > 0))? $airway_bill->shipment->id : ""), ['id' => 'shipment_code', 'class' => 'form-control input-sm']) !!}
+{!! Form::hidden('booking_id', ((isset($airway_bill) and ($airway_bill->booking_id > 0))? $airway_bill->booking->id : ""), ['id' => 'booking_id', 'class' => 'form-control input-sm']) !!}
 
 <div class="row">
     <div class="col-md-1">{!! Form::bsSelect(null, null, ' AWB Class', 'awb_class', array( '1' => 'DAWB', '2' => 'HAWB', '3' => 'MAWB'), 'Class') !!}</div>

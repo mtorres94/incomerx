@@ -2,10 +2,12 @@
 
 namespace Sass\DataTables\Maintenance\VendorsSuppliers;
 
+use Sass\Carrier;
+use Sass\DataTables\CustomDataTable;
 use Sass\User;
 use Yajra\Datatables\Services\DataTable;
 
-class CarrierDataTable extends DataTable
+class CarrierDataTable extends CustomDataTable
 {
     /**
      * Display ajax response.
@@ -16,7 +18,12 @@ class CarrierDataTable extends DataTable
     {
         return $this->datatables
             ->eloquent($this->query())
-            ->addColumn('action', 'path.to.action.view')
+            ->addColumn('action', function ($carrier) {
+                return $this->groupButton(
+                    $carrier,
+                    'maintenance.vendors_suppliers.carriers',null);
+            })
+            ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make(true);
     }
 
@@ -27,8 +34,11 @@ class CarrierDataTable extends DataTable
      */
     public function query()
     {
-        $query = User::query();
-
+        $query = Carrier::leftJoin('mst_states AS c1', 'mst_carriers.state_id', '=', 'c1.id')
+            ->leftJoin('mst_countries AS c2', 'mst_carriers.country_id', '=', 'c2.id')
+            ->orderBy('mst_carriers.created_at', 'desc')
+            ->orderBy('mst_carriers.code', 'desc')
+            ->select(['mst_carriers.*', 'c1.name AS state_name', 'c2.name AS country_name']);
         return $this->applyScopes($query);
     }
 
@@ -40,9 +50,9 @@ class CarrierDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->columns($this->getColumns())
-                    ->ajax('')
-                    ->addAction(['width' => 'auto']);
+            ->columns($this->getColumns())
+            ->ajax('')
+            ->addAction(['width' => '130px']);
     }
 
     /**
@@ -53,10 +63,12 @@ class CarrierDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'id',
-            // add your columns
-            'created_at',
-            'updated_at',
+            ['data' => 'code',                     'name' => 'mst_carriers.code', 'title' => 'Code', 'width' => '70px'],
+            ['data' => 'name',                     'name' => 'mst_carriers.name', 'title' => 'Name'],
+            ['data' => 'address',                  'name' => 'mst_carriers.address', 'title' => 'Address'],
+            ['data' => 'city',                     'name' => 'mst_carriers.city', 'title' => 'City'],
+            ['data' => 'state_name',               'name' => 'c1.name', 'title' => 'State'],
+            ['data' => 'country_name',             'name' => 'c2.name', 'title' => 'Country'],
         ];
     }
 

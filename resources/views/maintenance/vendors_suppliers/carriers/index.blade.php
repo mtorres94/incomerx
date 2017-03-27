@@ -1,7 +1,7 @@
 @extends('layouts._tab')
 
 @section('content')
-    {!! Form::bsIndex('maintenance.vendors.carriers.create', 'maintenance.vendors.carriers.index') !!}
+    {!! Form::bsIndex('maintenance.vendors_suppliers.carriers.create', 'maintenance.vendors_suppliers.carriers.index') !!}
     {!! $dataTable->table() !!}
 @endsection
 @section('scripts')

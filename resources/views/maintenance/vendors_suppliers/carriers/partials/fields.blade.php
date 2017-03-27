@@ -11,7 +11,19 @@
         </div>
        <div class="col-md-6">
            <legend>Contact Details</legend>
-           <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
+           <div class="row"><div class="col-md-12">{!! Form::bsText('col-md-2', 'col-md-10', 'Contact', 'contact', null, '') !!}</div></div>
+           <div class="row">
+               <div class="col-md-6">{!! Form::bsText('col-md-4', 'col-md-8', 'Phone', 'name', null, '') !!}</div>
+               <div class="col-md-6">{!! Form::bsText('col-md-4', 'col-md-8', 'Fax', 'name', null, '') !!}</div>
+           </div>
+           <div class="row"><div class="col-md-12">{!! Form::bsText('col-md-2', 'col-md-10', 'Email', 'email', null, '') !!}</div></div>
+           <div class="row"><div class="col-md-6">{!! Form::bsText('col-md-4', 'col-md-8', 'Account Number', 'account_number', null, '') !!}</div></div>
+           <div class="row">
+               <div class="col-md-12">{!! Form::bsMemo('col-md-2', 'col-md-10', 'Comments', 'comments', null, 2, '') !!}</div>
+           </div>
+       </div>
+    </div>
+           <!--<div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
                <button type="button" id="btn_contacts"class="btn btn-default" data-toggle="modal" data-target="#contact" onclick="cleanModalFields('contact')">
                    <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
                </button>
@@ -35,12 +47,13 @@
 
                </tbody>
            </table>
-       </div>
-    </div>
+       </div>-->
 
 
 
-    <div class="form-horizontal">
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-horizontal">
         <div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
             <a type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#generate_codes" onclick="cleanModalFields('generate_codes')" id="btn_generate"><span>Generate AWB</span></a>
             <button type="button" class="btn btn-danger"  onclick="clearTable('details')">
@@ -82,7 +95,8 @@
             </tbody>
         </table>
     </div>
-
+    </div>
+</div>
 
 
     @section('modals')

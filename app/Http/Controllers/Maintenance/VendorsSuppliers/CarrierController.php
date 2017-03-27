@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Sass\Carrier;
 use Sass\CarrierAwbDetail;
 use Sass\CarrierContact;
+use Sass\DataTables\Maintenance\VendorsSuppliers\CarrierDataTable;
 use Sass\Http\Controllers\Controller;
 
 
@@ -17,7 +18,7 @@ class CarrierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(CarrierController $dataTable)
+    public function index(CarrierDataTable $dataTable)
     {
         return $dataTable->render('maintenance.vendors_suppliers.carriers.index');
     }
@@ -47,7 +48,7 @@ class CarrierController extends Controller
         $carrier['user_update_id'] = auth()->user()->id;
         $id = Carrier::create($carrier)->id;
         CarrierAwbDetail::saveDetail($id, $carrier);
-        CarrierContact::saveDetail($id, $carrier);
+        //CarrierContact::saveDetail($id, $carrier);
 
         return redirect()->route('maintenance.vendors_suppliers.carriers.edit', [$id]);
     }
@@ -95,7 +96,7 @@ class CarrierController extends Controller
 
         $carrier->save();
         CarrierAwbDetail::saveDetail($id, $request->all());
-        CarrierContact::saveDetail($id, $request->all());
+        //CarrierContact::saveDetail($id, $request->all());
         return redirect()->route('maintenance.vendors_suppliers.carriers.edit', [$id]);
     }
 
@@ -108,6 +109,7 @@ class CarrierController extends Controller
     public function destroy($id)
     {
         $carrier = Carrier::find($id);
+        CarrierAwbDetail::where('mst_carriers_awb_details.carrier_id', $id )->delete();
         $carrier->delete();
     }
 

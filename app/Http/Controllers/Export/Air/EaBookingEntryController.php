@@ -46,7 +46,7 @@ class EaBookingEntryController extends Controller
         DB::beginTransaction();
         try {
             $booking_entries = $request->all();
-           // dd($booking_entries);
+
             $type = ($booking_entries['shipment_type'] == 'C' ? 'EAC' : 'EAD');
             $last = EaShipmentEntry::orderBy('code','desc')->where('code', 'LIKE', $type.'%') ->first();
             $frmt = $last == null ? 1 : intval(substr($last->code, 4)) + 1;

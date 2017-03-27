@@ -8,6 +8,12 @@
 $("#code").attr("readonly", true);
     });
 
+    function pad (str, max) {
+        str = str.toString();
+        return str.length < max ? pad("0" + str, max) : str;
+    }
+
+
     function generate_codes(){
         var x= "", y = 0, count =0, init= "";
         init = $("#starting").val();
@@ -18,16 +24,17 @@ $("#code").attr("readonly", true);
            }else{
                y = parseInt($("#starting").val()) + 11;
            }
+           y = pad(y, 8);
            $("#starting").val(y);
            count++;
        }
        $("#starting").val(init);
-       return(count);
+       $("#total_codes").val(count);
 
     }
-$("#total_codes").val( generate_codes());
-    $("#starting").change(function(){ generate_codes(); });
-    $("#ending").change(function(){ generate_codes(); });
+//$("#total_codes").val( generate_codes());
+    $("#starting").change(function(){ generate_codes() });
+    $("#ending").change(function(){ generate_codes() });
 
 
 

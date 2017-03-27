@@ -104,6 +104,16 @@
         $("#currency").val("{{ isset($airway_bill) ? $airway_bill->currency_id : 1}}").change();
 
         $("#issued_id").val('66372');
+        $("#issued_name").val('veco logistics miami inc.');
+        $("#issued_address").val('7270 nw 35 terrace');
+        $("#issued_city").val('miami');
+        $("#issued_state_id").val('9');
+        $("#issued_state_name").val('FLORIDA');
+        $("#issued_zip_code_id").val('14495');
+        $("#issued_zip_code_code").val('33122');
+        $("#issued_phone").val('3055992703');
+        $("#issued_notes").val('VECO LOGISTICS MIAMI\n7270 NW 35 TERRACE\nMIAMI ,FLORIDA 33122')
+
 
     });
 
