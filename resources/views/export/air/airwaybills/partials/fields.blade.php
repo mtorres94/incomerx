@@ -9,8 +9,8 @@
     @include('export.air.airwaybills.partials.sections.general')
 </div>
 <div class="row">
-    <div class="col-md-6">@include('export.air.airwaybills.partials.sections.agent')</div>
-    <div class="col-md-6">@include('export.air.airwaybills.partials.sections.airports')</div>
+    @include('export.air.airwaybills.partials.sections.agent')
+    @include('export.air.airwaybills.partials.sections.airports')
 </div>
 <div class="row">
     <div class="col-md-12">

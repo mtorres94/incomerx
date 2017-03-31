@@ -39,12 +39,10 @@
             </div>
             <!--- Agent / Document  -->
             <div title="Notify / Third Party">
-                <div class="form-horizontal">
-                    <div class="col-md-12">
-                        <div style="padding-top: 10px;padding-bottom: 15px;">
-                            <div class="col-md-6">@include('export.oceans.bill_of_lading.partials.sections.additional_information.notify')</div>
-                            <div class="col-md-6">@include('export.oceans.bill_of_lading.partials.sections.additional_information.third_party')</div>
-                        </div>
+                <div class="col-md-12">
+                    <div style="padding-top: 10px;padding-bottom: 15px;">
+                        <div class="col-md-6">@include('export.oceans.bill_of_lading.partials.sections.additional_information.notify')</div>
+                        <div class="col-md-6">@include('export.oceans.bill_of_lading.partials.sections.additional_information.third_party')</div>
                     </div>
                 </div>
             </div>

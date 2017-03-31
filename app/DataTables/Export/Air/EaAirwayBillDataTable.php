@@ -26,6 +26,7 @@ class EaAirwayBillDataTable extends CustomDataTable
                     ['route' => report_route('ea_airwaybills.report', 2, $airway_bill->id), 'icon' => 'icon-file-pdf', 'name' => 'Delivery Order (Documents Only)'],
                     ['route' => report_route('ea_airwaybills.report', 3, $airway_bill->id), 'icon' => 'icon-file-pdf', 'name' => 'Delivery Order (Freight Only)'],
                     ['route' => report_route('ea_airwaybills.report', 4, $airway_bill->id), 'icon' => 'icon-file-pdf', 'name' => 'Pick up Order'],
+                    ['route' => report_route('ea_airwaybills.report', 8, $airway_bill->id), 'icon' => 'icon-file-pdf', 'name' => 'AirwayBill'],
                 ]);
             })
             ->setRowAttr(['data-id' => '{{ $id }}'])

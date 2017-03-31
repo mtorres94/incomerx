@@ -16,4 +16,5 @@ return [
     'pickup' => 'Pickup and Delivery',
     'export' => 'Export',
     'import' => 'Import',
+    'accounting_bridge' => 'Accounting Bridge',
 ];

@@ -19,7 +19,18 @@
                     validators: {
                         notEmpty: { message: "Quantity is required" }
                     }
+                },
+                shipper_contact: {
+                    validators: {
+                        notEmpty: { message: "Shipper RUC is required" }
+                    }
+                },
+                consignee_contact: {
+                    validators: {
+                        notEmpty: { message: "Consignee RUC is required" }
+                    }
                 }
+
             }
         }).on('success.field.fv', function (e, data) {
             var $parent = data.element.parents('.form-group');

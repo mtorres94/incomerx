@@ -261,11 +261,14 @@ class EaAirwayBillController extends Controller
                 return \PDF::loadView('export.air.airwaybills.pre_alert', compact('airway_bill', 'type'))->stream($airway_bill->code.'.pdf');
                 break;
             case 6:
-                //return \PDF::loadView('export.air.airwaybills.letter_shipper', compact('airway_bill', 'type'))->stream($airway_bill->code.'.pdf');
-                return view('export.air.airwaybills.letter_shipper', compact('airway_bill', 'type'));
+                return \PDF::loadView('export.air.airwaybills.letter_shipper', compact('airway_bill', 'type'))->stream($airway_bill->code.'.pdf');
                 break;
             case 7:
                 return \PDF::loadView('export.air.airwaybills.letter_shipper', compact('airway_bill', 'type'))->stream($airway_bill->code.'.pdf');
+                break;
+            case 8:
+                return \PDF::loadView('export.air.airwaybills.awb', compact('airway_bill', 'type'))->stream($airway_bill->code.'.pdf');
+                //return view('export.air.airwaybills.awb', compact('airway_bill', 'type'));
                 break;
             default:
                 $response = [''];

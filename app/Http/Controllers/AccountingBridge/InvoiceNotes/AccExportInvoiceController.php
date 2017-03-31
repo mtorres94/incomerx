@@ -1,14 +1,12 @@
 <?php
 
-namespace Sass\Http\Controllers\Maintenance\Items;
+namespace Sass\Http\Controllers\AccountingBridge\InvoiceNotes;
 
 use Illuminate\Http\Request;
-
-use Sass\BillingCode;
 use Sass\Http\Controllers\Controller;
 use Sass\Http\Requests;
 
-class BillingCodeController extends Controller
+class AccExportInvoiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +15,7 @@ class BillingCodeController extends Controller
      */
     public function index()
     {
-        //
+        return view("accounting_bridge.invoice_notes.export_invoices.index");
     }
 
     /**
@@ -84,28 +82,5 @@ class BillingCodeController extends Controller
     public function destroy($id)
     {
         //
-    }
-    public function autocomplete(Request $request)
-    {
-        if ($request->ajax()) {
-            $billing_codes = BillingCode::where(function ($query) use ($request) {
-                if ($term = $request->get('term')) {
-                    $query->orWhere('code', 'LIKE', $term . '%');
-                    $query->orWhere('name', 'LIKE', $term . '%');
-                }
-            })->take(10)->get();
-
-            $results = [];
-            foreach ($billing_codes as $billing_code) {
-                $results[] = [
-                    'id'    => $billing_code->id,
-                    'code'  => strtoupper($billing_code->code),
-                    'value' => strtoupper($billing_code->name),
-
-                ];
-            }
-
-            return response()->json($results);
-        }
     }
 }

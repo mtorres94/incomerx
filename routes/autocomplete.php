@@ -29,7 +29,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('items/autocomplete', ['as'   => 'items.autocomplete', 'uses' => 'ItemController@autocomplete']);
             Route::get('units/autocomplete', ['as'   => 'units.autocomplete', 'uses' => 'UnitController@autocomplete']);
             Route::get('units/get', ['as'   => 'units.get', 'uses' => 'UnitController@get']);
-            Route::get('billing_codes/autocomplete', ['as'   => 'billing_codes.autocomplete', 'uses' => 'BillingCodeController@autocomplete']);
+
             Route::get('harmonized_codes/autocomplete', ['as'   => 'harmonized_codes.autocomplete', 'uses' => 'HarmonizedCodeController@autocomplete']);
         });
         Route::group(['namespace' => 'DivisionsDepartments'], function () {
@@ -67,6 +67,10 @@ Route::group(['middleware' => ['web']], function () {
         });
         Route::group(['namespace' => 'CustomsHazardous'], function () {
             Route::get('uns_codes/autocomplete', ['as'   => 'uns_codes.autocomplete', 'uses' => 'UnsCodeController@autocomplete']);
+        });
+        Route::group(['namespace' => 'Accounting'], function () {
+            Route::get('billing_codes/autocomplete', ['as'   => 'billing_codes.autocomplete', 'uses' => 'BillingCodeController@autocomplete']);
+            Route::get('generals/autocomplete', ['as'   => 'generals.autocomplete', 'uses' => 'GeneralLedgerAccountController@autocomplete']);
         });
     });
     Route::group(['namespace' => 'Warehouse'], function () {
@@ -113,4 +117,13 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('ia_routing_order/get', ['as' => 'ia_routing_order.get', 'uses' => 'IaRoutingOrderController@get']);
         });
     });
+
+    Route::group(['namespace' => 'AccountingBridge'], function () {
+        Route::group(['namespace' => 'InvoiceNotes'], function () {
+            Route::get('invoices/transfer', ['as' => 'invoices.transfer', 'uses' => 'InvoiceController@transfer']);
+            Route::get('invoices/autocomplete', ['as' => 'invoices.autocomplete', 'uses' => 'InvoiceController@autocomplete']);
+        });
+    });
+
+
 });

@@ -56,4 +56,12 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('ia_bill_of_lading/excel', ['as' => 'ia_bill_of_lading.excel', 'uses' => 'IaBillOfLadingController@excel']);
         });
     });
+
+    Route::group(['namespace' => 'AccountingBridge'], function () {
+        Route::group(['namespace' => 'InvoiceNotes'], function () {
+            Route::get('invoices/report', ['as' => 'invoices.report', 'uses' => 'InvoiceController@report']);
+            Route::get('invoices/invoice_reports', ['as' => 'invoices.invoice_reports', 'uses' => 'InvoiceController@invoice_reports']);
+            Route::post('invoices/invoice_reports_view', ['as' => 'invoices.invoice_reports_view', 'uses' => 'InvoiceController@invoice_reports_view']);
+        });
+    });
 });

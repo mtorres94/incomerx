@@ -109,7 +109,6 @@
             type: 'GET',
 
             success: function (e) {
-                clearTableCondition('chargeDetails');
                 var d = $("#chargeDetails tbody tr").length,
                     n = $("#chargeDetails"),
                     t = n.find("tbody"),

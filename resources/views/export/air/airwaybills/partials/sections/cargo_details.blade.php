@@ -52,7 +52,7 @@
         <div class="col-md-2">{!! Form::bsSelect(null, null, 'Kgs/Lbs', 'total_unit_weight', array('K' => 'KGS','L' => 'LBS'), '') !!}</div>
         <div class="col-md-2">{!! Form::bsText(null, null, 'Commodity', 'total_commodity', null, ' ') !!}</div>
         <div class="col-md-2">{!! Form::bsText(null, null, 'G. Weight', 'sum_weight', null, ' ') !!}</div>
-        <div class="col-md-2">{!! Form::bsText(null, null, 'Vol. Weight', 'sum_volume_weight', null, ' ') !!}</div>
+        <div class="col-md-2">{!! Form::bsText(null, null, 'V. Weight', 'sum_volume_weight', null, ' ') !!}</div>
         <div class="col-md-2">{!! Form::bsText(null, null, 'Charge', 'sum_charge_weight', null, ' ') !!}</div>
     </div>
     <table class="hidden" id="hidden_houses">

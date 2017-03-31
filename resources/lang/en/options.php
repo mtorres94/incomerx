@@ -61,7 +61,7 @@ return [
             'comments'      => 'Comments',
         ],
         'accounting' => [
-            'billing'       => 'Billing codes',
+            'billing_codes'       => 'Billing codes',
             'banks'         => 'Banks',
             'notes'         => 'Accounting notes',
             'general'       => 'General ledger accounts',
@@ -145,5 +145,11 @@ return [
             'routing_order'      => 'Routing Order',
             'quotes'      => 'Quotes',
         ]
+    ],
+    'accounting_bridge' =>[
+        'invoice_notes' =>[
+            'invoices' => 'Invoices & Credit Entry',
+            'export_invoices' => 'Export Posted Invoices to QuickBooks',
+        ],
     ]
 ];

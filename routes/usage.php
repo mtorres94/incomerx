@@ -84,6 +84,13 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('customers/verify_open',  ['as' => 'customers.open',  'uses' => 'CustomerController@getOpenStatus']);
             Route::post('customers/update_close', ['as' => 'customers.close', 'uses' => 'CustomerController@updateClose']);
         });
+
+        Route::group(['namespace' => 'Accounting'], function () {
+            Route::post('billing_codes/verify_open',  ['as' => 'billing_codes.open',  'uses' => 'BillingCodeController@getOpenStatus']);
+            Route::post('billing_codes/update_close', ['as' => 'billing_codes.close', 'uses' => 'BillingCodeController@updateClose']);
+            Route::post('general/verify_open',  ['as' => 'general.open',  'uses' => 'GeneralLedgerAccountController@getOpenStatus']);
+            Route::post('general/update_close', ['as' => 'general.close', 'uses' => 'GeneralLedgerAccountController@updateClose']);
+        });
     });
     Route::group(['namespace' => 'Warehouse'], function () {
         Route::group(['namespace' => 'Receipts'], function () {
@@ -141,5 +148,12 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('ia_quotes/update_close', ['as' => 'ia_quotes.close', 'uses' => 'IaQuoteController@updateClose']);
         });
 
+    });
+
+    Route::group(['namespace' => 'AccountingBridge'], function () {
+        Route::group(['namespace' => 'InvoiceNotes'], function () {
+            Route::post('invoices/verify_open',  ['as' => 'invoices.open',  'uses' => 'InvoiceController@getOpenStatus']);
+            Route::post('invoices/update_close', ['as' => 'invoices.close', 'uses' => 'InvoiceController@updateClose']);
+        });
     });
 });

@@ -10,6 +10,7 @@
               ['class' => 'fa fa-file-pdf-o', 'value' => 'Pre Alert'],
               ['class' => 'fa fa-file-pdf-o', 'value' => 'Shipper Unknown'],
               ['class' => 'fa fa-file-pdf-o', 'value' => 'Shipper Known'],
+              ['class' => 'fa fa-file-pdf-o', 'value' => 'Freight Due Carrier'],
           ], $airway_bill, 'ea_airwaybills.report') !!}
 
     {!! Form::bsFooter(1, $airway_bill) !!}

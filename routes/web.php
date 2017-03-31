@@ -78,6 +78,10 @@ Route::group(['middleware' => ['web']], function () {
         Route::group(['prefix' => 'customs_hazardous', 'namespace' => 'CustomsHazardous'], function () {
             Route::resource('uns_codes', 'UnsCodeController');
         });
+        Route::group(['prefix' => 'accounting', 'namespace' => 'Accounting'], function () {
+            Route::resource('billing_codes', 'BillingCodeController');
+            Route::resource('general', 'GeneralLedgerAccountController');
+        });
     });
 
     Route::group(['prefix' => 'warehouse', 'namespace' => 'Warehouse'], function () {
@@ -117,6 +121,13 @@ Route::group(['middleware' => ['web']], function () {
             Route::resource('quotes', 'IaQuoteController');
             Route::resource('bill_of_lading', 'IaBillOfLadingController');
             Route::resource('routing_order', 'IaRoutingOrderController');
+        });
+    });
+
+    Route::group(['prefix' => 'accounting_bridge', 'namespace' => 'AccountingBridge'], function () {
+        Route::group(['prefix' => 'invoice_notes', 'namespace' => 'InvoiceNotes'], function () {
+            Route::resource('invoices', 'InvoiceController');
+            Route::resource('export_invoices', 'AccExportInvoiceController');
         });
     });
 });

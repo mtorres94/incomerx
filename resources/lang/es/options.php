@@ -64,7 +64,7 @@ return [
 
         ],
         'accounting' => [
-            'billing'       => 'Códigos de facturación',
+            'billing_codes'       => 'Códigos de facturación',
             'banks'         => 'Bancos',
             'notes'         => 'Notas contables',
             'general'       => 'Cuentas de libro mayor',
@@ -139,4 +139,11 @@ return [
             'shipment_entries' => 'Archivos',
         ],
     ],
+
+    'accounting_bridge' =>[
+        'invoice_notes' =>[
+            'invoices' => 'Facturas/ Notas de Crédito o Débito',
+            'export_invoices' => 'Exportar facturas a QuickBooks',
+        ],
+    ]
 ];

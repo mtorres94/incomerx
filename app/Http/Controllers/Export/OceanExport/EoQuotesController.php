@@ -147,8 +147,8 @@ class EoQuotesController extends Controller
             abort(404);
         }
 
-        //return \PDF::loadView('export.oceans.quotes.pdf', compact('quotes'))->stream($quotes->code.'.pdf');
-        return view('export.oceans.quotes.pdf', compact('quotes'));
+        return \PDF::loadView('export.oceans.quotes.pdf', compact('quotes'))->stream($quotes->code.'.pdf');
+       // return view('export.oceans.quotes.pdf', compact('quotes'));
     }
 
     public function pdf($token, $id)

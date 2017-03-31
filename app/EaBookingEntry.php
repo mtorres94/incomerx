@@ -92,7 +92,7 @@ class EaBookingEntry extends Model
     }
     public function airwaybill()
     {
-        return $this->hasMany('Sass\EaAirwaybill', 'booking_id');
+        return $this->hasMany('Sass\EaAirwayBill', 'booking_id');
     }
 
 

@@ -241,4 +241,26 @@
         var e = $("#place_delivery_id").val();
         0 == e && $(this).val("")
     });
+
+    $("#port_loading_name").marcoPolo({url:"{{ route('ocean_ports.autocomplete') }}",formatItem:function(e,o){return e.name},selected:{
+        id: '{{ (isset($routing_order) ? $routing_order->port_loading_id : "") }}',
+        name: '{{ ((isset($routing_order) and ($routing_order->port_loading_id > 0 )) ? $routing_order->port_loading->name: "") }}'
+    },onSelect:function(e,o){$("#port_loading_id").val(e.id),$(this).val(e.name)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#port_loading_name_img").removeClass("img-none").addClass("img-display"),$("#port_loading_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#port_loading_name_img").removeClass("img-display").addClass("img-none"),$("#port_loading_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e) {
+        var o = e.keyCode ? e.keyCode : e.which;
+        (8 == o || 46 == o) && $("#port_loading_id").val(0)
+    }).blur(function() {
+        var e = $("#port_loading_id").val();
+        0 == e && $(this).val("")
+    });
+
+    $("#port_unloading_name").marcoPolo({url:"{{ route('ocean_ports.autocomplete') }}",formatItem:function(e,o){return e.name},selected:{
+        id: '{{ (isset($routing_order) ? $routing_order->port_unloading_id : "") }}',
+        name: '{{ ((isset($routing_order) and ($routing_order->port_unloading_id > 0 )) ? $routing_order->port_unloading->name: "") }}'
+    },onSelect:function(e,o){$("#port_unloading_id").val(e.id),$(this).val(e.name)},minChars:3,param:"term"}).on("marcopolorequestbefore",function(){$("#port_unloading_name_img").removeClass("img-none").addClass("img-display"),$("#port_unloading_name_spn").removeClass("img-display").addClass("img-none")}).on("marcopolorequestafter",function(){$("#port_unloading_name_img").removeClass("img-display").addClass("img-none"),$("#port_unloading_name_spn").removeClass("img-none").addClass("img-display")}).keydown(function(e) {
+        var o = e.keyCode ? e.keyCode : e.which;
+        (8 == o || 46 == o) && $("#port_unloading_id").val(0)
+    }).blur(function() {
+        var e = $("#port_unloading_id").val();
+        0 == e && $(this).val("")
+    });
 </script>

@@ -18,6 +18,11 @@
     <div class="row">
         {!! Form::bsText('col-md-3', 'col-md-6', 'Phone', 'issued_phone', null, '') !!}
     </div>
+    <div class="row">
+        <div class="col-md-4">{!! Form::bsText(null, null, 'Carriage Value', 'carriage_value', null, ' ') !!}</div>
+        <div class="col-md-4">{!! Form::bsText(null, null, 'Customer Value', 'customer_value', null, ' ') !!}</div>
+        <div class="col-md-4">{!! Form::bsText(null, null, 'SCI', 'sci_number', null, ' ') !!}</div>
+    </div>
 </div>
 <div class="col-md-6">
     <div class="row">

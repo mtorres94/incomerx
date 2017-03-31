@@ -43,4 +43,7 @@ return [
         'oceans'    => 'Ocean Import',
         'air'       => 'Air Import',
     ],
+    'accounting_bridge' => [
+        'invoice_notes'    => 'Invoice and Credit Notes',
+    ],
 ];

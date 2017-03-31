@@ -83,7 +83,6 @@
             type: 'GET',
 
             success: function (e) {
-                clearTableCondition('chargeDetails');
                 var d = $("#chargeDetails tbody tr").length,
                     n = $("#chargeDetails"),
                     t = n.find("tbody"),
@@ -120,7 +119,7 @@
                         .append(createTableContent('billing_vendor_name', e[r].billing_vendor_name, true, d))
                         .append(createTableContent('cost_date', e[r].cost_date, true, d))
                         .append(createTableContent('billing_increase', e[r].billing_increase, true, d))
-                        .append(createTableBtns()),
+                        .append(createTableBtns());
                         t.append(C); r++; d++;
                 }
             }

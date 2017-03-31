@@ -15,7 +15,7 @@
         {!! Form::bsComplete('col-md-4', 'col-md-8', 'Port Unloading', 'port_unloading_id', 'port_unloading_name', Request::get('term'), ((isset($routing_order) and $routing_order->port_unloading_id > 0) ? $routing_order->port_unloading->name : null), 'Port') !!}
     </div></div>
     <div class="row"><div class="col-md-12">
-        {!! Form::bsSelect('col-md-4', 'col-md-8', 'Type of Service', 'service_id', Sass\Service::all()->lists('code', 'id'), 'Service', 'body') !!}
+        {!! Form::bsSelect('col-md-4', 'col-md-8', 'Type of Service', 'service_id', Sass\Service::all()->lists('name', 'id'), 'Service', 'body') !!}
     </div></div>
     <div class="row">
         <div class="col-md-12">
@@ -29,5 +29,5 @@
     <div class="row"><div class="col-md-12">{!! Form::bsText('col-md-4', 'col-md-8', 'Air/ Air Via LA', 'air_air_to_la', null, ' ') !!}</div></div>
     <div class="row"><div class="col-md-12">{!! Form::bsText('col-md-4', 'col-md-8', 'Sea/ Air via Miami', 'sea_air_to_miami', null, ' ') !!}</div></div>
     <div class="row"><div class="col-md-12">{!! Form::bsText('col-md-4', 'col-md-8', 'Air/ Sea via Miami', 'air_sea_to_miami', null, ' ') !!}</div></div>
-    <div class="row"><div class="col-md-12">{!! Form::bsText('col-md-4', 'col-md-8', 'Other', 'other', null, ' ') !!}</div></div>
+    <div class="row"><div class="col-md-12">{!! Form::bsText('col-md-4', 'col-md-8', 'Equipment type', 'other', null, ' ') !!}</div></div>
 </div>
