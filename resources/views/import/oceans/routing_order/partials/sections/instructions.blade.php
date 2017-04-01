@@ -29,5 +29,5 @@
     <div class="row"><div class="col-md-12">{!! Form::bsText('col-md-4', 'col-md-8', 'Air/ Air Via LA', 'air_air_to_la', null, ' ') !!}</div></div>
     <div class="row"><div class="col-md-12">{!! Form::bsText('col-md-4', 'col-md-8', 'Sea/ Air via Miami', 'sea_air_to_miami', null, ' ') !!}</div></div>
     <div class="row"><div class="col-md-12">{!! Form::bsText('col-md-4', 'col-md-8', 'Air/ Sea via Miami', 'air_sea_to_miami', null, ' ') !!}</div></div>
-    <div class="row"><div class="col-md-12">{!! Form::bsText('col-md-4', 'col-md-8', 'Equipment type', 'other', null, ' ') !!}</div></div>
+    <div class="row"><div class="col-md-12">{!! Form::bsSelect('col-md-4', 'col-md-8', 'Equipment Type', 'equipment_type_id', Sass\CargoType::all()->lists('code', 'id'), null, 'body', false) !!}</div></div>
 </div>
