@@ -19,6 +19,7 @@
         "h4cc/wkhtmltoimage-amd64": "0.12.x",
         "barryvdh/laravel-snappy": "0.2.x",
         "simplesoftwareio/simple-qrcode": "~1",
+        "milon/barcode": "^5.2",
         "orangehill/iseed": "2.2"
     },
     "require-dev": {

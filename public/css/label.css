@@ -1,8 +1,8 @@
 @font-face { font-family: Courier; src: url('../fonts/CourierNew.ttf'); }
 .company-info {
     text-align: center;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #000;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #000;
 }
 .company-info h4 {
     margin: 0 0 3px;
@@ -13,18 +13,18 @@
 }
 .info {
     padding: 4px 5px 3px;
-    border-bottom: 2px solid #000;
+    border-bottom: 1px solid #000;
 }
 .date {
-    border-left: 2px solid #000;
-    border-bottom: 2px solid #000;
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
 }
 .warehouse {
     font-weight: bold;
     text-align: center;
     font-size: 28px;
     padding: 5px;
-    border-bottom: 2px solid #000;
+    border-bottom: 1px solid #000;
 }
 .label-wh {
     padding: 4px 5px 3px;
@@ -34,15 +34,15 @@
     text-align: right;
 }
 .center-unit {
-    border-left: 2px solid #000;
-    border-right: 2px solid #000;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
 }
 .unit-metrics {
-    border-bottom: 2px solid #000;
-    padding-bottom: 5px;
+    border-bottom: 1px solid #000;
+    padding-bottom: 2px;
 }
 .country-label {
-    border-right: 2px solid #000;
+    border-right: 1px solid #000;
 }
 .code-bar {
     font-family: Code39, serif;
@@ -52,7 +52,7 @@
     text-align: center;
 }
 .barcode-label {
-    border-top: 2px solid #000;
+    border-top: 1px solid #000;
 }
 .legend-barcode {
     text-align: center;
@@ -64,7 +64,7 @@ p.label-content {
     margin: 0 0 1px;
 }
 p.p-content {
-    font-size: 16px;
+    font-size: 12px;
     margin: 0 0 1px;
 }
 p.label-units {
@@ -75,7 +75,7 @@ p.label-units {
 p.label-units-code {
     font-family: Courier, serif;
     text-align: center;
-    padding-top: 5px;
+    padding-top: 10px;
     font-size: 14px;
     margin: 0 0 1px;
 }
@@ -85,6 +85,7 @@ p.p-units {
 }
 p.country {
     font-size: 28px;
+    margin-bottom: 3px;
 }
 .big-label {
     padding-top: 10px;

@@ -51,7 +51,9 @@
                                 <p class="p-content">{{ strtoupper($receipt_entry->consignee->name) }}</p>
                             </div>
                             <div class="col-xs-5">
-                                <p class="label-content label-wh"><strong>WH #:</strong></p>
+                                <div class="row">
+                                    <p class="label-content label-wh"><strong>WH #:</strong></p>
+                                </div>
                             </div>
                             <div class="col-xs-7 date">
                                 <p class="label-content label-date"><strong>DATE IN: {{ $receipt_entry->date_in }}</strong></p>
@@ -80,7 +82,17 @@
                             </div>
                             <div class="col-xs-12 barcode-label">
                                 <p class="label-units-code"><strong>{{ $receipt_entry->code }}-{{ str_pad($detail->line, 2, '0', 0) }}-{{ str_pad($i, 3, '0', 0) }}</strong></p>
-                                <div style="text-align: center; margin-top: -5px;">{!! QrCode::size(125)->margin(0)->generate($receipt_entry->code.'-'.str_pad($detail->line, 2, '0', 0).'-'.str_pad($i, 3, '0', 0)) !!}</div>
+                                <div style="text-align: center;">
+                                    {!! DNS2D::getBarcodeSVG(
+                                        Crypt::encrypt(collect([
+                                            'shipper'     => strtoupper($receipt_entry->shipper->name),
+                                            'consignee'   => strtoupper($receipt_entry->consignee->name),
+                                            'date_in'     => strtoupper($receipt_entry->date_in),
+                                            'destination' => strtoupper($receipt_entry->destination->code),
+                                            'cargo'       => $receipt_entry->code.'-'.str_pad($detail->line, 2, '0', 0).'-'.str_pad($i, 3, '0', 0)
+                                        ])->toJson())
+                                    , "QRCODE", 2, 2) !!}
+                                </div>
                             </div>
                         </div>
                     </div>

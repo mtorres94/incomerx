@@ -6,8 +6,6 @@ use Illuminate\Contracts\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
@@ -378,7 +376,7 @@ class ReceiptEntryController extends Controller
                     ->setOption('page-height', 150)
                     ->setOption('page-width', 100)
                     ->stream($receipt_entry->code.'.pdf');
-                #return view('warehouse.receipts.receipts_entries.label', compact('receipt_entry', 'type'));
+                # return view('warehouse.receipts.receipts_entries.label', compact('receipt_entry', 'type'));
             } else {
                 return \PDF::loadView('warehouse.receipts.receipts_entries.label', compact('receipt_entry', 'type'))
                     ->setOrientation('landscape')
