@@ -20,6 +20,8 @@
             $('.btn-print[data-id]').attr('href', url + '?_token=' + _token + '&_type=' + _type + '&_id=' + _id);
         });
 
+        $("#fmc_number").val("021671NF");
+
         function renameTab() {
             if ('edit' == '{{ \Request::segment(5) }}') {
                 var gtab = window.parent.$('#tt');
