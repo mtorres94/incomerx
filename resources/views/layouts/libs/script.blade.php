@@ -13,6 +13,27 @@
 <!-- Form Validation Files -->
 {!! Html::script('js/plugins/formvalidation/formvalidation.min.js') !!}
 
+<!-- Vector Map Files -->
+{!! Html::script('js/plugins/jvectormap/jvectormap.min.js') !!}
+{!! Html::script('js/plugins/jvectormap/jvectormap_world_mill.js') !!}
+
+<!--- Morris Bar Files -->
+{!! Html::script('js/plugins/morrisBar/morrisBar.min.js') !!}
+{!! Html::script('js/plugins/morrisBar/raphael.min.js') !!}
+
+<!--- Chart Bar Files -->
+{!! Html::script('js/plugins/Chartjs/chart.js') !!}
+{!! Html::script('js/plugins/Chartjs/chart.min.js') !!}
+
+<!--- Full Calendar Files -->
+{!! Html::script('js/plugins/fullcalendar/moment.min.js') !!}
+{!! Html::script('js/plugins/fullcalendar/fullcalendar.min.js') !!}
+
+<!--- HighChart Files -->
+{!! Html::script('js/plugins/highcharts/highchart.js') !!}
+{!! Html::script('js/plugins/highcharts/highcharts-3d.js') !!}
+{!! Html::script('js/plugins/highcharts/exporting.js') !!}
+
 <!-- Bootstrap Wizard Files -->
 {!! Html::script('js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js') !!}
 

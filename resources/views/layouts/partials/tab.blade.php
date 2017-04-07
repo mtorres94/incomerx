@@ -2,7 +2,7 @@
 <div class="content-wrapper">
     <div id="tt" class="easyui-tabs"  style="width:100%;height:100%;">
         <div title="{{ trans('panel.home') }}" style="margin:0px;padding-top: 0">
-            <iframe scrolling="auto" frameborder="0" src="{{ url('/panel') }}" style="width:100%; height:100%;"></iframe>
+            <iframe scrolling="auto" frameborder="0" src="{{ url('/dashboard') }}" style="width:100%; height:100%;"></iframe>
         </div>
     </div>
 </div><!-- /.content-wrapper -->

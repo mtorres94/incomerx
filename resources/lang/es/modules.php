@@ -16,4 +16,5 @@ return [
     'pickup'      => 'Recogida y entrega',
     'export'      => 'Exportaciones',
     'import'      => 'Importaciones',
+    'accounting_bridge' => 'Accounting Bridge',
 ];

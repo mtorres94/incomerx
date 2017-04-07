@@ -12,6 +12,11 @@
 */
 
 Route::group(['middleware' => ['web']], function () {
+    Route::get('dashboard/dashboard_values', ['as' => 'dashboard.dashboard_values', 'uses' => 'DashboardController@dashboard_values']);
+    Route::get('dashboard/warehouse_status', ['as' => 'dashboard.warehouse_status', 'uses' => 'DashboardController@warehouse_status']);
+    Route::get('dashboard/table_warehouses', ['as' => 'dashboard.table_warehouses', 'uses' => 'DashboardController@table_warehouses']);
+    Route::get('dashboard/airway_bill_details', ['as' => 'dashboard.airway_bill_details', 'uses' => 'DashboardController@airway_bill_details']);
+    Route::get('dashboard/table_expire_date', ['as' => 'dashboard.table_expire_date', 'uses' => 'DashboardController@table_expire_date']);
     Route::group(['namespace' => 'Maintenance'], function () {
         Route::group(['namespace' => 'Customers'], function () {
             Route::get('payment_terms/autocomplete', ['as' => 'payment_terms.autocomplete', 'uses' => 'PaymentTermController@autocomplete']);
@@ -77,6 +82,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::group(['namespace' => 'Receipts'], function () {
             Route::get('receipts_entries/autocomplete', ['as' => 'receipts_entries.autocomplete', 'uses' => 'ReceiptEntryController@autocomplete']);
             Route::get('receipts_entries/get_details', ['as' => 'receipts_entries.get_details', 'uses' => 'ReceiptEntryController@get_details']);
+            Route::get('receipts_entries/warehouse_destinations', ['as' => 'receipts_entries.warehouse_destinations', 'uses' => 'ReceiptEntryController@warehouse_destinations']);
+            Route::get('receipts_entries/warehouse_status', ['as' => 'receipts_entries.warehouse_status', 'uses' => 'ReceiptEntryController@warehouse_status']);
+            Route::get('receipts_entries/warehouse_users', ['as' => 'receipts_entries.warehouse_users', 'uses' => 'ReceiptEntryController@warehouse_users']);
 
         });
     });
@@ -91,7 +99,8 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('booking_entries/autocomplete', ['as' => 'booking_entries.autocomplete', 'uses' => 'BookingEntryController@autocomplete']);
             Route::get('eo_cargo_loader/autocomplete', ['as' => 'eo_cargo_loader.autocomplete', 'uses' => 'EoCargoLoaderController@autocomplete']);
             Route::get('eo_cargo_loader/get_warehouses', ['as' => 'eo_cargo_loader.get_warehouses', 'uses' => 'EoCargoLoaderController@get_warehouses']);
-
+            Route::get('eo_shipment_entries/file_calendar', ['as' => 'eo_shipment_entries.file_calendar', 'uses' => 'EoShipmentEntryController@file_calendar']);
+            Route::get('bill_of_lading/file_calendar', ['as' => 'bill_of_lading.file_calendar', 'uses' => 'EoShipmentEntryController@file_calendar']);
         });
 
         Route::group(['namespace' => 'Air'], function () {
@@ -99,6 +108,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('ea_airwaybills/get', ['as' => 'ea_airwaybills.get', 'uses' => 'EaAirwayBillController@get']);
             Route::get('ea_airwaybills/get_details', ['as' => 'ea_airwaybills.get_details', 'uses' => 'EaAirwayBillController@get_details']);
             Route::get('ea_loading_guides/get_warehouses', ['as' => 'ea_loading_guides.get_warehouses', 'uses' => 'EaLoadingGuideController@get_warehouses']);
+            Route::get('ea_booking_entries/booking_calendar', ['as' => 'ea_booking_entries.booking_calendar', 'uses' => 'EaBookingEntryController@booking_calendar']);
         });
     });
 

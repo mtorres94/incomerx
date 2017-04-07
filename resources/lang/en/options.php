@@ -150,6 +150,7 @@ return [
         'invoice_notes' =>[
             'invoices' => 'Invoices & Credit Entry',
             'export_invoices' => 'Export Posted Invoices to QuickBooks',
+            'invoice_reports' => 'Invoices Reports',
         ],
     ]
 ];

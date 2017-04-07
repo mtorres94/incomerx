@@ -39,4 +39,7 @@ return [
     'import' => [
         'oceans'  => 'Importación marítima',
     ],
+    'accounting_bridge' => [
+        'invoice_notes'    => 'Invoice and Credit Notes',
+    ],
 ];

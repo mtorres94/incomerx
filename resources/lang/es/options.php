@@ -134,16 +134,23 @@ return [
         ],
     ],
     'import' => [
-        'oceans' => [
-            'bill_of_lading' => 'B/L',
-            'shipment_entries' => 'Archivos',
+        'oceans'  => [
+            'bill_of_lading'      => 'B/L',
+            'routing_order'      => 'Orden de Ruta (RO)',
+            'quotes'      => 'Cotizaciones',
         ],
+        'air'  => [
+            'bill_of_lading'      => 'HAWB',
+            'routing_order'      => 'Orden de Ruta (RO)',
+            'quotes'      => 'Cotizaciones',
+        ]
     ],
 
     'accounting_bridge' =>[
         'invoice_notes' =>[
             'invoices' => 'Facturas/ Notas de Crédito o Débito',
             'export_invoices' => 'Exportar facturas a QuickBooks',
+            'invoice_reports' => 'Reportes de facturas',
         ],
     ]
 ];

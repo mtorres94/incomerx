@@ -461,5 +461,19 @@ class EoShipmentEntryController extends Controller
         ];
     }
 
+    public function file_calendar(){
+        $groups = EoShipmentEntry::select(['eo_shipment_entries.code', 'eo_shipment_entries.arrival_date', 'eo_shipment_entries.departure_date', 'eo_shipment_entries.vessel_name',  'eo_shipment_entries.voyage_name'])
+            ->get();
+        $result = [];
+        foreach ($groups as $group) {
+            $result[]=[
+                'title' =>  "FILE#: ".$group->code." - VESSEL: ". strtoupper($group->vessel_name) ." - VOYAGE: ". strtoupper($group->vessel_name),
+                'start' =>  $group->departure_date,
+                'end'   =>  $group->arrival_date,
+            ];
+        }
+        return response()->json($result);
+    }
+
 
 }

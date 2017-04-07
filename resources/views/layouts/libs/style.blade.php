@@ -23,6 +23,9 @@
 <!-- Form Validation Files -->
 {!! Html::style('css/plugins/formvalidation/formvalidation.css') !!}
 
+<!-- Vector Map Files -->
+{!! Html::style('css/plugins/jvectormap/jvectormap.css') !!}
+
 <!-- Bootstrap Checkbox -->
 {!! Html::style('css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css') !!}
 
@@ -55,6 +58,10 @@
 <!-- jQuery UI -->
 {!! Html::style('css/plugins/jquery-ui/jquery-ui.min.css') !!}
 {!! Html::style('css/plugins/jquery-ui/jquery-ui.theme.min.css') !!}
+
+<!-- Full Calendar-->
+{!! Html::style('css/plugins/fullcalendar/fullcalendar.min.css') !!}
+<link href='css/plugins/fullcalendar.print.min.css' rel='stylesheet' media='print' />
 
 <!-- Bootstrap Step by Step -->
 {!! Html::style('css/step_by_step.css') !!}

@@ -240,4 +240,23 @@ class EaBookingEntryController extends Controller
 
         return response()->json($response);
     }
+
+
+    public function booking_calendar(){
+        $groups = EaBookingEntry::join('mst_airports as a1', 'ea_booking_entries.origin_id', '=', 'a1.id')
+            ->join('mst_airports as a2', 'ea_booking_entries.destination_id', '=', 'a2.id')
+            ->select(['ea_booking_entries.code', 'ea_booking_entries.arrival_date', 'ea_booking_entries.departure_date', 'ea_booking_entries.first_flight',  'a1.name AS origin_name', 'a2.name AS destination_name'])
+           ->get();
+        $result = [];
+        foreach ($groups as $group) {
+            $result[]=[
+                'title'=>'BO#: '.$group->code,
+                'flight' => 'FLIGHT: '.$group->first_flight,
+                'start' => $group->departure_date,
+                'end' => $group->arrival_date,
+            ];
+        }
+        return response()->json($result);
+
+    }
 }

@@ -18,7 +18,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('lang/{lang}', ['as'=> 'lang.switch', 'uses'=> 'LanguageController@switchLang']);
 
         Route::get('/panel', function () { $modules = Sass\Module::active(); return view('layouts.partials.panel', compact('modules')); });
+
         Route::get('/home', 'HomeController@index');
+        Route::get('/dashboard', 'DashboardController@index');
 
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::group(['prefix' => 'management', 'namespace' => 'Management'], function () {

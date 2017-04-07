@@ -475,4 +475,9 @@ class EoBillOfLadingController extends Controller
         ];
     }
 
+    public function table_details()
+    {
+
+    }
+
 }
