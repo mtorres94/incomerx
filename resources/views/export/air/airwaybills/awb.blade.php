@@ -148,7 +148,7 @@
                 </td>
             </tr>
             <tr>
-                <td height="20px" colspan="2" width="15%"  style="font-size: 5px; border-left:1px solid black; border-right:1px solid black; border-bottom:1px solid black;"> {{ $airway_bill->destination_id > 0 ? strtoupper($airway_bill->destination->name) : "" }}</td>
+                <td height="20px" colspan="2" width="15%"  style="border-left:1px solid black; border-right:1px solid black; border-bottom:1px solid black;"> {{ $airway_bill->destination_id > 0 ? strtoupper($airway_bill->destination->name) : "" }}</td>
                 <td colspan="3" width="15%" style="border-right: 1px solid black; border-bottom: 1px solid black;">{{ $airway_bill->requested_flight }}</td>
                 <td colspan="5" width="20%"></td>
 
@@ -237,9 +237,9 @@
     <div class="row">
         <table class="table resume-table" style="margin-top: -5px;">
             <tr>
-                <td width="8%" colspan="2" height="5px" style="border-left: 1px solid black; border-right: 1px solid black; font-size: 5px;">Prepaid</td>
-                <td colspan="4" style="border-right: 1px solid black; font-size: 5px;">Weight Charge</td>
-                <td width="8%" colspan="2" style="border-right: 1px solid black; font-size: 5px;">Collected</td>
+                <td width="8%" colspan="2" height="5px" style="border-left: 1px solid black; border-right: 1px solid black; font-size: 5px; border-bottom: 1px solid black;">Prepaid</td>
+                <td colspan="4" align="center" style="border-right: 1px solid black; font-size: 5px;">Weight Charge</td>
+                <td width="8%" colspan="2" style="border-bottom: 1px solid black; border-right: 1px solid black; font-size: 5px;">Collected</td>
                 <td width="65%" colspan="7"></td>
             </tr>
             <tr>
@@ -250,26 +250,26 @@
                 <td width="8%" rowspan="5"></td>
             </tr>
             <tr>
-                <td width="8%" colspan="2" height="5px" style="border-left: 1px solid black;"></td>
-                <td colspan="4" style="font-size: 5px; border-bottom: 1px solid black; border-left: 1px solid black;">Valuation Charge</td>
-                <td width="8%" colspan="2" style="border-right: 1px solid black;"></td>
+                <td width="8%" colspan="2" height="5px" style="border-left: 1px solid black; border-top: 1px solid black;"></td>
+                <td colspan="4" align="center" style="font-size: 5px; border-top: 1px solid black; border-bottom: 1px solid black; border-left: 1px solid black;">Valuation Charge</td>
+                <td width="8%" colspan="2" style="border-right: 1px solid black; border-top: 1px solid black;"></td>
             </tr>
             <tr>
-                <td colspan="4" height="20px"></td>
-                <td colspan="4"></td>
+                <td colspan="4" height="20px" style="border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;"></td>
+                <td colspan="4" style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black;  "></td>
             </tr>
             <tr>
                 <td width="8%" colspan="2" height="5px"></td>
-                <td colspan="4"></td>
+                <td colspan="4" align="center" style="font-size:5px; border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black;">Tax</td>
                 <td width="8%" colspan="2"></td>
             </tr>
             <tr>
-                <td colspan="4" height="20px"></td>
-                <td colspan="4"></td>
+                <td colspan="4" height="20px"  style="border-bottom: 1px solid black; border-left: 1px solid black;"></td>
+                <td colspan="4" style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black;"></td>
             </tr>
             <tr>
                 <td width="8%" colspan="2" height="5px"></td>
-                <td colspan="4"></td>
+                <td colspan="4" style="font-size: 5px; border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black;" align="center">Total Other Charges Due Agent</td>
                 <td width="8%" colspan="2"></td>
                 <td colspan="7" rowspan="5"></td>
             </tr>
@@ -278,22 +278,22 @@
                 <td colspan="4"></td>
             </tr>
             <tr>
-                <td width="8%" colspan="2" height="5px"></td>
-                <td colspan="4"></td>
-                <td width="8%" colspan="2"></td>
+                <td width="8%" colspan="2" height="5px" style="border-top: 1px solid black; border-left: 1px solid black; "></td>
+                <td colspan="4"  style="font-size: 5px; border-bottom: 1px solid black; border-top: 1px solid black; border-left: 1px solid black; border-right: 1px solid black;" align="center">Total Other Charges Due Carrier</td>
+                <td width="8%" colspan="2" style="border-top: 1px solid black; border-left: 1px solid black; "></td>
             </tr>
             <tr>
-                <td colspan="4" height="20px"></td>
-                <td colspan="4"></td>
+                <td colspan="4" height="20px" style="border-bottom: 1px solid black; border-left: 1px solid black; "></td>
+                <td colspan="4" style="border-bottom: 1px solid black; border-left: 1px solid black; "></td>
             </tr>
             <tr>
-                <td colspan="4" width="18%" height="20px"></td>
-                <td colspan="4"></td>
+                <td colspan="4" width="18%" height="20px" style="border-bottom: 1px solid black; border-left: 1px solid black; "></td>
+                <td colspan="4" style="border-bottom: 1px solid black; border-left: 1px solid black; "></td>
             </tr>
             <tr>
-                <td width="2%" height="5px"></td>
-                <td colspan="2"></td>
-                <td width="2%"></td>
+                <td width="2%" height="5px" style="border-top: 1px solid black; "></td>
+                <td colspan="2" style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; "></td>
+                <td width="2%" style="border-top: 1px solid black; "></td>
                 <td width="2%"></td>
                 <td colspan="2"></td>
                 <td width="2%"></td>
