@@ -182,15 +182,10 @@ class InvoiceController extends Controller
         }
         switch($type){
             case 1:
-                return \PDF::loadView('accounting_bridge.invoice_notes.invoices.posted', compact('invoice'))->stream($invoice->code.'.pdf');
+                return \PDF::loadView('accounting_bridge.invoice_notes.invoices.cost_worksheet', compact('invoice'))->stream($invoice->code.'.pdf');
                 break;
             case 2:
-                return \PDF::loadView('accounting_bridge.invoice_notes.invoices.cost_worksheet', compact('invoice'))->stream($invoice->code.'.pdf');
-               // return view('accounting_bridge.invoice_notes.invoices.cost_worksheet', compact('invoice'));
-                break;
-            case 3:
                 return \PDF::loadView('accounting_bridge.invoice_notes.invoices.invoice', compact('invoice'))->stream($invoice->code.'.pdf');
-                //return view('accounting_bridge.invoice_notes.invoices.invoice', compact('invoice'));
                 break;
             default:
                 abort(404);
@@ -244,7 +239,6 @@ class InvoiceController extends Controller
             }
         })->get();
         return \PDF::loadView('accounting_bridge.invoice_notes.invoice_reports.pdf', compact('invoice'))->stream('Invoices Report.pdf');
-        //return view('accounting_bridge.invoice_notes.invoice_reports.pdf', compact('invoice'));
     }
 
     public function autocomplete(Request $request)
@@ -268,5 +262,6 @@ class InvoiceController extends Controller
             return response()->json($results);
         }
     }
+
 
 }

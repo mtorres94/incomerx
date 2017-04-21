@@ -43,7 +43,7 @@
                 <td><strong>File Number: </strong></td>
                 <td>{{ $invoice->shipment_code }}</td>
                 <td><strong>User</strong></td>
-                <td>{{ $invoice->user_create_id > 0 ? strtoupper($invoice->user_create->name) : "" }}</td>
+                <td>{{ $invoice->user_create_id > 0 ? strtoupper($invoice->user_create->username) : "" }}</td>
             </tr>
             <tr>
                 <td><strong>Carrier: </strong></td>
@@ -65,9 +65,11 @@
             </tr>
         </table>
     </div>
+
 <hr>
     <div class="row">
         <div align="center" class="company-info"><p><strong>{{ $invoice->invoice_bill == 'P' ? 'PREPAID' : 'COLLECTED' }} CHARGES</strong></p></div>
+        <br>
         <table class="table table-condensed">
             <thead>
             <tr>
@@ -88,8 +90,8 @@
                        <td>{{ strtoupper($detail->billing_description) }}</td>
                        <td>{{ $detail->billing_customer_id > 0 ? strtoupper($detail->billing_customer->name) : "" }}</td>
                        <td>{{ $detail->billing_rate }}</td>
-                       <td>{{ $detail->billing_amount }}</td>
-                       <td>{{ $detail->cost_amount }}</td>
+                       <td>{{ round($detail->billing_amount, 3) }}</td>
+                       <td>{{ $invoice->class == 'MI' ? $detail->cost_amount : 0.00}}</td>
                        <td>{{ $detail->vendor_id > 0 ? strtoupper($detail->billing_vendor->code) : "" }}</td>
                        <td>{{ $detail->cost_reference}}</td>
                    </tr>

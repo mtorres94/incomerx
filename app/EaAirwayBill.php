@@ -8,7 +8,7 @@ class EaAirwayBill extends Model
 {
     protected $table= 'ea_airwaybills';
     protected $fillable = [
-        'id', 'created_at', 'updated_at', 'user_create_id', 'user_update_id', 'user_open_id', 'code', 'date', 'awb_class', 'awb_type', 'status', 'booking_code', 'departure_date', 'arrival_date', 'shipment_id', 'customer_reference', 'currency_id', 'agent_id', 'agent_phone', 'commission', 'coloader_id', 'agent_iata_code', 'account_number', 'reference_number', 'requested_flight', 'origin_id', 'destination_id', 'carrier_id', 'flight', 'stand_by', 'partial', 'pod_information', 'confirmed', 'shipper_id', 'shipper_address', 'shipper_city', 'shipper_zip_code_id', 'shipper_state_id', 'shipper_phone', 'consignee_id', 'consignee_address', 'consignee_city', 'consignee_zip_code_id', 'consignee_state_id', 'consignee_phone', 'dec_value', 'ins_value', 'cargo_notes', 'sum_pieces', 'total_unit_weight', 'total_commodity', 'sum_weight', 'sum_volume_weight', 'sum_charge_weight', 'sum_bill', 'sum_cost', 'sum_profit', 'credit_comments', 'airwaybill_comments', 'handling_information', 'executed_on', 'signature_shipper', 'issued_notes', 'sum_cubic', 'booking_id', 'carriage_value','customer_value'   ];
+        'id', 'created_at', 'updated_at', 'user_create_id', 'user_update_id', 'user_open_id', 'code', 'date', 'awb_class', 'awb_type', 'status', 'booking_code', 'departure_date', 'arrival_date', 'shipment_id', 'customer_reference', 'currency_id', 'agent_id', 'agent_phone', 'commission', 'coloader_id', 'agent_iata_code', 'account_number', 'reference_number', 'requested_flight', 'origin_id', 'destination_id', 'carrier_id', 'flight', 'stand_by', 'partial', 'pod_information', 'confirmed', 'shipper_id', 'shipper_address', 'shipper_city', 'shipper_zip_code_id', 'shipper_state_id', 'shipper_phone', 'consignee_id', 'consignee_address', 'consignee_city', 'consignee_zip_code_id', 'consignee_state_id', 'consignee_phone', 'dec_value', 'ins_value', 'cargo_notes', 'total_pieces', 'total_weight_unit', 'total_commodity', 'total_gross_weight', 'total_volume_weight', 'total_charge_weight', 'total_bill', 'total_cost', 'total_profit', 'total_profit_percent', 'credit_comments', 'airwaybill_comments', 'handling_information', 'executed_on', 'signature_shipper', 'issued_notes', 'sum_cubic', 'booking_id', 'carriage_value','customer_value', 'sum_total','weight_charge_prepaid','weight_charge_collected','valuation_prepaid','valuation_collected','tax_prepaid','tax_collected','other_prepaid','other_collected','carrier_prepaid','carrier_collected','total_prepaid','total_collected', 'total_rate'];
 
     public function user_create()
     {
@@ -172,10 +172,10 @@ class EaAirwayBill extends Model
             'consignee_phone'=> $booking->consignee_phone,
             'consignee_state_id'=> $booking->consignee_state_id,
             'consignee_zip_code_id'=> $booking->consignee_zip_code_id,
-            'sum_pieces' => $data['sum_pieces'],
-            'sum_weight' => $data['sum_weight'],
-            'sum_volume_weight' => $data['sum_volume_weight'],
-            'sum_charge_weight' => $data['sum_volume_weight'],
+            'total_pieces' => $data['total_pieces'],
+            'total_gross_weight' => $data['total_gross_weight'],
+            'total_volume_weight' => $data['total_volume_weight'],
+            'total_charge_weight' => $data['total_volume_weight'],
             'user_open_id' => $data['user_open_id'],
             'user_create_id' => $data['user_create_id'],
             'user_update_id' => $data['user_update_id'],

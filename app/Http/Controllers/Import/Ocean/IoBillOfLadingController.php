@@ -5,6 +5,10 @@ namespace Sass\Http\Controllers\Import\Ocean;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Sass\AccInvoice;
+use Sass\AccInvoiceCargo;
+use Sass\AccInvoiceCharge;
+use Sass\AccInvoiceContainer;
 use Sass\DataTables\Import\Ocean\IoBillOfLadingDataTable;
 use Sass\Http\Controllers\Controller;
 use Sass\Http\Requests;
@@ -49,11 +53,7 @@ class IoBillOfLadingController extends Controller
     {
         DB::beginTransaction();
         try {
-            /*$last = IoBillOfLading::orderBy('code','desc')->first();
-            $frmt = $last == null ? 1 : intval(substr($last->code, 4)) + 1;
-            $code = str_pad($frmt, 6, '0', 0);*/
             $bill_of_lading= $request->all();
-            //$bill_of_lading['code']="HBL-".$code;
             $bill_of_lading['user_create_id'] = Auth::user()->id;
             $bill_of_lading['user_update_id'] = Auth::user()->id;
             $bill_of_lading['user_open_id'] = Auth::user()->id;
@@ -65,15 +65,21 @@ class IoBillOfLadingController extends Controller
                 else{ $sum_collect+= $bill_of_lading['billing_amount'][$i]; };
                 $i++;
             }
-            $bill_of_lading['sum_prepaid']= $sum_prepaid;
-            $bill_of_lading['sum_collected']= $sum_collect;
+            $bill_of_lading['total_prepaid']= $sum_prepaid;
+            $bill_of_lading['total_collected']= $sum_collect;
+
             $imp=IoBillOfLading::create($bill_of_lading);
+            if($bill_of_lading['bl_class'] == '3'){
+                $bill_of_lading['origin_id'] = $bill_of_lading['port_loading_id'];
+                $bill_of_lading['destination_id'] = $bill_of_lading['port_unloading_id'];
+                $bill_of_lading['carrier_type'] = 'O';
+                $bill_of_lading['source'] = 'OI';
+                $bill_of_lading['code']= $bill_of_lading['mbl_code'];
+                AccInvoice::createInvoice($bill_of_lading, $imp->id);
+            }
             IoBillOfLadingCargo::saveDetail($imp->id, $bill_of_lading);
-            //IoBillOfLadingCargoDetails::saveDetail($imp->id, $bill_of_lading);
             IoBillOfLadingContainer::saveDetail($imp->id, $bill_of_lading);
-            //IoBillOfLadingDestinationCharge::saveDetail($imp->id, $bill_of_lading);
             IoBillOfLadingOriginCharge::saveDetail($imp->id, $bill_of_lading);
-            //IoBillOfLadingTransportation::saveDetail($imp->id, $bill_of_lading);
             $id = $imp->id;
         } catch (ValidationException $e) {
             DB::rollback();
@@ -133,17 +139,21 @@ class IoBillOfLadingController extends Controller
                 else{ $sum_collect+= $bill_of_lading['billing_amount'][$i]; };
                 $i++;
             }
-            $bill_of_lading['sum_prepaid']= $sum_prepaid;
-            $bill_of_lading['sum_collected']= $sum_collect;
+            $bill_of_lading['total_prepaid']= $sum_prepaid;
+            $bill_of_lading['total_collected']= $sum_collect;
+            if($bill_of_lading['bl_class'] == '3'){
+                $bill_of_lading['origin_id'] = $bill_of_lading['port_loading_id'];
+                $bill_of_lading['destination_id'] = $bill_of_lading['port_unloading_id'];
+                $bill_of_lading['carrier_type'] = 'O';
+                $bill_of_lading['source'] = 'OI';
+                $bill_of_lading['code']= $bill_of_lading['mbl_code'];
+                AccInvoice::createInvoice($bill_of_lading, $id);
+            }
             $imp = $sent->update($bill_of_lading);
             $bill_of_lading['user_update_id'] = Auth::user()->id;
-
             IoBillOfLadingCargo::saveDetail($id, $bill_of_lading);
-            //IoBillOfLadingCargoDetails::saveDetail($id, $bill_of_lading);
             IoBillOfLadingContainer::saveDetail($id, $bill_of_lading);
-            //IoBillOfLadingDestinationCharge::saveDetail($id, $bill_of_lading);
             IoBillOfLadingOriginCharge::saveDetail($id, $bill_of_lading);
-            //IoBillOfLadingTransportation::saveDetail($id, $bill_of_lading);
         } catch (ValidationException $e) {
             DB::rollback();
         }
@@ -202,7 +212,7 @@ class IoBillOfLadingController extends Controller
 
         switch ($type) {
             case 1:
-                return \PDF::loadView('import.oceans.bill_of_lading.pre_alert', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
+               return \PDF::loadView('import.oceans.bill_of_lading.pre_alert', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
                 break;
             case 2:
                 return \PDF::loadView('import.oceans.bill_of_lading.delivery_order', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
@@ -212,6 +222,10 @@ class IoBillOfLadingController extends Controller
                 break;
             case 4:
                 return \PDF::loadView('import.oceans.bill_of_lading.arrival_notice', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
+                //return view('import.oceans.bill_of_lading.arrival_notice', compact('bill_of_lading'));
+                break;
+            case 5:
+                return \PDF::loadView('import.oceans.bill_of_lading.freight_invoice', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
                 break;
             default:
                 $response = [''];

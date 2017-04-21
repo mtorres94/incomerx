@@ -41,7 +41,9 @@
             <div class="row">
                 <div class="document-info pull-right">
                     <h5><strong>OCEAN CARGO MANIFEST</strong></h5>
-                    <p class="code-bar">{{ ($bill_of_lading->shipment_id >0 ? $bill_of_lading->shipment->code : "" )}}</p>
+                    {!! DNS2D::getBarcodeSVG(
+                 ($bill_of_lading->shipment_id >0 ? $bill_of_lading->shipment->code : "" )
+                 , "QRCODE", 2, 2) !!}
                     <p class="document_number"><strong>{{ ($bill_of_lading->shipment_id >0 ? $bill_of_lading->shipment->code : "" ) }}</strong></p>
                 </div>
             </div>
@@ -103,16 +105,28 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><p> {{ $bill_of_lading->code }}</p></td>
-                        <td><p> {{ $bill_of_lading->total_pieces }}</p></td>
-                        <td><p> {{ $bill_of_lading->total_weight_kgs }}</p></td>
-                        <td><p> {{ $bill_of_lading->total_charge_weight_kgs }}</p></td>
-                        <td><p> {{ strtoupper($bill_of_lading->cargo->first()->cargo_description) }}</p></td>
+                <tr>
+                    @foreach($bill_of_lading->cargo as $detail)
+
+                        <td>{{ $bill_of_lading->code }}</td>
+                        <td>{{ $detail->cargo_pieces }}</td>
+
+                        <td>{{ $detail->cargo_weight_k}} &nbsp; Kgs<br>{{ $detail->cargo_gross_weight}}&nbsp;Lbs</td>
+                        <td>{{ $detail->cargo_cubic_k}} &nbsp; Cbm<br>{{ $detail->cargo_cubic}}&nbsp;Cft</td>
+                        <td>
+                            @if($bill_of_lading->bl_class == 3)
+                                <?php echo nl2br(str_replace(",", "\n", $detail->cargo_description)); ?>
+                            @else
+                                @for ($x =0; $x < count($result); $x++)
+                                    <?php  echo nl2br($result[$x]['warehouse_code']." ". $result[$x]['detail']."\n"); ?>
+                                @endfor
+                            @endif
+                        </td>
+                    @endforeach
                         <td><p> {{ strtoupper($bill_of_lading->container->first()->container_number) }}</p></td>
                         <td><p> {{ strtoupper($bill_of_lading->container->first()->container_seal_number) }}</p></td>
                         <td><p> {{ strtoupper($bill_of_lading->container->first()->container_comments) }}</p></td>
-                    </tr>
+                </tr>
                 <tr>
                     <td><p><strong>SHIPPER: </strong></p></td>
                     <td colspan="2">
@@ -151,11 +165,11 @@
                     </td>
                     <td>
                         <strong>{{ $bill_of_lading->total_weight_lbs }} Lbs</strong><br>
-                        <strong>{{ round($bill_of_lading->total_weight_lbs *  0.453592, 3) }} Kgs</strong>
+                        <strong>{{ round($bill_of_lading->total_gross_weight *  0.453592, 3) }} Kgs</strong>
                     </td>
                     <td>
-                        <strong>{{ $bill_of_lading->total_charge_weight_lbs }} Lbs</strong><br>
-                        <strong>{{ round($bill_of_lading->total_charge_weight_lbs * 0.453592, 3) }} Kgs</strong>
+                        <strong>{{ $bill_of_lading->total_charge_weight }} Lbs</strong><br>
+                        <strong>{{ round($bill_of_lading->total_charge_weight * 0.453592, 3) }} Kgs</strong>
                     </td>
                 </tr>
                 </tfoot>

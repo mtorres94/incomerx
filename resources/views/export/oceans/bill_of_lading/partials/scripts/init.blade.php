@@ -8,7 +8,7 @@
         renameTab();
         updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('eo_bill_of_lading.close') }}');
 
-        if ($("#open_status").val() == "1" || $("#bl_status").val() == "C") {
+        if ($("#open_status").val() == "1" || $("#status").val() == "C") {
             disableFields('data');
         }
         $('#printer').change(function () {
@@ -37,7 +37,7 @@
             }
         }
 
-        $("#bl_status").val("{{ (isset($bill_of_lading) ? $bill_of_lading->bl_status : "O" )}}").change();
+        $("#status").val("{{ (isset($bill_of_lading) ? $bill_of_lading->status : "O" )}}").change();
 
         $("#billing_bill_party").change(function () {
             var a= $("#billing_bill_party").val();
@@ -129,14 +129,14 @@
         removeEmptyNodes('hazardous-details');
         removeEmptyNodes('chargeDetails');
         removeEmptyNodes('transportation_details');
-        weight_totals();
+
         //===================================================================
 
         $("#code").attr("readonly", true);
         $("#group_by").attr("disabled", true);
-        if($("#bl_date").val() == ''){initDate($("#bl_date"), 0);}
+        if($("#date").val() == ''){initDate($("#date"), 0);}
         $("#bl_type").val("C").change();
-        $("#total_weight_unit_measurement").val("L").change();
+        $("#total_weight_unit").val("L").change();
         $("#rate_class").val("1").change();
 
         $("#currency_type").val("1").change();
@@ -301,7 +301,9 @@
         $("#vehicle_weight_unit").change(function () { calculate_vehicle() });
         $("#vehicle_dim_fact").change(function () { calculate_vehicle() });
 
-        $("#cargo_rate").change(function() { values_box_vehicle()});
+        $("#cargo_rate").change(function() {
+            values_box_vehicle();
+        });
     });
 
     $("#bl_class").val({{ (isset($bill_of_lading) ? $bill_of_lading->bl_class:  "3" ) }}).change();
@@ -318,7 +320,7 @@
 
             success: function (e) {
                 $("#shipment_type").val(e[0].type).change(),
-                    $("#bl_status").val(e[0].bl_status).change(),
+                    $("#status").val(e[0].status).change(),
                     $("#vessel_name").val(e[0].vessel),
                     $("#voyage_name").val(e[0].voyage),
                     $("#carrier_id").val(e[0].carrier_id),
@@ -402,7 +404,7 @@
             success: function (e) {
                 $("#shipment_id").val(e[0].shipment_id).change();
 
-                $("#bl_status").val(e[0].bl_status).change();
+                $("#status").val(e[0].status).change();
                     $("#vessel_name").val(e[0].vessel);
                     $("#voyage_name").val(e[0].voyage);
                     $("#carrier_id").val(e[0].carrier_id);
@@ -617,7 +619,7 @@
                                 .append(createTableContent('cargo_loader_id', e[x].cargo_loader_id, true, x))
                                 .append(createTableContent('inserted_id', e[x].id, true, x))
                                 .append(createTableContent('total_weight_k', (e[x].sum_weight * 0.453592), true, x))
-                                .append(createTableContent('total_cubic_k', (e[x].sum_cubic * 0.453592), true, x))
+                                .append(createTableContent('total_cubic_k', (e[x].sum_cubic * 0.028316), true, x))
                                 .append(createTableContent('total_charge_weight_k', (e[x].volume_weight * 0.453592), true, x))
                                 .append(createTableContent('shipper_id', e[x].shipper_id, true, x))
                                 .append(createTableContent('consignee_id', e[x].consignee, true, x))
@@ -667,10 +669,10 @@
     $("#cargo_amount").attr("readonly", true);
     $("#user_id").attr("readonly", true);
 
-    $("#charges_bill").attr("readonly", true);
-    $("#charges_cost").attr("readonly", true);
-    $("#charges_profit").attr("readonly", true);
-    $("#charges_profit_p").attr("readonly", true);
+    $("#total_bill").attr("readonly", true);
+    $("#total_cost").attr("readonly", true);
+    $("#total_profit").attr("readonly", true);
+    $("#total_profit_percent").attr("readonly", true);
     $("#transportation_plans_amount").attr("readonly", true);
 
     $("#bl_comments_id").change(function(){

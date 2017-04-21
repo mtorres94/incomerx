@@ -27,7 +27,7 @@ class AccInvoiceCharge extends Model
                     $obj-> billing_id = $data['billing_billing_id'][$i];
                     $obj-> billing_description = $data['billing_billing_description'][$i];
                     $obj->bill_type = $data['billing_bill_type'][$i];
-                    $obj->special_billing = $data['special_billing'][$i];
+                    $obj->special_billing = isset($data['special_billing'][$i])? $data['special_billing'][$i] : "";
                     $obj->billing_notes = $data['billing_notes'][$i];
 
                     $obj->billing_quantity=  $data['billing_quantity'][$i];

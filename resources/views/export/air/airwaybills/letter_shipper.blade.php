@@ -43,7 +43,7 @@
     <div class="row">
         <div align="center" class="company-info" >
             <h5><u><strong>CERTIFICATION STATEMENT</strong></u></h5>
-            <p><i>(un-known shipper)</i></p>
+            <p><i>{{ $type =='6' ? '(unknown-shipper)' : '(known shipper)' }}</i></p>
         </div>
     </div>
     <br><br>

@@ -512,4 +512,7 @@ class ReceiptEntryController extends Controller
             return response()->json($results);
         }
     }
+
+
+
 }

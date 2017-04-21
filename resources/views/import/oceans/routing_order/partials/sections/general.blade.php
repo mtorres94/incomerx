@@ -13,7 +13,7 @@
         ), null) !!}</div>
             <div class="col-md-2">{!! Form::bsText(null, null, 'User', 'user_id', ((isset($routing_order) and $routing_order->user_create_id > 0) ? $routing_order->user_create->username :  Auth::user()->username), '') !!}</div>
            <div class="col-md-2">
-                    {!! Form::bsComplete(null, null, 'Quote', 'quote_id', 'quote_code', Request::get('term'), ((isset($routing_order) and $routing_order->quote_id > 0) ? $routing_order->quote->name : null), 'Quotes') !!}
+                    {!! Form::bsSelect(null, null, 'Quote', 'quote_id', Sass\IoQuote::all()->lists('code', 'id'), 'Quotes', 'body', false) !!}
                 </div>
             <div class="col-md-2">
                 {!! Form::bsText(null, null, 'Routing #', 'code', null, ' ') !!}

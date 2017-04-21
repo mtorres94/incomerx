@@ -13,8 +13,8 @@
            <legend>Contact Details</legend>
            <div class="row"><div class="col-md-12">{!! Form::bsText('col-md-2', 'col-md-10', 'Contact', 'contact', null, '') !!}</div></div>
            <div class="row">
-               <div class="col-md-6">{!! Form::bsText('col-md-4', 'col-md-8', 'Phone', 'name', null, '') !!}</div>
-               <div class="col-md-6">{!! Form::bsText('col-md-4', 'col-md-8', 'Fax', 'name', null, '') !!}</div>
+               <div class="col-md-6">{!! Form::bsText('col-md-4', 'col-md-8', 'Phone', 'phone', null, '') !!}</div>
+               <div class="col-md-6">{!! Form::bsText('col-md-4', 'col-md-8', 'Fax', 'fax', null, '') !!}</div>
            </div>
            <div class="row"><div class="col-md-12">{!! Form::bsText('col-md-2', 'col-md-10', 'Email', 'email', null, '') !!}</div></div>
            <div class="row"><div class="col-md-6">{!! Form::bsText('col-md-4', 'col-md-8', 'Account Number', 'account_number', null, '') !!}</div></div>
@@ -23,34 +23,6 @@
            </div>
        </div>
     </div>
-           <!--<div class="btn-group btn-group-sm pull-right" role="group" style="padding-bottom: 10px;">
-               <button type="button" id="btn_contacts"class="btn btn-default" data-toggle="modal" data-target="#contact" onclick="cleanModalFields('contact')">
-                   <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-               </button>
-               <button type="button" class="btn btn-danger" onclick="clearTable('contact_details')">
-                   <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-               </button>
-           </div>
-
-           <table class="table table-bordered table-condensed" id="contact_details">
-               <thead>
-               <tr>
-                   <th hidden></th>
-                   <th width="40%" >Name</th>
-                   <th width="15%" >Fax</th>
-                   <th width="15%" >Phone</th>
-                   <th width="15%" >Mobile</th>
-                   <th width="15%" ></th>
-               </tr>
-               </thead>
-               <tbody>
-
-               </tbody>
-           </table>
-       </div>-->
-
-
-
 <div class="row">
     <div class="col-md-12">
         <div class="form-horizontal">
@@ -73,22 +45,22 @@
             </thead>
             <tbody>
             @if(isset($carrier))
-                @foreach($carrier->awb_number as  $detail)
-                    <tr id="{{ $detail->line }}">
-                    {!! Form::bsRowTd($detail->line , 'line', $detail->line, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'division_id', $detail->division_id, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'division_name', ($detail->division_id > 0 ? $detail->division->name : ""), true) !!}
-                    {!! Form::bsRowTd($detail->line, 'awb_number', $detail->awb_number, false) !!}
-                    {!! Form::bsRowTd($detail->line, 'awb_type', $detail->awb_type, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'awb_type_text', ($detail->awb_type == '1'? "INTERNATIONAL" : "DOMESTIC"), false) !!}
-                    {!! Form::bsRowTd($detail->line, 'sequence_type', $detail->sequence_type, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'agent_id', $detail->agent_id, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'agent_name', strtoupper($detail->agent_id > 0 ? $detail->agent->name : "" ), true) !!}
-                    {!! Form::bsRowTd($detail->line, 'status', $detail->awb_status, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'status_text', ($detail->awb_status == '1' ? "AVAILABLE" : ($detail->awb_status == '2' ? "BOOKED": ($detail->awb_status == '3'? "CANCELLED" : ($detail->awb_status == '4'? "USED": "VOID")))), false) !!}
-                    {!! Form::bsRowTd($detail->line, 'starting',$detail->awb_number, true) !!}
-                    {!! Form::bsRowTd($detail->line, 'ending', "", true) !!}
-                    {!! Form::bsRowTd($detail->line, 'file_number', $detail->file_number, false) !!}
+                @foreach($carrier->awb_number as $key => $detail)
+                    <tr id="{{ $key + 1 }}">
+                    {!! Form::bsRowTd($key + 1 , 'line', $key + 1, true) !!}
+                    {!! Form::bsRowTd($key + 1, 'division_id', $detail->division_id, true) !!}
+                    {!! Form::bsRowTd($key + 1, 'division_name', ($detail->division_id > 0 ? $detail->division->name : ""), true) !!}
+                    {!! Form::bsRowTd($key + 1, 'awb_number', $detail->awb_number, false) !!}
+                    {!! Form::bsRowTd($key + 1, 'awb_type', $detail->awb_type, true) !!}
+                    {!! Form::bsRowTd($key + 1, 'awb_type_text', ($detail->awb_type == '1'? "INTERNATIONAL" : "DOMESTIC"), false) !!}
+                    {!! Form::bsRowTd($key + 1, 'sequence_type', $detail->sequence_type, true) !!}
+                    {!! Form::bsRowTd($key + 1, 'agent_id', $detail->agent_id, true) !!}
+                    {!! Form::bsRowTd($key + 1, 'agent_name', strtoupper($detail->agent_id > 0 ? $detail->agent->name : "" ), true) !!}
+                    {!! Form::bsRowTd($key + 1, 'status', $detail->awb_status, true) !!}
+                    {!! Form::bsRowTd($key + 1, 'status_text', ($detail->awb_status == '1' ? "AVAILABLE" : ($detail->awb_status == '2' ? "BOOKED": ($detail->awb_status == '3'? "CANCELLED" : ($detail->awb_status == '4'? "USED": "VOID")))), false) !!}
+                    {!! Form::bsRowTd($key + 1, 'starting',$detail->awb_number, true) !!}
+                    {!! Form::bsRowTd($key + 1, 'ending', "", true) !!}
+                    {!! Form::bsRowTd($key + 1, 'file_number', $detail->file_number, false) !!}
                     </tr>
                 @endforeach
             @endif

@@ -33,7 +33,7 @@
         {!! Form::bsMemo(null, null,'Comments', 'bill_comments', null, 3, '') !!}
     </div>
     <div class="col-md-2">
-        {!! Form::bsSelect(null, null, ' Status', 'status', array('O' => 'ORIGINAL B/L REQUIRED','E' => 'EXPRESS RELEASE','RD' => 'OBL RECEIVED DATE'), null) !!}
+        {!! Form::bsSelect(null, null, ' Status', 'bl_status', array('O' => 'ORIGINAL B/L REQUIRED','E' => 'EXPRESS RELEASE','RD' => 'OBL RECEIVED DATE'), null) !!}
     </div>
 </div>
 <!-- Modal forms section -->

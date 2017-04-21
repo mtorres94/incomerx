@@ -25,6 +25,10 @@
 
 <body>
 <div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-6" align="left"><strong>{{ substr($airway_bill->code, 5) }}</strong></div>
+        <div class="col-xs-6" align="right"><strong>{{ substr($airway_bill->code, 5) }}</strong></div>
+    </div>
   <div class="row">
           <table class="table resume-table">
               <tr>
@@ -137,7 +141,7 @@
             <tr>
                 <td height="5px" colspan="2" width="15%" style="font-size: 5px; border-left:1px solid black; border-right:1px solid black; ">Airport of Destination</td>
                 <td width="7%"></td>
-                <td colspan="4" width="20%" style="font-size: 5px; border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black;">Requested Flight/Date</td>
+                <td colspan="4" width="20%" style="font-size: 5px; border: 1px solid black;">Requested Flight/Date</td>
                 <td colspan="3" width="8%"></td>
 
                 <td colspan="4" style="font-size: 5px; border-left: 1px solid black; border-right: 1px solid black;">Amount of Insurance</td>
@@ -149,7 +153,7 @@
             </tr>
             <tr>
                 <td height="20px" colspan="2" width="15%"  style="border-left:1px solid black; border-right:1px solid black; border-bottom:1px solid black;"> {{ $airway_bill->destination_id > 0 ? strtoupper($airway_bill->destination->name) : "" }}</td>
-                <td colspan="3" width="15%" style="border-right: 1px solid black; border-bottom: 1px solid black;">{{ $airway_bill->requested_flight }}</td>
+                <td colspan="3" width="15%" style="border-right: 1px solid black;  border-bottom: 1px solid black;">{{ $airway_bill->requested_flight }}</td>
                 <td colspan="5" width="20%"></td>
 
                 <td colspan="4" style="border-left: 1px solid black;">{{ $airway_bill->ins_value > 0 ?  $airway_bill->ins_value : "N.I.L"}}</td>
@@ -170,7 +174,7 @@
             </tr>
         </table>
     </div>
-    <div class="row">
+    <div class="row" >
         <table class="table resume-table" style="margin-top: -5px;">
             <tr>
                 <td rowspan="2" align="center" width="5%" style="font-size:5px; border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black;">No of Pieces RPC</td>
@@ -201,142 +205,147 @@
                 <td width="1%" style="border-right: 1px solid black;"></td>
             </tr>
             <tr>
-                <td height="250px" width="5%"></td>
-                <td width="8%"></td>
-                <td width="2%"></td>
-                <td width="1%"></td>
-                <td width="2%"></td>
-                <td width="5%"></td>
-                <td width="1%"></td>
-                <td width="13%"></td>
-                <td width="1%"></td>
-                <td width="10%"></td>
-                <td width="1%"></td>
-                <td width="20%"></td>
-                <td width="1%"></td>
-                <td width="30%"></td>
+                    <td height="280px" width="5%" style="border-right:1px solid black; border-left:1px solid black;">{{ $airway_bill->total_pieces }}</td>
+                    <td width="8%" style="border-right:1px solid black;">{{ $airway_bill->total_gross_weight }}</td>
+                    <td width="2%" style="border-right:1px solid black;">{{ $airway_bill->total_weight_unit }}</td>
+                    <td width="2px" style="border-right:1px solid black;"></td>
+                    <td width="2%" style="border-right:1px solid black;"></td>
+                    <td width="5%" style="border-right:1px solid black;"></td>
+                    <td width="2px" style="border-right:1px solid black;"></td>
+                    <td width="13%" style="border-right:1px solid black;">{{ $airway_bill->total_charge_weight }}</td>
+                    <td width="2px" style="border-right:1px solid black;"></td>
+                    <td width="10%" style="border-right:1px solid black;">{{ $airway_bill->total_rate}}</td>
+                    <td width="2px" style="border-right:1px solid black;"></td>
+                    <td width="20%" style="border-right:1px solid black;"> {{ $airway_bill->sum_total }}</td>
+                    <td width="2px" style="border-right:1px solid black;"> </td>
+                    <td style="border-right:1px solid black;" rowspan="2">{{ $airway_bill->cargo_notes }}</td>
             </tr>
             <tr>
-                <td height="20px" width="5%" style="border-bottom: 1px solid black; border-top:1px solid black;border-right:1px solid black; border-left:1px solid black;"></td>
-                <td width="8%" style="border-bottom: 1px solid black; border-top:1px solid black;border-right:1px solid black;"></td>
-                <td width="2%" style="border-bottom: 1px solid black; border-top:1px solid black;border-right:1px solid black;"></td>
-                <td width="1%" style="border-bottom: 1px solid black; border-top:1px solid black;border-right:1px solid black;"></td>
-                <td width="2%" style="border-bottom: 1px solid black; border-top:1px solid black;border-right:1px solid black;"></td>
-                <td width="5%" style="border-bottom: 1px solid black; border-top:1px solid black;border-right:1px solid black;"></td>
-                <td width="1%" style="border-bottom: 1px solid black; border-top:1px solid black;border-right:1px solid black;"></td>
-                <td width="13%" style="border-bottom: 1px solid black; border-top:1px solid black;border-right:1px solid black;"></td>
-                <td width="1%" style="border-bottom: 1px solid black; border-top:1px solid black;border-right:1px solid black;"></td>
-                <td width="10%" style="border-bottom: 1px solid black; border-top:1px solid black;border-right:1px solid black;"></td>
-                <td width="1%" style="border-bottom: 1px solid black; border-top:1px solid black;border-right:1px solid black;"></td>
-                <td width="20%" style="border-bottom: 1px solid black; border-top:1px solid black;border-right:1px solid black;"></td>
-                <td width="1%" style="border-bottom: 1px solid black; border-top:1px solid black;border-right:1px solid black;"></td>
-                <td width="30%" style="border-bottom: 1px solid black; border-top:1px solid black;border-right:1px solid black;"></td>
+                <td height="15px" width="5%" style="border-right:1px solid black; border-left:1px solid black;">{{ $airway_bill->total_pieces }}</td>
+                <td width="8%" style="border-right:1px solid black;">{{ $airway_bill->total_gross_weight}}</td>
+                <td width="2%" style="border-right:1px solid black;">{{ $airway_bill->total_weight_unit }}</td>
+                <td width="2px" style="border-right:1px solid black;"></td>
+                <td width="2%" style="border-right:1px solid black;"></td>
+                <td width="5%" style="border-right:1px solid black;"><strong>TSA#:</strong></td>
+                <td width="2px" style="border-right:1px solid black;"></td>
+                <td width="13%" style="border-right:1px solid black;"></td>
+                <td width="2px" style="border-right:1px solid black;"></td>
+                <td width="10%" style="border-right:1px solid black;">{{ $airway_bill->total_rate}}</td>
+                <td width="2px" style="border-right:1px solid black;"></td>
+                <td width="20%" style="border-right:1px solid black;">{{ $airway_bill->sum_total}}</td>
+                <td width="2px" style="border-right:1px solid black;"> </td>
             </tr>
         </table>
     </div>
     <div class="row">
         <table class="table resume-table" style="margin-top: -5px;">
             <tr>
-                <td width="8%" colspan="2" height="5px" style="border-left: 1px solid black; border-right: 1px solid black; font-size: 5px; border-bottom: 1px solid black;">Prepaid</td>
-                <td colspan="4" align="center" style="border-right: 1px solid black; font-size: 5px;">Weight Charge</td>
-                <td width="8%" colspan="2" style="border-bottom: 1px solid black; border-right: 1px solid black; font-size: 5px;">Collected</td>
-                <td width="65%" colspan="7"></td>
+                <td width="8%" colspan="2" style="font-size: 5px; border-top: 1px solid; border-left: 1px solid; border-right: 1px solid;" align="center">Prepaid</td>
+                <td colspan="4" style="font-size: 5px; border-top: 1px solid; border-right: 1px solid;" align="center">Weight Charge</td>
+                <td width="8%" colspan="2" style="font-size: 5px; border-top: 1px solid; border-right: 1px solid;" align="center">Collect</td>
+                <td width="60%" colspan="7" style="font-size: 5px; border-top: 1px solid; border-right: 1px solid;">Other Charges</td>
             </tr>
             <tr>
-                <td colspan="4" style="border-left: 1px solid black;"></td>
-                <td colspan="4" height="20px" style="border-left: 1px solid black;"></td>
-                <td colspan="4" width="30%" rowspan="5" style="border-left: 1px solid black;"></td>
-                <td colspan="2" rowspan="5"></td>
-                <td width="8%" rowspan="5"></td>
+                <td colspan="4" height="15px" style="border-top: 1px solid; border-right: 1px solid;  border-left: 1px solid;">{{ $airway_bill->weight_charge_prepaid }}</td>
+                <td colspan="4" height="15px" style="border-top: 1px solid; border-right: 1px solid;">{{ $airway_bill->weight_charge_collected }}</td>
+                <td width="30%" colspan="5" rowspan="5"  ></td>
+                <td width="20%" rowspan="5"></td>
+                <td rowspan="5" style="border-right: 1px solid;"></td>
             </tr>
             <tr>
-                <td width="8%" colspan="2" height="5px" style="border-left: 1px solid black; border-top: 1px solid black;"></td>
-                <td colspan="4" align="center" style="font-size: 5px; border-top: 1px solid black; border-bottom: 1px solid black; border-left: 1px solid black;">Valuation Charge</td>
-                <td width="8%" colspan="2" style="border-right: 1px solid black; border-top: 1px solid black;"></td>
+                <td width="8%" colspan="2" style="border-right: 1px solid; border-top: 1px solid; border-left: 1px solid; "></td>
+                <td colspan="4" width="24%" style="font-size: 5px; border-right: 1px solid; border-top: 1px solid; border-bottom: 1px solid;" align="center">Valuation Charge</td>
+                <td width="8%" colspan="2"  style="border-right: 1px solid; border-top: 1px solid;"></td>
             </tr>
             <tr>
-                <td colspan="4" height="20px" style="border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;"></td>
-                <td colspan="4" style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black;  "></td>
+                <td colspan="4" height="15px" style="border-right: 1px solid; border-left: 1px solid; ">{{ $airway_bill->valuation_prepaid }}</td>
+                <td colspan="4" height="15px" style="border-right: 1px solid; ">{{ $airway_bill->valuation_collected }}</td>
             </tr>
             <tr>
-                <td width="8%" colspan="2" height="5px"></td>
-                <td colspan="4" align="center" style="font-size:5px; border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black;">Tax</td>
-                <td width="8%" colspan="2"></td>
+                <td width="8%" colspan="2" style="border-right: 1px solid; border-top: 1px solid; border-left: 1px solid; "></td>
+                <td colspan="4"  style="font-size: 5px; border-right: 1px solid; border-top: 1px solid; border-bottom: 1px solid;" align="center">Tax</td>
+                <td width="8%" colspan="2" style="border-right: 1px solid; border-top: 1px solid;"></td>
             </tr>
             <tr>
-                <td colspan="4" height="20px"  style="border-bottom: 1px solid black; border-left: 1px solid black;"></td>
-                <td colspan="4" style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black;"></td>
+                <td colspan="4" height="15px" style="border-right: 1px solid; border-left: 1px solid; ">{{ $airway_bill->tax_prepaid }}</td>
+                <td colspan="4" height="15px" style="border-right: 1px solid; ">{{ $airway_bill->tax_collected }}</td>
             </tr>
             <tr>
-                <td width="8%" colspan="2" height="5px"></td>
-                <td colspan="4" style="font-size: 5px; border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black;" align="center">Total Other Charges Due Agent</td>
-                <td width="8%" colspan="2"></td>
-                <td colspan="7" rowspan="5"></td>
+                <td width="8%" colspan="2" style="border-right: 1px solid; border-top: 1px solid;  border-left: 1px solid; "></td>
+                <td colspan="4"  style="font-size: 5px; border-right: 1px solid; border-top: 1px solid; border-bottom: 1px solid;" align="center">Total Other Charges Due Agent</td>
+                <td width="8%" colspan="2" style="font-size: 5px; border-right: 1px solid; border-top: 1px solid;"></td>
+                <td width="60%" colspan="7" rowspan="2"  style="font-size: 5px; border-right: 1px solid; border-top: 1px solid;">
+                Shipper certifies that the particulars on the face hereof are correct and that insofar as any part of the consigment<br>
+                contains dangerous goods, such part is properly described by name and is in proper condition for carriage by air<br>
+                according to the applicable Dangerous Goods Regulations.
+                </td>
             </tr>
             <tr>
-                <td colspan="4" height="20px"></td>
-                <td colspan="4"></td>
+                <td colspan="4" height="15px" style="border-right: 1px solid; border-left: 1px solid; ">{{ $airway_bill->other_prepaid }}</td>
+                <td colspan="4" height="15px" style="border-right: 1px solid; border-left: 1px solid; ">{{ $airway_bill->other_collected }}</td>
             </tr>
             <tr>
-                <td width="8%" colspan="2" height="5px" style="border-top: 1px solid black; border-left: 1px solid black; "></td>
-                <td colspan="4"  style="font-size: 5px; border-bottom: 1px solid black; border-top: 1px solid black; border-left: 1px solid black; border-right: 1px solid black;" align="center">Total Other Charges Due Carrier</td>
-                <td width="8%" colspan="2" style="border-top: 1px solid black; border-left: 1px solid black; "></td>
+                <td width="8%" colspan="2" style="border-right: 1px solid; border-top: 1px solid; border-left: 1px solid; "></td>
+                <td colspan="4"  style="font-size: 5px; border-right: 1px solid; border-top: 1px solid; border-bottom: 1px solid; " align="center">Total Other Charges Due Carrier</td>
+                <td width="8%" colspan="2"  style="border-right: 1px solid; border-top: 1px solid; border-left: 1px solid; "></td>
+                <td width="60%" colspan="7" rowspan="2"  style="border-right: 1px solid; border-left: 1px solid; ">
+                    VECO LOGISTICS MIAMI<br>
+                    AUTHORIZED AGENT FOR INDUSTRIAL PARTS DEPOT LLC<br>
+                </td>
             </tr>
             <tr>
-                <td colspan="4" height="20px" style="border-bottom: 1px solid black; border-left: 1px solid black; "></td>
-                <td colspan="4" style="border-bottom: 1px solid black; border-left: 1px solid black; "></td>
+                <td colspan="4" height="15px"  style="border-right: 1px solid; border-left: 1px solid; ">{{ $airway_bill->carrier_prepaid }}</td>
+                <td colspan="4" height="15px"  style="border-right: 1px solid; ">{{ $airway_bill->carrier_collected }}</td>
             </tr>
             <tr>
-                <td colspan="4" width="18%" height="20px" style="border-bottom: 1px solid black; border-left: 1px solid black; "></td>
-                <td colspan="4" style="border-bottom: 1px solid black; border-left: 1px solid black; "></td>
+                <td colspan="4" height="15px"  style="border-right: 1px solid; border-top: 1px solid; border-left: 1px solid; "></td>
+                <td colspan="4" height="15px"  style="border-right: 1px solid; border-top: 1px solid;"></td>
+                <td width="60%" colspan="7" style="font-size: 5px;  border-top: 1px dashed; border-right: 1px solid;" align="center">Signature of Shipper of this agent</td>
             </tr>
             <tr>
-                <td width="2%" height="5px" style="border-top: 1px solid black; "></td>
-                <td colspan="2" style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; "></td>
-                <td width="2%" style="border-top: 1px solid black; "></td>
-                <td width="2%"></td>
-                <td colspan="2"></td>
-                <td width="2%"></td>
-                <td colspan="7" rowspan="3"></td>
+                <td width="2%" style="border-right: 1px solid; border-top: 1px solid; border-left: 1px solid; "></td>
+                <td  colspan="2"  style="font-size: 5px; border-right: 1px solid; border-top: 1px solid; border-bottom: 1px solid; " align="center">Total Prepaid</td>
+                <td width="2%" style="border-right: 1px solid; border-top: 1px solid; "></td>
+                <td width="2%" style="border-right: 1px solid; border-top: 1px solid; "></td>
+                <td colspan="2" style="font-size: 5px; border-right: 1px solid; border-top: 1px solid;  border-bottom: 1px solid;" align="center">Total Collect</td>
+                <td width="2%"  style="border-right: 1px solid; border-top: 1px solid;"></td>
+                <td width="60%" colspan="7" rowspan="3" style="border-right: 1px solid; border-top: 1px solid; ">
+                    VECO LOGISTICS MIAMI AS AGENT FOR CARRIER {{ $airway_bill->carrier_id > 0 ? strtoupper($airway_bill->carrier->name) : "" }}<br>
+                    {{ $airway_bill->date }} &nbsp; MIAMI INTERNATIONAL AIRPORT FERNANDO PUGA
+                </td>
             </tr>
             <tr>
-                <td colspan="2" height="20px"></td>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
+                <td colspan="4" height="15px" style="border-right: 1px solid; border-left: 1px solid;">{{ $airway_bill->total_prepaid }}</td>
+                <td colspan="4" height="15px" style="border-right: 1px solid; ">{{ $airway_bill->total_collected }}</td>
             </tr>
             <tr>
-                <td width="2%" height="5px"></td>
-                <td colspan="2"></td>
-                <td width="2%"></td>
-                <td width="2%"></td>
-                <td colspan="2"></td>
-                <td width="2%"></td>
+                <td width="2%" style="border-right: 1px solid; border-top: 1px solid; border-left: 1px solid;"></td>
+                <td  colspan="2" style="font-size: 5px; border-right: 1px solid; border-top: 1px solid;  border-bottom: 1px solid;" align="center">Currency Conversion Rate</td>
+                <td width="2%" style="border-right: 1px solid; border-top: 1px solid;"></td>
+                <td width="2%" style="border-right: 1px solid; border-top: 1px solid;"></td>
+                <td  colspan="2" style="font-size: 5px; border-right: 1px solid; border-top: 1px solid;  border-bottom: 1px solid;" align="center">CC Charge in dest. Currency</td>
+                <td width="2%" style="border-right: 1px solid; border-top: 1px solid;"></td>
             </tr>
             <tr>
-                <td colspan="2" height="20px"></td>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
-                <td colspan="3"></td>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
+                <td colspan="4" height="15px" style="border-right: 1px solid; border-left: 1px solid;"></td>
+                <td colspan="4" height="15px" style="border-right: 1px solid; "></td>
+                <td colspan="4" style="font-size: 5px; border-top: 1px dashed;  border-bottom: 1px solid; " align="center">Excecuted on (date)</td>
+                <td style="font-size: 5px; border-top: 1px dashed;  border-bottom: 1px solid;" align="right">At (place)</td>
+                <td style="font-size: 5px; border-top: 1px dashed;  border-bottom: 1px solid; border-right: 1px solid;" align="center" colspan="2">Signature of issuing Carrier or its Agent</td>
             </tr>
             <tr>
-                <td colspan="4" rowspan="2" ></td>
-                <td width="2%"  height="5px"></td>
-                <td colspan="2"></td>
-                <td width="2%"></td>
-                <td width="2%"  height="5px"></td>
-                <td width="12%"></td>
-                <td width="2%"></td>
-                <td colspan="3" rowspan="2"></td>
-                <td rowspan="2"></td>
+                <td colspan="4" rowspan="2" style="font-size: 7px; border: 1px solid; " align="center">For Carriers Use Only <br> at Destination</td>
+                <td width="2%" style="border-right: 1px solid; border-top: 1px solid;"></td>
+                <td colspan="2"  style="font-size: 5px; border-right: 1px solid; border-top: 1px solid; border-bottom: 1px solid;" align="center">Charges at Destination</td>
+                <td width="2%"  style="border-right: 1px solid; border-top: 1px solid;"></td>
+                <td width="2%"  style="border-right: 1px solid; border-top: 1px solid;"></td>
+                <td colspan="2" width="12%" style="font-size: 5px; border-right: 1px solid; border-top: 1px solid; border-bottom: 1px solid;" align="center">Total Collect Charges</td>
+                <td width="2%"  style="border-right: 1px solid; border-top: 1px solid;"></td>
             </tr>
             <tr>
-                <td colspan="2"></td>
-                <td colspan="2" height="20px"></td>
-                <td colspan="3"></td>
+                <td colspan="4" height="15px" style="border-right: 1px solid; border-bottom: 1px solid;  border-left: 1px solid;"></td>
+                <td colspan="4" height="15px" style="border-right: 1px solid; border-bottom: 1px solid;  border-left: 1px solid;"></td>
+                <td colspan="3" align="right"><h5><strong>{{ substr($airway_bill->code, 5) }}</strong></h5></td>
             </tr>
         </table>
     </div>

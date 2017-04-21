@@ -8,7 +8,7 @@ class EaLoadingGuide extends Model
 {
     protected $table= 'ea_loading_guides';
     protected $fillable = [
-        'id', 'created_at', 'updated_at', 'user_create_id', 'user_update_id', 'user_open_id', 'code', 'date', 'shipment_type', 'shipment_id', 'status', 'carrier_id', 'origin_id', 'destination_id', 'via_id', 'agent_id', 'flight', 'release_date', 'cut_off_date', 'departure_date', 'arrival_date', 'sum_total_pieces', 'sum_total_volume', 'sum_total_weight', 'sum_total_cubic', 'booking_code', 'booking_id'
+        'id', 'created_at', 'updated_at', 'user_create_id', 'user_update_id', 'user_open_id', 'code', 'date', 'shipment_type', 'shipment_id', 'status', 'carrier_id', 'origin_id', 'destination_id', 'via_id', 'agent_id', 'flight', 'release_date', 'cut_off_date', 'departure_date', 'arrival_date', 'sum_total_pieces', 'sum_total_volume', 'sum_total_weight', 'sum_total_cubic', 'booking_code', 'booking_id', 'comments', 'marks'
     ];
 
     public function user_create()

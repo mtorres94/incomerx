@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
+use Sass\AccInvoice;
+use Sass\AccInvoiceCargo;
+use Sass\AccInvoiceCharge;
+use Sass\AccInvoiceContainer;
 use Sass\DataTables\Import\Air\IaBillOfLadingDataTable;
 use Sass\Http\Controllers\Controller;
 use Sass\Http\Requests;
@@ -59,9 +63,16 @@ class IaBillOfLadingController extends Controller
                 else{ $sum_collect+= $bill_of_lading['billing_amount'][$i]; };
                 $i++;
             }
-            $bill_of_lading['sum_prepaid']= $sum_prepaid;
-            $bill_of_lading['sum_collected']= $sum_collect;
+            $bill_of_lading['total_prepaid']= $sum_prepaid;
+            $bill_of_lading['total_collected']= $sum_collect;
             $imp=IaBillOfLading::create($bill_of_lading);
+            if($bill_of_lading['bl_class'] == '3'){
+                $bill_of_lading['carrier_type'] = 'A';
+                $bill_of_lading['origin_id'] = $bill_of_lading['port_loading_id'];
+                $bill_of_lading['destination_id'] = $bill_of_lading['port_unloading_id'];
+                $bill_of_lading['source']='AI';
+                AccInvoice::createInvoice($bill_of_lading, $imp->id);
+            }
             IaBillOfLadingCargo::saveDetail($imp->id, $bill_of_lading);
             IaBillOfLadingOriginCharge::saveDetail($imp->id, $bill_of_lading);
             $id = $imp->id;
@@ -121,11 +132,17 @@ class IaBillOfLadingController extends Controller
                 else{ $sum_collect+= $bill_of_lading['billing_amount'][$i]; };
                 $i++;
             }
-            $bill_of_lading['sum_prepaid']= $sum_prepaid;
-            $bill_of_lading['sum_collected']= $sum_collect;
+            $bill_of_lading['total_prepaid']= $sum_prepaid;
+            $bill_of_lading['total_collected']= $sum_collect;
             $sent->update($bill_of_lading);
             $bill_of_lading['user_update_id'] = Auth::user()->id;
-
+            if($bill_of_lading['bl_class'] == '3'){
+                $bill_of_lading['carrier_type'] = 'A';
+                $bill_of_lading['origin_id'] = $bill_of_lading['port_loading_id'];
+                $bill_of_lading['destination_id'] = $bill_of_lading['port_unloading_id'];
+                $bill_of_lading['source']='AI';
+                AccInvoice::createInvoice($bill_of_lading, $id);
+            }
             IaBillOfLadingCargo::saveDetail($id, $bill_of_lading);
             IaBillOfLadingOriginCharge::saveDetail($id, $bill_of_lading);
         } catch (ValidationException $e) {
@@ -169,6 +186,12 @@ class IaBillOfLadingController extends Controller
                 break;
             case 4:
                 return \PDF::loadView('import.air.bill_of_lading.arrival_notice', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
+                break;
+            case 5:
+                return \PDF::loadView('import.air.bill_of_lading.pickup_order', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
+                break;
+            case 6:
+                return \PDF::loadView('import.air.bill_of_lading.shipment_advice', compact('bill_of_lading'))->stream($bill_of_lading->code.'.pdf');
                 break;
             default:
                 $response = [''];

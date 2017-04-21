@@ -31,7 +31,9 @@
         <div class="col-xs-12">
             <div align="center" class="company-info" >
                 <h5><strong>PRE-ALERT</strong></h5>
-                <p class="code-bar">{{ $airway_bill->code }}</p>
+                {!! DNS2D::getBarcodeSVG(
+                $airway_bill->code
+                , "QRCODE", 2, 2) !!}
                 <p class="document_number">{{ $airway_bill->code }}</p>
                 <br/>
                 <h5><strong>VECO LOGISTICS MIAMI INC.</strong></h5>
@@ -43,80 +45,91 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">SHIPPER</div>
-                <div class="panel-body">
-                    <p>{{ strtoupper($airway_bill->shipper_id > 0 ? $airway_bill->shipper->name : "") }}</p>
-                    <p>{{ strtoupper($airway_bill->shipper_address) }}</p>
-                    <p>{{ strtoupper($airway_bill->shipper_city) }} {{ strtoupper($airway_bill->shipper_state_id > 0 ? ", ".$airway_bill->shipper_state->name : "") }}{{ $airway_bill->shipper_zip_code_id > 0 ? $airway_bill->shipper_zip_code->code : "" }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">CONSIGNEE</div>
-                <div class="panel-body">
-                    <p>{{ strtoupper($airway_bill->consignee_id > 0 ? $airway_bill->consignee->name : "") }}</p>
-                    <p>{{ strtoupper($airway_bill->consignee_address) }}</p>
-                    <p>{{ strtoupper($airway_bill->consignee_city) }} {{ strtoupper($airway_bill->consignee_state_id > 0 ? ", ".$airway_bill->consignee_state->name : "") }}{{ $airway_bill->consignee_zip_code_id > 0 ? $airway_bill->consignee_zip_code->code : "" }}</p>
-                </div>
-            </div>
-        </div>
+    <div class="row" align="center">
+        <table class="resume-table" width="50%">
+            <tr>
+                <td width="20%" align="right"><strong>Shipper</strong></td>
+                <td width="80%" style="border:1px solid;" height="80px">
+                    <p>{{ strtoupper($airway_bill->shipper_id > 0 ? $airway_bill->shipper->name : "") }}<br>
+                    {{ strtoupper($airway_bill->shipper_address) }}<br>
+                    {{ strtoupper($airway_bill->shipper_city) }} {{ strtoupper($airway_bill->shipper_state_id > 0 ? ", ".$airway_bill->shipper_state->name : "") }}{{ $airway_bill->shipper_zip_code_id > 0 ? $airway_bill->shipper_zip_code->code : "" }}</p>
+                </td>
+            </tr>
+            <tr><td height="20px"></td></tr>
+            <tr>
+                <td width="20%" align="right"><strong>Consignee</strong></td>
+                <td width="80%" style="border:1px solid;" height="80px">
+                    <p>{{ strtoupper($airway_bill->consignee_id > 0 ? $airway_bill->consignee->name : "") }}<br>
+                    {{ strtoupper($airway_bill->consignee_address) }}<br>
+                    {{ strtoupper($airway_bill->consignee_city) }} {{ strtoupper($airway_bill->consignee_state_id > 0 ? ", ".$airway_bill->consignee_state->name : "") }}{{ $airway_bill->consignee_zip_code_id > 0 ? $airway_bill->consignee_zip_code->code : "" }}</p>
+                </td>
+            </tr>
+        </table>
     </div>
-    <div class="row">
+    <br>
+    <div class="row" align="center">
         <div class="col-xs-12">
-            <table class="tabla resume-table" align="center">
+            <table class="resume-table" >
                 <tr>
-                    <td><strong>FILE NUMBER:</strong></td>
-                    <td><p>{{ strtoupper($airway_bill->shipment_id > 0 ? $airway_bill->shipment->code : "") }}</p></td>
+                    <td height="20px"><strong>FILE NUMBER:</strong></td>
+                    <td>{{ strtoupper($airway_bill->shipment_id > 0 ? $airway_bill->shipment->code : "") }}</td>
                 </tr>
                 <tr>
-                    <td><strong>MAWB#:</strong></td>
-                    <td><p>{{ strtoupper($airway_bill->booking_code) }}</p></td>
+                    <td height="20px"><strong>MAWB#:</strong></td>
+                    <td>{{ strtoupper($airway_bill->booking_code) }}</td>
                 </tr>
                 <tr>
-                    <td><strong>HAWB#:</strong></td>
-                    <td><p>{{ strtoupper($airway_bill->code) }}</p></td>
+                    <td height="20px"><strong>HAWB#:</strong></td>
+                    <td>{{ strtoupper($airway_bill->code) }}</td>
+                </tr>
+                <tr><td height="20px"></td></tr>
+                <tr>
+                    <td height="20px"><strong>CARRIER:</strong></td>
+                    <td>{{ strtoupper($airway_bill->carrier_id >0 ? $airway_bill->carrier->name : "") }}</td>
                 </tr>
                 <tr>
-                    <td><strong>CARRIER:</strong></td>
-                    <td><p>{{ strtoupper($airway_bill->carrier_id >0 ? $airway_bill->carrier->name : "") }}</p></td>
+                    <td height="20px"><strong>FLIGHT:</strong></td>
+                    <td>{{ $airway_bill->flight }}</td>
+                </tr>
+                <tr><td height="20px"></td></tr>
+                <tr>
+                    <td height="20px"><strong>DEPARTURE:</strong></td>
+                    <td>{{ $airway_bill->departure_date }}</td>
                 </tr>
                 <tr>
-                    <td><strong>FLIGHT:</strong></td>
-                    <td><p>{{ $airway_bill->flight }}</p></td>
+                    <td height="20px"><strong>ARRIVAL:</strong></td>
+                    <td>{{ $airway_bill->arrival_date }}</td>
+                </tr>
+                <tr><td height="20px"></td></tr>
+                <tr>
+                    <td height="20px"><strong>ORIGIN:</strong></td>
+                    <td>{{ strtoupper( $airway_bill->origin_id > 0 ? $airway_bill->origin->name : "") }}</td>
                 </tr>
                 <tr>
-                    <td><strong>DEPARTURE:</strong></td>
-                    <td><p>{{ $airway_bill->departure_date }}</p></td>
+                    <td height="20px"><strong>DESTINATION:</strong></td>
+                    <td>{{ strtoupper( $airway_bill->destination_id > 0 ? $airway_bill->destination->name : "") }}</td>
+                </tr>
+                <tr><td height="20px"></td></tr>
+                <tr>
+                    <td height="20px"><strong>PIECES:</strong></td>
+                    <td>{{ strtoupper($airway_bill->total_pieces) }}</td>
                 </tr>
                 <tr>
-                    <td><strong>ARRIVAL:</strong></td>
-                    <td><p>{{ $airway_bill->arrival_date }}</p></td>
+                    <td height="20px"><strong>WEIGHT:</strong></td>
+                    <td>{{ $airway_bill->total_weight_unit =='K' ? $airway_bill->total_gross_weight : round($airway_bill->total_gross_weight * 0.453592, 3) }} Kgs </td>
                 </tr>
                 <tr>
-                    <td><strong>ORIGIN:</strong></td>
-                    <td><p>{{ strtoupper( $airway_bill->origin_id > 0 ? $airway_bill->origin->name : "") }}</p></td>
-                </tr>
-                <tr>
-                    <td><strong>DESTINATION:</strong></td>
-                    <td><p>{{ strtoupper( $airway_bill->destination_id > 0 ? $airway_bill->destination->name : "") }}</p></td>
-                </tr>
-                <tr>
-                    <td><strong>PIECES:</strong></td>
-                    <td><p>{{ strtoupper($airway_bill->sum_pieces) }}</p></td>
-                </tr>
-                <tr>
-                    <td><strong>WEIGHT:</strong></td>
-                    <td><p>{{ $airway_bill->sum_weight }} K</p></td>
-                </tr>
-                <tr>
-                    <td><strong>CHARGEABLE WEIGHT:</strong></td>
-                    <td><p>{{ $airway_bill->sum_charge_weight}} K</p></td>
+                    <td height="20px"><strong>CHARGEABLE WEIGHT:</strong></td>
+                    <td>{{ $airway_bill->total_weight_unit =='K' ? $airway_bill->total_charge_weight : round($airway_bill->total_charge_weight * 0.453592, 3) }} Kgs </td>
                 </tr>
             </table>
+        </div>
+    </div>
+    <hr>
+    <div class="row resume-table">
+        <div class="col-xs-12">
+            <p>COMMENTS:</p>
+            <p>{{ $airway_bill->airwaybill_comments }}</p>
         </div>
     </div>
 </div>

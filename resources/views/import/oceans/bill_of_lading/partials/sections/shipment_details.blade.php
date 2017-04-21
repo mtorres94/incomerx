@@ -3,7 +3,7 @@
         <div class="col-md-4">
             <div class="row">{!! Form::bsComplete("col-md-4", "col-md-8",'Routing # ', 'routing_order_id', 'routing_order_code', Request::get('term'),
     ((isset($bill_of_lading) and $bill_of_lading->routing_order_id > 0) ? $bill_of_lading->routing_order->code : null), 'Routing Number') !!}</div>
-            <div class="row">{!! Form::bsText("col-md-4", "col-md-8",'DBL / MBL # ', 'mbl_number',null,  '') !!}</div>
+            <div class="row">{!! Form::bsText("col-md-4", "col-md-8",'DBL / MBL # ', 'mbl_code',null,  '') !!}</div>
           <div class="row">{!! Form::bsText("col-md-4", "col-md-8",'HBL', 'code', null, '') !!}</div>
           <div class="row">{!! Form::bsText("col-md-4", "col-md-8",'Customer Ref#', 'customer_reference', null, '') !!}</div>
           <div class="row">{!! Form::bsText("col-md-4", "col-md-8",'Our Reference', 'our_reference', null, '') !!}</div>

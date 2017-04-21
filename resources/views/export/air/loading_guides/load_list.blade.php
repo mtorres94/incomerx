@@ -54,8 +54,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-
-            <table class="table table-condensed">
+            <table class="table table-bordered">
                 <tr>
                     <td><p><strong>AIRLINE: </strong></p></td>
                     <td><p>{{ strtoupper($loading_guide->carrier_id >0 ? $loading_guide->carrier->name: "") }} </p></td>
@@ -80,8 +79,11 @@
                     <td><p><strong>VERIFY: </strong></p></td>
                     <td><p>  </p></td>
                 </tr>
-
             </table>
+        </div>
+    </div>
+   <div class="row">
+       <div class="col-md-12">
             <table class="table table-condensed">
                 <thead>
                 <tr>
@@ -103,7 +105,7 @@
                             <td>{{ $receipt_entry->code }}</td>
                             <td>{{ $receipt_entry->ea_airwaybill_id > 0 ? $receipt_entry->airwaybill->code : ""}}</td>
                             <td>{{ $receipt_entry->sum_pieces }}</td>
-                            <td>{{ ($loading_guide->destination_id > 0 ? $loading_guide->destination->code : "") }}</td>
+                            <td>{{ ($loading_guide->destination_id > 0 ? strtoupper($loading_guide->destination->code) : "") }}</td>
                             <td>{{ $receipt_entry->sum_weight }}</td>
                             <td>{{ round($receipt_entry->sum_weight/ 2.2, 3) }}</td>
                             <td>{{ $receipt_entry->sum_volume_weight }}</td>
@@ -127,22 +129,7 @@
 
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <table class="table header-table">
-                <tr>
-                    <td><p><strong>COMMENTS: </strong></p></td>
-                    <td><p>{{ strtoupper($loading_guide->comments) }}</p></td>
-                </tr>
-                <tr>
-                    <td><p><strong>MARKS: </strong></p></td>
-                    <td><p>{{ strtoupper($loading_guide->marks )}}</p></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-</div>
+  </div>
 </body>
 
 </html>

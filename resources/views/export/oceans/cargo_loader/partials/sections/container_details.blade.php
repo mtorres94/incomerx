@@ -222,13 +222,13 @@
     <tbody>
     @if(isset($cargo_loader))
         @foreach ($cargo_loader->hazardous_details as $detail)
-            <tr data-id="{{ $detail->line }}">
+            <tr data-id="{{ $detail->container_id}}">
             {!! Form::bsRowTd($detail->line, 'hzd_container_id', $detail->container_id, true) !!}
             {!! Form::bsRowTd($detail->line, 'hzd_uns_id', $detail->hzd_uns_id, true) !!}
             {!! Form::bsRowTd($detail->line, 'hzd_line', $detail->line, true) !!}
-            {!! Form::bsRowTd($detail->line, 'hzd_uns_code', ($detail->hzd_uns_id >0 ? $detail->hzd_uns->code : null), true) !!}
+            {!! Form::bsRowTd($detail->line, 'hzd_uns_code', strtoupper($detail->hzd_uns_id >0 ? $detail->hzd_uns->code : null), true) !!}
             {!! Form::bsRowTd($detail->line, 'hzd_uns_desc', $detail->hzd_uns_desc, true) !!}
-            {!! Form::bsRowTd($detail->line, 'hzd_uns_note', $detail->hzd_uns_note, true) !!}
+            {!! Form::bsRowTd($detail->line, 'hzd_uns_note', strtoupper($detail->hzd_uns_note), true) !!}
         @endforeach
     @endif
     </tbody>

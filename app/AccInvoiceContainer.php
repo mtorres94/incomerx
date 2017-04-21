@@ -28,10 +28,15 @@ class AccInvoiceContainer extends Model
                     $obj->container_number= $data['container_number'][$i];
                     $obj->seal_number= $data['container_seal_number'][$i];
                     $a++;
+                    $obj->save();
                 }
                 $i++;
             }
 
         }
+    }
+    public function equipment_type()
+    {
+        return $this->belongsTo('Sass\CargoType', 'equipment_type_id');
     }
 }

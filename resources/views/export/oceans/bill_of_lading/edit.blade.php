@@ -14,6 +14,11 @@
           ['class' => 'fa fa-barcode', 'value' => 'Label'],
           ['class' => 'fa fa-file-pdf-o', 'value' => 'Manifest'],
           ['class' => 'fa fa-file-pdf-o', 'value' => 'Pre Alert'],
+          ['class' => 'fa fa-file-pdf-o', 'value' => 'Delivery Order (Documents Only)'],
+          ['class' => 'fa fa-file-pdf-o', 'value' => 'Delivery Order (Freight Only)'],
+          ['class' => 'fa fa-file-pdf-o', 'value' => 'Pickup Delivery'],
+
+
 
       ], $bill_of_lading, 'bill_of_lading.report') !!}
     {!! Form::bsFooter(1, $bill_of_lading) !!}

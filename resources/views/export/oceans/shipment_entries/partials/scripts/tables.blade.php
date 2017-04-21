@@ -443,7 +443,7 @@
     //===================
     $("#booking_save").click(function() {
         var r = ($('#booking_details tbody tr').length + 1),
-            _ =  ($("#booking_details tbody tr").length == 0 ? 1 : parseInt($("#booking_details tbody tr")[$("#booking_details tbody tr").length - 1].childNodes[1].textContent) + 1 ),
+            _ =  ($("#booking_details tbody tr").length == 0 ? 1 : parseInt($("#booking_details tbody tr")[$("#booking_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
             l = $("#booking_line").val(),
             c = (0 == l ? _ : l)-1,
             b1= $("#tmp_booking_code").val(),

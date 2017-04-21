@@ -7,6 +7,8 @@
         ['class' => 'fa fa-file-pdf-o', 'value' => 'Delivery Order'],
         ['class' => 'fa fa-file-pdf-o', 'value' => 'B/L'],
         ['class' => 'fa fa-file-pdf-o', 'value' => 'Arrival Notice'],
+        ['class' => 'fa fa-file-pdf-o', 'value' => 'Pickup Order'],
+        ['class' => 'fa fa-file-pdf-o', 'value' => 'Shipment Advice'],
     ], $bill_of_lading, 'ia_bill_of_lading.report') !!}
     {!! Form::bsFooter(1, $bill_of_lading) !!}
     @include('import.air.bill_of_lading.partials.fields')

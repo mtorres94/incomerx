@@ -46,8 +46,13 @@
         </div>
         <div class="col-xs-6">
             <div class="document-info pull-right">
+                <div style="align-content:center ;">
+                    {!! DNS2D::getBarcodeSVG(
+                      $booking_entry->shipment_id >0 ? $booking_entry->shipment->code : ""
+                    , "QRCODE", 2, 2) !!}
+                </div>
+                <p>{{  $booking_entry->shipment_id >0 ? $booking_entry->shipment->code : "" }}</p>
                 <h5><strong>AIR CARGO MANIFEST</strong></h5>
-                <p class="code-bar">{{  $booking_entry->shipment_id >0 ? $booking_entry->shipment->code : "" }}</p>
             </div>
         </div>
     </div>
@@ -77,12 +82,12 @@
                 </tr>
                 <tr>
                     <td>
-                        <strong>FILE MANIFEST:  </strong>{{ $booking_entry->shipment_id >0 ? $booking_entry->shipment->code :"" }}<br>
-                        <strong>MASTER AWB:   </strong>{{ $booking_entry->code }}<br>
+                        <p><strong>FILE/ MANIFEST:  </strong>{{ $booking_entry->shipment_id >0 ? $booking_entry->shipment->code :"" }}</p>
+                        <p><strong>MASTER AWB:   </strong>{{ $booking_entry->code }}</p>
                     </td>
                     <td>
-                        <strong>DEPARTURE DATE:   </strong>{{ $booking_entry->departure_date }}<br>
-                        <strong>ARRIVAL DATE:   </strong>{{ $booking_entry->arrival_date }}<br>
+                        <p><strong>DEPARTURE DATE:   </strong>{{ $booking_entry->departure_date }}</p>
+                        <p><strong>ARRIVAL DATE:   </strong>{{ $booking_entry->arrival_date }}</p>
                     </td>
                 </tr>
                 </tbody>
@@ -95,11 +100,11 @@
                 <thead>
                 <tr>
                     <td width="10%">AWB TYPE</td>
-                    <td width="25%">AIRWAY BILL NO</td>
+                    <td width="15%">AIRWAY BILL NO</td>
                     <td width="10%">NO OF PIECES</td>
-                    <td width="10%">ACTUAL WEIGHT (Kg)</td>
-                    <td width="25%">NATURE OF GOODS</td>
-                    <td width="25%">COMMENTS</td>
+                    <td width="10%">ACTUAL WEIGHT</td>
+                    <td width="30%">NATURE OF GOODS</td>
+                    <td width="30%">COMMENTS</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -107,25 +112,25 @@
                 @foreach($booking_entry->airwaybill as $airway_bill)
                     @if($airway_bill->awb_class != 3)
                         <tr>
-                            <td>{{ $airway_bill->awb_class == '1'? 'DAWB': 'HAWB' }}</td>
-                            <td>{{ $airway_bill->code }}
-                                <p class="code-bar">{{  $airway_bill->code  }}</p></td>
-                            <td>{{ $airway_bill->sum_pieces }}</td>
-                            <td>{{ $airway_bill->sum_weight}}</td>
+                            <td rowspan="2">{{ $airway_bill->awb_class == '1'? 'DAWB': 'HAWB' }}</td>
+                            <td rowspan="2"><p>{{ $airway_bill->code }}</p>
+                                {!! DNS2D::getBarcodeSVG(
+                                $airway_bill->code
+                                , "QRCODE", 2, 2) !!}
+                            <td height="20px">{{ $airway_bill->total_pieces }}</td>
+                            <td>{{ $airway_bill->total_gross_weight}}</td>
                             <td>{{ strtoupper($airway_bill->cargo_notes) }}</td>
                             <td>{{ strtoupper($airway_bill->airwaybill_comments) }}</td>
                         </tr>
                         <tr>
-                            <td></td>
-                            <td></td>
                             <td><strong>Shipper: </strong><br><strong>Consignee: </strong></td>
                             <td colspan="2">{{ strtoupper($airway_bill->shipper_id >0 ? $airway_bill->shipper->name : "") }} <br>
                             {{ strtoupper($airway_bill->consignee_id >0 ? $airway_bill->consignee->name : "") }}</td>
                             <td></td>
                         </tr>
 
-                        <?php $pieces+= $airway_bill->sum_pieces; ?>
-                        <?php $weight+= $airway_bill->sum_weight; ?>
+                        <?php $pieces+= $airway_bill->total_pieces; ?>
+                        <?php $weight+= $airway_bill->total_gross_weight; ?>
                     @endif
                 @endforeach
                 </tbody>
@@ -134,7 +139,7 @@
                     <td colspan="2" align="right"><strong>TOTAL PIECES: </strong></td>
                     <td>{{ $pieces }}</td>
                     <td align="right"><strong>WEIGHT: </strong></td>
-                    <td>{{ $weight }}</td>
+                    <td>{{ $weight }} &nbsp; {{ $airway_bill->total_weight_unit == 'L'? 'Lbs' : 'Kgs' }}</td>
                     <td></td>
                 </tr>
                 </tfoot>

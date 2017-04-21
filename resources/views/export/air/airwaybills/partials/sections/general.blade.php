@@ -2,7 +2,7 @@
 <div class="row">
     <legend>Airway Bills</legend>
 </div>
-{!! Form::hidden('shipment_code', ((isset($airway_bill) and ($airway_bill->shipment_id > 0))? $airway_bill->shipment->id : ""), ['id' => 'shipment_code', 'class' => 'form-control input-sm']) !!}
+{!! Form::hidden('shipment_code', ((isset($airway_bill) and ($airway_bill->shipment_id > 0))? $airway_bill->shipment->code : ""), ['id' => 'shipment_code', 'class' => 'form-control input-sm']) !!}
 {!! Form::hidden('booking_id', ((isset($airway_bill) and ($airway_bill->booking_id > 0))? $airway_bill->booking->id : ""), ['id' => 'booking_id', 'class' => 'form-control input-sm']) !!}
 
 <div class="row">

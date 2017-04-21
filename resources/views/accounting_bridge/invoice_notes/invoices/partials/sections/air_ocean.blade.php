@@ -5,8 +5,8 @@
 
 </div>
 <div class="row">
-    <div class="col-md-6">{!! Form::bsText('col-md-6', 'col-md-6', 'Vessel', 'vessel_name', null, null) !!}</div>
-    <div class="col-md-6">{!! Form::bsText('col-md-6', 'col-md-6', 'Voyage', 'voyage_name', null, null) !!}</div>
+    <div class="col-md-6">{!! Form::bsText('col-md-6', 'col-md-6', 'Tail/Vessel', 'vessel_name', null, null) !!}</div>
+    <div class="col-md-6">{!! Form::bsText('col-md-6', 'col-md-6', 'Flight/Voyage', 'voyage_name', null, null) !!}</div>
 </div>
 <div class="row">
     <div class="col-md-6">{!! Form::bsDate('col-md-6', 'col-md-6', 'Departure', 'departure_date', null, null) !!}</div>

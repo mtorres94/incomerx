@@ -14,14 +14,14 @@
                 <table class="table table-bordered table-condensed" id="cargo_details">
                     <thead>
                     <tr>
-                        <th data-override="cargo_line" hidden></th>
-                        <th width="10%" data-override="cargo_marks">Marks</th>
-                        <th width="5%" data-override="cargo_pieces">Pieces</th>
-                        <th width="15%" data-override="cargo_description">Comm. Description</th>
-                        <th width="5%" data-override="cargo_unit">Unit</th>
-                        <th width="10%" data-override="cargo_gross_weight">Gross Weight</th>
-                        <th width="10%" data-override="cargo_cubic">Cubic</th>
-                        <th width="10%" data-override="cargo_charge_weight">Amount</th>
+                        <th hidden></th>
+                        <th width="10%" >Marks</th>
+                        <th width="5%" >Pieces</th>
+                        <th width="15%" >Comm. Description</th>
+                        <th width="5%" >Unit</th>
+                        <th width="10%" >Gross Weight</th>
+                        <th width="10%" >Cubic</th>
+                        <th width="10%" >Amount</th>
 
                         <th width="12%"/>
                     </tr>
@@ -31,21 +31,21 @@
                     @if(isset($bill_of_lading))
                         @foreach($bill_of_lading->cargo as $detail)
                             <tr id="{{ $detail->line }}">
-                                {!! Form::bsRowTd($detail->line, 'cargo_id', $detail->line, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_marks', $detail->marks, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_pieces', $detail->pieces, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_description', $detail->description, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_line', $detail->line, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_marks', $detail->crago_marks, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_pieces', $detail->cargo_pieces, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_description', $detail->cargo_description, false) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_container', $detail->container, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_type_id', $detail->cargo_type_id, true) !!}
                                 {!! Form::bsRowTd($detail->line, 'cargo_type_code', ($detail->cargo_type_id >0 ? $detail->cargo_type->code : ""), true) !!}
 
-                                {!! Form::bsRowTd($detail->line, 'cargo_weight_unit', $detail->weight_unit, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_grossw', $detail->grossw, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_cubic', $detail->cubic, false) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_comments', $detail->comments, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_charge_weight', $detail->charge_weight, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_rate', $detail->rate, true) !!}
-                                {!! Form::bsRowTd($detail->line, 'cargo_amount', $detail->amount, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_weight_unit', $detail->cargo_weight_unit, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_gross_weight', $detail->cargo_gross_weight, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_cubic', $detail->cargo_cubic, false) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_comments', $detail->cargo_comments, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_charge_weight', $detail->cargo_charge_weight, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_rate', $detail->cargo_rate, true) !!}
+                                {!! Form::bsRowTd($detail->line, 'cargo_amount', $detail->cargo_amount, false) !!}
 
                                 {!! Form::bsRowBtns() !!}
                             </tr>

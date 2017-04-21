@@ -23,6 +23,11 @@
 
 
 </div>
+<div class="row">
+    <div class="col-md-12">
+        {!! Form::bsMemo(null, null, 'Comments', 'inland_comments', null, 2, ' ') !!}
+    </div>
+</div>
 
 
 <!-- Modal forms section -->

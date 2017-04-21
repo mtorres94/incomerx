@@ -40,8 +40,8 @@
         <div class="col-xs-6">
             <div class="row">
                 <div class="document-info pull-right">
-                    <h5><strong>DELIVERY ORDER</strong></h5>
-                    <p class="document_number"><strong>MAWB#  {{ strtoupper($airway_bill->booking_code) }}</strong></p>
+                    <h5><strong>{{ $type == 4 ? 'PICKUP ORDER' : 'DELIVERY ORDER' }}</strong></h5>
+                    <p class="document_number"><h5><strong>MAWB#  {{ strtoupper($airway_bill->booking_code) }}</strong></h5></p>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">DELIVERY CARRIER</div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="height:80px;">
                             <table class="table resume-table">
                                 <tr>
                                     <td width="20%">
@@ -71,7 +71,7 @@
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">CONSIGNEE</div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="height:80px;">
                             <table class="table resume-table">
                                 <tr><td>{{ strtoupper($airway_bill->consignee_id >0 ? $airway_bill->consignee->name : "")  }}</td>
                                 <tr><td>{{ strtoupper($airway_bill->consignee_id >0 ? $airway_bill->consignee->address : "")  }}</td>
@@ -89,7 +89,7 @@
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">SHIPPER</div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="height:80px;">
                             <p>{{ strtoupper(($airway_bill->shipper_id >0 ? $airway_bill->shipper->name : "")) }}</p>
                             <p>{{ strtoupper(($airway_bill->shipper_id >0 ? $airway_bill->shipper->address : "")) }}</p>
                             <p>{{ strtoupper(($airway_bill->shipper_id >0 ? $airway_bill->shipper->city : "")) }} </p>
@@ -102,19 +102,17 @@
         <div class="col-xs-6">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="panel panel-default">
-                        <table class="table resume-table" >
-                            <tr><td width="20%"><strong>FILE: </strong></td><td>{{ strtoupper($airway_bill->shipment_id > 0 ? $airway_bill->shipment->code : "")}}</td></tr>
-                            <tr><td width="25%"><strong>MAWB#: </strong></td><td>{{ strtoupper($airway_bill->booking_code) }}</td></tr>
-                            <tr><td width="20%"><strong>HAWB#: </strong></td><td>{{ strtoupper($airway_bill->code )}}</td></tr>
-                            <tr><td width="20%"><strong>FLIGHT: </strong></td><td>{{ strtoupper($airway_bill->flight )}}</td></tr>
-                            <tr>
-                                <td width="20%"><strong>ORIGIN: </strong></td>
-                                <td>{{ strtoupper(($airway_bill->origin_id >0 ? $airway_bill->origin->code : ""))}}</td>
-                                <td width="20%"><strong>DEST: </strong></td>
-                                <td>{{ strtoupper(($airway_bill->destination_id >0 ? $airway_bill->destination->code: ""))}}</td></tr>
-                        </table>
-                    </div>
+                    <table class="table resume-table" style="height:100px;">
+                        <tr><td width="20%"><strong>FILE: </strong></td><td>{{ strtoupper($airway_bill->shipment_id > 0 ? $airway_bill->shipment->code : "")}}</td></tr>
+                        <tr><td width="25%"><strong>MAWB#: </strong></td><td>{{ strtoupper($airway_bill->booking_code) }}</td></tr>
+                        <tr><td width="20%"><strong>HAWB#: </strong></td><td>{{ strtoupper($airway_bill->code )}}</td></tr>
+                        <tr><td width="20%"><strong>FLIGHT: </strong></td><td>{{ strtoupper($airway_bill->flight )}}</td></tr>
+                        <tr>
+                            <td width="20%"><strong>ORIGIN: </strong></td>
+                            <td>{{ strtoupper(($airway_bill->origin_id >0 ? $airway_bill->origin->code : ""))}}</td>
+                            <td width="20%"><strong>DEST: </strong></td>
+                            <td>{{ strtoupper(($airway_bill->destination_id >0 ? $airway_bill->destination->code: ""))}}</td></tr>
+                    </table>
                 </div>
             </div>
         </div>
@@ -131,41 +129,42 @@
         </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>{{ $airway_bill->cargo_notes }}</td>
-                <td>{{ $airway_bill->sum_pieces}}</td>
-                <td>{{ $airway_bill->total_commodity}}</td>
-                <td>{{ $airway_bill->sum_weight }}</td>
-                <td>{{ $airway_bill->sum_charge_weight }}</td>
-            </tr>
-            <tr>
-                <td>{{ $airway_bill->airwaybill_comments }}</td>
-            </tr>
+        <tr>
+            <td height="30px">{{ $airway_bill->cargo_notes }}</td>
+            <td>{{ $airway_bill->total_pieces}}</td>
+            <td>{{ $airway_bill->total_commodity}}</td>
+            <td>{{ $airway_bill->total_gross_weight }}</td>
+            <td>{{ $airway_bill->total_charge_weight }}</td>
+        </tr>
+        <tr>
+            <td  height="250px">{{ $airway_bill->airwaybill_comments }}</td>
+        </tr>
         </tbody>
         <tfoot>
-            <tr>
-                <td><strong>TOTAL:</strong></td>
-                <td colspan="2">{{ $airway_bill->sum_pieces }}</td>
-                <td >{{ $airway_bill->sum_weight}}</td>
-                <td>{{ $airway_bill->sum_charge_weight}}</td>
-            </tr>
+        <tr>
+            <td height="20px"><strong>TOTAL:</strong></td>
+            <td colspan="2">{{ $airway_bill->total_pieces }}</td>
+            <td >{{ $airway_bill->total_gross_weight}}</td>
+            <td>{{ $airway_bill->total_charge_weight}}</td>
+        </tr>
         </tfoot>
     </table>
+    <br>
     <div class="row">
         @if($type != 4)
         <div class="col-xs-8">
             <table class="table header-table">
                 <tr>
-                    <td>Airline Agent Note: </td>
-                    <td colspan="3" align="left"><strong>Delivering{{ $type == 1?  '  Documents and Freight' : ($type == '2' ? '  Documents Only' : '  Freight Only')}} </strong></td>
+                    <td height="20px"><p>Airline Agent Note: </p></td>
+                    <td height="20px" colspan="3" align="left"><p style="font-size: 12px;"><strong>Delivering{{ $type == 1?  '  Documents and Freight' : ($type == '2' ? '  Documents Only' : '  Freight Only')}} </strong></p></td>
                 </tr>
                 <tr>
-                    <td colspan="4">The Goods here in Described are Accepted Apparently in Good Order and Condition</td>
+                    <td height="20px" colspan="4"><p>The Goods here in Described are Accepted Apparently in Good Order and Condition</p></td>
                 </tr>
                 <tr>
                     <td width="20%"><strong>Received By: </strong></td>
                     <td width="30%" style="border-bottom: black 1px solid"></td>
-                    <td width="20%"><strong>Date: </strong></td>
+                    <td width="20%" ><strong>Date: </strong></td>
                     <td width="30%" style="border-bottom: black 1px solid"></td>
                 </tr>
             </table>
@@ -174,11 +173,20 @@
             <div class="col-xs-12">
                 <table class="table header-table">
                     <tr>
-                        <td>Carrier Driver Instructions: </td>
+                        <td height="20px" colspan="2">CARRIER DRIVER INSTRUCTIONS: </td>
                     </tr>
-
                     <tr>
-                        <td width="15%"><strong>Received By: </strong></td>
+                        <td height="20px"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pickup By:</strong></td>
+                        <td style="border-bottom: 1px solid;"></td>
+                    </tr>
+                    <tr>
+                        <td height="20px"></td>
+                    </tr>
+                    <tr>
+                        <td width="10%"><strong>Received By: </strong></td>
                         <td width="25%" style="border-bottom: black 1px solid"></td>
                         <td width="10%"><strong>Date: </strong></td>
                         <td width="15%" style="border-bottom: black 1px solid"></td>
@@ -190,6 +198,7 @@
     </div>
 
 
+</div>
 </div>
 </body>
 

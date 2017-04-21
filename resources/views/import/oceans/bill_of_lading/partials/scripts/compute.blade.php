@@ -67,11 +67,11 @@
             s_cost = cost + s_cost;
         }
         profit = s_bill - s_cost;
-        $("#origin_bill").val(s_bill);
-        $("#origin_cost").val(s_cost);
-        $("#origin_profit").val(profit);
+        $("#total_bill").val(s_bill);
+        $("#total_cost").val(s_cost);
+        $("#total_profit").val(profit);
         profit_p = parseFloat((profit * 100 )/ s_bill);
-        $("#origin_profit_p").val(profit_p);
+        $("#total_profit_percent").val(profit_p);
     }
     function transportation_plan()
     {

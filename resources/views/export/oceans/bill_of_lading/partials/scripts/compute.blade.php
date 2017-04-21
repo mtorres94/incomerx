@@ -59,11 +59,11 @@
             s_cost = cost + s_cost;
         }
         profit = s_bill - s_cost;
-        $("#charges_bill").val(s_bill);
-        $("#charges_cost").val(s_cost);
-        $("#charges_profit").val(profit);
+        $("#total_bill").val(s_bill);
+        $("#total_cost").val(s_cost);
+        $("#total_profit").val(profit);
         profit_p = parseFloat((profit * 100 )/ s_bill);
-        $("#charges_profit_p").val(profit_p);
+        $("#total_profit_percent").val(profit_p);
     }
 
 
@@ -79,36 +79,10 @@
     }
 
     function values_box_vehicle(){
-        var tr = $('#cargo_vehicle_details tbody tr');
-        var r = tr.length,  weight=0, cub=0, weight_k=0, cub_k=0, c=0, d=0, e=0, f=0, pieces= 0;
-        for (var a=0; a< r ; a++){
-            pieces=  parseInt(tr[a].childNodes[2].textContent) + pieces;
-            weight = parseFloat(tr[a].childNodes[7].textContent);
-            cub= parseFloat(tr[a].childNodes[8].textContent);
-            if(tr[a].childNodes[3].textContent == 'L'){
-                weight_k = (weight/2.2) + weight_k;
-                cub_k = (cub/2.2)+ cub_k;
-            }
-            else {
-                c = weight + c;
-                d= cub+ d;
-            }
-            console.log(pieces);
-
-        }
-        c = weight_k +c;
-        d = cub_k + d;
-        e  = c* 2.2;
-        f = d * 2.2;
-        var rate = parseFloat($("#cargo_rate").val());
-        pieces= pieces * rate;
-        $("#cargo_weight_k").val(c);
-                $("#cargo_cubic_k").val(d);
-                $("#cargo_charge_weight_k").val(d);
-                $("#cargo_weight_l").val(e);
-                $("#cargo_cubic_l").val(f);
-                $("#cargo_charge_weight_l").val(f);
-        $("#cargo_amount").val(pieces);
+        var cubic = $("#cargo_cubic_k").val();
+        var rate = $("#cargo_rate").val();
+        rate = cubic * rate;
+        $("#cargo_amount").val(rate);
     }
 
     function weight_totals(){
@@ -128,9 +102,9 @@
             $("#total_weight_kgs").val(weight_k),
             $("#total_cubic_cbm").val(cubic_k),
             $("#total_charge_weight_kgs").val(charge_weight_k),
-            $("#total_weight_lbs").val(weight_l),
-            $("#total_cubic_cft").val(cubic_l),
-            $("#total_charge_weight_lbs").val(charge_weight_l)
+            $("#total_gross_weight").val(weight_l),
+            $("#total_cubic").val(cubic_l),
+            $("#total_charge_weight").val(charge_weight_l)
     }
 
     function validateRequiredField(){

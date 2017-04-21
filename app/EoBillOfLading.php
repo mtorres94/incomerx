@@ -13,12 +13,12 @@ class EoBillOfLading extends Model
     protected $table = "eo_bills_of_lading";
 
     protected $fillable = [
-        'id', 'user_create_id', 'user_update_id', 'created_at', 'updated_at', 'code', 'bl_class', 'bl_type', 'division_id', 'bl_date', 'rate_class', 'bl_status', 'quote_number_id', 'ship_inst', 'project_number', 'shipment_number', 'booking_code', 'manifest_type', 'mbl_code', 'hbl_code', 'currency_type', 'declared_value', 'insured_value', 'exchange_rate', 'collect_free', 'insurance', 'stand_by', 'partial', 'spot_rate', 'confirmed', 'POD_info', 'amount',
+        'id', 'user_create_id', 'user_update_id', 'created_at', 'updated_at', 'code', 'bl_class', 'bl_type', 'division_id', 'date', 'rate_class', 'status', 'quote_number_id', 'ship_inst', 'project_number', 'shipment_number', 'booking_code', 'manifest_type', 'mbl_code', 'hbl_code', 'currency_type', 'declared_value', 'insured_value', 'exchange_rate', 'collect_free', 'insurance', 'stand_by', 'partial', 'spot_rate', 'confirmed', 'POD_info', 'amount',
         'shipper_id', 'shipper_address', 'shipper_city', 'shipper_state_id', 'shipper_country_id', 'shipper_zip_code_id', 'shipper_phone',
         'consignee_id', 'consignee_address', 'consignee_city', 'consignee_state_id', 'consignee_country_id', 'consignee_zip_code_id', 'consignee_phone',
         'notify_id', 'notify_address', 'notify_city', 'notify_state_id', 'notify_country_id', 'notify_zip_code_id', 'notify_phone', 'notify_contact', 'notify_contact_phone', 'notify_email',
         'third_id', 'third_address', 'third_city', 'third_state_id', 'third_zip_code_id', 'third_contact', 'third_contact_phone', 'third_email',
-       'pod_date', 'pod_expected_date', 'pod_received_by', 'pod_incident','pod_note', 'add_info_comments', 'SDK_name', 'SDK_address', 'SDK_attn', 'SDK_reff', 'SDK_notes', 'inland_carrier_id', 'inland_date','inland_dbl_mbl_code', 'import_date', 'import_master_number', 'import_house_number', 'import_shipment_number', 'confirm_status', 'uplift', 'confirm_master_number', 'confirm_house_number', 'confirm_shipment_number', 'broker_code', 'broker_phone', 'broker_reference', 'destination_broker_code', 'destination_broker_phone', 'destination_broker_reference', 'port_loading_id', 'port_unloading_id', 'carrier_id', 'vessel_name', 'voyage_name', 'departure_date', 'arrival_date', 'origin_country_id', 'customs_code', 'it_number', 'incoterm_type', 'forwarding_agent_id', 'commission_p', 'coloader_id', 'document_number', 'bl_number', 'export_reference', 'point_of_origin', 'fmc_number', 'agent_id', 'agent_address', 'agent_city', 'agent_state_id', 'agent_country_id', 'agent_zip_code_id', 'agent_phone', 'agent_commission_amount', 'agent_commission_p', 'domestic_instruction', 'pre_carriage_by', 'place_receipt', 'loading_terminal', 'vessel_yes', 'vessel_no', 'exporting_carrier', 'port_loading', 'type_of_move', 'foreign_port', 'place_delivery', 'transhipment_port_id', 'letter_comments', 'comments_comment', 'total_pieces', 'total_commodity_name', 'total_weight_unit_measurement', 'total_weight_kgs','total_cubic_cbm', 'total_charge_weight_kgs', 'total_weight_lbs', 'total_cubic_cft', 'total_charge_weight_lbs', 'bl_comments', 'bl_doc_type', 'bl_notes', 'shipment_id', 'cargo_loader_id', 'bill_of_lading_id', 'user_open_id', 'agent_contact', 'agent_fax', 'sum_prepaid', 'sum_collected', 'charges_bill', 'charges_cost', 'charges_profit', 'charges_profit_p'];
+       'pod_date', 'pod_expected_date', 'pod_received_by', 'pod_incident','pod_note', 'add_info_comments', 'SDK_name', 'SDK_address', 'SDK_attn', 'SDK_reff', 'SDK_notes', 'inland_carrier_id', 'inland_date','inland_dbl_mbl_code', 'import_date', 'import_master_number', 'import_house_number', 'import_shipment_number', 'confirm_status', 'uplift', 'confirm_master_number', 'confirm_house_number', 'confirm_shipment_number', 'broker_code', 'broker_phone', 'broker_reference', 'destination_broker_code', 'destination_broker_phone', 'destination_broker_reference', 'port_loading_id', 'port_unloading_id', 'carrier_id', 'vessel_name', 'voyage_name', 'departure_date', 'arrival_date', 'origin_country_id', 'customs_code', 'it_number', 'incoterm_type', 'forwarding_agent_id', 'commission_p', 'coloader_id', 'document_number', 'bl_number', 'export_reference', 'point_of_origin', 'fmc_number', 'agent_id', 'agent_address', 'agent_city', 'agent_state_id', 'agent_country_id', 'agent_zip_code_id', 'agent_phone', 'agent_commission_amount', 'agent_commission_p', 'domestic_instruction', 'pre_carriage_by', 'place_receipt', 'loading_terminal', 'vessel_yes', 'vessel_no', 'exporting_carrier', 'port_loading', 'type_of_move', 'foreign_port', 'place_delivery', 'transhipment_port_id', 'letter_comments', 'comments_comment', 'total_pieces', 'total_commodity_name', 'total_weight_unit', 'total_weight_kgs','total_cubic_cbm', 'total_charge_weight_kgs', 'total_gross_weight', 'total_cubic', 'total_charge_weight', 'bl_comments', 'bl_doc_type', 'bl_notes', 'shipment_id', 'cargo_loader_id', 'bill_of_lading_id', 'user_open_id', 'agent_contact', 'agent_fax', 'total_prepaid', 'total_collected', 'total_bill', 'total_cost', 'total_profit', 'total_profit_percent'];
 
     public function setCollectFreeAttribute($value)
     {
@@ -99,11 +99,11 @@ class EoBillOfLading extends Model
     {
         $i = 0;
         $a = 0;
-        EoBillOfLading::where('bill_of_lading_id', $id)->update(['bl_status' => "O",'bill_of_lading_id' => "0", 'mbl_code' => " "]);
+        EoBillOfLading::where('bill_of_lading_id', $id)->update(['status' => "O",'bill_of_lading_id' => "0", 'mbl_code' => " "]);
            if (isset($data['cargo_hbl_id'])){
                while ($a < count($data['cargo_hbl_id'])) {
                    if (isset($data['cargo_hbl_id'][$i])) {
-                       EoBillOfLading::where('id', $data['cargo_hbl_id'][$i])->update(['bl_status' => "C",'bill_of_lading_id' => $id, 'mbl_code' => $data['code']]);
+                       EoBillOfLading::where('id', $data['cargo_hbl_id'][$i])->update(['status' => "C",'bill_of_lading_id' => $id, 'mbl_code' => $data['code']]);
 
                        $a++;
                    }
@@ -116,7 +116,6 @@ class EoBillOfLading extends Model
     public static function saveDetail($id, $data, $id_group)
     {
         $a=0; $i= -1; $group = []; $codes=[];
-        //****DB::table('eo_bills_of_lading')->where('cargo_loader_id', '=',$id)->delete();
         if (isset($data['group_by'])) {
             $count_group_id = count($id_group);
             if($data['group_by'] == "1") {
@@ -140,9 +139,10 @@ class EoBillOfLading extends Model
                         $obj = [
                             'bill_of_lading_id' => 0,
                             'cargo_loader_id' => $id,
-                            'bl_status' => "O",
+                            'status' => "O",
                             'bl_type' => "C",
-                            'bl_date' => $data['tmp_date_today'],
+                            'fmc_number' => "021671NF",
+                            'date' => $data['tmp_date_today'],
                             'user_create_id' => Auth::user()->id,
                             'user_open_id' => 0,
                             'user_update_id' => Auth::user()->id,
@@ -201,9 +201,8 @@ class EoBillOfLading extends Model
                             'commission' => $shipment->agent_commission_p,
                             'amount' => $shipment->agent_amount,
                         ];
-
                         $id_hbl = EoBillOfLading::create($obj)->id;
-                        $codes[$a] = $id_hbl;
+                        $codes = $id_hbl;
 
                         //EoHblReceiptEntry::saveDetail($id, $data);
                     //========================================================
@@ -422,5 +421,10 @@ class EoBillOfLading extends Model
     public function hbl_node()
     {
         return $this->hasMany('Sass\EoBillOfLading', 'bill_of_lading_id');
+    }
+
+    public function receipt_entries()
+    {
+        return $this->hasMany('Sass\ReceiptEntry', 'bill_of_lading_id');
     }
 }

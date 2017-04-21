@@ -2,11 +2,12 @@
 
 @section('content')
 
-    <div class="col-md-6">
-        <div id="map" style="width: 420px; height: 400px; background-color: white" class="vector-map"></div>
-        <div id="heat-fill"></div>
-    </div>
-    <div class="col-md-6">
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <div id="map" style="width: 450px; height: 400px; background-color: white" class="vector-map"></div>
+            <div id="heat-fill"></div>
+        </div>
+        <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="row">
@@ -18,25 +19,26 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-md-6">{!!  Form::bsSelect('col-md-2', 'col-md-6', 'Year', 'year', $year, null, 'body', false) !!}</div>
-                    <div class="col-md-6">{!! Form::bsSelect('col-md-3', 'col-md-6', 'Warehouse', 'status', array(
-                '0' => 'All', '1' => 'Open', '2' => 'Hold', '3' => 'In Process', '4' => 'Closed'), null) !!}</div>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-6">{!!  Form::bsSelect('col-md-2', 'col-md-6', 'Year', 'year', $year, null, 'body', false) !!}</div>
+                        <div class="col-md-6">{!! Form::bsSelect('col-md-3', 'col-md-6', 'Warehouse', 'status', array(
+                    '0' => 'All', '1' => 'Open', '2' => 'Hold', '3' => 'In Process', '4' => 'Closed'), null) !!}</div>
+                    </div>
                 </div>
-            </div>
-            <div class="panel-body" style="height:430px;">
+                <div class="panel-body" style="height:430px;">
 
-                <div class="row" id="graph-container" align="center">
-                    <div id="warehouse_status"  style="width: 85%; height: 85%;"></div>
+                    <div class="row" id="graph-container" align="center">
+                        <div id="warehouse_status"  style="width: 85%; height: 85%;"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="col-md-6">
+        <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading"><strong>EXPORT OCEAN NEAR TO ARRIVE</strong></div>
             <div class="panel-body">
@@ -44,28 +46,29 @@
             </div>
         </div>
     </div>
-
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-md-6">{!!  Form::bsSelect('col-md-2', 'col-md-6', 'Year', 'year_airway_bill', $year, null, 'body', false) !!}</div>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-6">{!!  Form::bsSelect('col-md-2', 'col-md-6', 'Year', 'year_airway_bill', $year, null, 'body', false) !!}</div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="airway_bill_details"></div>
                 </div>
             </div>
-            <div class="panel-body">
-                <div id="airway_bill_details"></div>
-            </div>
         </div>
-    </div>
-   <div class="col-md-6">
-       <div class="panel panel-default">
-           <div class="panel-heading"><strong>WAREHOUSE BY USERS</strong></div>
-           <div class="panel-body">
-               <div id="warehouse_users" style="width: 100%; height: 100%; align-content: center;"></div>
+       <div class="col-md-6">
+           <div class="panel panel-default">
+               <div class="panel-heading"><strong>WAREHOUSE BY USERS</strong></div>
+               <div class="panel-body">
+                   <div id="warehouse_users" style="width: 100%; height: 100%; align-content: center;"></div>
+               </div>
            </div>
        </div>
-   </div>
-
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -174,6 +177,7 @@
                     type: 'bar',
                     height: (9 / 13 * 100) + '%' // 16:9 ratio
                 },
+                exporting: { enabled: false },
                 title: {
                     text: 'Warehouse Receipts by Users'
                 },
@@ -231,6 +235,7 @@
                         depth: 70
                     }
                 },
+                exporting: { enabled: false },
 
                 title: {
                     text: 'Warehouse Receipts by Status'
@@ -283,6 +288,7 @@
                         type: 'column',
                         height: (9 / 15 * 100) + '%' // 16:9 ratio
                     },
+                    exporting: { enabled: false },
                     title: {
                         text: 'Warehouse by Destination'
                     },
@@ -328,6 +334,7 @@
                     chart: {
                         zoomType: 'xy'
                     },
+                    exporting: { enabled: false },
                     title: {
                         text: 'Total Pieces and Weight on File'
                     },

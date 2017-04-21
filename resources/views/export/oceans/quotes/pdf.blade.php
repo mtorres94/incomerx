@@ -41,11 +41,13 @@
             <div class="row">
                 <div class="document-info pull-right">
                     <h5><strong>QUOTE</strong></h5>
-                    <p class="code-bar">{{ $quotes->code }}</p>
+                    {!! DNS2D::getBarcodeSVG(
+                 $quotes->code
+                  , "QRCODE", 2, 2) !!}
                     <p class="document_number">{{ $quotes->code }}</p>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" align="center">
                 <div class="col-xs-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">EFFECTIVE DATE</div>
@@ -71,7 +73,7 @@
 
                     <div class="panel panel-default">
                         <div class="panel-heading">CUSTOMER</div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="height: 80px;">
                             <p>{{ strtoupper($quotes->customer->name) }}</p>
                             <p>{{ strtoupper($quotes->customer->address) }}</p>
                             <p>{{ strtoupper($quotes->customer->city) }} {{ ($quotes->customer_state_id > 0) ? ', '.strtoupper($quotes->customer->state->name) : "" }}</p>
@@ -82,7 +84,7 @@
 
                     <div class="panel panel-default">
                         <div class="panel-heading">SHIPPER</div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="height: 80px;">
                             <p>{{ strtoupper($quotes->shipper->name) }}</p>
                             <p>{{ strtoupper($quotes->shipper->address) }}</p>
                             <p>{{ strtoupper($quotes->shipper->city) }} {{ ($quotes->shipper_state_id > 0) ? ', '.strtoupper($quotes->shipper->state->name) : "" }}</p>
@@ -100,7 +102,7 @@
                     <div class="col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">ADDITIONAL INFORMATION</div>
-                            <div class="panel-body">
+                            <div class="panel-body" style="height: 80px;">
                                 <p><strong>ORIGIN: </strong>{{ ($quotes->port_loading_id ? strtoupper($quotes->port_loading->name) : "") }}</p>
                                 <p><strong>DESTINATION: </strong> {{ ($quotes->port_unloading_id > 0 ? strtoupper($quotes->port_unloading->name) : "") }}</p>
                                 <p><strong>SERVICE:</strong> {{ $quotes->service_id > 0 ?  strtoupper($quotes->service->name) : ""}} </p>
@@ -111,7 +113,7 @@
                     <div class="col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">CONSIGNEE</div>
-                            <div class="panel-body">
+                            <div class="panel-body" style="height: 80px;">
                                 <p>{{ strtoupper($quotes->consignee->name) }}</p>
                                 <p>{{ strtoupper($quotes->consignee->address) }}</p>
                                 <p>{{ strtoupper($quotes->consignee->city) }} {{ ($quotes->consignee_state_id > 0) ? ', '.strtoupper($quotes->consignee->state->name) : "" }}</p>
@@ -125,7 +127,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <table class="table table-condensed">
+            <table class="table table-condensed" >
                 <thead>
                 <tr>
                     <th>Qty</th>
@@ -209,7 +211,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td colspan="2" style="text-align: right"><strong>TOT. AMOUNT</strong></td>
+                    <td colspan="2" style="text-align: right"><strong>TOTAL CHARGES:&nbsp;</strong></td>
                     <td><strong>{{ $quotes->total_bill }} </strong></td>
                 </tr>
                 </tfoot>
@@ -218,6 +220,7 @@
     </div>
     <div class="row row-padding">
         <div class="col-xs-12 footer">
+            <hr/>
             <p><strong>COMMENTS:</strong> {{ $quotes->quotes_comments }}</p>
             <hr/>
             <p><strong>INSTRUCTIONS:</strong> {{ $quotes->quote_instruction }}</p>

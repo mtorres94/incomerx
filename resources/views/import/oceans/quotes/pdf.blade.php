@@ -41,7 +41,9 @@
             <div class="row">
                 <div class="document-info pull-right">
                     <h5><strong>QUOTE</strong></h5>
-                    <p class="code-bar">{{ $quote->code }}</p>
+                    {!! DNS2D::getBarcodeSVG(
+                    $quote->code
+                    , "QRCODE", 2, 2) !!}
                     <p class="document_number">{{ $quote->code }}</p>
                 </div>
             </div>

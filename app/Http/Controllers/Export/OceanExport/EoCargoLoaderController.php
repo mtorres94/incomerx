@@ -4,6 +4,7 @@ namespace Sass\Http\Controllers\Export\OceanExport;
 
 use Illuminate\Http\Request;
 
+use Sass\AccInvoice;
 use Sass\EoBillOfLading;
 use Sass\EoBillOfLadingCharge;
 use Sass\EoBookingContainer;
@@ -59,9 +60,8 @@ class EoCargoLoaderController extends Controller
     public function storeHbl (Request $request){
         DB::beginTransaction();
         $cargo_loader = $request->all();
-        $hbl_codes = [];
         $id_group = [];
-
+        $hbl_codes = "";
         $cargo_loader['flag']=0;
         try {
             if(isset($cargo_loader['group_by']) and ($cargo_loader['group_by'] != '')){
@@ -72,15 +72,17 @@ class EoCargoLoaderController extends Controller
                 }elseif ($cargo_loader['group_by'] == "3"){
                     $id_group = $cargo_loader['warehouse_select'];
                 }
+
                 $hbl_codes = EoBillOfLading::saveDetail($cargo_loader['tmp_cargo_loader_id'], $cargo_loader, $id_group);
             }
             DB::commit();
         } catch (\PDOException $e) {
+
             DB::rollback();
         }
-        for($x=0; $x < count($hbl_codes); $x++){
-            return redirect()->route('export.oceans.bill_of_lading.edit', [$hbl_codes[$x]]);
-        }
+
+            return redirect()->route('export.oceans.bill_of_lading.edit', [$hbl_codes]);
+
     }
 
     public function store(Request $request)
@@ -221,16 +223,7 @@ class EoCargoLoaderController extends Controller
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
-
-        switch ($type) {
-            case 1:
                 return \PDF::loadView('export.oceans.cargo_loader.pdf', compact('cargo_loader'))->stream($cargo_loader->code.'.pdf');
-                break;
-            default:
-                $response = [''];
-        }
-
-        return response()->json($response);
     }
 
     public function pdf($token, $id)
@@ -306,7 +299,7 @@ class EoCargoLoaderController extends Controller
                     'shipment_id'       =>$cargo_loader->shipment_id,
                     'shipment_code'     =>$cargo_loader->shipment->code,
                     'type'               => $cargo_loader->shipment->shipment_type,
-                    'bl_status'         => $cargo_loader->shipment->bl_status,
+                    'status'         => $cargo_loader->shipment->bl_status,
                     'vessel'               => $cargo_loader->shipment->vessel_name,
                     'voyage'         => $cargo_loader->shipment->voyage_name,
                     'carrier_id'         => $cargo_loader->shipment->carrier_id,

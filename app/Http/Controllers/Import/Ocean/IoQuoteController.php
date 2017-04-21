@@ -208,15 +208,15 @@ class IoQuoteController extends Controller
                     'C2.id as consignee_id','C2.name as consignee_name',  'C2.phone as consignee_phone','C2.fax as consignee_fax','C2.address as consignee_address', 'ca.id as carrier_id', 'ca.name as carrier_name'
                      ])
                 ->where(function ($query) use ($request) {
-                    if ($term = $request->get('term')) {
-                        $query->orWhere('io_quotes.code', 'LIKE', $term . '%');
+                    if ($term = $request->get('id')) {
+                        $query->where('io_quotes.id', $term );
                     }
 
-                })->take(10)->get();
+                })->get();
 
             $results = [];
             foreach ($quotes as $quote) {
-                $results[] = [
+                $results = [
                     'id'                => $quote->id,
                     'code'              => strtoupper($quote->code),
                     'service_id'         => $quote->service_id,

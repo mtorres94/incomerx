@@ -36,8 +36,8 @@
             }
         }
 
-        $("#sum_prepaid").val(prepaid);
-        $("#sum_collected").val(collected);
+        $("#total_prepaid").val(prepaid);
+        $("#total_collected").val(collected);
     }
 
 
@@ -84,11 +84,11 @@
             s_cost = cost + s_cost;
         }
         profit = s_bill - s_cost;
-        $("#sum_bill").val(s_bill);
-        $("#sum_cost").val(s_cost);
-        $("#sum_profit").val(profit);
+        $("#total_bill").val(s_bill);
+        $("#total_cost").val(s_cost);
+        $("#total_profit").val(profit);
         profit_p = parseFloat((profit * 100 )/ s_bill);
-        $("#sum_profit_percent").val(profit_p);
+        $("#total_profit_percent").val(profit_p);
         calculate_totals();
     }
     function transportation_plan()

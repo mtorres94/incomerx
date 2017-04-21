@@ -33,18 +33,18 @@
                 t = n.find("tbody"),
                 p = $("<tr id=" + (0==l? _ : l) + ">");
             p.append(createTableContent('cargo_line', (0==l? _ : l) , true, c))
-                .append(createTableContent('pieces', c1, false, c))
-                .append(createTableContent('unit_weight', c2, false, c))
-                .append(createTableContent('gross_weight', c3, true, c))
-                .append(createTableContent('volume_weight', c4, false, c))
-                .append(createTableContent('rate', c5, false, c))
-                .append(createTableContent('total', c6, false, c))
-                .append(createTableContent('rate_class', c7, false, c))
-                .append(createTableContent('commodity', c8, true, c))
-                .append(createTableContent('show_rate', c9, true, c))
-                .append(createTableContent('show_total', c10, true, c))
-                .append(createTableContent('comments', c11, true, c))
-                .append(createTableContent('charge_weight', c12, true, c))
+                .append(createTableContent('cargo_pieces', c1, false, c))
+                .append(createTableContent('cargo_weight_unit', c2, false, c))
+                .append(createTableContent('cargo_gross_weight', c3, true, c))
+                .append(createTableContent('cargo_volume_weight', c4, false, c))
+                .append(createTableContent('cargo_rate', c5, false, c))
+                .append(createTableContent('cargo_total', c6, false, c))
+                .append(createTableContent('cargo_rate_class', c7, false, c))
+                .append(createTableContent('cargo_commodity', c8, true, c))
+                .append(createTableContent('cargo_show_rate', c9, true, c))
+                .append(createTableContent('cargo_show_total', c10, true, c))
+                .append(createTableContent('cargo_comments', c11, true, c))
+                .append(createTableContent('cargo_charge_weight', c12, true, c))
                 .append(createTableBtns()); 0 == l ? t.append(p) : t.find("tr#" + l).replaceWith(p);
                 cleanModalFields('cargo_details'); $("#cargo_details").modal("hide"); total_cargo();
 
@@ -296,12 +296,14 @@
                                    .append(createTableContent('house_number', e[d].code, false, d))
                                    .append(createTableContent('date_in', e[d].date, false, d))
                                    .append(createTableContent('status', e[d].status, false, d))
-                                   .append(createTableContent('sum_pieces', e[d].sum_pieces, false, d))
-                                   .append(createTableContent('sum_weight', e[d].sum_weight, false, d))
-                                   .append(createTableContent('sum_cubic', e[d].sum_cubic, true, d))
-                                   .append(createTableContent('sum_volume_weight', e[d].sum_volume_weight, true, d))
+                                   .append(createTableContent('sum_pieces', e[d].total_pieces, false, d))
+                                   .append(createTableContent('sum_weight', e[d].total_gross_weight, false, d))
+                                   .append(createTableContent('sum_cubic', e[d].total_cubic, true, d))
+                                   .append(createTableContent('sum_volume_weight', e[d].total_volume_weight, true, d))
                                    .append(createTableContent('house_id', e[d].id, true, d))
-                                   .append(createTableContent('destination_name', e[d].destination_name, false, d));
+                                   .append(createTableContent('destination_name', e[d].destination_name, false, d))
+                                   .append(createTableContent('sum_rate', e[d].total_rate, true, d))
+                                   .append(createTableContent('sum_amount', e[d].total_amount, true, d));
                                 t.append(p_1);
                             d++;
                         }
@@ -315,7 +317,7 @@
 
 
     $("#link_house_save").click(function(){
-        var select = new Array(), sum_pieces=0, sum_weight=0, sum_volume_weight=0;
+        var select = new Array(), sum_pieces=0, sum_weight=0, sum_volume_weight=0, sum_rate=0, sum_amount=0;
         clearTableCondition('hidden_house');
         clearTableCondition('hidden_id_houses');
         clearTableCondition('cargos');
@@ -330,6 +332,8 @@
                     sum_pieces=  parseFloat(tr[y].childNodes[5].textContent) + sum_pieces;
                     sum_weight=  parseFloat(tr[y].childNodes[6].textContent) + sum_weight;
                     sum_volume_weight=  parseFloat(tr[y].childNodes[8].textContent) + sum_volume_weight;
+                    sum_rate=  parseFloat(tr[y].childNodes[11].textContent) + sum_rate;
+                    sum_amount=  parseFloat(tr[y].childNodes[12].textContent) + sum_amount;
                     var p = $("<tr id= 1 >");
                     p.append(createTableContent('house_id', tr[y].childNodes[9].textContent , true, x));
                     t.append(p);
@@ -341,18 +345,18 @@
 
             p = $("<tr id= 1 >");
             p.append(createTableContent('cargo_line', 1 , true, 0))
-                .append(createTableContent('pieces', sum_pieces, false, 0))
-                .append(createTableContent('unit_weight', '', false, 0))
-                .append(createTableContent('gross_weight', sum_weight, true, 0))
-                .append(createTableContent('volume_weight', sum_volume_weight, false, 0))
-                .append(createTableContent('rate','', false, 0))
-                .append(createTableContent('total','', false, 0))
-                .append(createTableContent('rate_class', '', false, 0))
-                .append(createTableContent('commodity', '', true, 0))
-                .append(createTableContent('show_rate', '', true, 0))
-                .append(createTableContent('show_total', '', true, 0))
-                .append(createTableContent('comments', '', true, 0))
-                .append(createTableContent('charge_weight', sum_volume_weight, true, 0))
+                .append(createTableContent('cargo_pieces', sum_pieces, false, 0))
+                .append(createTableContent('cargo_weight_unit', '', false, 0))
+                .append(createTableContent('cargo_gross_weight', sum_weight, true, 0))
+                .append(createTableContent('cargo_volume_weight', sum_volume_weight, false, 0))
+                .append(createTableContent('cargo_rate',sum_rate, false, 0))
+                .append(createTableContent('cargo_total',sum_amount, false, 0))
+                .append(createTableContent('cargo_rate_class', '', false, 0))
+                .append(createTableContent('cargo_commodity', '', true, 0))
+                .append(createTableContent('cargo_show_rate', sum_rate, true, 0))
+                .append(createTableContent('cargo_show_total', sum_amount, true, 0))
+                .append(createTableContent('cargo_comments', '', true, 0))
+                .append(createTableContent('cargo_charge_weight', sum_weight, true, 0))
                 .append(createTableBtns());
             t.append(p);
 

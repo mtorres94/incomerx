@@ -21,10 +21,17 @@
 
 <!-- Ionicons -->
     {!! Html::style('css/ionicons.min.css') !!}
+
+    <style type="text/css">
+        .page {
+            overflow: hidden;
+            page-break-after: always;
+        }
+    </style>
 </head>
 
 <body>
-<div class="container-fluid">
+<div class="page">
     <div class="row row-padding">
         <div class="col-xs-6">
             <div class="company-info">
@@ -38,20 +45,19 @@
             </div>
         </div>
         <div class="col-xs-6">
-            <div class="row">
-                <div class="document-info pull-right">
-                    <h5><strong>LOADING PLAN</strong></h5>
-                    <p class="code-bar">{{ $cargo_loader->code }}</p>
-                    <p class="document_number"><strong>CARGO LOADER # {{ $cargo_loader->code }}</strong></p>
-                </div>
+            <div class="document-info pull-right">
+                <h5><strong>LOADING PLAN</strong></h5>
+                {!! DNS2D::getBarcodeSVG(
+                $cargo_loader->code
+                 , "QRCODE", 2, 2) !!}
+                <p class="document_number"><strong>{{ $cargo_loader->code }}</strong></p>
             </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
-
-            <table class="table resume-table">
+            <table class="table header-table">
                 <tr>
                     <td><p><strong>FILE #: </strong></p></td>
                     <td><p>{{ strtoupper($cargo_loader->shipment_id >0 ? $cargo_loader->shipment->code: "") }} </p></td>
@@ -87,101 +93,135 @@
                 @foreach( $cargo_loader->container_details as $detail)
                     <tr>
                         <td><p><strong>EQUIPMENT TYPE: </strong></p></td>
-                        <td>{{ ($detail->equipment_type_id > 0 ? $detail->equipment_type->code : "") }}</td>
+                        <td>{{ strtoupper($detail->equipment_type_id > 0 ? $detail->equipment_type->code : "") }}</td>
                         <td><p><strong>EQUIPMENT NUMBER: </strong></p></td>
-                        <td>{{ $detail->container_number }}</td>
+                        <td>{{ strtoupper($detail->container_number) }}</td>
                         <td><p><strong>SEAL NUMBER: </strong></p></td>
-                        <td>{{ $detail->container_seal_number }}</td>
+                        <td>{{ strtoupper($detail->container_seal_number )}}</td>
                     </tr>
                 @endforeach
             </table>
-
-               @foreach($cargo_loader->pivote as $pivot)
-                <table class="table table-condensed">
+        </div>
+    </div>
+    <?php
+        $total_pieces = 0;
+        $total_weight = 0;
+        $total_cubic = 0;
+    ?>
+    <div class="row">
+        <div class="col-xs-12">
+            @foreach($cargo_loader->receipt_entries as $receipt)
+                <table class="table resume-table">
+                    <tbody>
+                    <tr>
+                        <td width="5%"><strong>WR#</strong></td>
+                        <td width="10%" >{{ $receipt->code }}</td>
+                        <td width="10%" ><strong> WR LOC</strong></td>
+                        <td width="10%">{{ strtoupper($receipt->location_origin_id > 0? $receipt->origin->name : "") }}</td>
+                        <td width="10%"><strong>SHIPPER: </strong></td>
+                        <td width="20%"> {{ strtoupper($receipt->shipper_id >0 ? $receipt->shipper->name : "")}}</td>
+                        <td width="10%"><strong>CONSIGNEE: </strong></td>
+                        <td width="20%"> {{ strtoupper($receipt->consignee_id >0 ? $receipt->consignee->name : "")}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table resume-table">
                     <thead>
                     <tr>
-                        <th width="5%" valign="bottom"><strong>WR#</strong></th>
-                        <td width="10%" valign="bottom">{{ $pivot->receipt_entry->code }}</td>
-                        <th width="10%" valign="bottom"><strong> WR LOC</strong></th>
-                        <td width="10%" valign="bottom">{{ strtoupper($pivot->receipt_entry->location_origin_id > 0? $pivot->receipt_entry->origin->name : "") }}</td>
-                        <th width="10%" valign="bottom"><strong>SHIPPER: </strong></th>
-                        <td width="20%" valign="bottom"> {{ strtoupper($pivot->receipt_entry->shipper_id >0 ? $pivot->receipt_entry->shipper->name : "")}}</td>
-                        <th width="10%" valign="bottom"><strong>CONSIGNEE: </strong></th>
-                        <td width="20%" valign="bottom"> {{ strtoupper($pivot->receipt_entry->consignee_id >0 ? $pivot->receipt_entry->consignee->name : "")}}</td>
+                        <th width="5%">PCS</th>
+                        <th width="10%">TYPE</th>
+                        <th width="15%">DIMS</th>
+                        <th width="10%">WEIGHT</th>
+                        <th width="10%">CUBIC</th>
+                        <th width="15%">LOCATION</th>
+                        <th width="15%">BIN</th>
+                        <th width="10%">PICKED</th>
+                        <th width="10%">LOADED</th>
+                        <th width="10%">POSITION</th>
+                        <th width="5%">HZ</th>
                     </tr>
-                    </thead>
-                </table>
-                <table class="table table-condensed">
-                    <thead>
-                         <tr>
-                                   <th width="10%">PCS</th>
-                                   <th width="10%">TYPE</th>
-                                   <th width="10%">DIMS</th>
-                                   <th width="10%">WEIGHT</th>
-                                   <th width="10%">CUBIC</th>
-                                   <th width="15%">LOCATION</th>
-                                   <th width="15%">BIN</th>
-                                   <th width="10%">PICKED</th>
-                                   <th width="10%">LOADED</th>
-                                   <th width="10%">POSITION</th>
-                                   <th width="5%">HZ</th>
-                               </tr>
                     </thead>
                     <tbody>
-                               @foreach( $pivot->receipt_entry->cargo_details as $cargo_detail)
-                                   <tr>
-                                       <td width="10%">{{ $cargo_detail->quantity  }}</td>
-                                       <td width="10%">{{ strtoupper($cargo_detail->cargo_type_id >0 ? $cargo_detail->cargo_type->code : "") }}</td>
-                                       <td width="10%">{{ round($cargo_detail->length)  }}x {{ round($cargo_detail->width)  }}x {{ round($cargo_detail->height)  }}</td>
-                                       <td width="10%">{{ $cargo_detail->total_weight  }}</td>
-                                       <td width="10%">{{ $cargo_detail->cubic  }}</td>
-                                       <td width="15%">{{ strtoupper($cargo_detail->location_id >0 ? $cargo_detail->location->name : "") }}</td>
-                                       <td width="15%">{{ strtoupper($cargo_detail->location_bin_id ) }}</td>
-                                       <td width="10%"></td>
-                                       <td width="10%"></td>
-                                       <td width="10%"></td>
-                                       <td width="5%"></td>
+                    @foreach( $receipt->cargo_details as $cargo_detail)
+                        <tr>
+                            <td width="5%">{{ $cargo_detail->quantity  }}</td>
+                            <td width="10%">{{ strtoupper($cargo_detail->cargo_type_id >0 ? $cargo_detail->cargo_type->code : "") }}</td>
+                            <td width="15%">{{ round($cargo_detail->length)  }}x {{ round($cargo_detail->width)  }}x {{ round($cargo_detail->height)  }}</td>
+                            <td width="10%">{{ $cargo_detail->total_weight  }}</td>
+                            <td width="10%">{{ $cargo_detail->cubic  }}</td>
+                            <td width="15%">{{ strtoupper($cargo_detail->location_id >0 ? $cargo_detail->location->name : "") }}</td>
+                            <td width="15%">{{ strtoupper($cargo_detail->location_bin_id ) }}</td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="5%"></td>
 
-                                   </tr>
-                               @endforeach
-                          </tbody>
-                    </table>
-
-
-                <table class="table table-condensed">
-                    <thead>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
                     <tr>
-                        <th width="10%"><strong>TOTAL PIECES: </strong></th>
-                        <th width="10%">{{ $pivot->receipt_entry->sum_pieces }}</th>
-                        <th width="10%"></th>
-                        <th width="10%"></th>
-                        <th width="10%"><strong>TOTAL WEIGHT: </strong></th>
-                        <td width="15%">{{ $pivot->receipt_entry->sum_weight}}</td>
-                        <td width="15%"></td>
-                        <td width="10%"><strong>TOTAL CUBIC: </strong></td>
-                        <td width="10%">{{ $pivot->receipt_entry->sum_cubic}}</td>
-                        <td width="10%"></td>
-                        <td width="5%"></td>
+                        <td align="right" colspan="2"><strong>TOTAL PIECES: </strong></td>
+                        <td align="left">{{ $receipt->sum_pieces }}</td>
+                        <td ></td>
+                        <td align="right" colspan="2"><strong>TOTAL WEIGHT: </strong></td>
+                        <td align="left">{{ $receipt->sum_weight}}</td>
+                        <td ></td>
+                        <td  align="right" colspan="2"><strong>TOTAL CUBIC: </strong></td>
+                        <td  align="left">{{ $receipt->sum_cubic}}</td>
                     </tr>
-                    </thead>
-
+                    </tfoot>
                 </table>
+                <br>
+                <?php
+                    $total_pieces += $receipt->sum_pieces;
+                    $total_weight += $receipt->sum_weight;
+                    $total_cubic += $receipt->sum_cubic;
+                ?>
             @endforeach
         </div>
     </div>
-<div class="row">
-    <table class="table header-table">
-        <tr>
-            <td><p><strong>COMMENTS: </strong></p></td>
-            <td><p>{{ strtoupper($cargo_loader->inland_comments) }}</p></td>
-        </tr>
-        <tr>
-            <td><p><strong>MARKS: </strong></p></td>
-            <td><p>{{ strtoupper($cargo_loader->inland_mark )}}</p></td>
-        </tr>
-    </table>
-</div>
-
+    <div class="row">
+        <div class="col-xs-12">
+            <p style="font-size: 10px;" align="center">HAZARDOUS MATERIAL CONTACT INFORMATION</p>
+            <table class="table resume-table">
+                @foreach($cargo_loader->container_details as $details)
+                    <tr>
+                        <td width="20%">CONTACT: &nbsp;</td>
+                        <td width="40%">{{ strtoupper($detail->container_hazardous_contact) }}</td>
+                        <td width="20%">PHONE: &nbsp;</td>
+                        <td width="40%">{{ $detail->container_hazardous_phone }}</td>
+                    </tr>
+                @endforeach
+            </table>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12">
+            <p style="font-size: 10px;" align="center">COMMENTS</p>
+            <p style="font-size: 8px;" align="left">{{ strtoupper($cargo_loader->inland_comments) }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6"></div>
+        <div class="col-xs-6">
+           <table class="table resume-table">
+               <tr>
+                   <td height="15px" width="20%" style="border-top: 1px solid; border-left: 1px solid; "><strong>PIECES</strong></td>
+                   <td  width="30%" style="border-top: 1px solid; "><strong>{{ $total_pieces }}</strong></td>
+                   <td  width="20%" style="border-top: 1px solid; "><strong>WEIGHT:</strong></td>
+                   <td  width="30%" style="border-top: 1px solid; border-right: 1px solid;"><strong>{{ $total_weight }}</strong></td>
+               </tr>
+               <tr>
+                   <td height="15px" style="border-bottom: 1px solid; border-left: 1px solid;"></td>
+                   <td  style="border-bottom: 1px solid;"></td>
+                   <td  style="border-bottom: 1px solid;"><strong>CUBIC:</strong></td>
+                   <td  style="border-bottom: 1px solid; border-right: 1px solid;"><strong>{{ $total_cubic }}</strong></td>
+               </tr>
+           </table>
+        </div>
+    </div>
 </div>
 </body>
 

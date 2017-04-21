@@ -44,8 +44,8 @@
             <!--- Shipper / Consignee  -->
             <div title="Cargo Details">
                 <div style="padding-top: 10px;padding-bottom: 15px;">
-                    <div class="col-md-6">@include('export.air.airwaybills.partials.sections.cargo_details')</div>
-                    <div class="col-md-6"> {!! Form::bsMemo('col-md-3', 'col-md-9', 'Nature and Quantity of Goods', 'cargo_notes', null, ' ') !!}</div>
+                    <div class="col-md-7">@include('export.air.airwaybills.partials.sections.cargo_details')</div>
+                    <div class="col-md-5"> {!! Form::bsMemo(null, null, 'Nature and Quantity of Goods', 'cargo_notes', null, ' ') !!}</div>
                 </div>
             </div>
             <!--- Issued  -->
@@ -60,8 +60,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6">{!! Form::bsMemo('col-md-3', 'col-md-9', 'Letter of Credit Comments', 'credit_comments', null, ' ') !!}</div>
-    <div class="col-md-6">{!! Form::bsMemo('col-md-3', 'col-md-9', 'Comments', 'airwaybill_comments', null, ' ') !!}</div>
+    @include('export.air.airwaybills.partials.sections.total_charges')
 </div>
 
 

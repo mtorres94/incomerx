@@ -30,7 +30,7 @@
                         notEmpty: { message: "Departure date is invalid" },
                         date: {
                             format: "YYYY-MM-DD",
-                            min: 'bl_date',
+                            max: 'arrival_date',
                             message: "Departure date is invalid"
                         }
                     }

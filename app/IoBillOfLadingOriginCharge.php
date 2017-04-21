@@ -14,11 +14,11 @@ class IoBillOfLadingOriginCharge extends Model
     public static function saveDetail($id, $data) {
         $i=-1; $a=0;
         DB::table('io_bill_of_lading_origin_charge')->where('bill_of_lading_id', '=', $id)->delete();
-        if (isset($data['charge_line'])){
+        if (isset($data['charge_id'])){
 
-            while($a < count($data['charge_line'])){
+            while($a < count($data['charge_id'])){
                 $i++;
-                if (isset($data['charge_line'][$i])){
+                if (isset($data['charge_id'][$i])){
                     $obj = new IoBillOfLadingOriginCharge();
 
                     $obj->bill_of_lading_id = $id;

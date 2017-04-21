@@ -16,7 +16,7 @@
             $('.btn-print[data-id]').attr('href', url + '?_token=' + _token + '&_type=' + _type + '&_id=' + _id);
         });
 
-
+        $("#total_weight_unit").val("L").change();
         $("#user_id").attr("readonly", true);
         $("#code").attr("readonly", true);
         $("#currency_id").val('{{ isset($airway_bill)? $airway_bill->currency_id : 1 }}').change();
@@ -114,6 +114,9 @@
         $("#issued_phone").val('3055992703');
         $("#issued_notes").val('VECO LOGISTICS MIAMI\n7270 NW 35 TERRACE\nMIAMI ,FLORIDA 33122')
 
+        $("#cargo_rate").change(function(){  calculate_cargo() });
+        $("#cargo_total").change(function(){  calculate_cargo() });
+        $("#cargo_charge_weight").change(function(){  calculate_cargo() });
 
     });
 

@@ -27,18 +27,18 @@
           @foreach($airway_bill->cargo_details as $detail)
               <tr id="{{ $detail->line }}">
                   {!! Form::bsRowTd($detail->line, 'cargo_line', $detail->line, true) !!}
-                  {!! Form::bsRowTd($detail->line, 'pieces', $detail->pieces, false) !!}
-                  {!! Form::bsRowTd($detail->line, 'unit_weight', $detail->unit_weight, false) !!}
-                  {!! Form::bsRowTd($detail->line, 'gross_weight', $detail->gross_weight, true) !!}
-                  {!! Form::bsRowTd($detail->line, 'volume_weight', $detail->volume_weight, false) !!}
-                  {!! Form::bsRowTd($detail->line, 'rate', $detail->rate, false) !!}
-                  {!! Form::bsRowTd($detail->line, 'total', $detail->total, false) !!}
-                  {!! Form::bsRowTd($detail->line, 'rate_class', $detail->rate_class, false) !!}
-                  {!! Form::bsRowTd($detail->line, 'commodity', $detail->commodity, true) !!}
-                  {!! Form::bsRowTd($detail->line, 'show_rate', $detail->show_rate, true) !!}
-                  {!! Form::bsRowTd($detail->line, 'show_total', $detail->show_total, true) !!}
-                  {!! Form::bsRowTd($detail->line, 'comments', $detail->comments, true) !!}
-                  {!! Form::bsRowTd($detail->line, 'charge_weight', $detail->charge_weight, true) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_pieces', $detail->cargo_pieces, false) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_weight_unit', $detail->cargo_weight_unit, false) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_gross_weight', $detail->cargo_gross_weight, true) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_volume_weight', $detail->cargo_volume_weight, false) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_rate', $detail->cargo_rate, false) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_total', $detail->cargo_total, false) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_rate_class', $detail->cargo_rate_class, false) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_commodity', $detail->cargo_commodity, true) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_show_rate', $detail->cargo_show_rate, true) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_show_total', $detail->cargo_show_total, true) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_comments', $detail->cargo_comments, true) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_charge_weight', $detail->cargo_charge_weight, true) !!}
                   {!! Form::bsRowBtns() !!}
 
               </tr>
@@ -48,12 +48,14 @@
         </tbody>
     </table>
     <div class="row">
-        <div class="col-md-2">{!! Form::bsText(null, null, 'Pieces', 'sum_pieces', null, ' ') !!}</div>
-        <div class="col-md-2">{!! Form::bsSelect(null, null, 'Kgs/Lbs', 'total_unit_weight', array('K' => 'KGS','L' => 'LBS'), '') !!}</div>
+        <div class="col-md-2">{!! Form::bsText(null, null, 'Pieces', 'total_pieces', null, ' ') !!}</div>
+        <div class="col-md-2">{!! Form::bsSelect(null, null, 'Kgs/Lbs', 'total_weight_unit', array('K' => 'KGS','L' => 'LBS'), '') !!}</div>
         <div class="col-md-2">{!! Form::bsText(null, null, 'Commodity', 'total_commodity', null, ' ') !!}</div>
-        <div class="col-md-2">{!! Form::bsText(null, null, 'G. Weight', 'sum_weight', null, ' ') !!}</div>
-        <div class="col-md-2">{!! Form::bsText(null, null, 'V. Weight', 'sum_volume_weight', null, ' ') !!}</div>
-        <div class="col-md-2">{!! Form::bsText(null, null, 'Charge', 'sum_charge_weight', null, ' ') !!}</div>
+        <div class="col-md-2">{!! Form::bsText(null, null, 'G. Wgt', 'total_gross_weight', null, ' ') !!}</div>
+        <div class="col-md-2">{!! Form::bsText(null, null, 'Ch. Wgt', 'total_charge_weight', null, ' ') !!}</div>
+        <div class="col-md-2">{!! Form::bsText(null, null, 'Total', 'sum_total', null, ' ') !!}</div>
+        {!! Form::hidden('total_rate', null, ['id' => 'total_rate', 'class' => 'form-control input-sm']) !!}
+
     </div>
     <table class="hidden" id="hidden_houses">
         <tbody>

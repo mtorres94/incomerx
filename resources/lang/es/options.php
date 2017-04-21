@@ -148,7 +148,7 @@ return [
 
     'accounting_bridge' =>[
         'invoice_notes' =>[
-            'invoices' => 'Facturas/ Notas de Crédito o Débito',
+            'invoices' => 'Facturas Notas de Crédito o Débito',
             'export_invoices' => 'Exportar facturas a QuickBooks',
             'invoice_reports' => 'Reportes de facturas',
         ],

@@ -38,308 +38,171 @@
             </div>
         </div>
         <div class="col-xs-6">
-            <div class="row">
-                <div class="document-info pull-right">
-                    <h5><strong>ARRIVAL NOTICE / FREIGHT INVOICE</strong></h5>
-                    <p class="code-bar">{{ $bill_of_lading->code }}</p>
-                    <p class="document_number">{{ $bill_of_lading->code }}</p>
-                </div>
+            <div class="document-info pull-right">
+                <h5><strong>ARRIVAL NOTICE / FREIGHT INVOICE</strong></h5>
+                {!! DNS2D::getBarcodeSVG(
+              $bill_of_lading->code
+                 , "QRCODE", 2, 2) !!}
+                <p class="document_number">{{ $bill_of_lading->code }}</p>
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-xs-12">
-            <table class="table" >
-                <tr>
-                    <td width="50%" rowspan="2">
-                        <table class="table header-table">
-                            <tr><td><strong>SHIPPER</strong></td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->shipper_id > 0? $bill_of_lading->shipper->name : "") }}</td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->shipper_id > 0? $bill_of_lading->shipper_address : "") }}</td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->shipper_id > 0? $bill_of_lading->shipper_city : "") }}</td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->shipper_state_id > 0? $bill_of_lading->shipper_state->code : "")}}   {{ ($bill_of_lading->shipper_zip_code_id > 0? $bill_of_lading->shipper_zip_code->code : "")  }} </td></tr>
-                            <tr><td><strong>Phone: </strong>{{($bill_of_lading->shipper_id > 0? $bill_of_lading->shipper_phone : "") }}</td></tr>
-
-                        </table>
-                    </td>
-                    <td width="25%">
-                        <table class="table header-table">
-                            <tr><td><strong>OUR REFERENCE </strong></td></tr>
-                            <tr><td> {{ $bill_of_lading->our_reference  }}</td></tr>
-                        </table>
-                    </td>
-                    <td width="25%" colspan="2">
-                        <table class="table header-table">
-                            <tr><td><strong>DATE </strong></td></tr>
-                            <tr><td> {{ $bill_of_lading->date_today  }}</td></tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="25%">
-                        <table class="table header-table">
-                            <tr><td><strong>MASTER BL NO </strong></td></tr>
-                            <tr><td> {{ $bill_of_lading->mbl_number  }}</td></tr>
-                        </table>
-                    </td>
-                    <td width="25%" colspan="2">
-                        <table class="table header-table">
-                            <tr><td><strong>PREPARED BY </strong></td></tr>
-                            <tr><td> {{ Auth::user()->username }} </td></tr>
-                        </table>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td width="50%" rowspan="2">
-                        <table class="table header-table">
-                            <tr><td><strong>CONSIGNEE</strong></td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->consignee_id > 0? $bill_of_lading->consignee->name : "") }}</td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->consignee_id > 0? $bill_of_lading->consignee_address : "") }}</td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->consignee_id > 0? $bill_of_lading->consignee_city : "") }}</td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->consignee_state_id > 0? $bill_of_lading->consignee_state->code : "")}}   {{ ($bill_of_lading->consignee_zip_code_id > 0? $bill_of_lading->consignee_zip_code->code : "")  }} </td></tr>
-                            <tr><td><strong>Phone: </strong>{{($bill_of_lading->consignee_id > 0? $bill_of_lading->consignee_phone : "") }}</td></tr>
-
-                        </table>
-                    </td>
-                    <td width="25%">
-                        <table class="table header-table">
-                            <tr><td><strong>CUSTOMER REF NO. </strong></td></tr>
-                            <tr><td> {{ $bill_of_lading->customer_reference  }}</td></tr>
-                        </table>
-                    </td>
-                    <td width="25%" colspan="2">
-                        <table class="table header-table">
-                            <tr><td><strong>HOUSE BL NO. </strong></td></tr>
-                            <tr><td> {{ $bill_of_lading->code  }}</td></tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="25%">
-                        <table class="table header-table">
-                            <tr><td><strong>AMS BL NO </strong></td></tr>
-                            <tr><td> {{ $bill_of_lading->code  }}</td></tr>
-                        </table>
-                    </td>
-                    <td width="25%" colspan="2">
-                        <table class="table header-table">
-                            <tr><td><strong>FILE NUMBER </strong></td></tr>
-                            <tr><td> {{ Auth::user()->shipment_code }} </td></tr>
-                        </table>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td width="50%" >
-                        <table class="table header-table">
-                            <tr><td><strong>NOTIFY PARTY</strong></td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->notify_id > 0? $bill_of_lading->notify->name : "") }}</td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->notify_id > 0? $bill_of_lading->notify_address : "") }}</td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->notify_id > 0? $bill_of_lading->notify_city : "") }}</td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->notify_state_id > 0? $bill_of_lading->notify_state->code : "")}}   {{ ($bill_of_lading->notify_zip_code_id > 0? $bill_of_lading->notify_zip_code->code : "")  }} </td></tr>
-                            <tr><td><strong>Phone: </strong>{{($bill_of_lading->notify_id > 0? $bill_of_lading->notify_phone : "") }}</td></tr>
-
-                        </table>
-                    </td>
-                    <td width="25%" colspan="2">
-                        <table class="table header-table">
-                            <tr><td><strong>VESSEL </strong></td></tr>
-                            <tr><td> {{ $bill_of_lading->vessel_name  }}</td></tr>
-                        </table>
-                    </td>
-                    <td width="25%">
-                        <table class="table header-table">
-                            <tr><td><strong>VOYAGE </strong></td></tr>
-                            <tr><td> {{ $bill_of_lading->voyage_name  }}</td></tr>
-                        </table>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td width="50%" rowspan="2">
-                        <table class="table header-table">
-                            <tr><td><strong>BROKER</strong></td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->broker_id > 0? $bill_of_lading->broker->name : "") }}</td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->broker_id > 0? $bill_of_lading->broker->address : "") }}</td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->broker_id > 0? $bill_of_lading->broker->city : "") }}</td></tr>
-
-                            <tr><td><strong>Contact: </strong>{{($bill_of_lading->broker_id > 0? $bill_of_lading->broker->contact : "") }}</td></tr>
-                            <tr><td><strong>Phone: </strong>{{($bill_of_lading->broker_id > 0? $bill_of_lading->broker_phone : "") }}</td></tr>
-                            <tr><td><strong>Fax: </strong>{{($bill_of_lading->broker_id > 0? $bill_of_lading->broker->fax : "") }}</td></tr>
-
-                        </table>
-                    </td>
-                    <td width="25%" colspan="2">
-                        <table class="table header-table">
-                            <tr><td><strong>PORT OF LOADING </strong></td></tr>
-                            <tr><td> {{ strtoupper($bill_of_lading->port_loading_id > 0 ? $bill_of_lading->port_loading_name->name : "")  }}</td></tr>
-                        </table>
-                    </td>
-                    <td width="25%">
-                        <table class="table header-table">
-                            <tr><td><strong>ETD </strong></td></tr>
-                            <tr><td> {{ $bill_of_lading->departure_date  }}</td></tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="25%" colspan="2">
-                        <table class="table header-table">
-                            <tr><td><strong>PORT OF DISCHARGE </strong></td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->port_unloading_id > 0 ? $bill_of_lading->port_unloading_name->name : "")  }}</td></tr>
-                        </table>
-                    </td>
-                    <td width="25%">
-                        <table class="table header-table">
-                            <tr><td><strong>ETA </strong></td></tr>
-                            <tr><td> {{ $bill_of_lading->arrival_date }} </td></tr>
-                        </table>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td width="50%" rowspan="2">
-                        <table class="table header-table">
-                            <tr><td><strong>FREIGHT LOCATION</strong></td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->location_id > 0? $bill_of_lading->location->name : "") }}</td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->location_id > 0? $bill_of_lading->location_address : "") }}</td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->location_id > 0? $bill_of_lading->location_city : "") }}</td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->location_state_id > 0? $bill_of_lading->location_state->code : "")}}   {{ ($bill_of_lading->location_zip_code_id > 0? $bill_of_lading->location_zip_code->code : "")  }} </td></tr>
-                            <tr><td><strong>Contact: </strong>{{ strtoupper($bill_of_lading->location_id > 0? $bill_of_lading->location->contact : "") }}</td></tr>
-                            <tr><td><strong>Phone: </strong>{{($bill_of_lading->location_id > 0? $bill_of_lading->location_phone : "") }}</td></tr>
-                            <tr><td><strong>Fax: </strong>{{($bill_of_lading->location_id > 0? $bill_of_lading->location->fax : "") }}</td></tr>
-                        </table>
-                    </td>
-                    <td  colspan="3">
-                        <table class="table header-table">
-                            <tr><td><strong>PLACE OF DELIVERY </strong></td></tr>
-                            <tr><td> {{ strtoupper($bill_of_lading->place_delivery_id > 0 ? $bill_of_lading->place_delivery_name->name : "")  }}</td></tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="25%" colspan="2">
-                        <table class="table header-table">
-                            <tr><td><strong>FINAL DESTINATION </strong></td></tr>
-                            <tr><td>{{ strtoupper($bill_of_lading->destiny_country_id > 0 ? $bill_of_lading->destiny_country->name : "")  }}</td></tr>
-                        </table>
-                    </td>
-                    <td width="25%">
-                        <table class="table header-table">
-                            <tr><td><strong>ETA </strong></td></tr>
-                            <tr><td> {{ $bill_of_lading->arrival_date }} </td></tr>
-                        </table>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td width="50%" rowspan="2">
-                        <table class="table header-table">
-                            <tr><td><strong>CONTAINER RETURN LOCATION</strong></td></tr>
-                            <tr><td></td></tr>
-                            <tr><td></td></tr>
-                            <tr><td></td></tr>
-                            <tr><td> </td></tr>
-                            <tr><td><strong>Contact: </strong></td></tr>
-                            <tr><td><strong>Phone: </strong></td></tr>
-                            <tr><td><strong>Fax: </strong></td></tr>
-                        </table>
-                    </td>
-                    <td width="17%">
-                        <table class="table header-table">
-                            <tr><td><strong>GO DATE </strong></td></tr>
-                            <tr><td> </td></tr>
-                        </table>
-                    </td>
-                    <td width="17%">
-                        <table class="table header-table">
-                            <tr><td><strong>LAST FREE DATE</strong></td></tr>
-                            <tr><td> </td></tr>
-                        </table>
-                    </td>
-                    <td width="16%">
-                        <table class="table header-table">
-                            <tr><td><strong>DATE AVAILABLE </strong></td></tr>
-                            <tr><td> </td></tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="17%">
-                        <table class="table header-table">
-                            <tr><td><strong>IT NO. </strong></td></tr>
-                            <tr><td> </td></tr>
-                        </table>
-                    </td>
-                    <td width="17%">
-                        <table class="table header-table">
-                            <tr><td><strong>IT. DATE</strong></td></tr>
-                            <tr><td> </td></tr>
-                        </table>
-                    </td>
-                    <td width="16%">
-                        <table class="table header-table">
-                            <tr><td><strong>IT PORT </strong></td></tr>
-                            <tr><td> </td></tr>
-                        </table>
-                    </td>
-                </tr>
-
-            </table>
+            <table class="table resume-table">
+            <tr>
+                <td width="15%" align="right"><strong>Shipper</strong></td>
+                <td width="35%" style="border:1px solid;" height="70px">
+                    <p>{{ strtoupper($bill_of_lading->shipper_id > 0 ? $bill_of_lading->shipper->name : "") }}<br>
+                        {{ strtoupper($bill_of_lading->shipper_address) }}<br>
+                        {{ strtoupper($bill_of_lading->shipper_city) }} {{ ($bill_of_lading->shipper_state_id > 0) ? ', '.strtoupper($bill_of_lading->shipper_state->name) : "" }} {{ ($bill_of_lading->shipper_zip_code_id > 0) ? ', '.strtoupper($bill_of_lading->shipper_zip_code->code) : ""  }}<br>
+                        Phone: {{ $bill_of_lading->shipper->phone }} / Fax: {{ $bill_of_lading->shipper->fax }}</p>
+                </td>
+                <td width="15%" align="right"><strong>Consignee</strong></td>
+                <td width="35%" style="border:1px solid;" height="70px">
+                    <p>{{ strtoupper($bill_of_lading->consignee_id > 0 ? $bill_of_lading->consignee->name : "") }}<br>
+                        {{ strtoupper($bill_of_lading->consignee_address) }}<br>
+                        {{ strtoupper($bill_of_lading->consignee_city) }} {{ ($bill_of_lading->consignee_state_id > 0) ? ', '.strtoupper($bill_of_lading->consignee_state->name) : "" }} {{ ($bill_of_lading->consignee_zip_code_id > 0) ? ', '.strtoupper($bill_of_lading->consignee_zip_code->code) : ""  }}<br>
+                        Phone: {{ $bill_of_lading->consignee->phone }} / Fax: {{ $bill_of_lading->consignee->fax }}</p>
+                </td>
+            </tr>
+            <tr><td height="10px"></td></tr>
+            <tr>
+                <td align="right"><strong>Broker:</strong></td>
+                <td style="border:1px solid;" height="70px">
+                    <p>{{ strtoupper($bill_of_lading->broker_code > 0 ? $bill_of_lading->broker->name : "") }}<br>
+                        Phone: {{ $bill_of_lading->broker_phone }}
+                        <br> Fax: {{ $bill_of_lading->broker_code > 0 ? $bill_of_lading->broker->fax  : ""}}</p>
+                </td>
+                <td align="right"><strong>Notify:</strong></td>
+                <td style="border:1px solid;" height="70px">
+                    <p>{{ strtoupper($bill_of_lading->notify_id > 0 ? $bill_of_lading->notify->name : "") }}<br>
+                        {{ strtoupper($bill_of_lading->notify_address) }}<br>
+                        {{ strtoupper($bill_of_lading->notify_city) }} {{ ($bill_of_lading->notify_state_id > 0) ? ', '.strtoupper($bill_of_lading->notify_state->name) : "" }} {{ ($bill_of_lading->notify_zip_code_id > 0) ? ', '.strtoupper($bill_of_lading->notify_zip_code->code) : ""  }}<br>
+                        Phone: {{ $bill_of_lading->notify_id > 0 ? $bill_of_lading->notify->phone : "" }} <br>
+                        Fax: {{ $bill_of_lading->notify_id > 0 ? $bill_of_lading->notify->fax  : ""}}</p>
+                </td>
+            </tr>
+            <tr><td height="10px"></td></tr>
+            <tr>
+                <td align="right" height="15px"><strong>File Number:</strong></td>
+                <td>{{ strtoupper($bill_of_lading->shipment_code) }}</td>
+                <td align="right" ><strong>Customer Reference:</strong></td>
+                <td>{{ strtoupper($bill_of_lading->customer_reference) }}</td>
+            </tr>
+            <tr>
+                <td align="right" height="15px"><strong>Mawb:</strong></td>
+                <td>{{ strtoupper($bill_of_lading->mbl_code) }}</td>
+                <td align="right"><strong>Departure:</strong></td>
+                <td>{{ $bill_of_lading->departure_date }}</td>
+            </tr>
+            <tr>
+                <td align="right" height="15px"><strong>Hawb:</strong></td>
+                <td>{{ strtoupper($bill_of_lading->code) }}</td>
+                <td align="right"><strong>Arrival:</strong></td>
+                <td>{{ $bill_of_lading->arrival_date }}</td>
+            </tr>
+            <tr>
+                <td align="right" height="15px"><strong>Carrier:</strong></td>
+                <td>{{ $bill_of_lading->carrier_id >0 ? strtoupper($bill_of_lading->carrier->name) : "" }}</td>
+                <td align="right"><strong>Origin:</strong></td>
+                <td>{{ $bill_of_lading->port_loading_id >0 ? strtoupper($bill_of_lading->port_loading_name->name) : "" }}</td>
+            </tr>
+            <tr>
+                <td align="right" height="15px"><strong>Flight:</strong></td>
+                <td>{{ strtoupper($bill_of_lading->flight) }}</td>
+                <td align="right"><strong>Destination:</strong></td>
+                <td>{{ $bill_of_lading->port_unloading_id >0 ? strtoupper($bill_of_lading->port_unloading_name->name) : "" }}</td>
+            </tr>
+            <tr>
+                <td align="right" ><strong>Freight Location</strong></td>
+                <td height="70px">
+                    <p>{{ strtoupper($bill_of_lading->location_id > 0 ? $bill_of_lading->location->name : "") }}<br>
+                        {{ strtoupper($bill_of_lading->location_address) }}<br>
+                        {{ strtoupper($bill_of_lading->location_city) }} {{ ($bill_of_lading->location_state_id > 0) ? ', '.strtoupper($bill_of_lading->location_state->name) : "" }} {{ ($bill_of_lading->location_zip_code_id > 0) ? ', '.strtoupper($bill_of_lading->location_zip_code->code) : ""  }}<br>
+                        Phone: {{ $bill_of_lading->location_id > 0 ? $bill_of_lading->location->phone : "" }} <br>
+                        Fax: {{ $bill_of_lading->location_id > 0 ? $bill_of_lading->location->fax  : ""}}</p>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" height="15px"><strong>Pieces</strong></td>
+                <td>{{ round($bill_of_lading->total_pieces) }}</td>
+            </tr>
+            <tr>
+                <td align="right" height="15px"><strong>Weight</strong></td>
+                <td>
+                    {{ $bill_of_lading->total_weight_unit == 'L' ? $bill_of_lading->total_gross_weight : round($bill_of_lading->total_gross_weight * 0.453592,3) }} &nbsp;Lbs<br>
+                    {{ $bill_of_lading->total_weight_unit == 'L'? round($bill_of_lading->total_gross_weight * 0.453592, 3) : $bill_of_lading->total_gross_weight }} &nbsp;Kgs
+                </td>
+            </tr>
+            <tr><td height="20px"></td></tr>
+        </table>
         </div>
     </div>
-
-    <div class="row row padding">
-        <div class="col-xs-12">
-            <table class="table table-condensed">
-                <thead>
-                <th  width="30%">CONTAINER NO. / SEAL NO.</th>
-                <th  width="10%">NO. OF PKGS</th>
-                <th  width="30%">DESCRIPTION OF PACKAGES AND GOODS</th>
-                <th  width="15%">GROSS WEIGHT</th>
-                <th  width="15%">CUBIC</th>
-                </thead>
-                <tbody>
-                @foreach($bill_of_lading->cargo as $detail)
-                    <tr>
-                        <td>{{ strtoupper($detail->marks )}}</td>
-                        <td>{{ $detail->pieces}}</td>
-                        <td>{{ strtoupper($detail->description) }}</td>
-                        <td>{{ $detail->grossw }}</td>
-                        <td>{{ $detail->cubic }}</td>
-                    </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
+    <br>
+    <p class="company-info" align="center"><strong>CHARGES</strong></p>
+    <div class="row">
+        <table class="resume-table" align="center" width="60%">
+            <thead>
+            <tr>
+                <th width="70%" style="border:1px solid;" align="center"><strong>DESCRIPTION</strong></th>
+                <th width="30%" style="border:1px solid;" align="center"><strong>AMOUNT ({{ $bill_of_lading->currency_type > 0 ? strtoupper($bill_of_lading->currency->code ): "" }})</strong></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php $sum_amount =0; ?>
+            @foreach($bill_of_lading->origin_charge as $detail)
                 <tr>
-                    <td style="text-align: right"><strong>TOTAL: </strong></td>
-                    <td><strong>{{ $bill_of_lading->total_pieces}} </strong></td>
-                    <td colspan="2" style="text-align: right"><strong>{{ $bill_of_lading->total_weight}} </strong></td>
-                    <td><strong>{{ $bill_of_lading->total_cubic}} </strong></td>
+                    <td height="15px" align="right">{{ $detail->billing_id > 0 ? strtoupper($detail->billing->name) : "" }}</td>
+                    <td>{{ $detail->billing_amount }}</td>
                 </tr>
-                </tfoot>
-            </table>
-        </div>
+                <?php $sum_amount+= $detail->billing_amount ; ?>
+            @endforeach
+            <tr><td height="20px"></td></tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td style="border:1px solid;" align="right">TOTALS({{ $bill_of_lading->currency_type > 0 ? strtoupper($bill_of_lading->currency->code ): "" }})</td>
+                <td style="border:1px solid;"  align="right">{{ $sum_amount }}</td>
+            </tr>
+            </tfoot>
+        </table>
     </div>
 
-    <div class="row row padding">
+    <br>
+    <div class="row">
         <div class="col-xs-12">
             <table class="table header-table">
-                <tr>
-                    <td width="10%"><p><strong>COMMODITY:</strong></p></td>
-                    <td> {{ strtoupper($bill_of_lading->total_commodity_id ? $bill_of_lading->total_commodity->name : "")}}</td>
-                </tr>
-                <tr>
-                    <td width="10%"><p><strong>COMMENTS:</strong></p></td>
-                    <td> {{ strtoupper($bill_of_lading->bill_comments)}}</td>
-                </tr>
-            </table>
+            <tr>
+                <td WIDTH="10%"><strong>COMMODITY</strong></td>
+                <td>{{ strtoupper($bill_of_lading->total_commodity_name) }}</td>
+            </tr>
+            <tr>
+                <td><strong>COMMENTS</strong></td>
+                <td>{{ $bill_of_lading->bill_comments }}</td>
+            </tr>
+        </table>
         </div>
     </div>
-
-
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table header-table">
+            <tr>
+                <td>
+                    *VECO LOGISTICS MIAMI has a policy against payment, solicitation, or receipt of any rebate, directly or indirectly, wich would be unlawfull under the United States shipping Act of 1984.<br>
+                    *Upon request, we shall provide detailed breakout of the components of all charges assessed and a true copy of each pertinent relating to these charges.<br>
+                    *For the purpose of fixing the maximum limit of the trucker's liability for loose or damage to merchandise shall be conclusively presumed to be not in excess of 12 1/2 cents per pound (including government duties and excise taxes), unless a greater value should be declared as herein after provided. Refer to our Tariff for details.
+                </td>
+            </tr>
+                <tr>
+                    <td height="20px"></td>
+                </tr>
+            <tr>
+                <td align="center"><p>*** MAKE ALL CHECKS PAYABLE TO VECO LOGISTICS MIAMI ***</p></td>
+            </tr>
+        </table>
+        </div>
+    </div>
 </div>
 </body>
 

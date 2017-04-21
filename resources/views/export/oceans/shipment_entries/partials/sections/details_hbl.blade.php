@@ -16,15 +16,15 @@
     @if(isset($shipment_entry))
         @foreach($shipment_entry->bill_of_lading as $key=>$detail)
             @if( $detail->bl_class <= 2)
-                <tr id="{{ $key+=1 }}">
-                    {!! Form::bsRowTd($key+=1, 'hbl_id', $detail->code, false) !!}
-                    {!! Form::bsRowTd($key+=1, 'shipper_name', strtoupper($detail->shipper_id > 0 ? $detail->shipper->name : ""), false) !!}
-                    {!! Form::bsRowTd($key+=1, 'consignee_name', strtoupper($detail->consignee_id > 0 ? $detail->consignee->name : ""), false) !!}
-                    {!! Form::bsRowTd($key+=1, 'status_bl', strtoupper($detail->bl_status), false) !!}
-                    {!! Form::bsRowTd($key+=1, 'sum_pieces', $detail->total_pieces, false) !!}
-                    {!! Form::bsRowTd($key+=1, 'sum_weight', $detail->total_weight_lbs, false) !!}
-                    {!! Form::bsRowTd($key+=1, 'sum_unit_weight', $detail->total_weight_unit_measurement, false) !!}
-                    {!! Form::bsRowTd($key+=1, 'sum_cubic', $detail->total_cubic_cbm, false) !!}
+                <tr id="{{ $key+ 1 }}">
+                    {!! Form::bsRowTd($key+ 1, 'hbl_id', $detail->code, false) !!}
+                    {!! Form::bsRowTd($key+ 1, 'shipper_name', strtoupper($detail->shipper_id > 0 ? $detail->shipper->name : ""), false) !!}
+                    {!! Form::bsRowTd($key+ 1, 'consignee_name', strtoupper($detail->consignee_id > 0 ? $detail->consignee->name : ""), false) !!}
+                    {!! Form::bsRowTd($key+ 1, 'status_bl', strtoupper($detail->status), false) !!}
+                    {!! Form::bsRowTd($key+ 1, 'sum_pieces', $detail->total_pieces, false) !!}
+                    {!! Form::bsRowTd($key+ 1, 'sum_weight', $detail->total_gross_weight, false) !!}
+                    {!! Form::bsRowTd($key+ 1, 'sum_unit_weight', $detail->total_weight_unit, false) !!}
+                    {!! Form::bsRowTd($key+ 1, 'sum_cubic', $detail->total_cubic, false) !!}
                 </tr>
             @endif
         @endforeach

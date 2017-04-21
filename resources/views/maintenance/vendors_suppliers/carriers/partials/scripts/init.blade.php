@@ -29,7 +29,7 @@ $("#code").attr("readonly", true);
            count++;
        }
        $("#starting").val(init);
-       $("#total_codes").val(count);
+       $("#total_codes").val(count + 1);
 
     }
 //$("#total_codes").val( generate_codes());

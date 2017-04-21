@@ -5,6 +5,10 @@ namespace Sass\Http\Controllers\Export\Air;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Sass\AccInvoice;
+use Sass\AccInvoiceCargo;
+use Sass\AccInvoiceCharge;
+use Sass\AccInvoiceContainer;
 use Sass\DataTables\Export\Air\EaAirwayBillDataTable;
 use Sass\EaAirwayBill;
 use Sass\EaAirwayBillCargo;
@@ -60,13 +64,18 @@ class EaAirwayBillController extends Controller
             $airway_bill['user_create_id'] = Auth::user()->id;
             $airway_bill['user_update_id'] = Auth::user()->id;
             $airway_bill['user_open_id'] = Auth::user()->id;
-
             $id= EaAirwayBill::create($airway_bill)->id;
             EaAirwayBillCargo::saveDetail($id, $airway_bill);
             EaAirwayBillCharge::saveDetail($id, $airway_bill);
             if($airway_bill['awb_class'] == 3){
-                for($x=0; $x < count($airway_bill['house_id']); $x++){
-                    EaAirwayBill::where('id', '=', $airway_bill['house_id'][$x])->update(['airwaybill_id' => $id, 'status'=>'C']);
+                $airway_bill['carrier_type'] = 'A';
+                $airway_bill['source'] = 'AE';
+                AccInvoice::createInvoice($airway_bill, $id);
+
+                if(isset($airway_bill['house_id'])){
+                    for($x=0; $x < count($airway_bill['house_id']); $x++){
+                        EaAirwayBill::where('id', '=', $airway_bill['house_id'][$x])->update(['airwaybill_id' => $id, 'status'=>'C']);
+                    }
                 }
             }
         } catch (ValidationException $e) {
@@ -117,14 +126,18 @@ class EaAirwayBillController extends Controller
             $airway_bill['user_update_id'] = Auth::user()->id;
             $sent = EaAirwayBill::findorfail($id);
             $sent->update($airway_bill);
-
             EaAirwayBillCargo::saveDetail($id, $airway_bill);
             EaAirwayBillCharge::saveDetail($id, $airway_bill);
             if($airway_bill['awb_class'] == 3){
+                $airway_bill['carrier_type'] = 'A';
+                $airway_bill['source'] = 'AE';
+                AccInvoice::createInvoice($airway_bill, $id);
                 EaAirwayBill::where('airwaybill_id', $id)->update(['airwaybill_id' => 0, 'status'=>'O']);
-                for($x=0; $x < count($airway_bill['house_id']); $x++){
-                    EaAirwayBill::where('id', '=', $airway_bill['house_id'][$x])->update(['airwaybill_id' => $id, 'status'=>'C']);
-                }
+               if(isset($airway_bill['house_id'])){
+                   for($x=0; $x < count($airway_bill['house_id']); $x++){
+                       EaAirwayBill::where('id', '=', $airway_bill['house_id'][$x])->update(['airwaybill_id' => $id, 'status'=>'C']);
+                   }
+               }
             }
         } catch (ValidationException $e) {
             DB::rollback();
@@ -192,13 +205,15 @@ class EaAirwayBillController extends Controller
                     'status' => $airway_bill->status,
                     'code' => $airway_bill->code,
                     'date' => $airway_bill->date,
-                    'sum_pieces' => $airway_bill->sum_pieces,
-                    'sum_weight' => $airway_bill->sum_weight,
-                    'sum_volume_weight' => $airway_bill->sum_volume_weight,
-                    'sum_cubic' => $airway_bill->sum_cubic,
-                    'destination_name' => $airway_bill->destination->name,
+                    'total_pieces' => $airway_bill->total_pieces,
+                    'total_gross_weight' => $airway_bill->total_gross_weight,
+                    'total_volume_weight' => $airway_bill->total_volume_weight,
+                    'total_cubic' => $airway_bill->total_cubic,
+                    'total_rate' => $airway_bill->total_rate,
+                    'total_amount' => $airway_bill->sum_total,
+                    'destination_name' => strtoupper($airway_bill->destination->name),
                 ];
-                //  }
+
             }
 
             return response()->json($results);
@@ -268,7 +283,21 @@ class EaAirwayBillController extends Controller
                 break;
             case 8:
                 return \PDF::loadView('export.air.airwaybills.awb', compact('airway_bill', 'type'))->stream($airway_bill->code.'.pdf');
-                //return view('export.air.airwaybills.awb', compact('airway_bill', 'type'));
+
+                break;
+            case 9:
+                return \PDF::loadView('export.air.airwaybills.label', compact('airway_bill', 'type'))
+                    ->setOption('margin-top', 3)
+                    ->setOption('margin-left', 2)
+                    ->stream($airway_bill->code.'.pdf');
+                break;
+            case 10:
+                return \PDF::loadView('export.air.airwaybills.agent_commission', compact('airway_bill', 'type'))->stream($airway_bill->code.'.pdf');
+
+                break;
+            case 11:
+                return \PDF::loadView('export.air.airwaybills.shipper_consent', compact('airway_bill', 'type'))->stream($airway_bill->code.'.pdf');
+
                 break;
             default:
                 $response = [''];

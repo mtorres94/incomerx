@@ -166,7 +166,7 @@ class EoShipmentEntryController extends Controller
                     'id'                => $shipmentEntry->id,
                     'code'              => strtoupper($shipmentEntry->code),
                     'type'               => $shipmentEntry->shipment_type,
-                    'bl_status'         => $shipmentEntry->status,
+                    'status'         => $shipmentEntry->status,
                     'vessel'               => $shipmentEntry->vessel_name,
                     'voyage'         => $shipmentEntry->voyage_name,
                     'carrier_id'         => $shipmentEntry->carrier_id,

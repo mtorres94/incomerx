@@ -23,9 +23,8 @@ class InvoiceDataTable extends CustomDataTable
                 return $this->groupButton(
                     $invoice,
                     'accounting_bridge.invoice_notes.invoices',[
-                    ['route' => report_route('invoices.report', 1, $invoice->id), 'icon' => 'icon-file-pdf', 'name' => 'Posted'],
-                    ['route' => report_route('invoices.report', 2, $invoice->id), 'icon' => 'icon-file-pdf', 'name' => 'Cost Worksheet'],
-                    ['route' => report_route('invoices.report', 3, $invoice->id), 'icon' => 'fa fa-barcode', 'name' => 'Invoice'],
+                    ['route' => report_route('invoices.report', 1, $invoice->id), 'icon' => 'icon-file-pdf', 'name' => 'Cost Worksheet'],
+                    ['route' => report_route('invoices.report', 2, $invoice->id), 'icon' => 'fa fa-barcode', 'name' => 'Invoice'],
 
                 ]);
             })
@@ -82,7 +81,6 @@ class InvoiceDataTable extends CustomDataTable
             ['data' => 'total_profit',     'name' => 'acc_invoices.total_profit', 'title' => 'Profit', 'width' => '35px'],
             ['data' => 'total_balance',    'name' => 'acc_invoices.total_balance', 'title' => 'Balance', 'width' => '35px'],
             ['data' => 'bill_to_name',     'name' => 'c4.name', 'title' => 'Bill To'],
-            ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
         ];
     }
 

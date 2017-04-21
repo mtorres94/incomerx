@@ -51,7 +51,7 @@
                    {!! Form::bsRowTd($detail->line, 'cost_rate', $detail->cost_rate, true) !!}
                    {!! Form::bsRowTd($detail->line, 'cost_exchange_rate', $detail->cost_exchange_rate, true) !!}
                    {!! Form::bsRowTd($detail->line, 'billing_vendor_code', $detail->vendor_id, true) !!}
-                   {!! Form::bsRowTd($detail->line, 'billing_vendor_name', strtoupper($detail->vendor_id >0 ? $detail->vendor->name : ""), true) !!}
+                   {!! Form::bsRowTd($detail->line, 'billing_vendor_name', strtoupper($detail->vendor_id >0 ? $detail->billing_vendor->name : ""), true) !!}
                    {!! Form::bsRowTd($detail->line, 'cost_date', $detail->cost_date, true) !!}
                    {!! Form::bsRowTd($detail->line, 'billing_increase', $detail->billing_increase, true) !!}
                    {!! Form::bsRowBtns() !!}

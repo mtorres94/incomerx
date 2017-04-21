@@ -15,7 +15,7 @@ class CarrierAwbDetail extends Model
         'carrier_id', 'line', 'awb_number', 'sequence_type', 'awb_type', 'awb_status', 'agent_id', 'division_id'
     ];
 
-    public static function saveDetail($id, $data) {
+    public static function saveDetail1($id, $data) {
         $i=0; $a=0;
         DB::table('mst_carriers_awb_details')->where('carrier_id', '=', $id)->where('awb_status', '1')->delete();
         if (isset($data['line'])){
@@ -39,6 +39,23 @@ class CarrierAwbDetail extends Model
 
         }
 
+    }
+    public static function saveDetail($id, $data){
+        $array = [];
+        $data = collect(format_array($data))->where('status', '1');
+
+        foreach ($data as $value) {
+            $array[] = [
+                'carrier_id' => $id,
+                'awb_number' => $value['awb_number'],
+                'sequence_type' => $value['sequence_type'],
+                'awb_type' => $value['awb_type'],
+                'awb_status' => $value['status'],
+                'agent_id' => $value['agent_id'],
+                'division_id' => $value['division_id'],
+            ];
+        }
+        \DB::table('mst_carriers_awb_details')->insert($array);
     }
 
       public function agent()

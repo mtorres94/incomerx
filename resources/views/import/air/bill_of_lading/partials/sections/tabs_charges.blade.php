@@ -11,22 +11,22 @@
         <table class="table table-bordered table-condensed" id="origin_charge">
             <thead>
             <tr>
-                <th  data-override="charge_id" hidden></th>
-                <th data-override="billing_billing_id" hidden></th>
-                <th width="15%" data-override="billing_billing_code">Billing Code</th>
-                <th width="25%" data-override="billing_billing_description">Description</th>
-                <th width="10%" data-override="billing_bill_type">Bill type</th>
-                <th width="10%" data-override="billing_bill_party">Bill Party</th>
-                <th width="10%" data-override="billing_quantity">Qty</th>
-                <th width="10%" data-override="billing_amount">Amount</th>
-                <th width="10%" data-override="cost_amount">Cost</th>
+                <th  hidden></th>
+                <th hidden></th>
+                <th width="15%" >Billing Code</th>
+                <th width="25%" >Description</th>
+                <th width="10%" >Bill type</th>
+                <th width="10%" >Bill Party</th>
+                <th width="10%" >Qty</th>
+                <th width="10%" >Amount</th>
+                <th width="10%" >Cost</th>
             </tr>
             </thead>
             <tbody>
             @if(isset($bill_of_lading))
                 @foreach($bill_of_lading->origin_charge as $detail)
                     <tr id="{{ $detail->line }}">
-                        {!! Form::bsRowTd($detail->line, 'charge_line', $detail->line, true) !!}
+                        {!! Form::bsRowTd($detail->line, 'charge_id', $detail->line, true) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_billing_id', $detail->billing_id, true) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_code', ($detail->billing_id >0 ? $detail->billing->code :""), false) !!}
                         {!! Form::bsRowTd($detail->line, 'billing_billing_description', $detail->billing_description, false) !!}
@@ -65,10 +65,10 @@
             </tbody>
         </table>
             <div class="pull-right">
-                <div class="col-md-2">{!! Form::bsText(null,null, 'Bill', 'sum_bill', null, '0.00') !!}</div>
-                <div class="col-md-2">{!! Form::bsText(null,null, 'Cost', 'sum_cost', null, '0.00') !!}</div>
-                <div class="col-md-2">{!! Form::bsText(null,null, 'Profit', 'sum_profit', null, '0.00') !!}</div>
-                <div class="col-md-2">{!! Form::bsText(null,null, 'Profit %', 'sum_profit_percent', null, '0.00') !!}</div>
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Bill', 'total_bill', null, '0.00') !!}</div>
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Cost', 'total_cost', null, '0.00') !!}</div>
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Profit', 'total_profit', null, '0.00') !!}</div>
+                <div class="col-md-2">{!! Form::bsText(null,null, 'Profit %', 'total_profit_percent', null, '0.00') !!}</div>
             </div>
     </div>
 </div>

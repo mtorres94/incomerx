@@ -47,30 +47,37 @@
         <div class="col-xs-6">
             <div class="document-info pull-right">
                 <h5><strong>AIR CARGO MANIFEST</strong></h5>
-                <p class="code-bar">{{ $type== 1 ? "": ( $booking_entry->shipment_id >0 ? $booking_entry->shipment->code : "") }}</p>
-                <p class="document_number">FILE#: {{ $booking_entry->shipment_id >0 ? $booking_entry->shipment->code : "" }}<br>
+
+                <p class="document_number" style="align-content: center;">FILE#: {{ $booking_entry->shipment_id >0 ? $booking_entry->shipment->code : "" }}<br>
                     MAWB: {{ $booking_entry->code}}</p>
             </div>
         </div>
     </div>
+
+
+
     <div class="row">
         <div class="col-xs-12">
             <table class="table table-bordered">
             <tbody>
             <tr>
-                <td width="30%">2. OWNER / OPERATOR<br>{{ strtoupper($booking_entry->shipper_id >0 ? $booking_entry->shipper->name : "") }}</td>
-                <td width="40%">3. MARKS OF NATIONALITY AND REGISTRATION <br> USA</td>
-                <td width="30%">4. FLIGHT NO.<br> {{ $booking_entry->first_flight }}</td>
+                <td width="30%">
+                    <strong>2. OWNER / OPERATOR</strong><br>
+                    {{ strtoupper($booking_entry->shipper_id >0 ? $booking_entry->shipper->name : "") }}
+                </td>
+                <td width="40%"><strong>3. MARKS OF NATIONALITY AND REGISTRATION </strong><br>USA</td>
+                <td width="30%"><strong>4. FLIGHT NO.</strong><br> {{ $booking_entry->first_flight }}</td>
             </tr>
             <tr>
-                <td>5. PORT OF LOADING<br>{{ strtoupper($booking_entry->origin_id > 0 ? $booking_entry->origin->name : "" )}}</td>
-                <td>6. PORT OF UNLOADING<br> {{ strtoupper($booking_entry->destination_id >0 ? $booking_entry->destination->name : "") }}</td>
-                <td>7. DATE<br>{{ $booking_entry->date }}</td>
+                <td><strong>5. PORT OF LOADING</strong><br>
+                    {{ strtoupper($booking_entry->origin_id > 0 ? $booking_entry->origin->name : "" )}}</td>
+                <td><strong>6. PORT OF UNLOADING</strong><br> {{ strtoupper($booking_entry->destination_id >0 ? $booking_entry->destination->name : "") }}</td>
+                <td><strong> 7. DATE</strong><br>{{ $booking_entry->date }}</td>
             </tr>
             <tr>
-                <td>ITEMS 8 AND 9 ARE USE IN CONSOLIDATION SHIPMENTS ONLY</td>
-                <td>8. CONSOLIDATOR<br>{{ strtoupper(($booking_entry->consignee_id > 0 and $booking_entry->shipment_type = 'C' ) ? $booking_entry->consignee->name : "") }}</td>
-                <td>9. DE-CONSOLIDATOR<br>{{ strtoupper(($booking_entry->carrier_id > 0 and $booking_entry->shipment_type = 'C') ? $booking_entry->carrier->name : "") }}</td>
+                <td><strong>ITEMS 8 AND 9 ARE USE IN CONSOLIDATION SHIPMENTS ONLY</strong></td>
+                <td><strong>8. CONSOLIDATOR</strong><br>{{ strtoupper(($booking_entry->consignee_id > 0 and $booking_entry->shipment_type = 'C' ) ? $booking_entry->consignee->name : "") }}</td>
+                <td><strong>9. DE-CONSOLIDATOR</strong><br>{{ strtoupper(($booking_entry->carrier_id > 0 and $booking_entry->shipment_type = 'C') ? $booking_entry->carrier->name : "") }}</td>
             </tr>
             </tbody>
         </table>
@@ -95,11 +102,13 @@
                     @foreach($booking_entry->airwaybill as $airway_bill)
                         @if($airway_bill->awb_class != 3)
                             <tr>
-                                <td>{{ $airway_bill->awb_class == '1'? 'DAWB': 'HAWB' }}</td>
-                                <td>{{ $airway_bill->code }}
-                                    <p class="code-bar">{{ $type== 1? "": $airway_bill->code  }}</p></td>
-                                <td>{{ $airway_bill->sum_pieces }}</td>
-                                <td>{{ $airway_bill->sum_weight}}</td>
+                                <td valign="center">{{ $airway_bill->awb_class == '1'? 'DAWB': 'HAWB' }}</td>
+                                <td valign="center"><p>{{ $airway_bill->code }}</p>
+                                        {!! $type ==1 ? "" : DNS2D::getBarcodeSVG(
+                                        $airway_bill->code
+                                        , "QRCODE", 2, 2) !!}
+                                <td>{{ $airway_bill->total_pieces }}</td>
+                                <td>{{ $airway_bill->total_gross_weight}}</td>
                                 <td></td>
                                 <td>
                                     {{ strtoupper($airway_bill->shipper_id >0 ? $airway_bill->shipper->name : "") }} <br>
@@ -112,8 +121,8 @@
                                 <td>{{ strtoupper($airway_bill->cargo_notes) }}</td>
                             </tr>
 
-                            <?php $pieces+= $airway_bill->sum_pieces; ?>
-                            <?php $weight+= $airway_bill->sum_weight; ?>
+                            <?php $pieces+= $airway_bill->total_pieces; ?>
+                            <?php $weight+= $airway_bill->total_gross_weight; ?>
                         @endif
                     @endforeach
                 </tbody>

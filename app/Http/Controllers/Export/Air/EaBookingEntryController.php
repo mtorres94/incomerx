@@ -218,7 +218,8 @@ class EaBookingEntryController extends Controller
         }
         switch ($type) {
             case 1:
-                return \PDF::loadView('export.air.booking_entries.manifest', compact('booking_entry', 'type'))->setOrientation('landscape')->stream($booking_entry->code.'.pdf');
+                return \PDF::loadView('export.air.booking_entries.manifest', compact('booking_entry', 'type'))
+                    ->setOrientation('landscape')->stream($booking_entry->code.'.pdf');
                 break;
             case 2:
                 return \PDF::loadView('export.air.booking_entries.manifest', compact('booking_entry', 'type'))->setOrientation('landscape')->stream($booking_entry->code.'.pdf');

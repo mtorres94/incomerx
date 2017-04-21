@@ -27,15 +27,19 @@
 <div class="container-fluid">
     <div class="col-xs-6">
         <div class="row">
-            <div class="">
-                <h5><strong>DELIVERY ORDER</strong></h5>
-                <div class="col-xs-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">DATE</div>
-                        <div class="panel-body"><p>{{ $bill_of_lading->bl_date }}</p></div>
-                    </div>
+            <h5><strong>PICK UP ORDER / D.O</strong></h5>
+            <div class="company-info">
+                <div class="col-xs-6">
+                    <table width="70%" align="center">
+                        <tr><td class="border-title" align="center"><strong>Date in</strong></td></tr>
+                        <tr><td class="border-content" align="center" height="20px"><p>{{ $bill_of_lading->date }}</p></td></tr>
+                    </table>
                 </div>
-                <div class="col-xs-4"><p class="document_number">{{ $bill_of_lading->our_reference }}</p></div>
+                <div class="col-xs-6">
+                    {!! DNS2D::getBarcodeSVG(
+                         $bill_of_lading->code
+                        , "QRCODE", 2, 2) !!}
+                </div>
             </div>
         </div>
     </div>
@@ -51,174 +55,174 @@
                 <p>Printed by: {{ Auth::user()->username }}</p>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <table class="table resume-table">
+            <tr>
+                <td class="border-title" colspan="2" width="25%"><strong>IMPORTING CARRIER</strong></td>
+                <td class="border-title" colspan="2" width="25%"><strong>FROM PORT OF/ ORIGIN AIRPORT</strong></td>
+                <td class="border-title" colspan="2"><strong>OUR REFERENCE NUMBER</strong></td>
+                <td class="border-title" width="12%"><strong>ARRIVAL DATE</strong></td>
+                <td class="border-title" width="12%"><strong>FREE DATE EXP.</strong></td>
+            </tr>
+            <tr>
+                <td colspan="2" height="30px" class="border-content">{{ $bill_of_lading->carrier_id > 0 ? strtoupper($bill_of_lading->carrier->name) : "" }}</td>
+                <td colspan="2" class="border-content">{{ $bill_of_lading->port_loading_id > 0 ? strtoupper($bill_of_lading->port_loading_name->name) : "" }}</td>
+                <td colspan="2" class="border-content">{{ strtoupper($bill_of_lading->our_reference) }}</td>
+                <td class="border-content">{{ $bill_of_lading->arrival_date }}</td>
+                <td class="border-content"></td>
+            </tr>
+            <tr><td colspan="8" class="border-title" align="center"><strong>LOCATION OF MERCHANDISE</strong></td></tr>
+            <tr><td colspan="8" class="border-content" height="30px"></td></tr>
+            <tr>
+                <td width="10%" height="70px" align="center" class="border-content"><h5>DELIVER TO</h5></td>
+                <td colspan="3" class="border-content">
+                <td colspan="4" class="border-content">
+                    THE CARRIER OR CARTMAN TO WHOM THIS ORDER IS ASSIGNED WILL BE<BR>
+                    RESPONSIBLE FOR ANY STORAGE AND DEMURRAGE CHARGES RESULTING <BR>
+                    FROM NEGLIGENCE.<BR><BR>
+                    IMPORTANT: NOTIFY US AT ONCE IF DELIVERY CANNOT BE EFFECTED<BR>
+                    AS INSTRUCTED.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="border-title"><strong>BROKER/ IMPORTER NAME</strong></td>
+                <td colspan="3" class="border-title"><strong>AUTHORIZED SIGNATURE</strong></td>
+                <td colspan="2" class="border-title"><strong>FREIGHT CHARGES</strong></td>
+            </tr>
+            <tr>
+                <td colspan="3" height="30px" class="border-content"></td>
+                <td colspan="3" height="30px" class="border-content"></td>
+                <td colspan="2" height="30px" class="border-content" style="font-size: 6px;">
+                    <div class="col-xs-6" >{!! Form::bsLabel("", 'COD') !!}</div>
+                    <div class="col-xs-6">{!! Form::bsLabel("", 'Prepaid') !!}</div>
+                    <div class="col-xs-6">{!! Form::bsLabel("", 'Collect') !!}</div>
+                    <div class="col-xs-6">{!! Form::bsLabel("", 'Bank release') !!}</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5" class="border-title"><strong>TRUCKING COMPANY NAME</strong></td>
+                <td colspan="2" class="border-title"><strong>DATE AND SIGNATURE OF RECEIVER</strong></td>
+                <td class="border-title"><strong>NO. PKG REC D</strong></td>
+            </tr>
+            <tr>
+                <td class="border-content" height="30px"  colspan="5"></td>
+                <td class="border-content" height="30px"  colspan="2" rowspan="2"></td>
+                <td class="border-content" height="30px"  rowspan="2"></td>
+            </tr>
+            <tr>
+                <td colspan="5" class="border-content" style="font-size: 7px; height: 8px;" align="center">IS AUTHORIZED TO PICK UP THE MERCHANDISE INDICATED BELOW</td>
+            </tr>
+        </table>
+    </div>
+    <div class="row">
+       <div class="table-content resume-table" style="height:280px; border-bottom: 1px solid;">
+           <div class="table-row">
+               <div class="cell-title adjust"><strong>MARKS AND NUMBERS</strong></div>
+               <div class="cell-title adjust"><strong>ENTRY NUMBER</strong></div>
+               <div class="cell-title adjust"><strong>PKGS BY ENTRY</strong></div>
+               <div class="cell-title adjust"><strong>IMPORTING CARRIER & B/L OR A WH NO.</strong></div>
+               <div class="cell-title adjust"><strong>DESCRIPTION OF GOOD & WT</strong></div>
+           </div>
+           @foreach($bill_of_lading->container as $detail)
+               <div class="table-row">
+                   <div class="cell adjust"><?php echo nl2br(strtoupper( $detail->container_number) . "\n". strtoupper($detail->seal_number)); ?></div>
+                   <div class="cell adjust"></div>
+                   <div class="cell adjust">0</div>
+                   <div class="cell adjust">{{ strtoupper($bill_of_lading->bl_number) }}</div>
+                   <div class="cell adjust">0.00 Kgs<br>0.00 Lbs</div>
+               </div>
+           @endforeach
+           <div class="table-row">
+               <div class="cell"></div>
+               <div class="cell"></div>
+               <div class="cell"></div>
+               <div class="cell"></div>
+               <div class="cell"></div>
+           </div>
+       </div>
+    </div>
+    <div class="row">
+        <table class="resume-table">
+            <tr>
+                <td colspan="10" class="border-content"><strong>COMMENTS:</strong></td>
+            </tr>
+            <tr>
+                <td colspan="10" class="border-content">
+                    THE RECEIPT OF THS DELIVERY ORDER WILL SERVE AS A PRELIMINARY NOTICE OF INTENT TO FILE CLAIM AGAINST THE IMPORTING <BR>
+                    CARRIER FOR ANY DAMAGE TO, AND / OR LOSS OF THE SHIPMENT WITH THE UNDERSTANDING THAT THE FINAL CLAIM WILL BE MADE <BR>
+                    BY THE IMPORTER OR THEIR INSURANCE COMPANY.
+                </td>
+            </tr>
+            <tr>
+                <td width="15%"><strong>PACKAGE COUNT VALIDATION</strong></td>
+                <td colspan="6" width="25%"></td>
+                <td width="10%"><strong>DATE:</strong></td>
+                <td width="15%" style="border-bottom: 1px solid;"></td>
+                <td width="10%" rowspan="5">
+                    <table class="table header-table" border="1">
+                        <tr><td style="font-size: 6px;"><strong>NO. OF PKGS.</strong></td></tr>
+                        <tr><td height="15px"></td></tr>
+                        <tr><td height="15px"></td></tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" colspan="2"><strong>AGENT OF DELIVERING</strong></td>
+                <td colspan="3" style="border-bottom: 1px solid;"></td>
+                <td width="1%"></td>
+                <td colspan="3" width="35%" style="border-bottom: 1px solid;"></td>
+            </tr>
+            <tr>
+                <td width="25%" colspan="2"></td>
+                <td colspan="3" align="center" style="font-size: 6px;">(NAME)</td>
+                <td width="1%"></td>
+                <td colspan="3" align="center" style="font-size: 6px;">(TITLE)</td>
+            </tr>
+            <tr>
+                <td colspan="2"><strong>DELIVERY QUANTITIES VERIFIED</strong></td>
+                <td colspan="5" style="border-bottom: 1px solid;"></td>
+                <td width="1%"></td>
+                <td style="border-bottom: 1px solid;"></td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="5" align="center" style="font-size: 6px;">(SIGNATURE OF CUSTOMS OFFICER)</td>
+                <td width="1%"></td>
+                <td align="center" style="font-size: 6px;">BADGE NO.</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="border-title" width="30%"><strong>CUSTOMS PERMIT</strong></td>
+                <td class="border-title" colspan="4" width="35%"><strong>PKG. NOS. HELD BY U.S. CUSTOMS TO FOLLOW</strong></td>
+                <td class="border-title" colspan="3" ><strong>GO NUMBER</strong></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="border-content" height="30px" style="font-size: 6px;">
+                    <div class="col-xs-6">{!! Form::bsLabel("", 'Attached') !!}</div>
+                    <div class="col-xs-6">{!! Form::bsLabel("", 'Lodge with U.S. customs') !!}</div>
+                </td>
+                <td class="border-content" colspan="4"></td>
+                <td class="border-content" colspan="3"></td>
+            </tr>
+            <tr>
+                <td class="border-title" colspan="4"><strong>DOCUMENT ATTACHED</strong></td>
+                <td class="border-title" colspan="2"><strong>DELIVERY CHARGES</strong></td>
+                <td colspan="4" rowspan="2" class="border-content"></td>
+            </tr>
+            <tr>
+                <td class="border-content" colspan="4" height="60px" style="font-size: 6px;">
+                    <div class="col-xs-6">{!! Form::bsLabel("", 'Delivery order') !!}</div>
+                    <div class="col-xs-6">{!! Form::bsLabel("", 'Delivery order') !!}</div>
+                    <div class="col-xs-6">{!! Form::bsLabel("", 'B/L') !!}</div>
 
+                </td>
+                <td class="border-content" colspan="2" height="60px"></td>
+            </tr>
+        </table>
     </div>
     <div class="row">
-        <div class="col-xs-12">
-            <table class="table table-condensed">
-                <thead>
-                    <th>IMPORTING CARRIER</th>
-                    <th>FROM PORT OF / ORIGIN AIRPORT</th>
-                    <th>OUR REFERENCE NUMBER</th>
-                    <th>ARRIVAL DATE</th>
-                    <th>FREE TIME EXP.</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ strtoupper($bill_of_lading->carrier_id >0 ? $bill_of_lading->carrier->name : "") }}</td>
-                        <td>{{ strtoupper($bill_of_lading->port_loading_id >0 ? $bill_of_lading->port_loading_name->name : "") }}</td>
-                        <td>{{ strtoupper($bill_of_lading->our_reference) }}</td>
-                        <td>{{ ($bill_of_lading->arrival_date) }}</td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-xs-12">
-            <table class="table table-condensed">
-                <thead>
-                    <th align="center">LOCATION OF MERCHANDISE</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td align="center"><h5>{{ strtoupper($bill_of_lading->location_address) }}</h5></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <p align="center"><strong>DELIVERY CLARK: ALL DEMURRAGE FOR ACCOUNT OF DRAWEE OF THIS ORDER</strong></p>
     </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <table class="table table-condensed">
-                <tbody>
-                <tr>
-                    <td width="10%"><strong>DELIVERY TO</strong></td>
-                    <td width="450%">
-                        <p>Contact:</p>
-                        <p>Phone / Fax: </p>
-                    </td>
-                    <td width="45%"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <table class="table table-condensed">
-                <thead>
-                    <th width="35%">BROKER / IMPORTER NAME</th>
-                    <th width="35%">AUTHORIZED BIG NATURE</th>
-                    <th width="30%">FREIGHT CHARGES</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ ($bill_of_lading->broker_id >0 ? $bill_of_lading->broker->name : "" ) }}</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <table class="table table-condensed">
-                <thead>
-                <th width="60%">TRUCKING COMPANY NAME</th>
-                <th width="25%">DATE AND SIGNATURE OF RECEIVER</th>
-                <th width="15%">NO PKG. & REC.D</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <table class="table table-condensed">
-                <thead>
-                <th width="15%">IMPORTING CARRIER AND BL OR AWB NO.</th>
-                <th width="25%">MARKS & NUMBERS</th>
-                <th width="15%">ENTRY NUMBER</th>
-                <th width="10%">PKG. BY ENTRY</th>
-                <th width="25%">DESCRIPTION OF GOODS</th>
-                <th width="10%">GROSS WEIGHT</th>
-                </thead>
-                <tbody>
-                    @foreach($bill_of_lading->cargo as $detail)
-                        <tr>
-                            <td>{{ $bill_of_lading->code }}</td>
-                            <td>{{ strtoupper($detail->marks) }}</td>
-                            <td></td>
-                            <td>{{ $detail->pieces }}</td>
-                            <td>{{ strtoupper($detail->description) }}</td>
-                            <td>{{ $detail->grossw }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="4" style="text-align: right"><strong>{{ $bill_of_lading->total_pieces }}</strong></td>
-                        <td style="text-align: right"><strong>TOTAL:</strong></td>
-                        <td><strong>{{ $bill_of_lading->total_gross_weight }}</strong></td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <p class="document_number">COMMENTS:</p>
-        </div>
-    </div>
-    <div class="row row-padding">
-        <div class="col-xs-12 ">
-            <table width="100%">
-                <tr class="footer-sign">
-                    <td align="center" valign="center"><p></p></td>
-                    <td width="5%"></td>
-                    <td align="center" valign="center"><p></p></td>
-                    <td></td>
-                    <td align="center" valign="center"><p></p></td>
-                </tr>
-                <tr>
-                    <td width="10%" ><p class="document_number"><strong>DELIVERY BY</strong></p></td>
-                </tr>
-                <tr>
-                    <td width="10%"></td>
-                    <td width="5%"></td>
-                    <td width="30%" align="center"  class="footer-sign-td"><p><strong>NAME</strong></p></td>
-                    <td width="5%"  ></td>
-                    <td width="30%" align="center" class="footer-sign-td"><p><strong>SIGNATURE</strong></p></td>
-                </tr>
-                <tr class="footer-sign">
-                    <td align="center" valign="center"><p></p></td>
-                    <td width="5%"></td>
-                    <td align="center" valign="center"><p></p></td>
-                    <td width="5%"></td>
-                    <td align="center" valign="center"><p></p></td>
-                </tr>
-                <tr>
-                    <td width="10%" ><p class="document_number"><strong>RECEIVED BY</strong></p></td>
-                </tr>
-                <tr>
-                    <td width="10%"></td>
-                    <td width="5%"></td>
-                    <td width="30%" align="center"  class="footer-sign-td"><p><strong>NAME</strong></p></td>
-                    <td width="5%"  ></td>
-                    <td width="30%" align="center" class="footer-sign-td"><p><strong>SIGNATURE</strong></p></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-
 </div>
 </body>
 

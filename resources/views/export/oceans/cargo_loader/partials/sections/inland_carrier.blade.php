@@ -8,8 +8,4 @@
     <div class="col-md-6">
         {!! Form::bsMemo(null, null, 'Marks', 'inland_mark', null, 2, ' ') !!}
     </div>
-
-</div>
-<div class="col-md-12">
-    {!! Form::bsMemo(null, null, 'Comments', 'inland_comments', null, 2, ' ') !!}
 </div>

@@ -100,7 +100,7 @@
     $("#billing_bill_party").val("C").change();
 
     //=========================================
-    $("#quote_code").change(function () {
+    function quote_charge_detail(){
         var id = $("#quote_id").val();
 
         $.ajax({
@@ -151,7 +151,45 @@
             }
         });
         removeEmptyNodes("chargeDetails");
-       values_charges();
+        values_charges();
+    }
+
+    $("#quote_code").change(function () {
+        quote_charge_detail();
+        var id = $("#quote_id").val();
+        $.ajax({
+            url: "{{ route('ia_quotes.autocomplete') }}",
+            data: {id: id},
+            type: 'GET',
+
+            success: function (e) {
+                $("#service_id").val(e.service_id),
+                    $("#service_name").val(e.service_name),
+                    $("#port_loading_id").val(e.port_loading_id),
+                    $("#port_unloading_id").val(e.port_unloading_id),
+                    $("#port_loading_name").val(e.port_loading_name),
+                    $("#port_unloading_name").val(e.port_unloading_name),
+                    $("#place_receipt_id").val(e.place_receipt_id),
+                    $("#place_delivery_id").val(e.place_delivery_id),
+                    $("#place_receipt_name").val(e.place_receipt_name),
+                    $("#place_delivery_name").val(e.place_delivery_name),
+                    $("#incoterm_type").val(e.incoterm_type).change(),
+                    $("#carrier_id").val(e.carrier_id),
+                    $("#carrier_name").val(e.carrier_name),
+
+                    $("#shipper_id").val(e.shipper_id),
+                    $("#shipper_name").val(e.shipper_name),
+                    $("#shipper_address").val(e.shipper_address),
+                    $("#shipper_phone").val(e.shipper_phone),
+                    $("#shipper_fax").val(e.shipper_fax),
+
+                    $("#consignee_id").val(e.consignee_id),
+                    $("#consignee_name").val(e.consignee_name),
+                    $("#consignee_address").val(e.consignee_address),
+                    $("#consignee_phone").val(e.consignee_phone),
+                    $("#consignee_fax").val(e.consignee_fax)
+            }
+        });
     });
 
 

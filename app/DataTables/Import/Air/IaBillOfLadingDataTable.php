@@ -47,7 +47,7 @@ class IaBillOfLadingDataTable extends CustomDataTable
             ->leftJoin('mst_airports AS p1', 'ia_bill_of_lading.port_loading_id', '=', 'p1.id')
             ->leftJoin('mst_airports AS p2', 'ia_bill_of_lading.port_unloading_id', '=', 'p2.id')
             ->leftJoin('ia_routing_order AS r', 'ia_bill_of_lading.routing_order_id', '=', 'r.id')
-            ->select(['ia_bill_of_lading.id','ia_bill_of_lading.code','ia_bill_of_lading.bl_status','ia_bill_of_lading.bl_type','ia_bill_of_lading.date_today', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'p1.name as loading_port_name', 'p2.name as unloading_port_name', 'r.code as routing_code']);
+            ->select(['ia_bill_of_lading.id','ia_bill_of_lading.code','ia_bill_of_lading.status','ia_bill_of_lading.bl_type','ia_bill_of_lading.date', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'p1.name as loading_port_name', 'p2.name as unloading_port_name', 'r.code as routing_code']);
         return $this->applyScopes($query);
     }
 
@@ -74,9 +74,9 @@ class IaBillOfLadingDataTable extends CustomDataTable
     {
         return [
             ['data' => 'code',              'name' => 'ia_bill_of_lading.code', 'title' => 'Code'],
-            ['data' => 'bl_status',         'name' => 'ia_bill_of_lading.bl_status', 'title' => 'Status', 'width' => '35px'],
+            ['data' => 'status',         'name' => 'ia_bill_of_lading.status', 'title' => 'Status', 'width' => '35px'],
             ['data' => 'bl_type',           'name' => 'ia_bill_of_lading.bl_type', 'title' => 'Type', 'width' => '35px'],
-            ['data' => 'date_today',        'name' => 'ia_bill_of_lading.date_today', 'title' => 'Date', 'width' => '40px'],
+            ['data' => 'date',        'name' => 'ia_bill_of_lading.date', 'title' => 'Date', 'width' => '40px'],
             ['data' => 'routing_code',      'name' => 'r.code', 'title' => 'Routing #', 'width' => '55px'],
             ['data' => 'shipper_name',      'name' => 'c1.name', 'title' => 'Shipper'],
             ['data' => 'consignee_name',    'name' => 'c2.name', 'title' => 'Consignee'],

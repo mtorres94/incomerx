@@ -48,7 +48,6 @@ class CarrierController extends Controller
         $carrier['user_update_id'] = auth()->user()->id;
         $id = Carrier::create($carrier)->id;
         CarrierAwbDetail::saveDetail($id, $carrier);
-        //CarrierContact::saveDetail($id, $carrier);
 
         return redirect()->route('maintenance.vendors_suppliers.carriers.edit', [$id]);
     }
@@ -95,7 +94,14 @@ class CarrierController extends Controller
         $carrier->fill($request->all());
 
         $carrier->save();
-        CarrierAwbDetail::saveDetail($id, $request->all());
+        CarrierAwbDetail::saveDetail($id, $request->only([
+            'awb_number',
+            'sequence_type',
+            'awb_type',
+            'awb_status',
+            'agent_id',
+            'division_id']));
+        //CarrierAwbDetail::saveDetail($id, $request->all());
         //CarrierContact::saveDetail($id, $request->all());
         return redirect()->route('maintenance.vendors_suppliers.carriers.edit', [$id]);
     }

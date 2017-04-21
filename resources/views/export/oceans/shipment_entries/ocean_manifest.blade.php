@@ -44,7 +44,11 @@
             <div class="row">
                 <div class="document-info pull-right">
                     <h5><strong>OCEAN CARGO MANIFEST</strong></h5>
-                    <p class="code-bar">{{ $shipment_entry->code }}</p>
+                    <div style="text-align: center;">
+                        {!! DNS2D::getBarcodeSVG(
+                          $shipment_entry->code
+                        , "QRCODE", 2, 2) !!}
+                    </div>
                     <p class="document_number"><strong>{{ strtoupper($shipment_entry->code) }}</strong></p>
                 </div>
             </div>
@@ -56,7 +60,7 @@
             <table class="table resume-table" border="1">
                 <tbody>
                     <tr>
-                        <td width="33%" ><p><strong>MBL#</strong><br> {{ strtoupper($shipment_entry->bill_of_lading->first()->mbl_code) }}</p></td>
+                        <td width="33%" ><p><strong>MBL#</strong><br> {{ strtoupper(isset($shipment_entry->bill_of_lading->first()->mbl_code) ?  $shipment_entry->bill_of_lading->first()->mbl_code : "") }}</p></td>
                         <td width="33%" ><p><strong>SHIPLINE:</strong><br> {{ strtoupper($shipment_entry->carrier_id > 0 ? $shipment_entry->carrier->name : "") }}</p></td>
                         <td width="34%" ><p></p></td>
                     </tr>
@@ -116,9 +120,9 @@
                          <td>{{ $cargo->cargo_weight_k}} Kgs<br>{{ $cargo->cargo_weight_l}} Lbs</td>
                          <td>{{ $cargo->cargo_cubic_k}} Kgs<br>{{ $cargo->cargo_cubic_l}} Lbs</td>
                          <td>{{ $cargo->cargo_description }}</td>
-                         <td>{{ $detail->container->first()->container_number }}</td>
-                         <td>{{ $detail->container->first()->container_seal_number }}</td>
-                         <td>{{ $detail->container->first()->container_comments }}</td>
+                         <td>{{ isset($detail->container->first()->container_number) ? $detail->container->first()->container_number : "" }}</td>
+                         <td>{{ isset($detail->container->first()->container_seal_number) ? $detail->container->first()->container_seal_number : "" }}</td>
+                         <td>{{ isset( $detail->container->first()->container_comments)?  $detail->container->first()->container_comments : ""  }}</td>
                      </tr>
 
                      @endforeach

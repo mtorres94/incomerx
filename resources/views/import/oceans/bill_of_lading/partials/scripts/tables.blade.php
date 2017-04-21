@@ -28,9 +28,7 @@ $("#btn_container_details").click(function(){
         $("#CargoModal").formValidation("resetForm", true);
     });
 $("#container-save").click(function() {
-    if($("#tmp_equipment_type_code").val()=='' || $("#tmp_number").val() == "") {
-    $("#tmp_equipment_type_code").focus();
-    }else{
+
     var t = $("#container_details tbody tr").length + 1,
     _ =  ($("#container_details tbody tr").length == 0 ? 1 : parseInt($("#container_details tbody tr")[$("#container_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
 
@@ -168,9 +166,6 @@ $("#container-save").click(function() {
 
         0 == container_id ? x.append(C) : x.find("tr#" + container_id).replaceWith(C), $("#Container_Details").modal("show"), $("#tmp_equipment_type_id").val("").change(), $("#ContainerModal").formValidation("resetFomr", true),$("#tmp_equipment_type_code").focus();
 
-
-        }
-
         }), $("#container_details").on("click", "a.btn-danger", function() {
 
             preventDelete($(this))
@@ -307,10 +302,6 @@ $("#container-save").click(function() {
 
     $("#destination-charge-save").click(function() {
 
-        if($("#destination_billing_code").val()==''){
-      //  show_alert();
-        $("#destination_billing_code").focus();
-        }else{
         var t = $("#destination_charge tbody tr").length + 1,
         _ =  ($("#destination_charge tbody tr").length == 0 ? 1 : parseInt($("#destination_charge tbody tr")[$("#destination_charge tbody tr").length - 1].childNodes[0].textContent) + 1 ),
 
@@ -385,9 +376,7 @@ $("#container-save").click(function() {
         .append(createTableBtns()),
 
         0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields("Destination_Charges"), $("#Destination_Charges").modal("show"), $("#billing_billing_code").focus(), destination_charges()
-    }
-
-    }), $("#destination_charge").on("click", "a.btn-danger", function() {
+        }), $("#destination_charge").on("click", "a.btn-danger", function() {
         var td = $(this);
         preventDeleteCondition(td, function (td, eval) {
             if (eval) {
@@ -465,10 +454,6 @@ $("#container-save").click(function() {
     }),
 
             $("#origin-charge-save").click(function() {
-
-                if($("#origin_billing_code").val()=='' || $("#origing_billing_quantity").val() == ""){
-                    $("#origin_billing_code").focus();
-                }else{
                     var t = $("#origin_charge tbody tr").length + 1,
                             _ =  ($("#origin_charge tbody tr").length == 0 ? 1 : parseInt($("#origin_charge tbody tr")[$("#origin_charge tbody tr").length - 1].childNodes[0].textContent) + 1 ),
 
@@ -508,7 +493,7 @@ $("#container-save").click(function() {
                             C = $("<tr id=" + (0== charge_id? _ : charge_id) + ">");
 
 
-                    C.append(createTableContent('charge_line', (0== charge_id? _ : charge_id) , true,d))
+                    C.append(createTableContent('charge_id', (0== charge_id? _ : charge_id) , true,d))
                         .append(createTableContent('billing_billing_id', g_1, true, d))
                         .append(createTableContent('billing_billing_code', g_2, false, d))
                         .append(createTableContent('billing_billing_description', g_3, false, d))
@@ -541,7 +526,6 @@ $("#container-save").click(function() {
                         .append(createTableBtns()),
 
                             0 == charge_id ? x.append(C) : x.find("tr#" + charge_id).replaceWith(C), cleanModalFields("Origin_Charges"), $("#Origin_Charges").modal("show"),   $("#origin_bill_unit_id").val("").change(), $("#origin_cost_unit_id").val("").change(), $("#origin_bill_type").val("C").change(), $("#origin_bill_party").val("C").change(), $("#origin_cost_currency_type").val("1").change(),  $("#origin_billing_currency_type").val("1").change(), $("#ChargeModal").formValidation("resetForm", true), $("#origin_billing_code").focus(), values_charges()
-                }
 
             }), $("#origin_charge").on("click", "a.btn-danger", function() {
         var td = $(this);
@@ -622,10 +606,7 @@ $("#container-save").click(function() {
 
 
     $("#transportation-save").click(function() {
-    if($("#transportation_billing_code").val()== '' || $("#transportation_carrier_name").val() == '' || $("#transportation_amount").val()=='' || $("#transportation_loading_reference").val()==''){
-    //show_alert();
-    $("#transportation_billing_code").focus();
-    }else{
+
     var t = $("#transportation_details tbody tr").length + 1,
     _ =  ($("#transportation_details tbody tr").length == 0 ? 1 : parseInt($("#transportation_details tbody tr")[$("#transportation_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
     transportation_id = $("#transportation_id").val(),
@@ -734,7 +715,6 @@ $("#container-save").click(function() {
     .append(createTableContent('origin_to_phone', g_47, true, d))
     .append(createTableContent('origin_to_fax', g_48, true, d))
     .append(createTableBtns()), 0 == transportation_id ? x.append(C) : x.find("tr#" + transportation_id).replaceWith(C),cleanModalFields('TransportationDetails'), $("#TransportationDetails").modal("show"), $("#transportation_leg").focus(), transportation_plan()
-    }
 
     }), $("#transportation_details").on("click", "a.btn-danger", function() {
         var td = $(this);
@@ -854,10 +834,6 @@ $("#container-save").click(function() {
 
 $("#cargo-save").click(function() {
 
-    if($("#tmp_marks").val()=='' || $("#tmp_pieces").val() == ""){
-        //  show_alert();
-        $("#tmp_marks").focus();
-    }else{
         var t = $("#cargo_details tbody tr").length + 1,
                 _ =  ($("#cargo_details tbody tr").length == 0 ? 1 : parseInt($("#cargo_details tbody tr")[$("#cargo_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
 
@@ -883,7 +859,7 @@ $("#cargo-save").click(function() {
                 C = $("<tr id=" + (0== cargo_id? _ : cargo_id) + ">");
 
 
-        C.append(createTableContent('cargo_id', (0== cargo_id? _ : cargo_id) , true,d))
+        C.append(createTableContent('cargo_line', (0== cargo_id? _ : cargo_id) , true,d))
                 .append(createTableContent('cargo_marks', g_1, false, d))
                 .append(createTableContent('cargo_pieces', g_2, false, d))
                 .append(createTableContent('cargo_description', g_3, false, d))
@@ -892,18 +868,18 @@ $("#cargo-save").click(function() {
                 .append(createTableContent('cargo_type_code', g_6, true, d))
 
                 .append(createTableContent('cargo_weight_unit', g_9, false, d))
-                .append(createTableContent('cargo_grossw', g_10, false, d))
+                .append(createTableContent('cargo_gross_weight', g_10, false, d))
                 .append(createTableContent('cargo_cubic', g_11, false, d))
                 .append(createTableContent('cargo_comments', g_12, true, d))
                 .append(createTableContent('cargo_charge_weight', g_13, true, d))
                 .append(createTableContent('cargo_rate', g_14, true, d))
                 .append(createTableContent('cargo_amount', g_15, false, d))
                 .append(createTableBtns()),
-                0 == cargo_id ? x.append(C) : x.find("tr#" + cargo_id).replaceWith(C), cleanModalFields("Cargo_Details"), $("#Cargo_Details").modal("show"),$("#tmp_weight_unit").val("L").change(), $("#CargoModal").formValidation("resetForm", true),  $("#tmp_marks").focus(), values_box_vehicle()
+                0 == cargo_id ? x.append(C) : x.find("tr#" + cargo_id).replaceWith(C), cleanModalFields("Cargo_Details"), $("#Cargo_Details").modal("show"),$("#tmp_weight_unit").val("L").change(), $("#CargoModal").formValidation("resetForm", true),  $("#tmp_marks").focus(), values_box_vehicle();
 
         //===================
 
-    }
+
 
 }), $("#cargo_details").on("click", "a.btn-danger", function() {
     var td = $(this);
@@ -952,11 +928,7 @@ $("#cargo-save").click(function() {
 });
 
 $("#box-save").click(function() {
-    if($("#box_cargo_type_code").val()==''){
-       // show_alert();
 
-        $("#box_cargo_type_code").focus();
-    }else{
         var t = $("#cargo_vehicle_details tbody tr").length + 1,
                 _ =  ($("#cargo_vehicle_details tbody tr").length == 0 ? 1 : parseInt($("#cargo_vehicle_details tbody tr")[$("#cargo_vehicle_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                 box_id = $("#box_line").val(),
@@ -1093,8 +1065,7 @@ $("#box-save").click(function() {
                 .append(createTableContent('details_emergency_contact_phone', g_57, true, d))
                 .append(createTableContent('details_comments', g_58, true, d))
                 .append(createTableBtns())
-        0 == box_id ? x.append(C) : x.find("tr#" + box_id).replaceWith(C), cleanModalFields("Box_Details") ,$("#Box_Details").modal("show"), $("#box_quantity").focus(),values_box_vehicle()
-    }
+        0 == box_id ? x.append(C) : x.find("tr#" + box_id).replaceWith(C), cleanModalFields("Box_Details") ,$("#Box_Details").modal("show"), $("#box_quantity").focus(),values_box_vehicle();
 
 }), $("#cargo_vehicle_details").on("click", "a.btn-danger", function() {
     var td = $(this);

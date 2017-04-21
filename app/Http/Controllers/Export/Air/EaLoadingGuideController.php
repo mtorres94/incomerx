@@ -146,9 +146,9 @@ class EaLoadingGuideController extends Controller
                     }
                 }
             }
-            $loading_guide['sum_pieces']= $sum_pieces;
-            $loading_guide['sum_weight']= $sum_weight;
-            $loading_guide['sum_volume_weight']= $sum_volume_weight;
+            $loading_guide['total_pieces']= $sum_pieces;
+            $loading_guide['total_gross_weight']= $sum_weight;
+            $loading_guide['total_volume_weight']= $sum_volume_weight;
 
             $hbl_code= EaAirwayBill::saveDetail($loading_guide['tmp_loading_guide_id'], $loading_guide);
             DB::commit();
@@ -250,7 +250,8 @@ class EaLoadingGuideController extends Controller
                 break;
             case 3:
 
-                return \PDF::loadView('export.air.loading_guides.load_list', compact('loading_guide'))->stream($loading_guide->code.'.pdf');
+                return \PDF::loadView('export.air.loading_guides.load_list', compact('loading_guide'))
+                    ->stream($loading_guide->code.'.pdf');
 
 
                 break;

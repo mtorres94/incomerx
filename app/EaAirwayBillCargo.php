@@ -10,7 +10,7 @@ class EaAirwayBillCargo extends Model
     protected $table = "ea_airwaybill_cargo";
 
     protected $fillable = [
-        'pieces', 'unit_weight', 'gross_weight', 'volume_weight', 'rate', 'total', 'rate_class', 'commodity', 'show_rate', 'show_total', 'comments', 'charge_weight', 'airwaybill_id', 'line'
+        'cargo_pieces', 'cargo_weight_unit', 'cargo_gross_weight', 'cargo_volume_weight', 'cargo_rate', 'cargo_total', 'cargo_rate_class', 'cargo_commodity', 'cargo_show_rate', 'cargo_show_total', 'cargo_comments', 'cargo_charge_weight', 'airwaybill_id', 'line'
     ];
     public $timestamps= false;
 
@@ -23,18 +23,18 @@ class EaAirwayBillCargo extends Model
                     $obj = new EaAirwayBillCargo();
                     $obj->airwaybill_id = $id;
                     $obj->line = $a + 1;
-                    $obj-> pieces = $data['pieces'][$i];
-                    $obj->unit_weight= $data['unit_weight'][$i];
-                    $obj->gross_weight= $data['gross_weight'][$i];
-                    $obj->volume_weight= $data['volume_weight'][$i];
-                    $obj->rate= $data['rate'][$i];
-                    $obj->total= $data['total'][$i];
-                    $obj->rate_class= $data['rate_class'][$i];
-                    $obj->commodity= $data['commodity'][$i];
-                    $obj->show_rate= $data['show_rate'][$i];
-                    $obj->show_total= $data['show_total'][$i];
-                    $obj->comments= $data['comments'][$i];
-                    $obj->charge_weight= $data['charge_weight'][$i];
+                    $obj->cargo_pieces = $data['cargo_pieces'][$i];
+                    $obj->cargo_weight_unit= $data['cargo_weight_unit'][$i];
+                    $obj->cargo_gross_weight= $data['cargo_gross_weight'][$i];
+                    $obj->cargo_volume_weight= $data['cargo_volume_weight'][$i];
+                    $obj->cargo_rate= $data['cargo_rate'][$i];
+                    $obj->cargo_total= $data['cargo_total'][$i];
+                    $obj->cargo_rate_class= $data['cargo_rate_class'][$i];
+                    $obj->cargo_commodity= $data['cargo_commodity'][$i];
+                    $obj->cargo_show_rate= $data['cargo_show_rate'][$i];
+                    $obj->cargo_show_total= $data['cargo_show_total'][$i];
+                    $obj->cargo_comments= $data['cargo_comments'][$i];
+                    $obj->cargo_charge_weight= $data['cargo_charge_weight'][$i];
                     $obj->save();
                     $a++;
                 }
@@ -47,10 +47,10 @@ class EaAirwayBillCargo extends Model
         $obj= [
             'airwaybill_id' => $id,
             'line' => '1',
-            'pieces' => $data['sum_pieces'],
-            'gross_weight'=> $data['sum_weight'],
-            'volume_weight'=> $data['sum_volume_weight'],
-            'charge_weight'=> $data['sum_volume_weight'],
+            'cargo_pieces' => $data['total_pieces'],
+            'cargo_gross_weight'=> $data['total_gross_weight'],
+            'cargo_volume_weight'=> $data['total_volume_weight'],
+            'cargo_charge_weight'=> $data['total_gross_weight'],
         ];
         EaAirwayBillCargo::create($obj);
     }

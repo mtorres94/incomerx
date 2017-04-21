@@ -35,16 +35,16 @@
                             {!! Form::bsRowTd($detail->line, 'cargo_weight_k', $detail->cargo_weight_k, true) !!}
                             {!! Form::bsRowTd($detail->line, 'cargo_cubic_k', $detail->cargo_cubic_k, true) !!}
                             {!! Form::bsRowTd($detail->line, 'cargo_charge_weight_k', $detail->cargo_charge_weight_k, true) !!}
-                            {!! Form::bsRowTd($detail->line, 'cargo_weight_l', $detail->cargo_weight_l, false) !!}
-                            {!! Form::bsRowTd($detail->line, 'cargo_cubic_l', $detail->cargo_cubic_l, false) !!}
-                            {!! Form::bsRowTd($detail->line, 'cargo_charge_weight_l', $detail->cargo_charge_weight_l, false) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_gross_weight', $detail->cargo_gross_weight, false) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_cubic', $detail->cargo_cubic, false) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_charge_weight', $detail->cargo_charge_weight, false) !!}
                             {!! Form::bsRowTd($detail->line, 'cargo_rate', $detail->cargo_rate, true) !!}
                             {!! Form::bsRowTd($detail->line, 'cargo_amount', $detail->cargo_amount, true) !!}
                             {!! Form::bsRowTd($detail->line, 'cargo_container', $detail->cargo_container, true) !!}
                             {!! Form::bsRowTd($detail->line, 'cargo_type_id', $detail->cargo_type_id, true) !!}
                             {!! Form::bsRowTd($detail->line, 'cargo_type_code', strtoupper(($detail->cargo_type_id >0) ? $detail->cargo_type->code: null), true) !!}
                             {!! Form::bsRowTd($detail->line, 'cargo_commodity_id', strtoupper($detail->cargo_commodity), true) !!}
-                            {!! Form::bsRowTd($detail->line, 'cargo_commodity_name', strtoupper($detail->cargo_commodity), true) !!}
+                            {!! Form::bsRowTd($detail->line, 'cargo_commodity', strtoupper($detail->cargo_commodity), true) !!}
                             {!! Form::bsRowTd($detail->line, 'cargo_comments', $detail->cargo_comments, true) !!}
                             {!! Form::bsRowBtns() !!}
                                     </tr>
@@ -312,7 +312,7 @@
         </div>
         <div class="col-md-6">
             <div class="row">
-                <div class="col-md-3">{!! Form::bsSelect(null, null, 'Kgs/Lbs.', 'total_weight_unit_measurement',  array('K' => 'KGS','L' => 'LBS' ), null)!!}</div>
+                <div class="col-md-3">{!! Form::bsSelect(null, null, 'Kgs/Lbs.', 'total_weight_unit',  array('K' => 'KGS','L' => 'LBS' ), null)!!}</div>
                 <div class="col-md-3">{!! Form::bsText(null,null, 'Weight(K)', 'total_weight_kgs', null, '0.000') !!}</div>
                 <div class="col-md-3">{!! Form::bsText(null,null, 'Cubic(Cbm)', 'total_cubic_cbm', null, '0.000') !!}</div>
                 <div class="col-md-3">{!! Form::bsText(null,null, 'C Wght(K)', 'total_charge_weight_kgs', null, '0.000') !!}</div>
@@ -324,9 +324,9 @@
         <div class="col-md-offset-6 col-md-6">
             <div class="row">
                 <div class="col-md-3"></div>
-                <div class="col-md-3">{!! Form::bsText(null,null, 'Weight(L)', 'total_weight_lbs', null, '0.000') !!}</div>
-                <div class="col-md-3">{!! Form::bsText(null,null, 'Cubic(cft)', 'total_cubic_cft', null, '0.000') !!}</div>
-                <div class="col-md-3">{!! Form::bsText(null,null, 'C Wght(L)', 'total_charge_weight_lbs', null, '0.000') !!}</div>
+                <div class="col-md-3">{!! Form::bsText(null,null, 'Weight(L)', 'total_gross_weight', null, '0.000') !!}</div>
+                <div class="col-md-3">{!! Form::bsText(null,null, 'Cubic(cft)', 'total_cubic', null, '0.000') !!}</div>
+                <div class="col-md-3">{!! Form::bsText(null,null, 'C Wght(L)', 'total_charge_weight', null, '0.000') !!}</div>
             </div>
         </div>
     </div>

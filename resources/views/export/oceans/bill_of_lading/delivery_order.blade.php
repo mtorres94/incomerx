@@ -41,7 +41,6 @@
             <div class="row">
                 <div class="document-info pull-right">
                     <h5><strong>DELIVERY ORDER</strong></h5>
-                    <p class="code-bar">{{ $bill_of_lading->booking_code }}</p>
                     <p class="document_number"><strong>BOOKING # {{ strtoupper($bill_of_lading->booking_code) }}</strong></p>
                 </div>
             </div>
@@ -54,7 +53,7 @@
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">DELIVERY CARRIER</div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="height:100px;">
                             <table class="table resume-table">
                                 <tr>
                                     <td width="20%">
@@ -74,7 +73,7 @@
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">CONSIGNEE</div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="height:100px;">
                             <table class="table resume-table">
                                 <tr><td width="20%"><strong>Name:</strong></td><td>{{ strtoupper($bill_of_lading->consignee_id >0 ? $bill_of_lading->consignee->name : "")  }}</td>
                                 <tr><td width="20%"><strong>Address:</strong></td><td>{{ strtoupper($bill_of_lading->consignee_id >0 ? $bill_of_lading->consignee->address : "")  }}</td>
@@ -93,7 +92,7 @@
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">SHIPPER</div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="height:100px;">
                             <p>{{ strtoupper(($bill_of_lading->shipper_id >0 ? $bill_of_lading->shipper->name : "")) }}</p>
                             <p>{{ strtoupper(($bill_of_lading->shipper_id >0 ? $bill_of_lading->shipper->address : "")) }}</p>
                             <p>{{ strtoupper(($bill_of_lading->shipper_id >0 ? $bill_of_lading->shipper->city : "")) }} </p>
@@ -107,7 +106,7 @@
         <div class="col-xs-6">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" style="height:120px;">
                         <table class="table resume-table" >
                             <tr><td width="20%"><strong>FILE: </strong></td><td>{{ strtoupper($bill_of_lading->shipment_id > 0 ? $bill_of_lading->shipment->code : "")}}</td></tr>
                             <tr><td width="25%"><strong>MBL# / HBL#: </strong></td><td>{{ strtoupper($bill_of_lading-> code) }}</td></tr>
@@ -132,9 +131,9 @@
             <table class="table table-condensed">
                 <thead>
                 <tr>
-                    <th width="30%">MARKS / NUMBERS</th>
+                    <th width="20%">MARKS / NUMBERS</th>
                     <th width="10%">PCS</th>
-                    <th width="30%">DESCRIPTION OF COMMODITIES</th>
+                    <th width="40%">DESCRIPTION OF COMMODITIES</th>
                     <th width="15%">WEIGHT</th>
                     <th width="15%">CUBIC</th>
                 </tr>
@@ -142,11 +141,26 @@
                 <tbody>
                 @foreach($bill_of_lading->cargo as $detail)
                     <tr>
-                        <td>{{ $detail->cargo_marks }}</td>
-                        <td>{{ $detail->cargo_pieces }}</td>
-                        <td>{{ $detail->cargo_description }}</td>
-                        <td>{{ $detail->cargo_weight_l }}  Lbs</td>
-                        <td>{{ $detail->cargo_cubic_l }}  Cft</td>
+                        <td  height="100px" >
+                            <?php echo nl2br(str_replace("-", "\n", strtoupper($detail->cargo_marks))); ?>
+                        </td>
+                        <td align="right" >{{ $detail->cargo_pieces }}</td>
+
+                        <td align="left" >
+                            @if($bill_of_lading->bl_class == 3)
+                                <?php echo nl2br(str_replace(",", "\n",strtoupper( $detail->cargo_description))); ?>
+                            @else
+                                @for ($x =0; $x < count($result); $x++)
+                                    <?php  echo nl2br($result[$x]['warehouse_code']." ". $result[$x]['detail']."\n"); ?>
+                                @endfor
+                            @endif
+                        </td>
+                        <td align="right">
+                            {{ $detail->cargo_weight_k}} &nbsp; Kgs<br>{{ $detail->cargo_gross_weight}}&nbsp;Lbs
+                        </td>
+                        <td align="right">
+                            {{ $detail->cargo_cubic_k}} &nbsp; Cbm<br>{{ $detail->cargo_cubic}}&nbsp;Cft
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -160,18 +174,18 @@
             <table class="table table-condensed">
                 <tbody>
                 <tr>
-                    <td width="30%"><strong>TOTALS: </strong></td>
-                    <td width="10%">{{ $bill_of_lading->total_pieces }}</td>
-                    <td width="30%"></td>
-                    <td width="15%">{{ round($bill_of_lading->total_weight_lbs * 0.453592, 3)}} Kgs</td>
-                    <td width="15%">{{ round ($bill_of_lading->total_cubic_cft * 0.453592, 3)}} Cbm</td>
+                    <td width="20%"><strong>TOTALS: </strong></td>
+                    <td width="10%" align="right">{{ $bill_of_lading->total_pieces }}</td>
+                    <td width="40%"></td>
+                    <td width="15%" align="right">{{ round($bill_of_lading->total_gross_weight* 0.453592, 3)}} Kgs</td>
+                    <td width="15%" align="right">{{ round ($bill_of_lading->total_cubic* 0.0283168, 3)}} Cbm</td>
                 </tr>
                 <tr>
-                    <td width="30%"></td>
+                    <td width="20%"></td>
                     <td width="10%"></td>
-                    <td width="30%"></td>
-                    <td width="15%">{{ $bill_of_lading->total_weight_lbs}} Lbs</td>
-                    <td width="15%">{{ $bill_of_lading->total_cubic_cft}} Cft</td>
+                    <td width="40%"></td>
+                    <td width="15%" align="right">{{ $bill_of_lading->total_gross_weight}} Lbs</td>
+                    <td width="15%" align="right">{{ $bill_of_lading->total_cubic}} Cft</td>
                 </tr>
                 </tbody>
             </table>
@@ -185,6 +199,61 @@
                 <p> {{ $bill_of_lading->bl_comments }}</p>
             </div>
         </div>
+    </div>
+    <br> <br> <br> <br>
+    <br> <br> <br> <br>
+    <div class="col-xs-12">
+        <table class="table header-table">
+            @if($type == "14")
+                <tr>
+                    <td colspan="2"><strong>Carrier/Driver Instruction</strong></td>
+                </tr>
+                <tr>
+                    <td height="20px"></td>
+                </tr>
+                <tr>
+                    <td width="10%"><strong>Pickup By:</strong></td>
+                    <td colspan="2" style="border-bottom:1px solid;"></td>
+                </tr>
+                <tr>
+                    <td height="15px"></td>
+                </tr>
+                <tr>
+                    <td width="10%"><strong>Date:</strong></td>
+                    <td width="20%" style="border-bottom:1px solid;"></td>
+                    <td width="20%"></td>
+                    <td width="15%"><strong>Signature:</strong></td>
+                    <td width="35%" style="border-bottom:1px solid;"></td>
+
+                </tr>
+            @else
+                <tr>
+                    <td colspan="3" width="10%"><strong>Shipline Agent Note: </strong></td>
+                    <td colspan="2" style="font-size:12px; "><strong> Delivering {{ ($type == '8'?  " Documents and Freight": ($type == "12" ? "Documents Only": "Freight Only" ) )}}</strong></td>
+                </tr>
+
+                <tr>
+                    <td height="20px" colspan="5"><strong>The Goods Here in Described Are Accepted Apparently in Good Order and Condition</strong></td>
+                </tr>
+                <tr>
+                    <td height="10px"></td>
+                </tr>
+                <tr>
+                    <td width="10%" colspan="2"><strong>Received By: </strong></td>
+                    <td colspan="2" width="20%"  style="border-bottom: 1px solid; "></td>
+                </tr>
+                <tr>
+                    <td height="10px"></td>
+                </tr>
+                <tr>
+                    <td width="5%"><strong>Date: </strong></td>
+                    <td colspan="3" width="15%" style="border-bottom: 1px solid; "></td>
+                    <td width="30%"></td>
+                </tr>
+            @endif
+
+
+        </table>
     </div>
 </div>
 </body>

@@ -41,168 +41,100 @@
             <div class="row">
                 <div class="document-info pull-right">
                     <h5><strong>PRE ALERTA</strong></h5>
-                    <p class="code-bar">{{ $bill_of_lading->code }}</p>
+                    {!! DNS2D::getBarcodeSVG(
+                    $bill_of_lading->code
+                       , "QRCODE", 2, 2) !!}
                     <p class="document_number">{{ $bill_of_lading->code }}</p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">SHIPPER</div>
-                <div class="panel-body">
-                    <p>{{ strtoupper($bill_of_lading->shipper_id > 0 ? $bill_of_lading->shipper->name : "") }}</p>
-                    <p>{{ strtoupper($bill_of_lading->shipper_address) }}</p>
-                    <p>{{ strtoupper($bill_of_lading->shipper_city) }} {{ ($bill_of_lading->shipper_state_id > 0) ? ', '.strtoupper($bill_of_lading->shipper_state->name) : "" }} {{ ($bill_of_lading->shipper_zip_code_id > 0) ? ', '.strtoupper($bill_of_lading->shipper_zip_code->code) : ""  }}</p>
-                    <p>Phone: {{ $bill_of_lading->shipper->phone }} / Fax: {{ $bill_of_lading->shipper->fax }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">CONSIGNEE</div>
-                <div class="panel-body">
-                    <p>{{ strtoupper($bill_of_lading->consignee_id > 0 ? $bill_of_lading->consignee->name : "") }}</p>
-                    <p>{{ strtoupper($bill_of_lading->consignee_address) }}</p>
-                    <p>{{ strtoupper($bill_of_lading->consignee_city) }} {{ ($bill_of_lading->consignee_state_id > 0) ? ', '.strtoupper($bill_of_lading->consignee_state->name) : "" }} {{ ($bill_of_lading->consignee_zip_code_id > 0) ? ', '.strtoupper($bill_of_lading->consignee_zip_code->code) : ""  }}</p>
-                    <p>Phone: {{ $bill_of_lading->consignee->phone }} / Fax: {{ $bill_of_lading->consignee->fax }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <br>
     <div class="row">
         <div class="col-xs-12">
             <table class="table resume-table">
                 <tr>
-                    <td width="20%"><strong>MANIFEST: </strong></td>
-                    <td width="30%">{{ strtoupper($bill_of_lading->shipment_code) }}</td>
-                    <td width="20%"><strong>ETD: </strong></td>
-                    <td width="30%">{{ $bill_of_lading->departure_date }}</td>
+                    <td width="10%"><strong>Shipper:</strong></td>
+                    <td width="40%" height="80px" style="border: 1px solid;">
+                        <p>{{ strtoupper($bill_of_lading->shipper_id > 0 ? $bill_of_lading->shipper->name : "") }}<br>
+                        {{ strtoupper($bill_of_lading->shipper_address) }}<br>
+                        {{ strtoupper($bill_of_lading->shipper_city) }} {{ ($bill_of_lading->shipper_state_id > 0) ? ', '.strtoupper($bill_of_lading->shipper_state->name) : "" }} {{ ($bill_of_lading->shipper_zip_code_id > 0) ? ', '.strtoupper($bill_of_lading->shipper_zip_code->code) : ""  }}<br>
+                        Phone: {{ $bill_of_lading->shipper->phone }} / Fax: {{ $bill_of_lading->shipper->fax }}</p>
+                    </td>
+                    <td width="10%"><strong>Consignee:</strong></td>
+                    <td width="40%" height="80px" style="border: 1px solid;">
+                        <p>{{ strtoupper($bill_of_lading->consignee_id > 0 ? $bill_of_lading->consignee->name : "") }}<br>
+                        {{ strtoupper($bill_of_lading->consignee_address) }}<br>
+                        {{ strtoupper($bill_of_lading->consignee_city) }} {{ ($bill_of_lading->consignee_state_id > 0) ? ', '.strtoupper($bill_of_lading->consignee_state->name) : "" }} {{ ($bill_of_lading->consignee_zip_code_id > 0) ? ', '.strtoupper($bill_of_lading->consignee_zip_code->code) : ""  }}<br>
+                        Phone: {{ $bill_of_lading->consignee->phone }} / Fax: {{ $bill_of_lading->consignee->fax }}</p>
+                    </td>
                 </tr>
                 <tr>
-                    <td width="20%"><strong>MBL: </strong></td>
-                    <td width="30%">{{ strtoupper($bill_of_lading->mbl_number) }}</td>
-                    <td width="20%"><strong>ETA: </strong></td>
-                    <td width="30%">{{ $bill_of_lading->arrival_date }}</td>
+                    <td height="20px"></td>
                 </tr>
                 <tr>
-                    <td width="20%"><strong>HBL: </strong></td>
-                    <td width="30%">{{ strtoupper($bill_of_lading->code )}}</td>
-                    <td width="20%"><strong>ORIGIN: </strong></td>
-                    <td width="30%">{{ strtoupper($bill_of_lading->port_loading) }}</td>
+                    <td height="20px"><strong>File Number:</strong></td>
+                    <td>{{ $bill_of_lading->shipment_code }}</td>
+                    <td><strong>Departure:</strong></td>
+                    <td>{{ $bill_of_lading->departure_date }}</td>
                 </tr>
                 <tr>
-                    <td width="20%"><strong>CARRIER: </strong></td>
-                    <td width="30%">{{ strtoupper($bill_of_lading->carrier_id >0 ? $bill_of_lading->carrier->name : "" )}}</td>
-                    <td width="20%"><strong>DESTINATION: </strong></td>
-                    <td width="30%">{{ strtoupper($bill_of_lading->port_unloading) }}</td>
+                    <td height="20px"><strong>MBL:</strong></td>
+                    <td>{{ strtoupper($bill_of_lading->mbl_code) }}</td>
+                    <td><strong>Arrival:</strong></td>
+                    <td>{{ $bill_of_lading->arrival_date }}</td>
                 </tr>
                 <tr>
-                    <td width="20%"><strong>FLIGHT: </strong></td>
-                    <td width="30%">{{ strtoupper($bill_of_lading->voyage_name)}}</td>
-                    <td width="20%"><strong>PIECES: </strong></td>
-                    <td width="30%">{{ $bill_of_lading->total_pieces }}</td>
+                    <td height="20px"><strong>HBL:</strong></td>
+                    <td>{{ $bill_of_lading->code }}</td>
                 </tr>
                 <tr>
-                    <td width="20%"><strong>BL TYPE: </strong></td>
-                    <td width="30%">{{ ($bill_of_lading->bl_type == 'C' ? "COLLECTED": "PREPAID")}}</td>
-                    <td width="20%"><strong>ACT WEIGHT: </strong></td>
-                    <td width="30%">{{ strtoupper($bill_of_lading->total_gross_weight) }}</td>
+                    <td height="20px"></td>
                 </tr>
                 <tr>
-                    <td width="20%"><strong>COMMODITY: </strong></td>
-                    <td width="30%">{{ ($bill_of_lading->total_commodity_id > 0 ? $bill_of_lading->total_commodity->name : "")}}</td>
-                    <td width="20%"><strong>VOLUME WEIGHT: </strong></td>
-                    <td width="30%">{{ strtoupper($bill_of_lading->total_gross_weight) }}</td>
+                    <td height="20px"><strong>Carrier:</strong></td>
+                    <td>{{ strtoupper($bill_of_lading->carrier_id >0 ? $bill_of_lading->carrier->name : "" )}}</td>
+                    <td><strong>Origin:</strong></td>
+                    <td>{{ strtoupper($bill_of_lading->port_loading_id > 0 ? $bill_of_lading->port_loading_name->name : "") }}</td>
+                </tr>
+                <tr>
+                    <td height="20px"><strong>Vessel:</strong></td>
+                    <td>{{ strtoupper($bill_of_lading->vessel_name )}}</td>
+                    <td><strong>Destination:</strong></td>
+                    <td>{{ strtoupper($bill_of_lading->port_unloading_id > 0 ? $bill_of_lading->port_unloading_name->name : "") }}</td>
+                </tr>
+                <tr>
+                    <td height="20px"><strong>Voyage:</strong></td>
+                    <td>{{ strtoupper($bill_of_lading->voyage_name )}}</td>
+                </tr>
+                <tr>
+                    <td height="20px"></td>
+                </tr>
+                <tr>
+                    <td height="20px"><strong>Pieces:</strong></td>
+                    <td>{{ strtoupper($bill_of_lading->total_pieces )}}</td>
+                </tr>
+                <tr>
+                    <td height="20px"><strong>Weight:</strong></td>
+                    <td>{{ strtoupper($bill_of_lading->total_gross_weight )}} &nbsp; {{ $bill_of_lading->total_weight_unit == 'L' ? "Lbs" : "Kgs" }}</td>
+                </tr>
+                <tr>
+                    <td height="20px"><strong>Cubic:</strong></td>
+                    <td>{{ strtoupper($bill_of_lading->total_cubic )}} &nbsp; {{ $bill_of_lading->total_weight_unit == 'L' ? 'Cft' : 'Cbm' }}</td>
+                </tr>
+                <tr>
+                    <td height="20px"></td>
+                </tr>
+                <tr>
+                    <td height="20px"><strong>COMMENTS:</strong></td>
+                    <td colspan="3">{{strtoupper( $bill_of_lading->bill_comments) }}</td>
                 </tr>
             </table>
         </div>
     </div>
-    <br>
-    <div class="row">
-        <div class="col-xs-12">
-            <table class="table header-table">
-                <tbody>
-                    <tr>
-                        <td>Nota: La fecha de llegada de la nave est&aacute; sujeta a cambios, ya que se puede suscitar alg&uacute;n atraso fortuito.</td>
-                    </tr>
-                    <tr><td></td></tr>
-                    <tr>
-                        <td>
-                            Por disposición de Gerencia General, no podremos recibir pagos en efectivo, todo pago ser&aacute; efectuado con cheque certificado a la orden de VECO LOGISTICS ECUADOR S.A. RUC # 0992600780001. O para mayor comodidad ponemos a su disposici&oacute;n las siguientes Cuentas Corrientes.</td>
-                    </tr>
-                    <tr><td></td></tr>
-                    <tr>
-                        <td>BCO PICHINCHA: CTA. CTE. #3476137304</td>
-                    </tr>
-                    <tr><td></td></tr>
-                    <tr>
-                        <td>BCO BOLIVARIANO: CTA. CTE. #0945005360</td>
-                    </tr>
-                    <tr><td></td></tr>
-                    <tr>
-                        <td>Para servirle mejor ponemos a disposición las personas quienes le ayudarán con el ingreso al SICE, AVISO DE LLEGADA, FACTURAS y STATUS EN GENERAL.</td>
-                    </tr>
-                </tbody>
-            </table>
-            <br>
-            <table class="table header-table">
-                <tbody>
-                <tr>
-                    <td width="30%"><strong>OPERACIONES:</strong></td>
-                </tr>
-                <tr>
-                    <td>SR. PEDRO AVILES</td>
-                    <td> operaciones.gye@vecologistics.com</td>
-                </tr>
-                <tr>
-                    <td>SRA. ROSAURA PEÑA</td>
-                    <td> rpena@vecologistics.com</td>
-                </tr>
-                <tr><td></td></tr>
-                <tr><td></td></tr>
-                <tr>
-                    <td><strong>CUSTOMER SERVICE:</strong></td>
-                </tr>
-                <tr>
-                    <td>SRA. LISSETTE SALAZAR</td>
-                    <td> lsalazar@vecologistics.com</td>
-                </tr>
-                <tr>
-                    <td>SR. JAIME SABANDO</td>
-                    <td> ventas3@vecologistics.com</td>
-                </tr>
-                <tr>
-                    <td>SRA. GABRIELA BENAVIDES</td>
-                    <td> gbenavides@vecologistics.com</td>
-                </tr>
-                <tr>
-                    <td>SRA. MAYRA MACIAS</td>
-                    <td> ventas2@vecologistics.com</td>
-                </tr>
-                <tr><td></td></tr>
-                <tr><td></td></tr>
-                <tr>
-                    <td><strong>FINANZAS:</strong></td>
-                </tr>
-                <tr>
-                    <td>SR. JORGE CHAGUAY</td>
-                    <td> jchaguay@vecologistics.com</td>
-                </tr>
-                </tbody>
-            </table>
-            <br>
-            <table class="table header-table">
-                <tbody>
-                <tr>
-                    <td>Gracias por confiar en nosotros y como siempre le brindaremos el mejor servicio para todas sus cargas.</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+<br>
+
+
 
 </div>
 </body>

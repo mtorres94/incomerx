@@ -65,9 +65,9 @@
 </table>
 <div class="row">
     <div class="pull-right">
-        <div class="col-md-2">{!! Form::bsText(null, null, 'Bill', 'sum_bill', null, ' ') !!}</div>
-        <div class="col-md-2">{!! Form::bsText(null, null, 'Cost', 'sum_cost', null, ' ') !!}</div>
-        <div class="col-md-2">{!! Form::bsText(null, null, 'Profit', 'sum_profit', null, ' ') !!}</div>
-        <div class="col-md-2">{!! Form::bsText(null, null, 'Profit %', 'sum_profit_p', null, ' ') !!}</div>
+        <div class="col-md-2">{!! Form::bsText(null, null, 'Bill', 'total_bill', null, ' ') !!}</div>
+        <div class="col-md-2">{!! Form::bsText(null, null, 'Cost', 'total_cost', null, ' ') !!}</div>
+        <div class="col-md-2">{!! Form::bsText(null, null, 'Profit', 'total_profit', null, ' ') !!}</div>
+        <div class="col-md-2">{!! Form::bsText(null, null, 'Profit %', 'total_profit_percent', null, ' ') !!}</div>
     </div>
 </div>

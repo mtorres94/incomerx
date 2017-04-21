@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-3">{!! Form::bsText(null, null,'Airport of Departure', 'port_loading', null, '') !!}</div>
                 <div class="col-md-3">{!! Form::bsText(null, null,'Airport of Destination', 'port_unloading', null, '') !!}</div>
-                <div class="col-md-3">{!! Form::bsText(null, null,'Requested  flight', 'flight_number', null, '') !!}</div>
+                <div class="col-md-3">{!! Form::bsText(null, null,'Flight', 'flight', null, '') !!}</div>
                 <div class="col-md-3">{!! Form::bsDate(null, null,'Date', 'flight_date', null, '') !!}</div>
             </div>
 

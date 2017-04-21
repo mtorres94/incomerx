@@ -29,10 +29,10 @@
         }
     </style>
 </head>
-
 <body>
+
 @foreach($loading_guide->container as $container)
-<div class="page">
+        <div class="page">
     <div class="row row-padding">
         <div class="col-xs-6">
             <div class="company-info">
@@ -48,8 +48,12 @@
         <div class="col-xs-6">
             <div class="document-info pull-right">
                 <h5><strong>LOAD PLAN</strong></h5>
-                <p class="code-bar">{{ $loading_guide->code }}</p>
-                <p class="document_number"><strong>{{ $loading_guide->code }}</strong></p>
+                <div style="text-align: center;">
+                    {!! DNS2D::getBarcodeSVG(
+                     $loading_guide->code
+                    , "QRCODE", 2, 2) !!}
+                </div>
+                <p class="document_number" style="align-content: center"><strong>{{ $loading_guide->code }}</strong></p>
             </div>
         </div>
     </div>
@@ -90,32 +94,24 @@
                     <td><p><strong>ORDER NUMBER: </strong></p></td>
                     <td><p> {{ $container->order_number }}</p></td>
                 </tr>
-                    <tr>
-                        <td><p><strong>EQUIPMENT TYPE: </strong></p></td>
-                        <td>{{ ($container->equipment_type_id > 0 ? $container->equipment_type->code : "") }}</td>
-                        <td><p><strong>EQUIPMENT NUMBER: </strong></p></td>
-                        <td>{{ $container->container_number }}</td>
-                        <td><p><strong>SEAL NUMBER: </strong></p></td>
-                        <td>{{ $container->seal_number }}</td>
-                    </tr>
             </table>
 
             @foreach($loading_guide->receipt_entry as $receipt_entry)
                 @if($receipt_entry->line == $container->line)
-                    <table class="table table-condensed">
-                        <thead>
+                    <table class="table resume-table">
+                        <tbody>
                         <tr>
-                            <th width="5%" valign="bottom"><strong>WR#</strong></th>
+                            <td width="3%" valign="bottom"><strong>WR#</strong></td>
                             <td width="10%" valign="bottom">{{ $receipt_entry->code }}</td>
-                            <th width="10%" valign="bottom"><strong> WR LOC</strong></th>
-                            <td width="10%" valign="bottom">{{ strtoupper($receipt_entry->warehouse_id > 0? $receipt_entry->warehouse->code : "") }}</td>
-                            <th width="10%" valign="bottom"><strong>SHIPPER/ CONSIGNEE: </strong></th>
+                            <td width="8%" valign="bottom"><strong> WR LOC</strong></td>
+                            <td width="8%" valign="bottom">{{ strtoupper($receipt_entry->warehouse_id > 0? $receipt_entry->warehouse->code : "") }}</td>
+                            <td width="15%" valign="bottom"><strong>SHIPPER/ CONSIGNEE: </strong></td>
                             <td width="40%" valign="bottom"> {{ strtoupper($receipt_entry->shipper_id >0 ? $receipt_entry->shipper->name : "")}}/ {{ strtoupper($receipt_entry->consignee_id >0 ? $receipt_entry->consignee->name : "")}}</td>
 
                         </tr>
-                        </thead>
+                        </tbody>
                     </table>
-                    <table class="table table-condensed">
+                    <table class="table resume-table">
                         <thead>
                         <tr>
                             <th width="10%">PCS</th>
@@ -143,43 +139,25 @@
                                 <td width="10%"></td>
                                 <td width="10%"></td>
                                 <td width="5%"></td>
-
                             </tr>
                         @endforeach
                         </tbody>
 
                         <tfoot>
                         <tr>
-                            <td width="10%"><strong>TOTAL PIECES: </strong></td>
-                            <td width="10%">{{ $receipt_entry->sum_pieces }}</td>
-                            <td width="10%"></td>
-                            <td width="10%"></td>
-                            <td width="10%"><strong>TOTAL WEIGHT: </strong></td>
-                            <td width="15%">{{ $receipt_entry->sum_weight}}</td>
-                            <td width="15%"></td>
-                            <td width="10%"><strong>TOTAL CUBIC: </strong></td>
-                            <td width="10%">{{ $receipt_entry->sum_cubic}}</td>
-                            <td width="10%"></td>
+                            <td colspan="2" align="right"><strong>TOTAL PIECES: </strong></td>
+                            <td align="left">{{ $receipt_entry->sum_pieces }}</td>
+                            <td colspan="2" align="right"><strong>TOTAL WEIGHT: </strong></td>
+                            <td align="left">{{ $receipt_entry->sum_weight}}</td>
+                            <td colspan="2" align="right"><strong>TOTAL CUBIC: </strong></td>
+                            <td colspan="2" align="left">{{ $receipt_entry->sum_cubic}}</td>
                         </tr>
                         </tfoot>
                     </table>
                 @endif
                 <br>
+
             @endforeach
-        </div>
-    </div>
-    <div class="row row-padding">
-        <div class="col-xs-12">
-            <table class="table header-table">
-            <tr>
-                <td><p><strong>COMMENTS: </strong></p></td>
-                <td><p>{{ strtoupper($loading_guide->comments) }}</p></td>
-            </tr>
-            <tr>
-                <td><p><strong>MARKS: </strong></p></td>
-                <td><p>{{ strtoupper($loading_guide->marks )}}</p></td>
-            </tr>
-        </table>
         </div>
     </div>
     <div class="row">
@@ -202,8 +180,10 @@
         </div>
     </div>
 
-</div>
-    @endforeach
+        </div>
+@endforeach
+
+
 </body>
 
 </html>

@@ -29,10 +29,9 @@
 <div class="container-fluid">
     <div class="row row-padding">
         <div class="col-xs-12">
-            <div align="center" class="company-info" width="75%">
+            <div align="center" class="company-info">
                 <h5><strong>PRE-ALERT</strong></h5>
-                <p  class="code-bar">{{ $bill_of_lading->code }}</p>
-                <p class="document_number">{{ $bill_of_lading->code }}</p>
+                <p class="document_number"><h5>{{ $bill_of_lading->code }}</h5></p>
                 <br/>
                 <h5><strong>VECO LOGISTICS MIAMI INC.</strong></h5>
                 <p>7270 NW 35 TERRACE</p>
@@ -48,86 +47,106 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <div class="panel panel-default">
-                <table class="tabla resume-table" align="center">
-                    <tr>
-                        <td width="20%"><strong>SHIPPER:</strong></td>
-                        <td>
-                            <p>{{ strtoupper($bill_of_lading->shipper_id > 0 ? $bill_of_lading->shipper->name : "") }}</p>
-                            <p>{{ strtoupper($bill_of_lading->shipper_address) }}</p>
-                            <p>{{ strtoupper($bill_of_lading->shipper_city) }} {{ strtoupper($bill_of_lading->shipper_state_id > 0 ? ", ".$bill_of_lading->shipper_state->name : "") }}{{ $bill_of_lading->shipper_zip_code_id > 0 ? $bill_of_lading->shipper_zip_code->code : "" }}</p>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td width="20%"><strong>CONSIGNEE:</strong></td>
-                        <td>
-                            <p>{{ strtoupper($bill_of_lading->consignee_id > 0 ? $bill_of_lading->consignee->name : "") }}</p>
-                            <p>{{ strtoupper($bill_of_lading->consignee_address) }}</p>
-                            <p>{{ strtoupper($bill_of_lading->consignee_city) }} {{ strtoupper($bill_of_lading->consignee_state_id > 0 ? ", ".$bill_of_lading->consignee_state->name : "") }}{{ $bill_of_lading->consignee_zip_code_id > 0 ? $bill_of_lading->consignee_zip_code->code : "" }}</p>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <table class="tabla resume-table" align="center" width="75%" >
+                <tr >
+                    <td width="30%"><strong>SHIPPER:</strong></td>
+                    <td width="70%" style="border: 1px solid;">
+                        <p>{{ strtoupper($bill_of_lading->shipper_id > 0 ? $bill_of_lading->shipper->name : "") }}</p>
+                        <p>{{ strtoupper($bill_of_lading->shipper_address) }}</p>
+                        <p>{{ strtoupper($bill_of_lading->shipper_city) }} {{ strtoupper($bill_of_lading->shipper_state_id > 0 ? ", ".$bill_of_lading->shipper_state->name : "") }}{{ $bill_of_lading->shipper_zip_code_id > 0 ? $bill_of_lading->shipper_zip_code->code : "" }}</p>
+                    </td>
+                </tr>
+                <tr><td height="15px"></td></tr>
+                <tr>
+                    <td width="30%"><strong>CONSIGNEE:</strong></td>
+                    <td width="70%" style="border:1px solid;">
+                        <p>{{ strtoupper($bill_of_lading->consignee_id > 0 ? $bill_of_lading->consignee->name : "") }}</p>
+                        <p>{{ strtoupper($bill_of_lading->consignee_address) }}</p>
+                        <p>{{ strtoupper($bill_of_lading->consignee_city) }} {{ strtoupper($bill_of_lading->consignee_state_id > 0 ? ", ".$bill_of_lading->consignee_state->name : "") }}{{ $bill_of_lading->consignee_zip_code_id > 0 ? $bill_of_lading->consignee_zip_code->code : "" }}</p>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
+    <br><br>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-xs-12">
                 <table class="tabla resume-table" align="center">
-                    <tr>
-                        <td ><strong>File#:</strong></td>
-                        <td><p>{{ strtoupper($bill_of_lading->shipment_id > 0 ? $bill_of_lading->shipment->code : "") }}</p></td>
+                    <tr style="height:20px;">
+                        <td align="right"><strong>File#:</strong></td>
+                        <td>{{ strtoupper($bill_of_lading->shipment_id > 0 ? $bill_of_lading->shipment->code : "") }}</td>
+                    </tr>
+                    <tr style="height:20px;">
+                        <td align="right"><strong>MBL#:</strong></td>
+                        <td>{{ strtoupper($bill_of_lading->mbl_code) }}</td>
+                    </tr>
+                    <tr style="height:20px;">
+                        <td align="right"><strong>HBL#:</strong></td>
+                        <td>{{ strtoupper($bill_of_lading->code) }}</td>
                     </tr>
                     <tr>
-                        <td><strong>MBL#:</strong></td>
-                        <td><p>{{ strtoupper($bill_of_lading->mbl_code) }}</p></td>
+                        <td height="25px"></td>
+                    </tr>
+                    <tr style="height:20px;">
+                        <td align="right"><strong>CARRIER#:</strong></td>
+                        <td>{{ strtoupper($bill_of_lading->carrier_id >0 ? $bill_of_lading->carrier->name : "") }}</td>
+                    </tr>
+                    <tr style="height:20px;">
+                        <td align="right"><strong>VESSEL:</strong></td>
+                        <td>{{ strtoupper($bill_of_lading->vessel_name) }}</td>
+                    </tr>
+                    <tr style="height:20px;">
+                        <td align="right"><strong>VOYAGE:</strong></td>
+                        <td>{{ strtoupper($bill_of_lading->voyage_name) }}</td>
                     </tr>
                     <tr>
-                        <td><strong>HBL#:</strong></td>
-                        <td><p>{{ strtoupper($bill_of_lading->code) }}</p></td>
+                        <td height="25px"></td>
                     </tr>
-                    <tr>
-                        <td><strong>CARRIER#:</strong></td>
-                        <td><p>{{ strtoupper($bill_of_lading->carrier_id >0 ? $bill_of_lading->carrier->name : "") }}</p></td>
+                    <tr style="height:20px;">
+                        <td align="right"><strong>DEPARTURE:</strong></td>
+                        <td>{{ $bill_of_lading->departure_date }}</td>
                     </tr>
-                    <tr>
-                        <td><strong>VESSEL:</strong></td>
-                        <td><p>{{ strtoupper($bill_of_lading->vessel_name) }}</p></td>
+                    <tr style="height:20px;">
+                        <td align="right"><strong>ARRIVAL:</strong></td>
+                        <td>{{ $bill_of_lading->arrival_date }}</td>
                     </tr>
-                    <tr>
-                        <td><strong>VOYAGE:</strong></td>
-                        <td><p>{{ strtoupper($bill_of_lading->voyage_name) }}</p></td>
+                    <tr >
+                        <td height="25px"></td>
                     </tr>
-                    <tr>
-                        <td><strong>DEPARTURE:</strong></td>
-                        <td><p>{{ $bill_of_lading->departure_date }}</p></td>
+                    <tr style="height:20px;">
+                        <td align="right"><strong>ORIGIN:</strong></td>
+                        <td>{{ strtoupper($bill_of_lading->port_loading_id >0 ? $bill_of_lading->loading->name : "") }}</td>
                     </tr>
-                    <tr>
-                        <td><strong>ARRIVAL:</strong></td>
-                        <td><p>{{ $bill_of_lading->arrival_date }}</p></td>
+                    <tr style="height:20px;">
+                        <td align="right"><strong>DESTINATION:</strong></td>
+                        <td>{{ strtoupper($bill_of_lading->port_unloading_id >0 ? $bill_of_lading->unloading->name : "") }}</td>
                     </tr>
-                    <tr>
-                        <td><strong>ORIGIN:</strong></td>
-                        <td><p>{{ strtoupper($bill_of_lading->port_loading_id >0 ? $bill_of_lading->loading->name : "") }}</p></td>
+                    <tr >
+                        <td height="25px"></td>
                     </tr>
-                    <tr>
-                        <td><strong>DESTINATION:</strong></td>
-                        <td><p>{{ strtoupper($bill_of_lading->port_unloading_id >0 ? $bill_of_lading->unloading->name : "") }}</p></td>
+                    <tr style="height:20px;">
+                        <td align="right"><strong>PIECES:</strong></td>
+                        <td>{{ strtoupper($bill_of_lading->total_pieces) }}</td>
                     </tr>
-                    <tr>
-                        <td><strong>PIECES:</strong></td>
-                        <td><p>{{ strtoupper($bill_of_lading->total_pieces) }}</p></td>
+                    <tr style="height:20px;">
+                        <td align="right"><strong>WEIGHT:</strong></td>
+                        <td>{{ $bill_of_lading->total_weight_kgs }} K</td>
                     </tr>
-                    <tr>
-                        <td><strong>WEIGHT:</strong></td>
-                        <td><p>{{ $bill_of_lading->total_weight_kgs }} K</p></td>
-                    </tr>
-                    <tr>
-                        <td><strong>CUBIC:</strong></td>
-                        <td><p>{{ $bill_of_lading->total_cubic_cbm }} K</p></td>
+                    <tr style="height:20px;">
+                        <td align="right"><strong>CUBIC:</strong></td>
+                        <td>{{ $bill_of_lading->total_cubic_cbm }} Cbm</td>
                     </tr>
                 </table>
         </div>
+    </div>
+    <hr>
+    <div class="row">
+        <table class="table header-table">
+            <tr>
+                <td><strong>COMMENTS</strong></td>
+                <td>{{ $bill_of_lading->comments_comment }}</td>
+            </tr>
+        </table>
     </div>
 </div>
 </body>

@@ -17,10 +17,10 @@
     </div>
 </div>
 <div class="col-md-3">
-    <div class="row">{!! Form::bsCheck('col-md-1', 'col-md-6','Stand By', 'stand_by', (isset($airway_bill) ? $airway_bill->stand_by : 'off')) !!}</div>
-    <div class="row">{!! Form::bsCheck('col-md-1', 'col-md-6','Partial', 'partial', (isset($airway_bill) ? $airway_bill->partial : 'off')) !!}</div>
-    <div class="row">{!! Form::bsCheck('col-md-1', 'col-md-6','POD Information', 'pod_information', (isset($airway_bill) ? $airway_bill->pod_information : 'off')) !!}</div>
-    <div class="row">{!! Form::bsCheck('col-md-1', 'col-md-6','Confirmed', 'confirmed', (isset($airway_bill) ? $airway_bill->confirmed : 'off')) !!}</div>
+    <div class="row">{!! Form::bsCheck('col-md-2', 'col-md-6','Stand By', 'stand_by', (isset($airway_bill) ? $airway_bill->stand_by : 'off')) !!}</div>
+    <div class="row">{!! Form::bsCheck('col-md-2', 'col-md-6','Partial', 'partial', (isset($airway_bill) ? $airway_bill->partial : 'off')) !!}</div>
+    <div class="row">{!! Form::bsCheck('col-md-2', 'col-md-6','POD Information', 'pod_information', (isset($airway_bill) ? $airway_bill->pod_information : 'off')) !!}</div>
+    <div class="row">{!! Form::bsCheck('col-md-2', 'col-md-6','Confirmed', 'confirmed', (isset($airway_bill) ? $airway_bill->confirmed : 'off')) !!}</div>
 </div>
 
 

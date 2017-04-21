@@ -22,8 +22,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6">{!! Form::bsMemo(null, null,'Comments', 'comments', null, 2, '') !!}</div>
-    <div class="col-md-6">{!! Form::bsMemo(null, null,'Marks', 'marks', null, 2, '') !!}</div>
+        <div class="col-md-6">{!! Form::bsMemo(null, null,'Comments', 'comments', null, 2, '') !!}</div>
+        <div class="col-md-6">{!! Form::bsMemo(null, null,'Marks', 'marks', null, 2, '') !!}</div>
 </div>
 
 <!-- Modal forms section -->

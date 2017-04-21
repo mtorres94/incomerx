@@ -9,7 +9,7 @@ class EoBillOfLadingCargo extends Model
     protected $table = "eo_bill_of_lading_cargo";
 
     protected $fillable = [
-        'id', 'bill_of_lading_id','created_at', 'updated_at','line','cargo_marks', 'cargo_pieces', 'cargo_description', 'cargo_weight_unit', 'cargo_weight_k', 'cargo_cubic_k', 'cargo_charge_weight_k', 'cargo_weight_l', 'cargo_cubic_l', 'cargo_charge_weight_l', 'cargo_rate', 'cargo_amount', 'cargo_container', 'cargo_type_id', 'cargo_commodity', 'cargo_comments', 'id_line' ];
+        'id', 'bill_of_lading_id','created_at', 'updated_at','line','cargo_marks', 'cargo_pieces', 'cargo_description', 'cargo_weight_unit', 'cargo_weight_k', 'cargo_cubic_k', 'cargo_charge_weight_k', 'cargo_gross_weight', 'cargo_cubic', 'cargo_charge_weight', 'cargo_rate', 'cargo_amount', 'cargo_container', 'cargo_type_id', 'cargo_commodity', 'cargo_comments', 'id_line' ];
 
     public static function saveDetail($id, $data) {
         $i=0; $a=0;
@@ -20,31 +20,28 @@ class EoBillOfLadingCargo extends Model
                     $obj = new EoBillOfLadingCargo();
                     $obj->bill_of_lading_id = $id;
                     $obj->line= $a + 1;
-                    $obj-> cargo_marks = $data['cargo_marks'][$i];
+                    $obj->cargo_marks = $data['cargo_marks'][$i];
                     $obj->cargo_pieces = $data['cargo_pieces'][$i];
                     $obj->cargo_description = $data['cargo_description'][$i];
                     $obj->cargo_weight_unit = $data['cargo_weight_unit'][$i];
                     $obj->cargo_weight_k = $data['cargo_weight_k'][$i];
                     $obj->cargo_cubic_k = $data['cargo_cubic_k'][$i];
                     $obj->cargo_charge_weight_k = $data['cargo_charge_weight_k'][$i];
-                    $obj->cargo_weight_l = $data['cargo_weight_l'][$i];
-                    $obj->cargo_cubic_l = $data['cargo_cubic_l'][$i];
-                    $obj->cargo_charge_weight_l = $data['cargo_charge_weight_l'][$i];
+                    $obj->cargo_gross_weight = $data['cargo_gross_weight'][$i];
+                    $obj->cargo_cubic = $data['cargo_cubic'][$i];
+                    $obj->cargo_charge_weight = $data['cargo_charge_weight'][$i];
                     $obj->cargo_rate = $data['cargo_rate'][$i];
                     $obj->cargo_amount = $data['cargo_amount'][$i];
                     $obj->cargo_container = $data['cargo_container'][$i];
                     $obj->cargo_type_id = $data['cargo_type_id'][$i];
-                    $obj->cargo_commodity= $data['cargo_commodity_name'][$i];
+                    $obj->cargo_commodity= $data['cargo_commodity'][$i];
                     $obj->cargo_comments = $data['cargo_comments'][$i];
                     $obj->save();
                     $a++;
                 }
                 $i++;
             }
-
-
         }
-
     }
 
 
@@ -70,7 +67,7 @@ class EoBillOfLadingCargo extends Model
                 $bill_of_lading = 0;
                 for ($i = 0; $i < count($group); $i++) {
                     if (isset($group_by[$a]) and ($group[$i] == $group_by[$a])) {
-                        $description = $description . "\n" . $data['warehouse_code'][$i];
+                        $description = $description . "," . $data['warehouse_code'][$i];
                         $weight = $weight + $data['sum_weight'][$i];
                         $cubic = $cubic + $data['sum_cubic'][$i];
                         $quantity = $quantity + $data['quantity'][$i];
@@ -87,14 +84,14 @@ class EoBillOfLadingCargo extends Model
                 $obj->cargo_description = $description;
                 $obj->cargo_weight_unit = "L";
                 $obj->cargo_weight_k = round(($weight * 0.453592), 3);
-                $obj->cargo_cubic_k = round(($cubic * 0.453592), 3);
+                $obj->cargo_cubic_k = round(($cubic * 0.0283168), 3);
                 $obj->cargo_charge_weight_k = round(($weight * 0.453592), 3);
-                $obj->cargo_weight_l = $weight;
-                $obj->cargo_cubic_l = $cubic;
-                $obj->cargo_charge_weight_l = $weight;
+                $obj->cargo_gross_weight = $weight;
+                $obj->cargo_cubic = $cubic;
+                $obj->cargo_charge_weight = $weight;
                 // $obj->id_line = $data['warehouse_id'][$a];
                 $obj->save();
-                EoBillOfLading::where('id', '=', $bill_of_lading)->update(['total_weight_lbs' => $weight, 'total_cubic_cft' => $cubic, 'total_charge_weight_lbs' => $weight, 'total_weight_kgs' => $weight * 0.453592, 'total_cubic_cbm' => $cubic * 0.453592,'total_charge_weight_kgs' => $weight * 0.453592, 'total_pieces'=> $quantity]);
+                EoBillOfLading::where('id', '=', $bill_of_lading)->update(['total_gross_weight' => $weight, 'total_cubic' => $cubic, 'total_charge_weight' => $weight, 'total_weight_kgs' => $weight * 0.453592, 'total_cubic_cbm' => $cubic *0.0283168,'total_charge_weight_kgs' => $weight * 0.453592, 'total_pieces'=> $quantity]);
 
             } else {
             while ($a < count($group_by)) {
@@ -106,7 +103,7 @@ class EoBillOfLadingCargo extends Model
 
                 for ($i = 0; $i < count($group); $i++) {
                     if (isset($data['warehouse_id'][$i]) and ($group[$i] == $group_by[$a])) {
-                        $description = $description . "\n" . $data['warehouse_code'][$i];
+                        $description = $description . "," . $data['warehouse_code'][$i];
                         $weight = $weight + $data['sum_weight'][$i];
                         $cubic = $cubic + $data['sum_cubic'][$i];
                         $quantity = $quantity + $data['quantity'][$i];
@@ -123,15 +120,15 @@ class EoBillOfLadingCargo extends Model
                 $obj->cargo_description = $description;
                 $obj->cargo_weight_unit = "L";
                 $obj->cargo_weight_k = $weight * 0.453592;
-                $obj->cargo_cubic_k = $cubic * 0.453592;
+                $obj->cargo_cubic_k = $cubic * 0.0283168;
                 $obj->cargo_charge_weight_k = $weight * 0.453592;
-                $obj->cargo_weight_l = $weight;
-                $obj->cargo_cubic_l = $cubic;
-                $obj->cargo_charge_weight_l = $weight;
+                $obj->cargo_gross_weight = $weight;
+                $obj->cargo_cubic = $cubic;
+                $obj->cargo_charge_weight = $weight;
                 // $obj->id_line = $data['warehouse_id'][$a];
                 $obj->save();
                 $a++;
-                EoBillOfLading::where('id', '=', $bill_of_lading)->update(['total_weight_lbs' => $weight, 'total_cubic_cft' => $cubic, 'total_charge_weight_lbs' => $weight, 'total_weight_kgs' => $weight * 0.453592, 'total_cubic_cbm' => $cubic * 0.453592,'total_charge_weight_kgs' => $weight * 0.453592, 'total_pieces'=> $quantity]);
+                EoBillOfLading::where('id', '=', $bill_of_lading)->update(['total_gross_weight' => $weight, 'total_cubic' => $cubic, 'total_charge_weight' => $weight, 'total_weight_kgs' => $weight * 0.453592, 'total_cubic_cbm' => $cubic * 0.0283168,'total_charge_weight_kgs' => $weight * 0.453592, 'total_pieces'=> $quantity]);
             }
         }
 

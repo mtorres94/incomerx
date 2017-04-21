@@ -49,9 +49,9 @@ class BillOfLadingDataTable extends CustomDataTable
             ->leftJoin('mst_customers AS c3', 'eo_bills_of_lading.agent_id', '=', 'c3.id')
             ->leftJoin('mst_customers AS c4', 'eo_bills_of_lading.third_id', '=', 'c4.id')
             ->leftJoin('eo_shipment_entries AS f', 'eo_bills_of_lading.shipment_id', '=', 'f.id')
-            ->orderBy('eo_bills_of_lading.bl_date', 'desc')
+            ->orderBy('eo_bills_of_lading.date', 'desc')
             ->orderBy('eo_bills_of_lading.code', 'desc')
-            ->select(['eo_bills_of_lading.id','eo_bills_of_lading.code','eo_bills_of_lading.bl_class', 'eo_bills_of_lading.bl_type','eo_bills_of_lading.booking_code','eo_bills_of_lading.bl_date','eo_bills_of_lading.bl_status', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS third_party_name', 'f.code AS shipment_code']);
+            ->select(['eo_bills_of_lading.id','eo_bills_of_lading.code','eo_bills_of_lading.bl_class', 'eo_bills_of_lading.bl_type','eo_bills_of_lading.booking_code','eo_bills_of_lading.date','eo_bills_of_lading.status', 'mst_divisions.name AS division_name', 'c1.name AS shipper_name', 'c2.name AS consignee_name', 'c3.name AS agent_name', 'c4.name AS third_party_name', 'f.code AS shipment_code']);
         return $this->applyScopes($query);
     }
 
@@ -78,9 +78,9 @@ class BillOfLadingDataTable extends CustomDataTable
         return [
             ['data' => 'code',             'name' => 'eo_bills_of_lading.code', 'title' => 'Code', 'width' => '45px'],
             ['data' => 'shipment_code',    'name' => 'f.code', 'title' => 'File#', 'width' => '45px'],
-            ['data' => 'bl_status',        'name' => 'eo_bills_of_lading.bl_status', 'title' => 'Status', 'width' => '35px'],
+            ['data' => 'status',        'name' => 'eo_bills_of_lading.status', 'title' => 'Status', 'width' => '35px'],
             ['data' => 'bl_type',          'name' => 'eo_bills_of_lading.bl_type', 'title' => 'Type', 'width' => '35px'],
-            ['data' => 'bl_date',          'name' => 'eo_bills_of_lading.bl_date', 'title' => 'Date', 'width' => '45px'],
+            ['data' => 'date',          'name' => 'eo_bills_of_lading.date', 'title' => 'Date', 'width' => '45px'],
             ['data' => 'booking_code',     'name' => 'eo_bills_of_lading.booking_code', 'title' => 'Booking#'],
             ['data' => 'shipper_name',     'name' => 'c1.name', 'title' => 'Shipper'],
             ['data' => 'consignee_name',   'name' => 'c2.name', 'title' => 'Consignee'],

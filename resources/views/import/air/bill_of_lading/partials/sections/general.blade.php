@@ -12,9 +12,9 @@
         <div class="col-md-2">{!! Form::bsComplete(null, null,'Division ', 'division_id', 'division_name', Request::get('term'),
     ((isset($bill_of_lading) and $bill_of_lading->division_id > 0) ? $bill_of_lading->division->name : null), 'Divisions...', 'options.maintenance.divisions.divisions', 'options.maintenance.divisions.divisions', 'maintenance.divisions_departments.divisions.index') !!}</div>
         <div class="col-md-2">{!! Form::bsText(null, null, 'User', 'user_id', ((isset($bill_of_lading) and $bill_of_lading->user_create_id > 0) ? $bill_of_lading->user_create->username :  Auth::user()->username), '') !!}</div>
-        <div class="col-md-2">{!! Form::bsDate(null, null,'Date', 'date_today', null, '') !!}</div>
+        <div class="col-md-2">{!! Form::bsDate(null, null,'Date', 'date', null, '') !!}</div>
         <div class="col-md-1">{!! Form::bsSelect(null, null, 'Currency', 'currency_type', Sass\Currency::all()->lists('code', 'id'), ' ') !!}</div>
-        <div class="col-md-2">{!! Form::bsSelect(null, null, ' Status', 'bl_status', array(
+        <div class="col-md-2">{!! Form::bsSelect(null, null, ' Status', 'status', array(
             'O' => 'OPEN',
             'P' => 'POSTED',
             'C' => 'CLOSED',

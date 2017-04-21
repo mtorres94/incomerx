@@ -305,7 +305,7 @@
                     _ =  ($("#cargo_details tbody tr").length == 0 ? 1 : parseInt($("#cargo_details tbody tr")[$("#cargo_details tbody tr").length - 1].childNodes[0].textContent) + 1 ),
                     cargo_id = $("#cargo_line").val(),
                     d= (0== cargo_id? _: cargo_id)-1,
-                    g_1 = $("#cargo_container").val(),
+                    g_1 = $("#cargo_container").val();
                     g_2 = $("#cargo_type_id").val(),
                     g_3 = $("#cargo_type_code").val(),
                     g_5 = $("#cargo_commodity_name").val(),
@@ -335,16 +335,16 @@
                     .append(createTableContent('cargo_weight_k', g_7, true, d))
                     .append(createTableContent('cargo_cubic_k', g_8, true, d))
                     .append(createTableContent('cargo_charge_weight_k', g_9, true, d))
-                    .append(createTableContent('cargo_weight_l', g_10, false, d))
-                    .append(createTableContent('cargo_cubic_l', g_11, false, d))
-                    .append(createTableContent('cargo_charge_weight_l', g_12, false, d))
+                    .append(createTableContent('cargo_gross_weight', g_10, false, d))
+                    .append(createTableContent('cargo_cubic', g_11, false, d))
+                    .append(createTableContent('cargo_charge_weight', g_12, false, d))
                     .append(createTableContent('cargo_rate', g_13, true, d))
                     .append(createTableContent('cargo_amount', g_14, true, d))
                     .append(createTableContent('cargo_container', g_1, true, d))
                     .append(createTableContent('cargo_type_id', g_2, true, d))
                     .append(createTableContent('cargo_type_code', g_3, true, d))
                     .append(createTableContent('cargo_commodity_id', g_5, true, d))
-                    .append(createTableContent('cargo_commodity_name', g_5, true, d))
+                    .append(createTableContent('cargo_commodity', g_5, true, d))
                     .append(createTableContent('cargo_comments', g_15, true, d))
                     .append(createTableContent('cargo_hbl_id', g_19, true, d))
                     .append(createTableBtns()),
@@ -2039,14 +2039,14 @@
 
         for (var x=0 ; x < hbl.length; x++) {
             if (hbl[x].childNodes[11].textContent == hbl_select[r]) {
-                description = description + "\n" + hbl[x].childNodes[2].textContent;
+                description = description + "," + hbl[x].childNodes[2].textContent;
                 pieces = pieces + parseFloat(hbl[x].childNodes[7].textContent);
                 weight = weight + parseFloat(hbl[x].childNodes[8].textContent);
                 cubic = cubic + parseFloat(hbl[x].childNodes[9].textContent);
                 charge = charge + parseFloat(hbl[x].childNodes[10].textContent);
 
                 var row = $("<tr id=" + (r + 1) + ">");
-                row.append(createTableContent('cargo_hbl_id',hbl_select[r], true, r))
+                row.append(createTableContent('cargo_hbl_id',hbl_select[r], true, r));
                 hidden_id.append(row);
                 r++;
             }
@@ -2058,11 +2058,11 @@
             .append(createTableContent('cargo_description',  description, false, d))
             .append(createTableContent('cargo_weight_unit', 'L', false, d))
             .append(createTableContent('cargo_weight_k', (weight * 0.453592).toFixed(3) , true, d))
-            .append(createTableContent('cargo_cubic_k', (cubic * 0.453592).toFixed(3) , true, d))
+            .append(createTableContent('cargo_cubic_k', (cubic * 0.028316).toFixed(3) , true, d))
             .append(createTableContent('cargo_charge_weight_k', (charge * 0.453592).toFixed(3) , true, d))
-            .append(createTableContent('cargo_weight_l', weight.toFixed(3) , false, d))
-            .append(createTableContent('cargo_cubic_l',cubic.toFixed(3) , false, d))
-            .append(createTableContent('cargo_charge_weight_l', charge.toFixed(3), false, d))
+            .append(createTableContent('cargo_gross_weight', weight.toFixed(3) , false, d))
+            .append(createTableContent('cargo_cubic',cubic.toFixed(3) , false, d))
+            .append(createTableContent('cargo_charge_weight', charge.toFixed(3), false, d))
             .append(createTableContent('cargo_rate', "", true, d))
             .append(createTableContent('cargo_amount', "", true, d))
             .append(createTableContent('cargo_container', "", true, d))

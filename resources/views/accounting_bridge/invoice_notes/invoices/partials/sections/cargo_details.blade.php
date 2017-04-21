@@ -31,19 +31,19 @@
             @foreach($invoice->cargo_details as $detail)
               <tr id=" {{ $detail->line }}">
                   {!! Form::bsRowTd($detail->line, 'cargo_line', $detail->line, true) !!}
-                  {!! Form::bsRowTd($detail->line, 'cargo_quantity', $detail->quantity, false) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_quantity', $detail->cargo_quantity, false) !!}
                   {!! Form::bsRowTd($detail->line, 'cargo_type_id', $detail->cargo_type_id, true) !!}
                   {!! Form::bsRowTd($detail->line, 'cargo_type_code', strtoupper($detail->cargo_type_id > 0 ? $detail->cargo_type->code : ""), false) !!}
-                  {!! Form::bsRowTd($detail->line, 'cargo_pieces', $detail->pieces, false) !!}
-                  {!! Form::bsRowTd($detail->line, 'cargo_weight_unit_measurement_id', $detail->weight_unit_measurement_id, false) !!}
-                  {!! Form::bsRowTd($detail->line, 'cargo_metric_unit_measurement_id', $detail->metric_unit_measurement_id, true) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_pieces', $detail->cargo_pieces, false) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_weight_unit', $detail->cargo_weight_unit, false) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_metric_unit', $detail->cargo_metric_unit, true) !!}
                   {!! Form::bsRowTd($detail->line, 'cargo_dim_fact', $detail->dim_fact, true) !!}
-                  {!! Form::bsRowTd($detail->line, 'cargo_length', $detail->length, false) !!}
-                  {!! Form::bsRowTd($detail->line, 'cargo_width', $detail->width, false) !!}
-                  {!! Form::bsRowTd($detail->line, 'cargo_height', $detail->height, false) !!}
-                  {!! Form::bsRowTd($detail->line, 'cargo_total_weight', $detail->total_weight, false) !!}
-                  {!! Form::bsRowTd($detail->line, 'cargo_cubic', $detail->cubic, false) !!}
-                  {!! Form::bsRowTd($detail->line, 'cargo_volume_weight', $detail->volume_weight, false) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_length', $detail->cargo_length, false) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_width', $detail->cargo_width, false) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_height', $detail->cargo_height, false) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_total_weight', $detail->cargo_total_weight, false) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_cubic', $detail->cargo_cubic, false) !!}
+                  {!! Form::bsRowTd($detail->line, 'cargo_volume_weight', $detail->cargo_volume_weight, false) !!}
                   {!! Form::bsRowTd($detail->line, 'cargo_location_id', $detail->location_id, true) !!}
                   {!! Form::bsRowTd($detail->line, 'cargo_location_name', strtoupper($detail->location_id >0 ? $detail->location->code : ""), true) !!}
                   {!! Form::bsRowTd($detail->line, 'cargo_location_bin_id', $detail->location_bin_id, true) !!}

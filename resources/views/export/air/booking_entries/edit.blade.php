@@ -5,8 +5,8 @@
     {!! Form::bsGroup([
               ['class' => 'fa fa-file-pdf-o', 'value' => 'Manifest No Barcode'],
               ['class' => 'fa fa-file-pdf-o', 'value' => 'Manifest (Barcodes)'],
-              ['class' => 'fa fa-file-pdf-o', 'value' => 'Resume'],
-              ['class' => 'fa fa-file-pdf-o', 'value' => 'Resume2'],
+              ['class' => 'fa fa-file-pdf-o', 'value' => 'Short'],
+              ['class' => 'fa fa-file-pdf-o', 'value' => 'Short2'],
               ['class' => 'fa fa-file-pdf-o', 'value' => 'Manifest'],
           ], $booking_entries, 'ea_booking_entries.report') !!}
     {!! Form::bsFooter(1, $booking_entries) !!}

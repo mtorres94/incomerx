@@ -503,7 +503,7 @@ $("#container-save").click(function() {
                             C = $("<tr id=" + (0== charge_id? _ : charge_id) + ">");
 
 
-                    C.append(createTableContent('charge_line', (0== charge_id? _ : charge_id) , true,d))
+                    C.append(createTableContent('charge_id', (0== charge_id? _ : charge_id) , true,d))
                         .append(createTableContent('billing_billing_id', g_1, true, d))
                         .append(createTableContent('billing_billing_code', g_2, false, d))
                         .append(createTableContent('billing_billing_description', g_3, false, d))
@@ -878,7 +878,7 @@ $("#cargo-save").click(function() {
                 C = $("<tr id=" + (0== cargo_id? _ : cargo_id) + ">");
 
 
-        C.append(createTableContent('cargo_id', (0== cargo_id? _ : cargo_id) , true,d))
+        C.append(createTableContent('cargo_line', (0== cargo_id? _ : cargo_id) , true,d))
                 .append(createTableContent('cargo_marks', g_1, false, d))
                 .append(createTableContent('cargo_pieces', g_2, false, d))
                 .append(createTableContent('cargo_description', g_3, false, d))
@@ -887,14 +887,14 @@ $("#cargo-save").click(function() {
                 .append(createTableContent('cargo_type_code', g_6, true, d))
 
                 .append(createTableContent('cargo_weight_unit', g_9, false, d))
-                .append(createTableContent('cargo_grossw', g_10, false, d))
+                .append(createTableContent('cargo_gross_weight', g_10, false, d))
                 .append(createTableContent('cargo_cubic', g_11, false, d))
                 .append(createTableContent('cargo_comments', g_12, true, d))
                 .append(createTableContent('cargo_charge_weight', g_13, true, d))
                 .append(createTableContent('cargo_rate', g_14, true, d))
                 .append(createTableContent('cargo_amount', g_15, false, d))
                 .append(createTableBtns()),
-                0 == cargo_id ? x.append(C) : x.find("tr#" + cargo_id).replaceWith(C), cleanModalFields("Cargo_Details"), $("#Cargo_Details").modal("show"),$("#tmp_weight_unit").val("L").change(), $("#CargoModal").formValidation("resetForm", true), $("#tmp_marks").focus(), values_box_vehicle()
+                0 == cargo_id ? x.append(C) : x.find("tr#" + cargo_id).replaceWith(C), cleanModalFields("Cargo_Details"), $("#Cargo_Details").modal("show"),$("#tmp_weight_unit").val("L").change(), $("#CargoModal").formValidation("resetForm", true), $("#tmp_marks").focus(); values_box_vehicle();
 
         //===================
 
@@ -1087,8 +1087,8 @@ $("#box-save").click(function() {
                 .append(createTableContent('details_emergency_contact', g_56, true, d))
                 .append(createTableContent('details_emergency_contact_phone', g_57, true, d))
                 .append(createTableContent('details_comments', g_58, true, d))
-                .append(createTableBtns())
-        0 == box_id ? x.append(C) : x.find("tr#" + box_id).replaceWith(C), cleanModalFields("Box_Details") ,$("#Box_Details").modal("show"), $("#box_quantity").focus(),values_box_vehicle()
+                .append(createTableBtns());
+        0 == box_id ? x.append(C) : x.find("tr#" + box_id).replaceWith(C), cleanModalFields("Box_Details") ,$("#Box_Details").modal("show"), $("#box_quantity").focus();values_box_vehicle();
     }
 
 }), $("#cargo_vehicle_details").on("click", "a.btn-danger", function() {

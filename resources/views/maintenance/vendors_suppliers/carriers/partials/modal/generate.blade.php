@@ -26,7 +26,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        {!! Form::bsComplete(null, null, 'Agent', 'agent_id', 'agent_name', Request::get('term'), null, 'State') !!}
+                        {!! Form::bsComplete(null, null, 'Agent', 'agent_id', 'agent_name', Request::get('term'), null, 'Agent') !!}
                     </div>
                 </div>
 

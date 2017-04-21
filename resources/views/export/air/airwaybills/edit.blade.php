@@ -10,7 +10,11 @@
               ['class' => 'fa fa-file-pdf-o', 'value' => 'Pre Alert'],
               ['class' => 'fa fa-file-pdf-o', 'value' => 'Shipper Unknown'],
               ['class' => 'fa fa-file-pdf-o', 'value' => 'Shipper Known'],
-              ['class' => 'fa fa-file-pdf-o', 'value' => 'Freight Due Carrier'],
+              ['class' => 'fa fa-file-pdf-o', 'value' => 'Airway Bill'],
+              ['class' => 'fa fa-barcode', 'value' => 'Label'],
+              ['class' => 'fa fa-file-pdf-o', 'value' => 'Agent Commission'],
+              ['class' => 'fa fa-file-pdf-o', 'value' => 'Shipper Consent'],
+
           ], $airway_bill, 'ea_airwaybills.report') !!}
 
     {!! Form::bsFooter(1, $airway_bill) !!}

@@ -41,7 +41,9 @@
             <div class="row">
                 <div class="document-info pull-right">
                     <h5><strong>INVOICE</strong></h5>
-                    <p class="code-bar">{{ $invoice->code }}</p>
+                    {!! DNS2D::getBarcodeSVG(
+                    $invoice->code
+                       , "QRCODE", 2, 2) !!}
                     <p class="document_number"> {{ $invoice->code }}</p>
                     <p class="document_number">Invoice date: {{ $invoice->date }}</p>
                 </div>
@@ -91,11 +93,11 @@
                 </tr>
                 <tr>
                     <td><strong>VESSEL:</strong></td>
-                    <td>{{ $invoice->vessel_name }}</td>
+                    <td>{{ strtoupper($invoice->vessel_name) }}</td>
                 </tr>
                 <tr>
                     <td><strong>FLIGHT/ VOYAGE:</strong></td>
-                    <td>{{ $invoice->voyage_name }}</td>
+                    <td>{{ strtoupper( $invoice->voyage_name)  }}</td>
                 </tr>
             </table>
 
@@ -162,7 +164,7 @@
                             <td>{{ $detail->billing_quantity }}</td>
                             <td>{{ $detail->billing_unit_id > 0 ? strtoupper($detail->billing_unit->code) : ""}}</td>
                             <td>{{ $detail->billing_rate}}</td>
-                            <td>{{ $detail->billing_amount}}</td>
+                            <td>{{ round($detail->billing_amount, 2)}}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -185,8 +187,8 @@
         <div class="col-xs-12">
             <table class="table header-table">
             <tr>
-                <td width="10%"><p><strong>COMMENTS</strong></p></td>
-                <td><p>{{ $invoice->invoice_comments }}</p></td>
+                <td width="10%" style="border-bottom: 1px dashed;"><p><strong>COMMENTS</strong></p></td>
+                <td style="border-bottom: 1px dashed;"><p>{{ strtoupper($invoice->invoice_comments) }}</p></td>
             </tr>
         </table>
         </div>
@@ -231,7 +233,7 @@
             <tr>
                 <td>
                     <p align="center"><strong>SHIPPER’S CONSENT TO SCREEN CARGO</strong></p>
-                    <p style="font-size: 6px;">In accordance with TSA Regulations, this letter authorizes: Veco Logistics Miami Inc., and/or each of their offices<br>or branches to screen all cargo tendered by our company from the date of this notification forward until revoked in<br>writing.<br>We are also aware that a physical inspection may be required, in which case we do not hold Veco Logistics Miami<br>
+                    <p style="font-size: 7px;">In accordance with TSA Regulations, this letter authorizes: Veco Logistics Miami Inc., and/or each of their offices<br>or branches to screen all cargo tendered by our company from the date of this notification forward until revoked in<br>writing.<br>We are also aware that a physical inspection may be required, in which case we do not hold Veco Logistics Miami<br>
                         Inc accountable for any damage or delay due to the opening of any cargo, repackaging or any impact on transit<br>
                         times associated with this screening.<br>
                         We understand that Veco Logistics Miami Inc. must refuse to offer our cargo for transportation by air (passenger<br>

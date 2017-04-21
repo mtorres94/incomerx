@@ -47,7 +47,9 @@
         <div class="col-xs-6">
             <div class="document-info pull-right">
                 <h5><strong>BOOKING CONFIRMATION</strong></h5>
-                    <p class="code-bar">{{ $booking->code }}</p>
+                {!! DNS2D::getBarcodeSVG(
+                   $booking->code
+                   , "QRCODE", 2, 2) !!}
                     <p class="document_number"><strong> {{ strtoupper($booking->code) }}</strong></p>
             </div>
         </div>
@@ -59,7 +61,7 @@
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">BOOKING # {{ strtoupper($booking->code )}}</div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="height:80px;">
                             <table class="table resume-table">
                                 <tr><td width="20%"><strong>DATE: </strong></td><td>{{ $shipment_entry->date_today }}</td></tr>
                                 <tr><td width="20%"><strong>FILE #: </strong></td><td>{{ ($shipment_entry->code) }}</td></tr>
@@ -75,7 +77,7 @@
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">NOTIFY</div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="height:80px;">
                             <table class="table resume-table">
                                 <tr><td width="20%"><strong>NAME: </strong></td><td>{{ strtoupper(($shipment_entry->notify_id >0 ? $shipment_entry->notify->name : ""))  }}</td></tr>
                                 <tr><td width="20%"><strong>PHONE: </strong></td><td>{{($shipment_entry->notify_id >0 ? $shipment_entry->notify->phone: "")}}</td></tr>
@@ -95,7 +97,7 @@
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">SHIPPER</div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="height:80px;">
                             <p>{{ strtoupper(($shipment_entry->shipper_id >0 ? $shipment_entry->shipper->name : "")) }}</p>
                             <p>{{ strtoupper(($shipment_entry->shipper_id >0 ? $shipment_entry->shipper->address : "")) }}</p>
                             <p>{{ strtoupper(($shipment_entry->shipper_id >0 ? $shipment_entry->shipper->city : "")) }} {{ ($shipment_entry->shipper_state_id > 0) ? ', '.strtoupper($shipment_entry->shipper_state->name) : "" }}</p>
@@ -106,20 +108,14 @@
             </div>
         </div>
         <div class="col-xs-6">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="panel panel-default">
-                        <table class="table resume-table" >
-                            <tr><td width="20%"><strong>VESSEL: </strong></td><td>{{ strtoupper($shipment_entry->vessel_name )}}</td></tr>
-                            <tr><td width="20%"><strong>VOYAGE: </strong></td><td>{{ strtoupper($shipment_entry-> voyage_name) }}</td></tr>
-                            <tr><td width="20%"><strong>ETD: </strong></td><td>{{ $shipment_entry->departure_date }}</td></tr>
-                            <tr><td width="20%"><strong>CUT OFF: </strong></td><td>{{ $shipment_entry->equipment_cut_off_date }}</td></tr>
-                            <tr><td width="20%"><strong>ETA: </strong></td><td>{{ $shipment_entry->arrival_date }}</td></tr>
-                            <tr><td width="20%"><strong>CARRIER: </strong></td><td>{{ strtoupper(($shipment_entry->carrier_id >0 ? $shipment_entry->carrier->name : ""))}}</td></tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            <table class="resume-table" border="1">
+                <tr><td width="20%" height="15px"><strong>VESSEL: </strong></td><td>{{ strtoupper($shipment_entry->vessel_name )}}</td></tr>
+                <tr><td width="20%" height="15px"><strong>VOYAGE: </strong></td><td>{{ strtoupper($shipment_entry-> voyage_name) }}</td></tr>
+                <tr><td width="20%" height="15px"><strong>ETD: </strong></td><td>{{ $shipment_entry->departure_date }}</td></tr>
+                <tr><td width="20%" height="15px"><strong>CUT OFF: </strong></td><td>{{ $shipment_entry->equipment_cut_off_date }}</td></tr>
+                <tr><td width="20%" height="15px"><strong>ETA: </strong></td><td>{{ $shipment_entry->arrival_date }}</td></tr>
+                <tr><td width="20%" height="15px"><strong>CARRIER: </strong></td><td>{{ strtoupper(($shipment_entry->carrier_id >0 ? $shipment_entry->carrier->name : ""))}}</td></tr>
+            </table>
         </div>
     </div>
     <br>
@@ -238,8 +234,8 @@
         </div>
     </div>
     <br><br><br><br>
-    <br><br><br><br>
-    <br><br><br>
+    <br><br>
+
     <div class="row">
         <div class="col-xs-12">
             <div class="company-info">

@@ -12,7 +12,7 @@
         //=========================
         updateAccess($('#dataTableBuilder'), $('#data'), '{{ route('io_bill_of_lading.close') }}')
 
-        if ($("#open_status").val() == "1" || $("#bl_status").val() == 'C' ) {
+        if ($("#open_status").val() == "1" || $("#status").val() == 'C' ) {
             disableFields('data');
         }
         $('#printer').change(function () {
@@ -120,8 +120,8 @@
                     });
             });
 
-            if($("#bl_date").val() == ''){
-                initDate($("#bl_date"), 0);
+            if($("#date").val() == ''){
+                initDate($("#date"), 0);
             }
         $("#tmp_cargo_type_id").change(function () {
             var id = $(this).val();
@@ -136,6 +136,7 @@
             });
         });
 
+            $("#fmc_number").val("021671NF");
         $("#box_quantity").change(function(){ calculate_box() });
 $("#box_length").change(function(){ calculate_box() });
 $("#box_width").change(function(){ calculate_box() });
@@ -156,12 +157,12 @@ $("#box_dim_fact").change(function(){ calculate_box() });
             $("#tmp_cubic").change(function(){ calculate_amount() });
 
             $("#transportation_mode").val("O").change();
-            $("#currency").val("1").change();
+            $("#currency_id").val("1").change();
             $("#transportation_leg_status").val("O").change();
             $("#origin_from_type").val("01").change();
             $("#origin_to_type").val("01").change();
             $("#pd_status").val("1").change();
-            $("#bl_status").val("{{ (isset($bill_of_lading) ? $bill_of_lading->bl_status : "O") }}").change();
+            $("#status").val("{{ (isset($bill_of_lading) ? $bill_of_lading->status : "O") }}").change();
             $("#origin_customer_name").attr('disabled', true);
         $("#billing_bill_party").change(function () {
             var a= $("#billing_bill_party").val();
@@ -248,7 +249,7 @@ $("#tmp_weight_unit").val("L").change();
                     r = 0;
                 while (e[r] != '') {
                     var C = $("<tr id=" + (d + 1) + " >");
-                    C.append(createTableContent('charge_line', (d + 1), true, d))
+                    C.append(createTableContent('charge_id', (d + 1), true, d))
                         .append(createTableContent('billing_billing_id', e[r].billing_id, true, d))
                         .append(createTableContent('billing_billing_code', e[r].billing_code, false, d))
                         .append(createTableContent('billing_billing_description', e[r].billing_description, false, d))
@@ -318,14 +319,14 @@ $("#tmp_weight_unit").val("L").change();
 
 
 
-    $("#origin_bill").attr("readonly", true);
-    $("#origin_cost").attr("readonly", true);
-    $("#origin_profit").attr("readonly", true);
-    $("#origin_profit_p").attr("readonly", true);
+    $("#total_bill").attr("readonly", true);
+    $("#total_cost").attr("readonly", true);
+    $("#total_profit").attr("readonly", true);
+    $("#total_profit_percent").attr("readonly", true);
 
     $("#transportation_plans_amount").attr("disabled", true);
 
-    $("#total_weight").attr("readonly", true);
+    $("#total_gross_weight").attr("readonly", true);
     $("#total_cubic").attr("readonly", true);
     $("#total_charge_weight").attr("readonly", true);
     $("#total_pieces").attr("readonly", true);
